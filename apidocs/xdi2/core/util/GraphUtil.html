@@ -4,10 +4,14 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-GraphUtil (xdi2 0.1-SNAPSHOT API)
+GraphUtil (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.util.GraphUtil class">
+<META NAME="keywords" CONTENT="getOwnerPeerRootXri()">
+<META NAME="keywords" CONTENT="getOwnerXri()">
+<META NAME="keywords" CONTENT="setOwnerPeerRootXri()">
+<META NAME="keywords" CONTENT="setOwnerXri()">
 <META NAME="keywords" CONTENT="contextNodeFromComponents()">
 <META NAME="keywords" CONTENT="relationFromComponents()">
 <META NAME="keywords" CONTENT="literalFromComponents()">
@@ -18,7 +22,7 @@ GraphUtil (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="GraphUtil (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="GraphUtil (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -134,9 +138,25 @@ Various utility methods for working with context nodes, relations and literals.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#getOwnerPeerRootXri(xdi2.core.Graph)">getOwnerPeerRootXri</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#getOwnerXri(xdi2.core.Graph)">getOwnerXri</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.String)">literalFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.Object)">literalFromComponents</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a literal from its components.</TD>
@@ -150,6 +170,24 @@ Various utility methods for working with context nodes, relations and literals.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a relation from its components.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#setOwnerPeerRootXri(xdi2.core.Graph, xdi2.core.xri3.XDI3SubSegment)">setOwnerPeerRootXri</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                    <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;ownerPeerRootXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/GraphUtil.html#setOwnerXri(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment)">setOwnerXri</A></B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+            <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -173,6 +211,52 @@ Various utility methods for working with context nodes, relations and literals.
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getOwnerPeerRootXri(xdi2.core.Graph)"><!-- --></A><H3>
+getOwnerPeerRootXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getOwnerPeerRootXri</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOwnerXri(xdi2.core.Graph)"><!-- --></A><H3>
+getOwnerXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwnerXri</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOwnerPeerRootXri(xdi2.core.Graph, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setOwnerPeerRootXri</H3>
+<PRE>
+public static void <B>setOwnerPeerRootXri</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                                       <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;ownerPeerRootXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOwnerXri(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setOwnerXri</H3>
+<PRE>
+public static void <B>setOwnerXri</B>(<A HREF="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                               <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="contextNodeFromComponents(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 contextNodeFromComponents</H3>
@@ -204,11 +288,11 @@ public static <A HREF="../../../xdi2/core/Relation.html" title="interface in xdi
 </DL>
 <HR>
 
-<A NAME="literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+<A NAME="literalFromComponents(xdi2.core.xri3.XDI3Segment, java.lang.Object)"><!-- --></A><H3>
 literalFromComponents</H3>
 <PRE>
 public static <A HREF="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>literalFromComponents</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
-                                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+                                            <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
 <DL>
 <DD>Creates a literal from its components.
 <P>
@@ -278,6 +362,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

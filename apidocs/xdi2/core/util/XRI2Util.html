@@ -4,13 +4,13 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XRI2Util (xdi2 0.1-SNAPSHOT API)
+XRI2Util (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.util.XRI2Util class">
-<META NAME="keywords" CONTENT="canonicalIdToCloudNumber()">
-<META NAME="keywords" CONTENT="cloudNumberToCanonicalId()">
-<META NAME="keywords" CONTENT="typeToXdiEntitySingletonArcXri()">
+<META NAME="keywords" CONTENT="iNumberToCloudNumber()">
+<META NAME="keywords" CONTENT="cloudNumberToINumber()">
+<META NAME="keywords" CONTENT="typeToXdiArcXri()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -18,7 +18,7 @@ XRI2Util (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XRI2Util (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XRI2Util (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -126,27 +126,27 @@ Various utility methods for working with XRI 2.0 syntax.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#canonicalIdToCloudNumber(java.lang.String)">canonicalIdToCloudNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;canonicalId)</CODE>
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#cloudNumberToINumber(xdi2.core.xri3.CloudNumber)">cloudNumberToINumber</A></B>(<A HREF="../../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A>&nbsp;cloudNumber)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps an XRI 2.0 Canonical ID to a Cloud Number.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps a Cloud Number to an XRI 2.0 I-Number.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#cloudNumberToCanonicalId(xdi2.core.xri3.XDI3Segment)">cloudNumberToCanonicalId</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber)</CODE>
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#iNumberToCloudNumber(java.lang.String)">iNumberToCloudNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;iNumber)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps a Cloud Number to an XRI 2.0 Canonical ID.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps an XRI 2.0 I-Number to a Cloud Number.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#typeToXdiEntitySingletonArcXri(java.lang.String)">typeToXdiEntitySingletonArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;type)</CODE>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XRI2Util.html#typeToXdiArcXri(java.lang.String)">typeToXdiArcXri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;type)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps an XRI 2.0 service type to an XDI entity singleton arc XRI.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maps an XRI 2.0 service type to an XDI arc XRI.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -171,12 +171,12 @@ Various utility methods for working with XRI 2.0 syntax.
 </TR>
 </TABLE>
 
-<A NAME="canonicalIdToCloudNumber(java.lang.String)"><!-- --></A><H3>
-canonicalIdToCloudNumber</H3>
+<A NAME="iNumberToCloudNumber(java.lang.String)"><!-- --></A><H3>
+iNumberToCloudNumber</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>canonicalIdToCloudNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;canonicalId)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A> <B>iNumberToCloudNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;iNumber)</PRE>
 <DL>
-<DD>Maps an XRI 2.0 Canonical ID to a Cloud Number.
+<DD>Maps an XRI 2.0 I-Number to a Cloud Number.
 <P>
 <DD><DL>
 </DL>
@@ -184,12 +184,12 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
-<A NAME="cloudNumberToCanonicalId(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-cloudNumberToCanonicalId</H3>
+<A NAME="cloudNumberToINumber(xdi2.core.xri3.CloudNumber)"><!-- --></A><H3>
+cloudNumberToINumber</H3>
 <PRE>
-public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>cloudNumberToCanonicalId</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber)</PRE>
+public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>cloudNumberToINumber</B>(<A HREF="../../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A>&nbsp;cloudNumber)</PRE>
 <DL>
-<DD>Maps a Cloud Number to an XRI 2.0 Canonical ID.
+<DD>Maps a Cloud Number to an XRI 2.0 I-Number.
 <P>
 <DD><DL>
 </DL>
@@ -197,12 +197,12 @@ public static <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/St
 </DL>
 <HR>
 
-<A NAME="typeToXdiEntitySingletonArcXri(java.lang.String)"><!-- --></A><H3>
-typeToXdiEntitySingletonArcXri</H3>
+<A NAME="typeToXdiArcXri(java.lang.String)"><!-- --></A><H3>
+typeToXdiArcXri</H3>
 <PRE>
-public static <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>typeToXdiEntitySingletonArcXri</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;type)</PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>typeToXdiArcXri</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;type)</PRE>
 <DL>
-<DD>Maps an XRI 2.0 service type to an XDI entity singleton arc XRI.
+<DD>Maps an XRI 2.0 service type to an XDI arc XRI.
 <P>
 <DD><DL>
 </DL>
@@ -269,6 +269,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

@@ -4,18 +4,18 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-MessageCollection (xdi2 0.1-SNAPSHOT API)
+MessageCollection (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.MessageCollection class">
 <META NAME="keywords" CONTENT="isValid()">
 <META NAME="keywords" CONTENT="fromMessageEnvelopeAndXdiEntityClass()">
 <META NAME="keywords" CONTENT="getMessageEnvelope()">
-<META NAME="keywords" CONTENT="getXdiEntityClass()">
+<META NAME="keywords" CONTENT="getXdiEntityCollection()">
 <META NAME="keywords" CONTENT="getContextNode()">
 <META NAME="keywords" CONTENT="getSender()">
 <META NAME="keywords" CONTENT="getSenderXri()">
-<META NAME="keywords" CONTENT="getMessage()">
+<META NAME="keywords" CONTENT="createMessage()">
 <META NAME="keywords" CONTENT="getMessages()">
 <META NAME="keywords" CONTENT="deleteMessages()">
 <META NAME="keywords" CONTENT="getOperations()">
@@ -32,7 +32,7 @@ MessageCollection (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="MessageCollection (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="MessageCollection (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -187,6 +187,22 @@ An XDI message collection, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#createMessage()">createMessage</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new XDI message in this XDI message collection.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#createMessage(long)">createMessage</A></B>(long&nbsp;index)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new XDI message in this XDI message collection.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#deleteMessages()">deleteMessages</A></B>()</CODE>
 
@@ -217,14 +233,6 @@ An XDI message collection, represented as a context node.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI message collection is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getMessage(boolean)">getMessage</A></B>(boolean&nbsp;create)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI message in this XDI message collection, or creates a new one.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -285,7 +293,7 @@ An XDI message collection, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getXdiEntityClass()">getXdiEntityClass</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageCollection.html#getXdiEntityCollection()">getXdiEntityCollection</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity class to which this XDI message collection is bound.</TD>
@@ -407,10 +415,10 @@ public <A HREF="../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.
 </DL>
 <HR>
 
-<A NAME="getXdiEntityClass()"><!-- --></A><H3>
-getXdiEntityClass</H3>
+<A NAME="getXdiEntityCollection()"><!-- --></A><H3>
+getXdiEntityCollection</H3>
 <PRE>
-public <A HREF="../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A> <B>getXdiEntityClass</B>()</PRE>
+public <A HREF="../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A> <B>getXdiEntityCollection</B>()</PRE>
 <DL>
 <DD>Returns the underlying XDI entity class to which this XDI message collection is bound.
 <P>
@@ -475,19 +483,36 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="getMessage(boolean)"><!-- --></A><H3>
-getMessage</H3>
+<A NAME="createMessage()"><!-- --></A><H3>
+createMessage</H3>
 <PRE>
-public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getMessage</B>(boolean&nbsp;create)</PRE>
+public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>createMessage</B>()</PRE>
 <DL>
-<DD>Returns an existing XDI message in this XDI message collection, or creates a new one.
+<DD>Creates a new XDI message in this XDI message collection.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>create</CODE> - Whether to create an XDI message if it does not exist.
-<DT><B>Returns:</B><DD>The existing or newly created XDI message.</DL>
+
+<DT><B>Returns:</B><DD>The newly created XDI message.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createMessage(long)"><!-- --></A><H3>
+createMessage</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>createMessage</B>(long&nbsp;index)</PRE>
+<DL>
+<DD>Creates a new XDI message in this XDI message collection.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>index</CODE> - Index in an ordered collection.
+<DT><B>Returns:</B><DD>The newly created XDI message.</DL>
 </DD>
 </DL>
 <HR>
@@ -689,6 +714,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

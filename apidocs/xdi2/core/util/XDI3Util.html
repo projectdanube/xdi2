@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XDI3Util (xdi2 0.1-SNAPSHOT API)
+XDI3Util (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.util.XDI3Util class">
@@ -14,6 +14,9 @@ XDI3Util (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="endsWith()">
 <META NAME="keywords" CONTENT="parentXri()">
 <META NAME="keywords" CONTENT="localXri()">
+<META NAME="keywords" CONTENT="subXri()">
+<META NAME="keywords" CONTENT="indexOfXri()">
+<META NAME="keywords" CONTENT="lastIndexOfXri()">
 <META NAME="keywords" CONTENT="removeStartXri()">
 <META NAME="keywords" CONTENT="removeEndXri()">
 <META NAME="keywords" CONTENT="replaceXri()">
@@ -25,7 +28,7 @@ XDI3Util (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDI3Util (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XDI3Util (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -212,6 +215,24 @@ Various utility methods for working with XRI 3.0 syntax.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#indexOfXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">indexOfXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+           <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;search)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the index of an XRI inside an XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#lastIndexOfXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)">lastIndexOfXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+               <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;search)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the last index of an XRI inside an XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#localXri(xdi2.core.xri3.XDI3Segment, int)">localXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
          int&nbsp;numSubSegments)</CODE>
@@ -300,6 +321,18 @@ Various utility methods for working with XRI 3.0 syntax.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XRI starts with a certain other XRI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/util/XDI3Util.html#subXri(xdi2.core.xri3.XDI3Segment, int, int)">subXri</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+       int&nbsp;startIndex,
+       int&nbsp;endIndex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracts a sub-XRI from an XRI
+ For =a*b*c*d and 1, this returns *d
+ For =a*b*c*d and -1, this returns *b*c*d</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -445,6 +478,57 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 </DL>
 <HR>
 
+<A NAME="subXri(xdi2.core.xri3.XDI3Segment, int, int)"><!-- --></A><H3>
+subXri</H3>
+<PRE>
+public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>subXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                 int&nbsp;startIndex,
+                                 int&nbsp;endIndex)</PRE>
+<DL>
+<DD>Extracts a sub-XRI from an XRI
+ For =a*b*c*d and 1, this returns *d
+ For =a*b*c*d and -1, this returns *b*c*d
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="indexOfXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+indexOfXri</H3>
+<PRE>
+public static int <B>indexOfXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                             <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;search)</PRE>
+<DL>
+<DD>Get the index of an XRI inside an XRI.
+ For =a*b*c*d and *b, this returns =a*b
+ For =a*b*c*d and *c, this returns =a*b*c
+ For =a*b*c*d and *x, this returns null
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="lastIndexOfXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+lastIndexOfXri</H3>
+<PRE>
+public static int <B>lastIndexOfXri</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;xri,
+                                 <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;search)</PRE>
+<DL>
+<DD>Get the last index of an XRI inside an XRI.
+ For =a*b*c*d and *b, this returns *b*c*d
+ For =a*b*c*d and *c, this returns *c*d
+ For =a*b*c*d and *x, this returns null
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="removeStartXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean, boolean)"><!-- --></A><H3>
 removeStartXri</H3>
 <PRE>
@@ -455,8 +539,8 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 <DL>
 <DD>Removes a start XRI from an XRI.
  E.g. for =a*b*c*d and =a*b, this returns *c*d
- E.g. for =a*b*c*d and (), this returns =a*b*c*d
- E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and (empty address), this returns =a*b*c*d
+ E.g. for =a*b*c*d and =a*b*c*d, this returns (empty address)
  E.g. for =a*b*c*d and =x, this returns null
 <P>
 <DD><DL>
@@ -494,7 +578,7 @@ public static <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in
 <DD>Removes an end XRI from an XRI.
  E.g. for =a*b*c*d and *c*d, this returns =a*b
  E.g. for =a*b*c*d and (), this returns =a*b*c*d
- E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+ E.g. for =a*b*c*d and =a*b*c*d, this returns (empty address)
  E.g. for =a*b*c*d and *y, this returns null
 <P>
 <DD><DL>
@@ -652,6 +736,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

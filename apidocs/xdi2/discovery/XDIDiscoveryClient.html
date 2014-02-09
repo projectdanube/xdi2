@@ -4,12 +4,13 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XDIDiscoveryClient (xdi2 0.1-SNAPSHOT API)
+XDIDiscoveryClient (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.discovery.XDIDiscoveryClient class">
+<META NAME="keywords" CONTENT="NEUSTAR_PROD_DISCOVERY_XDI_CLIENT">
+<META NAME="keywords" CONTENT="NEUSTAR_OTE_DISCOVERY_XDI_CLIENT">
 <META NAME="keywords" CONTENT="DEFAULT_XDI_CLIENT">
-<META NAME="keywords" CONTENT="XRI_SS_URI">
 <META NAME="keywords" CONTENT="discover()">
 <META NAME="keywords" CONTENT="discoverFromRegistry()">
 <META NAME="keywords" CONTENT="discoverFromAuthority()">
@@ -22,7 +23,7 @@ XDIDiscoveryClient (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDIDiscoveryClient (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XDIDiscoveryClient (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -138,8 +139,16 @@ Given a Cloud Name or discovery key, useful information such a Cloud Number,
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#XRI_SS_URI">XRI_SS_URI</A></B></CODE>
+<CODE>static&nbsp;<A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#NEUSTAR_OTE_DISCOVERY_XDI_CLIENT">NEUSTAR_OTE_DISCOVERY_XDI_CLIENT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#NEUSTAR_PROD_DISCOVERY_XDI_CLIENT">NEUSTAR_PROD_DISCOVERY_XDI_CLIENT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -156,6 +165,12 @@ Given a Cloud Name or discovery key, useful information such a Cloud Number,
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#XDIDiscoveryClient()">XDIDiscoveryClient</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#XDIDiscoveryClient(java.lang.String)">XDIDiscoveryClient</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;registryEndpointUri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -188,8 +203,8 @@ Given a Cloud Name or discovery key, useful information such a Cloud Number,
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])">discoverFromAuthority</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
-                      <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber,
+<TD><CODE><B><A HREF="../../xdi2/discovery/XDIDiscoveryClient.html#discoverFromAuthority(java.lang.String, xdi2.core.xri3.CloudNumber, xdi2.core.xri3.XDI3Segment[])">discoverFromAuthority</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
+                      <A HREF="../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A>&nbsp;cloudNumber,
                       <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)</CODE>
 
 <BR>
@@ -243,20 +258,30 @@ Given a Cloud Name or discovery key, useful information such a Cloud Number,
 </TR>
 </TABLE>
 
-<A NAME="DEFAULT_XDI_CLIENT"><!-- --></A><H3>
-DEFAULT_XDI_CLIENT</H3>
+<A NAME="NEUSTAR_PROD_DISCOVERY_XDI_CLIENT"><!-- --></A><H3>
+NEUSTAR_PROD_DISCOVERY_XDI_CLIENT</H3>
 <PRE>
-public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>DEFAULT_XDI_CLIENT</B></PRE>
+public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>NEUSTAR_PROD_DISCOVERY_XDI_CLIENT</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_SS_URI"><!-- --></A><H3>
-XRI_SS_URI</H3>
+<A NAME="NEUSTAR_OTE_DISCOVERY_XDI_CLIENT"><!-- --></A><H3>
+NEUSTAR_OTE_DISCOVERY_XDI_CLIENT</H3>
 <PRE>
-public static final <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_URI</B></PRE>
+public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>NEUSTAR_OTE_DISCOVERY_XDI_CLIENT</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="DEFAULT_XDI_CLIENT"><!-- --></A><H3>
+DEFAULT_XDI_CLIENT</H3>
+<PRE>
+public static final <A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A> <B>DEFAULT_XDI_CLIENT</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -276,6 +301,14 @@ public static final <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="cl
 XDIDiscoveryClient</H3>
 <PRE>
 public <B>XDIDiscoveryClient</B>(<A HREF="../../xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A>&nbsp;registryXdiClient)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="XDIDiscoveryClient(java.lang.String)"><!-- --></A><H3>
+XDIDiscoveryClient</H3>
+<PRE>
+public <B>XDIDiscoveryClient</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;registryEndpointUri)</PRE>
 <DL>
 </DL>
 <HR>
@@ -327,11 +360,11 @@ public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xd
 </DL>
 <HR>
 
-<A NAME="discoverFromAuthority(java.lang.String, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
+<A NAME="discoverFromAuthority(java.lang.String, xdi2.core.xri3.CloudNumber, xdi2.core.xri3.XDI3Segment[])"><!-- --></A><H3>
 discoverFromAuthority</H3>
 <PRE>
 public <A HREF="../../xdi2/discovery/XDIDiscoveryResult.html" title="class in xdi2.discovery">XDIDiscoveryResult</A> <B>discoverFromAuthority</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;xdiEndpointUri,
-                                                <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;cloudNumber,
+                                                <A HREF="../../xdi2/core/xri3/CloudNumber.html" title="class in xdi2.core.xri3">CloudNumber</A>&nbsp;cloudNumber,
                                                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;endpointUriTypes)
                                          throws <A HREF="../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></PRE>
 <DL>
@@ -424,6 +457,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

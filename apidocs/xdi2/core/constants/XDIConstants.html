@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XDIConstants (xdi2 0.1-SNAPSHOT API)
+XDIConstants (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.constants.XDIConstants class">
@@ -18,6 +18,7 @@ XDIConstants (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="CS_VALUE">
 <META NAME="keywords" CONTENT="XS_ROOT">
 <META NAME="keywords" CONTENT="XS_VARIABLE">
+<META NAME="keywords" CONTENT="XS_DEFINITION">
 <META NAME="keywords" CONTENT="XS_CLASS">
 <META NAME="keywords" CONTENT="XS_ATTRIBUTE">
 <META NAME="keywords" CONTENT="CS_ARRAY">
@@ -25,14 +26,13 @@ XDIConstants (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="XRI_S_CONTEXT">
 <META NAME="keywords" CONTENT="XRI_S_VALUE">
 <META NAME="keywords" CONTENT="XRI_S_LITERAL">
-<META NAME="keywords" CONTENT="XRI_S_VARIABLE">
+<META NAME="keywords" CONTENT="XRI_SS_VALUE">
+<META NAME="keywords" CONTENT="XRI_SS_LITERAL">
 <META NAME="keywords" CONTENT="XRI_S_TRUE">
 <META NAME="keywords" CONTENT="XRI_S_FALSE">
 <META NAME="keywords" CONTENT="XRI_SS_TRUE">
 <META NAME="keywords" CONTENT="XRI_SS_FALSE">
-<META NAME="keywords" CONTENT="XRI_SS_CONTEXT">
-<META NAME="keywords" CONTENT="XRI_SS_LITERAL">
-<META NAME="keywords" CONTENT="XRI_S_XDI">
+<META NAME="keywords" CONTENT="XRI_S_VARIABLE">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -40,7 +40,7 @@ XDIConstants (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDIConstants (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XDIConstants (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -275,22 +275,6 @@ General XDI syntax and graph constants.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XRI_S_XDI">XRI_S_XDI</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XRI_SS_CONTEXT">XRI_SS_CONTEXT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XRI_SS_FALSE">XRI_SS_FALSE</A></B></CODE>
 
@@ -315,6 +299,14 @@ General XDI syntax and graph constants.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XRI_SS_VALUE">XRI_SS_VALUE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XS_ATTRIBUTE">XS_ATTRIBUTE</A></B></CODE>
 
@@ -325,6 +317,14 @@ General XDI syntax and graph constants.
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XS_CLASS">XS_CLASS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/core/constants/XDIConstants.html#XS_DEFINITION">XS_DEFINITION</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -478,6 +478,16 @@ public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/l
 </DL>
 <HR>
 
+<A NAME="XS_DEFINITION"><!-- --></A><H3>
+XS_DEFINITION</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>XS_DEFINITION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.core.constants.XDIConstants.XS_DEFINITION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
 <A NAME="XS_CLASS"><!-- --></A><H3>
 XS_CLASS</H3>
 <PRE>
@@ -548,10 +558,20 @@ public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="cl
 </DL>
 <HR>
 
-<A NAME="XRI_S_VARIABLE"><!-- --></A><H3>
-XRI_S_VARIABLE</H3>
+<A NAME="XRI_SS_VALUE"><!-- --></A><H3>
+XRI_SS_VALUE</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_VARIABLE</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_VALUE</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_SS_LITERAL"><!-- --></A><H3>
+XRI_SS_LITERAL</H3>
+<PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_LITERAL</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -598,30 +618,10 @@ public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title=
 </DL>
 <HR>
 
-<A NAME="XRI_SS_CONTEXT"><!-- --></A><H3>
-XRI_SS_CONTEXT</H3>
+<A NAME="XRI_S_VARIABLE"><!-- --></A><H3>
+XRI_S_VARIABLE</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_CONTEXT</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="XRI_SS_LITERAL"><!-- --></A><H3>
-XRI_SS_LITERAL</H3>
-<PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_LITERAL</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="XRI_S_XDI"><!-- --></A><H3>
-XRI_S_XDI</H3>
-<PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_XDI</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_VARIABLE</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -687,6 +687,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;ME
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

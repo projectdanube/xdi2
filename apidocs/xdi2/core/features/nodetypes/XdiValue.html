@@ -4,12 +4,20 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XdiValue (xdi2 0.1-SNAPSHOT API)
+XdiValue (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.features.nodetypes.XdiValue class">
 <META NAME="keywords" CONTENT="isValid()">
 <META NAME="keywords" CONTENT="fromContextNode()">
+<META NAME="keywords" CONTENT="setLiteral()">
+<META NAME="keywords" CONTENT="setLiteralString()">
+<META NAME="keywords" CONTENT="setLiteralNumber()">
+<META NAME="keywords" CONTENT="setLiteralBoolean()">
+<META NAME="keywords" CONTENT="getLiteral()">
+<META NAME="keywords" CONTENT="getLiteralString()">
+<META NAME="keywords" CONTENT="getLiteralNumber()">
+<META NAME="keywords" CONTENT="getLiteralBoolean()">
 <META NAME="keywords" CONTENT="createArcXri()">
 <META NAME="keywords" CONTENT="isValidArcXri()">
 
@@ -19,7 +27,7 @@ XdiValue (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XdiValue (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XdiValue (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -183,6 +191,46 @@ An XDI value (context function), represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#getLiteral()">getLiteral</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#getLiteral(java.lang.Object)">getLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#getLiteralString(java.lang.String)">getLiteralString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#isValid(xdi2.core.ContextNode)">isValid</A></B>(<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;contextNode)</CODE>
 
@@ -197,6 +245,38 @@ An XDI value (context function), represented as a context node.
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#setLiteral(java.lang.Object)">setLiteral</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html#setLiteralString(java.lang.String)">setLiteralString</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiAbstractContext"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -204,7 +284,7 @@ An XDI value (context function), represented as a context node.
 <TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getArcXri()">getArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseArcXri(xdi2.core.xri3.XDI3SubSegment)">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXri()">getXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -222,7 +302,7 @@ An XDI value (context function), represented as a context node.
 <TH ALIGN="left"><B>Methods inherited from interface xdi2.core.features.nodetypes.<A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></CODE></TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getArcXri()">getArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttribute</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntityCollection</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A>, <A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXri()">getXri</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Comparable"><!-- --></A>
@@ -288,6 +368,105 @@ public static <A HREF="../../../../xdi2/core/features/nodetypes/XdiValue.html" t
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>contextNode</CODE> - The context node that is an XDI value.
 <DT><B>Returns:</B><DD>The XDI value.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteral(java.lang.Object)"><!-- --></A><H3>
+setLiteral</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralString(java.lang.String)"><!-- --></A><H3>
+setLiteralString</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralNumber(java.lang.Double)"><!-- --></A><H3>
+setLiteralNumber</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLiteralBoolean(java.lang.Boolean)"><!-- --></A><H3>
+setLiteralBoolean</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>setLiteralBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteral()"><!-- --></A><H3>
+getLiteral</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteral(java.lang.Object)"><!-- --></A><H3>
+getLiteral</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteral</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralString(java.lang.String)"><!-- --></A><H3>
+getLiteralString</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralString</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralNumber(java.lang.Double)"><!-- --></A><H3>
+getLiteralNumber</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralNumber</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLiteralBoolean(java.lang.Boolean)"><!-- --></A><H3>
+getLiteralBoolean</H3>
+<PRE>
+public <A HREF="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</A> <B>getLiteralBoolean</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A>&nbsp;literalData)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -373,6 +552,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

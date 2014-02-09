@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Interface xdi2.messaging.target.contributor.Contributor (xdi2 0.1-SNAPSHOT API)
+Uses of Interface xdi2.messaging.target.contributor.Contributor (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Interface xdi2.messaging.target.contributor.Contributor (xdi2 0.1-SNAPSH
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Interface xdi2.messaging.target.contributor.Contributor (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Interface xdi2.messaging.target.contributor.Contributor (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -89,8 +89,8 @@ function windowTitle()
 Packages that use <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
-<TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
+<TD><A HREF="#xdi2.messaging.context"><B>xdi2.messaging.context</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.contributor"><B>xdi2.messaging.target.contributor</B></A></TD>
@@ -105,17 +105,21 @@ Packages that use <A HREF="../../../../../xdi2/messaging/target/contributor/Cont
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.spring"><B>xdi2.server.spring</B></A></TD>
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy"><B>xdi2.messaging.target.contributor.impl.proxy</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.spring"><B>xdi2.transport.spring</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.messaging.target"><!-- --></A>
+<A NAME="xdi2.messaging.context"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
+Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> in <A HREF="../../../../../xdi2/messaging/context/package-summary.html">xdi2.messaging.context</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -123,12 +127,12 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> that return <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/context/package-summary.html">xdi2.messaging.context</A> that return <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE></FONT></TD>
-<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html#getCurrentContributor()">getCurrentContributor</A></B>()</CODE>
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html#getCurrentContributor()">getCurrentContributor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -136,7 +140,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE></FONT></TD>
-<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html#getExceptionContributor()">getExceptionContributor</A></B>()</CODE>
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html#getExceptionContributor()">getExceptionContributor</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -147,12 +151,12 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/context/package-summary.html">xdi2.messaging.context</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html#pushContributor(xdi2.messaging.target.contributor.Contributor, java.lang.String)">pushContributor</A></B>(<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor,
+<TD><CODE><B>ExecutionContext.</B><B><A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html#pushContributor(xdi2.messaging.target.contributor.Contributor, java.lang.String)">pushContributor</A></B>(<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor,
                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;comment)</CODE>
 
 <BR>
@@ -214,7 +218,31 @@ T</CODE></FONT></TD>
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A> that return <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE></FONT></TD>
+<TD><CODE><B>ContributorMap.ContributorFound.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.ContributorFound.html#getContributor()">getContributor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A> that return types with arguments of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.Entry.html?is-external=true" title="class or interface in java.util">Map.Entry</A>&lt;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B>ContributorMap.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html#entrySet()">entrySet</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -243,7 +271,7 @@ T</CODE></FONT></TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>ContributorMap.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html#addContributor(xdi2.core.xri3.XDI3Segment, xdi2.messaging.target.contributor.Contributor)">addContributor</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorXri,
+<TD><CODE><B>ContributorMap.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html#addContributor(xdi2.core.xri3.XDI3Segment, xdi2.messaging.target.contributor.Contributor)">addContributor</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</CODE>
 
 <BR>
@@ -272,50 +300,11 @@ T</CODE></FONT></TD>
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Constructors in <A HREF="../../../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>Contributor.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html#setContributors(java.util.Map)">setContributors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContributors(java.util.Map)">setContributors</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;contributors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>Contributor.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html#setContributorsList(java.util.ArrayList)">setContributorsList</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&nbsp;contributors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContributorsList(java.util.ArrayList)">setContributorsList</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&nbsp;contributors)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Constructor parameters in <A HREF="../../../../../xdi2/messaging/target/contributor/package-summary.html">xdi2.messaging.target.contributor</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html#ContributorMap(java.util.Map)">ContributorMap</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;? extends <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,? extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;m)</CODE>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.ContributorFound.html#ContributorMap.ContributorFound(xdi2.core.xri3.XDI3Segment, xdi2.messaging.target.contributor.Contributor)">ContributorMap.ContributorFound</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorXri,
+                                <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&nbsp;contributor)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -373,11 +362,11 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.spring"><!-- --></A>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> in <A HREF="../../../../../xdi2/server/spring/package-summary.html">xdi2.server.spring</A></FONT></TH>
+Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> in <A HREF="../../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -385,20 +374,37 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../xdi2/server/spring/package-summary.html">xdi2.server.spring</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A> that implement <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A></CODE></FONT></TD>
-<TD><CODE><B>ListContributorMapConverter.</B><B><A HREF="../../../../../xdi2/server/spring/ListContributorMapConverter.html#convert(java.util.List)">convert</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&nbsp;source)</CODE>
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This contributor can answer requests by forwarding them to another XDI endpoint.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.spring"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A> in <A HREF="../../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A> with type arguments of type <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</A></CODE></FONT></TD>
-<TD><CODE><B>MapContributorMapConverter.</B><B><A HREF="../../../../../xdi2/server/spring/MapContributorMapConverter.html#convert(java.util.Map)">convert</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</A>&lt;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>,<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&gt;&nbsp;source)</CODE>
+<TD><CODE><B>ListContributorMapConverter.</B><B><A HREF="../../../../../xdi2/transport/spring/ListContributorMapConverter.html#convert(java.util.List)">convert</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>&gt;&nbsp;source)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -460,6 +466,6 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/contributor/Contributor.ht
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

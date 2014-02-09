@@ -4,18 +4,17 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XDIMessagingConstants (xdi2 0.1-SNAPSHOT API)
+XDIMessagingConstants (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.constants.XDIMessagingConstants class">
-<META NAME="keywords" CONTENT="XRI_S_ANONYMOUS">
 <META NAME="keywords" CONTENT="XRI_S_MSG">
 <META NAME="keywords" CONTENT="XRI_S_GET">
 <META NAME="keywords" CONTENT="XRI_S_SET">
 <META NAME="keywords" CONTENT="XRI_S_DEL">
 <META NAME="keywords" CONTENT="XRI_S_DO">
-<META NAME="keywords" CONTENT="XRI_S_FROM_ADDRESS">
-<META NAME="keywords" CONTENT="XRI_S_TO_ADDRESS">
+<META NAME="keywords" CONTENT="XRI_S_FROM_PEER_ROOT_XRI">
+<META NAME="keywords" CONTENT="XRI_S_TO_PEER_ROOT_XRI">
 <META NAME="keywords" CONTENT="XRI_SS_MSG">
 <META NAME="keywords" CONTENT="XRI_SS_GET">
 <META NAME="keywords" CONTENT="XRI_SS_SET">
@@ -28,7 +27,7 @@ XDIMessagingConstants (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDIMessagingConstants (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XDIMessagingConstants (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -136,14 +135,6 @@ Constants for XDI messaging.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_ANONYMOUS">XRI_S_ANONYMOUS</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_DEL">XRI_S_DEL</A></B></CODE>
 
 <BR>
@@ -160,7 +151,7 @@ Constants for XDI messaging.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_FROM_ADDRESS">XRI_S_FROM_ADDRESS</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_FROM_PEER_ROOT_XRI">XRI_S_FROM_PEER_ROOT_XRI</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -192,7 +183,7 @@ Constants for XDI messaging.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_TO_ADDRESS">XRI_S_TO_ADDRESS</A></B></CODE>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/constants/XDIMessagingConstants.html#XRI_S_TO_PEER_ROOT_XRI">XRI_S_TO_PEER_ROOT_XRI</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -270,16 +261,6 @@ Constants for XDI messaging.
 </TR>
 </TABLE>
 
-<A NAME="XRI_S_ANONYMOUS"><!-- --></A><H3>
-XRI_S_ANONYMOUS</H3>
-<PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_ANONYMOUS</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
 <A NAME="XRI_S_MSG"><!-- --></A><H3>
 XRI_S_MSG</H3>
 <PRE>
@@ -330,20 +311,20 @@ public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="cl
 </DL>
 <HR>
 
-<A NAME="XRI_S_FROM_ADDRESS"><!-- --></A><H3>
-XRI_S_FROM_ADDRESS</H3>
+<A NAME="XRI_S_FROM_PEER_ROOT_XRI"><!-- --></A><H3>
+XRI_S_FROM_PEER_ROOT_XRI</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_FROM_ADDRESS</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_FROM_PEER_ROOT_XRI</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_S_TO_ADDRESS"><!-- --></A><H3>
-XRI_S_TO_ADDRESS</H3>
+<A NAME="XRI_S_TO_PEER_ROOT_XRI"><!-- --></A><H3>
+XRI_S_TO_PEER_ROOT_XRI</H3>
 <PRE>
-public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_TO_ADDRESS</B></PRE>
+public static final <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_TO_PEER_ROOT_XRI</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -459,6 +440,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;ME
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

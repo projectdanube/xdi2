@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Operation (xdi2 0.1-SNAPSHOT API)
+Operation (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.Operation class">
@@ -18,6 +18,7 @@ Operation (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getMessageEnvelope()">
 <META NAME="keywords" CONTENT="getRelation()">
 <META NAME="keywords" CONTENT="getOperationXri()">
+<META NAME="keywords" CONTENT="getTargetInnerRoot()">
 <META NAME="keywords" CONTENT="getTargetAddress()">
 <META NAME="keywords" CONTENT="getTargetStatements()">
 <META NAME="keywords" CONTENT="setParameter()">
@@ -39,7 +40,7 @@ Operation (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Operation (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Operation (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -263,7 +264,7 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameter(xdi2.core.xri3.XDI3SubSegment)">getParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameter(xdi2.core.xri3.XDI3Segment)">getParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value of this operation.</TD>
@@ -271,7 +272,7 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterBoolean(xdi2.core.xri3.XDI3SubSegment)">getParameterBoolean</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterBoolean(xdi2.core.xri3.XDI3Segment)">getParameterBoolean</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value boolean of this operation.</TD>
@@ -279,7 +280,7 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterNumber(xdi2.core.xri3.XDI3SubSegment)">getParameterNumber</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterNumber(xdi2.core.xri3.XDI3Segment)">getParameterNumber</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value number of this operation.</TD>
@@ -287,7 +288,7 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterString(xdi2.core.xri3.XDI3SubSegment)">getParameterString</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getParameterString(xdi2.core.xri3.XDI3Segment)">getParameterString</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a parameter value string of this operation.</TD>
@@ -326,7 +327,15 @@ An XDI messaging operation, represented as a relation.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTargetInnerRoot()">getTargetInnerRoot</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the target inner root of the operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#getTargetStatements()">getTargetStatements</A></B>()</CODE>
 
 <BR>
@@ -359,7 +368,7 @@ An XDI messaging operation, represented as a relation.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#setParameter(xdi2.core.xri3.XDI3SubSegment, java.lang.Object)">setParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri,
+<TD><CODE><B><A HREF="../../xdi2/messaging/Operation.html#setParameter(xdi2.core.xri3.XDI3Segment, java.lang.Object)">setParameter</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri,
              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;parameterValue)</CODE>
 
 <BR>
@@ -580,6 +589,23 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
+<A NAME="getTargetInnerRoot()"><!-- --></A><H3>
+getTargetInnerRoot</H3>
+<PRE>
+public <A HREF="../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</A> <B>getTargetInnerRoot</B>()</PRE>
+<DL>
+<DD>Returns the target inner root of the operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The target inner root of the operation.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getTargetAddress()"><!-- --></A><H3>
 getTargetAddress</H3>
 <PRE>
@@ -600,7 +626,7 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 <A NAME="getTargetStatements()"><!-- --></A><H3>
 getTargetStatements</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt; <B>getTargetStatements</B>()</PRE>
+public <A HREF="../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</A>&lt;<A HREF="../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&gt; <B>getTargetStatements</B>()</PRE>
 <DL>
 <DD>Returns the target statements of the operation.
 <P>
@@ -614,10 +640,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.
 </DL>
 <HR>
 
-<A NAME="setParameter(xdi2.core.xri3.XDI3SubSegment, java.lang.Object)"><!-- --></A><H3>
+<A NAME="setParameter(xdi2.core.xri3.XDI3Segment, java.lang.Object)"><!-- --></A><H3>
 setParameter</H3>
 <PRE>
-public void <B>setParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri,
+public void <B>setParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri,
                          <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;parameterValue)</PRE>
 <DL>
 <DD>Sets a parameter value of this operation.
@@ -631,10 +657,10 @@ public void <B>setParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.htm
 </DL>
 <HR>
 
-<A NAME="getParameter(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+<A NAME="getParameter(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getParameter</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A> <B>getParameter</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</PRE>
 <DL>
 <DD>Returns a parameter value of this operation.
 <P>
@@ -648,10 +674,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.ht
 </DL>
 <HR>
 
-<A NAME="getParameterString(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+<A NAME="getParameterString(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getParameterString</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getParameterString</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getParameterString</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</PRE>
 <DL>
 <DD>Returns a parameter value string of this operation.
 <P>
@@ -665,10 +691,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.ht
 </DL>
 <HR>
 
-<A NAME="getParameterNumber(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+<A NAME="getParameterNumber(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getParameterNumber</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</A> <B>getParameterNumber</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</A> <B>getParameterNumber</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</PRE>
 <DL>
 <DD>Returns a parameter value number of this operation.
 <P>
@@ -682,10 +708,10 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Number.ht
 </DL>
 <HR>
 
-<A NAME="getParameterBoolean(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+<A NAME="getParameterBoolean(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getParameterBoolean</H3>
 <PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>getParameterBoolean</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;parameterXri)</PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</A> <B>getParameterBoolean</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;parameterXri)</PRE>
 <DL>
 <DD>Returns a parameter value boolean of this operation.
 <P>
@@ -864,6 +890,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

@@ -4,14 +4,14 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-MessagingTarget (xdi2 0.1-SNAPSHOT API)
+MessagingTarget (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.MessagingTarget interface">
 <META NAME="keywords" CONTENT="init()">
 <META NAME="keywords" CONTENT="shutdown()">
-<META NAME="keywords" CONTENT="getOwnerAddress()">
 <META NAME="keywords" CONTENT="execute()">
+<META NAME="keywords" CONTENT="getOwnerPeerRootXri()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
 
@@ -19,7 +19,7 @@ MessagingTarget (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="MessagingTarget (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="MessagingTarget (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -59,7 +59,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/messaging/target/Extension.ShutdownPriorityComparator.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/MessagingTarget.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -96,7 +96,7 @@ xdi2.messaging.target</FONT>
 <BR>
 Interface MessagingTarget</H2>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/echo/EchoMessagingTarget.html" title="class in xdi2.messaging.target.impl.echo">EchoMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file">FileMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/n/NullMessagingTarget.html" title="class in xdi2.messaging.target.impl.n">NullMessagingTarget</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html" title="class in xdi2.messaging.target.impl">AbstractMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/echo/EchoMessagingTarget.html" title="class in xdi2.messaging.target.impl.echo">EchoMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file">FileMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html" title="class in xdi2.messaging.target.impl.graph">GraphMessagingTarget</A>, <A HREF="../../../xdi2/messaging/target/impl/n/NullMessagingTarget.html" title="class in xdi2.messaging.target.impl.n">NullMessagingTarget</A></DD>
 </DL>
 <HR>
 <DL>
@@ -127,20 +127,20 @@ A MessagingTarget can process XDI messages and produce a result graph.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">execute</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
         <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+        <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes all messages in an XDI messaging envelope against this messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerAddress()">getOwnerAddress</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html#getOwnerPeerRootXri()">getOwnerPeerRootXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner address of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the owner peer root XRI of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -204,26 +204,12 @@ void <B>shutdown</B>()
 </DL>
 <HR>
 
-<A NAME="getOwnerAddress()"><!-- --></A><H3>
-getOwnerAddress</H3>
-<PRE>
-<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwnerAddress</B>()</PRE>
-<DL>
-<DD>Returns the owner address of the messaging target.
- This may be null.
-<P>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="execute(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 execute</H3>
 <PRE>
 void <B>execute</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
              <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-             <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+             <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
              throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD>Executes all messages in an XDI messaging envelope against this messaging target.
@@ -233,6 +219,20 @@ void <B>execute</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title
  messaging targets, interceptors and contributors.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOwnerPeerRootXri()"><!-- --></A><H3>
+getOwnerPeerRootXri</H3>
+<PRE>
+<A HREF="../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getOwnerPeerRootXri</B>()</PRE>
+<DL>
+<DD>Returns the owner peer root XRI of the messaging target.
+ This may be null.
+<P>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -266,7 +266,7 @@ void <B>execute</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../xdi2/messaging/target/Extension.ShutdownPriorityComparator.html" title="class in xdi2.messaging.target"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../index.html?xdi2/messaging/target/MessagingTarget.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -296,6 +296,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

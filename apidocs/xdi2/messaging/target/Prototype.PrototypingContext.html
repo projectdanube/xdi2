@@ -4,13 +4,13 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Prototype.PrototypingContext (xdi2 0.1-SNAPSHOT API)
+Prototype.PrototypingContext (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.Prototype.PrototypingContext class">
 <META NAME="keywords" CONTENT="instanceFor()">
 <META NAME="keywords" CONTENT="getMessagingTarget()">
-<META NAME="keywords" CONTENT="getOwner()">
+<META NAME="keywords" CONTENT="getOwnerXri()">
 <META NAME="keywords" CONTENT="getOwnerPeerRoot()">
 <META NAME="keywords" CONTENT="getOwnerContextNode()">
 
@@ -20,7 +20,7 @@ Prototype.PrototypingContext (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Prototype.PrototypingContext (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Prototype.PrototypingContext (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -148,7 +148,7 @@ Class Prototype.PrototypingContext</H2>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)">Prototype.PrototypingContext</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;owner,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)">Prototype.PrototypingContext</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri,
                              <A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&nbsp;ownerPeerRoot,
                              <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;ownerContextNode)</CODE>
 
@@ -175,14 +175,6 @@ Class Prototype.PrototypingContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwner()">getOwner</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwnerContextNode()">getOwnerContextNode</A></B>()</CODE>
 
@@ -193,6 +185,14 @@ Class Prototype.PrototypingContext</H2>
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwnerPeerRoot()">getOwnerPeerRoot</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html#getOwnerXri()">getOwnerXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -267,7 +267,7 @@ T</CODE></FONT></TD>
 <A NAME="Prototype.PrototypingContext(xdi2.core.xri3.XDI3Segment, xdi2.core.features.nodetypes.XdiPeerRoot, xdi2.core.ContextNode)"><!-- --></A><H3>
 Prototype.PrototypingContext</H3>
 <PRE>
-public <B>Prototype.PrototypingContext</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;owner,
+public <B>Prototype.PrototypingContext</B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri,
                                     <A HREF="../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</A>&nbsp;ownerPeerRoot,
                                     <A HREF="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A>&nbsp;ownerContextNode)</PRE>
 <DL>
@@ -308,10 +308,10 @@ public <A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="inte
 </DL>
 <HR>
 
-<A NAME="getOwner()"><!-- --></A><H3>
-getOwner</H3>
+<A NAME="getOwnerXri()"><!-- --></A><H3>
+getOwnerXri</H3>
 <PRE>
-public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwner</B>()</PRE>
+public <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getOwnerXri</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -400,6 +400,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

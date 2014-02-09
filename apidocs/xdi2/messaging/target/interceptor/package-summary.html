@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-xdi2.messaging.target.interceptor (xdi2 0.1-SNAPSHOT API)
+xdi2.messaging.target.interceptor (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor package">
@@ -15,7 +15,7 @@ xdi2.messaging.target.interceptor (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="xdi2.messaging.target.interceptor (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="xdi2.messaging.target.interceptor (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -89,7 +89,7 @@ Package xdi2.messaging.target.interceptor
 <B>Interface Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor&lt;CONTAINER&gt;</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -102,12 +102,12 @@ Package xdi2.messaging.target.interceptor
 <TD>Interceptor that is executed before and after a message is executed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor">OperationInterceptor</A></B></TD>
-<TD>Interceptor that is executed before and after an operation is executed.</TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/MessageResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageResultInterceptor</A></B></TD>
+<TD>Interceptor that is executed on a message result after a message envelope has been executed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/ResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">ResultInterceptor</A></B></TD>
-<TD>Interceptor that is executed on a message result after a message envelope has been executed.</TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor">OperationInterceptor</A></B></TD>
+<TD>Interceptor that is executed before and after an operation is executed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A></B></TD>
@@ -124,7 +124,7 @@ Package xdi2.messaging.target.interceptor
 <B>Class Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractInterceptor&lt;CONTAINER&gt;</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -136,11 +136,11 @@ Package xdi2.messaging.target.interceptor
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractOperationInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractOperationInterceptor</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractMessageResultInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractMessageResultInterceptor</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractResultInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractResultInterceptor</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/AbstractOperationInterceptor.html" title="class in xdi2.messaging.target.interceptor">AbstractOperationInterceptor</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -148,7 +148,11 @@ Package xdi2.messaging.target.interceptor
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList&lt;CONTAINER&gt;</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 </TABLE>
@@ -211,6 +215,6 @@ Package xdi2.messaging.target.interceptor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

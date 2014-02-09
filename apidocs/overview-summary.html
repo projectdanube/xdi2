@@ -4,10 +4,10 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Overview (xdi2 0.1-SNAPSHOT API)
+Overview (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
-<META NAME="keywords" CONTENT="Overview, xdi2 0.1-SNAPSHOT API">
+<META NAME="keywords" CONTENT="Overview, xdi2 0.2-SNAPSHOT API">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -15,7 +15,7 @@ Overview (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Overview (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Overview (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -81,7 +81,7 @@ function windowTitle()
 <HR>
 <CENTER>
 <H1>
-xdi2 0.1-SNAPSHOT API
+xdi2 0.2-SNAPSHOT API
 </H1>
 </CENTER>
 
@@ -93,6 +93,10 @@ xdi2 0.1-SNAPSHOT API
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="xdi2/client/package-summary.html">xdi2.client</A></B></TD>
 <TD>A client can send messages to an XDI endpoint and receive results.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/client/constants/package-summary.html">xdi2.client.constants</A></B></TD>
+<TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="xdi2/client/events/package-summary.html">xdi2.client.events</A></B></TD>
@@ -251,10 +255,6 @@ xdi2 0.1-SNAPSHOT API
 <TD>EXPERIMENTAL implementation of a 3.0 syntax parser.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/core/xri3/parser/apg/package-summary.html">xdi2.core.xri3.parser.apg</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="xdi2/core/xri3/parser/manual/package-summary.html">xdi2.core.xri3.parser.manual</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
@@ -268,6 +268,10 @@ xdi2 0.1-SNAPSHOT API
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="xdi2/messaging/constants/package-summary.html">xdi2.messaging.constants</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/messaging/context/package-summary.html">xdi2.messaging.context</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -296,6 +300,22 @@ xdi2 0.1-SNAPSHOT API
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="xdi2/messaging/target/contributor/impl/keygen/package-summary.html">xdi2.messaging.target.contributor.impl.keygen</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/messaging/target/contributor/impl/proxy/manipulator/package-summary.html">xdi2.messaging.target.contributor.impl.proxy.manipulator</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/package-summary.html">xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -351,51 +371,67 @@ xdi2 0.1-SNAPSHOT API
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/p2p/package-summary.html">xdi2.p2p</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/package-summary.html">xdi2.transport</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/embedded/package-summary.html">xdi2.server.embedded</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/exceptions/package-summary.html">xdi2.transport.exceptions</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/exceptions/package-summary.html">xdi2.server.exceptions</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/http/embedded/package-summary.html">xdi2.transport.http.embedded</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/factory/package-summary.html">xdi2.server.factory</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/http/standalone/package-summary.html">xdi2.transport.http.standalone</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/package-summary.html">xdi2.transport.impl</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/interceptor/package-summary.html">xdi2.server.interceptor</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/package-summary.html">xdi2.transport.impl.http</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/interceptor/impl/package-summary.html">xdi2.server.interceptor.impl</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/factory/package-summary.html">xdi2.transport.impl.http.factory</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/registry/package-summary.html">xdi2.server.registry</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/factory/impl/package-summary.html">xdi2.transport.impl.http.factory.impl</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/servlet/package-summary.html">xdi2.server.servlet</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/impl/package-summary.html">xdi2.transport.impl.http.impl</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/impl/servlet/package-summary.html">xdi2.transport.impl.http.impl.servlet</A></B></TD>
 <TD>A servlet exposing an XDI messaging endpoint.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/spring/package-summary.html">xdi2.server.spring</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/interceptor/package-summary.html">xdi2.transport.impl.http.interceptor</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/standalone/package-summary.html">xdi2.server.standalone</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/interceptor/impl/package-summary.html">xdi2.transport.impl.http.interceptor.impl</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="20%"><B><A HREF="xdi2/server/transport/package-summary.html">xdi2.server.transport</A></B></TD>
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/impl/http/registry/package-summary.html">xdi2.transport.impl.http.registry</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/interceptor/package-summary.html">xdi2.transport.interceptor</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/interceptor/impl/package-summary.html">xdi2.transport.interceptor.impl</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -491,6 +527,6 @@ xdi2 0.1-SNAPSHOT API
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

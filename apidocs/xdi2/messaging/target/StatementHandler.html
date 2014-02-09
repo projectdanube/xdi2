@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-StatementHandler (xdi2 0.1-SNAPSHOT API)
+StatementHandler (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.StatementHandler interface">
@@ -16,7 +16,7 @@ StatementHandler (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="StatementHandler (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="StatementHandler (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -93,7 +93,10 @@ xdi2.messaging.target</FONT>
 <BR>
 Interface StatementHandler</H2>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A>, <A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html" title="class in xdi2.messaging.target">AbstractStatementHandler</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html" title="class in xdi2.messaging.target.impl.graph">GraphContextHandler</A></DD>
+<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../xdi2/messaging/target/ContextHandler.html" title="interface in xdi2.messaging.target">ContextHandler</A></DD>
+</DL>
+<DL>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A>, <A HREF="../../../xdi2/messaging/target/impl/AbstractStatementHandler.html" title="class in xdi2.messaging.target.impl">AbstractStatementHandler</A>, <A HREF="../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html" title="class in xdi2.messaging.target.impl.graph">GraphContextHandler</A></DD>
 </DL>
 <HR>
 <DL>
@@ -127,10 +130,10 @@ A StatementHandler can execute an XDI operation against a statement given in a c
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/messaging/target/StatementHandler.html#executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+<TD><CODE><B><A HREF="../../../xdi2/messaging/target/StatementHandler.html#executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                    <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                    <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                   <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes an XDI operation on a statement.</TD>
@@ -149,13 +152,13 @@ A StatementHandler can execute an XDI operation against a statement given in a c
 </TR>
 </TABLE>
 
-<A NAME="executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeOnStatement</H3>
 <PRE>
 void <B>executeOnStatement</B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                         <A HREF="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
                         <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                        <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                        <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                         throws <A HREF="../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD>Executes an XDI operation on a statement.
@@ -227,6 +230,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

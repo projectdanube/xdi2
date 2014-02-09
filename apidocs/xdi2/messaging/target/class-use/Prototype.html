@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Interface xdi2.messaging.target.Prototype (xdi2 0.1-SNAPSHOT API)
+Uses of Interface xdi2.messaging.target.Prototype (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Interface xdi2.messaging.target.Prototype (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Interface xdi2.messaging.target.Prototype (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Interface xdi2.messaging.target.Prototype (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -102,6 +102,10 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/Prototype.html" tit
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.contributor.impl.keygen"><B>xdi2.messaging.target.contributor.impl.keygen</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy"><B>xdi2.messaging.target.contributor.impl.proxy</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -295,6 +299,31 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A> in <A HREF="../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A> that implement <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This contributor can answer requests by forwarding them to another XDI endpoint.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.target.impl.file"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -362,7 +391,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList&lt;CONTAINER&gt;</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -399,7 +428,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the source peer root address of a message matches the sender of the message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the source peer root XRI of a message matches the sender of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -431,7 +460,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 <TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the target peer root address of a message matches the owner of the messaging target.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor checks if the target peer root XRI of a message matches the owner peer root XRI of the messaging target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -491,7 +520,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor looks for a signature on an incoming XDI message,
- and invokes an instance of SignatureAuthenticator to authenticate the message.</TD>
+ and invokes an instance of Signer to authenticate the message.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -564,7 +593,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/transport/HttpTransportInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">HttpTransportInterceptor</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/interceptor/impl/transport/HttpTransportDataInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">HttpTransportDataInterceptor</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interceptor looks for certain features associated with the HTTP transport,
@@ -627,6 +656,6 @@ Uses of <A HREF="../../../../xdi2/messaging/target/Prototype.html" title="interf
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-xdi2.messaging.target (xdi2 0.1-SNAPSHOT API)
+xdi2.messaging.target (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target package">
@@ -15,7 +15,7 @@ xdi2.messaging.target (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="xdi2.messaging.target (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="xdi2.messaging.target (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -99,6 +99,14 @@ Base classes for implementing XDI messaging targets.
 <TD>An AddressHandler can execute an XDI operation against an address.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/ContextHandler.html" title="interface in xdi2.messaging.target">ContextHandler</A></B></TD>
+<TD>A ContextHandler can execute an XDI operation against both addresses and statements.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Extension.html" title="interface in xdi2.messaging.target">Extension&lt;CONTAINER&gt;</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A></B></TD>
 <TD>A MessagingTarget can process XDI messages and produce a result graph.</TD>
 </TR>
@@ -123,27 +131,12 @@ Base classes for implementing XDI messaging targets.
 <B>Class Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></B></TD>
-<TD><B>Deprecated.</B>&nbsp;<I>Use AbstractContextHandler instead</I></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></B></TD>
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Extension.InitPriorityComparator.html" title="class in xdi2.messaging.target">Extension.InitPriorityComparator</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractMessagingTarget.html" title="class in xdi2.messaging.target">AbstractMessagingTarget</A></B></TD>
-<TD>The AbstractMessagingTarget provides the following functionality:
- - Implementation of execute() with a message envelope (all messages
-   in the envelope and all operations in the messages will be executed)</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html" title="class in xdi2.messaging.target">AbstractStatementHandler</A></B></TD>
-<TD><B>Deprecated.</B>&nbsp;<I>Use AbstractContextHandler instead</I></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A></B></TD>
-<TD>Messaging targets as well as contributors and interceptors can use the ExecutionContext
- to store and share state.</TD>
+<TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Extension.ShutdownPriorityComparator.html" title="class in xdi2.messaging.target">Extension.ShutdownPriorityComparator</A></B></TD>
+<TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A></B></TD>
@@ -218,6 +211,6 @@ Base classes for implementing XDI messaging targets.
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

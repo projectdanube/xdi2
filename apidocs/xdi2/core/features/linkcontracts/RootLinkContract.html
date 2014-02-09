@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+RootLinkContract (xdi2 0.2-SNAPSHOT API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.RootLinkContract class">
+<META NAME="keywords" CONTENT="isValid()">
+<META NAME="keywords" CONTENT="fromXdiEntity()">
+<META NAME="keywords" CONTENT="createRootLinkContractXri()">
+<META NAME="keywords" CONTENT="findRootLinkContract()">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="RootLinkContract (xdi2 0.2-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/RootLinkContract.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/PublicLinkContract.html" title="class in xdi2.core.features.linkcontracts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/linkcontracts/RootLinkContract.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="RootLinkContract.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.core.features.linkcontracts</FONT>
+<BR>
+Class RootLinkContract</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">xdi2.core.features.linkcontracts.LinkContractBase</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">xdi2.core.features.linkcontracts.LinkContract</A>
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts">xdi2.core.features.linkcontracts.GenericLinkContract</A>
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.linkcontracts.RootLinkContract</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</A>&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>RootLinkContract</B><DT>extends <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts">GenericLinkContract</A></DL>
+</PRE>
+
+<P>
+An XDI root link contract, represented as an XDI entity.
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>markus</DD>
+<DT><B>See Also:</B><DD><A HREF="../../../../serialized-form.html#xdi2.core.features.linkcontracts.RootLinkContract">Serialized Form</A></DL>
+<HR>
+
+<P>
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html#RootLinkContract(xdi2.core.features.nodetypes.XdiEntity)">RootLinkContract</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html#createRootLinkContractXri(xdi2.core.xri3.XDI3Segment)">createRootLinkContractXri</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html" title="class in xdi2.core.features.linkcontracts">RootLinkContract</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html#findRootLinkContract(xdi2.core.Graph, boolean)">findRootLinkContract</A></B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                     boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that finds or creates an XDI root link contract for a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html" title="class in xdi2.core.features.linkcontracts">RootLinkContract</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI root link contract bound to a given XDI entity.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html#isValid(xdi2.core.features.nodetypes.XdiEntity)">isValid</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity is a valid XDI root link contract.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.linkcontracts.GenericLinkContract"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.linkcontracts.<A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts">GenericLinkContract</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#createGenericLinkContractXri(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">createGenericLinkContractXri</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#findGenericLinkContract(xdi2.core.Graph, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, boolean)">findGenericLinkContract</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getAuthorizingAuthority()">getAuthorizingAuthority</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getAuthorizingAuthority(xdi2.core.xri3.XDI3Segment)">getAuthorizingAuthority</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getRequestingAuthority()">getRequestingAuthority</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getRequestingAuthority(xdi2.core.xri3.XDI3Segment)">getRequestingAuthority</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getTemplateAuthorityAndId()">getTemplateAuthorityAndId</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html#getTemplateAuthorityAndId(xdi2.core.xri3.XDI3Segment)">getTemplateAuthorityAndId</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.linkcontracts.LinkContractBase"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.linkcontracts.<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#compareTo(xdi2.core.features.linkcontracts.LinkContractBase)">compareTo</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delNegativePermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delPermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getNegativePermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getNegativePermissionTargetAddresses</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getPermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getPermissionTargetAddresses</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getPolicyRoot(boolean)">getPolicyRoot</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getXdiEntity()">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hasNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hasPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setNegativePermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setPermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#toString()">toString</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="RootLinkContract(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+RootLinkContract</H3>
+<PRE>
+protected <B>RootLinkContract</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="isValid(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+isValid</H3>
+<PRE>
+public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
+<DL>
+<DD>Checks if an XDI entity is a valid XDI root link contract.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity to check.
+<DT><B>Returns:</B><DD>True if the XDI entity is a valid XDI root link contract.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)"><!-- --></A><H3>
+fromXdiEntity</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html" title="class in xdi2.core.features.linkcontracts">RootLinkContract</A> <B>fromXdiEntity</B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</PRE>
+<DL>
+<DD>Factory method that creates an XDI root link contract bound to a given XDI entity.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity that is an XDI root link contract.
+<DT><B>Returns:</B><DD>The XDI root link contract.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createRootLinkContractXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+createRootLinkContractXri</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>createRootLinkContractXri</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;ownerXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findRootLinkContract(xdi2.core.Graph, boolean)"><!-- --></A><H3>
+findRootLinkContract</H3>
+<PRE>
+public static <A HREF="../../../../xdi2/core/features/linkcontracts/RootLinkContract.html" title="class in xdi2.core.features.linkcontracts">RootLinkContract</A> <B>findRootLinkContract</B>(<A HREF="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</A>&nbsp;graph,
+                                                    boolean&nbsp;create)</PRE>
+<DL>
+<DD>Factory method that finds or creates an XDI root link contract for a graph.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The XDI root link contract.</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/RootLinkContract.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/PublicLinkContract.html" title="class in xdi2.core.features.linkcontracts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?xdi2/core/features/linkcontracts/RootLinkContract.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="RootLinkContract.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2014. All Rights Reserved.
+</BODY>
+</HTML>

@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-GraphContextHandler (xdi2 0.1-SNAPSHOT API)
+GraphContextHandler (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.impl.graph.GraphContextHandler class">
@@ -27,7 +27,7 @@ GraphContextHandler (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="GraphContextHandler (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="GraphContextHandler (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -105,15 +105,15 @@ xdi2.messaging.target.impl.graph</FONT>
 Class GraphContextHandler</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">xdi2.messaging.target.AbstractContextHandler</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">xdi2.messaging.target.impl.AbstractContextHandler</A>
       <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.impl.graph.GraphContextHandler</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A>, <A HREF="../../../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A></DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A>, <A HREF="../../../../../xdi2/messaging/target/ContextHandler.html" title="interface in xdi2.messaging.target">ContextHandler</A>, <A HREF="../../../../../xdi2/messaging/target/StatementHandler.html" title="interface in xdi2.messaging.target">StatementHandler</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>GraphContextHandler</B><DT>extends <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></DL>
+<DT><PRE>public class <B>GraphContextHandler</B><DT>extends <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></DL>
 </PRE>
 
 <P>
@@ -148,10 +148,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                     <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                     <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                    <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                    <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -159,10 +159,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                              <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                              <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                             <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -170,10 +170,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                               <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                               <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                              <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                              <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -181,10 +181,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
                     <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                     <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                    <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                    <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -192,10 +192,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnContextNodeStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnContextNodeStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
                                  <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                                  <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                 <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                                 <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -203,10 +203,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                              <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                              <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                             <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -214,10 +214,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                               <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                               <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                              <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                              <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -225,10 +225,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnAddress</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                     <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                     <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                    <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                    <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -236,10 +236,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnLiteralStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                              <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                              <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                             <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -247,10 +247,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnRelationStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                               <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                               <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                              <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                              <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -258,10 +258,10 @@ Class GraphContextHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+<TD><CODE><B><A HREF="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnStatement</A></B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                       <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                       <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                      <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                      <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -275,13 +275,13 @@ Class GraphContextHandler</H2>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.AbstractContextHandler"><!-- --></A>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.impl.AbstractContextHandler"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.<A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.impl.<A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDelOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnContextNodeStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDelOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnAddress</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnContextNodeStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnLiteralStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnRelationStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeGetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnAddress</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeSetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnContextNodeStatement</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDelOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnContextNodeStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDelOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnAddress</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnContextNodeStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeGetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</A>, <A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeSetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnContextNodeStatement</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -334,17 +334,17 @@ public <A HREF="../../../../../xdi2/core/Graph.html" title="interface in xdi2.co
 </DL>
 <HR>
 
-<A NAME="executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeSetOnStatement</H3>
 <PRE>
 public void <B>executeSetOnStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
                                   <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                   <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                  <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                  <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                            throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeSetOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -354,17 +354,17 @@ public void <B>executeSetOnStatement</B>(<A HREF="../../../../../xdi2/core/xri3/
 </DL>
 <HR>
 
-<A NAME="executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeGetOnAddress</H3>
 <PRE>
 public void <B>executeGetOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
                                 <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                          throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -374,17 +374,17 @@ public void <B>executeGetOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XD
 </DL>
 <HR>
 
-<A NAME="executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeSetOnAddress</H3>
 <PRE>
 public void <B>executeSetOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                                 <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                          throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -394,17 +394,17 @@ public void <B>executeSetOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XD
 </DL>
 <HR>
 
-<A NAME="executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeDelOnAddress</H3>
 <PRE>
 public void <B>executeDelOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                                 <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                          throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDelOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnAddress</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -414,17 +414,17 @@ public void <B>executeDelOnAddress</B>(<A HREF="../../../../../xdi2/core/xri3/XD
 </DL>
 <HR>
 
-<A NAME="executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeGetOnContextNodeStatement</H3>
 <PRE>
 public void <B>executeGetOnContextNodeStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
                                              <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                                              <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                             <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                             <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                       throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnContextNodeStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnContextNodeStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -434,17 +434,17 @@ public void <B>executeGetOnContextNodeStatement</B>(<A HREF="../../../../../xdi2
 </DL>
 <HR>
 
-<A NAME="executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeGetOnRelationStatement</H3>
 <PRE>
 public void <B>executeGetOnRelationStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                                           <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                                           <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                          <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                          <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                    throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeGetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -454,17 +454,17 @@ public void <B>executeGetOnRelationStatement</B>(<A HREF="../../../../../xdi2/co
 </DL>
 <HR>
 
-<A NAME="executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeSetOnRelationStatement</H3>
 <PRE>
 public void <B>executeSetOnRelationStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                                           <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                           <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                          <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                          <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                    throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -474,17 +474,17 @@ public void <B>executeSetOnRelationStatement</B>(<A HREF="../../../../../xdi2/co
 </DL>
 <HR>
 
-<A NAME="executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeDelOnRelationStatement</H3>
 <PRE>
 public void <B>executeDelOnRelationStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
                                           <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                                           <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                          <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                          <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                    throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDelOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnRelationStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -494,17 +494,17 @@ public void <B>executeDelOnRelationStatement</B>(<A HREF="../../../../../xdi2/co
 </DL>
 <HR>
 
-<A NAME="executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeGetOnLiteralStatement</H3>
 <PRE>
 public void <B>executeGetOnLiteralStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                                          <A HREF="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</A>&nbsp;operation,
                                          <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                         <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                         <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                   throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeGetOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -514,17 +514,17 @@ public void <B>executeGetOnLiteralStatement</B>(<A HREF="../../../../../xdi2/cor
 </DL>
 <HR>
 
-<A NAME="executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeSetOnLiteralStatement</H3>
 <PRE>
 public void <B>executeSetOnLiteralStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                                          <A HREF="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</A>&nbsp;operation,
                                          <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                         <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                         <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                   throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeSetOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -534,17 +534,17 @@ public void <B>executeSetOnLiteralStatement</B>(<A HREF="../../../../../xdi2/cor
 </DL>
 <HR>
 
-<A NAME="executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)"><!-- --></A><H3>
+<A NAME="executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
 executeDelOnLiteralStatement</H3>
 <PRE>
 public void <B>executeDelOnLiteralStatement</B>(<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
                                          <A HREF="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</A>&nbsp;operation,
                                          <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                         <A HREF="../../../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)
+                                         <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
                                   throws <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html#executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDelOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnLiteralStatement</A></CODE> in class <CODE><A HREF="../../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></CODE></DL>
 </DD>
 <DD><DL>
 
@@ -613,6 +613,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

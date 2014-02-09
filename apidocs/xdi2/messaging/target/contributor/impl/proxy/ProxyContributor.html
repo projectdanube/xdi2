@@ -1,0 +1,1037 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+ProxyContributor (xdi2 0.2-SNAPSHOT API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="xdi2.messaging.target.contributor.impl.proxy.ProxyContributor class">
+<META NAME="keywords" CONTENT="instanceFor()">
+<META NAME="keywords" CONTENT="init()">
+<META NAME="keywords" CONTENT="before()">
+<META NAME="keywords" CONTENT="after()">
+<META NAME="keywords" CONTENT="executeOnAddress()">
+<META NAME="keywords" CONTENT="executeOnStatement()">
+<META NAME="keywords" CONTENT="getToPeerRootXri()">
+<META NAME="keywords" CONTENT="setToPeerRootXri()">
+<META NAME="keywords" CONTENT="getXdiClient()">
+<META NAME="keywords" CONTENT="setXdiClient()">
+<META NAME="keywords" CONTENT="getLinkContractXri()">
+<META NAME="keywords" CONTENT="setLinkContractXri()">
+<META NAME="keywords" CONTENT="getXdiDiscoveryClient()">
+<META NAME="keywords" CONTENT="setXdiDiscoveryClient()">
+<META NAME="keywords" CONTENT="isSkipParentContributors()">
+<META NAME="keywords" CONTENT="setSkipParentContributors()">
+<META NAME="keywords" CONTENT="isSkipSiblingContributors()">
+<META NAME="keywords" CONTENT="setSkipSiblingContributors()">
+<META NAME="keywords" CONTENT="isSkipMessagingTarget()">
+<META NAME="keywords" CONTENT="setSkipMessagingTarget()">
+<META NAME="keywords" CONTENT="getProxyManipulators()">
+<META NAME="keywords" CONTENT="setProxyManipulators()">
+<META NAME="keywords" CONTENT="putToPeerRootXri()">
+<META NAME="keywords" CONTENT="putXdiClient()">
+<META NAME="keywords" CONTENT="putLinkContractXri()">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="ProxyContributor (xdi2 0.2-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ProxyContributor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ProxyContributor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.messaging.target.impl.AbstractExtension">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.messaging.target.contributor.impl.proxy</FONT>
+<BR>
+Class ProxyContributor</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">xdi2.messaging.target.impl.AbstractExtension</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;
+      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">xdi2.messaging.target.contributor.AbstractContributor</A>
+          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.contributor.impl.proxy.ProxyContributor</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang">Cloneable</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.html" title="interface in xdi2.messaging.target">Extension</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;, <A HREF="../../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;, <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>ProxyContributor</B><DT>extends <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</A><DT>implements <A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>, <A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&gt;</DL>
+</PRE>
+
+<P>
+This contributor can answer requests by forwarding them to another XDI endpoint.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_xdi2.messaging.target.Extension"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface xdi2.messaging.target.<A HREF="../../../../../../xdi2/messaging/target/Extension.html" title="interface in xdi2.messaging.target">Extension</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/Extension.InitPriorityComparator.html" title="class in xdi2.messaging.target">Extension.InitPriorityComparator</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.ShutdownPriorityComparator.html" title="class in xdi2.messaging.target">Extension.ShutdownPriorityComparator</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_xdi2.messaging.target.Prototype"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface xdi2.messaging.target.<A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_xdi2.messaging.target.impl.AbstractExtension"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class xdi2.messaging.target.impl.<A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#DEFAULT_INIT_PRIORITY">DEFAULT_INIT_PRIORITY</A>, <A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#DEFAULT_SHUTDOWN_PRIORITY">DEFAULT_SHUTDOWN_PRIORITY</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#ProxyContributor()">ProxyContributor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">after</A></B>(<A HREF="../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+      <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+      <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run after a message is executed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">before</A></B>(<A HREF="../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+       <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+       <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run before a message is executed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                 <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
+                 <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
+                 <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                 <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                 <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes an XDI operation on an address.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#executeOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                   <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
+                   <A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
+                   <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                   <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                   <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes an XDI operation on a statement.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getLinkContractXri()">getLinkContractXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getLinkContractXri(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">getLinkContractXri</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                   <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/ProxyManipulator.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator">ProxyManipulator</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getProxyManipulators()">getProxyManipulators</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getToPeerRootXri()">getToPeerRootXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getToPeerRootXri(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">getToPeerRootXri</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                 <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getXdiClient()">getXdiClient</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getXdiClient(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">getXdiClient</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+             <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getXdiDiscoveryClient()">getXdiDiscoveryClient</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#init(xdi2.messaging.target.MessagingTarget)">init</A></B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#isSkipMessagingTarget()">isSkipMessagingTarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#isSkipParentContributors()">isSkipParentContributors</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#isSkipSiblingContributors()">isSkipSiblingContributors</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#putLinkContractXri(xdi2.messaging.context.ExecutionContext, xdi2.core.xri3.XDI3Segment, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">putLinkContractXri</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                   <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri,
+                   <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#putToPeerRootXri(xdi2.messaging.context.ExecutionContext, xdi2.core.xri3.XDI3SubSegment, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">putToPeerRootXri</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                 <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri,
+                 <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#putXdiClient(xdi2.messaging.context.ExecutionContext, xdi2.client.XDIClient, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">putXdiClient</A></B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+             <A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A>&nbsp;xdiClient,
+             <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setLinkContractXri(xdi2.core.xri3.XDI3Segment)">setLinkContractXri</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setProxyManipulators(java.util.List)">setProxyManipulators</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/ProxyManipulator.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator">ProxyManipulator</A>&gt;&nbsp;proxyManipulators)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setSkipMessagingTarget(boolean)">setSkipMessagingTarget</A></B>(boolean&nbsp;skipMessagingTarget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setSkipParentContributors(boolean)">setSkipParentContributors</A></B>(boolean&nbsp;skipParentContributors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setSkipSiblingContributors(boolean)">setSkipSiblingContributors</A></B>(boolean&nbsp;skipSiblingContributors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setToPeerRootXri(xdi2.core.xri3.XDI3SubSegment)">setToPeerRootXri</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setXdiClient(xdi2.client.XDIClient)">setXdiClient</A></B>(<A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A>&nbsp;xdiClient)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setXdiDiscoveryClient(xdi2.discovery.XDIDiscoveryClient)">setXdiDiscoveryClient</A></B>(<A HREF="../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscoveryClient)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.contributor.AbstractContributor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.contributor.<A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDelOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnAddress</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDelOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnContextNodeStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDelOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnLiteralStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDelOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnRelationStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDelOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnAddress</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnContextNodeStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeGetOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnAddress</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeGetOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnContextNodeStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeGetOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnLiteralStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeGetOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnRelationStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeGetOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnAddress</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnContextNodeStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnLiteralStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnRelationStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeSetOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnStatement</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#getContributorMount()">getContributorMount</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#getContributors()">getContributors</A>, <A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#setContributors(xdi2.messaging.target.contributor.ContributorMap)">setContributors</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.impl.AbstractExtension"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.impl.<A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#getInitPriority()">getInitPriority</A>, <A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#getShutdownPriority()">getShutdownPriority</A>, <A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#shutdown(CONTAINER)">shutdown</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.Extension"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.<A HREF="../../../../../../xdi2/messaging/target/Extension.html" title="interface in xdi2.messaging.target">Extension</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../xdi2/messaging/target/Extension.html#getInitPriority()">getInitPriority</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.html#getShutdownPriority()">getShutdownPriority</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.html#isEnabled()">isEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../../../xdi2/messaging/target/Extension.html#shutdown(CONTAINER)">shutdown</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="ProxyContributor()"><!-- --></A><H3>
+ProxyContributor</H3>
+<PRE>
+public <B>ProxyContributor</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)"><!-- --></A><H3>
+instanceFor</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A> <B>instanceFor</B>(<A HREF="../../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)
+                             throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/Prototype.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/Prototype.html" title="interface in xdi2.messaging.target">Prototype</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="init(xdi2.messaging.target.MessagingTarget)"><!-- --></A><H3>
+init</H3>
+<PRE>
+public void <B>init</B>(<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget)
+          throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/Extension.html#init(CONTAINER)">init</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/Extension.html" title="interface in xdi2.messaging.target">Extension</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html#init(CONTAINER)">init</A></CODE> in class <CODE><A HREF="../../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
+before</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A> <B>before</B>(<A HREF="../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                                <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
+                         throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">MessageInterceptor</A></CODE></B></DD>
+<DD>Run before a message is executed.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html#before(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">before</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>message</CODE> - The message to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Returns:</B><DD>True, if the message has been fully handled and the server should stop processing it.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
+after</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A> <B>after</B>(<A HREF="../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                               <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                               <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
+                        throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">MessageInterceptor</A></CODE></B></DD>
+<DD>Run after a message is executed.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html#after(xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">after</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>message</CODE> - The message to process.<DD><CODE>messageResult</CODE> - The message result.<DD><CODE>executionContext</CODE> - The current execution context.
+<DT><B>Returns:</B><DD>True, if the message has been fully handled and the server should stop processing it.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
+executeOnAddress</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A> <B>executeOnAddress</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                          <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
+                                          <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
+                                          <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                          <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                          <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
+                                   throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">Contributor</A></CODE></B></DD>
+<DD>Executes an XDI operation on an address.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</A></CODE> in class <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</A></CODE></DL>
+</DD>
+<DD><DL>
+<DD><CODE>relativeTargetAddress</CODE> - The relative target address.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>messageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="executeOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)"><!-- --></A><H3>
+executeOnStatement</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A> <B>executeOnStatement</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+                                            <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
+                                            <A HREF="../../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
+                                            <A HREF="../../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                            <A HREF="../../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                            <A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)
+                                     throws <A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">Contributor</A></CODE></B></DD>
+<DD>Executes an XDI operation on a statement.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/Contributor.html" title="interface in xdi2.messaging.target.contributor">Contributor</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</A></CODE> in class <CODE><A HREF="../../../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>contributorXris</CODE> - The individual XRIs in the contributor chain.<DD><CODE>contributorsXri</CODE> - The complete XRI of the contributor chain.<DD><CODE>relativeTargetStatement</CODE> - The relative target statement.<DD><CODE>operation</CODE> - The operation that is being executed.<DD><CODE>messageResult</CODE> - The operation's message result.<DD><CODE>executionContext</CODE> - An "execution context" object for the entire XDI message envelope.
+<DT><B>Returns:</B><DD>True, if the operation has been fully handled and the server should stop processing it.
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getToPeerRootXri()"><!-- --></A><H3>
+getToPeerRootXri</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getToPeerRootXri</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setToPeerRootXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setToPeerRootXri</H3>
+<PRE>
+public void <B>setToPeerRootXri</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiClient()"><!-- --></A><H3>
+getXdiClient</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A> <B>getXdiClient</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setXdiClient(xdi2.client.XDIClient)"><!-- --></A><H3>
+setXdiClient</H3>
+<PRE>
+public void <B>setXdiClient</B>(<A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A>&nbsp;xdiClient)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLinkContractXri()"><!-- --></A><H3>
+getLinkContractXri</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getLinkContractXri</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLinkContractXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+setLinkContractXri</H3>
+<PRE>
+public void <B>setLinkContractXri</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiDiscoveryClient()"><!-- --></A><H3>
+getXdiDiscoveryClient</H3>
+<PRE>
+public <A HREF="../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A> <B>getXdiDiscoveryClient</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setXdiDiscoveryClient(xdi2.discovery.XDIDiscoveryClient)"><!-- --></A><H3>
+setXdiDiscoveryClient</H3>
+<PRE>
+public void <B>setXdiDiscoveryClient</B>(<A HREF="../../../../../../xdi2/discovery/XDIDiscoveryClient.html" title="class in xdi2.discovery">XDIDiscoveryClient</A>&nbsp;xdiDiscoveryClient)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSkipParentContributors()"><!-- --></A><H3>
+isSkipParentContributors</H3>
+<PRE>
+public boolean <B>isSkipParentContributors</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSkipParentContributors(boolean)"><!-- --></A><H3>
+setSkipParentContributors</H3>
+<PRE>
+public void <B>setSkipParentContributors</B>(boolean&nbsp;skipParentContributors)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSkipSiblingContributors()"><!-- --></A><H3>
+isSkipSiblingContributors</H3>
+<PRE>
+public boolean <B>isSkipSiblingContributors</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSkipSiblingContributors(boolean)"><!-- --></A><H3>
+setSkipSiblingContributors</H3>
+<PRE>
+public void <B>setSkipSiblingContributors</B>(boolean&nbsp;skipSiblingContributors)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSkipMessagingTarget()"><!-- --></A><H3>
+isSkipMessagingTarget</H3>
+<PRE>
+public boolean <B>isSkipMessagingTarget</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setSkipMessagingTarget(boolean)"><!-- --></A><H3>
+setSkipMessagingTarget</H3>
+<PRE>
+public void <B>setSkipMessagingTarget</B>(boolean&nbsp;skipMessagingTarget)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getProxyManipulators()"><!-- --></A><H3>
+getProxyManipulators</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/ProxyManipulator.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator">ProxyManipulator</A>&gt; <B>getProxyManipulators</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setProxyManipulators(java.util.List)"><!-- --></A><H3>
+setProxyManipulators</H3>
+<PRE>
+public void <B>setProxyManipulators</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/ProxyManipulator.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator">ProxyManipulator</A>&gt;&nbsp;proxyManipulators)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getToPeerRootXri(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+getToPeerRootXri</H3>
+<PRE>
+public static <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getToPeerRootXri</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                              <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putToPeerRootXri(xdi2.messaging.context.ExecutionContext, xdi2.core.xri3.XDI3SubSegment, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+putToPeerRootXri</H3>
+<PRE>
+public static void <B>putToPeerRootXri</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                    <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri,
+                                    <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiClient(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+getXdiClient</H3>
+<PRE>
+public static <A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A> <B>getXdiClient</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                     <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putXdiClient(xdi2.messaging.context.ExecutionContext, xdi2.client.XDIClient, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+putXdiClient</H3>
+<PRE>
+public static void <B>putXdiClient</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                <A HREF="../../../../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A>&nbsp;xdiClient,
+                                <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLinkContractXri(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+getLinkContractXri</H3>
+<PRE>
+public static <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getLinkContractXri</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                             <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="putLinkContractXri(xdi2.messaging.context.ExecutionContext, xdi2.core.xri3.XDI3Segment, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)"><!-- --></A><H3>
+putLinkContractXri</H3>
+<PRE>
+public static void <B>putLinkContractXri</B>(<A HREF="../../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                      <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;linkContractXri,
+                                      <A HREF="../../../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</A>&nbsp;proxyContributor)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ProxyContributor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ProxyContributor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_xdi2.messaging.target.impl.AbstractExtension">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2014. All Rights Reserved.
+</BODY>
+</HTML>

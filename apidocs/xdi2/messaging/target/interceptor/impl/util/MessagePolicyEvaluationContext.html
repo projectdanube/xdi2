@@ -4,13 +4,15 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-MessagePolicyEvaluationContext (xdi2 0.1-SNAPSHOT API)
+MessagePolicyEvaluationContext (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext class">
-<META NAME="keywords" CONTENT="XRI_SS_FROM">
-<META NAME="keywords" CONTENT="XRI_SS_MSG">
-<META NAME="keywords" CONTENT="getContextNodeXri()">
+<META NAME="keywords" CONTENT="XRI_S_FROM_VARIABLE">
+<META NAME="keywords" CONTENT="XRI_S_MSG_VARIABLE">
+<META NAME="keywords" CONTENT="XRI_SS_FROM_VARIABLE">
+<META NAME="keywords" CONTENT="XRI_SS_MSG_VARIABLE">
+<META NAME="keywords" CONTENT="resolveXri()">
 <META NAME="keywords" CONTENT="getContextNode()">
 <META NAME="keywords" CONTENT="getStatement()">
 <META NAME="keywords" CONTENT="getMessage()">
@@ -22,7 +24,7 @@ MessagePolicyEvaluationContext (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="MessagePolicyEvaluationContext (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="MessagePolicyEvaluationContext (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -124,8 +126,16 @@ Class MessagePolicyEvaluationContext</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_SS_FROM">XRI_SS_FROM</A></B></CODE>
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_S_FROM_VARIABLE">XRI_S_FROM_VARIABLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_S_MSG_VARIABLE">XRI_S_MSG_VARIABLE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -133,7 +143,15 @@ Class MessagePolicyEvaluationContext</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_SS_MSG">XRI_SS_MSG</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_SS_FROM_VARIABLE">XRI_SS_FROM_VARIABLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XRI_SS_MSG_VARIABLE">XRI_SS_MSG_VARIABLE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -168,15 +186,7 @@ Class MessagePolicyEvaluationContext</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.XDI3Segment)">getContextNode</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;resolvedContextNodeXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#getContextNodeXri(xdi2.core.xri3.XDI3Segment)">getContextNodeXri</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.XDI3Segment)">getContextNode</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -205,6 +215,14 @@ Class MessagePolicyEvaluationContext</H2>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#resolveXri(xdi2.core.xri3.XDI3Segment)">resolveXri</A></B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -228,20 +246,40 @@ Class MessagePolicyEvaluationContext</H2>
 </TR>
 </TABLE>
 
-<A NAME="XRI_SS_FROM"><!-- --></A><H3>
-XRI_SS_FROM</H3>
+<A NAME="XRI_S_FROM_VARIABLE"><!-- --></A><H3>
+XRI_S_FROM_VARIABLE</H3>
 <PRE>
-public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_FROM</B></PRE>
+public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_FROM_VARIABLE</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="XRI_SS_MSG"><!-- --></A><H3>
-XRI_SS_MSG</H3>
+<A NAME="XRI_S_MSG_VARIABLE"><!-- --></A><H3>
+XRI_S_MSG_VARIABLE</H3>
 <PRE>
-public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_MSG</B></PRE>
+public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>XRI_S_MSG_VARIABLE</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_SS_FROM_VARIABLE"><!-- --></A><H3>
+XRI_SS_FROM_VARIABLE</H3>
+<PRE>
+public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_FROM_VARIABLE</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="XRI_SS_MSG_VARIABLE"><!-- --></A><H3>
+XRI_SS_MSG_VARIABLE</H3>
+<PRE>
+public static final <A HREF="../../../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>XRI_SS_MSG_VARIABLE</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -275,13 +313,13 @@ public <B>MessagePolicyEvaluationContext</B>(<A HREF="../../../../../../xdi2/mes
 </TR>
 </TABLE>
 
-<A NAME="getContextNodeXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-getContextNodeXri</H3>
+<A NAME="resolveXri(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+resolveXri</H3>
 <PRE>
-public <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getContextNodeXri</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
+public <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>resolveXri</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getContextNodeXri(xdi2.core.xri3.XDI3Segment)">getContextNodeXri</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#resolveXri(xdi2.core.xri3.XDI3Segment)">resolveXri</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -292,7 +330,7 @@ public <A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class 
 <A NAME="getContextNode(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
 getContextNode</H3>
 <PRE>
-public <A HREF="../../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;resolvedContextNodeXri)</PRE>
+public <A HREF="../../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>(<A HREF="../../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri)</PRE>
 <DL>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html#getContextNode(xdi2.core.xri3.XDI3Segment)">getContextNode</A></CODE> in interface <CODE><A HREF="../../../../../../xdi2/core/features/linkcontracts/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.linkcontracts.evaluation">PolicyEvaluationContext</A></CODE></DL>
@@ -404,6 +442,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

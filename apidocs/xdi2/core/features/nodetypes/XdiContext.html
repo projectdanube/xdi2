@@ -4,11 +4,13 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-XdiContext (xdi2 0.1-SNAPSHOT API)
+XdiContext (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.features.nodetypes.XdiContext interface">
 <META NAME="keywords" CONTENT="getContextNode()">
+<META NAME="keywords" CONTENT="getArcXri()">
+<META NAME="keywords" CONTENT="getXri()">
 <META NAME="keywords" CONTENT="getBaseArcXri()">
 <META NAME="keywords" CONTENT="dereference()">
 <META NAME="keywords" CONTENT="getReferenceXdiContext()">
@@ -18,6 +20,8 @@ XdiContext (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getXdiAttributeCollection()">
 <META NAME="keywords" CONTENT="getXdiEntitySingleton()">
 <META NAME="keywords" CONTENT="getXdiAttributeSingleton()">
+<META NAME="keywords" CONTENT="getXdiEntity()">
+<META NAME="keywords" CONTENT="getXdiAttribute()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -25,7 +29,7 @@ XdiContext (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XdiContext (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="XdiContext (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -139,6 +143,14 @@ Interface XdiContext&lt;EQ extends XdiContext&lt;EQ&gt;&gt;</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getArcXri()">getArcXri</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseArcXri()">getBaseArcXri</A></B>()</CODE>
 
 <BR>
@@ -178,6 +190,33 @@ Interface XdiContext&lt;EQ extends XdiContext&lt;EQ&gt;&gt;</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttribute</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttribute</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                          boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                           boolean&nbsp;create)</CODE>
@@ -188,8 +227,44 @@ Interface XdiContext&lt;EQ extends XdiContext&lt;EQ&gt;&gt;</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                         boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiAttributeSingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                          boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntity</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+             boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntity</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+             boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntityCollection</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                       boolean&nbsp;create)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -206,8 +281,25 @@ Interface XdiContext&lt;EQ extends XdiContext&lt;EQ&gt;&gt;</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3Segment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                      boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.xri3.XDI3SubSegment, boolean)">getXdiEntitySingleton</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                       boolean&nbsp;create)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXri()">getXri</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -239,6 +331,34 @@ Interface XdiContext&lt;EQ extends XdiContext&lt;EQ&gt;&gt;</H2>
 getContextNode</H3>
 <PRE>
 <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getArcXri()"><!-- --></A><H3>
+getArcXri</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getArcXri</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXri()"><!-- --></A><H3>
+getXri</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getXri</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -334,10 +454,40 @@ getXdiEntityCollection</H3>
 </DL>
 <HR>
 
+<A NAME="getXdiEntityCollection(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiEntityCollection</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</A> <B>getXdiEntityCollection</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                                           boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getXdiAttributeCollection(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
 getXdiAttributeCollection</H3>
 <PRE>
 <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A> <B>getXdiAttributeCollection</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                                                 boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiAttributeCollection(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiAttributeCollection</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</A> <B>getXdiAttributeCollection</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
                                                  boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
@@ -364,11 +514,101 @@ getXdiEntitySingleton</H3>
 </DL>
 <HR>
 
+<A NAME="getXdiEntitySingleton(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiEntitySingleton</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</A> <B>getXdiEntitySingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                                         boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getXdiAttributeSingleton(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
 getXdiAttributeSingleton</H3>
 <PRE>
 <A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A> <B>getXdiAttributeSingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
                                                boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiAttributeSingleton(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiAttributeSingleton</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</A> <B>getXdiAttributeSingleton</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                                               boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiEntity(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
+getXdiEntity</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getXdiEntity</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                       boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiEntity(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiEntity</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getXdiEntity</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                       boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiAttribute(xdi2.core.xri3.XDI3SubSegment, boolean)"><!-- --></A><H3>
+getXdiAttribute</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A> <B>getXdiAttribute</B>(<A HREF="../../../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;contextNodeArcXri,
+                             boolean&nbsp;create)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getXdiAttribute(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
+getXdiAttribute</H3>
+<PRE>
+<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A> <B>getXdiAttribute</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contextNodeXri,
+                             boolean&nbsp;create)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -438,6 +678,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

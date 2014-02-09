@@ -4,31 +4,12 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-LinkContract (xdi2 0.1-SNAPSHOT API)
+LinkContract (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.features.linkcontracts.LinkContract class">
 <META NAME="keywords" CONTENT="isValid()">
 <META NAME="keywords" CONTENT="fromXdiEntity()">
-<META NAME="keywords" CONTENT="getXdiEntity()">
-<META NAME="keywords" CONTENT="getContextNode()">
-<META NAME="keywords" CONTENT="getPolicyRoot()">
-<META NAME="keywords" CONTENT="setPermissionTargetAddress()">
-<META NAME="keywords" CONTENT="setNegativePermissionTargetAddress()">
-<META NAME="keywords" CONTENT="setPermissionTargetStatement()">
-<META NAME="keywords" CONTENT="setNegativePermissionTargetStatement()">
-<META NAME="keywords" CONTENT="delPermissionTargetAddress()">
-<META NAME="keywords" CONTENT="delNegativePermissionTargetAddress()">
-<META NAME="keywords" CONTENT="delPermissionTargetStatement()">
-<META NAME="keywords" CONTENT="delNegativePermissionTargetStatement()">
-<META NAME="keywords" CONTENT="getPermissionTargetAddresses()">
-<META NAME="keywords" CONTENT="getNegativePermissionTargetAddresses()">
-<META NAME="keywords" CONTENT="hasPermissionTargetStatement()">
-<META NAME="keywords" CONTENT="hasNegativePermissionTargetStatement()">
-<META NAME="keywords" CONTENT="toString()">
-<META NAME="keywords" CONTENT="equals()">
-<META NAME="keywords" CONTENT="hashCode()">
-<META NAME="keywords" CONTENT="compareTo()">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
 
@@ -36,7 +17,7 @@ LinkContract (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="LinkContract (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="LinkContract (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -76,8 +57,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContracts.html" title="class in xdi2.core.features.linkcontracts"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/linkcontracts/LinkContract.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="LinkContract.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -114,24 +95,22 @@ xdi2.core.features.linkcontracts</FONT>
 Class LinkContract</H2>
 <PRE>
 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.linkcontracts.LinkContract</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">xdi2.core.features.linkcontracts.LinkContractBase</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.core.features.linkcontracts.LinkContract</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</A>&gt;</DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts">GenericLinkContract</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/MetaLinkContract.html" title="class in xdi2.core.features.linkcontracts">MetaLinkContract</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public final class <B>LinkContract</B><DT>extends <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A><DT>implements <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&gt;</DL>
+<DT><PRE>public abstract class <B>LinkContract</B><DT>extends <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</A></DL>
 </PRE>
 
 <P>
-An XDI link contract, represented as an XDI entity.
-<P>
-
-<P>
 <DL>
-<DT><B>Author:</B></DT>
-  <DD>markus</DD>
 <DT><B>See Also:</B><DD><A HREF="../../../../serialized-form.html#xdi2.core.features.linkcontracts.LinkContract">Serialized Form</A></DL>
 <HR>
 
@@ -165,129 +144,11 @@ An XDI link contract, represented as an XDI entity.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#compareTo(xdi2.core.features.linkcontracts.LinkContract)">compareTo</A></B>(<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;other)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#delNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delNegativePermissionTargetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#delNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delNegativePermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                     <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#delPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delPermissionTargetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#delPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delPermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#equals(java.lang.Object)">equals</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#fromXdiEntity(xdi2.core.features.nodetypes.XdiEntity)">fromXdiEntity</A></B>(<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A>&nbsp;xdiEntity)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factory method that creates an XDI link contract bound to a given XDI entity.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getContextNode()">getContextNode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying context node to which this XDI link contract is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getNegativePermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getNegativePermissionTargetAddresses</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getPermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getPermissionTargetAddresses</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getPolicyRoot(boolean)">getPolicyRoot</A></B>(boolean&nbsp;create)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an existing XDI root policy in this XDI link contract, or creates a new one.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#getXdiEntity()">getXdiEntity</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying XDI entity to which this XDI link contract is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#hashCode()">hashCode</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#hasNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasNegativePermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                     <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#hasPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasPermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -297,49 +158,14 @@ An XDI link contract, represented as an XDI entity.
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI entity is a valid XDI link contract.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#setNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setNegativePermissionTargetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                   <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.core.features.linkcontracts.LinkContractBase"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.core.features.linkcontracts.<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#setNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setNegativePermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                     <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#setPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setPermissionTargetAddress</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                           <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#setPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setPermissionTargetStatement</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                             <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html#toString()">toString</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD><CODE><A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#compareTo(xdi2.core.features.linkcontracts.LinkContractBase)">compareTo</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delNegativePermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">delPermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#delPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">delPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getContextNode()">getContextNode</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getNegativePermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getNegativePermissionTargetAddresses</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getPermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)">getPermissionTargetAddresses</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getPolicyRoot(boolean)">getPolicyRoot</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#getXdiEntity()">getXdiEntity</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hashCode()">hashCode</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hasNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#hasPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">hasPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setNegativePermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setNegativePermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">setPermissionTargetAddress</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#setPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)">setPermissionTargetStatement</A>, <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html#toString()">toString</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -389,9 +215,6 @@ public static boolean <B>isValid</B>(<A HREF="../../../../xdi2/core/features/nod
 <DD>Checks if an XDI entity is a valid XDI link contract.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity to check.
 <DT><B>Returns:</B><DD>True if the XDI entity is a valid XDI link contract.</DL>
 </DD>
@@ -406,298 +229,8 @@ public static <A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract
 <DD>Factory method that creates an XDI link contract bound to a given XDI entity.
 <P>
 <DD><DL>
-</DL>
-</DD>
-<DD><DL>
 <DT><B>Parameters:</B><DD><CODE>xdiEntity</CODE> - The XDI entity that is an XDI link contract.
 <DT><B>Returns:</B><DD>The XDI link contract.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getXdiEntity()"><!-- --></A><H3>
-getXdiEntity</H3>
-<PRE>
-public <A HREF="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</A> <B>getXdiEntity</B>()</PRE>
-<DL>
-<DD>Returns the underlying XDI entity to which this XDI link contract is bound.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>An XDI entity that represents the XDI link contract.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getContextNode()"><!-- --></A><H3>
-getContextNode</H3>
-<PRE>
-public <A HREF="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</A> <B>getContextNode</B>()</PRE>
-<DL>
-<DD>Returns the underlying context node to which this XDI link contract is bound.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>A context node that represents the XDI link contract.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getPolicyRoot(boolean)"><!-- --></A><H3>
-getPolicyRoot</H3>
-<PRE>
-public <A HREF="../../../../xdi2/core/features/linkcontracts/policy/PolicyRoot.html" title="class in xdi2.core.features.linkcontracts.policy">PolicyRoot</A> <B>getPolicyRoot</B>(boolean&nbsp;create)</PRE>
-<DL>
-<DD>Returns an existing XDI root policy in this XDI link contract, or creates a new one.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>create</CODE> - Whether to create an XDI root policy if it does not exist.
-<DT><B>Returns:</B><DD>The existing or newly created XDI root policy.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setPermissionTargetAddress</H3>
-<PRE>
-public void <B>setPermissionTargetAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                       <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD>Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>permissionXri</CODE> - The permission XRI.<DD><CODE>targetAddress</CODE> - The target context node XRI of the permission.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setNegativePermissionTargetAddress</H3>
-<PRE>
-public void <B>setNegativePermissionTargetAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                               <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-setPermissionTargetStatement</H3>
-<PRE>
-public void <B>setPermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                         <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-setNegativePermissionTargetStatement</H3>
-<PRE>
-public void <B>setNegativePermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="delPermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-delPermissionTargetAddress</H3>
-<PRE>
-public void <B>delPermissionTargetAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                       <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="delNegativePermissionTargetAddress(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-delNegativePermissionTargetAddress</H3>
-<PRE>
-public void <B>delNegativePermissionTargetAddress</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                               <A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="delPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-delPermissionTargetStatement</H3>
-<PRE>
-public void <B>delPermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                         <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="delNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-delNegativePermissionTargetStatement</H3>
-<PRE>
-public void <B>delNegativePermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                                 <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getPermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-getPermissionTargetAddresses</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>getPermissionTargetAddresses</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getNegativePermissionTargetAddresses(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-getNegativePermissionTargetAddresses</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&gt; <B>getNegativePermissionTargetAddresses</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="hasPermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-hasPermissionTargetStatement</H3>
-<PRE>
-public boolean <B>hasPermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                            <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="hasNegativePermissionTargetStatement(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement)"><!-- --></A><H3>
-hasNegativePermissionTargetStatement</H3>
-<PRE>
-public boolean <B>hasNegativePermissionTargetStatement</B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;permissionXri,
-                                                    <A HREF="../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toString()"><!-- --></A><H3>
-toString</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toString</B>()</PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="equals(java.lang.Object)"><!-- --></A><H3>
-equals</H3>
-<PRE>
-public boolean <B>equals</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="hashCode()"><!-- --></A><H3>
-hashCode</H3>
-<PRE>
-public int <B>hashCode</B>()</PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="compareTo(xdi2.core.features.linkcontracts.LinkContract)"><!-- --></A><H3>
-compareTo</H3>
-<PRE>
-public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&nbsp;other)</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true#compareTo(T)" title="class or interface in java.lang">compareTo</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</A>&lt;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContract.html" title="class in xdi2.core.features.linkcontracts">LinkContract</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -731,8 +264,8 @@ public int <B>compareTo</B>(<A HREF="../../../../xdi2/core/features/linkcontract
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContracts.html" title="class in xdi2.core.features.linkcontracts"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/GenericLinkContract.html" title="class in xdi2.core.features.linkcontracts"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../index.html?xdi2/core/features/linkcontracts/LinkContract.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="LinkContract.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -761,6 +294,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

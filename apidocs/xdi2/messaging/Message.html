@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Message (xdi2 0.1-SNAPSHOT API)
+Message (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.Message class">
@@ -17,10 +17,10 @@ Message (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getID()">
 <META NAME="keywords" CONTENT="getSender()">
 <META NAME="keywords" CONTENT="getSenderXri()">
-<META NAME="keywords" CONTENT="getFromAddress()">
-<META NAME="keywords" CONTENT="setFromAddress()">
-<META NAME="keywords" CONTENT="getToAddress()">
-<META NAME="keywords" CONTENT="setToAddress()">
+<META NAME="keywords" CONTENT="getFromPeerRootXri()">
+<META NAME="keywords" CONTENT="setFromPeerRootXri()">
+<META NAME="keywords" CONTENT="getToPeerRootXri()">
+<META NAME="keywords" CONTENT="setToPeerRootXri()">
 <META NAME="keywords" CONTENT="getTimestamp()">
 <META NAME="keywords" CONTENT="setTimestamp()">
 <META NAME="keywords" CONTENT="getLinkContractXri()">
@@ -62,7 +62,7 @@ Message (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Message (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Message (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -331,6 +331,15 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.XDI3Segment, java.lang.String)">createOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;target)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new operation and adds it to this XDI message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#createOperation(xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment)">createOperation</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
                 <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
 
@@ -437,11 +446,11 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getFromAddress()">getFromAddress</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getFromPeerRootXri()">getFromPeerRootXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the FROM address.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the FROM peer root XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -597,11 +606,11 @@ An XDI message, represented as a context node.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getToAddress()">getToAddress</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#getToPeerRootXri()">getToPeerRootXri</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the TO address of the message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the TO peer root XRI of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -646,10 +655,10 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setFromAddress(xdi2.core.xri3.XDI3Segment)">setFromAddress</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;fromAddress)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setFromPeerRootXri(xdi2.core.xri3.XDI3SubSegment)">setFromPeerRootXri</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;fromPeerRootXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the FROM address.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the FROM peer root XRI.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -697,10 +706,10 @@ An XDI message, represented as a context node.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setToAddress(xdi2.core.xri3.XDI3Segment)">setToAddress</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;toAddress)</CODE>
+<TD><CODE><B><A HREF="../../xdi2/messaging/Message.html#setToPeerRootXri(xdi2.core.xri3.XDI3SubSegment)">setToPeerRootXri</A></B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the TO address of the message.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the TO peer root XRI of the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -905,12 +914,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="getFromAddress()"><!-- --></A><H3>
-getFromAddress</H3>
+<A NAME="getFromPeerRootXri()"><!-- --></A><H3>
+getFromPeerRootXri</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getFromAddress</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getFromPeerRootXri</B>()</PRE>
 <DL>
-<DD>Return the FROM address.
+<DD>Return the FROM peer root XRI.
 <P>
 <DD><DL>
 </DL>
@@ -921,12 +930,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="setFromAddress(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setFromAddress</H3>
+<A NAME="setFromPeerRootXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setFromPeerRootXri</H3>
 <PRE>
-public void <B>setFromAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;fromAddress)</PRE>
+public void <B>setFromPeerRootXri</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;fromPeerRootXri)</PRE>
 <DL>
-<DD>Set the FROM address.
+<DD>Set the FROM peer root XRI.
 <P>
 <DD><DL>
 </DL>
@@ -937,12 +946,12 @@ public void <B>setFromAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html
 </DL>
 <HR>
 
-<A NAME="getToAddress()"><!-- --></A><H3>
-getToAddress</H3>
+<A NAME="getToPeerRootXri()"><!-- --></A><H3>
+getToPeerRootXri</H3>
 <PRE>
-public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A> <B>getToAddress</B>()</PRE>
+public <A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A> <B>getToPeerRootXri</B>()</PRE>
 <DL>
-<DD>Return the TO address of the message.
+<DD>Return the TO peer root XRI of the message.
 <P>
 <DD><DL>
 </DL>
@@ -953,12 +962,12 @@ public <A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core
 </DL>
 <HR>
 
-<A NAME="setToAddress(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
-setToAddress</H3>
+<A NAME="setToPeerRootXri(xdi2.core.xri3.XDI3SubSegment)"><!-- --></A><H3>
+setToPeerRootXri</H3>
 <PRE>
-public void <B>setToAddress</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;toAddress)</PRE>
+public void <B>setToPeerRootXri</B>(<A HREF="../../xdi2/core/xri3/XDI3SubSegment.html" title="class in xdi2.core.xri3">XDI3SubSegment</A>&nbsp;toPeerRootXri)</PRE>
 <DL>
-<DD>Set the TO address of the message.
+<DD>Set the TO peer root XRI of the message.
 <P>
 <DD><DL>
 </DL>
@@ -1303,6 +1312,24 @@ public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messag
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>targetStatement</CODE> - The target statement to which the operation applies.
+<DT><B>Returns:</B><DD>The newly created, empty operation, or null if the operation XRI is not valid.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createOperation(xdi2.core.xri3.XDI3Segment, java.lang.String)"><!-- --></A><H3>
+createOperation</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A> <B>createOperation</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;operationXri,
+                                 <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;target)</PRE>
+<DL>
+<DD>Creates a new operation and adds it to this XDI message.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operationXri</CODE> - The operation XRI to use for the new operation.<DD><CODE>target</CODE> - The target address or target statement to which the operation applies.
 <DT><B>Returns:</B><DD>The newly created, empty operation, or null if the operation XRI is not valid.</DL>
 </DD>
 </DL>
@@ -1761,6 +1788,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

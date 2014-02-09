@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Constant Field Values (xdi2 0.1-SNAPSHOT API)
+Constant Field Values (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Constant Field Values (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Constant Field Values (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Constant Field Values (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -87,7 +87,8 @@ Constant Field Values</H1>
 <LI><A HREF="#xdi2.client">xdi2.client.*</A>
 <LI><A HREF="#xdi2.core">xdi2.core.*</A>
 <LI><A HREF="#xdi2.messaging">xdi2.messaging.*</A>
-<LI><A HREF="#xdi2.server">xdi2.server.*</A>
+<LI><A HREF="#xdi2.transport">xdi2.transport.*</A>
+<LI><A HREF="#xdi2.webtools">xdi2.webtools.*</A>
 </UL>
 
 <A NAME="xdi2.client"><!-- --></A>
@@ -103,6 +104,12 @@ xdi2.client.*</FONT></TH>
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="3">xdi2.client.http.<A HREF="xdi2/client/http/XDIHttpClient.html" title="class in xdi2.client.http">XDIHttpClient</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.client.http.XDIHttpClient.DEFAULT_FOLLOWREDIRECTS"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/client/http/XDIHttpClient.html#DEFAULT_FOLLOWREDIRECTS">DEFAULT_FOLLOWREDIRECTS</A></CODE></TD>
+<TD ALIGN="right"><CODE>"false"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="xdi2.client.http.XDIHttpClient.DEFAULT_RECVMIMETYPE"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
@@ -127,6 +134,12 @@ xdi2.client.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="xdi2/client/http/XDIHttpClient.html#KEY_ENDPOINTURI">KEY_ENDPOINTURI</A></CODE></TD>
 <TD ALIGN="right"><CODE>"endpointuri"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.client.http.XDIHttpClient.KEY_FOLLOWREDIRECTS"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/client/http/XDIHttpClient.html#KEY_FOLLOWREDIRECTS">KEY_FOLLOWREDIRECTS</A></CODE></TD>
+<TD ALIGN="right"><CODE>"followredirects"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="xdi2.client.http.XDIHttpClient.KEY_RECVMIMETYPE"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
@@ -178,6 +191,12 @@ xdi2.core.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="xdi2/core/constants/XDIConstants.html#XS_CLASS">XS_CLASS</A></CODE></TD>
 <TD ALIGN="right"><CODE>"[]"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.constants.XDIConstants.XS_DEFINITION"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/constants/XDIConstants.html#XS_DEFINITION">XS_DEFINITION</A></CODE></TD>
+<TD ALIGN="right"><CODE>"||"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="xdi2.core.constants.XDIConstants.XS_ROOT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
@@ -376,6 +395,30 @@ xdi2.core.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="xdi2/core/impl/wrapped/WrappedGraphFactory.html#DEFAULT_PATH">DEFAULT_PATH</A></CODE></TD>
 <TD ALIGN="right"><CODE>"xdi2-graph.xdi"</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.core.impl.wrapped.file.<A HREF="xdi2/core/impl/wrapped/file/FileWrapperGraphFactory.html" title="class in xdi2.core.impl.wrapped.file">FileWrapperGraphFactory</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.impl.wrapped.file.FileWrapperGraphFactory.FILE_PREFIX"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/impl/wrapped/file/FileWrapperGraphFactory.html#FILE_PREFIX">FILE_PREFIX</A></CODE></TD>
+<TD ALIGN="right"><CODE>"xdi2-file-wrapper-graph."</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.core.impl.wrapped.file.FileWrapperGraphFactory.FILE_SUFFIX"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/core/impl/wrapped/file/FileWrapperGraphFactory.html#FILE_SUFFIX">FILE_SUFFIX</A></CODE></TD>
+<TD ALIGN="right"><CODE>".xdi"</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>
@@ -714,6 +757,30 @@ xdi2.messaging.*</FONT></TH>
 
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.messaging.target.impl.<A HREF="xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</A>&lt;<A HREF="xdi2/messaging/target/impl/AbstractExtension.html" title="type parameter in AbstractExtension">CONTAINER</A>&gt;</TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.messaging.target.impl.AbstractExtension.DEFAULT_INIT_PRIORITY"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/impl/AbstractExtension.html#DEFAULT_INIT_PRIORITY">DEFAULT_INIT_PRIORITY</A></CODE></TD>
+<TD ALIGN="right"><CODE>10</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.messaging.target.impl.AbstractExtension.DEFAULT_SHUTDOWN_PRIORITY"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/impl/AbstractExtension.html#DEFAULT_SHUTDOWN_PRIORITY">DEFAULT_SHUTDOWN_PRIORITY</A></CODE></TD>
+<TD ALIGN="right"><CODE>10</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
 <TH ALIGN="left" COLSPAN="3">xdi2.messaging.target.impl.file.<A HREF="xdi2/messaging/target/impl/file/FileMessagingTarget.html" title="class in xdi2.messaging.target.impl.file">FileMessagingTarget</A></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -721,6 +788,30 @@ xdi2.messaging.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/impl/file/FileMessagingTarget.html#DEFAULT_PATH">DEFAULT_PATH</A></CODE></TD>
 <TD ALIGN="right"><CODE>"xdi2-graph.xdi"</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.messaging.target.interceptor.impl.<A HREF="xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">BootstrapInterceptor</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor.INIT_PRIORITY"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#INIT_PRIORITY">INIT_PRIORITY</A></CODE></TD>
+<TD ALIGN="right"><CODE>20</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor.SHUTDOWN_PRIORITY"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#SHUTDOWN_PRIORITY">SHUTDOWN_PRIORITY</A></CODE></TD>
+<TD ALIGN="right"><CODE>10</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>
@@ -753,11 +844,11 @@ xdi2.messaging.*</FONT></TH>
 <P>
 
 <P>
-<A NAME="xdi2.server"><!-- --></A>
+<A NAME="xdi2.transport"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left"><FONT SIZE="+2">
-xdi2.server.*</FONT></TH>
+xdi2.transport.*</FONT></TH>
 </TR>
 </TABLE>
 
@@ -765,18 +856,18 @@ xdi2.server.*</FONT></TH>
 
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="3">xdi2.server.embedded.<A HREF="xdi2/server/embedded/EndpointServerEmbedded.html" title="class in xdi2.server.embedded">EndpointServerEmbedded</A></TH>
+<TH ALIGN="left" COLSPAN="3">xdi2.transport.http.embedded.<A HREF="xdi2/transport/http/embedded/EndpointServerEmbedded.html" title="class in xdi2.transport.http.embedded">EndpointServerEmbedded</A></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.server.embedded.EndpointServerEmbedded.FALLBACK_APPLICATIONCONTEXT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.transport.http.embedded.EndpointServerEmbedded.FALLBACK_APPLICATIONCONTEXT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/server/embedded/EndpointServerEmbedded.html#FALLBACK_APPLICATIONCONTEXT">FALLBACK_APPLICATIONCONTEXT</A></CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/http/embedded/EndpointServerEmbedded.html#FALLBACK_APPLICATIONCONTEXT">FALLBACK_APPLICATIONCONTEXT</A></CODE></TD>
 <TD ALIGN="right"><CODE>"fallback-applicationContext.xml"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.server.embedded.EndpointServerEmbedded.FALLBACK_JETTY_APPLICATIONCONTEXT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.transport.http.embedded.EndpointServerEmbedded.FALLBACK_JETTY_APPLICATIONCONTEXT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/server/embedded/EndpointServerEmbedded.html#FALLBACK_JETTY_APPLICATIONCONTEXT">FALLBACK_JETTY_APPLICATIONCONTEXT</A></CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/http/embedded/EndpointServerEmbedded.html#FALLBACK_JETTY_APPLICATIONCONTEXT">FALLBACK_JETTY_APPLICATIONCONTEXT</A></CODE></TD>
 <TD ALIGN="right"><CODE>"fallback-jetty-applicationContext.xml"</CODE></TD>
 </TR>
 </FONT></TD>
@@ -789,25 +880,118 @@ xdi2.server.*</FONT></TH>
 
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="3">xdi2.server.transport.<A HREF="xdi2/server/transport/HttpResponse.html" title="interface in xdi2.server.transport">HttpResponse</A></TH>
+<TH ALIGN="left" COLSPAN="3">xdi2.transport.impl.http.<A HREF="xdi2/transport/impl/http/HttpResponse.html" title="interface in xdi2.transport.impl.http">HttpResponse</A></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.server.transport.HttpResponse.SC_INTERNAL_SERVER_ERROR"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.transport.impl.http.HttpResponse.SC_INTERNAL_SERVER_ERROR"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/server/transport/HttpResponse.html#SC_INTERNAL_SERVER_ERROR">SC_INTERNAL_SERVER_ERROR</A></CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/HttpResponse.html#SC_INTERNAL_SERVER_ERROR">SC_INTERNAL_SERVER_ERROR</A></CODE></TD>
 <TD ALIGN="right"><CODE>500</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.server.transport.HttpResponse.SC_NOT_FOUND"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.transport.impl.http.HttpResponse.SC_NOT_FOUND"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/server/transport/HttpResponse.html#SC_NOT_FOUND">SC_NOT_FOUND</A></CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/HttpResponse.html#SC_NOT_FOUND">SC_NOT_FOUND</A></CODE></TD>
 <TD ALIGN="right"><CODE>404</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="xdi2.server.transport.HttpResponse.SC_OK"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<A NAME="xdi2.transport.impl.http.HttpResponse.SC_OK"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="xdi2/server/transport/HttpResponse.html#SC_OK">SC_OK</A></CODE></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/HttpResponse.html#SC_OK">SC_OK</A></CODE></TD>
 <TD ALIGN="right"><CODE>200</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.transport.impl.http.interceptor.impl.<A HREF="xdi2/transport/impl/http/interceptor/impl/DebugHttpTransportInterceptor.html" title="class in xdi2.transport.impl.http.interceptor.impl">DebugHttpTransportInterceptor</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor.DEFAULT_LOG_CAPACITY"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/interceptor/impl/DebugHttpTransportInterceptor.html#DEFAULT_LOG_CAPACITY">DEFAULT_LOG_CAPACITY</A></CODE></TD>
+<TD ALIGN="right"><CODE>10</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor.DEFAULT_PATH"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/interceptor/impl/DebugHttpTransportInterceptor.html#DEFAULT_PATH">DEFAULT_PATH</A></CODE></TD>
+<TD ALIGN="right"><CODE>"/"</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.transport.impl.http.interceptor.impl.<A HREF="xdi2/transport/impl/http/interceptor/impl/StatusHttpTransportInterceptor.html" title="class in xdi2.transport.impl.http.interceptor.impl">StatusHttpTransportInterceptor</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.transport.impl.http.interceptor.impl.StatusHttpTransportInterceptor.DEFAULT_PATH"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/interceptor/impl/StatusHttpTransportInterceptor.html#DEFAULT_PATH">DEFAULT_PATH</A></CODE></TD>
+<TD ALIGN="right"><CODE>"/status"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.transport.impl.http.interceptor.impl.StatusHttpTransportInterceptor.DEFAULT_STATUS"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/transport/impl/http/interceptor/impl/StatusHttpTransportInterceptor.html#DEFAULT_STATUS">DEFAULT_STATUS</A></CODE></TD>
+<TD ALIGN="right"><CODE>200</CODE></TD>
+</TR>
+</FONT></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+<A NAME="xdi2.webtools"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left"><FONT SIZE="+2">
+xdi2.webtools.*</FONT></TH>
+</TR>
+</TABLE>
+
+<P>
+
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="3">xdi2.webtools.messenger.<A HREF="xdi2/webtools/messenger/XDIMessenger.html" title="class in xdi2.webtools.messenger">XDIMessenger</A></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.webtools.messenger.XDIMessenger.DEFAULT_LINKCONTRACT_STRING"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/webtools/messenger/XDIMessenger.html#DEFAULT_LINKCONTRACT_STRING">DEFAULT_LINKCONTRACT_STRING</A></CODE></TD>
+<TD ALIGN="right"><CODE>"$do"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.webtools.messenger.XDIMessenger.DEFAULT_OPERATION_STRING"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/webtools/messenger/XDIMessenger.html#DEFAULT_OPERATION_STRING">DEFAULT_OPERATION_STRING</A></CODE></TD>
+<TD ALIGN="right"><CODE>"$get"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.webtools.messenger.XDIMessenger.DEFAULT_SENDER_STRING"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/webtools/messenger/XDIMessenger.html#DEFAULT_SENDER_STRING">DEFAULT_SENDER_STRING</A></CODE></TD>
+<TD ALIGN="right"><CODE>"$anon"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="xdi2.webtools.messenger.XDIMessenger.DEFAULT_TARGET_STRING"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="xdi2/webtools/messenger/XDIMessenger.html#DEFAULT_TARGET_STRING">DEFAULT_TARGET_STRING</A></CODE></TD>
+<TD ALIGN="right"><CODE>""</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>
@@ -870,6 +1054,6 @@ xdi2.server.*</FONT></TH>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

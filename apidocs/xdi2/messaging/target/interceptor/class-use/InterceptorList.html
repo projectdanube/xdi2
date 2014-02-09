@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Class xdi2.messaging.target.interceptor.InterceptorList (xdi2 0.1-SNAPSHOT API)
+Uses of Class xdi2.messaging.target.interceptor.InterceptorList (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Class xdi2.messaging.target.interceptor.InterceptorList (xdi2 0.1-SNAPSH
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Class xdi2.messaging.target.interceptor.InterceptorList (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Class xdi2.messaging.target.interceptor.InterceptorList (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -89,25 +89,33 @@ function windowTitle()
 Packages that use <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
-<TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
+<TD><A HREF="#xdi2.messaging.target.impl"><B>xdi2.messaging.target.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.interceptor"><B>xdi2.messaging.target.interceptor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.spring"><B>xdi2.server.spring</B></A></TD>
+<TD><A HREF="#xdi2.transport.impl"><B>xdi2.transport.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.impl.http"><B>xdi2.transport.impl.http</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.spring"><B>xdi2.transport.spring</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.messaging.target"><!-- --></A>
+<A NAME="xdi2.messaging.target.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
+Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -115,12 +123,12 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> that return <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A> that return <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getInterceptors()">getInterceptors</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#getInterceptors()">getInterceptors</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -131,12 +139,164 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeMessageEnvelopeInterceptorsAfter(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeMessageEnvelopeInterceptorsAfter</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                        <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                        <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                        <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeMessageEnvelopeInterceptorsBefore(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeMessageEnvelopeInterceptorsBefore</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                         <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                         <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                         <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeMessageEnvelopeInterceptorsException(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext, xdi2.messaging.exceptions.Xdi2MessagingException)">executeMessageEnvelopeInterceptorsException</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                            <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                            <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                            <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                            <A HREF="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeMessageInterceptorsAfter(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeMessageInterceptorsAfter</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                <A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                                <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeMessageInterceptorsBefore(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.Message, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeMessageInterceptorsBefore</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                 <A HREF="../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message,
+                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                 <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeOperationInterceptorsAfter(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOperationInterceptorsAfter</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                  <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                  <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
+                                  <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeOperationInterceptorsBefore(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOperationInterceptorsBefore</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                   <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                   <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;operationMessageResult,
+                                   <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeResultInterceptorsFinish(xdi2.messaging.target.interceptor.InterceptorList, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeResultInterceptorsFinish</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeTargetInterceptorsAddress(xdi2.messaging.target.interceptor.InterceptorList, xdi2.core.xri3.XDI3Segment, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeTargetInterceptorsAddress</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                 <A HREF="../../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                                 <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                 <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                 <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A></CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#executeTargetInterceptorsStatement(xdi2.messaging.target.interceptor.InterceptorList, xdi2.core.xri3.XDI3Statement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeTargetInterceptorsStatement</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList,
+                                   <A HREF="../../../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                                   <A HREF="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</A>&nbsp;operation,
+                                   <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                   <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageEnvelopeInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#findMessageEnvelopeInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findMessageEnvelopeInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/MessageInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#findMessageInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findMessageInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/OperationInterceptor.html" title="interface in xdi2.messaging.target.interceptor">OperationInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#findOperationInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findOperationInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/MessageResultInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageResultInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#findResultInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findResultInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/TargetInterceptor.html" title="interface in xdi2.messaging.target.interceptor">TargetInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/InterceptorExecutor.html#findTargetInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findTargetInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../../xdi2/messaging/target/AbstractMessagingTarget.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&nbsp;interceptors)</CODE>
+<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&gt;&nbsp;interceptors)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -160,7 +320,7 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="type parameter in InterceptorList">CONTAINER</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B>InterceptorList.</B><B><A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</A></B>(<A HREF="../../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</A>&nbsp;prototypingContext)</CODE>
 
 <BR>
@@ -169,11 +329,11 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.spring"><!-- --></A>
+<A NAME="xdi2.transport.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/server/spring/package-summary.html">xdi2.server.spring</A></FONT></TH>
+Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/transport/impl/package-summary.html">xdi2.transport.impl</A></FONT></TH>
 </TR>
 </TABLE>
 &nbsp;
@@ -181,12 +341,180 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/server/spring/package-summary.html">xdi2.server.spring</A> that return <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/transport/impl/package-summary.html">xdi2.transport.impl</A> that return <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B>AbstractTransport.</B><B><A HREF="../../../../../xdi2/transport/impl/AbstractTransport.html#getInterceptors()">getInterceptors</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/transport/impl/package-summary.html">xdi2.transport.impl</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/InterceptorExecutor.html#executeTransportInterceptorsAfter(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.Transport, xdi2.transport.Request, xdi2.transport.Response, xdi2.messaging.target.MessagingTarget, xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeTransportInterceptorsAfter</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                  <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&nbsp;transport,
+                                  <A HREF="../../../../../xdi2/transport/Request.html" title="interface in xdi2.transport">Request</A>&nbsp;request,
+                                  <A HREF="../../../../../xdi2/transport/Response.html" title="interface in xdi2.transport">Response</A>&nbsp;response,
+                                  <A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                                  <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                  <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                  <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/InterceptorExecutor.html#executeTransportInterceptorsBefore(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.Transport, xdi2.transport.Request, xdi2.transport.Response, xdi2.messaging.target.MessagingTarget, xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeTransportInterceptorsBefore</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                   <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&nbsp;transport,
+                                   <A HREF="../../../../../xdi2/transport/Request.html" title="interface in xdi2.transport">Request</A>&nbsp;request,
+                                   <A HREF="../../../../../xdi2/transport/Response.html" title="interface in xdi2.transport">Response</A>&nbsp;response,
+                                   <A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                                   <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                   <A HREF="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                   <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/InterceptorExecutor.html#executeTransportInterceptorsException(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.Transport, xdi2.transport.Request, xdi2.transport.Response, xdi2.messaging.target.MessagingTarget, xdi2.messaging.MessageEnvelope, xdi2.messaging.error.ErrorMessageResult, xdi2.messaging.context.ExecutionContext, java.lang.Exception)">executeTransportInterceptorsException</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                      <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&nbsp;transport,
+                                      <A HREF="../../../../../xdi2/transport/Request.html" title="interface in xdi2.transport">Request</A>&nbsp;request,
+                                      <A HREF="../../../../../xdi2/transport/Response.html" title="interface in xdi2.transport">Response</A>&nbsp;response,
+                                      <A HREF="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</A>&nbsp;messagingTarget,
+                                      <A HREF="../../../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
+                                      <A HREF="../../../../../xdi2/messaging/error/ErrorMessageResult.html" title="class in xdi2.messaging.error">ErrorMessageResult</A>&nbsp;errorMessageResult,
+                                      <A HREF="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext,
+                                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/transport/interceptor/TransportInterceptor.html" title="interface in xdi2.transport.interceptor">TransportInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/InterceptorExecutor.html#findTransportInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findTransportInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractTransport.</B><B><A HREF="../../../../../xdi2/transport/impl/AbstractTransport.html#setInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">setInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;<A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptors)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.impl.http"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/transport/impl/http/package-summary.html">xdi2.transport.impl.http</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/transport/impl/http/package-summary.html">xdi2.transport.impl.http</A> with parameters of type <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/http/InterceptorExecutor.html#executeHttpTransportInterceptorsDelete(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.impl.http.HttpTransport, xdi2.transport.impl.http.HttpRequest, xdi2.transport.impl.http.HttpResponse, xdi2.transport.impl.http.registry.MessagingTargetMount)">executeHttpTransportInterceptorsDelete</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;? extends <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                       <A HREF="../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport,
+                                       <A HREF="../../../../../xdi2/transport/impl/http/HttpRequest.html" title="interface in xdi2.transport.impl.http">HttpRequest</A>&nbsp;request,
+                                       <A HREF="../../../../../xdi2/transport/impl/http/HttpResponse.html" title="interface in xdi2.transport.impl.http">HttpResponse</A>&nbsp;response,
+                                       <A HREF="../../../../../xdi2/transport/impl/http/registry/MessagingTargetMount.html" title="class in xdi2.transport.impl.http.registry">MessagingTargetMount</A>&nbsp;messagingTargetMount)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/http/InterceptorExecutor.html#executeHttpTransportInterceptorsGet(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.impl.http.HttpTransport, xdi2.transport.impl.http.HttpRequest, xdi2.transport.impl.http.HttpResponse, xdi2.transport.impl.http.registry.MessagingTargetMount)">executeHttpTransportInterceptorsGet</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;? extends <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpRequest.html" title="interface in xdi2.transport.impl.http">HttpRequest</A>&nbsp;request,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpResponse.html" title="interface in xdi2.transport.impl.http">HttpResponse</A>&nbsp;response,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/registry/MessagingTargetMount.html" title="class in xdi2.transport.impl.http.registry">MessagingTargetMount</A>&nbsp;messagingTargetMount)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/http/InterceptorExecutor.html#executeHttpTransportInterceptorsPost(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.impl.http.HttpTransport, xdi2.transport.impl.http.HttpRequest, xdi2.transport.impl.http.HttpResponse, xdi2.transport.impl.http.registry.MessagingTargetMount)">executeHttpTransportInterceptorsPost</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;? extends <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                     <A HREF="../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport,
+                                     <A HREF="../../../../../xdi2/transport/impl/http/HttpRequest.html" title="interface in xdi2.transport.impl.http">HttpRequest</A>&nbsp;request,
+                                     <A HREF="../../../../../xdi2/transport/impl/http/HttpResponse.html" title="interface in xdi2.transport.impl.http">HttpResponse</A>&nbsp;response,
+                                     <A HREF="../../../../../xdi2/transport/impl/http/registry/MessagingTargetMount.html" title="class in xdi2.transport.impl.http.registry">MessagingTargetMount</A>&nbsp;messagingTargetMount)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/http/InterceptorExecutor.html#executeHttpTransportInterceptorsPut(xdi2.messaging.target.interceptor.InterceptorList, xdi2.transport.impl.http.HttpTransport, xdi2.transport.impl.http.HttpRequest, xdi2.transport.impl.http.HttpResponse, xdi2.transport.impl.http.registry.MessagingTargetMount)">executeHttpTransportInterceptorsPut</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;? extends <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpRequest.html" title="interface in xdi2.transport.impl.http">HttpRequest</A>&nbsp;request,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/HttpResponse.html" title="interface in xdi2.transport.impl.http">HttpResponse</A>&nbsp;response,
+                                    <A HREF="../../../../../xdi2/transport/impl/http/registry/MessagingTargetMount.html" title="class in xdi2.transport.impl.http.registry">MessagingTargetMount</A>&nbsp;messagingTargetMount)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</A>&lt;<A HREF="../../../../../xdi2/transport/impl/http/interceptor/HttpTransportInterceptor.html" title="interface in xdi2.transport.impl.http.interceptor">HttpTransportInterceptor</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>InterceptorExecutor.</B><B><A HREF="../../../../../xdi2/transport/impl/http/InterceptorExecutor.html#findHttpTransportInterceptors(xdi2.messaging.target.interceptor.InterceptorList)">findHttpTransportInterceptors</A></B>(<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A>&lt;? extends <A HREF="../../../../../xdi2/transport/Transport.html" title="interface in xdi2.transport">Transport</A>&lt;?,?&gt;&gt;&nbsp;interceptorList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.spring"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A> in <A HREF="../../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A> that return <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</A></CODE></FONT></TD>
-<TD><CODE><B>ListInterceptorListConverter.</B><B><A HREF="../../../../../xdi2/server/spring/ListInterceptorListConverter.html#convert(java.util.List)">convert</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;source)</CODE>
+<TD><CODE><B>ListInterceptorListConverter.</B><B><A HREF="../../../../../xdi2/transport/spring/ListInterceptorListConverter.html#convert(java.util.List)">convert</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</A>&gt;&nbsp;source)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -248,6 +576,6 @@ Uses of <A HREF="../../../../../xdi2/messaging/target/interceptor/InterceptorLis
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

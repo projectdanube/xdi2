@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-MessageEnvelope (xdi2 0.1-SNAPSHOT API)
+MessageEnvelope (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.MessageEnvelope class">
@@ -24,7 +24,7 @@ MessageEnvelope (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getMessageCollectionCount()">
 <META NAME="keywords" CONTENT="getMessageCount()">
 <META NAME="keywords" CONTENT="getOperationCount()">
-<META NAME="keywords" CONTENT="getMessage()">
+<META NAME="keywords" CONTENT="createMessage()">
 <META NAME="keywords" CONTENT="toString()">
 <META NAME="keywords" CONTENT="equals()">
 <META NAME="keywords" CONTENT="hashCode()">
@@ -36,7 +36,7 @@ MessageEnvelope (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="MessageEnvelope (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="MessageEnvelope (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -223,6 +223,23 @@ An XDI message envelope, represented as a graph.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#createMessage(xdi2.core.xri3.XDI3Segment)">createMessage</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new XDI message in this XDI message envelope for a given sender.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#createMessage(xdi2.core.xri3.XDI3Segment, long)">createMessage</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
+              long&nbsp;index)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new XDI message in this XDI message envelope for a given sender.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#deleteMessageCollections()">deleteMessageCollections</A></B>()</CODE>
 
@@ -279,15 +296,6 @@ An XDI message envelope, represented as a graph.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the underlying graph to which this XDI message envelope is bound.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../xdi2/messaging/MessageEnvelope.html#getMessage(xdi2.core.xri3.XDI3Segment, boolean)">getMessage</A></B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
-           boolean&nbsp;create)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns or creates a new XDI message in this XDI message envelope for a given sender.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -710,20 +718,37 @@ public long <B>getOperationCount</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="getMessage(xdi2.core.xri3.XDI3Segment, boolean)"><!-- --></A><H3>
-getMessage</H3>
+<A NAME="createMessage(xdi2.core.xri3.XDI3Segment)"><!-- --></A><H3>
+createMessage</H3>
 <PRE>
-public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>getMessage</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
-                          boolean&nbsp;create)</PRE>
+public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>createMessage</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri)</PRE>
 <DL>
-<DD>Returns or creates a new XDI message in this XDI message envelope for a given sender.
+<DD>Creates a new XDI message in this XDI message envelope for a given sender.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>senderXri</CODE> - The sender.<DD><CODE>create</CODE> - Whether to create a message collection if it does not exist.
-<DT><B>Returns:</B><DD>The newly created XDI message collection.</DL>
+<DT><B>Parameters:</B><DD><CODE>senderXri</CODE> - The sender.
+<DT><B>Returns:</B><DD>The newly created XDI message.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createMessage(xdi2.core.xri3.XDI3Segment, long)"><!-- --></A><H3>
+createMessage</H3>
+<PRE>
+public <A HREF="../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A> <B>createMessage</B>(<A HREF="../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;senderXri,
+                             long&nbsp;index)</PRE>
+<DL>
+<DD>Creates a new XDI message in this XDI message envelope for a given sender.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>senderXri</CODE> - The sender.<DD><CODE>index</CODE> - Index in an ordered collection.
+<DT><B>Returns:</B><DD>The newly created XDI message.</DL>
 </DD>
 </DL>
 <HR>
@@ -843,6 +868,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

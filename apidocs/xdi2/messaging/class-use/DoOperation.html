@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Class xdi2.messaging.DoOperation (xdi2 0.1-SNAPSHOT API)
+Uses of Class xdi2.messaging.DoOperation (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Class xdi2.messaging.DoOperation (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Class xdi2.messaging.DoOperation (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Class xdi2.messaging.DoOperation (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -93,10 +93,6 @@ Packages that use <A HREF="../../../xdi2/messaging/DoOperation.html" title="clas
 <TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.messaging.target"><B>xdi2.messaging.target</B></A></TD>
-<TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.contributor"><B>xdi2.messaging.target.contributor</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -106,6 +102,10 @@ Packages that use <A HREF="../../../xdi2/messaging/DoOperation.html" title="clas
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.contributor.impl.keygen"><B>xdi2.messaging.target.contributor.impl.keygen</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.impl"><B>xdi2.messaging.target.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -177,133 +177,6 @@ Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.messaging.target"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A> in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> with parameters of type <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
-                   <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractAddressHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractAddressHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
-                   <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
-                                <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                                <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
-                            <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                            <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                            <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                            <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                            <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                            <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
-                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractStatementHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                     <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/AbstractContextHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
-                     <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
-                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
 <A NAME="xdi2.messaging.target.contributor"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -320,65 +193,65 @@ Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                    <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;relativeTargetAddress,
                    <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                    <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                   <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                   <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                                 <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                                 <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                                 <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                                 <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                                <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                                <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                             <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                             <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                            <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                            <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                              <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                              <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                              <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                              <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                             <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/AbstractContributor.html#executeDoOnStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                      <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                      <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                      <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                      <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                     <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                     <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -402,13 +275,13 @@ Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>GenerateDigestSecretTokenContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/impl/digest/GenerateDigestSecretTokenContributor.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>GenerateDigestSecretTokenContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/impl/digest/GenerateDigestSecretTokenContributor.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                             <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                             <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                            <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                            <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -432,13 +305,140 @@ Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B>GenerateKeyContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.target.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
+<CODE>&nbsp;<A HREF="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</A></CODE></FONT></TD>
+<TD><CODE><B>GenerateKeyContributor.</B><B><A HREF="../../../xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Segment[], xdi2.core.xri3.XDI3Segment, xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>[]&nbsp;contributorXris,
                              <A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;contributorsXri,
                              <A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relativeTargetStatement,
                              <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
                              <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
-                             <A HREF="../../../xdi2/messaging/target/ExecutionContext.html" title="class in xdi2.messaging.target">ExecutionContext</A>&nbsp;executionContext)</CODE>
+                             <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A> in <A HREF="../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A> with parameters of type <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                   <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                   <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractAddressHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractAddressHandler.html#executeDoOnAddress(xdi2.core.xri3.XDI3Segment, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnAddress</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress,
+                   <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                   <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                   <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractStatementHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;contextNodeStatement,
+                                <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnContextNodeStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnContextNodeStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                                <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                                <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                                <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractStatementHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;literalStatement,
+                            <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                            <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                            <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnLiteralStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnLiteralStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                            <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                            <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                            <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractStatementHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;relationStatement,
+                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                             <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnRelationStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnRelationStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                             <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                             <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                             <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractStatementHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractStatementHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                     <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                     <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractContextHandler.</B><B><A HREF="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeDoOnStatement(xdi2.core.xri3.XDI3Statement, xdi2.messaging.DoOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDoOnStatement</A></B>(<A HREF="../../../xdi2/core/xri3/XDI3Statement.html" title="class in xdi2.core.xri3">XDI3Statement</A>&nbsp;targetStatement,
+                     <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</A>&nbsp;operation,
+                     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult,
+                     <A HREF="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</A>&nbsp;executionContext)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -500,6 +500,6 @@ Uses of <A HREF="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

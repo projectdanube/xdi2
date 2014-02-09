@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Signature (xdi2 0.1-SNAPSHOT API)
+Signature (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.core.features.signatures.Signature class">
@@ -18,6 +18,8 @@ Signature (xdi2 0.1-SNAPSHOT API)
 <META NAME="keywords" CONTENT="getKeyAlgorithm()">
 <META NAME="keywords" CONTENT="getKeyLength()">
 <META NAME="keywords" CONTENT="getAlgorithm()">
+<META NAME="keywords" CONTENT="getValue()">
+<META NAME="keywords" CONTENT="setValue()">
 <META NAME="keywords" CONTENT="sign()">
 <META NAME="keywords" CONTENT="validate()">
 <META NAME="keywords" CONTENT="getNormalizedSerialization()">
@@ -33,7 +35,7 @@ Signature (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Signature (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Signature (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -346,6 +348,14 @@ An XDI signature, represented as an XDI attribute.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getValue()">getValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the value</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#getXdiAttribute()">getXdiAttribute</A></B>()</CODE>
 
@@ -367,6 +377,14 @@ An XDI signature, represented as an XDI attribute.
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an XDI attribute is a valid XDI signature.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/core/features/signatures/Signature.html#setValue(java.lang.String)">setValue</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the value</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -575,6 +593,38 @@ getAlgorithm</H3>
 <PRE>
 public abstract <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getAlgorithm</B>()</PRE>
 <DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValue()"><!-- --></A><H3>
+getValue</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getValue</B>()</PRE>
+<DL>
+<DD>Get the value
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setValue(java.lang.String)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;value)</PRE>
+<DL>
+<DD>Set the value
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -883,6 +933,6 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

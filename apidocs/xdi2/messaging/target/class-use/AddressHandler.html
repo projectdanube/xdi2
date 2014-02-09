@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Interface xdi2.messaging.target.AddressHandler (xdi2 0.1-SNAPSHOT API)
+Uses of Interface xdi2.messaging.target.AddressHandler (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Interface xdi2.messaging.target.AddressHandler (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Interface xdi2.messaging.target.AddressHandler (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Interface xdi2.messaging.target.AddressHandler (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -93,6 +93,10 @@ Packages that use <A HREF="../../../../xdi2/messaging/target/AddressHandler.html
 <TD>Base classes for implementing XDI messaging targets.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.impl"><B>xdi2.messaging.target.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.impl.echo"><B>xdi2.messaging.target.impl.echo</B></A></TD>
 <TD>Messaging target that returns the received messages.&nbsp;</TD>
 </TR>
@@ -115,12 +119,37 @@ Uses of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="i
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> that implement <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Subinterfaces of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A> in <A HREF="../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/ContextHandler.html" title="interface in xdi2.messaging.target">ContextHandler</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A ContextHandler can execute an XDI operation against both addresses and statements.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A> in <A HREF="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A> that implement <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/AbstractAddressHandler.html" title="class in xdi2.messaging.target">AbstractAddressHandler</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/impl/AbstractAddressHandler.html" title="class in xdi2.messaging.target.impl">AbstractAddressHandler</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;<I>Use AbstractContextHandler instead</I></TD>
@@ -128,7 +157,7 @@ Uses of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="i
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/AbstractContextHandler.html" title="class in xdi2.messaging.target">AbstractContextHandler</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../xdi2/messaging/target/impl/AbstractContextHandler.html" title="class in xdi2.messaging.target.impl">AbstractContextHandler</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -139,12 +168,12 @@ Uses of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="i
 
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A> that return <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></FONT></TH>
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A> that return <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="interface in xdi2.messaging.target">AddressHandler</A></CODE></FONT></TD>
-<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../xdi2/messaging/target/AbstractMessagingTarget.html#getAddressHandler(xdi2.core.xri3.XDI3Segment)">getAddressHandler</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
+<TD><CODE><B>AbstractMessagingTarget.</B><B><A HREF="../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#getAddressHandler(xdi2.core.xri3.XDI3Segment)">getAddressHandler</A></B>(<A HREF="../../../../xdi2/core/xri3/XDI3Segment.html" title="class in xdi2.core.xri3">XDI3Segment</A>&nbsp;targetAddress)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -272,6 +301,6 @@ Uses of <A HREF="../../../../xdi2/messaging/target/AddressHandler.html" title="i
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

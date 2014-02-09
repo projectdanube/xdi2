@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Package xdi2.messaging (xdi2 0.1-SNAPSHOT API)
+Uses of Package xdi2.messaging (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Package xdi2.messaging (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Package xdi2.messaging (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Package xdi2.messaging (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -113,6 +113,10 @@ Packages that use <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messa
 <TD>Support for XDI messaging documents and transport protocols.&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.context"><B>xdi2.messaging.context</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.error"><B>xdi2.messaging.error</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
@@ -130,6 +134,22 @@ Packages that use <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messa
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.contributor.impl.keygen"><B>xdi2.messaging.target.contributor.impl.keygen</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy"><B>xdi2.messaging.target.contributor.impl.proxy</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy.manipulator"><B>xdi2.messaging.target.contributor.impl.proxy.manipulator</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.impl"><B>xdi2.messaging.target.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -181,7 +201,23 @@ Packages that use <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messa
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.transport"><B>xdi2.server.transport</B></A></TD>
+<TD><A HREF="#xdi2.transport.impl"><B>xdi2.transport.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.impl.http.interceptor.impl"><B>xdi2.transport.impl.http.interceptor.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.interceptor"><B>xdi2.transport.interceptor</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.interceptor.impl"><B>xdi2.transport.interceptor.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.spring"><B>xdi2.transport.spring</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -355,6 +391,33 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.context"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/context/package-summary.html">xdi2.messaging.context</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.context"><B>Message</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.messaging.context"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Operation.html#xdi2.messaging.context"><B>Operation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI messaging operation, represented as a relation.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.error"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -383,30 +446,6 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/DelOperation.html#xdi2.messaging.target"><B>DelOperation</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $del XDI operation, represented as a relation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/DoOperation.html#xdi2.messaging.target"><B>DoOperation</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $do XDI operation, represented as a relation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/GetOperation.html#xdi2.messaging.target"><B>GetOperation</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $get XDI operation, represented as a relation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.target"><B>Message</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.messaging.target"><B>MessageEnvelope</B></A></B>
 
 <BR>
@@ -423,12 +462,6 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI messaging operation, represented as a relation.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/SetOperation.html#xdi2.messaging.target"><B>SetOperation</B></A></B>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $set XDI operation, represented as a relation.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -516,6 +549,144 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.target.contributor.impl.proxy"><B>Message</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.messaging.target.contributor.impl.proxy"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Operation.html#xdi2.messaging.target.contributor.impl.proxy"><B>Operation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI messaging operation, represented as a relation.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy.manipulator"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/target/contributor/impl/proxy/manipulator/package-summary.html">xdi2.messaging.target.contributor.impl.proxy.manipulator</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.target.contributor.impl.proxy.manipulator"><B>Message</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.messaging.target.contributor.impl.proxy.manipulator"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.messaging.target.contributor.impl.proxy.manipulator"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Operation.html#xdi2.messaging.target.contributor.impl.proxy.manipulator"><B>Operation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI messaging operation, represented as a relation.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/package-summary.html">xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>Message</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.messaging.target.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/DelOperation.html#xdi2.messaging.target.impl"><B>DelOperation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $del XDI operation, represented as a relation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/DoOperation.html#xdi2.messaging.target.impl"><B>DoOperation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $do XDI operation, represented as a relation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/GetOperation.html#xdi2.messaging.target.impl"><B>GetOperation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $get XDI operation, represented as a relation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Message.html#xdi2.messaging.target.impl"><B>Message</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message, represented as a context node.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.messaging.target.impl"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.messaging.target.impl"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/Operation.html#xdi2.messaging.target.impl"><B>Operation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI messaging operation, represented as a relation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/SetOperation.html#xdi2.messaging.target.impl"><B>SetOperation</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A $set XDI operation, represented as a relation.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -826,23 +997,101 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.transport"><!-- --></A>
+<A NAME="xdi2.transport.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/server/transport/package-summary.html">xdi2.server.transport</A></FONT></TH>
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/transport/impl/package-summary.html">xdi2.transport.impl</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.server.transport"><B>MessageEnvelope</B></A></B>
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.transport.impl"><B>MessageEnvelope</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.server.transport"><B>MessageResult</B></A></B>
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.transport.impl"><B>MessageResult</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.impl.http.interceptor.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/transport/impl/http/interceptor/impl/package-summary.html">xdi2.transport.impl.http.interceptor.impl</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.transport.impl.http.interceptor.impl"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.transport.impl.http.interceptor.impl"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/transport/interceptor/package-summary.html">xdi2.transport.interceptor</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.transport.interceptor"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.transport.interceptor"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.interceptor.impl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/transport/interceptor/impl/package-summary.html">xdi2.transport.interceptor.impl</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.transport.interceptor.impl"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageResult.html#xdi2.transport.interceptor.impl"><B>MessageResult</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message result, represented as a graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.spring"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A> used by <A HREF="../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/messaging/class-use/MessageEnvelope.html#xdi2.transport.spring"><B>MessageEnvelope</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An XDI message envelope, represented as a graph.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -901,6 +1150,6 @@ Classes in <A HREF="../../xdi2/messaging/package-summary.html">xdi2.messaging</A
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

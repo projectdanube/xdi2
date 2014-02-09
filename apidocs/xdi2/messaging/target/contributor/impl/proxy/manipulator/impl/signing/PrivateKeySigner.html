@@ -1,0 +1,450 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+PrivateKeySigner (xdi2 0.2-SNAPSHOT API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.PrivateKeySigner class">
+<META NAME="keywords" CONTENT="sign()">
+<META NAME="keywords" CONTENT="getPrivateKeyAlgorithm()">
+<META NAME="keywords" CONTENT="getPrivateKeyLength()">
+<META NAME="keywords" CONTENT="getPrivateKey()">
+<META NAME="keywords" CONTENT="getDigestAlgorithm()">
+<META NAME="keywords" CONTENT="setDigestAlgorithm()">
+<META NAME="keywords" CONTENT="getDigestLength()">
+<META NAME="keywords" CONTENT="setDigestLength()">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="PrivateKeySigner (xdi2 0.2-SNAPSHOT API)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/PrivateKeySigner.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/GraphSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../../index.html?xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PrivateKeySigner.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</FONT>
+<BR>
+Class PrivateKeySigner</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/AbstractSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.AbstractSigner</A>
+      <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.PrivateKeySigner</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">Signer</A></DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/GraphSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">GraphSigner</A>, <A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/StaticSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">StaticSigner</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public abstract class <B>PrivateKeySigner</B><DT>extends <A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/AbstractSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">AbstractSigner</A><DT>implements <A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">Signer</A></DL>
+</PRE>
+
+<P>
+A Signer that can authenticate a signature against
+ a public key.
+<P>
+
+<P>
+<HR>
+
+<P>
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#PrivateKeySigner()">PrivateKeySigner</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#getDigestAlgorithm()">getDigestAlgorithm</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#getDigestLength()">getDigestLength</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected abstract &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#getPrivateKey(xdi2.messaging.Message)">getPrivateKey</A></B>(<A HREF="../../../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#getPrivateKeyAlgorithm(java.security.PrivateKey)">getPrivateKeyAlgorithm</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#getPrivateKeyLength(java.security.PrivateKey)">getPrivateKeyLength</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#setDigestAlgorithm(java.lang.String)">setDigestAlgorithm</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#setDigestLength(int)">setDigestLength</A></B>(int&nbsp;digestLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html#sign(xdi2.messaging.Message)">sign</A></B>(<A HREF="../../../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign an XDI message.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.AbstractSigner"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/AbstractSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">AbstractSigner</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/AbstractSigner.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.SigningProxyManipulator)">init</A>, <A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/AbstractSigner.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.SigningProxyManipulator)">shutdown</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.Signer"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">Signer</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html#init(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.SigningProxyManipulator)">init</A>, <A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html#shutdown(xdi2.messaging.target.MessagingTarget, xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.SigningProxyManipulator)">shutdown</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="PrivateKeySigner()"><!-- --></A><H3>
+PrivateKeySigner</H3>
+<PRE>
+public <B>PrivateKeySigner</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="sign(xdi2.messaging.Message)"><!-- --></A><H3>
+sign</H3>
+<PRE>
+public <A HREF="../../../../../../../../../xdi2/core/features/signatures/Signature.html" title="class in xdi2.core.features.signatures">Signature</A>&lt;?,?&gt; <B>sign</B>(<A HREF="../../../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html#sign(xdi2.messaging.Message)">Signer</A></CODE></B></DD>
+<DD>Sign an XDI message.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html#sign(xdi2.messaging.Message)">sign</A></CODE> in interface <CODE><A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing">Signer</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPrivateKeyAlgorithm(java.security.PrivateKey)"><!-- --></A><H3>
+getPrivateKeyAlgorithm</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getPrivateKeyAlgorithm</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPrivateKeyLength(java.security.PrivateKey)"><!-- --></A><H3>
+getPrivateKeyLength</H3>
+<PRE>
+public int <B>getPrivateKeyLength</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A>&nbsp;privateKey)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPrivateKey(xdi2.messaging.Message)"><!-- --></A><H3>
+getPrivateKey</H3>
+<PRE>
+protected abstract <A HREF="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</A> <B>getPrivateKey</B>(<A HREF="../../../../../../../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</A>&nbsp;message)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestAlgorithm()"><!-- --></A><H3>
+getDigestAlgorithm</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getDigestAlgorithm</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDigestAlgorithm(java.lang.String)"><!-- --></A><H3>
+setDigestAlgorithm</H3>
+<PRE>
+public void <B>setDigestAlgorithm</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;digestAlgorithm)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDigestLength()"><!-- --></A><H3>
+getDigestLength</H3>
+<PRE>
+public int <B>getDigestLength</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDigestLength(int)"><!-- --></A><H3>
+setDigestLength</H3>
+<PRE>
+public void <B>setDigestLength</B>(int&nbsp;digestLength)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/PrivateKeySigner.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/GraphSigner.html" title="class in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/Signer.html" title="interface in xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../../index.html?xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/PrivateKeySigner.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PrivateKeySigner.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Copyright &#169; 2014. All Rights Reserved.
+</BODY>
+</HTML>

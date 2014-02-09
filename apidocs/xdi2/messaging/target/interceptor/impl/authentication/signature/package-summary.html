@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-xdi2.messaging.target.interceptor.impl.authentication.signature (xdi2 0.1-SNAPSHOT API)
+xdi2.messaging.target.interceptor.impl.authentication.signature (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 <META NAME="keywords" CONTENT="xdi2.messaging.target.interceptor.impl.authentication.signature package">
@@ -15,7 +15,7 @@ xdi2.messaging.target.interceptor.impl.authentication.signature (xdi2 0.1-SNAPSH
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="xdi2.messaging.target.interceptor.impl.authentication.signature (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="xdi2.messaging.target.interceptor.impl.authentication.signature (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -110,26 +110,26 @@ Package xdi2.messaging.target.interceptor.impl.authentication.signature
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/AuthenticationSignatureInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">AuthenticationSignatureInterceptor</A></B></TD>
 <TD>This interceptor looks for a signature on an incoming XDI message,
- and invokes an instance of SignatureAuthenticator to authenticate the message.</TD>
+ and invokes an instance of Signer to authenticate the message.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/DiscoverySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">DiscoverySignatureAuthenticator</A></B></TD>
-<TD>A SignatureAuthenticator that can authenticate an XDI message by obtaining
+<TD>A Signer that can authenticate an XDI message by obtaining
  public keys using XDI discovery.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/GraphSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">GraphSignatureAuthenticator</A></B></TD>
-<TD>A SignatureAuthenticator that can authenticate an XDI message using a "public key graph",
+<TD>A Signer that can authenticate an XDI message using a "public key graph",
  which contains sender addresses and public keys.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/PublicKeySignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">PublicKeySignatureAuthenticator</A></B></TD>
-<TD>A SignatureAuthenticator that can authenticate a signature against
+<TD>A Signer that can authenticate a signature against
  a public key.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../../xdi2/messaging/target/interceptor/impl/authentication/signature/StaticSignatureAuthenticator.html" title="class in xdi2.messaging.target.interceptor.impl.authentication.signature">StaticSignatureAuthenticator</A></B></TD>
-<TD>A SignatureAuthenticator that can authenticate an XDI message using a
+<TD>A Signer that can authenticate an XDI message using a
  statically configured list of sender addresses and public keys.</TD>
 </TR>
 </TABLE>
@@ -192,6 +192,6 @@ Package xdi2.messaging.target.interceptor.impl.authentication.signature
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>

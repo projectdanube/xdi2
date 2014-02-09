@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Package xdi2.core (xdi2 0.1-SNAPSHOT API)
+Uses of Package xdi2.core (xdi2 0.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Package xdi2.core (xdi2 0.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Package xdi2.core (xdi2 0.1-SNAPSHOT API)";
+        parent.document.title="Uses of Package xdi2.core (xdi2 0.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -229,6 +229,10 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><A HREF="#xdi2.messaging.target.impl.graph"><B>xdi2.messaging.target.impl.graph</B></A></TD>
 <TD>Messaging target that allows messages to be applied to the standard graph implementations.&nbsp;</TD>
 </TR>
@@ -253,11 +257,15 @@ Packages that use <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A></
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.factory.impl"><B>xdi2.server.factory.impl</B></A></TD>
+<TD><A HREF="#xdi2.transport.impl.http.factory.impl"><B>xdi2.transport.impl.http.factory.impl</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="#xdi2.server.interceptor.impl"><B>xdi2.server.interceptor.impl</B></A></TD>
+<TD><A HREF="#xdi2.transport.impl.http.interceptor.impl"><B>xdi2.transport.impl.http.interceptor.impl</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#xdi2.transport.spring"><B>xdi2.transport.spring</B></A></TD>
 <TD>&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -495,6 +503,12 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Literal.html#xdi2.core.features.nodetypes"><B>Literal</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a literal in an XDI graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><B><A HREF="../../xdi2/core/class-use/Relation.html#xdi2.core.features.nodetypes"><B>Relation</B></A></B>
@@ -1114,6 +1128,21 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 </TABLE>
 &nbsp;
 <P>
+<A NAME="xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/messaging/target/contributor/impl/proxy/manipulator/impl/signing/package-summary.html">xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing"><B>Graph</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
 <A NAME="xdi2.messaging.target.impl.graph"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -1216,20 +1245,20 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.factory.impl"><!-- --></A>
+<A NAME="xdi2.transport.impl.http.factory.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/server/factory/impl/package-summary.html">xdi2.server.factory.impl</A></FONT></TH>
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/transport/impl/http/factory/impl/package-summary.html">xdi2.transport.impl.http.factory.impl</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.server.factory.impl"><B>ContextNode</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/ContextNode.html#xdi2.transport.impl.http.factory.impl"><B>ContextNode</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a context node in an XDI graph.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.server.factory.impl"><B>Graph</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.transport.impl.http.factory.impl"><B>Graph</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
@@ -1237,14 +1266,29 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 </TABLE>
 &nbsp;
 <P>
-<A NAME="xdi2.server.interceptor.impl"><!-- --></A>
+<A NAME="xdi2.transport.impl.http.interceptor.impl"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/server/interceptor/impl/package-summary.html">xdi2.server.interceptor.impl</A></FONT></TH>
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/transport/impl/http/interceptor/impl/package-summary.html">xdi2.transport.impl.http.interceptor.impl</A></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.server.interceptor.impl"><B>Graph</B></A></B>
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.transport.impl.http.interceptor.impl"><B>Graph</B></A></B>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="xdi2.transport.spring"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by <A HREF="../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><B><A HREF="../../xdi2/core/class-use/Graph.html#xdi2.transport.spring"><B>Graph</B></A></B>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This interface represents a whole XDI graph.</TD>
@@ -1348,6 +1392,6 @@ Classes in <A HREF="../../xdi2/core/package-summary.html">xdi2.core</A> used by 
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 
 <HR>
-Copyright &#169; 2013. All Rights Reserved.
+Copyright &#169; 2014. All Rights Reserved.
 </BODY>
 </HTML>
