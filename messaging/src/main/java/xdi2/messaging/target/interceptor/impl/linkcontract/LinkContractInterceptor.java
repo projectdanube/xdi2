@@ -203,7 +203,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// authorized?
 
-		if (! authorized) {
+		if (! Boolean.TRUE.equals(authorized)) {
 
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
 		}

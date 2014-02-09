@@ -206,6 +206,8 @@ public final class ExecutionContext implements Serializable {
 
 		if (log.isDebugEnabled()) log.debug("New Exception: " + (ex == null ? ex : ex.getMessage()) + ". Current: " + (this.ex == null ? null : this.ex.getMessage()) + ". Same? " + (ex == this.ex));
 
+		if (ex == null) ex = new NullPointerException();
+
 		if (! (ex instanceof Xdi2MessagingException)) {
 
 			ex = new Xdi2MessagingException(ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage(), ex, this);
