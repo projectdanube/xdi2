@@ -453,6 +453,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		response.sendError(HttpResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected exception: " + ex.getMessage());
 	}
 
+	@Override
 	protected void handleException(HttpRequest request, HttpResponse response, ErrorMessageResult errorMessageResult) throws IOException {
 
 		// send error result
