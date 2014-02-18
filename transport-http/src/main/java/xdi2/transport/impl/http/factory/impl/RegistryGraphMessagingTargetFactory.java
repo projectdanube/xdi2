@@ -1,6 +1,7 @@
 package xdi2.transport.impl.http.factory.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
@@ -35,6 +36,16 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 	@Override
 	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
+
+		// prepare request path
+
+		try {
+
+			requestPath = URLDecoder.decode(requestPath, "UTF-8");
+		} catch (UnsupportedEncodingException ex) { 
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
 
 		// parse owner
 
@@ -82,6 +93,16 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 	@Override
 	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
+
+		// prepare request path
+
+		try {
+
+			requestPath = URLDecoder.decode(requestPath, "UTF-8");
+		} catch (UnsupportedEncodingException ex) { 
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
 
 		// parse owner
 
