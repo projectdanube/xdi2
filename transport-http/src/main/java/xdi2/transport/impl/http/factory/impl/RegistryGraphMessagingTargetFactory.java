@@ -1,8 +1,5 @@
 package xdi2.transport.impl.http.factory.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -10,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
@@ -36,16 +32,6 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 	@Override
 	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
-
-		// prepare request path
-
-		try {
-
-			requestPath = URLDecoder.decode(requestPath, "UTF-8");
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
 
 		// parse owner
 
@@ -94,16 +80,6 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	@Override
 	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
 
-		// prepare request path
-
-		try {
-
-			requestPath = URLDecoder.decode(requestPath, "UTF-8");
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
-
 		// parse owner
 
 		String ownerString = requestPath.substring(messagingTargetFactoryPath.length());
@@ -141,7 +117,10 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			@Override
 			public boolean select(XdiPeerRoot ownerPeerRoot) {
 
-				return ! ownerPeerRoot.isSelfPeerRoot();
+				if (ownerPeerRoot.isSelfPeerRoot()) return false;
+				if (ownerPeerRoot.dereference() != ownerPeerRoot) return false;
+
+				return true;
 			}
 
 			@Override
@@ -160,17 +139,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
 		if (ownerPeerRoot == null) return null;
 
-		String ownerString;
+		String requestPath = messagingTargetFactoryPath + "/" + ownerXri.toString();
 
-		try {
+		if (log.isDebugEnabled()) log.debug("requestPath for ownerPeerRootXri " + ownerPeerRootXri + " is " + requestPath);
 
-			ownerString = URLEncoder.encode(ownerXri.toString(), "UTF-8");
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
-
-		return messagingTargetFactoryPath + "/" + ownerString;
+		return requestPath;
 	}
 
 	/*
