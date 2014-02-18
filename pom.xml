@@ -40,11 +40,22 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<github.global.server>github</github.global.server>
+		<project.build.timestamp>${maven.build.timestamp}</project.build.timestamp>
 	</properties>
 
 	<build>
+
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources/</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
 
 		<plugins>
 			<plugin>

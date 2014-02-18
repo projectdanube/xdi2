@@ -26,6 +26,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
+import xdi2.core.properties.XDI2Properties;
 import xdi2.core.xri3.XDI3ParserRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -124,13 +125,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String graphstring = request.getParameter("graphstring");
-
-		if ("reload".equals(cmd)) {
-
-			httpTransport.getHttpMessagingTargetRegistry().reload();
-
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
-		}
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
@@ -273,6 +267,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		// prepare velocity
 
 		File[] pluginFiles = PluginsLoader.getFiles();
+		Properties xdi2Properties = XDI2Properties.properties;
 		Properties systemProperties = System.getProperties();
 		List<MessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
 		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
@@ -282,6 +277,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		context.put("request", request);
 		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
 		context.put("pluginfiles", pluginFiles);
+		context.put("xdi2properties", xdi2Properties);
 		context.put("systemproperties", systemProperties);
 		context.put("messagingtargetmounts", messagingTargetMounts);
 		context.put("messagingtargetfactorymounts", messagingTargetFactoryMounts);

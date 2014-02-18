@@ -42,10 +42,11 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 <h1>General Information:</h1>
 <table class="pretty">
+	<tr><th style="width: 200px">XDI2 Version:</th><td>$xdi2properties["project.version"] (Timestamp $xdi2properties["project.build.timestamp"])</td></tr>
+	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
 	<tr><th style="width: 200px">Transport Class:</th><td>$httptransport.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
-	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
 	<tr><th style="width: 200px">Startup Time:</th><td>$httptransport.getStartupAsString() ($httptransport.getStartupAsSeconds() seconds)</td></tr>
 	<tr><th style="width: 200px">Request Path:</th><td>$request.requestPath</td></tr>
 	<tr><th style="width: 200px">Transport Interceptors:</th><td>
@@ -65,12 +66,6 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		    $pluginfile.getAbsolutePath()<br>
 		#end
 		#end
-	</td></tr>
-	<tr><th style="width: 200px">Reload</th><td>
-		<form action="" method="post">
-			<input type="hidden" name="cmd" value="reload">
-			<input type="submit" value="Reload server configuration">
-		</form>
 	</td></tr>
 </table>
 <h1>MessagingTarget List:</h1>
