@@ -117,12 +117,6 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		log.info("Done. " + size + " messaging targets were shut down.");
 	}
 
-	public synchronized void reload() throws Xdi2TransportException {
-
-		this.shutdown();
-		this.init();
-	}
-
 	/*
 	 * Mounting and unmounting
 	 */
