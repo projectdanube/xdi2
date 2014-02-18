@@ -75,7 +75,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerXri.toString();
 
-		log.info("Will create messaging target for " + ownerXri + " at " + messagingTargetPath);
+		log.info("Going to mount new messaging target for " + ownerXri + " at " + messagingTargetPath);
 
 		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXri, ownerPeerRoot, ownerContextNode);
 	}
@@ -97,15 +97,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		if (ownerPeerRoot == null) {
 
-			log.warn("Peer root for " + ownerXri + " no longer found in the registry graph. Removing messaging target.");
-
-			try {
-
-				messagingTarget.shutdown();
-			} catch (Exception ex) {
-
-				throw new Xdi2TransportException("Cannot shut down messaging target: " + ex.getMessage(), ex);
-			}
+			log.warn("Peer root for " + ownerXri + " no longer found in the registry graph. Going to unmount messaging target.");
 
 			// unmount the messaging target
 
