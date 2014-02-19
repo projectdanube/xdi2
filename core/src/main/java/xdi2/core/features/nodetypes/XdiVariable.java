@@ -35,7 +35,7 @@ public final class XdiVariable extends XdiAbstractSubGraph<XdiVariable> {
 
 		if (contextNode == null) return false;
 
-		return isVariableArcXri(contextNode.getArcXri());
+		return isValidArcXri(contextNode.getArcXri());
 	}
 
 	/**
@@ -51,7 +51,7 @@ public final class XdiVariable extends XdiAbstractSubGraph<XdiVariable> {
 	}
 
 	/*
-	 * Methods for XDI variable XRIs
+	 * Methods for XRIs
 	 */
 
 	/**
@@ -59,7 +59,7 @@ public final class XdiVariable extends XdiAbstractSubGraph<XdiVariable> {
 	 * @param arcXri An XDI variable XRI.
 	 * @return True, if the XRI is an XDI variable XRI.
 	 */
-	public static boolean isVariableArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		return VariableUtil.isVariable(arcXri);
 	}
