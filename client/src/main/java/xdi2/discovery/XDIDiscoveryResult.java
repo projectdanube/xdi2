@@ -173,24 +173,27 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find endpoint uris
 
-		for (XDI3Segment endpointUriType : endpointUriTypes) {
+		if (endpointUriTypes != null) {
 
-			XDI3Segment endpointUriXdiAttributeAddress = XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_AS_URI);
-			XdiAttribute endpointUriXdiAttribute = authorityXdiEntity.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
-			if (endpointUriXdiAttribute == null) continue;
+			for (XDI3Segment endpointUriType : endpointUriTypes) {
 
-			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
+				XDI3Segment endpointUriXdiAttributeAddress = XDI3Util.concatXris(endpointUriType, XDIClientConstants.XRI_SS_AS_URI);
+				XdiAttribute endpointUriXdiAttribute = authorityXdiEntity.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
+				if (endpointUriXdiAttribute == null) continue;
 
-			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
-			if (endpointUriXdiValue == null) continue;
+				endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
 
-			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
-			if (endpointUriLiteral == null) continue;
+				XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
+				if (endpointUriXdiValue == null) continue;
 
-			String endpointUri = endpointUriLiteral.getLiteralDataString();
-			if (endpointUri == null) continue;
+				Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
+				if (endpointUriLiteral == null) continue;
 
-			this.endpointUris.put(endpointUriType, endpointUri);
+				String endpointUri = endpointUriLiteral.getLiteralDataString();
+				if (endpointUri == null) continue;
+
+				this.endpointUris.put(endpointUriType, endpointUri);
+			}
 		}
 	}
 
