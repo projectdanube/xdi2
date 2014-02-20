@@ -22,7 +22,7 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
  * This interceptor looks for a signature on an incoming XDI message,
- * and invokes an instance of Signer to authenticate the message.
+ * and invokes an instance of SignatureAuthenticator to authenticate the message.
  */
 public class AuthenticationSignatureInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<AuthenticationSignatureInterceptor> {
 

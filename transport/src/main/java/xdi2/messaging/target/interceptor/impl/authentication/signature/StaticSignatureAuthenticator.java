@@ -7,7 +7,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 
 /**
- * A Signer that can authenticate an XDI message using a
+ * A SignatureAuthenticator that can authenticate an XDI message using a
  * statically configured list of sender addresses and public keys.
  */
 public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticator {

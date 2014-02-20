@@ -24,7 +24,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
- * A Signer that can authenticate an XDI message using a "public key graph",
+ * A SignatureAuthenticator that can authenticate an XDI message using a "public key graph",
  * which contains sender addresses and public keys.
  */
 public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator {
