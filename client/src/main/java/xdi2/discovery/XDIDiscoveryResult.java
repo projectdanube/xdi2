@@ -25,7 +25,6 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 
 public class XDIDiscoveryResult implements Serializable {
@@ -37,7 +36,6 @@ public class XDIDiscoveryResult implements Serializable {
 	private PublicKey encryptionPublicKey;
 	private Map<XDI3Segment, String> endpointUris;
 
-	private MessageEnvelope messageEnvelope;
 	private MessageResult messageResult;
 
 	public XDIDiscoveryResult() {
@@ -47,19 +45,17 @@ public class XDIDiscoveryResult implements Serializable {
 		this.encryptionPublicKey = null;
 		this.endpointUris = new HashMap<XDI3Segment, String> ();
 
-		this.messageEnvelope = null;
 		this.messageResult = null;
 	}
 
 	void initFromRegistryAndAuthorityDiscoveryResult(XDIDiscoveryResult xdiDiscoveryResultRegistry, XDIDiscoveryResult xdiDiscoveryResultAuthority, XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
-		this.initFromRegistryMessageResult(xdiDiscoveryResultRegistry.getMessageEnvelope(), xdiDiscoveryResultRegistry.getMessageResult(), query, endpointUriTypes);
-		this.initFromAuthorityMessageResult(xdiDiscoveryResultAuthority.getMessageEnvelope(), xdiDiscoveryResultAuthority.getMessageResult(), endpointUriTypes);
+		this.initFromRegistryMessageResult(xdiDiscoveryResultRegistry.getMessageResult(), query, endpointUriTypes);
+		this.initFromAuthorityMessageResult(xdiDiscoveryResultAuthority.getMessageResult(), endpointUriTypes);
 	}
 
-	void initFromRegistryMessageResult(MessageEnvelope registryMessageEnvelope, MessageResult registryMessageResult, XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromRegistryMessageResult(MessageResult registryMessageResult, XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
-		this.messageEnvelope = registryMessageEnvelope;
 		this.messageResult = registryMessageResult;
 
 		// look into registry message result
@@ -113,9 +109,8 @@ public class XDIDiscoveryResult implements Serializable {
 		}
 	}
 
-	void initFromAuthorityMessageResult(MessageEnvelope authorityMessageEnvelope, MessageResult authorityMessageResult, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromAuthorityMessageResult(MessageResult authorityMessageResult, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
 
-		this.messageEnvelope = authorityMessageEnvelope;
 		this.messageResult = authorityMessageResult;
 
 		// look into authority message result
@@ -256,11 +251,6 @@ public class XDIDiscoveryResult implements Serializable {
 	public String getDefaultEndpointUri() {
 
 		return this.getEndpointUris().get(null);
-	}
-
-	public MessageEnvelope getMessageEnvelope() {
-
-		return this.messageEnvelope;
 	}
 
 	public MessageResult getMessageResult() {
