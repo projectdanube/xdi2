@@ -74,9 +74,11 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	public XDIHttpClient(String endpointUri) {
 
+		super();
+
 		try {
 
-			this.endpointUri = (endpointUri != null) ? new URL(endpointUri) : null;
+			this.endpointUri = endpointUri == null ? null : new URL(endpointUri);
 		} catch (MalformedURLException ex) {
 
 			throw new IllegalArgumentException(ex.getMessage(), ex);
