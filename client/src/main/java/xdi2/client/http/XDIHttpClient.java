@@ -92,6 +92,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	public XDIHttpClient(String endpointUri, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
 
+		super();
+		
 		try {
 
 			this.endpointUri = (endpointUri != null) ? new URL(endpointUri) : null;
@@ -108,6 +110,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	public XDIHttpClient(Properties parameters) throws Exception {
 
+		super();
+		
 		if (parameters == null) {
 
 			this.endpointUri = null;
