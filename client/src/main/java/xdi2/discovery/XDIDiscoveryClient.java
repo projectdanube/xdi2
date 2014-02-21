@@ -306,8 +306,8 @@ public class XDIDiscoveryClient {
 			final int prime = 31;
 			int result = 1;
 			
-			result = prime * result + ((query == null) ? 0 : query.hashCode());
-			result = prime * result + ((xdiEndpointUri == null) ? 0 : xdiEndpointUri.hashCode());
+			result = prime * result + ((this.query == null) ? 0 : this.query.hashCode());
+			result = prime * result + ((this.xdiEndpointUri == null) ? 0 : this.xdiEndpointUri.hashCode());
 
 			return result;
 		}
@@ -321,15 +321,15 @@ public class XDIDiscoveryClient {
 
 			DiscoveryCacheKey other = (DiscoveryCacheKey) obj;
 
-			if (query == null) {
+			if (this.query == null) {
 
 				if (other.query != null) return false;
-			} else if (!query.equals(other.query)) return false;
+			} else if (! this.query.equals(other.query)) return false;
 
-			if (xdiEndpointUri == null) {
+			if (this.xdiEndpointUri == null) {
 
 				if (other.xdiEndpointUri != null) return false;
-			} else if (!xdiEndpointUri.equals(other.xdiEndpointUri)) return false;
+			} else if (! this.xdiEndpointUri.equals(other.xdiEndpointUri)) return false;
 
 			return true;
 		}
