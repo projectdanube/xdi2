@@ -46,10 +46,11 @@ public class XDIDiscoveryClient {
 
 	static {
 
-		CacheManager.getInstance().addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
-		CacheManager.getInstance().addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
-		DEFAULT_REGISTRY_CACHE = CacheManager.getInstance().getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
-		DEFAULT_AUTHORITY_CACHE = CacheManager.getInstance().getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
+		CacheManager cacheManager = CacheManager.create(XDIDiscoveryClient.class.getResourceAsStream("ehcache.xml"));
+		cacheManager.addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
+		cacheManager.addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
+		DEFAULT_REGISTRY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
+		DEFAULT_AUTHORITY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
 	}
 
 	private XDIHttpClient registryXdiClient;
@@ -276,14 +277,14 @@ public class XDIDiscoveryClient {
 	/*
 	 * Helper classes and methods
 	 */
-	
+
 	private static DiscoveryCacheKey makeDiscoveryCacheKey(XDI3Segment query, XDIHttpClient registryXdiHttpClient) {
-		
+
 		return new DiscoveryCacheKey(query, registryXdiHttpClient.getEndpointUri().toString());
 	}
-	
+
 	private static DiscoveryCacheKey makeDiscoveryCacheKey(CloudNumber cloudNumber, String xdiEndpointUri) {
-		
+
 		return new DiscoveryCacheKey(cloudNumber.getXri(), xdiEndpointUri);
 	}
 
@@ -305,7 +306,7 @@ public class XDIDiscoveryClient {
 
 			final int prime = 31;
 			int result = 1;
-			
+
 			result = prime * result + ((this.query == null) ? 0 : this.query.hashCode());
 			result = prime * result + ((this.xdiEndpointUri == null) ? 0 : this.xdiEndpointUri.hashCode());
 
