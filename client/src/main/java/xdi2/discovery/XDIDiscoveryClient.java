@@ -1,5 +1,11 @@
 package xdi2.discovery;
 
+import java.io.Serializable;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,18 +39,43 @@ public class XDIDiscoveryClient {
 
 	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryservice.xdi.net:12220/");
 	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryserviceote.xdi.net:12220/");
+
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final Cache DEFAULT_REGISTRY_CACHE;
+	public static final Cache DEFAULT_AUTHORITY_CACHE;
+
+	static {
+
+		CacheManager.getInstance().addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
+		CacheManager.getInstance().addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
+		DEFAULT_REGISTRY_CACHE = CacheManager.getInstance().getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
+		DEFAULT_AUTHORITY_CACHE = CacheManager.getInstance().getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
+	}
 
 	private XDIHttpClient registryXdiClient;
+	private Cache registryCache;
+	private Cache authorityCache;
+
+	public XDIDiscoveryClient(XDIHttpClient registryXdiClient, Cache registryCache, Cache authorityCache) {
+
+		this.registryXdiClient = registryXdiClient;
+		this.registryCache = registryCache;
+		this.authorityCache = authorityCache;
+	}
 
 	public XDIDiscoveryClient(XDIHttpClient registryXdiClient) {
 
-		this.registryXdiClient = registryXdiClient;
+		this(registryXdiClient, DEFAULT_REGISTRY_CACHE, DEFAULT_AUTHORITY_CACHE);
+	}
+
+	public XDIDiscoveryClient(String registryEndpointUri, Cache registryCache, Cache authorityCache) {
+
+		this(new XDIHttpClient(registryEndpointUri), registryCache, authorityCache);
 	}
 
 	public XDIDiscoveryClient(String registryEndpointUri) {
 
-		this.registryXdiClient = new XDIHttpClient(registryEndpointUri);
+		this(new XDIHttpClient(registryEndpointUri));
 	}
 
 	public XDIDiscoveryClient() {
@@ -53,6 +84,8 @@ public class XDIDiscoveryClient {
 	}
 
 	public XDIDiscoveryResult discover(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+
+		// first discover from registry
 
 		XDIDiscoveryResult xdiDiscoveryResultRegistry = this.discoverFromRegistry(query, endpointUriTypes);
 
@@ -72,6 +105,8 @@ public class XDIDiscoveryClient {
 			return xdiDiscoveryResultRegistry;
 		}
 
+		// then discover from authority
+
 		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 
 		if (xdiDiscoveryResultAuthority == null) {
@@ -83,6 +118,8 @@ public class XDIDiscoveryClient {
 
 		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
 
+		// return a single discovery result from the two individual ones
+
 		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
 		xdiDiscoveryResult.initFromRegistryAndAuthorityDiscoveryResult(xdiDiscoveryResultRegistry, xdiDiscoveryResultAuthority, query, endpointUriTypes);
 
@@ -93,27 +130,58 @@ public class XDIDiscoveryClient {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
-		// send the registry message
+		// check registry cache
 
-		MessageEnvelope registryMessageEnvelope = new MessageEnvelope();
-		Message registryMessage = registryMessageEnvelope.createMessage(null);
-		registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
+		MessageResult registryMessageResult = null;
 
-		MessageResult registryMessageResult;
+		DiscoveryCacheKey registryDiscoveryCacheKey = makeDiscoveryCacheKey(query, this.getRegistryXdiClient());
+		Element registryMessageResultElement = null;
 
-		try {
+		if (this.getRegistryCache() != null) registryMessageResultElement = this.getRegistryCache().get(registryDiscoveryCacheKey);
+		if (registryMessageResultElement != null) registryMessageResult = (MessageResult) registryMessageResultElement.getObjectValue();
 
-			XDIHttpClient registryXdiHttpClient = this.getRegistryXdiClient();
+		MessageEnvelope registryMessageEnvelope = null;
 
-			registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
-		} catch (Xdi2ClientException ex) {
+		if (registryMessageResult != null) {
 
-			discoveryResult.initFromException(ex);
+			if (log.isDebugEnabled()) log.debug("Registry cache HIT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
+		} else {
 
-			throw ex;
-		} catch (Exception ex) {
+			if (log.isDebugEnabled()) log.debug("Registry cache MISS: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
 
-			throw new Xdi2ClientException("Cannot send XDI message to XDI registry: " + ex.getMessage(), ex, null);
+			// send the registry message
+
+			registryMessageEnvelope = new MessageEnvelope();
+			Message registryMessage = registryMessageEnvelope.createMessage(null);
+			registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
+
+			try {
+
+				XDIHttpClient registryXdiHttpClient = this.getRegistryXdiClient();
+
+				registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
+			} catch (Xdi2ClientException ex) {
+
+				discoveryResult.initFromException(ex);
+
+				throw ex;
+			} catch (Exception ex) {
+
+				throw new Xdi2ClientException("Cannot send XDI message to XDI registry: " + ex.getMessage(), ex, null);
+			}
+
+			// save in cache
+
+			if (this.getRegistryCache() != null) {
+
+				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
+
+				this.getRegistryCache().put(new Element(registryDiscoveryCacheKey, registryMessageResult));
+			}
+
+			// fire event
+
+			this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
 		}
 
 		// parse the registry message result
@@ -122,8 +190,6 @@ public class XDIDiscoveryClient {
 
 		// done
 
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
-
 		return discoveryResult;
 	}
 
@@ -131,40 +197,71 @@ public class XDIDiscoveryClient {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
-		// send the authority message
+		// check authority cache
 
-		MessageEnvelope authorityMessageEnvelope = new MessageEnvelope();
-		Message authorityMessage = authorityMessageEnvelope.createMessage(null);
-		authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
-		authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
-		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-		authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
-		authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+		MessageResult authorityMessageResult = null;
 
-		if (endpointUriTypes != null) {
+		DiscoveryCacheKey authorityDiscoveryCacheKey = makeDiscoveryCacheKey(cloudNumber, xdiEndpointUri);
+		Element authorityMessageResultElement = null;
 
-			for (XDI3Segment endpointUriType : endpointUriTypes) {
+		if (this.getAuthorityCache() != null) authorityMessageResultElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
+		if (authorityMessageResultElement != null) authorityMessageResult = (MessageResult) authorityMessageResultElement.getObjectValue();
 
-				authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), endpointUriType, XDIClientConstants.XRI_S_AS_URI));
+		MessageEnvelope authorityMessageEnvelope = null;
+
+		if (authorityMessageResult != null) {
+
+			if (log.isDebugEnabled()) log.debug("Authority cache HIT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
+		} else {
+
+			if (log.isDebugEnabled()) log.debug("Authority cache MISS: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
+
+			// send the authority message
+
+			authorityMessageEnvelope = new MessageEnvelope();
+			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
+			authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
+			authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
+			authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+			authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
+			authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+
+			if (endpointUriTypes != null) {
+
+				for (XDI3Segment endpointUriType : endpointUriTypes) {
+
+					authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), endpointUriType, XDIClientConstants.XRI_S_AS_URI));
+				}
 			}
-		}
 
-		MessageResult authorityMessageResult;
+			try {
 
-		try {
+				XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
-			XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUri);
+				authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
+			} catch (Xdi2ClientException ex) {
 
-			authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
-		} catch (Xdi2ClientException ex) {
+				discoveryResult.initFromException(ex);
 
-			discoveryResult.initFromException(ex);
+				throw ex;
+			} catch (Exception ex) {
 
-			throw ex;
-		} catch (Exception ex) {
+				throw new Xdi2ClientException("Cannot send XDI message to XDI authority: " + ex.getMessage(), ex, null);
+			}
 
-			throw new Xdi2ClientException("Cannot send XDI message to XDI authority: " + ex.getMessage(), ex, null);
+			// save in cache
+
+			if (this.getAuthorityCache() != null) {
+
+				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
+
+				this.getAuthorityCache().put(new Element(authorityDiscoveryCacheKey, authorityMessageResult));
+			}
+
+			// fire event
+
+			this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
 		}
 
 		// parse the authority message result
@@ -173,10 +270,80 @@ public class XDIDiscoveryClient {
 
 		// done
 
-		this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
-
 		return discoveryResult;
 	}
+
+	/*
+	 * Helper classes and methods
+	 */
+	
+	private static DiscoveryCacheKey makeDiscoveryCacheKey(XDI3Segment query, XDIHttpClient registryXdiHttpClient) {
+		
+		return new DiscoveryCacheKey(query, registryXdiHttpClient.getEndpointUri().toString());
+	}
+	
+	private static DiscoveryCacheKey makeDiscoveryCacheKey(CloudNumber cloudNumber, String xdiEndpointUri) {
+		
+		return new DiscoveryCacheKey(cloudNumber.getXri(), xdiEndpointUri);
+	}
+
+	private static class DiscoveryCacheKey implements Serializable {
+
+		private static final long serialVersionUID = -2109761083423630152L;
+
+		private XDI3Segment query;
+		private String xdiEndpointUri;
+
+		public DiscoveryCacheKey(XDI3Segment query, String xdiEndpointUri) {
+
+			this.query = query;
+			this.xdiEndpointUri = xdiEndpointUri;
+		}
+
+		@Override
+		public int hashCode() {
+
+			final int prime = 31;
+			int result = 1;
+			
+			result = prime * result + ((query == null) ? 0 : query.hashCode());
+			result = prime * result + ((xdiEndpointUri == null) ? 0 : xdiEndpointUri.hashCode());
+
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+
+			if (this == obj) return true;
+			if (obj == null) return false;
+			if (getClass() != obj.getClass()) return false;
+
+			DiscoveryCacheKey other = (DiscoveryCacheKey) obj;
+
+			if (query == null) {
+
+				if (other.query != null) return false;
+			} else if (!query.equals(other.query)) return false;
+
+			if (xdiEndpointUri == null) {
+
+				if (other.xdiEndpointUri != null) return false;
+			} else if (!xdiEndpointUri.equals(other.xdiEndpointUri)) return false;
+
+			return true;
+		}
+
+		@Override
+		public String toString() {
+
+			return "DiscoveryCacheKey [query=" + this.query + ", xdiEndpointUri=" + this.xdiEndpointUri + "]";
+		}
+	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public XDIHttpClient getRegistryXdiClient() {
 
@@ -186,5 +353,25 @@ public class XDIDiscoveryClient {
 	public void setRegistryXdiClient(XDIHttpClient registryXdiClient) {
 
 		this.registryXdiClient = registryXdiClient;
+	}
+
+	public Cache getRegistryCache() {
+
+		return this.registryCache;
+	}
+
+	public void setRegistryCache(Cache registryCache) {
+
+		this.registryCache = registryCache;
+	}
+
+	public Cache getAuthorityCache() {
+
+		return this.authorityCache;
+	}
+
+	public void setAuthorityCache(Cache authorityCache) {
+
+		this.authorityCache = authorityCache;
 	}
 }

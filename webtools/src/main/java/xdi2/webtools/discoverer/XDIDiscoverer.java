@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -121,7 +120,10 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			// start discovery
 
-			XDIDiscoveryClient discoveryClient = new XDIDiscoveryClient(new XDIHttpClient(endpoint));
+			XDIDiscoveryClient discoveryClient = new XDIDiscoveryClient(endpoint);
+
+			discoveryClient.setRegistryCache(null);
+			discoveryClient.setAuthorityCache(null);
 
 			// from registry
 
@@ -143,7 +145,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 					} catch (Exception ex) {
-						
+
 						exceptionAuthority = ex;
 						discoveryResultAuthority = null;
 					}
@@ -183,7 +185,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultRegistry.getMessageEnvelope() != null) 
 					xdiResultWriter.write(discoveryResultRegistry.getMessageEnvelope().getGraph(), writer);
 				else
-					writer.write("(null)");
+					writer.write("(null)\n");
 
 				writer.write("\n");
 
@@ -192,7 +194,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultRegistry.getMessageResult() != null) 
 					xdiResultWriter.write(discoveryResultRegistry.getMessageResult().getGraph(), writer);
 				else
-					writer.write("(null)");
+					writer.write("(null)\n");
 			} else {
 
 				writer.write("No discovery result from registry.\n");
@@ -226,7 +228,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultAuthority.getMessageEnvelope() != null) 
 					xdiResultWriter.write(discoveryResultAuthority.getMessageEnvelope().getGraph(), writer2);
 				else
-					writer2.write("(null)");
+					writer2.write("(null)\n");
 
 				writer2.write("\n");
 
@@ -235,7 +237,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultAuthority.getMessageResult() != null)
 					xdiResultWriter.write(discoveryResultAuthority.getMessageResult().getGraph(), writer2);
 				else
-					writer2.write("(null)");
+					writer2.write("(null)\n");
 			} else if (exceptionAuthority != null) {
 
 				writer2.write("Exception from authority: " + exceptionAuthority.getMessage() + "\n");

@@ -58,7 +58,7 @@
 		</tr>
 
 		<tr>
-		<td>Discover additional services:</td>
+		<td>Additional services:</td>
 		<td><input type="text" name="services" size="80" value="<%= services %>"></td>
 		</tr>
 		</table>
