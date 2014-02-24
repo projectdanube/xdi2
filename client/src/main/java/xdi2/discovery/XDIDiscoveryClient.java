@@ -40,7 +40,11 @@ public class XDIDiscoveryClient {
 	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryservice.xdi.net:12220/");
 	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("http://xdidiscoveryserviceote.xdi.net:12220/");
 
+	public static final XDIDiscoveryClient NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
+	public static final XDIDiscoveryClient NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
+
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = NEUSTAR_PROD_DISCOVERY_CLIENT;
 	public static final Cache DEFAULT_REGISTRY_CACHE;
 	public static final Cache DEFAULT_AUTHORITY_CACHE;
 

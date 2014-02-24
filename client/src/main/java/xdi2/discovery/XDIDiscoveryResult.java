@@ -1,18 +1,14 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
-import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
 import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.Base64;
-
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.util.XDIClientUtil;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
@@ -158,7 +154,7 @@ public class XDIDiscoveryResult implements Serializable {
 		signaturePublicKeyXdiValue = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.dereference();
 
 		Literal signaturePublicKeyLiteral = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.getContextNode().getLiteral();
-		this.signaturePublicKey = signaturePublicKeyLiteral == null ? null : publicKeyFromPublicKeyString(signaturePublicKeyLiteral.getLiteralDataString());
+		this.signaturePublicKey = signaturePublicKeyLiteral == null ? null : XDIClientUtil.publicKeyFromPublicKeyString(signaturePublicKeyLiteral.getLiteralDataString());
 
 		// find encryption public key
 
@@ -169,7 +165,7 @@ public class XDIDiscoveryResult implements Serializable {
 		encryptionPublicKeyXdiValue = encryptionPublicKeyXdiValue == null ? null : encryptionPublicKeyXdiValue.dereference();
 
 		Literal encryptionPublicKeyLiteral = encryptionPublicKeyXdiValue == null ? null : encryptionPublicKeyXdiValue.getContextNode().getLiteral();
-		this.encryptionPublicKey = encryptionPublicKeyLiteral == null ? null : publicKeyFromPublicKeyString(encryptionPublicKeyLiteral.getLiteralDataString());
+		this.encryptionPublicKey = encryptionPublicKeyLiteral == null ? null : XDIClientUtil.publicKeyFromPublicKeyString(encryptionPublicKeyLiteral.getLiteralDataString());
 
 		// find endpoint uris
 
@@ -202,26 +198,6 @@ public class XDIDiscoveryResult implements Serializable {
 		// done
 
 		this.messageResult = ex.getErrorMessageResult();
-	}
-
-	/*
-	 * Helper methods
-	 */
-
-	private static PublicKey publicKeyFromPublicKeyString(String publicKeyString) throws Xdi2ClientException {
-
-		if (publicKeyString == null) return null;
-
-		try {
-
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString));
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-			return keyFactory.generatePublic(keySpec);
-		} catch (GeneralSecurityException ex) {
-
-			throw new Xdi2ClientException("Invalid RSA public key " + publicKeyString + ": " + ex.getMessage(), ex, null);
-		}
 	}
 
 	/*
