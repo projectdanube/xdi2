@@ -34,6 +34,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	private final JSONContextNode jsonRootContextNode;
 	private final Map<String, JsonObject> jsonObjects;
 
+	private StringBuffer logBuffer;
+	private boolean logEnabled;
+
 	JSONGraph(GraphFactory graphFactory, String identifier, JSONStore jsonStore) {
 
 		super(graphFactory, identifier);
@@ -42,6 +45,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
 		this.jsonObjects = new HashMap<String, JsonObject> ();
+
+		this.logBuffer = new StringBuffer();
+		this.logEnabled = true;
 	}
 
 	@Override
@@ -85,17 +91,33 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	}
 
 	/*
-	 * Misc methods
+	 * Getters and setters
 	 */
 
-	/**
-	 * Returns the JSON store this graph is based on.
-	 * WARNING: Do not alter the contents of the store using this method, or your XDI graph may get corrupted.
-	 * @return The JSON store backing this graph.
-	 */
 	public JSONStore getJsonStore() {
 
 		return this.jsonStore;
+	}
+
+	public StringBuffer getLogBuffer() {
+
+		return this.logBuffer;
+	}
+
+	public boolean getLogEnabled() {
+
+		return this.logEnabled;
+	}
+
+	public void setLogEnabled(boolean logEnabled) {
+
+		this.logEnabled = logEnabled;
+
+	}
+
+	public void resetLogBuffer() {
+
+		this.logBuffer = new StringBuffer();
 	}
 
 	/*
@@ -104,28 +126,38 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	JsonObject jsonLoad(String id) {
 
-		if (log.isTraceEnabled()) log.trace("Loading JSON " + id);
-
-		JsonObject jsonObject = this.jsonObjects.get(id);
-		if (jsonObject != null) return jsonObject;
+		JsonObject jsonObject = null;
 
 		try {
 
-			jsonObject = this.jsonStore.load(id);
-			if (jsonObject == null) jsonObject = new JsonObject();
+			jsonObject = this.jsonObjects.get(id);
+			if (jsonObject != null) return jsonObject;
 
-			this.jsonObjects.put(id, jsonObject);
+			try {
 
-			return jsonObject;
-		} catch (IOException ex) {
+				jsonObject = this.jsonStore.load(id);
+				if (jsonObject == null) jsonObject = new JsonObject();
 
-			throw new Xdi2RuntimeException("Cannot load JSON at " + id + ": " + ex.getMessage(), ex);
+				this.jsonObjects.put(id, jsonObject);
+
+				return jsonObject;
+			} catch (IOException ex) {
+
+				throw new Xdi2RuntimeException("Cannot load JSON at " + id + ": " + ex.getMessage(), ex);
+			}
+		} finally {
+
+			if (log.isTraceEnabled()) log.trace("load( " + id + " , " + jsonObject + " )");
+
+			if (this.getLogEnabled()) this.logBuffer.append("load( " + id + " , " + jsonObject + " )\n");
 		}
 	}
 
 	void jsonSave(String id, JsonObject jsonObject) {
 
-		if (log.isTraceEnabled()) log.trace("Saving JSON " + id);
+		if (log.isTraceEnabled()) log.trace("save( " + id + " , " + jsonObject + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("save( " + id + " , " + jsonObject + " )\n");
 
 		try {
 
@@ -140,7 +172,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	void jsonSaveToArray(String id, String key, JsonPrimitive jsonPrimitive) {
 
-		if (log.isTraceEnabled()) log.trace("Saving JSON to array " + id + " at " + key);
+		if (log.isTraceEnabled()) log.trace("saveToArray( " + id + " , " + key + " , " + jsonPrimitive + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("saveToArray( " + id + " , " + key + " , " + jsonPrimitive + " )\n");
 
 		try {
 
@@ -178,7 +212,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	void jsonSaveToObject(String id, String key, JsonElement jsonElement) {
 
-		if (log.isTraceEnabled()) log.trace("Saving JSON to object " + id + " at " + key);
+		if (log.isTraceEnabled()) log.trace("saveToObject( " + id + " , " + key + " , " + jsonElement + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("saveToObject( " + id + " , " + key + " , " + jsonElement + " )\n");
 
 		try {
 
@@ -204,7 +240,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	void jsonDelete(String id) {
 
-		if (log.isTraceEnabled()) log.trace("Deleting JSON " + id);
+		if (log.isTraceEnabled()) log.trace("delete( " + id + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("delete( " + id + " )\n");
 
 		try {
 
@@ -222,7 +260,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	void jsonDeleteFromArray(String id, String key, JsonPrimitive jsonPrimitive) {
 
-		if (log.isTraceEnabled()) log.trace("Removing JSON from array " + id + " at " + key);
+		if (log.isTraceEnabled()) log.trace("deleteFromArray( " + id + " , " + key + " , " + jsonPrimitive + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("deleteFromArray( " + id + " , " + key + " , " + jsonPrimitive + " )\n");
 
 		try {
 
@@ -245,7 +285,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	void jsonDeleteFromObject(String id, String key) {
 
-		if (log.isTraceEnabled()) log.trace("Removing JSON from object " + id + " at " + key);
+		if (log.isTraceEnabled()) log.trace("deleteFromObject( " + id + " , " + key + " )");
+
+		if (this.getLogEnabled()) this.logBuffer.append("deleteFromObject( " + id + " , " + key + " )\n");
 
 		try {
 

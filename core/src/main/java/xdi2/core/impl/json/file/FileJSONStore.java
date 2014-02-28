@@ -41,7 +41,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	}
 
 	@Override
-	protected JsonObject loadInternal(String id) throws IOException {
+	public JsonObject load(String id) throws IOException {
 
 		String filename = filename(this.getPrefix(), id) + ".json";
 
@@ -58,7 +58,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	}
 
 	@Override
-	protected void saveInternal(String id, JsonObject object) throws IOException {
+	public void save(String id, JsonObject object) throws IOException {
 
 		String filename = filename(this.getPrefix(), id) + ".json";
 
@@ -76,7 +76,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 	}
 
 	@Override
-	protected void deleteInternal(final String id) throws IOException {
+	public void delete(final String id) throws IOException {
 
 		final String baseFilename = filename(this.getPrefix(), id);
 
