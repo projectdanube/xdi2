@@ -126,12 +126,18 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	JsonObject jsonLoad(String id) {
 
+		JsonObject jsonObjectCached = null;
 		JsonObject jsonObject = null;
 
 		try {
 
-			jsonObject = this.jsonObjects.get(id);
-			if (jsonObject != null) return jsonObject;
+			jsonObjectCached = this.jsonObjects.get(id);
+			
+			if (jsonObjectCached != null) {
+			
+				jsonObject = jsonObjectCached;
+				return jsonObject;
+			}
 
 			try {
 
@@ -147,9 +153,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 			}
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("load( " + id + " , " + jsonObject + " )");
+			if (log.isTraceEnabled()) log.trace("load( " + id + " , " + jsonObject + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )");
 
-			if (this.getLogEnabled()) this.logBuffer.append("load( " + id + " , " + jsonObject + " )\n");
+			if (this.getLogEnabled()) this.logBuffer.append("load( " + id + " , " + jsonObject + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )\n");
 		}
 	}
 
