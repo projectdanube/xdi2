@@ -47,7 +47,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 		this.jsonObjects = new HashMap<String, JsonObject> ();
 
 		this.logBuffer = new StringBuffer();
-		this.logEnabled = true;
+		this.logEnabled = false;
 	}
 
 	@Override
