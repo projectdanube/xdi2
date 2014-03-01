@@ -112,7 +112,6 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	public void setLogEnabled(boolean logEnabled) {
 
 		this.logEnabled = logEnabled;
-
 	}
 
 	public void resetLogBuffer() {
