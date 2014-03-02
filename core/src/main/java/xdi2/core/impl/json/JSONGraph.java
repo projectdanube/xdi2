@@ -32,7 +32,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	private final JSONStore jsonStore;
 
 	private final JSONContextNode jsonRootContextNode;
-	private final Map<String, JsonObject> jsonObjects;
+	private final Map<String, JsonObject> jsonObjectsCached;
 
 	private StringBuffer logBuffer;
 	private boolean logEnabled;
@@ -44,7 +44,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 		this.jsonStore = jsonStore;
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
-		this.jsonObjects = new HashMap<String, JsonObject> ();
+		this.jsonObjectsCached = new HashMap<String, JsonObject> ();
 
 		this.logBuffer = new StringBuffer();
 		this.logEnabled = false;
@@ -75,19 +75,19 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	@Override
 	public void beginTransaction() {
 
-		this.jsonObjects.clear();
+		this.jsonObjectsCached.clear();
 	}
 
 	@Override
 	public void commitTransaction() {
 
-		this.jsonObjects.clear();
+		this.jsonObjectsCached.clear();
 	}
 
 	@Override
 	public void rollbackTransaction() {
 
-		this.jsonObjects.clear();
+		this.jsonObjectsCached.clear();
 	}
 
 	/*
@@ -130,7 +130,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		try {
 
-			jsonObjectCached = this.jsonObjects.get(id);
+			jsonObjectCached = this.jsonObjectsCached.get(id);
 			
 			if (jsonObjectCached != null) {
 			
@@ -143,7 +143,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 				jsonObject = this.jsonStore.load(id);
 				if (jsonObject == null) jsonObject = new JsonObject();
 
-				this.jsonObjects.put(id, jsonObject);
+				this.jsonObjectsCached.put(id, jsonObject);
 
 				return jsonObject;
 			} catch (IOException ex) {
@@ -168,7 +168,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.save(id, jsonObject);
 
-			this.jsonObjects.put(id, jsonObject);
+			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON at " + id + ": " + ex.getMessage(), ex);
@@ -185,7 +185,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.saveToArray(id, key, jsonPrimitive);
 
-			JsonObject jsonObject = this.jsonObjects.get(id);
+			JsonObject jsonObject = this.jsonObjectsCached.get(id);
 
 			if (jsonObject == null) {
 
@@ -208,7 +208,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 				}
 			}
 
-			this.jsonObjects.put(id, jsonObject);
+			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON to array " + id + ": " + ex.getMessage(), ex);
@@ -225,7 +225,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.saveToObject(id, key, jsonElement);
 
-			JsonObject jsonObject = this.jsonObjects.get(id);
+			JsonObject jsonObject = this.jsonObjectsCached.get(id);
 
 			if (jsonObject == null) {
 
@@ -236,7 +236,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 				jsonObject.add(key, jsonElement);
 			}
 
-			this.jsonObjects.put(id, jsonObject);
+			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON to object " + id + ": " + ex.getMessage(), ex);
@@ -253,7 +253,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.delete(id);
 
-			for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjects.entrySet().iterator(); iterator.hasNext(); ) {
+			for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjectsCached.entrySet().iterator(); iterator.hasNext(); ) {
 
 				if (iterator.next().getKey().startsWith(id)) iterator.remove();
 			}
@@ -273,7 +273,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.deleteFromArray(id, key, jsonPrimitive);
 
-			JsonObject jsonObject = this.jsonObjects.get(id);
+			JsonObject jsonObject = this.jsonObjectsCached.get(id);
 			if (jsonObject == null) return;
 
 			JsonArray jsonArray = jsonObject.getAsJsonArray(key);
@@ -281,7 +281,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			new IteratorRemover<JsonElement> (jsonArray.iterator(), jsonPrimitive).remove();
 
-			this.jsonObjects.put(id, jsonObject);
+			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot remove JSON from array " + id + ": " + ex.getMessage(), ex);
@@ -298,12 +298,12 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.deleteFromObject(id, key);
 
-			JsonObject jsonObject = this.jsonObjects.get(id);
+			JsonObject jsonObject = this.jsonObjectsCached.get(id);
 			if (jsonObject == null) return;
 
 			jsonObject.remove(key);
 
-			this.jsonObjects.put(id, jsonObject);
+			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot remove JSON from object " + id + ": " + ex.getMessage(), ex);
