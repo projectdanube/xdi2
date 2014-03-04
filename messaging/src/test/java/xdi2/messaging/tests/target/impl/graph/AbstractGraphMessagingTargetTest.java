@@ -33,6 +33,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		Graph graph = this.openNewGraph(this.getClass().getName() + "-graph-me-1"); 
 
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
+		graphMessagingTarget.init();
 
 		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_SET, new SingleItemIterator<XDI3Statement> (XDI3Statement.create("=markus/+friend/=giovanni")));
 		MessageResult messageResult1 = new MessageResult();
@@ -43,6 +44,8 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		MessageResult messageResult2 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
 		assertEquals(messageResult2.getGraph().getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")).getTargetContextNodeXri(), XDI3Segment.create("=giovanni"));
+
+		graphMessagingTarget.shutdown();
 	}
 
 	public void testGraphMessagingTarget() throws Exception {
