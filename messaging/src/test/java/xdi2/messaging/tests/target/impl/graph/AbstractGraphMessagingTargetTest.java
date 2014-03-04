@@ -62,105 +62,128 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 			graphMessagingTarget.setGraph(graph);
 			graphMessagingTarget.getInterceptors().addInterceptor(new RefInterceptor());
 
-			// execute the messages
+			graphMessagingTarget.init();
 
-			ii = 1;
+			try {
 
-			while (true) {
+				// execute the messages
 
-				if (this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi") == null) break;
+				ii = 1;
 
-				log.info("Message " + i + "." + ii);
+				while (true) {
 
-				Graph message = this.openNewGraph(this.getClass().getName() + "-message-" + i + "-" + ii); 
-				autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi")).close();
+					if (this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi") == null) break;
 
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
-				MessageResult messageResult = new MessageResult();
+					log.info("Message " + i + "." + ii);
 
-				try {
+					Graph message = this.openNewGraph(this.getClass().getName() + "-message-" + i + "-" + ii); 
+					autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi")).close();
 
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
-				} catch (Exception ex) {
+					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
+					MessageResult messageResult = new MessageResult();
 
-					throw ex;
+					try {
+
+						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					} finally {
+
+						message.close();
+					}
+
+					ii++;
 				}
 
-				ii++;
-			}
+				// check positives
 
-			// check positives
+				ii = 1;
 
-			ii = 1;
+				while (true) {
 
-			while (true) {
+					if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
 
-				if (this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi") == null) break;
+					log.info("Positive " + i + "." + ii);
 
-				log.info("Positive " + i + "." + ii);
+					Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 
+					autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi")).close();
 
-				Graph positive = this.openNewGraph(this.getClass().getName() + "-positive-" + i + "-" + ii); 
-				autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi")).close();
+					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(positive);
+					MessageResult messageResult = new MessageResult();
 
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(positive);
-				MessageResult messageResult = new MessageResult();
+					try {
 
-				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					} finally {
 
-				assertFalse(messageResult.isEmpty());
+						positive.close();
+					}
 
-				ii++;
-			}
+					assertFalse(messageResult.isEmpty());
 
-			// check negatives
-
-			ii = 1;
-
-			while (true) {
-
-				if (this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi") == null) break;
-
-				log.info("Negative " + i + "." + ii);
-
-				Graph negative = this.openNewGraph(this.getClass().getName() + "-negative-" + i + "-" + ii); 
-				autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi")).close();
-
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
-				MessageResult messageResult = new MessageResult();
-
-				graphMessagingTarget.execute(messageEnvelope, messageResult, null);
-
-				assertTrue(messageResult.isEmpty());
-
-				ii++;
-			}
-
-			// check exceptions
-
-			ii = 1;
-
-			while (true) {
-
-				if (this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi") == null) break;
-
-				log.info("Exception " + i + "." + ii);
-
-				Graph exception = this.openNewGraph(this.getClass().getName() + "-exception-" + i + "-" + ii); 
-				autoReader.read(exception, this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi")).close();
-
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(exception);
-				MessageResult messageResult = new MessageResult();
-
-				try {
-
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
-
-					fail();
-				} catch (Xdi2MessagingException ex) {
-
+					ii++;
 				}
 
-				ii++;
+				// check negatives
+
+				ii = 1;
+
+				while (true) {
+
+					if (this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi") == null) break;
+
+					log.info("Negative " + i + "." + ii);
+
+					Graph negative = this.openNewGraph(this.getClass().getName() + "-negative-" + i + "-" + ii); 
+					autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi")).close();
+
+					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
+					MessageResult messageResult = new MessageResult();
+
+					try {
+
+						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					} finally {
+
+						negative.close();
+					}
+
+					assertTrue(messageResult.isEmpty());
+
+					ii++;
+				}
+
+				// check exceptions
+
+				ii = 1;
+
+				while (true) {
+
+					if (this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi") == null) break;
+
+					log.info("Exception " + i + "." + ii);
+
+					Graph exception = this.openNewGraph(this.getClass().getName() + "-exception-" + i + "-" + ii); 
+					autoReader.read(exception, this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi")).close();
+
+					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(exception);
+					MessageResult messageResult = new MessageResult();
+
+					try {
+
+						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+
+						fail();
+					} catch (Xdi2MessagingException ex) {
+
+					} finally {
+
+						exception.close();
+					}
+
+					ii++;
+				}
+			} finally {
+
+				graphMessagingTarget.shutdown();
 			}
 
 			// next graph
