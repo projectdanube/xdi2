@@ -58,7 +58,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		ReadOnlyIterator<ContextNode> ret = this.memoryContextNode.getContextNodes();
 
-		return new ReadOnlyIterator<ContextNode> (new FileContextNodeMappingIterator(ret));
+		return new ReadOnlyIterator<ContextNode> (new WrappedContextNodeMappingIterator(ret));
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(arcXri);
 
-		return new ReadOnlyIterator<Relation> (new FileRelationMappingIterator(ret));
+		return new ReadOnlyIterator<Relation> (new WrappedRelationMappingIterator(ret));
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 
 		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations();
 
-		return new ReadOnlyIterator<Relation> (new FileRelationMappingIterator(ret));
+		return new ReadOnlyIterator<Relation> (new WrappedRelationMappingIterator(ret));
 	}
 
 	@Override
@@ -189,9 +189,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 		this.memoryContextNode.delLiteral();
 	}
 
-	private class FileContextNodeMappingIterator extends MappingIterator<ContextNode, ContextNode> {
+	private class WrappedContextNodeMappingIterator extends MappingIterator<ContextNode, ContextNode> {
 
-		public FileContextNodeMappingIterator(Iterator<ContextNode> iterator) {
+		public WrappedContextNodeMappingIterator(Iterator<ContextNode> iterator) {
 
 			super(iterator);
 		}
@@ -203,9 +203,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 		}
 	}
 
-	private class FileRelationMappingIterator extends MappingIterator<Relation, Relation> {
+	private class WrappedRelationMappingIterator extends MappingIterator<Relation, Relation> {
 
-		public FileRelationMappingIterator(Iterator<Relation> iterator) {
+		public WrappedRelationMappingIterator(Iterator<Relation> iterator) {
 
 			super(iterator);
 		}
