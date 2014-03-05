@@ -33,15 +33,16 @@ public abstract class WrappedGraphFactory extends AbstractGraphFactory implement
 	@Override
 	public Graph openGraph(String identifier) throws IOException {
 
-		// get wrapper
+		// get wrapper store
 
-		WrapperStore wrapper = this.openWrapper(identifier);
+		WrapperStore wrapperStore = this.openWrapper(identifier);
 
 		// initialize graph
 
 		MemoryGraph memoryGraph = this.memoryGraphFactory.openGraph();
+		wrapperStore.load(memoryGraph);
 
-		return new WrappedGraph(this, identifier, wrapper, memoryGraph);
+		return new WrappedGraph(this, identifier, wrapperStore, memoryGraph);
 	}
 
 	/**

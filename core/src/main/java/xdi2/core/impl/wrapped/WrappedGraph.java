@@ -13,14 +13,12 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	private WrapperStore wrapperStore;
 	private MemoryGraph memoryGraph;
 
-	WrappedGraph(WrappedGraphFactory graphFactory, String identifier, WrapperStore wrapper, MemoryGraph memoryGraph) {
+	WrappedGraph(WrappedGraphFactory graphFactory, String identifier, WrapperStore wrapperStore, MemoryGraph memoryGraph) {
 
 		super(graphFactory, identifier);
 
-		this.wrapperStore = wrapper;
+		this.wrapperStore = wrapperStore;
 		this.memoryGraph = memoryGraph;
-
-		this.getWrapperStore().load(this.getMemoryGraph());
 	}
 
 	@Override

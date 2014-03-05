@@ -20,13 +20,13 @@ public class WrappedRelation extends AbstractRelation implements Relation {
 
 	@Override
 	public XDI3Segment getArcXri() {
-		
+
 		return this.memoryRelation.getArcXri();
 	}
 
 	@Override
 	public XDI3Segment getTargetContextNodeXri() {
-		
+
 		return this.memoryRelation.getTargetContextNodeXri();
 	}
 }
