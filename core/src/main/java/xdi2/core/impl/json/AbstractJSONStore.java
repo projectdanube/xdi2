@@ -1,6 +1,8 @@
 package xdi2.core.impl.json;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorRemover;
@@ -11,6 +13,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractJSONStore implements JSONStore {
+
+	@Override
+	public Map<String, JsonObject> loadWithPrefix(String id) throws IOException {
+
+		JsonObject jsonObject = this.load(id);
+
+		if (jsonObject == null)
+			return Collections.emptyMap();
+		else
+			return Collections.singletonMap(id, jsonObject);
+	}
 
 	@Override
 	public void saveToArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException {

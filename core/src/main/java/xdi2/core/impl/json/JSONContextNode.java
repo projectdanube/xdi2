@@ -91,7 +91,17 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public ContextNode getContextNode(XDI3SubSegment arcXri) {
 
-		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXri().toString());
+		return this.getContextNode(arcXri, false);
+	}
+
+	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean withPrefix) {
+
+		JsonObject jsonObject;
+
+		if (withPrefix)
+			jsonObject = ((JSONGraph) this.getGraph()).jsonLoadWithPrefix(this.getXri().toString()).get(this.getXri().toString());
+		else
+			jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXri().toString());
 
 		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_S_CONTEXT.toString());
 		if (jsonArrayContexts == null) return null;
@@ -107,12 +117,22 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri) {
 
+		return this.getDeepContextNode(contextNodeXri, false);
+	}
+
+	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri, boolean withPrefix) {
+
 		if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri) && this.isRootContextNode()) return this;
 
 		XDI3Segment parentContextNodeXri = XDI3Util.concatXris(this.getXri(), XDI3Util.parentXri(contextNodeXri, -1));
 		XDI3SubSegment arcXri = contextNodeXri.getLastSubSegment();
 
-		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentContextNodeXri.toString());
+		JsonObject jsonObject;
+
+		if (withPrefix)
+			jsonObject = ((JSONGraph) this.getGraph()).jsonLoadWithPrefix(parentContextNodeXri.toString()).get(parentContextNodeXri.toString());
+		else
+			jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentContextNodeXri.toString());
 
 		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_S_CONTEXT.toString());
 		if (jsonArrayContexts == null) return null;

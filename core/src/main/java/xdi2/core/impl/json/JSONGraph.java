@@ -1,6 +1,7 @@
 package xdi2.core.impl.json;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -131,9 +132,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 		try {
 
 			jsonObjectCached = this.jsonObjectsCached.get(id);
-			
+
 			if (jsonObjectCached != null) {
-			
+
 				jsonObject = jsonObjectCached;
 				return jsonObject;
 			}
@@ -155,6 +156,40 @@ public class JSONGraph extends AbstractGraph implements Graph {
 			if (log.isTraceEnabled()) log.trace("load( " + id + " , " + jsonObject + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )");
 
 			if (this.getLogEnabled()) this.logBuffer.append("load( " + id + " , " + jsonObject + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )\n");
+		}
+	}
+
+	Map<String, JsonObject> jsonLoadWithPrefix(String id) {
+
+		JsonObject jsonObjectCached = null;
+		Map<String, JsonObject> jsonObjects = null;
+
+		try {
+
+			jsonObjectCached = this.jsonObjectsCached.get(id);
+
+			if (jsonObjectCached != null) {
+
+				jsonObjects = Collections.singletonMap(id, jsonObjectCached);
+				return jsonObjects;
+			}
+
+			try {
+
+				jsonObjects = this.jsonStore.loadWithPrefix(id);
+
+				this.jsonObjectsCached.putAll(jsonObjects);
+
+				return jsonObjects;
+			} catch (IOException ex) {
+
+				throw new Xdi2RuntimeException("Cannot loadWithPrefix JSON at " + id + ": " + ex.getMessage(), ex);
+			}
+		} finally {
+
+			if (log.isTraceEnabled()) log.trace("loadWithPrefix( " + id + " , " + jsonObjects + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )");
+
+			if (this.getLogEnabled()) this.logBuffer.append("loadWithPrefix( " + id + " , " + jsonObjects + " , cache " + (jsonObjectCached != null ? "HIT" : "MISS") + " )\n");
 		}
 	}
 

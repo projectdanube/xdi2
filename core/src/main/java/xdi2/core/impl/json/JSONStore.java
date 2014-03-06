@@ -1,6 +1,7 @@
 package xdi2.core.impl.json;
 
 import java.io.IOException;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,6 +19,7 @@ public interface JSONStore {
 	public void close();
 
 	public JsonObject load(String id) throws IOException;
+	public Map<String, JsonObject> loadWithPrefix(String id) throws IOException;
 	public void save(String id, JsonObject jsonObject) throws IOException;
 	public void saveToArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException;
 	public void saveToObject(String id, String key, JsonElement jsonElement) throws IOException;
