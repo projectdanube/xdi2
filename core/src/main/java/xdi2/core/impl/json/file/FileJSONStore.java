@@ -72,6 +72,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 		bufferedWriter.flush();
 		fileWriter.flush();
 
+		jsonWriter.close();
 		fileWriter.close();
 	}
 
