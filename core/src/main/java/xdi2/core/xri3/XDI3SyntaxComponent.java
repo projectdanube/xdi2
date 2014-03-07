@@ -13,16 +13,6 @@ public abstract class XDI3SyntaxComponent implements Serializable, Cloneable, Co
 		this.string = string;
 	}
 
-	public String toIRINormalForm() {
-
-		return IRIUtils.XRItoIRI(this.string, false);
-	}
-
-	public String toURINormalForm() {
-
-		return IRIUtils.IRItoURI(this.toIRINormalForm());
-	}
-
 	@Override
 	public int compareTo(XDI3SyntaxComponent other) {
 
