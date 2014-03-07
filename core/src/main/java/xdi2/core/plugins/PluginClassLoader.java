@@ -1,6 +1,5 @@
 package xdi2.core.plugins;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,20 +33,6 @@ public class PluginClassLoader extends URLClassLoader {
 
 			log.error(ex.getMessage(), ex);
 			throw new RuntimeException(ex.getMessage(), ex);
-		}
-	}
-
-	private static void close(Closeable closeable) {
-
-		if (closeable != null) {
-
-			try {
-
-				closeable.close();
-			} catch (IOException ex) {
-
-				ex.printStackTrace();
-			}
 		}
 	}
 
@@ -85,8 +70,8 @@ public class PluginClassLoader extends URLClassLoader {
 			return file;
 		} finally {
 
-			close(input);
-			close(output);
+			if (input != null) try { input.close(); } catch (IOException ex) { }
+			if (output != null) try { output.close(); } catch (IOException ex) { }
 		}
 	}
 

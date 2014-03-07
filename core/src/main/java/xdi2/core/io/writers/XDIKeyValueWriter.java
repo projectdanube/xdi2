@@ -91,6 +91,8 @@ public class XDIKeyValueWriter extends AbstractXDIWriter {
 			}
 		}
 
+		mapGraph.close();
+
 		writer.flush();
 
 		return writer;

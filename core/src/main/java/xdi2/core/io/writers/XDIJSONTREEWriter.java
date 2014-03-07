@@ -73,6 +73,8 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 		JsonWriter jsonWriter = new JsonWriter(writer);
 		if (this.writePretty) jsonWriter.setIndent("  ");
 		gson.toJson(json, jsonWriter);
+		jsonWriter.flush();
+		jsonWriter.close();
 		writer.flush();
 
 		return writer;

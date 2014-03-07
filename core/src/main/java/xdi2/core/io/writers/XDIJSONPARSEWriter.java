@@ -79,20 +79,20 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		// write ordered?
 
+		Graph orderedGraph = null;
 		IterableIterator<Statement> statements;
 
 		if (this.writeOrdered) {
 
 			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
-			Graph orderedGraph = memoryGraphFactory.openGraph();
+			orderedGraph = memoryGraphFactory.openGraph();
 			CopyUtil.copyGraph(graph, orderedGraph, null);
-			graph = orderedGraph;
 
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
-			list.add(new MappingContextNodeStatementIterator(graph.getRootContextNode().getAllContextNodes()));
-			list.add(new MappingRelationStatementIterator(graph.getRootContextNode().getAllRelations()));
-			list.add(new MappingLiteralStatementIterator(graph.getRootContextNode().getAllLiterals()));
+			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode().getAllContextNodes()));
+			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode().getAllRelations()));
+			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode().getAllLiterals()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {
@@ -111,7 +111,13 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		JsonWriter jsonWriter = new JsonWriter(writer);
 		if (this.writePretty) jsonWriter.setIndent("  ");
 		gson.toJson(gom, jsonWriter);
+		jsonWriter.flush();
+		jsonWriter.close();
 		writer.flush();
+
+		// done
+
+		if (orderedGraph != null) orderedGraph.close();
 
 		return writer;
 	}
