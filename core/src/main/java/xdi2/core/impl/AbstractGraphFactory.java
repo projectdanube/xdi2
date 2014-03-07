@@ -26,13 +26,29 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 	@Override
 	public Graph loadGraph(URL url) throws IOException, Xdi2ParseException {
 
-		return this.loadGraph(url.openStream());
+		InputStream inputStream = url.openStream();
+
+		try {
+
+			return this.loadGraph(inputStream);
+		} finally {
+
+			inputStream.close();
+		}
 	}
 
 	@Override
 	public Graph loadGraph(File file) throws IOException, Xdi2ParseException {
 
-		return this.loadGraph(new FileReader(file));
+		Reader reader = new FileReader(file);
+
+		try {
+
+			return this.loadGraph(reader);
+		} finally {
+
+			reader.close();
+		}
 	}
 
 	@Override
