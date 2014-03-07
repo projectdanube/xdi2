@@ -31,6 +31,14 @@ public interface GraphFactory {
 	public Graph openGraph(String identifier) throws IOException;
 
 	/**
+	 * Whether this graph factory supports persistence. If this is true, 
+	 * then a graph can be opened, closed, and opened again without losing
+	 * data.
+	 * @return True, if the graph factory supports persistence.
+	 */
+	public boolean supportsPersistence();
+
+	/**
 	 * Opens a graph and fills it with content in one of the serialization formats.
 	 * @return A new graph.
 	 */

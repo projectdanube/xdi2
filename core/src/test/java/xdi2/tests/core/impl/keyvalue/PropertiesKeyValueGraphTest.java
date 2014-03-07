@@ -1,8 +1,6 @@
 package xdi2.tests.core.impl.keyvalue;
 
-import java.io.IOException;
-
-import xdi2.core.Graph;
+import xdi2.core.GraphFactory;
 import xdi2.core.impl.keyvalue.properties.PropertiesKeyValueGraphFactory;
 import xdi2.core.impl.keyvalue.properties.PropertiesKeyValueStore;
 import xdi2.tests.core.impl.AbstractGraphTest;
@@ -28,16 +26,8 @@ public class PropertiesKeyValueGraphTest extends AbstractGraphTest {
 	}
 
 	@Override
-	protected Graph openNewGraph(String identifier) throws IOException {
+	protected GraphFactory getGraphFactory() {
 
-		return graphFactory.openGraph(identifier);
-	}
-
-	@Override
-	protected Graph reopenGraph(Graph graph, String identifier) throws IOException {
-
-		graph.close();
-
-		return graphFactory.openGraph(identifier);
+		return graphFactory;
 	}
 }

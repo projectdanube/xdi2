@@ -10,7 +10,7 @@ public class MapGraphMessagingTargetTest extends AbstractGraphMessagingTargetTes
 	private static MapKeyValueGraphFactory graphFactory = new MapKeyValueGraphFactory();
 
 	@Override
-	protected Graph openNewGraph(String id) throws IOException {
+	protected Graph openGraph(String id) throws IOException {
 
 		return graphFactory.openGraph();
 	}

@@ -19,6 +19,12 @@ public class FileJSONGraphFactory extends AbstractJSONGraphFactory implements Gr
 	}
 
 	@Override
+	public boolean supportsPersistence() {
+
+		return true;
+	}
+
+	@Override
 	protected JSONStore openJSONStore(String identifier) throws IOException {
 
 		// check identifier

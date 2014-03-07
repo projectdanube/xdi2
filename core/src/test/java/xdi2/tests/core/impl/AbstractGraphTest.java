@@ -15,9 +15,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import junit.framework.TestCase;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.GraphFactory;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement.ContextNodeStatement;
@@ -45,12 +45,11 @@ import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractGraphTest extends TestCase {
 
-	protected abstract Graph openNewGraph(String id) throws IOException;
-	protected abstract Graph reopenGraph(Graph graph, String id) throws IOException;
+	protected abstract GraphFactory getGraphFactory() throws IOException;
 
 	public void testSimple() throws Exception {
 
-		Graph graph0 = this.openNewGraph(this.getClass().getName() + "-graph-0");
+		Graph graph0 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-0");
 
 		ContextNode markus = graph0.getRootContextNode().setContextNode(XDI3SubSegment.create("=markus"));
 		ContextNode email = markus.setContextNode(XDI3SubSegment.create("<+email>"));
@@ -81,7 +80,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testMakeGraph() throws Exception {
 
-		Graph graph1 = this.openNewGraph(this.getClass().getName() + "-graph-1");
+		Graph graph1 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-1");
 
 		makeGraph(graph1);
 		testGraph(graph1);
@@ -91,10 +90,14 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testReopenGraph() throws Exception {
 
-		Graph graph2 = this.openNewGraph(this.getClass().getName() + "-graph-2");
+		if (! this.getGraphFactory().supportsPersistence()) return;
+
+		Graph graph2 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-2");
 
 		makeGraph(graph2);
-		graph2 = this.reopenGraph(graph2, this.getClass().getName() + "-graph-2");
+		graph2.close();
+
+		graph2 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-2");
 		testGraph(graph2);
 
 		graph2.close();
@@ -102,7 +105,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testReadJson() throws Exception {
 
-		Graph graph3 = this.openNewGraph(this.getClass().getName() + "-graph-3");
+		Graph graph3 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-3");
 
 		XDIReader reader = XDIReaderRegistry.forFormat("XDI/JSON", null);
 
@@ -124,15 +127,21 @@ public abstract class AbstractGraphTest extends TestCase {
 
 			File file = new File("xdi.out");
 
-			Graph graph4 = this.openNewGraph(this.getClass().getName() + "-graph-4" + "-" + i);
-			Graph graph5 = this.openNewGraph(this.getClass().getName() + "-graph-5" + "-" + i);
+			Graph graph4 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-4" + "-" + i);
+			Graph graph5 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-5" + "-" + i);
 
 			XDIWriter writer = XDIWriterRegistry.forFormat(formats[i], null);
 			XDIReader reader = XDIReaderRegistry.forFormat(formats[i], null);
 
+			FileWriter fileWriter = new FileWriter(file);
+			FileReader fileReader = new FileReader(file);
+
 			makeGraph(graph4);
-			writer.write(graph4, new FileWriter(file)).close();
-			reader.read(graph5, new FileReader(file)).close();
+			writer.write(graph4, fileWriter);
+			reader.read(graph5, fileReader);
+
+			fileWriter.close();
+			fileReader.close();
 
 			testGraph(graph5);
 			testGraphsEqual(graph4, graph5);
@@ -146,7 +155,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testManipulate() throws Exception {
 
-		Graph graph8 = this.openNewGraph(this.getClass().getName() + "-graph-8");
+		Graph graph8 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-8");
 
 		makeGraph(graph8);
 		manipulateGraph(graph8);
@@ -157,12 +166,18 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testManipulateAndReopenGraph() throws Exception {
 
-		Graph graph9 = this.openNewGraph(this.getClass().getName() + "-graph-9");
+		if (! this.getGraphFactory().supportsPersistence()) return;
+
+		Graph graph9 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-9");
 
 		makeGraph(graph9);
-		graph9 = this.reopenGraph(graph9, this.getClass().getName() + "-graph-9");
+		graph9.close();
+
+		graph9 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-9");
 		manipulateGraph(graph9);
-		graph9 = this.reopenGraph(graph9, this.getClass().getName() + "-graph-9");
+		graph9.close();
+
+		graph9 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-9");
 		testManipulatedGraph(graph9);
 
 		graph9.close();
@@ -170,8 +185,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testCopy() throws Exception {
 
-		Graph graph10 = this.openNewGraph(this.getClass().getName() + "-graph-10");
-		Graph graph11 = this.openNewGraph(this.getClass().getName() + "-graph-11");
+		Graph graph10 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-10");
+		Graph graph11 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-11");
 
 		try {
 
@@ -212,7 +227,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testDeleteDeep() throws Exception {
 
-		Graph graph12 = this.openNewGraph(this.getClass().getName() + "-graph-12");
+		Graph graph12 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-12");
 		assertEquals(graph12.getRootContextNode(), graph12.getDeepContextNode(XDIConstants.XRI_S_ROOT));
 		assertEquals(graph12.getRootContextNode().getXri(), XDIConstants.XRI_S_ROOT);
 
@@ -226,7 +241,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testRoot() throws Exception {
 
-		Graph graph13 = this.openNewGraph(this.getClass().getName() + "-graph-13");
+		Graph graph13 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-13");
 		ContextNode root = graph13.getRootContextNode();
 
 		assertEquals(root.getXri(), XDIConstants.XRI_S_ROOT);
@@ -304,7 +319,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testRelations() throws Exception {
 
-		Graph graph14 = this.openNewGraph(this.getClass().getName() + "-graph-14");
+		Graph graph14 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-14");
 		ContextNode root = graph14.getRootContextNode();
 		ContextNode markus = root.setContextNode(XDI3SubSegment.create("=markus"));
 		ContextNode target1 = root.setContextNode(XDI3SubSegment.create("=test")).setContextNode(XDI3SubSegment.create("=target1"));
@@ -382,7 +397,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testContextNodeXris() throws Exception {
 
-		Graph graph15 = this.openNewGraph(this.getClass().getName() + "-graph-15");
+		Graph graph15 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-15");
 		ContextNode root = graph15.getRootContextNode();
 
 		ContextNode c = root.setDeepContextNode(XDI3Segment.create("+a+b+c"));
@@ -430,7 +445,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testIncomingRelations() throws Exception {
 
-		Graph graph16 = this.openNewGraph(this.getClass().getName() + "-graph-16");
+		Graph graph16 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-16");
 
 		graph16.setStatement(XDI3Statement.create("=markus/+friend/=animesh"));
 		graph16.setStatement(XDI3Statement.create("=markus/+friend/=neustar=les"));
@@ -506,7 +521,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testNoExceptions() throws Exception {
 
-		Graph graph17 = this.openNewGraph(this.getClass().getName() + "-graph-17");
+		Graph graph17 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-17");
 
 		graph17.setStatement(XDI3Statement.create("=markus<+email>&/&/\"Markus Sabadello\""));
 		graph17.setStatement(XDI3Statement.create("=markus/+friend/=neustar=les"));
@@ -524,7 +539,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testTransactions() throws Exception {
 
-		Graph graph18 = this.openNewGraph(this.getClass().getName() + "-graph-18");
+		Graph graph18 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-18");
 
 		graph18.setStatement(XDI3Statement.create("=markus<+email>&/&/\"Markus Sabadello\""));
 		graph18.setStatement(XDI3Statement.create("=markus/+friend/=neustar=les"));
@@ -573,7 +588,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testEmptyContextNode() throws Exception {
 
-		Graph graph19 = this.openNewGraph(this.getClass().getName() + "-graph-19");
+		Graph graph19 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-19");
 
 		ContextNode markus = graph19.setDeepContextNode(XDI3Segment.create("=markus"));
 
@@ -612,7 +627,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testIllegalArcXris() throws Exception {
 
-		Graph graph20 = this.openNewGraph(this.getClass().getName() + "-graph-20");
+		Graph graph20 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-20");
 
 		ContextNode markus = graph20.setDeepContextNode(XDI3Segment.create("=markus"));
 
@@ -636,7 +651,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testImplied() throws Exception {
 
-		Graph graph21 = this.openNewGraph(this.getClass().getName() + "-graph-21");
+		Graph graph21 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-21");
 
 		ContextNode webmarkus = graph21.setDeepContextNode(XDI3Segment.create("=web=markus"));
 		ContextNode animesh = graph21.setDeepContextNode(XDI3Segment.create("=animesh"));
@@ -657,8 +672,8 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testStatements() throws Exception {
 
-		Graph graph22 = this.openNewGraph(this.getClass().getName() + "-graph-22");
-		Graph graph23 = this.openNewGraph(this.getClass().getName() + "-graph-23");
+		Graph graph22 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-22");
+		Graph graph23 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-23");
 
 		ContextNodeStatement statement22_1 = (ContextNodeStatement) graph22.setStatement(XDI3Statement.create("=neustar//=les"));
 		RelationStatement statement22_2 = (RelationStatement) graph22.setStatement(XDI3Statement.create("=markus/+friend/=neustar=les"));
@@ -718,7 +733,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testCreate() throws Exception {
 
-		Graph graph24 = this.openNewGraph(this.getClass().getName() + "-graph-24");
+		Graph graph24 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-24");
 
 		ContextNode root = graph24.getRootContextNode();
 
@@ -745,7 +760,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testSet() throws Exception {
 
-		Graph graph25 = this.openNewGraph(this.getClass().getName() + "-graph-25");
+		Graph graph25 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-25");
 
 		ContextNode root = graph25.getRootContextNode();
 
@@ -772,7 +787,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testDelete() throws Exception {
 
-		Graph graph26 = this.openNewGraph(this.getClass().getName() + "-graph-26");
+		Graph graph26 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-26");
 
 		ContextNode root = graph26.getRootContextNode();
 
@@ -810,7 +825,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testDeleteContextNodesDeletesRelations() throws Exception {
 
-		Graph graph27 = this.openNewGraph(this.getClass().getName() + "-graph-27");
+		Graph graph27 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-27");
 
 		Relation r1 = graph27.setDeepRelation(XDI3Segment.create("=animesh"), XDI3Segment.create("+friend"), XDI3Segment.create("=markus"));
 		Relation r2 = graph27.setDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend"), XDI3Segment.create("=animesh"));
@@ -853,7 +868,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testLiteralData() throws Exception {
 
-		Graph graph28 = this.openNewGraph(this.getClass().getName() + "-graph-28");
+		Graph graph28 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-28");
 
 		ContextNode c = graph28.setDeepContextNode(XDI3Segment.create("=markus<+test>&"));
 
@@ -922,7 +937,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testDoubleSet() throws Exception {
 
-		Graph graph29 = this.openNewGraph(this.getClass().getName() + "-graph-29");
+		Graph graph29 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-29");
 
 		ContextNode c = graph29.setDeepContextNode(XDI3Segment.create("=markus"));
 		ContextNode a = graph29.setDeepContextNode(XDI3Segment.create("=animesh"));
@@ -955,7 +970,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testInnerRoots() throws Exception {
 
-		Graph graph30 = this.openNewGraph(this.getClass().getName() + "-graph-30");
+		Graph graph30 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-30");
 
 		ContextNode innerRootContextNode = graph30.getRootContextNode().setContextNode(XDI3SubSegment.create("(=a=b=c/+d)"));
 
@@ -1032,7 +1047,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testDeleteCyclicRelation() throws Exception {
 
-		Graph graph31 = this.openNewGraph(this.getClass().getName() + "-graph-31");
+		Graph graph31 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-31");
 
 		graph31.setStatement(XDI3Statement.create("=a=b=c=d=e/+x/=a=b=c"));
 		graph31.setStatement(XDI3Statement.create("=m=n=o/+y/=a=b=c=d"));

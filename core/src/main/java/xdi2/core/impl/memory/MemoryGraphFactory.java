@@ -38,6 +38,12 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 	}
 
 	@Override
+	public boolean supportsPersistence() {
+
+		return false;
+	}
+
+	@Override
 	public MemoryGraph openGraph() {
 
 		// create new graph

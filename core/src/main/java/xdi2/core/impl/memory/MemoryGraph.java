@@ -30,6 +30,7 @@ public class MemoryGraph extends AbstractGraph implements Graph {
 	@Override
 	public void close() {
 
+		this.rootContextNode = null;
 	}
 
 	/*

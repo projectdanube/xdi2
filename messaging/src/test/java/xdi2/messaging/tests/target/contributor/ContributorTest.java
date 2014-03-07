@@ -83,6 +83,8 @@ public class ContributorTest extends TestCase {
 			CopyUtil.copyContextNode(referenceContextNode, tempGraph, null);
 
 			assertEquals(result.getGraph(), tempGraph);
+
+			tempGraph.close();
 		}
 
 		// done

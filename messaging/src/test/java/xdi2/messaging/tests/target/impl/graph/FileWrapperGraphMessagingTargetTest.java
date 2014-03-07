@@ -27,7 +27,7 @@ public class FileWrapperGraphMessagingTargetTest extends AbstractGraphMessagingT
 	}
 
 	@Override
-	protected Graph openNewGraph(String identifier) throws IOException {
+	protected Graph openGraph(String identifier) throws IOException {
 
 		return graphFactory.openGraph(identifier);
 	}

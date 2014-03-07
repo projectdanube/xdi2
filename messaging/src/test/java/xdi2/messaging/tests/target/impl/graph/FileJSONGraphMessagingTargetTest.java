@@ -11,7 +11,7 @@ public class FileJSONGraphMessagingTargetTest extends AbstractGraphMessagingTarg
 	private static FileJSONGraphFactory graphFactory = new FileJSONGraphFactory();
 
 	@Override
-	protected Graph openNewGraph(String identifier) throws IOException {
+	protected Graph openGraph(String identifier) throws IOException {
 
 		return graphFactory.openGraph(identifier);
 	}

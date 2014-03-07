@@ -31,6 +31,12 @@ public final class MapKeyValueGraphFactory extends AbstractKeyValueGraphFactory 
 	}
 
 	@Override
+	public boolean supportsPersistence() {
+
+		return false;
+	}
+
+	@Override
 	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
 
 		// open store

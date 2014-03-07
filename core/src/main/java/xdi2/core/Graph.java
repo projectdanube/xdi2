@@ -1,6 +1,5 @@
 package xdi2.core;
 
-import java.io.Closeable;
 import java.io.Serializable;
 import java.util.Properties;
 
@@ -16,7 +15,7 @@ import xdi2.core.xri3.XDI3Statement;
  * 
  * @author markus
  */
-public interface Graph extends Serializable, Comparable<Graph>, Closeable {
+public interface Graph extends Serializable, Comparable<Graph> {
 
 	/*
 	 * General methods
@@ -52,7 +51,6 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	/**
 	 * Closes the graph. This should be called when work on the graph is done.
 	 */
-	@Override
 	public void close();
 
 	/**

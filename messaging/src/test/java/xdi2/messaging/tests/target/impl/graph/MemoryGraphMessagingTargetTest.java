@@ -8,7 +8,7 @@ public class MemoryGraphMessagingTargetTest extends AbstractGraphMessagingTarget
 	private static MemoryGraphFactory graphFactory = new MemoryGraphFactory();
 
 	@Override
-	protected Graph openNewGraph(String id) {
+	protected Graph openGraph(String id) {
 
 		return graphFactory.openGraph();
 	}

@@ -19,6 +19,12 @@ public class MemoryJSONGraphFactory extends AbstractJSONGraphFactory implements 
 	}
 
 	@Override
+	public boolean supportsPersistence() {
+
+		return false;
+	}
+
+	@Override
 	protected JSONStore openJSONStore(String identifier) throws IOException {
 
 		// open store

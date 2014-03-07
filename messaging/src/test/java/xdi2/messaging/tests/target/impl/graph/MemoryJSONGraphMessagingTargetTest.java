@@ -10,7 +10,7 @@ public class MemoryJSONGraphMessagingTargetTest extends AbstractGraphMessagingTa
 	private static MemoryJSONGraphFactory graphFactory = new MemoryJSONGraphFactory();
 
 	@Override
-	protected Graph openNewGraph(String identifier) throws IOException {
+	protected Graph openGraph(String identifier) throws IOException {
 
 		return graphFactory.openGraph(identifier);
 	}

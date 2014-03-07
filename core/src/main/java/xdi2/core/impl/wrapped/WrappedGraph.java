@@ -24,7 +24,7 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	@Override
 	public ContextNode getRootContextNode(boolean subgraph) {
 
-		MemoryContextNode memoryContextNode = (MemoryContextNode) this.memoryGraph.getRootContextNode(subgraph);
+		MemoryContextNode memoryContextNode = (MemoryContextNode) this.getMemoryGraph().getRootContextNode(subgraph);
 
 		return new WrappedContextNode(this, null, memoryContextNode);
 	}
@@ -33,6 +33,7 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	public void close() {
 
 		this.getWrapperStore().save(this.getMemoryGraph());
+		this.getMemoryGraph().close();
 	}
 
 	@Override

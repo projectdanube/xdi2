@@ -122,10 +122,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 			throw new Xdi2MessagingException("Cannot write file: " + ex.getMessage(), ex, null);
 		} finally {
 
-			try {
-
-				if (writer != null) writer.close();
-			} catch (Exception ex) { }
+			if (writer != null) try { writer.close(); } catch (Exception ex) { }
 		}
 
 		graph.close();

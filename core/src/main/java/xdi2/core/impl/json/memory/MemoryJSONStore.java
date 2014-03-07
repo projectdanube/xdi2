@@ -28,6 +28,8 @@ public class MemoryJSONStore extends AbstractJSONStore implements JSONStore {
 	@Override
 	public void close() {
 
+		this.jsonObjects.clear();
+		this.jsonObjects = null;
 	}
 
 	@Override
