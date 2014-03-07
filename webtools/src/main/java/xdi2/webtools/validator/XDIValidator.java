@@ -55,13 +55,8 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 				break;
 			} finally {
 
-				try {
-
-					inputStream.close();
-					outputStream.close();
-				} catch (Exception ex) {
-
-				}
+				try { inputStream.close(); } catch (Exception ex) { }
+				try { outputStream.close(); } catch (Exception ex) { }
 			}
 		}
 	}
@@ -100,7 +95,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 			xdiReader.read(graph, new StringReader(input));
 
 			output = "Success!\n";
-/*			output += Integer.toString(Constraints.getAllConstraintCount(graph)) + " constraints found.\n";
+			/*			output += Integer.toString(Constraints.getAllConstraintCount(graph)) + " constraints found.\n";
 			output += Integer.toString(Versioning.getAllVersionListCount(graph)) + " version lists, ";
 			output += Integer.toString(Versioning.getAllVersionSnapshotCount(graph)) + " version snapshots and ";
 			output += Integer.toString(Versioning.getAllVersionLogCount(graph)) + " version logs found.\n";
@@ -120,6 +115,8 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		stats += Long.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
+
+		graph.close();
 
 		// display results
 

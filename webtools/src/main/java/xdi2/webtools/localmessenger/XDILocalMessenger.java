@@ -84,13 +84,8 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 				break;
 			} finally {
 
-				try {
-
-					inputStream1.close();
-					outputStream1.close();
-				} catch (Exception ex) {
-
-				}
+				try { inputStream1.close(); } catch (Exception ex) { }
+				try { outputStream1.close(); } catch (Exception ex) { }
 			}
 
 			for (int c=0; c<sampleCategories.size(); c++) {
@@ -117,17 +112,12 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 						break;
 					} finally {
 
-						try {
-
-							inputStream2.close();
-							inputStream3.close();
-							inputStream4.close();
-							outputStream2.close();
-							outputStream3.close();
-							outputStream4.close();
-						} catch (Exception ex) {
-
-						}
+						try { inputStream2.close(); } catch (Exception ex) { }
+						try { inputStream3.close(); } catch (Exception ex) { }
+						try { inputStream4.close(); } catch (Exception ex) { }
+						try { outputStream2.close(); } catch (Exception ex) { }
+						try { outputStream3.close(); } catch (Exception ex) { }
+						try { outputStream4.close(); } catch (Exception ex) { }
 					}
 				}
 			}
@@ -315,6 +305,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
+		} finally {
+
+			graphInput.close();
 		}
 
 		long stop = System.currentTimeMillis();

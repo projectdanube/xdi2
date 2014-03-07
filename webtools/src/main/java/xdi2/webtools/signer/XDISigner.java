@@ -99,19 +99,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 				break;
 			} finally {
 
-				try {
-
-					inputStream1.close();
-					inputStream2.close();
-					inputStream3.close();
-					inputStream4.close();
-					outputStream1.close();
-					outputStream2.close();
-					outputStream3.close();
-					outputStream4.close();
-				} catch (Exception ex) {
-
-				}
+				try { inputStream1.close(); } catch (Exception ex) { }
+				try { inputStream2.close(); } catch (Exception ex) { }
+				try { inputStream3.close(); } catch (Exception ex) { }
+				try { inputStream4.close(); } catch (Exception ex) { }
+				try { outputStream1.close(); } catch (Exception ex) { }
+				try { outputStream2.close(); } catch (Exception ex) { }
+				try { outputStream3.close(); } catch (Exception ex) { }
+				try { outputStream4.close(); } catch (Exception ex) { }
 			}
 		}
 	}
@@ -247,6 +242,9 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
+		} finally {
+			
+			graph.close();
 		}
 
 		if (signature != null) {

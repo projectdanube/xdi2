@@ -57,13 +57,8 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 				break;
 			} finally {
 
-				try {
-
-					inputStream.close();
-					outputStream.close();
-				} catch (Exception ex) {
-
-				}
+				try { inputStream.close(); } catch (Exception ex) { }
+				try { outputStream.close(); } catch (Exception ex) { }
 			}
 		}
 	}
@@ -129,6 +124,8 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		stats += Long.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
 		stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
+		
+		graph.close();
 
 		// display results
 
@@ -224,7 +221,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		buffer.append("]\n");
 	}
 
-	private static String makeJSON(Graph graph) throws IOException {
+	private static String makeJSON(Graph graph) {
 
 		StringBuffer buffer = new StringBuffer();
 
