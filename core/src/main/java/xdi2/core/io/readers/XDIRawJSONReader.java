@@ -138,12 +138,12 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		}
 	}*/
 
-	public void read(Graph graph, JsonObject jsonObject) throws IOException, Xdi2ParseException {
+	public void read(Graph graph, JsonObject jsonObject) {
 
 		readJsonObject(XdiAbstractContext.fromContextNode(graph.getRootContextNode()), jsonObject);
 	}
 
-	public void read(Graph graph, JsonArray jsonArray) throws IOException, Xdi2ParseException {
+	public void read(Graph graph, JsonArray jsonArray) {
 
 		readJsonArray(XdiAbstractContext.fromContextNode(graph.getRootContextNode()), null, jsonArray);
 	}

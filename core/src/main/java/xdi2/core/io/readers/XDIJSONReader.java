@@ -188,7 +188,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 		private String lastXriString;
 	}
 
-	private static XDI3Statement makeStatement(String xriString, State state) throws Xdi2ParseException {
+	private static XDI3Statement makeStatement(String xriString, State state) {
 
 		state.lastXriString = xriString;
 		return XDI3Statement.create(xriString);

@@ -82,7 +82,7 @@ public class AutoReader extends AbstractXDIReader {
 		
 	}
 
-	private synchronized void read(Graph graph, String string) throws IOException, Xdi2ParseException {
+	private synchronized void read(Graph graph, String string) throws Xdi2ParseException {
 
 		for (XDIReader xdiReader : readers) {
 
