@@ -103,7 +103,7 @@ public class ContributorExecutor {
 				contributorResultAddress = contributorResultAddress.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
+				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri, true);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 
@@ -193,7 +193,7 @@ public class ContributorExecutor {
 				contributorResultStatement = contributorResultStatement.or(contributorResult);
 
 				XDI3Segment tempContextNodeXri = XDI3Util.concatXris(nextContributorChainXri, nextRelativeContextNodeXri);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri);
+				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXri, true);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 

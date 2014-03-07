@@ -151,7 +151,7 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Message(s) successfully executed (" + messageResult.getGraph().getRootContextNode().getAllStatementCount() + " results).");
+		if (log.isDebugEnabled()) log.debug("Message(s) successfully executed (" + messageResult.getGraph().getRootContextNode(true).getAllStatementCount() + " results).");
 
 		return messageResult;
 	}

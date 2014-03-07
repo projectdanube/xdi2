@@ -28,7 +28,7 @@ public class KeyValueGraph extends AbstractGraph implements Graph {
 	}
 
 	@Override
-	public ContextNode getRootContextNode() {
+	public ContextNode getRootContextNode(boolean subgraph) {
 
 		return this.rootContextNode;
 	}

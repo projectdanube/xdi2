@@ -150,7 +150,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (senderXri == null) senderXri = XDIAuthenticationConstants.XRI_S_ANONYMOUS;
 
 		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiEntityCollection.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
-		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXri) : this.getGraph().getDeepContextNode(messageCollectionXri);
+		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXri) : this.getGraph().getDeepContextNode(messageCollectionXri, true);
 
 		if (contextNode == null) return null;
 
@@ -167,7 +167,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		// get all context nodes that are valid XDI message collections
 
-		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode().getAllContextNodes();
+		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode(true).getAllContextNodes();
 
 		return new MappingXdiEntityCollectionMessageCollectionIterator(this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
 	}

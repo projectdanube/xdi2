@@ -123,7 +123,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		ContextNode parentContextNode = contextNode.getContextNode();
 		if (parentContextNode == null) return null;
 
-		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject);
+		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject, false);
 		if (subjectContextNode == null) return null;
 
 		return subjectContextNode;

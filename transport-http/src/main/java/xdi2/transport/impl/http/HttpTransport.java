@@ -386,9 +386,9 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		MessageEnvelope messageEnvelope;
 		long messageCount;
 
-		try {
+		InputStream inputStream = request.getBodyInputStream();
 
-			InputStream inputStream = request.getBodyInputStream();
+		try {
 
 			reader.read(graph, inputStream);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
@@ -398,6 +398,9 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
 			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
 			return null;
+		} finally {
+
+			inputStream.close();
 		}
 
 		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageCount + " messages). Executing...");

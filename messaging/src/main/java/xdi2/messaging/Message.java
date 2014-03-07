@@ -267,7 +267,7 @@ public final class Message implements Serializable, Comparable<Message> {
 			xdiValue.getContextNode().setLiteral(secretToken);
 		} else {
 
-			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN));
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, true));
 			XdiValue xdiValue = xdiAttribute == null ? null : xdiAttribute.getXdiValue(false);
 			if (xdiValue != null) xdiValue.getContextNode().delete();
 		}
@@ -279,7 +279,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public String getSecretToken() {
 
-		ContextNode contextNode = this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN);
+		ContextNode contextNode = this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN, true);
 		if (contextNode == null) return null;
 
 		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode);

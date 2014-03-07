@@ -89,7 +89,7 @@ public class MetaLinkContract extends LinkContract {
 
 		XDI3Segment metaLinkContractXri = createLinkContractXri(requestingAuthority, templateId);
 
-		ContextNode metaLinkContractContextNode = create ? graph.setDeepContextNode(metaLinkContractXri) : graph.getDeepContextNode(metaLinkContractXri);
+		ContextNode metaLinkContractContextNode = create ? graph.setDeepContextNode(metaLinkContractXri) : graph.getDeepContextNode(metaLinkContractXri, true);
 		if (metaLinkContractContextNode == null) return null;
 
 		return new MetaLinkContract(XdiAbstractEntity.fromContextNode(metaLinkContractContextNode));

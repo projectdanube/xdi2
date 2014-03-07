@@ -22,9 +22,9 @@ public class WrappedGraph extends AbstractGraph implements Graph {
 	}
 
 	@Override
-	public ContextNode getRootContextNode() {
+	public ContextNode getRootContextNode(boolean subgraph) {
 
-		MemoryContextNode memoryContextNode = (MemoryContextNode) this.memoryGraph.getRootContextNode();
+		MemoryContextNode memoryContextNode = (MemoryContextNode) this.memoryGraph.getRootContextNode(subgraph);
 
 		return new WrappedContextNode(this, null, memoryContextNode);
 	}

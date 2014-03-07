@@ -107,7 +107,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri, true);
 		if (linkContractContextNode == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract context node found in graph.");

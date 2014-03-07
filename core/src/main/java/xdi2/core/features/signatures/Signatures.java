@@ -25,7 +25,7 @@ public class Signatures {
 	 */
 	public static Iterator<Signature<? extends Key, ? extends Key>> getAllSignatures(Graph graph) {
 
-		ContextNode root = graph.getRootContextNode();
+		ContextNode root = graph.getRootContextNode(true);
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
 
 		return new MappingContextNodeSignatureIterator(allContextNodes);
@@ -37,7 +37,7 @@ public class Signatures {
 	 */
 	public static Signature<? extends Key, ? extends Key> getSignature(ContextNode contextNode) {
 
-		ContextNode signatureContextNode = contextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE);
+		ContextNode signatureContextNode = contextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE, true);
 		if (signatureContextNode == null) return null;
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAttributeSingleton.fromContextNode(signatureContextNode);

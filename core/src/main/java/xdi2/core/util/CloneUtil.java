@@ -23,7 +23,7 @@ public final class CloneUtil {
 	public static Graph cloneGraph(Graph graph) {
 
 		Graph newGraph = graphFactory.openGraph();
-		CopyUtil.copyContextNode(graph.getRootContextNode(), newGraph, null);
+		CopyUtil.copyContextNode(graph.getRootContextNode(true), newGraph, null);
 
 		return newGraph;
 	}

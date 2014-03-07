@@ -52,7 +52,16 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	}
 
 	@Override
-	public ContextNode getRootContextNode() {
+	public ContextNode getRootContextNode(boolean subgraph) {
+
+		// retrieve subgraph?
+
+		if (subgraph) {
+
+			this.jsonLoadWithPrefix("");
+		}
+
+		// done
 
 		return this.jsonRootContextNode;
 	}

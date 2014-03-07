@@ -182,7 +182,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			// find the context node
 
-			ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(address));
+			ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(address), true);
 			if (contextNode == null) throw new RuntimeException("No context node found at address " + address);
 
 			// sign or validate
@@ -260,7 +260,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		if (k != null) stats += "Key format: " + k.getFormat() + ". ";
 		if (k != null) stats += "Key encoded length: " + k.getEncoded().length + ". ";
 		if (k != null && k instanceof RSAKey) stats += "RSA key modulus length: " + ((RSAKey) k).getModulus().bitLength() + ". ";
-		if (graph != null) stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " result statement(s). ";
+		if (graph != null) stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

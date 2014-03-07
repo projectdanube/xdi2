@@ -23,7 +23,7 @@ public class WebtoolsUtil {
 
 		DirectedGraph<Object, Statement> directedGraph = new DirectedSparseMultigraph<Object, Statement> ();
 
-		for (Iterator<Statement> statements = graph.getRootContextNode().getAllStatements(); statements.hasNext(); ) {
+		for (Iterator<Statement> statements = graph.getRootContextNode(true).getAllStatements(); statements.hasNext(); ) {
 
 			Statement statement = statements.next();
 

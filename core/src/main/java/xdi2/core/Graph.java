@@ -36,6 +36,15 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 
 	/**
 	 * Gets the local root context node of this graph.
+	 * @param subgraph This is simply a hint to the implementation whether 
+	 * child context nodes will subsequently be requested. Implementations may 
+	 * or may not actually use this parameter.
+	 * @return The graph's local root context node.
+	 */
+	public ContextNode getRootContextNode(boolean subgraph);
+
+	/**
+	 * Gets the local root context node of this graph.
 	 * @return The graph's local root context node.
 	 */
 	public ContextNode getRootContextNode();
@@ -79,6 +88,11 @@ public interface Graph extends Serializable, Comparable<Graph>, Closeable {
 	 * Deep version of ContextNode.setContextNode(XDI3SubSegment), operates at a context node further down in the graph.
 	 */
 	public ContextNode setDeepContextNode(XDI3Segment contextNodeXri);
+
+	/**
+	 * Deep version of ContextNode.getContextNode(XDI3SubSegment, boolean), operates at a context node further down in the graph.
+	 */
+	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri, boolean subgraph);
 
 	/**
 	 * Deep version of ContextNode.getContextNode(XDI3SubSegment), operates at a context node further down in the graph.

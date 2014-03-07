@@ -110,10 +110,10 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		}
 
 		stats = "";
-		stats += Long.toString(graph.getRootContextNode().getAllContextNodeCount()) + " context nodes. ";
-		stats += Long.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
-		stats += Long.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
-		stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllContextNodeCount()) + " context nodes. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllRelationCount()) + " relations. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllLiteralCount()) + " literals. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		graph.close();

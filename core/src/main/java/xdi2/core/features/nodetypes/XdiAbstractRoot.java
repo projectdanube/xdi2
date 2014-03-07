@@ -70,7 +70,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (log.isTraceEnabled()) log.trace("findLocalRoot()");
 		
-		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode());
+		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode(false));
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
-		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootArcXri) : this.getContextNode().getContextNode(peerRootArcXri);
+		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootArcXri) : this.getContextNode().getContextNode(peerRootArcXri, false);
 		if (peerRootContextNode == null) return null;
 
 		return new XdiPeerRoot(peerRootContextNode);
@@ -93,7 +93,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		XDI3SubSegment innerRootArcXri = XdiInnerRoot.createInnerRootArcXri(subject, predicate);
 
-		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootArcXri) : this.getContextNode().getContextNode(innerRootArcXri);
+		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootArcXri) : this.getContextNode().getContextNode(innerRootArcXri, false);
 		if (innerRootContextNode == null) return null;
 
 		return new XdiInnerRoot(innerRootContextNode);
@@ -126,7 +126,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) {
 
-			ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+			ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 			if (peerRootContextNode == null) return null;
 
 			return new XdiPeerRoot(peerRootContextNode);
@@ -134,10 +134,10 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (XdiInnerRoot.isInnerRootArcXri(arcXri)) {
 
-			ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+			ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 			if (innerRootContextNode == null) return null;
 
-			ContextNode contextNode = create ? this.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri)) : this.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri));
+			ContextNode contextNode = create ? this.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri)) : this.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri), false);
 			if (contextNode == null) return null;
 
 			Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arcXri), innerRootContextNode.getXri()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arcXri), innerRootContextNode.getXri());

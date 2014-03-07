@@ -22,7 +22,7 @@ public class MemoryGraph extends AbstractGraph implements Graph {
 	}
 
 	@Override
-	public ContextNode getRootContextNode() {
+	public ContextNode getRootContextNode(boolean subgraph) {
 
 		return this.rootContextNode;
 	}

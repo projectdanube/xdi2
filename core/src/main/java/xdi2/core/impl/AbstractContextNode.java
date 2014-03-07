@@ -137,14 +137,14 @@ public abstract class AbstractContextNode implements ContextNode {
 	//	public ContextNode setContextNode(XDI3SubSegment contextNodeArcXri);
 
 	@Override
-	public ContextNode setDeepContextNode(XDI3Segment contextNodeXri) {
+	public ContextNode setDeepContextNode(XDI3Segment relativeContextNodeXri) {
 
-		if (contextNodeXri == null) return this;
-		if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) return this;
+		if (relativeContextNodeXri == null) return this;
+		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri)) return this;
 
 		ContextNode contextNode = this;
 
-		for (XDI3SubSegment contextNodeArcXri : contextNodeXri.getSubSegments()) {
+		for (XDI3SubSegment contextNodeArcXri : relativeContextNodeXri.getSubSegments()) {
 
 			contextNode = contextNode.setContextNode(contextNodeArcXri);
 		}
@@ -153,40 +153,52 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public ContextNode getContextNode(final XDI3SubSegment contextNodeArcXri) {
+	public ContextNode getContextNode(XDI3SubSegment relativeContextNodeXri, boolean subgraph) {
 
 		for (Iterator<ContextNode> contextNodes = this.getContextNodes(); contextNodes.hasNext(); ) {
 
 			ContextNode contextNode = contextNodes.next();
 
-			if (contextNode.getArcXri().equals(contextNodeArcXri)) return contextNode;
+			if (contextNode.getArcXri().equals(relativeContextNodeXri)) return contextNode;
 		}
 
 		return null;
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDI3Segment contextNodeXri) {
+	public ContextNode getContextNode(XDI3SubSegment contextNodeArcXri) {
 
-		if (XDIConstants.XRI_S_ROOT.equals(contextNodeXri) && this.isRootContextNode()) return this;
+		return this.getContextNode(contextNodeArcXri, false);
+	}
+
+	@Override
+	public ContextNode getDeepContextNode(XDI3Segment relativeContextNodeXri, boolean subgraph) {
+
+		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri) && this.isRootContextNode()) return this;
 
 		ContextNode contextNode = this;
 
-		for (XDI3SubSegment contextNodeArcXri : contextNodeXri.getSubSegments()) {
+		for (XDI3SubSegment contextNodeArcXri : relativeContextNodeXri.getSubSegments()) {
 
-			contextNode = contextNode.getContextNode(contextNodeArcXri);
+			contextNode = contextNode.getContextNode(contextNodeArcXri, subgraph);
 			if (contextNode == null) return null;
 		}
 
 		return contextNode;
 	}
 
+	@Override
+	public ContextNode getDeepContextNode(XDI3Segment relativeContextNodeXri) {
+
+		return this.getDeepContextNode(relativeContextNodeXri, false);
+	}
+
 	//	public ReadOnlyIterator<ContextNode> getContextNodes();
 
 	@Override
-	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment contextNodeXri) {
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment relativeContextNodeXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return new EmptyIterator<ContextNode> ();
 
 		return contextNode.getContextNodes();
@@ -227,7 +239,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public boolean containsContextNode(XDI3SubSegment contextNodeArcXri) {
 
-		return this.getContextNode(contextNodeArcXri) != null;
+		return this.getContextNode(contextNodeArcXri, false) != null;
 	}
 
 	@Override
@@ -275,9 +287,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Relation setDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation setDeepRelation(XDI3Segment relativeContextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		ContextNode contextNode = this.setDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.setDeepContextNode(relativeContextNodeXri);
 		if (contextNode == null) return null;
 
 		return contextNode.setRelation(arcXri, targetContextNodeXri);
@@ -286,9 +298,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	//	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
 
 	@Override
-	public Relation setDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation setDeepRelation(XDI3Segment relativeContextNodeXri, XDI3Segment arcXri, ContextNode targetContextNode) {
 
-		ContextNode contextNode = this.setDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.setDeepContextNode(relativeContextNodeXri);
 		if (contextNode == null) return null;
 
 		return contextNode.setRelation(arcXri, targetContextNode);
@@ -310,9 +322,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Relation getDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation getDeepRelation(XDI3Segment relativeContextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return null;
 
 		return contextNode.getRelation(arcXri, targetContextNodeXri);
@@ -325,9 +337,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Relation getDeepRelation(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
+	public Relation getDeepRelation(XDI3Segment relativeContextNodeXri, XDI3Segment arcXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return null;
 
 		return contextNode.getRelation(arcXri);
@@ -347,9 +359,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeXri, XDI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment relativeContextNodeXri, XDI3Segment arcXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return new EmptyIterator<Relation> ();
 
 		return contextNode.getRelations(arcXri);
@@ -358,9 +370,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	//	public ReadOnlyIterator<Relation> getRelations();
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment contextNodeXri) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDI3Segment relativeContextNodeXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return null;
 
 		return contextNode.getRelations();
@@ -385,7 +397,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	public ReadOnlyIterator<Relation> getIncomingRelations() {
 
-		return new SelectingIterator<Relation> (this.getGraph().getRootContextNode().getAllRelations()) {
+		return new SelectingIterator<Relation> (this.getGraph().getRootContextNode(true).getAllRelations()) {
 
 			@Override
 			public boolean select(Relation relation) {
@@ -524,30 +536,30 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal setDeepLiteral(XDI3Segment contextNodeXri, Object literalData) {
+	public Literal setDeepLiteral(XDI3Segment relativeContextNodeXri, Object literalData) {
 
-		ContextNode contextNode = this.setDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.setDeepContextNode(relativeContextNodeXri);
 		if (contextNode == null) return null;
 
 		return contextNode.setLiteral(literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralString(XDI3Segment contextNodeXri, String literalData) {
+	public Literal setDeepLiteralString(XDI3Segment relativeContextNodeXri, String literalData) {
 
-		return this.setDeepLiteral(contextNodeXri, literalData);
+		return this.setDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
+	public Literal setDeepLiteralNumber(XDI3Segment relativeContextNodeXri, Double literalData) {
 
-		return this.setDeepLiteral(contextNodeXri, literalData);
+		return this.setDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData) {
+	public Literal setDeepLiteralBoolean(XDI3Segment relativeContextNodeXri, Boolean literalData) {
 
-		return this.setDeepLiteral(contextNodeXri, literalData);
+		return this.setDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	@Override
@@ -580,38 +592,38 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Literal getDeepLiteral(XDI3Segment contextNodeXri, Object literalData) {
+	public Literal getDeepLiteral(XDI3Segment relativeContextNodeXri, Object literalData) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return null;
 
 		return contextNode.getLiteral(literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralString(XDI3Segment contextNodeXri, String literalData) {
+	public Literal getDeepLiteralString(XDI3Segment relativeContextNodeXri, String literalData) {
 
-		return this.getDeepLiteral(contextNodeXri, literalData);
+		return this.getDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralNumber(XDI3Segment contextNodeXri, Double literalData) {
+	public Literal getDeepLiteralNumber(XDI3Segment relativeContextNodeXri, Double literalData) {
 
-		return this.getDeepLiteral(contextNodeXri, literalData);
+		return this.getDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralBoolean(XDI3Segment contextNodeXri, Boolean literalData) {
+	public Literal getDeepLiteralBoolean(XDI3Segment relativeContextNodeXri, Boolean literalData) {
 
-		return this.getDeepLiteral(contextNodeXri, literalData);
+		return this.getDeepLiteral(relativeContextNodeXri, literalData);
 	}
 
 	//	public Literal getLiteral();
 
 	@Override
-	public Literal getDeepLiteral(XDI3Segment contextNodeXri) {
+	public Literal getDeepLiteral(XDI3Segment relativeContextNodeXri) {
 
-		ContextNode contextNode = this.getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXri, false);
 		if (contextNode == null) return null;
 
 		return contextNode.getLiteral();
@@ -866,7 +878,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (XdiInnerRoot.createInnerRootArcXri(this.getXri(), arcXri).equals(targetContextNodeXri)) {
 
-			this.getGraph().getDeepContextNode(targetContextNodeXri).delete();
+			this.getGraph().getDeepContextNode(targetContextNodeXri, false).delete();
 		}
 	}
 

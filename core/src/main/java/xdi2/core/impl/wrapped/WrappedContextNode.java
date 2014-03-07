@@ -46,9 +46,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3SubSegment arcXri) {
+	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean subgraph) {
 
-		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arcXri);
+		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arcXri, subgraph);
 
 		return ret == null ? null : new WrappedContextNode((WrappedGraph) this.getGraph(), this, ret);
 	}

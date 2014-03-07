@@ -95,7 +95,7 @@ public class LinkContractTemplate extends LinkContractBase {
 
 		XDI3Segment linkContractTemplateXri = createLinkContractTemplateXri(templateAuthority, templateId);
 
-		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri);
+		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
 		if (linkContractTemplateContextNode == null) return null;
 
 		return new LinkContractTemplate(XdiAbstractEntity.fromContextNode(linkContractTemplateContextNode));

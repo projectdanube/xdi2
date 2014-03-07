@@ -73,7 +73,7 @@ public class MessageResult implements Serializable, Comparable<MessageResult> {
 	 */
 	public boolean isEmpty() {
 
-		return this.graph.getRootContextNode().isEmpty();
+		return this.graph.getRootContextNode(false).isEmpty();
 	}
 
 	/*

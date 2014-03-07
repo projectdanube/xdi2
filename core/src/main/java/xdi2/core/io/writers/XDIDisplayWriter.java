@@ -97,17 +97,16 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
 			orderedGraph = memoryGraphFactory.openGraph();
 			CopyUtil.copyGraph(graph, orderedGraph, null);
-			graph = orderedGraph;
 
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
-			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode().getAllContextNodes()));
-			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode().getAllRelations()));
-			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode().getAllLiterals()));
+			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllContextNodes()));
+			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode(true).getAllRelations()));
+			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {
 
-			statements = graph.getRootContextNode().getAllStatements();
+			statements = graph.getRootContextNode(true).getAllStatements();
 		}
 
 		// ignore implied statements
@@ -221,7 +220,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		if (this.writeHtml) {
 
-			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode();
+			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
 			for (XDI3SubSegment contextNodeArcXri : contextNodeXri.getSubSegments()) {
 
@@ -240,7 +239,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private void writeContextNodeArcXri(BufferedWriter bufferedWriter, XDI3Segment contextNodeXri, XDI3SubSegment contextNodeArcXri) throws IOException {
 
-		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode();
+		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
 		if (! XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
 

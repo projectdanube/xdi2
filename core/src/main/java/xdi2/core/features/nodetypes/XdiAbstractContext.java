@@ -174,7 +174,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (entityCollectionContextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
@@ -183,7 +183,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDI3Segment xri, boolean create) {
 
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (entityCollectionContextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
@@ -192,7 +192,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (attributeCollectionContextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
@@ -201,7 +201,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeCollection getXdiAttributeCollection(XDI3Segment xri, boolean create) {
 
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (attributeCollectionContextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
@@ -210,7 +210,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (entitySingletonContextNode == null) return null;
 
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
@@ -219,7 +219,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntitySingleton getXdiEntitySingleton(XDI3Segment xri, boolean create) {
 
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (entitySingletonContextNode == null) return null;
 
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
@@ -228,7 +228,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
@@ -237,7 +237,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3Segment xri, boolean create) {
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
@@ -246,7 +246,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntity getXdiEntity(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode entityContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode entityContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (entityContextNode == null) return null;
 
 		return XdiAbstractEntity.fromContextNode(entityContextNode);
@@ -255,7 +255,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntity getXdiEntity(XDI3Segment xri, boolean create) {
 
-		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (entityContextNode == null) return null;
 
 		return XdiAbstractEntity.fromContextNode(entityContextNode);
@@ -264,7 +264,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttribute getXdiAttribute(XDI3SubSegment arcXri, boolean create) {
 
-		ContextNode attributeContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri);
+		ContextNode attributeContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);
@@ -273,7 +273,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttribute getXdiAttribute(XDI3Segment xri, boolean create) {
 
-		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri);
+		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);

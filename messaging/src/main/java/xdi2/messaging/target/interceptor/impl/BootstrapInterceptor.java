@@ -230,6 +230,8 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph: " + bootstrapGraph.toString());
 
 			CopyUtil.copyGraph(bootstrapGraph, graph, null);
+			
+			bootstrapGraph.close();
 		}
 
 		// execute bootstrap message envelope

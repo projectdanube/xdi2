@@ -112,7 +112,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3SubSegment arcXri) {
+	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean subgraph) {
 
 		String contextNodesKey = this.getContextNodesKey();
 		String contextNodeKey = this.getContextNodeKey(arcXri);
@@ -141,7 +141,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	@Override
 	public synchronized void delContextNode(XDI3SubSegment arcXri) {
 
-		ContextNode contextNode = this.getContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode(arcXri, true);
 		if (contextNode == null) return;
 
 		// delete all relations and incoming relations

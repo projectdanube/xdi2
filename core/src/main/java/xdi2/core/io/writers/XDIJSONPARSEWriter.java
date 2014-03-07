@@ -90,14 +90,14 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			CopyUtil.copyGraph(graph, orderedGraph, null);
 
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
-			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode().getAllContextNodes()));
-			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode().getAllRelations()));
-			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode().getAllLiterals()));
+			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllContextNodes()));
+			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode(true).getAllRelations()));
+			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {
 
-			statements = graph.getRootContextNode().getAllStatements();
+			statements = graph.getRootContextNode(true).getAllStatements();
 		}
 
 		// ignore implied statements

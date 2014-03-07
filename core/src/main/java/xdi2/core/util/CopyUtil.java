@@ -41,7 +41,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		copyContextNodeContents(graph.getRootContextNode(), targetGraph.getRootContextNode(), copyStrategy);
+		copyContextNodeContents(graph.getRootContextNode(true), targetGraph.getRootContextNode(false), copyStrategy);
 	}
 
 	/*
@@ -69,7 +69,7 @@ public final class CopyUtil {
 
 		if (contextNode.isRootContextNode()) {
 
-			targetContextNode = targetGraph.getRootContextNode();
+			targetContextNode = targetGraph.getRootContextNode(false);
 		} else {
 
 			targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);

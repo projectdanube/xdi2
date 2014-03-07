@@ -117,7 +117,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (operation instanceof GetOperation && operation.getTargetAddress() != null) {
 
-			List<Relation> refRepRelations = new IteratorListMaker<Relation> (Equivalence.getAllReferenceAndReplacementRelations(operationMessageResult.getGraph().getRootContextNode())).list();
+			List<Relation> refRepRelations = new IteratorListMaker<Relation> (Equivalence.getAllReferenceAndReplacementRelations(operationMessageResult.getGraph().getRootContextNode(true))).list();
 
 			for (Relation refRepRelation : refRepRelations) {
 
@@ -193,7 +193,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doReplaceRefRepRelations) {
 
-				ContextNode refRepTargetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeXri);
+				ContextNode refRepTargetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeXri, true);
 
 				if (refRepTargetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
@@ -207,6 +207,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 					deleteWhileEmptyAndNoIncomingRelations(refRepTargetContextNode);
 
 					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
+
+					tempGraph.close();
 				} else {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not replacing $ref/$rep relation: " + refRepRelation);
@@ -356,7 +358,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// check for $ref/$rep relations in this context
 
-			ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXri);
+			ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXri, false);
 			Relation refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
 			Relation repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
 

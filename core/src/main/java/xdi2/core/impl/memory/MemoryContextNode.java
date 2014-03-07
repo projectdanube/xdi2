@@ -91,7 +91,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3SubSegment arcXri) {
+	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean subgraph) {
 
 		return this.contextNodes.get(arcXri);
 	}
@@ -119,7 +119,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	@Override
 	public synchronized void delContextNode(XDI3SubSegment arcXri) {
 
-		ContextNode contextNode = this.getContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode(arcXri, true);
 		if (contextNode == null) return;
 
 		// delete all inner roots and incoming relations

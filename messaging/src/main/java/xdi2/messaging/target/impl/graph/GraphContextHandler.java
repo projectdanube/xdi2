@@ -56,14 +56,14 @@ public class GraphContextHandler extends AbstractContextHandler {
 	@Override
 	public void executeGetOnAddress(XDI3Segment targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(targetAddress);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(targetAddress, true);
 		if (contextNode == null) return;
 
 		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
 
 		for (XdiInnerRoot xdiInnerRoot : XdiLocalRoot.findLocalRoot(messageResult.getGraph()).getInnerRoots()) {
 
-			contextNode = this.getGraph().getDeepContextNode(xdiInnerRoot.getContextNode().getXri());
+			contextNode = this.getGraph().getDeepContextNode(xdiInnerRoot.getContextNode().getXri(), true);
 
 			CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
 		}
@@ -83,13 +83,13 @@ public class GraphContextHandler extends AbstractContextHandler {
 			this.getGraph().clear();
 		} else if (contextNodeXri.getNumSubSegments() == 1) {
 
-			this.getGraph().getRootContextNode().delContextNode(contextNodeXri.getFirstSubSegment());
+			this.getGraph().getRootContextNode(false).delContextNode(contextNodeXri.getFirstSubSegment());
 		} else {
 
 			XDI3Segment parentContextNodeXri = XDI3Util.parentXri(contextNodeXri, -1);
 			XDI3SubSegment arcXri = XDI3Util.localXri(contextNodeXri, 1).getFirstSubSegment();
 
-			ContextNode parentContextNode = this.getGraph().getDeepContextNode(parentContextNodeXri);
+			ContextNode parentContextNode = this.getGraph().getDeepContextNode(parentContextNodeXri, false);
 			if (parentContextNode == null) return;
 
 			parentContextNode.delContextNode(arcXri);
@@ -103,16 +103,12 @@ public class GraphContextHandler extends AbstractContextHandler {
 	@Override
 	public void executeGetOnContextNodeStatement(XDI3Statement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = contextNodeStatement.getContextNodeXri();
-		XDI3SubSegment arcXri  = contextNodeStatement.getContextNodeArcXri();
+		XDI3Segment targetContextNodeXri = contextNodeStatement.getTargetContextNodeXri();
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(targetContextNodeXri, false);
 		if (contextNode == null) return;
 
-		ContextNode innerContextNode = contextNode.getContextNode(arcXri);
-		if (innerContextNode == null) return;
-
-		CopyUtil.copyStatement(innerContextNode.getStatement(), messageResult.getGraph(), null);
+		CopyUtil.copyStatement(contextNode.getStatement(), messageResult.getGraph(), null);
 	}
 
 	/*
@@ -165,7 +161,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		XDI3Segment arcXri = relationStatement.getRelationArcXri();
 		XDI3Segment targetContextNodeXri = relationStatement.getTargetContextNodeXri();
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
+		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri, false);
 		if (contextNode == null) return;
 
 		if (VariableUtil.isVariable(targetContextNodeXri)) {
@@ -193,10 +189,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		XDI3Segment contextNodeXri = literalStatement.getContextNodeXri();
 		Object literalData = literalStatement.getLiteralData();
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
-		if (contextNode == null) return;
-
-		Literal literal = contextNode.getLiteral(literalData);
+		Literal literal = this.getGraph().getDeepLiteral(contextNodeXri, literalData);
 		if (literal == null) return;
 
 		CopyUtil.copyStatement(literal.getStatement(), messageResult.getGraph(), null);
@@ -217,10 +210,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 		XDI3Segment contextNodeXri = literalStatement.getContextNodeXri();
 		Object literalData = literalStatement.getLiteralData();
 
-		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXri);
-		if (contextNode == null) return;
-
-		Literal literal = contextNode.getLiteral(literalData);
+		Literal literal = this.getGraph().getDeepLiteral(contextNodeXri, literalData);
 		if (literal == null) return;
 
 		literal.delete();

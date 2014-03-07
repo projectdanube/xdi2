@@ -53,7 +53,7 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		Graph resolvedGraph = this.resolveGraph(contextNodeXri);
 		XDI3Segment resolvedContextNodeXri = this.resolveXri(contextNodeXri);
-		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedContextNodeXri);
+		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedContextNodeXri, false);
 
 		if (log.isTraceEnabled()) log.trace("getContextNode(" + contextNodeXri + ") --> " + resolvedContextNodeXri + " --> " + resolvedContextNode);
 

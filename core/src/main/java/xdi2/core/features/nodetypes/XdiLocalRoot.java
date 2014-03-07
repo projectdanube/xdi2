@@ -34,7 +34,7 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	 */
 	public static XdiLocalRoot findLocalRoot(Graph graph) {
 
-		ContextNode localRootContextNode = graph.getRootContextNode();
+		ContextNode localRootContextNode = graph.getRootContextNode(false);
 
 		return new XdiLocalRoot(localRootContextNode);
 	}

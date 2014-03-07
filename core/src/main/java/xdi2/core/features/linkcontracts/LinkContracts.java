@@ -22,7 +22,7 @@ public class LinkContracts {
 	 */
 	public static Iterator<LinkContract> getAllLinkContracts(Graph graph) {
 
-		ContextNode root = graph.getRootContextNode();
+		ContextNode root = graph.getRootContextNode(true);
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
 
 		return new MappingContextNodeLinkContractIterator(allContextNodes);
@@ -35,7 +35,7 @@ public class LinkContracts {
 	 */
 	public static LinkContract getLinkContract(ContextNode parentContextNode, boolean create) {
 
-		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : parentContextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO);
+		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : parentContextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO, true);
 		if (contextNode == null) return null;
 
 		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);

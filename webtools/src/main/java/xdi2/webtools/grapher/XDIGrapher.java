@@ -119,10 +119,10 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		stats += Long.toString(graph.getRootContextNode().getAllContextNodeCount()) + " context nodes. ";
-		stats += Long.toString(graph.getRootContextNode().getAllRelationCount()) + " relations. ";
-		stats += Long.toString(graph.getRootContextNode().getAllLiteralCount()) + " literals. ";
-		stats += Long.toString(graph.getRootContextNode().getAllStatementCount()) + " statements. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllContextNodeCount()) + " context nodes. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllRelationCount()) + " relations. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllLiteralCount()) + " literals. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 		
 		graph.close();
@@ -226,11 +226,11 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 		StringBuffer buffer = new StringBuffer();
 
 		buffer.append("var treeData = \n");
-		addContextNodeToBuffer(buffer, graph.getRootContextNode());
+		addContextNodeToBuffer(buffer, graph.getRootContextNode(true));
 		buffer.append(";\n");
 
 		buffer.append("var relData = \n");
-		addRelationsToBuffer(buffer, graph.getRootContextNode().getAllRelations());
+		addRelationsToBuffer(buffer, graph.getRootContextNode(true).getAllRelations());
 		buffer.append(";\n");
 
 		return buffer.toString();

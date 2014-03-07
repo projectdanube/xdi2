@@ -273,8 +273,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (discoveryResultRegistry != null && discoveryResultRegistry.getMessageResult() != null) stats += Long.toString(discoveryResultRegistry.getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s) from registry. ";
-		if (discoveryResultAuthority != null && discoveryResultAuthority.getMessageResult() != null) stats += Long.toString(discoveryResultAuthority.getMessageResult().getGraph().getRootContextNode().getAllStatementCount()) + " result statement(s) from authority. ";
+		if (discoveryResultRegistry != null && discoveryResultRegistry.getMessageResult() != null) stats += Long.toString(discoveryResultRegistry.getMessageResult().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from registry. ";
+		if (discoveryResultAuthority != null && discoveryResultAuthority.getMessageResult() != null) stats += Long.toString(discoveryResultAuthority.getMessageResult().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from authority. ";
 
 		// display results
 

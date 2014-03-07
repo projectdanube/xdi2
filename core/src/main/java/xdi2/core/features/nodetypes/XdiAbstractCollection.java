@@ -107,7 +107,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public U getXdiMemberUnordered(XDI3SubSegment arcXri) {
 		
-		ContextNode memberContextNode = this.getContextNode().getContextNode(arcXri);
+		ContextNode memberContextNode = this.getContextNode().getContextNode(arcXri, false);
 		if (memberContextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
@@ -161,7 +161,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), attribute);
 
-		ContextNode contextNode = this.getContextNode().getContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode().getContextNode(arcXri, false);
 		if (contextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());

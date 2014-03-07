@@ -41,7 +41,7 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public ContextNode follow() {
 
-		return this.getGraph().getDeepContextNode(this.getTargetContextNodeXri());
+		return this.getGraph().getDeepContextNode(this.getTargetContextNodeXri(), false);
 	}
 
 	/*

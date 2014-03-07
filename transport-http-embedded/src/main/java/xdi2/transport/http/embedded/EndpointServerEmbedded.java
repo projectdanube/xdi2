@@ -6,7 +6,6 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
-import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.impl.servlet.EndpointServlet;
 
 public class EndpointServerEmbedded extends Server {
@@ -36,7 +35,7 @@ public class EndpointServerEmbedded extends Server {
 	/**
 	 * Generates a new XDI2 server from an application context.
 	 */
-	public static EndpointServerEmbedded newServer(ApplicationContext applicationContext) throws Xdi2TransportException {
+	public static EndpointServerEmbedded newServer(ApplicationContext applicationContext) {
 
 		if (applicationContext == null) throw new NullPointerException();
 
@@ -45,12 +44,12 @@ public class EndpointServerEmbedded extends Server {
 		return endpointServerEmbedded;
 	}
 
-	public static EndpointServerEmbedded newServer(Resource... resources) throws Xdi2TransportException {
+	public static EndpointServerEmbedded newServer(Resource... resources) {
 
 		return newServer(makeApplicationContext(resources));
 	}
 
-	public static EndpointServerEmbedded newServer(Resource applicationContextResource, Resource jettyApplicationContextResource) throws Xdi2TransportException {
+	public static EndpointServerEmbedded newServer(Resource applicationContextResource, Resource jettyApplicationContextResource) {
 
 		if (applicationContextResource == null) applicationContextResource = fallbackApplicationContextResource();
 		if (jettyApplicationContextResource == null) jettyApplicationContextResource = fallbackJettyApplicationContextResource();
@@ -58,7 +57,7 @@ public class EndpointServerEmbedded extends Server {
 		return newServer(new Resource[] { applicationContextResource, jettyApplicationContextResource });
 	}
 
-	public static EndpointServerEmbedded newServer() throws Xdi2TransportException {
+	public static EndpointServerEmbedded newServer() {
 
 		return newServer(null, null);
 	}

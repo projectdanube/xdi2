@@ -68,7 +68,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 		// write the statements
 
-		JsonObject json = makeJson(graph.getRootContextNode(), this.writeImplied, this.writeInner);
+		JsonObject json = makeJson(graph.getRootContextNode(true), this.writeImplied, this.writeInner);
 
 		JsonWriter jsonWriter = new JsonWriter(writer);
 		if (this.writePretty) jsonWriter.setIndent("  ");

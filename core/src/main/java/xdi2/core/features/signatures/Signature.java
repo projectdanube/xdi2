@@ -185,16 +185,23 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 		XDIJSONWriter writer = new XDIJSONWriter(parameters);
 		StringWriter buffer = new StringWriter();
+		String string;
 
 		try {
 
 			writer.write(graph, buffer);
+			string = buffer.toString();
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot serialize graph: " + ex.getMessage(), ex);
+		} finally {
+
+			try { buffer.close(); } catch (Exception ex) { }
+
+			graph.close();
 		}
 
-		return buffer.toString();
+		return string;
 	}
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
