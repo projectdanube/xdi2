@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 /**
- * The JSON based graph storage implementations needs a JSONStore to function.
+ * The JSON based graph storage implementations need a JSONStore to function.
  * This defines basic operations on a JSON based datastore.
  * 
  * @author markus
