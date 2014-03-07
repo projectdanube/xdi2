@@ -62,7 +62,7 @@ public class ReaderWriterTest extends TestCase {
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();
 		XDIJSONReader xdiJsonReader = new XDIJSONReader(null);
 		xdiJsonReader.read(graph2, new StringReader(xdiJsonString));
-		
+
 		assertEqualsGraphs(graph1, graph2);
 
 		MimeType[] mimeTypes = new MimeType[] {
@@ -98,7 +98,13 @@ public class ReaderWriterTest extends TestCase {
 				assertEqualsGraphs(graph1a, graph2a);
 				assertEqualsGraphs(graph1a, graph1);
 				assertEqualsGraphs(graph2a, graph2);
+
+				graph1a.close();
+				graph2a.close();
 			}
 		}
+
+		graph1.close();
+		graph2.close();
 	}
 }

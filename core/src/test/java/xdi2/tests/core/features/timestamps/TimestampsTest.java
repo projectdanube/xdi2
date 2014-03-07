@@ -38,5 +38,7 @@ public class TimestampsTest extends TestCase {
 
 		Timestamps.setContextNodeTimestamp(contextNode, timestamp);
 		assertEquals(timestamp, Timestamps.getContextNodeTimestamp(contextNode));
+		
+		graph.close();
 	}
 }

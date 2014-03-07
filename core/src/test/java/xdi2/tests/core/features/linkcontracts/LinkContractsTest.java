@@ -36,6 +36,8 @@ public class LinkContractsTest extends TestCase {
 		assertTrue(new IteratorContains<LinkContract> (LinkContracts.getAllLinkContracts(graph), linkContract2).contains());
 
 		assertEquals(linkContract1, LinkContracts.getLinkContract(graph.getDeepContextNode(XDI3Segment.create("$public")), false));
+		
+		graph.close();
 	}
 
 	public void testGenericLinkContract() throws Exception {
@@ -81,6 +83,8 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l5.getAuthorizingAuthority(), XDI3Segment.create("+friend"));
 		assertEquals(l5.getRequestingAuthority(), XDI3Segment.create("$anon"));
 		assertNull(l5.getTemplateAuthorityAndId());
+		
+		graph.close();
 	}
 
 	public void testRootLinkContract() throws Exception {
@@ -99,6 +103,8 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l.getRequestingAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l.getAuthorizingAuthority(), XDI3Segment.create("=markus"));
 		assertNull(l.getTemplateAuthorityAndId());
+		
+		graph.close();
 	}
 
 	public void testPublicLinkContract() throws Exception {
@@ -117,6 +123,8 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l.getRequestingAuthority(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		assertEquals(l.getAuthorizingAuthority(), XDI3Segment.create("=markus"));
 		assertEquals(l.getTemplateAuthorityAndId(), XDILinkContractConstants.XRI_S_PUBLIC);
+		
+		graph.close();
 	}
 
 	public void testLinkContractTemplate() throws Exception {
@@ -135,6 +143,8 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l2.getTemplateAuthorityAndId(), XDI3Segment.create("=markus+registration"));
 
 		assertEquals(l1, l2);
+		
+		graph.close();
 	}
 
 	public void testMetaLinkContract() throws Exception {
@@ -155,5 +165,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l2.getTemplateId(), XDI3Segment.create("+registration"));
 
 		assertEquals(l1, l2);
+		
+		graph.close();
 	}
 }

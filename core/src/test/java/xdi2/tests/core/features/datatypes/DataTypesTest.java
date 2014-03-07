@@ -43,6 +43,8 @@ public class DataTypesTest extends TestCase {
 				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeXri(xriSeg).toString());
 			}
 		}
+		
+		graph.close();
 	}
 
 	@Test
@@ -61,6 +63,8 @@ public class DataTypesTest extends TestCase {
 			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>")), XDI3Segment.create("+$json$number"));
 
 			fail();
+			
+			graph.close();
 		} catch (Exception ex) { }
 	}
 }

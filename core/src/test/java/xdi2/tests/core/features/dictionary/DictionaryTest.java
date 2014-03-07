@@ -69,5 +69,7 @@ public class DictionaryTest extends TestCase {
 		assertFalse(Dictionary.isContextNodeType(contextNode, type1));
 		assertFalse(Dictionary.isContextNodeType(contextNode, type2));
 		assertTrue(Dictionary.isContextNodeType(contextNode, type3));
+		
+		graph.close();
 	}
 }

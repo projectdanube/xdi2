@@ -32,6 +32,8 @@ public class PeerRootsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		assertEquals(XdiLocalRoot.findLocalRoot(graph).findPeerRoot(XDI3Segment.create("[=]!1111!23"), true).getContextNode().getXri(), XDI3SubSegment.create("([=]!1111!23)"));
+		
+		graph.close();
 	}
 
 	public void testSelfPeerRoots() throws Exception {

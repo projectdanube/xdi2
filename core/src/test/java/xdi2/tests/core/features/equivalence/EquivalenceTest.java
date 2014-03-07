@@ -35,6 +35,8 @@ public class EquivalenceTest extends TestCase {
 		assertTrue(identityContextNode.isEmpty());
 		contextNode.delete();
 		assertTrue(graph.isEmpty());
+		
+		graph.close();
 	}
 
 	public void testReference() throws Exception {
@@ -77,5 +79,7 @@ public class EquivalenceTest extends TestCase {
 		assertTrue(replacementContextNode.isEmpty());
 		contextNode.delete();
 		assertTrue(graph.isEmpty());
+		
+		graph.close();
 	}
 }

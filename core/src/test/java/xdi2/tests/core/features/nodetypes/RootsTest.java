@@ -21,5 +21,7 @@ public class RootsTest extends TestCase {
 		assertTrue(XdiAbstractContext.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
 		assertTrue(XdiAbstractContext.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);
 		assertTrue(XdiAbstractContext.fromContextNode(innerRoot.getContextNode()) instanceof XdiInnerRoot);
+		
+		graph.close();
 	}
 }

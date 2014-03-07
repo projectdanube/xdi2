@@ -26,5 +26,9 @@ public class CopyUtilTest extends TestCase {
 		assertEquals(graph, graph2);
 		assertEquals(graph2, graph3);
 		assertEquals(graph3, graph);
+		
+		graph.close();
+		graph2.close();
+		graph3.close();
 	}
 }

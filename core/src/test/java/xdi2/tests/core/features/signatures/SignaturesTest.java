@@ -123,5 +123,7 @@ public class SignaturesTest extends TestCase {
 		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<+email>\"],\"=markus<+email>/\":[\"&\"],\"=markus/+friend\":[\"=animesh\"],\"=markus<+email>&/&\":\"markus.sabadello@gmail.com\"}";
 
 		assertEquals(Signature.getNormalizedSerialization(contextNode), normalizedSerialization);
+		
+		graph.close();
 	}
 }

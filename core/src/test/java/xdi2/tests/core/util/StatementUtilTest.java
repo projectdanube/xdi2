@@ -67,6 +67,8 @@ public class StatementUtilTest extends TestCase {
 				graph.setStatement(XDI3Statement.create(invalidStatement));
 
 				fail();
+				
+				graph.close();
 			} catch (Exception ex) {
 
 				if (graph != null) graph.close();
