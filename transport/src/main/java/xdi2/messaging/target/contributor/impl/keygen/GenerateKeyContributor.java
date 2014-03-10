@@ -205,7 +205,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 		XDI3SubSegment keyAlgorithmXri = dataType.getNumSubSegments() > 0 ? dataType.getSubSegment(0) : null;
 		if (keyAlgorithmXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(keyAlgorithmXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
 		if (keyAlgorithmXri.hasXRef()) return null;
 		if (! keyAlgorithmXri.hasLiteral()) return null;
 
@@ -217,7 +217,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 		XDI3SubSegment keyLengthXri = dataType.getNumSubSegments() > 1 ? dataType.getSubSegment(1) : null;
 		if (keyLengthXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(keyLengthXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
 		if (keyLengthXri.hasXRef()) return null;
 		if (! keyLengthXri.hasLiteral()) return null;
 

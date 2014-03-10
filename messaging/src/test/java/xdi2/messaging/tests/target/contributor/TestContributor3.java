@@ -10,7 +10,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 
-@ContributorMount(contributorXris={"(+test)"})
+@ContributorMount(contributorXris={"(#test)"})
 public class TestContributor3 extends AbstractContributor {
 
 	@Override
@@ -24,7 +24,7 @@ public class TestContributor3 extends AbstractContributor {
 
 		messageResult.getGraph().setStatement(XDI3Statement.fromRelationComponents(
 				XDI3Segment.create("" + contributorsXri + "=markus"),
-				XDI3Segment.create("" + "+friend"),
+				XDI3Segment.create("" + "#friend"),
 				XDI3Segment.create("" + contributorsXri + "=animesh")));
 
 		return ContributorResult.DEFAULT;

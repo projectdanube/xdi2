@@ -10,14 +10,14 @@ import xdi2.core.xri3.XDI3SubSegment;
  */
 public class XDIConstants {
 
-	public static final Character CS_EQUALS = new Character('='); 
-	public static final Character CS_AT = new Character('@'); 
-	public static final Character CS_PLUS = new Character('+'); 
-	public static final Character CS_DOLLAR = new Character('$'); 
-	public static final Character CS_STAR = new Character('*'); 
-	public static final Character CS_BANG = new Character('!'); 
-	public static final Character CS_ORDER = new Character('#');
+	public static final Character CS_AUTHORITY_PERSONAL = new Character('='); 
+	public static final Character CS_AUTHORITY_LEGAL = new Character('+'); 
+	public static final Character CS_AUTHORITY_GENERAL = new Character('*'); 
+	public static final Character CS_CLASS_UNRESERVED = new Character('#'); 
+	public static final Character CS_CLASS_RESERVED = new Character('$'); 
 	public static final Character CS_VALUE = new Character('&');
+	public static final Character CS_UNORDERED = new Character('!'); 
+	public static final Character CS_ORDERED = new Character('@');
 
 	public static final String XS_ROOT = "()";
 	public static final String XS_VARIABLE = "{}";
@@ -25,7 +25,7 @@ public class XDIConstants {
 	public static final String XS_CLASS = "[]";
 	public static final String XS_ATTRIBUTE = "<>";
 
-	public static final Character[] CS_ARRAY = new Character[] { CS_EQUALS, CS_AT, CS_PLUS, CS_DOLLAR, CS_STAR, CS_BANG, CS_ORDER, CS_VALUE };
+	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_AUTHORITY_GENERAL, CS_CLASS_UNRESERVED, CS_CLASS_RESERVED, CS_VALUE, CS_UNORDERED, CS_ORDERED };
 
 	public static final XDI3Segment XRI_S_ROOT = XDI3Segment.create("");
 	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create("");

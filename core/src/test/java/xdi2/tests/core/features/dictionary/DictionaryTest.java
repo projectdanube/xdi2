@@ -14,10 +14,10 @@ public class DictionaryTest extends TestCase {
 
 	public void testXRIs() throws Exception {
 
-		assertEquals(Dictionary.instanceXriToDictionaryXri(XDI3SubSegment.create("+friend")), XDI3SubSegment.create("+(+friend)"));
-		assertEquals(Dictionary.dictionaryXriToInstanceXri(XDI3SubSegment.create("+(+friend)")), XDI3SubSegment.create("+friend"));
-		assertEquals(Dictionary.nativeIdentifierToInstanceXri("user_name"), XDI3SubSegment.create("+(user_name)"));
-		assertEquals(Dictionary.instanceXriToNativeIdentifier(XDI3SubSegment.create("+(user_name)")), "user_name");
+		assertEquals(Dictionary.instanceXriToDictionaryXri(XDI3SubSegment.create("#friend")), XDI3SubSegment.create("#(#friend)"));
+		assertEquals(Dictionary.dictionaryXriToInstanceXri(XDI3SubSegment.create("#(#friend)")), XDI3SubSegment.create("#friend"));
+		assertEquals(Dictionary.nativeIdentifierToInstanceXri("user_name"), XDI3SubSegment.create("#(user_name)"));
+		assertEquals(Dictionary.instanceXriToNativeIdentifier(XDI3SubSegment.create("#(user_name)")), "user_name");
 	}
 
 	public void testTypes() throws Exception {
@@ -25,9 +25,9 @@ public class DictionaryTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDI3SubSegment.create("=markus"));
 
-		XDI3Segment type1 = XDI3Segment.create("+employee");
-		XDI3Segment type2 = XDI3Segment.create("+person");
-		XDI3Segment type3 = XDI3Segment.create("+developer");
+		XDI3Segment type1 = XDI3Segment.create("#employee");
+		XDI3Segment type2 = XDI3Segment.create("#person");
+		XDI3Segment type3 = XDI3Segment.create("#developer");
 
 		Dictionary.setContextNodeType(contextNode, type1);
 		assertEquals(Dictionary.getContextNodeType(contextNode), type1);

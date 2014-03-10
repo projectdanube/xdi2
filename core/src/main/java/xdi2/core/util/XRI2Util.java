@@ -32,7 +32,7 @@ public final class XRI2Util {
 		if (iNumber.startsWith("xri://")) iNumber = iNumber.substring("xri://".length());
 
 		Character cs = Character.valueOf(iNumber.charAt(0));
-		if ((! XDIConstants.CS_EQUALS.equals(cs)) && (! XDIConstants.CS_AT.equals(cs))) return null;
+		if ((! XDIConstants.CS_AUTHORITY_PERSONAL.equals(cs)) && (! XDIConstants.CS_AUTHORITY_LEGAL.equals(cs))) return null;
 
 		iNumber = iNumber.substring(2).toLowerCase();
 
@@ -47,7 +47,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("[" + cs + "]" + XDIConstants.CS_BANG + ":uuid:");
+		builder.append("[" + cs + "]" + XDIConstants.CS_UNORDERED + ":uuid:");
 		builder.append(parts[0]);
 		builder.append(parts[1]);
 		builder.append("-");
@@ -81,7 +81,7 @@ public final class XRI2Util {
 
 		char cs = xri.getFirstSubSegment().getCs().charValue();
 
-		if (! XDIConstants.CS_BANG.equals(xri.getLastSubSegment().getCs())) return null;
+		if (! XDIConstants.CS_UNORDERED.equals(xri.getLastSubSegment().getCs())) return null;
 		if (! xri.getLastSubSegment().hasLiteral()) return null;
 		if (xri.getLastSubSegment().hasXRef()) return null;
 		if (! xri.getLastSubSegment().getLiteral().startsWith(":uuid")) return null;
@@ -108,7 +108,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("" + cs + XDIConstants.CS_BANG);
+		builder.append("" + cs + XDIConstants.CS_UNORDERED);
 		builder.append(parts[0]);
 		builder.append(".");
 		builder.append(parts[1]);
@@ -128,12 +128,13 @@ public final class XRI2Util {
 		if (log.isTraceEnabled()) log.trace("typeToXdiArcXri(" + type + ")");
 
 		if (type.startsWith("xri://")) type = type.substring(6);
+		type = type.replace('+' , '#');
 
 		XDI3SubSegment xdiArcXri = null;
 
 		try { xdiArcXri = XDI3SubSegment.create(type); } catch (Exception ex) { xdiArcXri = null; }
-		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("+(" + type + ")"); } catch (Exception ex) { xdiArcXri = null; }
-		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("+(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiArcXri = null; }
+		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("#(" + type + ")"); } catch (Exception ex) { xdiArcXri = null; }
+		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiArcXri = null; }
 
 		if (xdiArcXri == null) return null;
 

@@ -14,10 +14,21 @@ public class CloudNumberTest extends TestCase {
 		assertFalse(CloudNumber.isValid(XDI3Segment.create("[=]")));
 		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111")));
 		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111[=]!2222")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111[@]!2222")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[+]!1111")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[+]!1111[+]!2222")));
 
-		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_EQUALS).getXri()));
-		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AT).getXri()));
+		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_PERSONAL).getXri()));
+		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_LEGAL).getXri()));
+	}
+
+	public void testIsCloudNumber() throws Exception {
+
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus")));
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus*web")));
+		assertFalse(CloudNumber.isValid(XDI3Segment.create("[=]")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111[=]!2222")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[+]!1111")));
+		assertTrue(CloudNumber.isValid(XDI3Segment.create("[+]!1111[+]!2222")));
 	}
 }

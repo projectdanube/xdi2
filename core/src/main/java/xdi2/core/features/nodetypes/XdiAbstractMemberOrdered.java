@@ -55,7 +55,7 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 
 	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_ORDER + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_ORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
@@ -67,7 +67,7 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 		if (! attribute && arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDIConstants.CS_ORDER.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_ORDERED.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral()) return false;
 

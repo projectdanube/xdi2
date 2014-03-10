@@ -49,8 +49,8 @@ public class SignaturesTest extends TestCase {
 		PrivateKey privateKey = keyPair.getPrivate();
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/+friend/=animesh"));
+		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
@@ -70,7 +70,7 @@ public class SignaturesTest extends TestCase {
 
 		assertTrue(signature.validate(publicKey));
 
-		contextNode.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=joseph"));
+		contextNode.setRelation(XDI3Segment.create("#friend"), XDI3Segment.create("=joseph"));
 
 		assertFalse(signature.validate(publicKey));
 
@@ -84,8 +84,8 @@ public class SignaturesTest extends TestCase {
 		SecretKey secretKey = secretKeyGen.generateKey(); 
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/+friend/=animesh"));
+		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
@@ -105,7 +105,7 @@ public class SignaturesTest extends TestCase {
 
 		assertTrue(signature.validate(secretKey));
 
-		contextNode.setRelation(XDI3Segment.create("+friend"), XDI3Segment.create("=joseph"));
+		contextNode.setRelation(XDI3Segment.create("#friend"), XDI3Segment.create("=joseph"));
 
 		assertFalse(signature.validate(secretKey));
 
@@ -115,12 +115,12 @@ public class SignaturesTest extends TestCase {
 	public void testNormalizedSerialization() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<+email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/+friend/=animesh"));
+		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
-		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<+email>\"],\"=markus<+email>/\":[\"&\"],\"=markus/+friend\":[\"=animesh\"],\"=markus<+email>&/&\":\"markus.sabadello@gmail.com\"}";
+		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus<#email>/\":[\"&\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>&/&\":\"markus.sabadello@gmail.com\"}";
 
 		assertEquals(Signature.getNormalizedSerialization(contextNode), normalizedSerialization);
 		

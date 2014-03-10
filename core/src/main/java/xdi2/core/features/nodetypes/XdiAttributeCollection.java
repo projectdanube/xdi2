@@ -66,7 +66,7 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 		if (! arcXri.isClassXs()) return false;
 		if (! arcXri.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
 
 			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 		} else {

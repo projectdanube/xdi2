@@ -2,10 +2,10 @@
 /$is$ref/(=markus)
 $do$if/$true/({$from}/$is/=drummond)
 $do$if/$true/({$from}/$is/=markus)
-$do/$get/=markus<+age>
+$do/$get/=markus<#age>
 $do/$set/=markus
-=markus<+age>&/&/"33"
-=markus<+name>&/&/"Markus Sabadello"
-=markus[<+email>]<!1>&/&/"markus.sabadello@gmail.com"
-=markus[<+email>]<!2>&/&/"markus.sabadello@hotmail.com"
-=markus/+friend/=drummond
+=markus<#age>&/&/"33"
+=markus<#name>&/&/"Markus Sabadello"
+=markus[<#email>]<!1>&/&/"markus.sabadello@gmail.com"
+=markus[<#email>]<!2>&/&/"markus.sabadello@hotmail.com"
+=markus/#friend/=drummond
