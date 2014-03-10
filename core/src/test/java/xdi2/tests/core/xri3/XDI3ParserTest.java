@@ -41,7 +41,7 @@ public abstract class XDI3ParserTest extends TestCase {
 		assertEquals(statement.getSubject().getSubSegment(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getSubSegment(1).getXRef());
 		assertEquals(statement.getSubject().getSubSegment(2), parser.parseXDI3SubSegment("!1"));
-		assertEquals(statement.getSubject().getSubSegment(2).getCs(), XDIConstants.CS_UNORDERED);
+		assertEquals(statement.getSubject().getSubSegment(2).getCs(), XDIConstants.CS_MEMBER_UNORDERED);
 		assertFalse(statement.getSubject().getSubSegment(2).isClassXs());
 		assertFalse(statement.getSubject().getSubSegment(2).isAttributeXs());
 		assertEquals(statement.getSubject().getSubSegment(2).getLiteral(), "1");

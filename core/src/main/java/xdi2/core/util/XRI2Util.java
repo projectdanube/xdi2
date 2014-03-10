@@ -47,7 +47,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("[" + cs + "]" + XDIConstants.CS_UNORDERED + ":uuid:");
+		builder.append("[" + cs + "]" + XDIConstants.CS_MEMBER_UNORDERED + ":uuid:");
 		builder.append(parts[0]);
 		builder.append(parts[1]);
 		builder.append("-");
@@ -81,7 +81,7 @@ public final class XRI2Util {
 
 		char cs = xri.getFirstSubSegment().getCs().charValue();
 
-		if (! XDIConstants.CS_UNORDERED.equals(xri.getLastSubSegment().getCs())) return null;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(xri.getLastSubSegment().getCs())) return null;
 		if (! xri.getLastSubSegment().hasLiteral()) return null;
 		if (xri.getLastSubSegment().hasXRef()) return null;
 		if (! xri.getLastSubSegment().getLiteral().startsWith(":uuid")) return null;
@@ -108,7 +108,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("" + cs + XDIConstants.CS_UNORDERED);
+		builder.append("" + cs + XDIConstants.CS_MEMBER_UNORDERED);
 		builder.append(parts[0]);
 		builder.append(".");
 		builder.append(parts[1]);

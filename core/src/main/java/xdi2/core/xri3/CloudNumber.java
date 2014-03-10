@@ -45,7 +45,7 @@ public class CloudNumber {
 				if (subSegment1.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment1.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment1.hasXRef() || ! subSegment1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_UNORDERED.equals(subSegment1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(subSegment1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }

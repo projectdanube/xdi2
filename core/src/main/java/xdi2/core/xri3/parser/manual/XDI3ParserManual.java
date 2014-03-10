@@ -298,17 +298,21 @@ public class XDI3ParserManual extends XDI3Parser {
 		int indexColon = string.indexOf(':');
 		int indexAuthorityPersonal = string.indexOf(XDIConstants.CS_AUTHORITY_PERSONAL.charValue());
 		int indexAuthorityLegal = string.indexOf(XDIConstants.CS_AUTHORITY_LEGAL.charValue());
+		int indexAuthorityGeneral = string.indexOf(XDIConstants.CS_AUTHORITY_GENERAL.charValue());
 		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
-		int indexMemberUnordered = string.indexOf(XDIConstants.CS_UNORDERED.charValue());
-		int indexMemberOrdered = string.indexOf(XDIConstants.CS_ORDERED.charValue());
+		int indexValue = string.indexOf(XDIConstants.CS_VALUE.charValue());
+		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
+		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
 
 		if (indexColon == -1) return false;
 
 		if (indexAuthorityPersonal != -1 && indexAuthorityPersonal < indexColon) return false;
 		if (indexAuthorityLegal != -1 && indexAuthorityLegal < indexColon) return false;
+		if (indexAuthorityGeneral != -1 && indexAuthorityGeneral < indexColon) return false;
 		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
 		if (indexClassReserved != -1 && indexClassReserved < indexColon) return false;
+		if (indexValue != -1 && indexValue < indexColon) return false;
 		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
 		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
 
