@@ -37,4 +37,10 @@ public class BDBKeyValueGraphTest extends AbstractGraphTest {
 
 		return graphFactory;
 	}
+
+	@Override
+	protected boolean supportsPersistence() {
+
+		return true;
+	}
 }

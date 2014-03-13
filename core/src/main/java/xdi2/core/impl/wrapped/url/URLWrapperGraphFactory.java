@@ -34,12 +34,6 @@ public class URLWrapperGraphFactory extends WrappedGraphFactory implements Graph
 	}
 
 	@Override
-	public boolean supportsPersistence() {
-
-		return false;
-	}
-
-	@Override
 	public WrapperStore openWrapper(String identifier) throws IOException {
 
 		// initialize graph

@@ -22,12 +22,6 @@ public class PropertiesKeyValueGraphFactory extends AbstractKeyValueGraphFactory
 	}
 
 	@Override
-	public boolean supportsPersistence() {
-
-		return true;
-	}
-
-	@Override
 	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
 
 		// check identifier

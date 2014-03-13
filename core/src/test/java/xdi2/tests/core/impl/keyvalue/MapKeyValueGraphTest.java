@@ -13,4 +13,10 @@ public class MapKeyValueGraphTest extends AbstractGraphTest {
 
 		return graphFactory;
 	}
+
+	@Override
+	protected boolean supportsPersistence() {
+
+		return false;
+	}
 }

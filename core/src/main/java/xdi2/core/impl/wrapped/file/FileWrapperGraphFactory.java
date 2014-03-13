@@ -34,12 +34,6 @@ public class FileWrapperGraphFactory extends WrappedGraphFactory implements Grap
 	}
 
 	@Override
-	public boolean supportsPersistence() {
-
-		return true;
-	}
-
-	@Override
 	public WrapperStore openWrapper(String identifier) throws IOException {
 
 		// check identifier

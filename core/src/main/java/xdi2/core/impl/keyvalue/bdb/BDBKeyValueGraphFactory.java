@@ -41,12 +41,6 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 	}
 
 	@Override
-	public boolean supportsPersistence() {
-
-		return true;
-	}
-
-	@Override
 	protected KeyValueStore openKeyValueStore(String identifier) throws IOException {
 
 		// check identifier
