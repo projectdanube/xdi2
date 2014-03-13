@@ -5,7 +5,6 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.util.GraphUtil;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -33,15 +32,17 @@ public class MetaLinkContract extends GenericLinkContract {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
+		if (! GenericLinkContract.isValid(xdiEntity)) return false;
+
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
 
 			return true;
@@ -65,7 +66,9 @@ public class MetaLinkContract extends GenericLinkContract {
 
 	public static XDI3Segment createLinkContractXri(XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId) {
 
-		return GenericLinkContract.createGenericLinkContractXri(requestingAuthority, null, templateAuthorityAndId);
+		XDI3Segment authorizingAuthority = requestingAuthority;
+
+		return GenericLinkContract.createGenericLinkContractXri(authorizingAuthority, null, templateAuthorityAndId);
 	}
 
 	/**
@@ -74,10 +77,9 @@ public class MetaLinkContract extends GenericLinkContract {
 	 */
 	public static MetaLinkContract findMetaLinkContract(Graph graph, XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId, boolean create) {
 
-		XDI3Segment ownerXri = GraphUtil.getOwnerXri(graph);
-		if (ownerXri == null) return null;
+		XDI3Segment authorizingAuthority = requestingAuthority;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, requestingAuthority, null, templateAuthorityAndId, create);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, authorizingAuthority, null, templateAuthorityAndId, create);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());

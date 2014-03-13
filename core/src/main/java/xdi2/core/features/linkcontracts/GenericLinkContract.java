@@ -132,12 +132,14 @@ public class GenericLinkContract extends LinkContract {
 
 	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
 
-		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
-		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
-		if (index2 < 0) index2 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
-		if (index1 < 0 || index2 < 0 || index1 >= index2) return null;
+		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO);
+		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
+		int index3 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
+		if (index3 < 0) index3 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
+		if (index2 < 0) index2 = index1;
+		if (index2 < 0 || index3 < 0 || index2 >= index3) return null;
 
-		return XDI3Util.subXri(xri, index1 + 1, index2);
+		return XDI3Util.subXri(xri, index2 + 1, index3);
 	}
 
 	/*
