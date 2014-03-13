@@ -33,12 +33,6 @@ public class ClasspathWrapperGraphFactory extends WrappedGraphFactory implements
 	}
 
 	@Override
-	public boolean supportsPersistence() {
-
-		return false;
-	}
-
-	@Override
 	public WrapperStore openWrapper(String identifier) throws IOException {
 
 		// initialize graph

@@ -46,6 +46,7 @@ import com.google.gson.JsonPrimitive;
 public abstract class AbstractGraphTest extends TestCase {
 
 	protected abstract GraphFactory getGraphFactory() throws IOException;
+	protected abstract boolean supportsPersistence();
 
 	public void testSimple() throws Exception {
 
@@ -90,7 +91,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testReopenGraph() throws Exception {
 
-		if (! this.getGraphFactory().supportsPersistence()) return;
+		if (! this.supportsPersistence()) return;
 
 		Graph graph2 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-2");
 
@@ -166,7 +167,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 	public void testManipulateAndReopenGraph() throws Exception {
 
-		if (! this.getGraphFactory().supportsPersistence()) return;
+		if (! this.supportsPersistence()) return;
 
 		Graph graph9 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-9");
 

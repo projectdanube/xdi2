@@ -13,4 +13,10 @@ public class MemoryGraphTest extends AbstractGraphTest {
 
 		return graphFactory;
 	}
+
+	@Override
+	protected boolean supportsPersistence() {
+
+		return false;
+	}
 }
