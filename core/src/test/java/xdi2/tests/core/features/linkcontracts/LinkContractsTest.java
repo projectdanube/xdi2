@@ -134,7 +134,7 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.setDeepContextNode(xri);
 
-		LinkContractTemplate l1 = LinkContractTemplate.findLinkContractTemplate(graph, XDI3Segment.create("=markus"), XDI3Segment.create("+registration"), false);
+		LinkContractTemplate l1 = LinkContractTemplate.findLinkContractTemplate(graph, XDI3Segment.create("=markus+registration"), false);
 		assertNotNull(l1);
 		assertEquals(l1.getTemplateAuthorityAndId(), XDI3Segment.create("=markus+registration"));
 
@@ -157,12 +157,12 @@ public class LinkContractsTest extends TestCase {
 		MetaLinkContract l1 = MetaLinkContract.findMetaLinkContract(graph, XDI3Segment.create("=markus"), XDI3Segment.create("+registration"), false);
 		assertNotNull(l1);
 		assertEquals(l1.getRequestingAuthority(), XDI3Segment.create("=markus"));
-		assertEquals(l1.getTemplateId(), XDI3Segment.create("+registration"));
+		assertEquals(l1.getTemplateAuthorityAndId(), XDI3Segment.create("+registration"));
 
 		MetaLinkContract l2 = MetaLinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 		assertNotNull(l2);
 		assertEquals(l2.getRequestingAuthority(), XDI3Segment.create("=markus"));
-		assertEquals(l2.getTemplateId(), XDI3Segment.create("+registration"));
+		assertEquals(l2.getTemplateAuthorityAndId(), XDI3Segment.create("+registration"));
 
 		assertEquals(l1, l2);
 		

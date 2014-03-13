@@ -17,7 +17,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
- * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity.
+ * The base class for XDI link contract (template)s and XDI link contract (template) templates, represented as an XDI entity.
  * 
  * @author markus
  */
@@ -37,8 +37,8 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 */
 
 	/**
-	 * Returns the underlying XDI entity to which this XDI link contract is bound.
-	 * @return An XDI entity that represents the XDI link contract.
+	 * Returns the underlying XDI entity to which this XDI link contract (template) (template) is bound.
+	 * @return An XDI entity that represents the XDI link contract (template).
 	 */
 	public XdiEntity getXdiEntity() {
 
@@ -46,8 +46,8 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	/**
-	 * Returns the underlying context node to which this XDI link contract is bound.
-	 * @return A context node that represents the XDI link contract.
+	 * Returns the underlying context node to which this XDI link contract (template) is bound.
+	 * @return A context node that represents the XDI link contract (template).
 	 */
 	public ContextNode getContextNode() {
 
@@ -55,7 +55,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	/**
-	 * Returns an existing XDI root policy in this XDI link contract, or creates a new one.
+	 * Returns an existing XDI root policy in this XDI link contract (template), or creates a new one.
 	 * @param create Whether to create an XDI root policy if it does not exist.
 	 * @return The existing or newly created XDI root policy.
 	 */
@@ -68,7 +68,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	/**
-	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
+	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract (template) to a target context node XRI.
 	 * @param permissionXri The permission XRI.
 	 * @param targetAddress The target context node XRI of the permission.
 	 */
