@@ -19,7 +19,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
- * The base class for XDI link contract (template)s and XDI link contract (template) templates, represented as an XDI entity.
+ * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity or variable.
  * 
  * @author markus
  */
