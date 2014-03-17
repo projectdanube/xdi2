@@ -24,6 +24,7 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.MessageResult;
+import xdi2.webtools.util.LoggingTrustManager;
 
 /**
  * Servlet implementation class for Servlet: XDIDiscoverer
@@ -114,6 +115,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		XDIDiscoveryResult discoveryResultAuthority = null;
 		Exception exceptionAuthority = null;
 
+		LoggingTrustManager loggingTrustManager = null;
+
 		long start = System.currentTimeMillis();
 
 		try {
@@ -127,40 +130,23 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			// from registry
 
+			loggingTrustManager = new LoggingTrustManager();
+
 			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDI3Segment.create(input), null);
 
-			// from authority
-
-			if ("on".equals(authority)) {
-
-				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
-
-					XDI3Segment[] endpointUriTypes;
-
-					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
-					endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
-					for (int i=0; i<endpointUriTypesString.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
-
-					try {
-
-						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
-					} catch (Exception ex) {
-
-						exceptionAuthority = ex;
-						discoveryResultAuthority = null;
-					}
-				}
-			}
-
-			// output result
+			// output result from registry
 
 			StringWriter writer = new StringWriter();
-			StringWriter writer2 = new StringWriter();
 
 			if (discoveryResultRegistry != null) {
 
 				writer.write("Discovery result from registry:\n\n");
 
+				if (loggingTrustManager.getBuffer().length() > 0) {
+					
+					writer.write(loggingTrustManager.getBuffer().toString() + "\n");
+				}
+				
 				writer.write("Cloud Number: " + discoveryResultRegistry.getCloudNumber() + "\n");
 				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Default Endpoint URI: " + discoveryResultRegistry.getDefaultEndpointUri() + "\n");
@@ -200,9 +186,43 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				writer.write("No discovery result from registry.\n");
 			}
 
+			// from authority
+
+			if ("on".equals(authority)) {
+
+				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
+
+					loggingTrustManager = new LoggingTrustManager();
+
+					XDI3Segment[] endpointUriTypes;
+
+					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
+					endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
+					for (int i=0; i<endpointUriTypesString.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
+
+					try {
+
+						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+					} catch (Exception ex) {
+
+						exceptionAuthority = ex;
+						discoveryResultAuthority = null;
+					}
+				}
+			}
+
+			// output result from authority
+			
+			StringWriter writer2 = new StringWriter();
+
 			if (discoveryResultAuthority != null) {
 
 				writer2.write("Discovery result from authority:\n\n");
+
+				if (loggingTrustManager.getBuffer().length() > 0) {
+					
+					writer.write(loggingTrustManager.getBuffer().toString() + "\n");
+				}
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
@@ -267,6 +287,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
+		} finally {
+
+			LoggingTrustManager.disable();
 		}
 
 		long stop = System.currentTimeMillis();
