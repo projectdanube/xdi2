@@ -49,7 +49,7 @@
 
 		<tr>
 		<td>&nbsp;</td>
-		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;">http://xdidiscoveryservice.xdi.net:12220/</span> for PROD. Use <span style="font-size: 1em; font-weight: bold;">http://xdidiscoveryserviceote.xdi.net:12220/</span> for OTE.</span></td>
+		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for PROD. Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for OTE.</span></td>
 		</tr>
 
 		<tr>
