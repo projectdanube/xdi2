@@ -190,15 +190,15 @@
 					<property name="bootstrapGraph">
 						<value>
 							{$self}$to$anon$from$public$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
-							{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is+/{})
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is#/{})
 							{$self}$to$anon$from$public$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
-							{$self}$to$anon$from$public$do/$get/({$self}$msg$sig$keypair/$is+/{})
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$sig$keypair/$is#/{})
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
 						<value>
-							$anon[$msg]!1$do/$do$keypair/({$self}$msg$encrypt$keypair/$is+/$rsa$2048)
-							$anon[$msg]!1$do/$do$keypair/({$self}$msg$sig$keypair/$is+/$rsa$2048)
+							$anon[$msg]!1$do/$do$keypair/({$self}$msg$encrypt$keypair/$is#/$rsa$2048)
+							$anon[$msg]!1$do/$do$keypair/({$self}$msg$sig$keypair/$is#/$rsa$2048)
 						</value>
 					</property>
 				</bean>
