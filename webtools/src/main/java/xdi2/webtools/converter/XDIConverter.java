@@ -140,7 +140,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		}
 
 		stats = "";
-		stats += Long.toString(graph.getRootContextNode(true).getAllContextNodeCount()) + " context nodes. ";
+		stats += Long.toString(graph.getRootContextNode(true).getAllContextNodeCount() + 1) + " context nodes. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllRelationCount()) + " relations. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllLiteralCount()) + " literals. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " statements. ";
