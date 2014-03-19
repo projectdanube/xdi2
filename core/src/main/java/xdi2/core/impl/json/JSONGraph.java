@@ -3,9 +3,11 @@ package xdi2.core.impl.json;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	private final JSONContextNode jsonRootContextNode;
 	private final Map<String, JsonObject> jsonObjectsCached;
+	private final Set<String> jsonObjectsCachedWithPrefix;
 
 	private StringBuffer logBuffer;
 	private boolean logEnabled;
@@ -46,6 +49,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
 		this.jsonObjectsCached = new HashMap<String, JsonObject> ();
+		this.jsonObjectsCachedWithPrefix = new HashSet<String> ();
 
 		this.logBuffer = new StringBuffer();
 		this.logEnabled = false;
@@ -86,18 +90,21 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	public void beginTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
 	}
 
 	@Override
 	public void commitTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
 	}
 
 	@Override
 	public void rollbackTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
 	}
 
 	/*
@@ -175,9 +182,11 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		try {
 
-			jsonObjectCached = this.jsonObjectsCached.get(id);
+			boolean jsonObjectCachedWithPrefix = this.jsonObjectsCachedWithPrefix.contains(id);
 
-			if (jsonObjectCached != null) {
+			if (jsonObjectCachedWithPrefix) {
+
+				jsonObjectCached = this.jsonObjectsCached.get(id);
 
 				jsonObjects = Collections.singletonMap(id, jsonObjectCached);
 				return jsonObjects;
@@ -188,6 +197,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 				jsonObjects = this.jsonStore.loadWithPrefix(id);
 
 				this.jsonObjectsCached.putAll(jsonObjects);
+				this.jsonObjectsCachedWithPrefix.addAll(jsonObjects.keySet());
 
 				return jsonObjects;
 			} catch (IOException ex) {

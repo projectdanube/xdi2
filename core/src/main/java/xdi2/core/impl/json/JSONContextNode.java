@@ -48,9 +48,17 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		this.xri = xri;
 	}
 
-	/*
-	 * Methods related to context nodes of this context node
-	 */
+	@Override
+	public synchronized void clear() {
+
+		if (this.isRootContextNode()) {
+
+			((JSONGraph) this.getGraph()).jsonDelete("");
+		} else {
+
+			super.clear();
+		}
+	}
 
 	@Override
 	public XDI3SubSegment getArcXri() {
@@ -63,6 +71,10 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		return this.xri;
 	}
+
+	/*
+	 * Methods related to context nodes of this context node
+	 */
 
 	@Override
 	public ContextNode setContextNode(XDI3SubSegment arcXri) {
