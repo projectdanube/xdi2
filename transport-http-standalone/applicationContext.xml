@@ -85,10 +85,10 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" />
+					<property name="bootstrapOwner" value="[+]!:uuid:9999" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
-							<value>=danube</value>
+							<value>+testcsp</value>
 						</util:list>
 					</property>
 					<property name="bootstrapRootLinkContract" value="true" />
@@ -103,7 +103,7 @@
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
-									<entry key="[=]!:uuid:bdf301fb-e70c-3958-bdf3-01fbe70c3958" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
+									<entry key="[+]!:uuid:9999" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
 								</util:map>
 							</property>
 						</bean>
@@ -164,39 +164,41 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET at /=markus -->
+	<!-- MESSAGING TARGET at /=alice -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
 
 	<bean id="graphfactory4" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
 
-	<bean id="graph4" factory-bean="graphfactory4" factory-method="openGraph" />
+	<bean id="graph4" factory-bean="graphfactory4" factory-method="openGraph">
+		<constructor-arg><value>([=]!:uuid:1111)</value></constructor-arg>
+	</bean>
 
-	<bean name="/=markus" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
+	<bean name="/=alice" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
 		<property name="graph" ref="graph4" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24" />
+					<property name="bootstrapOwner" value="[=]!:uuid:1111" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
-							<value>=markus</value>
+							<value>=alice</value>
 						</util:list>
 					</property>
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							$public$do/$get/$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
-							$public$do/$get/($msg$encrypt$keypair/$is+/{})
-							$public$do/$get/$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
-							$public$do/$get/($msg$sig$keypair/$is+/{})
+							{$self}$to$anon$from$public$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is+/{})
+							{$self}$to$anon$from$public$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$sig$keypair/$is+/{})
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
 						<value>
-							$anon[$msg]!1$do/$do$keypair/($msg$encrypt$keypair/$is+/$rsa$2048)
-							$anon[$msg]!1$do/$do$keypair/($msg$sig$keypair/$is+/$rsa$2048)
+							$anon[$msg]!1$do/$do$keypair/({$self}$msg$encrypt$keypair/$is+/$rsa$2048)
+							$anon[$msg]!1$do/$do$keypair/({$self}$msg$sig$keypair/$is+/$rsa$2048)
 						</value>
 					</property>
 				</bean>
