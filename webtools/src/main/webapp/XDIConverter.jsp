@@ -50,6 +50,7 @@
 		<option value="XDI/JSON/TREE" <%= resultFormat.equals("XDI/JSON/TREE") ? "selected" : "" %>>XDI/JSON/TREE</option>
 		<option value="XDI/JSON/PARSE" <%= resultFormat.equals("XDI/JSON/PARSE") ? "selected" : "" %>>XDI/JSON/PARSE</option>
 		<option value="KEYVALUE" <%= resultFormat.equals("KEYVALUE") ? "selected" : "" %>>KEYVALUE</option>
+		<option value="XDI DISPLAY SHIFT" <%= resultFormat.equals("XDI DISPLAY SHIFT") ? "selected" : "" %>>XDI DISPLAY SHIFT</option>
 		</select>
 
 		<input name="writeImplied" type="checkbox" <%= writeImplied.equals("on") ? "checked" : "" %>>implied=1
