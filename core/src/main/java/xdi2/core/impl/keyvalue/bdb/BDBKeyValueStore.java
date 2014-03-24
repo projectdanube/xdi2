@@ -123,7 +123,9 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
 
 			if (this.transaction == null) transaction.commit();
-			return status.equals(OperationStatus.SUCCESS) ? new String(dbValue.getData()) : null;
+			if (! status.equals(OperationStatus.SUCCESS)) return null;
+
+			return new String(dbValue.getData());
 		} catch (Exception ex) {
 
 			if (this.transaction == null) transaction.abort();
