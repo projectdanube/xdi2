@@ -43,12 +43,12 @@ public final class ExecutionContext implements Serializable {
 	private Map<String, Object> messageEnvelopeAttributes;
 
 	/**
-	 * This map is reset before executing a Message in a MessageEnvelope is executed.
+	 * This map is reset before executing a Message in a MessageEnvelope.
 	 */
 	private Map<String, Object> messageAttributes;
 
 	/**
-	 * This map is reset before executing an Operation in a Message is executed.
+	 * This map is reset before executing an Operation in a Message.
 	 */
 	private Map<String, Object> operationAttributes;
 
@@ -60,7 +60,8 @@ public final class ExecutionContext implements Serializable {
 	/**
 	 * The current execution position.
 	 * This is either a MessagingTarget, a MessageEnvelope, a Message,
-	 * an Operation, an Interceptor, or a Contributor.
+	 * an Operation, an Interceptor, a Contributor, an XDI3Segment,
+	 * or an XDI3Statement.
 	 */
 	private ExecutionPosition<?> currentExecutionPosition, topExecutionPosition, exceptionExecutionPosition;
 
