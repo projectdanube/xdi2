@@ -29,7 +29,7 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 	public static final boolean DEFAULT_SUPPORT_GET_RELATIONS = true; 
 	public static final boolean DEFAULT_SUPPORT_GET_LITERALS = true; 
 
-	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb/";
+	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb-keyvalue/";
 
 	private String databasePath;
 
@@ -136,6 +136,10 @@ public class BDBKeyValueGraphFactory extends AbstractKeyValueGraphFactory implem
 		}
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public String getDatabasePath() {
 
 		return this.databasePath;

@@ -1,15 +1,15 @@
-package xdi2.tests.core.impl.keyvalue;
+package xdi2.tests.core.impl.json;
 
 import xdi2.core.GraphFactory;
-import xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory;
-import xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore;
+import xdi2.core.impl.json.bdb.BDBJSONGraphFactory;
+import xdi2.core.impl.json.bdb.BDBJSONStore;
 import xdi2.tests.core.impl.AbstractGraphTest;
 
-public class BDBKeyValueGraphTest extends AbstractGraphTest {
+public class BDBJSONGraphTest extends AbstractGraphTest {
 
-	private static BDBKeyValueGraphFactory graphFactory = new BDBKeyValueGraphFactory();
+	private static BDBJSONGraphFactory graphFactory = new BDBJSONGraphFactory();
 
-	public static final String DATABASE_PATH = "./xdi2-bdb-keyvalue/";
+	public static final String DATABASE_PATH = "./xdi2-bdb-json/";
 
 	static {
 		
@@ -21,7 +21,7 @@ public class BDBKeyValueGraphTest extends AbstractGraphTest {
 
 		super.setUp();
 
-		BDBKeyValueStore.cleanup(DATABASE_PATH);
+		BDBJSONStore.cleanup(DATABASE_PATH);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class BDBKeyValueGraphTest extends AbstractGraphTest {
 
 		super.tearDown();
 
-		BDBKeyValueStore.cleanup(DATABASE_PATH);
+		BDBJSONStore.cleanup(DATABASE_PATH);
 	}
 
 	@Override
@@ -41,6 +41,6 @@ public class BDBKeyValueGraphTest extends AbstractGraphTest {
 	@Override
 	protected boolean supportsPersistence() {
 
-		return true;
+		return false;
 	}
 }

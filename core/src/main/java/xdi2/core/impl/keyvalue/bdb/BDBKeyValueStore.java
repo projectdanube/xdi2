@@ -372,6 +372,10 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		if (log.isDebugEnabled()) log.debug("Rolled back transaction...");
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public String getDatabasePath() {
 
 		return this.databasePath;

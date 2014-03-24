@@ -95,4 +95,25 @@ public abstract class AbstractJSONStore implements JSONStore {
 
 		this.save(id, jsonObject);
 	}
+
+	@Override
+	public boolean supportsTransactions() {
+
+		return false;
+	}
+
+	@Override
+	public void beginTransaction() {
+
+	}
+
+	@Override
+	public void commitTransaction() {
+
+	}
+
+	@Override
+	public void rollbackTransaction() {
+
+	}
 }

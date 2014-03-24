@@ -26,4 +26,9 @@ public interface JSONStore {
 	public void delete(String id) throws IOException;
 	public void deleteFromArray(String id, String key, JsonPrimitive jsonPrimitive) throws IOException;
 	public void deleteFromObject(String id, String key) throws IOException;
+
+	public boolean supportsTransactions();
+	public void beginTransaction();
+	public void commitTransaction();
+	public void rollbackTransaction();
 }

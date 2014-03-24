@@ -83,7 +83,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	@Override
 	public boolean supportsTransactions() {
 
-		return false;
+		return this.jsonStore.supportsTransactions();
 	}
 
 	@Override
@@ -91,6 +91,8 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonObjectsCached.clear();
 		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.jsonStore.beginTransaction();
 	}
 
 	@Override
@@ -98,6 +100,8 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonObjectsCached.clear();
 		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.jsonStore.commitTransaction();
 	}
 
 	@Override
@@ -105,6 +109,8 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonObjectsCached.clear();
 		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.jsonStore.rollbackTransaction();
 	}
 
 	/*
