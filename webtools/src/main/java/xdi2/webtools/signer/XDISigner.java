@@ -237,19 +237,18 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				output = "Valid: " + valid.toString();
 			}
+
+			// output the normalized serialization
+			
+			if (signature != null) {
+
+				output2 = Signature.getNormalizedSerialization(signature.getBaseContextNode());
+			}
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
 			error = ex.getMessage();
 			if (error == null) error = ex.getClass().getName();
-		} finally {
-			
-			graph.close();
-		}
-
-		if (signature != null) {
-
-			output2 = Signature.getNormalizedSerialization(signature.getBaseContextNode());
 		}
 
 		long stop = System.currentTimeMillis();
