@@ -1,4 +1,4 @@
-package xdi2.transport.http.standalone;
+package xdi2.transport.impl.http.standalone;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
 
 import xdi2.core.plugins.PluginsLoader;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.http.embedded.EndpointServerEmbedded;
+import xdi2.transport.impl.http.embedded.EndpointServerEmbedded;
 
 public class EndpointServerStandalone {
 

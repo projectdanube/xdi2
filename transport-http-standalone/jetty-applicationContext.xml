@@ -39,6 +39,6 @@
 
 	</bean>
 
-	<bean id="EndpointServlet" class="xdi2.transport.impl.http.servlet.EndpointServlet" init-method="init" destroy-method="destroy" />
+	<bean id="EndpointServlet" class="xdi2.transport.impl.http.impl.servlet.EndpointServlet" init-method="init" destroy-method="destroy" />
 
 </beans>
