@@ -43,9 +43,8 @@ public class XDIDisplayShiftWriter extends AbstractXDIWriter {
 	private static final Logger log = LoggerFactory.getLogger(XDIDisplayShiftWriter.class);
 
 	public static final String FORMAT_NAME = "XDI DISPLAY SHIFT";
-	public static final String FILE_EXTENSION = null;
-	public static final MimeType MIME_TYPE = null;
-
+	public static final String FILE_EXTENSION = "xdishift";
+	public static final MimeType MIME_TYPE = new MimeType("text/xdishift");
 
 	private static final String HTML_COLOR_ROOT = "#ff7f7f";
 	private static final String HTML_COLOR_ENTITY = "#7fff7f";
