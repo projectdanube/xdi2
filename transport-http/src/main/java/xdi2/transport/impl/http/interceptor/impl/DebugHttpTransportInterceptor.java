@@ -63,7 +63,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	private int logCapacity;
 
 	private LinkedList<LogEntry> log;
-	private VelocityEngine velocityEngine;
 
 	public DebugHttpTransportInterceptor() {
 
@@ -71,14 +70,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		this.logCapacity = DEFAULT_LOG_CAPACITY;
 
 		this.log = new LinkedList<LogEntry> ();
-		this.velocityEngine = new VelocityEngine();
-	}
-
-	@Override
-	public void init(Transport<?, ?> transport) {
-
-		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
-		this.velocityEngine.init();
 	}
 
 	/*
@@ -198,7 +189,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			this.velocityEngine.evaluate(context, writer, "debug-edit.vm", reader);
+			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
 			writer.close();
 
 			// done
@@ -253,7 +244,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			this.velocityEngine.evaluate(context, writer, "debug-edit.vm", reader);
+			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
 			writer.close();
 
 			// done
@@ -297,7 +288,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("text/html");
-		this.velocityEngine.evaluate(context, bodyWriter, "debug.vm", reader);
+		makeVelocityEngine().evaluate(context, bodyWriter, "debug.vm", reader);
 		bodyWriter.close();
 
 		// done
@@ -349,6 +340,20 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	public void setLog(LinkedList<LogEntry> log) {
 
 		this.log = log;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private static VelocityEngine makeVelocityEngine() {
+
+		VelocityEngine velocityEngine = new VelocityEngine();
+		velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
+		velocityEngine.setProperty(RuntimeConstants.PARSER_POOL_SIZE, Integer.valueOf(1));
+		velocityEngine.init();
+
+		return velocityEngine;
 	}
 
 	/*
