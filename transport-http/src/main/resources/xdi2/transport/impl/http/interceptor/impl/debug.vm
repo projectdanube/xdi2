@@ -58,7 +58,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		#end
 		#end
 	</td></tr>
-	<tr><th style="width: 200px">Plugins:</th><td>
+	<tr><th style="width: 200px">Dynamic Plugins:</th><td>
 		#if(! $pluginfiles)
 			(none)
 		#else
