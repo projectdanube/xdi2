@@ -165,13 +165,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
-
 			StringWriter stringWriter = new StringWriter();
-
 			xdiWriter.write(((GraphMessagingTarget) cmdMessagingTarget).getGraph(), stringWriter);
-
 			graphstring = stringWriter.getBuffer().toString();
 
+			String statementcount = Long.toString(((GraphMessagingTarget) cmdMessagingTarget).getGraph().getRootContextNode().getAllStatementCount());
+			
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
@@ -186,6 +185,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("writeInner", writeInner);
 			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
+			context.put("statementcount", statementcount);
 
 			// send response
 

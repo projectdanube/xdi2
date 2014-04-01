@@ -54,6 +54,8 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<input type="hidden" name="cmd" value="edit_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
 	<input type="submit" value="Refresh">
+	&nbsp;
+	($statementcount statements)
 </form>
 </p>
 <form action="" method="post">
