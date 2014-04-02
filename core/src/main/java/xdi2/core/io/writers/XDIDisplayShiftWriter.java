@@ -279,7 +279,7 @@ public class XDIDisplayShiftWriter extends AbstractXDIWriter {
 			this.writeStatement(bufferedWriter, statementXri);
 		} else {
 
-			bufferedWriter.write(statementXri.toString());
+			this.writeStatement(bufferedWriter, statementXri);
 		}
 
 		this.writeCloseInnerRoot(bufferedWriter);
