@@ -57,6 +57,12 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
+	public void setOwnerPeerRootXri(XDI3SubSegment ownerPeerRootXri) {
+
+		GraphUtil.setOwnerPeerRootXri(this.getGraph(), ownerPeerRootXri);
+	}
+
+	@Override
 	public void before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		super.before(messageEnvelope, messageResult, executionContext);
