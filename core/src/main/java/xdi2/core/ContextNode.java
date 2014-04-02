@@ -55,13 +55,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void delete();
 
 	/**
-	 * Clears the context node. This is equivalent to calling delContextNodes(), delRelations() and delLiterals().
+	 * Clears the context node. This is equivalent to calling delContextNodes(), delRelations() and delLiteral().
 	 */
 	public void clear();
 
 	/**
 	 * Checks if the context node is empty. 
-	 * This is equivalent to calling ! ( containsContextNodes() || containsRelations() || containsLiterals() ).
+	 * This is equivalent to calling ! ( containsContextNodes() || containsRelations() || containsLiteral() ).
 	 */
 	public boolean isEmpty();
 
@@ -74,7 +74,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Gets the XRI of this context node.
-	 * This returns () for the root context node.
+	 * This returns the empty string for the root context node.
 	 * @return The XRI of this context node.
 	 */
 	public XDI3Segment getXri();
@@ -123,7 +123,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode getDeepContextNode(XDI3Segment relativeContextNodeXri);
 
 	/**
-	 * Returns the context nodes of this context node.
+	 * Returns the context nodes under this context node.
 	 * @return An iterator over context nodes.
 	 */
 	public ReadOnlyIterator<ContextNode> getContextNodes();
@@ -134,19 +134,19 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDI3Segment relativeContextNodeXri);
 
 	/**
-	 * Returns all context nodes of this context node.
+	 * Returns all context nodes under this context node.
 	 * @return An iterator over context nodes.
 	 */
 	public ReadOnlyIterator<ContextNode> getAllContextNodes();
 
 	/**
-	 * Returns all leaf context nodes of this context node.
+	 * Returns all leaf context nodes under this context node.
 	 * @return An iterator over leaf context nodes.
 	 */
 	public ReadOnlyIterator<ContextNode> getAllLeafContextNodes();
 
 	/**
-	 * Checks if a context node with a given arc XRI exists in this context node.
+	 * Checks if a context node with a given arc XRI exists under this context node.
 	 * @param arcXri The arc XRI to look for. 
 	 * @return True if this context node has a context node with the given arc XRI.
 	 */
@@ -160,7 +160,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Deletes the context node with a given arc XRI.
-	 * @param arcXri The arc XRI of this context arc.
+	 * @param arcXri The arc XRI of the context node.
 	 */
 	public void delContextNode(XDI3SubSegment arcXri);
 
@@ -170,13 +170,13 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public void delContextNodes();
 
 	/**
-	 * Returns the number of context nodes of this context node.
+	 * Returns the number of context nodes under this context node.
 	 * @return The number of context nodes.
 	 */
 	public long getContextNodeCount();
 
 	/**
-	 * Returns the number of all context nodes of this context node.
+	 * Returns the number of all context nodes under this context node.
 	 * @return The number of context nodes.
 	 */
 	public long getAllContextNodeCount();
