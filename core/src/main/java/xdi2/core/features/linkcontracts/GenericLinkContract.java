@@ -44,16 +44,14 @@ public class GenericLinkContract extends LinkContract {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getArcXri().equals(XDILinkContractConstants.XRI_SS_DO)) return false;
 
-// TODO?			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			// TODO?			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArcXri().equals(XDILinkContractConstants.XRI_SS_EC_DO)) return false;
 
-			// TODO?			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			// TODO?			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else {
@@ -74,14 +72,24 @@ public class GenericLinkContract extends LinkContract {
 		return new GenericLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createGenericLinkContractXri(XDI3Segment authorizingAuthority, XDI3Segment requestingAuthority, XDI3Segment templateId) {
+	public static XDI3Segment createGenericLinkContractXri(XDI3Segment authorizingAuthority, XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId) {
 
 		List<XDI3SubSegment> genericLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
+
 		genericLinkContractArcXris.addAll(authorizingAuthority.getSubSegments());
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_TO);
-		genericLinkContractArcXris.addAll(requestingAuthority.getSubSegments());
-		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM);
-		if (templateId != null) genericLinkContractArcXris.addAll(templateId.getSubSegments());
+
+		if (requestingAuthority != null) {
+
+			genericLinkContractArcXris.addAll(requestingAuthority.getSubSegments());
+			genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_FROM);
+		}
+
+		if (templateAuthorityAndId != null) {
+
+			genericLinkContractArcXris.addAll(templateAuthorityAndId.getSubSegments());
+		}
+
 		genericLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
 
 		return XDI3Segment.fromComponents(genericLinkContractArcXris);
@@ -91,9 +99,9 @@ public class GenericLinkContract extends LinkContract {
 	 * Factory method that finds or creates an XDI generic link contract for a graph.
 	 * @return The XDI generic link contract.
 	 */
-	public static GenericLinkContract findGenericLinkContract(Graph graph, XDI3Segment authorizingAuthority, XDI3Segment requestingAuthority, XDI3Segment templateId, boolean create) {
+	public static GenericLinkContract findGenericLinkContract(Graph graph, XDI3Segment authorizingAuthority, XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId, boolean create) {
 
-		XDI3Segment genericLinkContractXri = createGenericLinkContractXri(authorizingAuthority, requestingAuthority, templateId);
+		XDI3Segment genericLinkContractXri = createGenericLinkContractXri(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
 
 		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXri) : graph.getDeepContextNode(genericLinkContractXri, true);
 		if (genericLinkContractContextNode == null) return null;
@@ -124,12 +132,14 @@ public class GenericLinkContract extends LinkContract {
 
 	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
 
-		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
-		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
-		if (index2 < 0) index2 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
-		if (index1 < 0 || index2 < 0 || index1 >= index2) return null;
+		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_TO);
+		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM);
+		int index3 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
+		if (index3 < 0) index3 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
+		if (index2 < 0) index2 = index1;
+		if (index2 < 0 || index3 < 0 || index2 >= index3) return null;
 
-		return XDI3Util.subXri(xri, index1 + 1, index2);
+		return XDI3Util.subXri(xri, index2 + 1, index3);
 	}
 
 	/*

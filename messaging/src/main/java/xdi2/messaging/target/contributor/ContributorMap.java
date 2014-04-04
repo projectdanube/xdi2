@@ -26,9 +26,17 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 	private Map<XDI3Segment, List<Contributor>> contributors;
 
-	public ContributorMap() {
+	public ContributorMap(Map<XDI3Segment, List<Contributor>> contributors) {
 
-		super();
+		this.contributors = new LinkedHashMap<XDI3Segment, List<Contributor>> (contributors);
+	}
+
+	public ContributorMap(ContributorMap contributorMap) {
+
+		this.contributors = new LinkedHashMap<XDI3Segment, List<Contributor>> (contributorMap.contributors);
+	}
+
+	public ContributorMap() {
 
 		this.contributors = new LinkedHashMap<XDI3Segment, List<Contributor>> ();
 	}

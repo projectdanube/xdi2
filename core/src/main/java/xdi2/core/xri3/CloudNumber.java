@@ -40,12 +40,12 @@ public class CloudNumber {
 				if (subSegment0.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! subSegment0.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment0.hasXRef() || subSegment0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_EQUALS.equals(subSegment0.getCs()) && ! XDIConstants.CS_AT.equals(subSegment0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(subSegment0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(subSegment0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 
 				if (subSegment1.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment1.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment1.hasXRef() || ! subSegment1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_BANG.equals(subSegment1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(subSegment1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }

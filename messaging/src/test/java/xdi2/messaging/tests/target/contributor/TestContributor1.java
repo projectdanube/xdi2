@@ -10,7 +10,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 
-@ContributorMount(contributorXris={"(+con)"})
+@ContributorMount(contributorXris={"(#con)"})
 public class TestContributor1 extends AbstractContributor {
 
 	private String value = "val";
@@ -32,12 +32,12 @@ public class TestContributor1 extends AbstractContributor {
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		messageResult.getGraph().setStatement(XDI3Statement.fromLiteralComponents(
-				XDI3Segment.create("" + contributorsXri + "=a<+b>&"),
+				XDI3Segment.create("" + contributorsXri + "=a<#b>&"),
 				this.value));
 
 		messageResult.getGraph().setStatement(XDI3Statement.fromRelationComponents(
 				XDI3Segment.create("" + contributorsXri + "=x*y"),
-				XDI3Segment.create("" + "+c"),
+				XDI3Segment.create("" + "#c"),
 				XDI3Segment.create("" + contributorsXri + "=d*e")));
 
 		return ContributorResult.DEFAULT;

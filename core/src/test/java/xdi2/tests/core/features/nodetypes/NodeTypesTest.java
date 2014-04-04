@@ -14,39 +14,39 @@ public class NodeTypesTest extends TestCase {
 
 	public void testArcXris() throws Exception {
 
-		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("<+address>"));
-		assertEquals(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[+address]"));
-		assertEquals(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address")), XDI3SubSegment.create("[<+address>]"));
+		assertEquals(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address")), XDI3SubSegment.create("#address"));
+		assertEquals(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address")), XDI3SubSegment.create("<#address>"));
+		assertEquals(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address")), XDI3SubSegment.create("[#address]"));
+		assertEquals(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address")), XDI3SubSegment.create("[<#address>]"));
 		assertEquals(XdiAbstractMemberUnordered.createArcXri("1", true), XDI3SubSegment.create("<!1>"));
-		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", true), XDI3SubSegment.create("<#1>"));
+		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", true), XDI3SubSegment.create("<@1>"));
 		assertEquals(XdiAbstractMemberUnordered.createArcXri("1", false), XDI3SubSegment.create("!1"));
-		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", false), XDI3SubSegment.create("#1"));
+		assertEquals(XdiAbstractMemberOrdered.createArcXri("1", false), XDI3SubSegment.create("@1"));
 
-		assertTrue(XdiEntitySingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiEntityCollection.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeCollection.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))));
+		assertTrue(XdiEntitySingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertTrue(XdiAttributeSingleton.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiEntityCollection.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeCollection.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))));
+		assertFalse(XdiEntitySingleton.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertTrue(XdiAttributeSingleton.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertTrue(XdiEntityCollection.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeCollection.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address"))));
+		assertFalse(XdiEntitySingleton.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertTrue(XdiEntityCollection.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertFalse(XdiEntityCollection.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address"))));
-		assertTrue(XdiAttributeCollection.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address"))));
+		assertFalse(XdiEntitySingleton.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address"))));
+		assertTrue(XdiAttributeCollection.isValidArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address"))));
 
-		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
-		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("+address"))), XDI3SubSegment.create("+address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntitySingleton.createArcXri(XDI3SubSegment.create("#address"))), XDI3SubSegment.create("#address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("#address"))), XDI3SubSegment.create("#address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiEntityCollection.createArcXri(XDI3SubSegment.create("#address"))), XDI3SubSegment.create("#address"));
+		assertEquals(XdiAbstractContext.getBaseArcXri(XdiAttributeCollection.createArcXri(XDI3SubSegment.create("#address"))), XDI3SubSegment.create("#address"));
 	}
 
 /*	public void testContextNodes() throws Exception {	

@@ -25,8 +25,8 @@ import com.sleepycat.je.OperationStatus;
 import com.sleepycat.je.Transaction;
 
 /**
- * This class defines access to a BDB based datastore. It is used by the
- * BDBKeyValueGraphFactory class to create graphs stored in BDB.
+ * This class is used by the BDBKeyValueGraphFactory class
+ * to create key/value based graphs stored in BDB.
  * 
  * @author markus
  */
@@ -43,7 +43,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	private Database database;
 	private boolean databaseOpenedInTransaction;
 
-	private Transaction transaction;
+	private ThreadLocal<Transaction> transaction = new ThreadLocal<Transaction> ();
 
 	public BDBKeyValueStore(String databasePath, String databaseName, EnvironmentConfig environmentConfig, DatabaseConfig databaseConfig) {
 
@@ -83,14 +83,14 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
-	public void set(String key, String value) {
+	public synchronized void set(String key, String value) {
 
 		if (log.isTraceEnabled()) log.trace("set(" + key + "," + value + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -98,23 +98,23 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			OperationStatus status = this.database.put(transaction, dbKey, dbValue);
 			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException("Unsuccessful");
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot write to database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public String getOne(String key) {
+	public synchronized String getOne(String key) {
 
 		if (log.isTraceEnabled()) log.trace("getOne(" + key + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -122,24 +122,26 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			OperationStatus status = this.database.get(transaction, dbKey, dbValue, null);
 			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
 
-			if (this.transaction == null) transaction.commit();
-			return status.equals(OperationStatus.SUCCESS) ? new String(dbValue.getData()) : null;
+			if (this.transaction.get() == null) transaction.commit();
+			if (! status.equals(OperationStatus.SUCCESS)) return null;
+
+			return new String(dbValue.getData());
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public Iterator<String> getAll(String key) {
+	public synchronized Iterator<String> getAll(String key) {
 
 		if (log.isTraceEnabled()) log.trace("getAll(" + key + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -147,24 +149,24 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			IteratorListMaker<String> i = new IteratorListMaker<String> (new CursorDuplicatesIterator(transaction, dbKey, dbValue));
 			List<String> list = i.list();
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 			return list.iterator();
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public boolean contains(String key) {
+	public synchronized boolean contains(String key) {
 
 		if (log.isTraceEnabled()) log.trace("contains(" + key + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry();
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -172,24 +174,24 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			OperationStatus status = this.database.get(transaction, dbKey, dbValue, null);
 			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 			return status.equals(OperationStatus.SUCCESS);
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public boolean contains(String key, String value) {
+	public synchronized boolean contains(String key, String value) {
 
 		if (log.isTraceEnabled()) log.trace("contains(" + key + "," + value + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 		DatabaseEntry dbValue = new DatabaseEntry(value.getBytes());
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -197,39 +199,39 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			OperationStatus status = this.database.getSearchBoth(transaction, dbKey, dbValue, null);
 			if ((! status.equals(OperationStatus.SUCCESS)) && (! status.equals(OperationStatus.NOTFOUND))) throw new Xdi2RuntimeException();
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 			return status.equals(OperationStatus.SUCCESS);
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public void delete(String key) {
+	public synchronized void delete(String key) {
 
 		if (log.isTraceEnabled()) log.trace("delete(" + key + ")");
 
 		DatabaseEntry dbKey = new DatabaseEntry(key.getBytes());
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
 
 			this.database.delete(transaction, dbKey);
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public void delete(String key, String value) {
+	public synchronized void delete(String key, String value) {
 
 		if (log.isTraceEnabled()) log.trace("delete(" + key + "," + value + ")");
 
@@ -238,7 +240,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 		Cursor cursor = null;
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -251,7 +253,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 			if (status.equals(OperationStatus.NOTFOUND)) {
 
 				cursor.close();
-				if (this.transaction == null) transaction.commit();
+				if (this.transaction.get() == null) transaction.commit();
 				return;
 			}
 			if (! status.equals(OperationStatus.SUCCESS)) throw new Xdi2RuntimeException();
@@ -261,22 +263,22 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 			cursor.close();
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 		} catch (Exception ex) {
 
 			if (cursor != null) cursor.close();
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot delete from database: " + ex.getMessage(), ex);
 		}
 	}
 
 	@Override
-	public void clear() {
+	public synchronized void clear() {
 
 		if (log.isTraceEnabled()) log.trace("clear()");
 
-		Transaction transaction = this.transaction;
+		Transaction transaction = this.transaction.get();
 		if (transaction == null) transaction = this.environment.beginTransaction(null, null);
 
 		try {
@@ -285,15 +287,15 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 
 			this.environment.truncateDatabase(transaction, this.databaseName, false);
 
-			if (this.transaction == null) transaction.commit();
+			if (this.transaction.get() == null) transaction.commit();
 		} catch (Exception ex) {
 
-			if (this.transaction == null) transaction.abort();
+			if (this.transaction.get() == null) transaction.abort();
 			throw new Xdi2RuntimeException("Cannot truncate dabatase: " + ex.getMessage(), ex);
 		} finally {
 
-			this.database = this.environment.openDatabase(this.transaction, this.databaseName, this.databaseConfig);
-			this.databaseOpenedInTransaction = (this.transaction != null);
+			this.database = this.environment.openDatabase(this.transaction.get(), this.databaseName, this.databaseConfig);
+			this.databaseOpenedInTransaction = (this.transaction.get() != null);
 		}
 	}
 
@@ -304,17 +306,17 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
-	public void beginTransaction() {
+	public synchronized void beginTransaction() {
 
 		if (log.isTraceEnabled()) log.trace("beginTransaction()");
 
-		if (this.transaction != null) throw new Xdi2RuntimeException("Already have an open transaction.");
+		if (this.transaction.get() != null) throw new Xdi2RuntimeException("Already have an open transaction.");
 
 		if (log.isDebugEnabled()) log.debug("Beginning Transaction...");
 
 		try {
 
-			this.transaction = this.environment.beginTransaction(null, null);
+			this.transaction.set(this.environment.beginTransaction(null, null));
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot begin transaction: " + ex.getMessage(), ex);
@@ -324,16 +326,16 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
-	public void commitTransaction() {
+	public synchronized void commitTransaction() {
 
 		if (log.isTraceEnabled()) log.trace("commitTransaction()");
 
-		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
+		if (this.transaction.get() == null) throw new Xdi2RuntimeException("No open transaction.");
 
 		try {
 
-			this.transaction.commit();
-			this.transaction = null;
+			this.transaction.get().commit();
+			this.transaction.remove();
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot commit transaction: " + ex.getMessage(), ex);
@@ -343,18 +345,18 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 	}
 
 	@Override
-	public void rollbackTransaction() {
+	public synchronized void rollbackTransaction() {
 
 		if (log.isTraceEnabled()) log.trace("rollbackTransaction()");
 
-		if (this.transaction == null) throw new Xdi2RuntimeException("No open transaction.");
+		if (this.transaction.get() == null) throw new Xdi2RuntimeException("No open transaction.");
 
 		if (log.isDebugEnabled()) log.debug("Rolling back transaction...");
 
 		try {
 
-			this.transaction.abort();
-			this.transaction = null;
+			this.transaction.get().abort();
+			this.transaction.remove();
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Cannot roll back transaction: " + ex.getMessage(), ex);
@@ -370,6 +372,10 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 		if (log.isDebugEnabled()) log.debug("Rolled back transaction...");
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public String getDatabasePath() {
 
 		return this.databasePath;
@@ -424,7 +430,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 				if (! this.status.equals(OperationStatus.SUCCESS)) this.cursor.close();
 			} catch (DatabaseException ex) {
 
-				throw new Xdi2RuntimeException("Cannot read from this.database.", ex);
+				throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 			}
 		}
 
@@ -452,7 +458,7 @@ public class BDBKeyValueStore extends AbstractKeyValueStore implements KeyValueS
 				}
 			} catch (DatabaseException ex) {
 
-				throw new Xdi2RuntimeException("Cannot read from database.", ex);
+				throw new Xdi2RuntimeException("Cannot read from database: " + ex.getMessage(), ex);
 			}
 
 			return element;

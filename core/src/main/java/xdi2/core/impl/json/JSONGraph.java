@@ -3,9 +3,11 @@ package xdi2.core.impl.json;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	private final JSONContextNode jsonRootContextNode;
 	private final Map<String, JsonObject> jsonObjectsCached;
+	private final Set<String> jsonObjectsCachedWithPrefix;
+
+	private boolean useCache;
 
 	private StringBuffer logBuffer;
 	private boolean logEnabled;
@@ -45,7 +50,11 @@ public class JSONGraph extends AbstractGraph implements Graph {
 		this.jsonStore = jsonStore;
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
+
 		this.jsonObjectsCached = new HashMap<String, JsonObject> ();
+		this.jsonObjectsCachedWithPrefix = new HashSet<String> ();
+
+		this.useCache = false;
 
 		this.logBuffer = new StringBuffer();
 		this.logEnabled = false;
@@ -79,25 +88,40 @@ public class JSONGraph extends AbstractGraph implements Graph {
 	@Override
 	public boolean supportsTransactions() {
 
-		return false;
+		return this.jsonStore.supportsTransactions();
 	}
 
 	@Override
 	public void beginTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.useCache = true;
+
+		this.jsonStore.beginTransaction();
 	}
 
 	@Override
 	public void commitTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.useCache = false;
+
+		this.jsonStore.commitTransaction();
 	}
 
 	@Override
 	public void rollbackTransaction() {
 
 		this.jsonObjectsCached.clear();
+		this.jsonObjectsCachedWithPrefix.clear();
+
+		this.useCache = false;
+
+		this.jsonStore.rollbackTransaction();
 	}
 
 	/*
@@ -140,12 +164,15 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		try {
 
-			jsonObjectCached = this.jsonObjectsCached.get(id);
+			if (this.useCache) {
 
-			if (jsonObjectCached != null) {
+				jsonObjectCached = this.jsonObjectsCached.get(id);
 
-				jsonObject = jsonObjectCached;
-				return jsonObject;
+				if (jsonObjectCached != null) {
+
+					jsonObject = jsonObjectCached;
+					return jsonObject;
+				}
 			}
 
 			try {
@@ -153,7 +180,10 @@ public class JSONGraph extends AbstractGraph implements Graph {
 				jsonObject = this.jsonStore.load(id);
 				if (jsonObject == null) jsonObject = new JsonObject();
 
-				this.jsonObjectsCached.put(id, jsonObject);
+				if (this.useCache) {
+
+					this.jsonObjectsCached.put(id, jsonObject);
+				}
 
 				return jsonObject;
 			} catch (IOException ex) {
@@ -175,19 +205,28 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		try {
 
-			jsonObjectCached = this.jsonObjectsCached.get(id);
+			if (this.useCache) {
 
-			if (jsonObjectCached != null) {
+				boolean jsonObjectCachedWithPrefix = this.jsonObjectsCachedWithPrefix.contains(id);
 
-				jsonObjects = Collections.singletonMap(id, jsonObjectCached);
-				return jsonObjects;
+				if (jsonObjectCachedWithPrefix) {
+
+					jsonObjectCached = this.jsonObjectsCached.get(id);
+
+					jsonObjects = Collections.singletonMap(id, jsonObjectCached);
+					return jsonObjects;
+				}
 			}
 
 			try {
 
 				jsonObjects = this.jsonStore.loadWithPrefix(id);
 
-				this.jsonObjectsCached.putAll(jsonObjects);
+				if (this.useCache) {
+
+					this.jsonObjectsCached.putAll(jsonObjects);
+					this.jsonObjectsCachedWithPrefix.addAll(jsonObjects.keySet());
+				}
 
 				return jsonObjects;
 			} catch (IOException ex) {
@@ -212,7 +251,10 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.save(id, jsonObject);
 
-			this.jsonObjectsCached.put(id, jsonObject);
+			if (this.useCache) {
+
+				this.jsonObjectsCached.put(id, jsonObject);
+			}
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON at " + id + ": " + ex.getMessage(), ex);
@@ -229,30 +271,33 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.saveToArray(id, key, jsonPrimitive);
 
-			JsonObject jsonObject = this.jsonObjectsCached.get(id);
+			if (this.useCache) {
 
-			if (jsonObject == null) {
+				JsonObject jsonObject = this.jsonObjectsCached.get(id);
 
-				jsonObject = new JsonObject();
-				JsonArray jsonArray = new JsonArray();
-				jsonArray.add(jsonPrimitive);
-				jsonObject.add(key, jsonArray);
-			} else {
+				if (jsonObject == null) {
 
-				JsonArray jsonArray = jsonObject.getAsJsonArray(key);
-
-				if (jsonArray == null) { 
-
-					jsonArray = new JsonArray();
+					jsonObject = new JsonObject();
+					JsonArray jsonArray = new JsonArray();
 					jsonArray.add(jsonPrimitive);
 					jsonObject.add(key, jsonArray);
 				} else {
 
-					if (! new IteratorContains<JsonElement> (jsonArray.iterator(), jsonPrimitive).contains()) jsonArray.add(jsonPrimitive);
-				}
-			}
+					JsonArray jsonArray = jsonObject.getAsJsonArray(key);
 
-			this.jsonObjectsCached.put(id, jsonObject);
+					if (jsonArray == null) { 
+
+						jsonArray = new JsonArray();
+						jsonArray.add(jsonPrimitive);
+						jsonObject.add(key, jsonArray);
+					} else {
+
+						if (! new IteratorContains<JsonElement> (jsonArray.iterator(), jsonPrimitive).contains()) jsonArray.add(jsonPrimitive);
+					}
+				}
+
+				this.jsonObjectsCached.put(id, jsonObject);
+			}
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON to array " + id + ": " + ex.getMessage(), ex);
@@ -269,18 +314,21 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.saveToObject(id, key, jsonElement);
 
-			JsonObject jsonObject = this.jsonObjectsCached.get(id);
+			if (this.useCache) {
 
-			if (jsonObject == null) {
+				JsonObject jsonObject = this.jsonObjectsCached.get(id);
 
-				jsonObject = new JsonObject();
-				jsonObject.add(key, jsonElement);
-			} else {
+				if (jsonObject == null) {
 
-				jsonObject.add(key, jsonElement);
+					jsonObject = new JsonObject();
+					jsonObject.add(key, jsonElement);
+				} else {
+
+					jsonObject.add(key, jsonElement);
+				}
+
+				this.jsonObjectsCached.put(id, jsonObject);
 			}
-
-			this.jsonObjectsCached.put(id, jsonObject);
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot save JSON to object " + id + ": " + ex.getMessage(), ex);
@@ -297,9 +345,11 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.delete(id);
 
-			for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjectsCached.entrySet().iterator(); iterator.hasNext(); ) {
+			if (this.useCache) {
+				for (Iterator<Entry<String, JsonObject>> iterator = this.jsonObjectsCached.entrySet().iterator(); iterator.hasNext(); ) {
 
-				if (iterator.next().getKey().startsWith(id)) iterator.remove();
+					if (iterator.next().getKey().startsWith(id)) iterator.remove();
+				}
 			}
 		} catch (IOException ex) {
 
@@ -317,15 +367,18 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.deleteFromArray(id, key, jsonPrimitive);
 
-			JsonObject jsonObject = this.jsonObjectsCached.get(id);
-			if (jsonObject == null) return;
+			if (this.useCache) {
 
-			JsonArray jsonArray = jsonObject.getAsJsonArray(key);
-			if (jsonArray == null) return;
+				JsonObject jsonObject = this.jsonObjectsCached.get(id);
+				if (jsonObject == null) return;
 
-			new IteratorRemover<JsonElement> (jsonArray.iterator(), jsonPrimitive).remove();
+				JsonArray jsonArray = jsonObject.getAsJsonArray(key);
+				if (jsonArray == null) return;
 
-			this.jsonObjectsCached.put(id, jsonObject);
+				new IteratorRemover<JsonElement> (jsonArray.iterator(), jsonPrimitive).remove();
+
+				this.jsonObjectsCached.put(id, jsonObject);
+			}
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot remove JSON from array " + id + ": " + ex.getMessage(), ex);
@@ -342,12 +395,15 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 			this.jsonStore.deleteFromObject(id, key);
 
-			JsonObject jsonObject = this.jsonObjectsCached.get(id);
-			if (jsonObject == null) return;
+			if (this.useCache) {
 
-			jsonObject.remove(key);
+				JsonObject jsonObject = this.jsonObjectsCached.get(id);
+				if (jsonObject == null) return;
 
-			this.jsonObjectsCached.put(id, jsonObject);
+				jsonObject.remove(key);
+
+				this.jsonObjectsCached.put(id, jsonObject);
+			}
 		} catch (IOException ex) {
 
 			throw new Xdi2RuntimeException("Cannot remove JSON from object " + id + ": " + ex.getMessage(), ex);

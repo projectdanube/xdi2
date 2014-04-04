@@ -3,14 +3,14 @@ package xdi2.messaging.tests.target.impl.graph;
 import java.io.IOException;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory;
+import xdi2.core.impl.json.bdb.BDBJSONGraphFactory;
 import xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore;
 
-public class BDBKeyValueGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
+public class BDBJSONGraphMessagingTargetTest extends AbstractGraphMessagingTargetTest {
 
-	private static BDBKeyValueGraphFactory graphFactory = new BDBKeyValueGraphFactory();
+	private static BDBJSONGraphFactory graphFactory = new BDBJSONGraphFactory();
 
-	public static final String DATABASE_PATH = "./xdi2-bdb-keyvalue/";
+	public static final String DATABASE_PATH = "./xdi2-bdb-json/";
 
 	static {
 		

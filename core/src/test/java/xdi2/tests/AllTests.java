@@ -15,6 +15,7 @@ import xdi2.tests.core.features.signatures.SignaturesTest;
 import xdi2.tests.core.features.timestamps.TimestampsTest;
 import xdi2.tests.core.features.variables.VariablesTest;
 import xdi2.tests.core.impl.AbstractLiteralTest;
+import xdi2.tests.core.impl.json.BDBJSONGraphTest;
 import xdi2.tests.core.impl.json.FileJSONGraphTest;
 import xdi2.tests.core.impl.json.MemoryJSONGraphTest;
 import xdi2.tests.core.impl.keyvalue.BDBKeyValueGraphTest;
@@ -51,6 +52,7 @@ public class AllTests {
 		suite.addTestSuite(FileWrapperGraphTest.class);
 		suite.addTestSuite(MemoryJSONGraphTest.class);
 		suite.addTestSuite(FileJSONGraphTest.class);
+		suite.addTestSuite(BDBJSONGraphTest.class);
 		suite.addTestSuite(MapKeyValueTest.class);
 		suite.addTestSuite(PropertiesKeyValueTest.class);
 		suite.addTestSuite(BDBKeyValueTest.class);

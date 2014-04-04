@@ -1,5 +1,5 @@
-=a=b=c=d=e<+email>&/&/"email@email.com"
-$do/$get/=a
-$do/$not$get/=a=b
-$do/$all/=a=b=c=d
-$do/$not$get/=a=b=c=d=e
+=a=b=c=d=e<#email>&/&/"email@email.com"
+=a$to$do/$get/=a
+=a$to$do/$not$get/=a=b
+=a$to$do/$all/=a=b=c=d
+=a$to$do/$not$get/=a=b=c=d=e

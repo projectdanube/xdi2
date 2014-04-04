@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 import xdi2.messaging.tests.basic.BasicTest;
 import xdi2.messaging.tests.http.AcceptHeaderTest;
 import xdi2.messaging.tests.target.contributor.ContributorTest;
+import xdi2.messaging.tests.target.impl.graph.BDBJSONGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.BDBKeyValueGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.FileJSONGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.FileWrapperGraphMessagingTargetTest;
@@ -27,6 +28,7 @@ public class AllTests {
 		suite.addTestSuite(BDBKeyValueGraphMessagingTargetTest.class);
 		suite.addTestSuite(MemoryJSONGraphMessagingTargetTest.class);
 		suite.addTestSuite(FileJSONGraphMessagingTargetTest.class);
+		suite.addTestSuite(BDBJSONGraphMessagingTargetTest.class);
 		suite.addTestSuite(FileWrapperGraphMessagingTargetTest.class);
 		suite.addTestSuite(LinkContractInterceptorTest.class);
 		suite.addTestSuite(ContributorTest.class);

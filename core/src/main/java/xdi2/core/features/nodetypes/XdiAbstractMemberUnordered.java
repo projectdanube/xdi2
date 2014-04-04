@@ -60,7 +60,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_BANG + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_UNORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
 	public static XDI3SubSegment createUuidArcXri(String uuid, boolean attribute) {
@@ -108,7 +108,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		if (! attribute && arcXri.isAttributeXs()) return false;
 		if (arcXri.hasXRef()) return false;
 
-		if (! XDIConstants.CS_BANG.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arcXri.getCs())) return false;
 
 		if (! arcXri.hasLiteral()) return false;
 

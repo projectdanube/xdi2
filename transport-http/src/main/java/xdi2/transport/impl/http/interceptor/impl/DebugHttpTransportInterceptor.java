@@ -63,7 +63,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	private int logCapacity;
 
 	private LinkedList<LogEntry> log;
-	private VelocityEngine velocityEngine;
 
 	public DebugHttpTransportInterceptor() {
 
@@ -71,14 +70,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		this.logCapacity = DEFAULT_LOG_CAPACITY;
 
 		this.log = new LinkedList<LogEntry> ();
-		this.velocityEngine = new VelocityEngine();
-	}
-
-	@Override
-	public void init(Transport<?, ?> transport) {
-
-		this.velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
-		this.velocityEngine.init();
 	}
 
 	/*
@@ -164,13 +155,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
+			// write graph
+
+			Graph graph = ((GraphMessagingTarget) cmdMessagingTarget).getGraph();
+
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
-
 			StringWriter stringWriter = new StringWriter();
-
-			xdiWriter.write(((GraphMessagingTarget) cmdMessagingTarget).getGraph(), stringWriter);
-
+			xdiWriter.write(graph, stringWriter);
 			graphstring = stringWriter.getBuffer().toString();
+
+			String statementcount = Long.toString(graph.getRootContextNode().getAllStatementCount());
 
 			// prepare velocity
 
@@ -186,6 +180,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("writeInner", writeInner);
 			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
+			context.put("statementcount", statementcount);
 
 			// send response
 
@@ -194,7 +189,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			this.velocityEngine.evaluate(context, writer, "debug-edit.vm", reader);
+			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
 			writer.close();
 
 			// done
@@ -208,9 +203,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// parse graph
 
-			XDIReader xdiReader = XDIReaderRegistry.getAuto();
-
 			Graph graph = ((GraphMessagingTarget) cmdMessagingTarget).getGraph();
+
+			XDIReader xdiReader = XDIReaderRegistry.getAuto();
 
 			String error = null;
 
@@ -222,6 +217,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 				error = ex.getMessage();
 			}
+
+			String statementcount = Long.toString(graph.getRootContextNode().getAllStatementCount());
 
 			// prepare velocity
 
@@ -237,6 +234,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("writeInner", writeInner);
 			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
+			context.put("statementcount", statementcount);
 			context.put("error", error);
 
 			// send response
@@ -246,7 +244,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			this.velocityEngine.evaluate(context, writer, "debug-edit.vm", reader);
+			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
 			writer.close();
 
 			// done
@@ -290,7 +288,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("text/html");
-		this.velocityEngine.evaluate(context, bodyWriter, "debug.vm", reader);
+		makeVelocityEngine().evaluate(context, bodyWriter, "debug.vm", reader);
 		bodyWriter.close();
 
 		// done
@@ -342,6 +340,20 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	public void setLog(LinkedList<LogEntry> log) {
 
 		this.log = log;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private static VelocityEngine makeVelocityEngine() {
+
+		VelocityEngine velocityEngine = new VelocityEngine();
+		velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "");
+		velocityEngine.setProperty(RuntimeConstants.PARSER_POOL_SIZE, Integer.valueOf(1));
+		velocityEngine.init();
+
+		return velocityEngine;
 	}
 
 	/*

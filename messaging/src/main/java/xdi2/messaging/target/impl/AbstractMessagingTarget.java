@@ -53,11 +53,23 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	private InterceptorList<MessagingTarget> interceptors;
 	private ContributorMap contributors;
 
-	public AbstractMessagingTarget() {
+	public AbstractMessagingTarget(XDI3SubSegment ownerPeerRootXri) {
 
-		this.ownerPeerRootXri = null;
+		this.ownerPeerRootXri = ownerPeerRootXri;
 		this.interceptors = new InterceptorList<MessagingTarget> ();
 		this.contributors = new ContributorMap();
+	}
+
+	public AbstractMessagingTarget(AbstractMessagingTarget abstractMessagingTarget) {
+
+		this.ownerPeerRootXri = abstractMessagingTarget.ownerPeerRootXri;
+		this.interceptors = new InterceptorList<MessagingTarget> (abstractMessagingTarget.interceptors);
+		this.contributors = new ContributorMap(abstractMessagingTarget.contributors);
+	}
+
+	public AbstractMessagingTarget() {
+
+		this((XDI3SubSegment) null);
 	}
 
 	@Override

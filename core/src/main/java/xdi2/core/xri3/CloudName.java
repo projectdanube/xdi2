@@ -38,7 +38,7 @@ public class CloudName {
 				if (subSegment.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (subSegment.hasXRef() || ! subSegment.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_EQUALS.equals(subSegment.getCs()) && ! XDIConstants.CS_AT.equals(subSegment.getCs()) && ! XDIConstants.CS_STAR.equals(subSegment.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(subSegment.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(subSegment.getCs()) && ! XDIConstants.CS_AUTHORITY_GENERAL.equals(subSegment.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }

@@ -11,13 +11,15 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiSubGraph;
+import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
 /**
- * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity.
+ * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity or variable.
  * 
  * @author markus
  */
@@ -25,11 +27,16 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
-	private XdiEntity xdiEntity;
+	private XdiSubGraph<?> xdiSubGraph;
 
 	protected LinkContractBase(XdiEntity xdiEntity) {
 
-		this.xdiEntity = xdiEntity;
+		this.xdiSubGraph = xdiEntity;
+	}
+
+	protected LinkContractBase(XdiVariable xdiVariable) {
+
+		this.xdiSubGraph = xdiVariable;
 	}
 
 	/*
@@ -37,25 +44,43 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 */
 
 	/**
-	 * Returns the underlying XDI entity to which this XDI link contract is bound.
-	 * @return An XDI entity that represents the XDI link contract.
+	 * Returns the underlying XDI subgraph to which this XDI link contract (template) (template) is bound.
+	 * @return An XDI subgraph that represents the XDI link contract (template).
+	 */
+	public XdiSubGraph<?> getXdiSubGraph() {
+
+		return this.xdiSubGraph;
+	}
+
+	/**
+	 * Returns the underlying XDI entity to which this XDI link contract (template) (template) is bound.
+	 * @return An XDI entity that represents the XDI link contract (template).
 	 */
 	public XdiEntity getXdiEntity() {
 
-		return this.xdiEntity;
+		return (XdiEntity) this.xdiSubGraph;
 	}
 
 	/**
-	 * Returns the underlying context node to which this XDI link contract is bound.
-	 * @return A context node that represents the XDI link contract.
+	 * Returns the underlying XDI variable to which this XDI link contract (template) (template) is bound.
+	 * @return An XDI entity that represents the XDI link contract (template).
+	 */
+	public XdiVariable getXdiVariable() {
+
+		return (XdiVariable) this.xdiSubGraph;
+	}
+
+	/**
+	 * Returns the underlying context node to which this XDI link contract (template) is bound.
+	 * @return A context node that represents the XDI link contract (template).
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiEntity().getContextNode();
+		return this.getXdiSubGraph().getContextNode();
 	}
 
 	/**
-	 * Returns an existing XDI root policy in this XDI link contract, or creates a new one.
+	 * Returns an existing XDI root policy in this XDI link contract (template), or creates a new one.
 	 * @param create Whether to create an XDI root policy if it does not exist.
 	 * @return The existing or newly created XDI root policy.
 	 */
@@ -68,7 +93,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	/**
-	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract to a target context node XRI.
+	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract (template) to a target context node XRI.
 	 * @param permissionXri The permission XRI.
 	 * @param targetAddress The target context node XRI of the permission.
 	 */

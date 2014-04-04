@@ -216,7 +216,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		XDI3SubSegment digestAlgorithmXri = dataTypeXri.getNumSubSegments() > 0 ? dataTypeXri.getSubSegment(0) : null;
 		if (digestAlgorithmXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(digestAlgorithmXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmXri.getCs())) return null;
 		if (digestAlgorithmXri.hasXRef()) return null;
 		if (! digestAlgorithmXri.hasLiteral()) return null;
 
@@ -235,7 +235,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		XDI3SubSegment digestLengthXri = dataTypeXri.getNumSubSegments() > 1 ? dataTypeXri.getSubSegment(1) : null;
 		if (digestLengthXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(digestLengthXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthXri.getCs())) return null;
 		if (digestLengthXri.hasXRef()) return null;
 		if (! digestLengthXri.hasLiteral()) return null;
 
@@ -254,7 +254,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		XDI3SubSegment keyAlgorithmXri = dataTypeXri.getNumSubSegments() > 2 ? dataTypeXri.getSubSegment(2) : null;
 		if (keyAlgorithmXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(keyAlgorithmXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
 		if (keyAlgorithmXri.hasXRef()) return null;
 		if (! keyAlgorithmXri.hasLiteral()) return null;
 
@@ -273,7 +273,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		XDI3SubSegment keyLengthXri = dataTypeXri.getNumSubSegments() > 3 ? dataTypeXri.getSubSegment(3) : null;
 		if (keyLengthXri == null) return null;
 
-		if (! XDIConstants.CS_DOLLAR.equals(keyLengthXri.getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
 		if (keyLengthXri.hasXRef()) return null;
 		if (! keyLengthXri.hasLiteral()) return null;
 
@@ -284,10 +284,10 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(XDIConstants.CS_DOLLAR + digestAlgorithm.toLowerCase());
-		builder.append(XDIConstants.CS_DOLLAR + Integer.toString(digestLength));
-		builder.append(XDIConstants.CS_DOLLAR + keyAlgorithm.toLowerCase());
-		builder.append(XDIConstants.CS_DOLLAR + Integer.toString(keyLength));
+		builder.append(XDIConstants.CS_CLASS_RESERVED + digestAlgorithm.toLowerCase());
+		builder.append(XDIConstants.CS_CLASS_RESERVED + Integer.toString(digestLength));
+		builder.append(XDIConstants.CS_CLASS_RESERVED + keyAlgorithm.toLowerCase());
+		builder.append(XDIConstants.CS_CLASS_RESERVED + Integer.toString(keyLength));
 
 		return XDI3Segment.create(builder.toString());
 	}

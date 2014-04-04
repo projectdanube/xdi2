@@ -3,7 +3,6 @@ package xdi2.tests.core.util;
 import junit.framework.TestCase;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -229,48 +228,37 @@ public class XDI3UtilTest extends TestCase {
 
 	public void testRemoveStartXriVariables() throws Exception {
 
-		XDI3Segment xri = XDI3Segment.create("=a*b+c!d@e$f*g");
+		XDI3Segment xri = XDI3Segment.create("=a*b+c!d#e$f*g");
 
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{=}"), false, true), XDI3Segment.create("*b+c!d@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{=*}}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}{*}"), false, true), XDI3Segment.create("+c!d@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{{!+}}"), false, true), XDI3Segment.create("@e$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{!}"), false, true), XDI3Segment.create("@e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}"), false, true), XDI3Segment.create("*b+c!d#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{=}"), false, true), XDI3Segment.create("*b+c!d#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("+c!d#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{=*}}"), false, true), XDI3Segment.create("+c!d#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{}{*}"), false, true), XDI3Segment.create("+c!d#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{{!+}}"), false, true), XDI3Segment.create("#e$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{!}"), false, true), XDI3Segment.create("#e$f*g"));
 		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{!}{}"), false, true), XDI3Segment.create("$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{{!}}{@}"), false, true), XDI3Segment.create("$f*g"));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{!}{@}{$}{*}"), false, true), XDI3Segment.create(""));
-		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{=+@$*!}}"), false, true), XDI3Segment.create(""));
-		assertNull(XDI3Util.removeStartXri(xri, XDI3Segment.create("{@}"), false, true));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{{!}}{#}"), false, true), XDI3Segment.create("$f*g"));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{*=}}{}{!}{#}{$}{*}"), false, true), XDI3Segment.create(""));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{=+*#$!}}"), false, true), XDI3Segment.create(""));
+		assertNull(XDI3Util.removeStartXri(xri, XDI3Segment.create("{#}"), false, true));
 	}
 
 	public void testRemoveEndXriVariables() throws Exception {
 
-		XDI3Segment xri = XDI3Segment.create("=a*b+c!d@e$f*g");
+		XDI3Segment xri = XDI3Segment.create("=a*b+c!d#e$f*g");
 
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{}"), false, true), XDI3Segment.create("=a*b+c!d@e$f"));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{*}"), false, true), XDI3Segment.create("=a*b+c!d@e$f"));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("=a*b+c!d@e"));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{$*}}"), false, true), XDI3Segment.create("=a*b+c!d@e"));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{$}{}"), false, true), XDI3Segment.create("=a*b+c!d@e"));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{!@}}{{$*}}"), false, true), XDI3Segment.create("=a*b+c"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{}"), false, true), XDI3Segment.create("=a*b+c!d#e$f"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{*}"), false, true), XDI3Segment.create("=a*b+c!d#e$f"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{}{}"), false, true), XDI3Segment.create("=a*b+c!d#e"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{$*}}"), false, true), XDI3Segment.create("=a*b+c!d#e"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{$}{}"), false, true), XDI3Segment.create("=a*b+c!d#e"));
+		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{!#}}{{$*}}"), false, true), XDI3Segment.create("=a*b+c"));
 		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{!}{}{{$*}}"), false, true), XDI3Segment.create("=a*b+c"));
 		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{}{!}{}{{$*}}"), false, true), XDI3Segment.create("=a*b"));
 		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{+}{{!}}{}{{$*}}"), false, true), XDI3Segment.create("=a*b"));
 		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{=}{*}{+}{!}{}{{$*}}"), false, true), XDI3Segment.create(""));
-		assertEquals(XDI3Util.removeEndXri(xri, XDI3Segment.create("{{=+@$*!}}"), false, true), XDI3Segment.create(""));
+		assertEquals(XDI3Util.removeStartXri(xri, XDI3Segment.create("{{=+*#$!}}"), false, true), XDI3Segment.create(""));
 		assertNull(XDI3Util.removeEndXri(xri, XDI3Segment.create("{!}"), false, true));
-	}
-
-	public void testIsCloudNumber() throws Exception {
-
-		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus")));
-		assertFalse(CloudNumber.isValid(XDI3Segment.create("=markus*web")));
-		assertFalse(CloudNumber.isValid(XDI3Segment.create("[=]")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[=]!1111[=]!2222")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111")));
-		assertTrue(CloudNumber.isValid(XDI3Segment.create("[@]!1111[@]!2222")));
 	}
 }

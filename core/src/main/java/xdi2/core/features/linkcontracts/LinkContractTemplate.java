@@ -6,18 +6,13 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
-import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.features.nodetypes.XdiEntityMember;
-import xdi2.core.features.nodetypes.XdiEntitySingleton;
+import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI link contract template, represented as an XDI entity.
+ * An XDI link contract template, represented as an XDI variable.
  * 
  * @author markus
  */
@@ -25,9 +20,9 @@ public class LinkContractTemplate extends LinkContractBase {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
-	protected LinkContractTemplate(XdiEntity xdiEntity) {
+	protected LinkContractTemplate(XdiVariable xdiVariable) {
 
-		super(xdiEntity);
+		super(xdiVariable);
 	}
 
 	/*
@@ -35,54 +30,37 @@ public class LinkContractTemplate extends LinkContractBase {
 	 */
 
 	/**
-	 * Checks if an XDI entity is a valid XDI link contract template.
-	 * @param xdiEntity The XDI entity to check.
-	 * @return True if the XDI entity is a valid XDI link contract template.
+	 * Checks if an XDI variable is a valid XDI link contract template.
+	 * @param xdiVariable The XDI variable to check.
+	 * @return True if the XDI variable is a valid XDI link contract template.
 	 */
-	public static boolean isValid(XdiEntity xdiEntity) {
+	public static boolean isValid(XdiVariable xdiVariable) {
 
-		if (xdiEntity instanceof XdiEntitySingleton) {
+		if (! xdiVariable.getArcXri().equals(XDILinkContractConstants.XRI_SS_DO_VARIABLE)) return false;
 
-			if (! ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
+		if (getTemplateAuthorityAndId(xdiVariable.getXri()) == null) return false;
 
-			if (getTemplateAuthority(xdiEntity.getXri()) == null) return false;
-			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
-
-			return true;
-		} else if (xdiEntity instanceof XdiEntityMember) {
-
-			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getBaseArcXri().equals(XdiAbstractContext.getBaseArcXri(XDILinkContractConstants.XRI_SS_DO))) return false;
-
-			if (getTemplateAuthority(xdiEntity.getXri()) == null) return false;
-			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
-
-			return true;
-		} else {
-
-			return false;
-		}
+		return true;
 	}
 
 	/**
-	 * Factory method that creates an XDI link contract template bound to a given XDI entity.
-	 * @param xdiEntity The XDI entity that is an XDI link contract template.
+	 * Factory method that creates an XDI link contract template bound to a given XDI variable.
+	 * @param xdiVariable The XDI variable that is an XDI link contract template.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate fromXdiEntity(XdiEntity xdiEntity) {
+	public static LinkContractTemplate fromXdiVariable(XdiVariable xdiVariable) {
 
-		if (! isValid(xdiEntity)) return null;
+		if (! isValid(xdiVariable)) return null;
 
-		return new LinkContractTemplate(xdiEntity);
+		return new LinkContractTemplate(xdiVariable);
 	}
 
-	public static XDI3Segment createLinkContractTemplateXri(XDI3Segment templateAuthority, XDI3Segment templateId) {
+	public static XDI3Segment createLinkContractTemplateXri(XDI3Segment templateAuthorityAndId) {
 
 		List<XDI3SubSegment> linkContractTemplateArcXris = new ArrayList<XDI3SubSegment> ();
-		linkContractTemplateArcXris.addAll(templateAuthority.getSubSegments());
-		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
-		linkContractTemplateArcXris.addAll(templateAuthority.getSubSegments());
-		linkContractTemplateArcXris.addAll(templateId.getSubSegments());
-		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_DO);
+
+		linkContractTemplateArcXris.addAll(templateAuthorityAndId.getSubSegments());
+		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_DO_VARIABLE);
 
 		return XDI3Segment.fromComponents(linkContractTemplateArcXris);
 	}
@@ -91,36 +69,26 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * Factory method that finds or creates an XDI link contract template for a graph.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateAuthority, XDI3Segment templateId, boolean create) {
+	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateAuthorityAndId, boolean create) {
 
-		XDI3Segment linkContractTemplateXri = createLinkContractTemplateXri(templateAuthority, templateId);
+		XDI3Segment linkContractTemplateXri = createLinkContractTemplateXri(templateAuthorityAndId);
 
 		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
 		if (linkContractTemplateContextNode == null) return null;
 
-		return new LinkContractTemplate(XdiAbstractEntity.fromContextNode(linkContractTemplateContextNode));
+		return new LinkContractTemplate(XdiVariable.fromContextNode(linkContractTemplateContextNode));
 	}
 
 	/*
 	 * Static methods
 	 */
 
-	public static XDI3Segment getTemplateAuthority(XDI3Segment xri) {
+	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
 
-		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
+		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO_VARIABLE);
 		if (index < 0) return null;
 
 		return XDI3Util.subXri(xri, 0, index);
-	}
-
-	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
-
-		int index1 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_FROM_VARIABLE);
-		int index2 = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO);
-		if (index2 < 0) index2 = XDI3Util.indexOfXri(xri, XdiEntityCollection.createArcXri(XDILinkContractConstants.XRI_SS_DO));
-		if (index1 < 0 || index2 < 0 || index1 >= index2) return null;
-
-		return XDI3Util.subXri(xri, index1 + 1, index2);
 	}
 
 	/*
@@ -130,11 +98,6 @@ public class LinkContractTemplate extends LinkContractBase {
 	public GenericLinkContract instantiate() {
 
 		throw new RuntimeException("Not implemented.");
-	}
-
-	public XDI3Segment getTemplateAuthority() {
-
-		return getTemplateAuthority(this.getContextNode().getXri());
 	}
 
 	public XDI3Segment getTemplateAuthorityAndId() {

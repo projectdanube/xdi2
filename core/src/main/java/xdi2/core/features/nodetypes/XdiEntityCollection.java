@@ -68,10 +68,10 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 		if (! arcXri.isClassXs()) return false;
 		if (arcXri.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
 
 			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs()) || XDIConstants.CS_STAR.equals(arcXri.getCs()) || XDIConstants.CS_BANG.equals(arcXri.getCs())) {
+		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arcXri.getCs())) {
 
 			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
 		} else {

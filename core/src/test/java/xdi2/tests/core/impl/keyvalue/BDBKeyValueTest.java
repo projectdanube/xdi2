@@ -11,9 +11,9 @@ import xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore;
 
 public class BDBKeyValueTest extends AbstractKeyValueTest {
 
-	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb/";
+	public static final String DEFAULT_DATABASE_PATH = "./xdi2-bdb-keyvalue/";
 
-	public static final String DATABASE_PATH = "./xdi2-bdb/";
+	public static final String DATABASE_PATH = "./xdi2-bdb-keyvalue/";
 
 	@Override
 	protected void setUp() throws Exception {

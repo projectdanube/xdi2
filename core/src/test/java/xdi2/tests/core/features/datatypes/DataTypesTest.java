@@ -17,16 +17,16 @@ public class DataTypesTest extends TestCase {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("=markus<+age>&/&/\"33\"\n");
-		buffer.append("=markus<+age>/$is+/$xsd$int\n");
-		buffer.append("=markus<+age>/$is+/$json$number\n");
+		buffer.append("=markus<#age>&/&/\"33\"\n");
+		buffer.append("=markus<#age>/$is+/$xsd$int\n");
+		buffer.append("=markus<#age>/$is+/$json$number\n");
 		String xdiString = buffer.toString();
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>&")), XDI3Segment.create("$mime$image$png"));
+		DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")), XDI3Segment.create("$mime$image$png"));
 
-		List<XDI3Segment> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>&")));
+		List<XDI3Segment> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")));
 
 		assertNotNull(dataTypes);
 
@@ -52,15 +52,15 @@ public class DataTypesTest extends TestCase {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("=markus<+age>/&/\"33\"\n");
-		buffer.append("=markus<+age>/$is+/+$xsd$int\n");
-		buffer.append("=markus<+age>/$is+/+$json$number\n");
+		buffer.append("=markus<#age>/&/\"33\"\n");
+		buffer.append("=markus<#age>/$is+/+$xsd$int\n");
+		buffer.append("=markus<#age>/$is+/+$json$number\n");
 		String xdiString = buffer.toString();
 
 		try {
 
 			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<+age>")), XDI3Segment.create("+$json$number"));
+			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>")), XDI3Segment.create("+$json$number"));
 
 			fail();
 			

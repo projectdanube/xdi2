@@ -36,6 +36,14 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 		this.graphContextHandler = null;
 	}
 
+	public GraphMessagingTarget(GraphMessagingTarget graphMessagingTarget) {
+
+		super(graphMessagingTarget);
+
+		this.graph = graphMessagingTarget.graph;
+		this.graphContextHandler = graphMessagingTarget.graphContextHandler;
+	}
+
 	@Override
 	public void init() throws Exception {
 
@@ -54,6 +62,12 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	public XDI3SubSegment getOwnerPeerRootXri() {
 
 		return GraphUtil.getOwnerPeerRootXri(this.getGraph());
+	}
+
+	@Override
+	public void setOwnerPeerRootXri(XDI3SubSegment ownerPeerRootXri) {
+
+		GraphUtil.setOwnerPeerRootXri(this.getGraph(), ownerPeerRootXri);
 	}
 
 	@Override

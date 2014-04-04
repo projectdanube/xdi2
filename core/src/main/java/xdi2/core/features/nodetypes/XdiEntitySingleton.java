@@ -71,9 +71,9 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 
 		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
 
-		if (XDIConstants.CS_PLUS.equals(arcXri.getCs()) || XDIConstants.CS_DOLLAR.equals(arcXri.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
 
-		} else if (XDIConstants.CS_EQUALS.equals(arcXri.getCs()) || XDIConstants.CS_AT.equals(arcXri.getCs()) || XDIConstants.CS_STAR.equals(arcXri.getCs())) {
+		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arcXri.getCs())) {
 
 		} else {
 

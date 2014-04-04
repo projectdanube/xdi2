@@ -296,21 +296,25 @@ public class XDI3ParserManual extends XDI3Parser {
 	private static boolean isIri(String string) {
 
 		int indexColon = string.indexOf(':');
-		int indexEquals = string.indexOf(XDIConstants.CS_EQUALS.charValue());
-		int indexAt = string.indexOf(XDIConstants.CS_AT.charValue());
-		int indexPlus = string.indexOf(XDIConstants.CS_PLUS.charValue());
-		int indexDollar = string.indexOf(XDIConstants.CS_DOLLAR.charValue());
-		int indexStar = string.indexOf(XDIConstants.CS_STAR.charValue());
-		int indexBang = string.indexOf(XDIConstants.CS_BANG.charValue());
+		int indexAuthorityPersonal = string.indexOf(XDIConstants.CS_AUTHORITY_PERSONAL.charValue());
+		int indexAuthorityLegal = string.indexOf(XDIConstants.CS_AUTHORITY_LEGAL.charValue());
+		int indexAuthorityGeneral = string.indexOf(XDIConstants.CS_AUTHORITY_GENERAL.charValue());
+		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
+		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
+		int indexValue = string.indexOf(XDIConstants.CS_VALUE.charValue());
+		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
+		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
 
 		if (indexColon == -1) return false;
 
-		if (indexEquals != -1 && indexEquals < indexColon) return false;
-		if (indexAt != -1 && indexAt < indexColon) return false;
-		if (indexPlus != -1 && indexPlus < indexColon) return false;
-		if (indexDollar != -1 && indexDollar < indexColon) return false;
-		if (indexStar != -1 && indexStar < indexColon) return false;
-		if (indexBang != -1 && indexBang < indexColon) return false;
+		if (indexAuthorityPersonal != -1 && indexAuthorityPersonal < indexColon) return false;
+		if (indexAuthorityLegal != -1 && indexAuthorityLegal < indexColon) return false;
+		if (indexAuthorityGeneral != -1 && indexAuthorityGeneral < indexColon) return false;
+		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
+		if (indexClassReserved != -1 && indexClassReserved < indexColon) return false;
+		if (indexValue != -1 && indexValue < indexColon) return false;
+		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
+		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
 
 		return true;
 	}

@@ -21,29 +21,29 @@ public class ContributorTest extends TestCase {
 
 	static String referenceGraphStatements = 
 			"" +
-					"(+con)=a<+b>&/&/\"val\"" + "\n" + 
-					"(+con)=x*y/+c/(+con)=d*e" + "\n" + 
-					"(+con)<+email>&/&/\"val\"" + "\n" + 
-					"(+test)=markus/+friend/(+test)=animesh" + "\n";
+					"(#con)=a<#b>&/&/\"val\"" + "\n" + 
+					"(#con)=x*y/#c/(#con)=d*e" + "\n" + 
+					"(#con)<#email>&/&/\"val\"" + "\n" + 
+					"(#test)=markus/#friend/(#test)=animesh" + "\n";
 
 	static String[] targetStrings = new String[] {
-		"(+con)=a",
-		"(+con)=a<+b>",
-		"(+con)=a<+b>&",
-		"(+con)=x",
-		"(+con)=d",
-		"(+con)<+email>",
-		"(+con)<+email>&",
+		"(#con)=a",
+		"(#con)=a<#b>",
+		"(#con)=a<#b>&",
+		"(#con)=x",
+		"(#con)=d",
+		"(#con)<#email>",
+		"(#con)<#email>&",
 		"",
-		"(+con)",
-		"(+test)"
+		"(#con)",
+		"(#test)"
 	};
 
 	public void testContributor() throws Exception {
 
 		// init reference graph
 
-		Graph referenceGraph = MemoryGraphFactory.getInstance().parseGraph(referenceGraphStatements);
+		Graph referenceGraph = MemoryGraphFactory.getInstance().parseGraph(referenceGraphStatements, "XDI DISPLAY", null);
 
 		log.info("Reference graph: " + referenceGraph);
 

@@ -2,6 +2,7 @@ package xdi2.messaging.target.interceptor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,9 +16,17 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 
 	private List<Interceptor<CONTAINER>> interceptors;
 
-	public InterceptorList() {
+	public InterceptorList(Collection<Interceptor<CONTAINER>> interceptors) {
 
-		super();
+		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (interceptors);
+	}
+
+	public InterceptorList(InterceptorList<CONTAINER> interceptorList) {
+
+		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (interceptorList.interceptors);
+	}
+
+	public InterceptorList() {
 
 		this.interceptors = new ArrayList<Interceptor<CONTAINER>> ();
 	}
