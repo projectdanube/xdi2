@@ -47,7 +47,7 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 
 		try {
 
-			signature = message.setSignature(this.getDigestAlgorithm(), this.getDigestLength(), privateKey.getAlgorithm(), 0);
+			signature = message.createSignature(this.getDigestAlgorithm(), this.getDigestLength(), privateKey.getAlgorithm(), 0, true);
 
 			((KeyPairSignature) signature).sign(privateKey);
 		} catch (Exception ex) {

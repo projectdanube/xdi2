@@ -191,7 +191,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			message.setLinkContractXri(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
-			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.setSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength).setValue(signature);
+			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);
 			message.createOperation(operation, target);
 
 			Properties parameters = new Properties();

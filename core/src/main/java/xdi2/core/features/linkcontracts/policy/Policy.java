@@ -188,7 +188,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (policyOrEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyOr.fromXdiEntity(policyOrEntitySingleton)));
 		if (policyNotEntitySingleton != null) iterators.add(new SingleItemIterator<Policy> (PolicyNot.fromXdiEntity(policyNotEntitySingleton)));
 
-		// add policies that are XDI entity instances and elements
+		// add policies that are XDI entity instances
 
 		XdiEntityCollection policyAndEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_AND), false);
 		XdiEntityCollection policyOrEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createArcXri(XDIPolicyConstants.XRI_SS_OR), false);

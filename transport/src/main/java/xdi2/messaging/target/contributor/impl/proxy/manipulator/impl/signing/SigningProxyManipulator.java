@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -47,18 +48,18 @@ public class SigningProxyManipulator extends AbstractProxyManipulator implements
 
 		// check if the message already has a signature
 
-		Signature<?, ?> signature = message.getSignature();
+		ReadOnlyIterator<Signature<?, ?>> signatures = message.getSignatures();
 
-		if (signature != null) {
+		if (signatures.hasNext()) {
 
-			if (log.isWarnEnabled()) log.warn("Message " + message + " already has signature " + signature);
+			if (log.isWarnEnabled()) log.warn("Message " + message + " already has signature " + signatures.next());
 
 			return;
 		}
 
 		// sign the message
 
-		signature = this.getSigner().sign(message);
+		Signature<?, ?> signature = this.getSigner().sign(message);
 
 		if (signature == null) {
 

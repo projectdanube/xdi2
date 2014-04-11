@@ -39,6 +39,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 
 /**
@@ -130,6 +131,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("digestLength", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[1]);
 		request.setAttribute("keyAlgorithm", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[2]);
 		request.setAttribute("keyLength", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[3]);
+		request.setAttribute("singleton", "on");
 
 		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
 	}
@@ -149,6 +151,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String digestLength = request.getParameter("digestLength");
 		String keyAlgorithm = request.getParameter("keyAlgorithm");
 		String keyLength = request.getParameter("keyLength");
+		String singleton = request.getParameter("singleton");
 		String submit = request.getParameter("submit");
 		String output = "";
 		String output2 = "";
@@ -166,9 +169,9 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
 		Graph graph = null;
+		ContextNode contextNode;
 		Key k = null;
-		Signature<?, ?> signature = null;
-		Boolean valid = null;
+		List<Boolean> valid = new ArrayList<Boolean> ();
 
 		long start = System.currentTimeMillis();
 
@@ -182,14 +185,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			// find the context node
 
-			ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create(address), true);
+			contextNode = graph.getDeepContextNode(XDI3Segment.create(address), true);
 			if (contextNode == null) throw new RuntimeException("No context node found at address " + address);
 
 			// sign or validate
 
 			if ("Sign!".equals(submit)) {
 
-				signature = Signatures.setSignature(contextNode, digestAlgorithm, Integer.parseInt(digestLength), keyAlgorithm, Integer.parseInt(keyLength));
+				Signature<?, ?> signature = Signatures.createSignature(contextNode, digestAlgorithm, Integer.parseInt(digestLength), keyAlgorithm, Integer.parseInt(keyLength), "on".equals(singleton));
 
 				if (signature instanceof KeyPairSignature) {
 
@@ -206,27 +209,30 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 				}
 			} else if ("Validate!".equals(submit)) {
 
-				signature = Signatures.getSignature(contextNode);
-				if (signature == null) throw new RuntimeException("No signature found at address " + address);
+				ReadOnlyIterator<Signature<?, ?>> signatures = Signatures.getSignatures(contextNode);
+				if (! signatures.hasNext()) throw new RuntimeException("No signature found at address " + address);
 
-				if (signature instanceof KeyPairSignature) {
+				for (Signature<?, ?> signature : signatures) {
 
-					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
-					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-					k = keyFactory.generatePublic(keySpec);
+					if (signature instanceof KeyPairSignature) {
 
-					valid = Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k));
-				} else if (signature instanceof SymmetricKeySignature) {
+						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
+						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+						k = keyFactory.generatePublic(keySpec);
 
-					k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+						valid.add(Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k)));
+					} else if (signature instanceof SymmetricKeySignature) {
 
-					valid = Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k));
+						k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+
+						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
+					}
 				}
 			}
 
 			// output the graph or result
 
-			if (valid == null) {
+			if (valid.isEmpty()) {
 
 				StringWriter writer = new StringWriter();
 
@@ -239,11 +245,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 			}
 
 			// output the normalized serialization
-			
-			if (signature != null) {
 
-				output2 = Signature.getNormalizedSerialization(signature.getBaseContextNode());
-			}
+			output2 = Signature.getNormalizedSerialization(contextNode);
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
@@ -276,6 +279,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("digestLength", digestLength);
 		request.setAttribute("keyAlgorithm", keyAlgorithm);
 		request.setAttribute("keyLength", keyLength);
+		request.setAttribute("singleton", singleton);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
 		request.setAttribute("stats", stats);

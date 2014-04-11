@@ -1,17 +1,25 @@
 package xdi2.core.features.signatures;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.datatypes.DataTypes;
-import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiContext;
+import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 
 public class Signatures {
@@ -28,57 +36,64 @@ public class Signatures {
 		ContextNode root = graph.getRootContextNode(true);
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
 
-		return new MappingContextNodeSignatureIterator(allContextNodes);
+		return new MappingXdiAttributeSignatureIterator(new MappingContextNodeXdiAttributeIterator(allContextNodes));
 	}
 
 	/**
-	 * Returns an existing XDI signature under a context node.
-	 * @return The existing XDI signature.
+	 * Creates an XDI signature on a context node.
+	 * @return The XDI signature.
 	 */
-	public static Signature<? extends Key, ? extends Key> getSignature(ContextNode contextNode) {
+	public static Signature<? extends Key, ? extends Key> createSignature(ContextNode contextNode, String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength, boolean singleton) {
 
-		ContextNode signatureContextNode = contextNode.getDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE, true);
-		if (signatureContextNode == null) return null;
-
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAttributeSingleton.fromContextNode(signatureContextNode);
-		if (xdiAttributeSingleton == null) return null;
-
-		return Signature.fromXdiAttribute(xdiAttributeSingleton);
-	}
-
-	/**
-	 * Returns an existing XDI signature under a context node.
-	 * @return The existing XDI signature.
-	 */
-	public static Signature<? extends Key, ? extends Key> setSignature(ContextNode contextNode, String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
-
-		ContextNode signatureContextNode = contextNode.setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE);
-		if (signatureContextNode == null) return null;
+		XdiAttribute signatureXdiAttribute;
+		
+		if (singleton)
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), true);
+		else
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), true).setXdiMemberUnordered(null);
 
 		XDI3Segment dataTypeXri = Signature.getDataTypeXri(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
-		DataTypes.setDataType(signatureContextNode, dataTypeXri);
+		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXri);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAttributeSingleton.fromContextNode(signatureContextNode);
-		if (xdiAttributeSingleton == null) return null;
+		return Signature.fromXdiAttribute(signatureXdiAttribute);
+	}
 
-		return Signature.fromXdiAttribute(xdiAttributeSingleton);
+	/**
+	 * Returns the XDI signatures on a context node.
+	 */
+	public static ReadOnlyIterator<Signature<?, ?>> getSignatures(ContextNode contextNode) {
+
+		List<Iterator<? extends Signature<?, ?>>> iterators = new ArrayList<Iterator<? extends Signature<?, ?>>> ();
+
+		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
+		
+		// add signature that is an XDI attribute singleton
+
+		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), false);
+
+		if (signatureAttributeSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (Signature.fromXdiAttribute(signatureAttributeSingleton)));
+
+		// add signatures that are XDI attribute instances
+
+		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), false);
+
+		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiMembersDeref()));
+
+		return new CompositeIterator<Signature<?, ?>> (iterators.iterator());
 	}
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeSignatureIterator extends NotNullIterator<Signature<? extends Key, ? extends Key>> {
+	public static class MappingXdiAttributeSignatureIterator extends NotNullIterator<Signature<? extends Key, ? extends Key>> {
 
-		public MappingContextNodeSignatureIterator(Iterator<ContextNode> iterator) {
+		public MappingXdiAttributeSignatureIterator(Iterator<XdiAttribute> iterator) {
 
-			super(new MappingIterator<ContextNode, Signature<? extends Key, ? extends Key>> (iterator) {
+			super(new MappingIterator<XdiAttribute, Signature<? extends Key, ? extends Key>> (iterator) {
 
 				@Override
-				public Signature<? extends Key, ? extends Key> map(ContextNode contextNode) {
-
-					XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-					if (xdiAttribute == null) return null;
+				public Signature<? extends Key, ? extends Key> map(XdiAttribute xdiAttribute) {
 
 					return Signature.fromXdiAttribute(xdiAttribute);
 				}

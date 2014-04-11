@@ -9,6 +9,7 @@ import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -79,15 +80,20 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		// look for signature on the message
 
-		Signature<?, ?> signature = message.getSignature();
-		if (signature == null) return InterceptorResult.DEFAULT;
+		ReadOnlyIterator<Signature<?, ?>> signatures = message.getSignatures();
+		if (! signatures.hasNext()) return InterceptorResult.DEFAULT;
 
 		// authenticate
 
 		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
 
-		boolean authenticated = this.getSignatureAuthenticator().authenticate(message, signature);
-		if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
+		boolean authenticated = true;
+
+		for (Signature<?, ?> signature : signatures) {
+
+			authenticated &= this.getSignatureAuthenticator().authenticate(message, signature);
+			if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
+		}
 
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
 		XdiValue signatureValidXdiValue = signatureValidXdiAttribute.getXdiValue(true);

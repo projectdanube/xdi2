@@ -33,12 +33,12 @@ public class LinkContracts {
 	 * @param create Whether to create an XDI link contract if it does not exist.
 	 * @return The existing or newly created XDI link contract.
 	 */
-	public static LinkContract getLinkContract(ContextNode parentContextNode, boolean create) {
+	public static LinkContract getLinkContract(ContextNode contextNode, boolean create) {
 
-		ContextNode contextNode = create ? parentContextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : parentContextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO, true);
-		if (contextNode == null) return null;
+		ContextNode linkContractContextNode = create ? contextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : contextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO, true);
+		if (linkContractContextNode == null) return null;
 
-		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(contextNode);
+		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(linkContractContextNode);
 		if (xdiEntitySingleton == null) return null;
 
 		return LinkContract.fromXdiEntity(xdiEntitySingleton);

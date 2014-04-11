@@ -298,18 +298,18 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the signature from the message.
 	 * @return The signature.
 	 */
-	public Signature<? extends Key, ? extends Key> getSignature() {
+	public ReadOnlyIterator<Signature<?, ?>> getSignatures() {
 
-		return Signatures.getSignature(this.getContextNode());
+		return Signatures.getSignatures(this.getContextNode());
 	}
 
 	/**
 	 * Sets a signature on the message.
 	 * @return The signature.
 	 */
-	public Signature<? extends Key, ? extends Key> setSignature(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+	public Signature<? extends Key, ? extends Key> createSignature(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength, boolean singleton) {
 
-		return Signatures.setSignature(this.getContextNode(), digestAlgorithm, digestLength, keyAlgorithm, keyLength);
+		return Signatures.createSignature(this.getContextNode(), digestAlgorithm, digestLength, keyAlgorithm, keyLength, singleton);
 	}
 
 	/*

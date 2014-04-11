@@ -54,10 +54,10 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
-		KeyPairSignature signature = (KeyPairSignature) Signatures.setSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, 256, KeyPairSignature.KEY_ALGORITHM_RSA, 1024);
+		KeyPairSignature signature = (KeyPairSignature) Signatures.createSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, 256, KeyPairSignature.KEY_ALGORITHM_RSA, 1024, false);
 		signature.sign(privateKey);
 
-		signature = (KeyPairSignature) Signatures.getSignature(contextNode);
+		signature = (KeyPairSignature) Signatures.getSignatures(contextNode).next();
 
 		assertEquals(signature.getDigestAlgorithm(), KeyPairSignature.DIGEST_ALGORITHM_SHA);
 		assertEquals(signature.getDigestLength(), Integer.valueOf(256));
@@ -89,10 +89,10 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
 
-		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.setSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, 384, SymmetricKeySignature.KEY_ALGORITHM_AES, 256);
+		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.createSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, 384, SymmetricKeySignature.KEY_ALGORITHM_AES, 256, false);
 		signature.sign(secretKey);
 
-		signature = (SymmetricKeySignature) Signatures.getSignature(contextNode);
+		signature = (SymmetricKeySignature) Signatures.getSignatures(contextNode).next();
 
 		assertEquals(signature.getDigestAlgorithm(), SymmetricKeySignature.DIGEST_ALGORITHM_SHA);
 		assertEquals(signature.getDigestLength(), Integer.valueOf(384));

@@ -40,6 +40,7 @@
 		<% String digestLength = (String) request.getAttribute("digestLength"); if (digestLength == null) digestLength = ""; %>
 		<% String keyAlgorithm = (String) request.getAttribute("keyAlgorithm"); if (keyAlgorithm == null) keyAlgorithm = ""; %>
 		<% String keyLength = (String) request.getAttribute("keyLength"); if (keyLength == null) keyLength = ""; %>
+		<% String singleton = (String) request.getAttribute("singleton"); if (singleton == null) singleton = ""; %>
 
 		Key: 
 		<input type="text" name="key" size="30" value="<%= key %>">
@@ -63,10 +64,11 @@
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1<br>
 
-		Digest Algorithm:&nbsp;<input type="text" name="digestAlgorithm" size="5" value="<%= digestAlgorithm.trim() %>">
-		Digest Length:&nbsp;<input type="text" name="digestLength" size="5" value="<%= digestLength.trim() %>">
-		Key Algorithm:&nbsp;<input type="text" name="keyAlgorithm" size="5" value="<%= keyAlgorithm.trim() %>">
-		Key Length:&nbsp;<input type="text" name="keyLength" size="5" value="<%= keyLength.trim() %>">
+		Digest Alg:&nbsp;<input type="text" name="digestAlgorithm" size="5" value="<%= digestAlgorithm.trim() %>">
+		Digest Len:&nbsp;<input type="text" name="digestLength" size="5" value="<%= digestLength.trim() %>">
+		Key Alg:&nbsp;<input type="text" name="keyAlgorithm" size="5" value="<%= keyAlgorithm.trim() %>">
+		Key Len:&nbsp;<input type="text" name="keyLength" size="5" value="<%= keyLength.trim() %>">
+		<input name="singleton" type="checkbox" <%= singleton.equals("on") ? "checked" : "" %>>Singleton
 		&nbsp;--&gt;&nbsp;
 		<input type="submit" name="submit" value="Sign!">
 		<input type="submit" name="submit" value="Validate!">
