@@ -61,9 +61,9 @@ public class Signatures {
 	/**
 	 * Returns the XDI signatures on a context node.
 	 */
-	public static ReadOnlyIterator<Signature<?, ?>> getSignatures(ContextNode contextNode) {
+	public static ReadOnlyIterator<Signature<? extends Key, ? extends Key>> getSignatures(ContextNode contextNode) {
 
-		List<Iterator<? extends Signature<?, ?>>> iterators = new ArrayList<Iterator<? extends Signature<?, ?>>> ();
+		List<Iterator<? extends Signature<? extends Key, ? extends Key>>> iterators = new ArrayList<Iterator<? extends Signature<? extends Key, ? extends Key>>> ();
 
 		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 		
@@ -79,7 +79,7 @@ public class Signatures {
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiMembersDeref()));
 
-		return new CompositeIterator<Signature<?, ?>> (iterators.iterator());
+		return new CompositeIterator<Signature<? extends Key, ? extends Key>> (iterators.iterator());
 	}
 
 	/*
