@@ -221,7 +221,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				if (loggingTrustManager.getBuffer().length() > 0) {
 					
-					writer.write(loggingTrustManager.getBuffer().toString() + "\n");
+					writer2.write(loggingTrustManager.getBuffer().toString() + "\n");
 				}
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
