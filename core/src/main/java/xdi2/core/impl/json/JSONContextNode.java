@@ -110,6 +110,8 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		else
 			jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXri().toString());
 
+		if (jsonObject == null) return null;
+
 		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XRI_S_CONTEXT.toString());
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
