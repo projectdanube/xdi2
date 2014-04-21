@@ -17,6 +17,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.http.ssl.XDI2X509TrustManager;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -61,6 +62,17 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	protected String userAgent;
 	protected boolean followRedirects;
 
+	static {
+
+		try {
+
+			XDI2X509TrustManager.enable();
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
+	}
+
 	public XDIHttpClient() {
 
 		super();
@@ -93,7 +105,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public XDIHttpClient(String endpointUri, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
 
 		super();
-		
+
 		try {
 
 			this.endpointUri = (endpointUri != null) ? new URL(endpointUri) : null;
@@ -111,7 +123,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public XDIHttpClient(Properties parameters) throws Exception {
 
 		super();
-		
+
 		if (parameters == null) {
 
 			this.endpointUri = null;
