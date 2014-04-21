@@ -50,9 +50,19 @@
 		<resources>
 			<resource>
 				<directory>${project.basedir}/src/main/resources/</directory>
-				<filtering>true</filtering>
+				<filtering>false</filtering>
 				<includes>
 					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources/</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 		</resources>
