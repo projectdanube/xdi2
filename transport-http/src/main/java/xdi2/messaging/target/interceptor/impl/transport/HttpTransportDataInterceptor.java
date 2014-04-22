@@ -59,11 +59,11 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 
 		// add <$ip>
 
-		String ip = httpRequest.getRemoteAddr();
+		String remoteAddr = httpRequest.getRemoteAddr();
 
 		XdiAttribute ipXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XRI_S_IP));
 		XdiValue ipXdiValue = ipXdiAttribute.getXdiValue(true);
-		Literal ipLiteral = ipXdiValue.getContextNode().setLiteralString(ip);
+		Literal ipLiteral = ipXdiValue.getContextNode().setLiteralString(remoteAddr);
 
 		if (log.isDebugEnabled()) log.debug("IP: " + ipLiteral.getStatement());
 
