@@ -10,6 +10,7 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
@@ -178,10 +179,11 @@ public final class CopyUtil {
 				xdiRoot.getRelativePart(contextNodeXri).equals(XdiInnerRoot.getSubjectOfInnerRootXri(targetContextNodeXriLastSubSegment)) &&
 				arcXri.equals(XdiInnerRoot.getPredicateOfInnerRootXri(targetContextNodeXriLastSubSegment))) {
 				
-/*			if (! targetContextNode.equals(relation.getContextNode())) {
+			if (! targetContextNode.equals(relation.getContextNode())) {
 				
-				throw new Xdi2GraphException("Copying inner root to different context node is not supported.");
-			}*/
+				//throw new Xdi2GraphException("Copying inner root to different context node is not supported.");
+				return null;
+			}
 
 	//		new Exception("Also need to copy inner root " + relation.follow()).printStackTrace();
 			
