@@ -53,7 +53,7 @@ public final class MessagingCloneUtil {
 		CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
 
 		MessageCollection clonedMessageCollection = clonedMessageEnvelope.getMessageCollections().next();
-		if (log.isDebugEnabled()) log.debug("Cloned message collection: " + clonedMessageCollection);
+		if (log.isDebugEnabled()) log.debug("Cloned message collection: " + clonedMessageCollection.getMessageEnvelope());
 
 		return clonedMessageCollection;
 	}
@@ -84,7 +84,7 @@ public final class MessagingCloneUtil {
 		}
 
 		Message clonedMessage = clonedMessageCollection.getMessages().next();
-		if (log.isDebugEnabled()) log.debug("Cloned message: " + clonedMessage);
+		if (log.isDebugEnabled()) log.debug("Cloned message: " + clonedMessage.getMessageEnvelope());
 
 		return clonedMessage;
 	}
@@ -102,7 +102,7 @@ public final class MessagingCloneUtil {
 		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);
 
 		Operation clonedOperation = clonedMessage.getOperations().next();
-		if (log.isDebugEnabled()) log.debug("Cloned operation: " + clonedOperation);
+		if (log.isDebugEnabled()) log.debug("Cloned operation: " + clonedOperation.getMessageEnvelope());
 
 		return clonedOperation;
 	}
