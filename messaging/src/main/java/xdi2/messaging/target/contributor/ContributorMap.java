@@ -16,6 +16,9 @@ import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Prototype;
 
@@ -145,30 +148,27 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		return buffer.toString();
 	}
 
-	public void enableAfterOperation() {
+	public void clearDisabledForOperation(Operation operation) {
 
 		for (Contributor contributor : this.iterator()) {
 
-			contributor.setDisabledForOperation(false);
+			contributor.clearDisabledForOperation(operation);
 		}
 	}
 
-	public void enableAfterMessage() {
+	public void clearDisabledForMessage(Message message) {
 
 		for (Contributor contributor : this.iterator()) {
 
-			contributor.setDisabledForOperation(false);
-			contributor.setDisabledForMessage(false);
+			contributor.clearDisabledForMessage(message);
 		}
 	}
 
-	public void enableAfterMessageEnvelope() {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		for (Contributor contributor : this.iterator()) {
 
-			contributor.setDisabledForOperation(false);
-			contributor.setDisabledForMessage(false);
-			contributor.setDisabledForMessageEnvelope(false);
+			contributor.clearDisabledForMessageEnvelope(messageEnvelope);
 		}
 	}
 

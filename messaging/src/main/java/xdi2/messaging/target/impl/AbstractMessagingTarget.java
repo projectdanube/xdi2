@@ -213,8 +213,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw (Xdi2MessagingException) ex;
 		} finally {
 
-			this.getInterceptors().enableAfterMessageEnvelope();
-			this.getContributors().enableAfterMessageEnvelope();
+			this.getInterceptors().clearDisabledForMessageEnvelope(messageEnvelope);
+			this.getContributors().clearDisabledForMessageEnvelope(messageEnvelope);
 
 			try {
 
@@ -309,8 +309,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			this.getInterceptors().enableAfterMessage();
-			this.getContributors().enableAfterMessage();
+			this.getInterceptors().clearDisabledForMessage(message);
+			this.getContributors().clearDisabledForMessage(message);
 
 			try {
 
@@ -397,8 +397,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
-			this.getInterceptors().enableAfterOperation();
-			this.getContributors().enableAfterOperation();
+			this.getInterceptors().clearDisabledForOperation(operation);
+			this.getContributors().clearDisabledForOperation(operation);
 			
 			try {
 

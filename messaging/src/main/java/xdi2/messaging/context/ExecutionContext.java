@@ -313,11 +313,31 @@ public final class ExecutionContext implements Serializable {
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
+	public List<MessagingTarget> getCurrentMessagingTargets() {
+
+		List<ExecutionPosition<MessagingTarget>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, MessagingTarget.class);
+
+		List<MessagingTarget> messagingTargets = new ArrayList<MessagingTarget> ();
+		for (ExecutionPosition<MessagingTarget> executionPosition : executionPositions) messagingTargets.add(executionPosition.executionObject);
+
+		return messagingTargets;
+	}
+
 	public MessageEnvelope getCurrentMessageEnvelope() {
 
 		ExecutionPosition<MessageEnvelope> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, MessageEnvelope.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public List<MessageEnvelope> getCurrentMessageEnvelopes() {
+
+		List<ExecutionPosition<MessageEnvelope>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, MessageEnvelope.class);
+
+		List<MessageEnvelope> messageEnvelopes = new ArrayList<MessageEnvelope> ();
+		for (ExecutionPosition<MessageEnvelope> executionPosition : executionPositions) messageEnvelopes.add(executionPosition.executionObject);
+
+		return messageEnvelopes;
 	}
 
 	public Message getCurrentMessage() {
@@ -327,11 +347,31 @@ public final class ExecutionContext implements Serializable {
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
+	public List<Message> getCurrentMessages() {
+
+		List<ExecutionPosition<Message>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, Message.class);
+
+		List<Message> messages = new ArrayList<Message> ();
+		for (ExecutionPosition<Message> executionPosition : executionPositions) messages.add(executionPosition.executionObject);
+
+		return messages;
+	}
+
 	public Operation getCurrentOperation() {
 
 		ExecutionPosition<Operation> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Operation.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
+	}
+
+	public List<Operation> getCurrentOperations() {
+
+		List<ExecutionPosition<Operation>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, Operation.class);
+
+		List<Operation> operations = new ArrayList<Operation> ();
+		for (ExecutionPosition<Operation> executionPosition : executionPositions) operations.add(executionPosition.executionObject);
+
+		return operations;
 	}
 
 	public XDI3Segment getCurrentTargetAddress() {
@@ -438,6 +478,21 @@ public final class ExecutionContext implements Serializable {
 		if (! clazz.isAssignableFrom(this.currentExecutionPosition.executionObject.getClass())) throw new IllegalStateException("Unexpected execution position class: " + this.currentExecutionPosition.executionObject.getClass().getSimpleName() + " (should be " + clazz.getSimpleName() + ").");
 
 		this.currentExecutionPosition = this.currentExecutionPosition.parentExecutionPosition;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> List<ExecutionPosition<T>> findExecutionPositions(ExecutionPosition<?> startExecutionPosition, Class<? extends T> clazz) {
+
+		List<ExecutionPosition<T>> executionPositions = new ArrayList<ExecutionPosition<T>> ();
+		
+		for (ExecutionPosition<?> executionPosition = startExecutionPosition; executionPosition != this.topExecutionPosition; ) {
+
+			if (clazz.isAssignableFrom(executionPosition.executionObject.getClass())) executionPositions.add((ExecutionPosition<T>) executionPosition);
+
+			executionPosition = executionPosition.parentExecutionPosition;
+		}
+
+		return executionPositions;
 	}
 
 	@SuppressWarnings("unchecked")

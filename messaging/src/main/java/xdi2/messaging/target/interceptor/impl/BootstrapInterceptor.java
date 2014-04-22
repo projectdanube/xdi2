@@ -244,13 +244,13 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
 
 			ToInterceptor toInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(ToInterceptor.class);
-			if (toInterceptor != null) toInterceptor.setDisabledForMessageEnvelope(true);
+			if (toInterceptor != null) toInterceptor.setDisabledForMessageEnvelope(bootstrapMessageEnvelope);
 
 			RefInterceptor refInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
-			if (refInterceptor != null) refInterceptor.setDisabledForMessageEnvelope(true);
+			if (refInterceptor != null) refInterceptor.setDisabledForMessageEnvelope(bootstrapMessageEnvelope);
 
 			LinkContractInterceptor linkContractInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(true);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(bootstrapMessageEnvelope);
 
 			graphMessagingTarget.execute(bootstrapMessageEnvelope, null, null);
 		}

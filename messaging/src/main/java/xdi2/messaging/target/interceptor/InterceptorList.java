@@ -8,6 +8,9 @@ import java.util.List;
 
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingClassIterator;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.Operation;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Prototype;
 
@@ -87,30 +90,27 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 		return new SelectingClassIterator<Interceptor<CONTAINER>, T> (this.iterator(), clazz);
 	}
 
-	public void enableAfterOperation() {
+	public void clearDisabledForOperation(Operation operation) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
 
-			interceptor.setDisabledForOperation(false);
+			interceptor.clearDisabledForOperation(operation);
 		}
 	}
 
-	public void enableAfterMessage() {
+	public void clearDisabledForMessage(Message message) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
 
-			interceptor.setDisabledForOperation(false);
-			interceptor.setDisabledForMessage(false);
+			interceptor.clearDisabledForMessage(message);
 		}
 	}
 
-	public void enableAfterMessageEnvelope() {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
 
-			interceptor.setDisabledForOperation(false);
-			interceptor.setDisabledForMessage(false);
-			interceptor.setDisabledForMessageEnvelope(false);
+			interceptor.clearDisabledForMessageEnvelope(messageEnvelope);
 		}
 	}
 

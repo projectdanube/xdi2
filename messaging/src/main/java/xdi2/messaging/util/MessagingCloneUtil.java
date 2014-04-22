@@ -60,7 +60,7 @@ public final class MessagingCloneUtil {
 
 		if (xdiEntity instanceof XdiEntityMemberUnordered) {
 
-			XdiEntityMemberUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(((XdiEntityMemberUnordered) xdiEntity).getArcXri());
+			XdiEntityMemberUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(null);
 			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
 		} else if (xdiEntity instanceof XdiEntityMemberOrdered) {
 

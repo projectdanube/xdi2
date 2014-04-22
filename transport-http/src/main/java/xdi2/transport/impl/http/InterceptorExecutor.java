@@ -30,7 +30,7 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
-			if (httpTransportInterceptor.skip()) {
+			if (httpTransportInterceptor.skip(null)) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (GET).");
 				continue;
@@ -54,7 +54,7 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
-			if (httpTransportInterceptor.skip()) {
+			if (httpTransportInterceptor.skip(null)) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (PUT).");
 				continue;
@@ -78,7 +78,7 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
-			if (httpTransportInterceptor.skip()) {
+			if (httpTransportInterceptor.skip(null)) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (POST).");
 				continue;
@@ -102,7 +102,7 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
-			if (httpTransportInterceptor.skip()) {
+			if (httpTransportInterceptor.skip(null)) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (DELETE).");
 				continue;

@@ -1,28 +1,40 @@
 package xdi2.messaging.target.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.Operation;
+import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.target.Extension;
 
 
 public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractExtension.class);
 
 	public final static int DEFAULT_INIT_PRIORITY = 10;
 	public final static int DEFAULT_SHUTDOWN_PRIORITY = 10;
 
 	private int initPriority;
 	private int shutdownPriority;
-	private boolean enabled;
-	private boolean disabledForOperation;
-	private boolean disabledForMessage;
-	private boolean disabledForMessageEnvelope;
+	private boolean disabled;
+	private Set<MessageEnvelope> disabledForMessageEnvelope;
+	private Set<Message> disabledForMessage;
+	private Set<Operation> disabledForOperation;
 
 	public AbstractExtension(int initPriority, int shutdownPriority) {
 
 		this.initPriority = initPriority;
 		this.shutdownPriority = shutdownPriority;
-		this.enabled = true;
-		this.disabledForOperation = false;
-		this.disabledForMessage = false;
-		this.disabledForMessageEnvelope = false;
+		this.disabled = false;
+		this.disabledForMessageEnvelope = new HashSet<MessageEnvelope> ();
+		this.disabledForMessage = new HashSet<Message> ();
+		this.disabledForOperation = new HashSet<Operation> ();
 	}
 
 	public AbstractExtension() {
@@ -61,61 +73,95 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	 */
 
 	@Override
-	public boolean skip() {
+	public boolean skip(ExecutionContext executionContext) {
 
-		if (! this.enabled) return true;
-		if (this.disabledForOperation) return true;
-		if (this.disabledForMessage) return true;
-		if (this.disabledForMessageEnvelope) return true;
+		if (this.disabled) return true;
+
+		if (executionContext != null) {
+
+			boolean disabledForMessageEnvelope = false;
+			boolean disabledForMessage = false;
+			boolean disabledForOperation = false;
+
+			for (MessageEnvelope currentMessageEnvelope : executionContext.getCurrentMessageEnvelopes()) disabledForMessageEnvelope |= this.disabledForMessageEnvelope.contains(currentMessageEnvelope);
+			for (Message currentMessage : executionContext.getCurrentMessages()) disabledForMessage |= this.disabledForMessage.contains(currentMessage);
+			for (Operation currentOperation : executionContext.getCurrentOperations()) disabledForOperation |= this.disabledForOperation.contains(currentOperation);
+
+			if (log.isDebugEnabled() && disabledForMessageEnvelope) log.debug("Disabled " + this + " on message envelope ? " + disabledForMessageEnvelope);
+			if (log.isDebugEnabled() && disabledForMessage) log.debug("Disabled " + this + " on message ? " + disabledForMessage);
+			if (log.isDebugEnabled() && disabledForOperation) log.debug("Disabled " + this + " on operation ? " + disabledForOperation);
+
+			if (disabledForMessageEnvelope) return true;
+			if (disabledForMessage) return true;
+			if (disabledForOperation) return true;
+		}
 
 		return false;
 	}
 
 	@Override
-	public boolean getEnabled() {
+	public void setDisabled() {
 
-		return this.enabled;
+		this.disabled = true;
 	}
 
 	@Override
-	public void setEnabled(boolean enabled) {
+	public void clearDisabled() {
 
-		this.enabled = enabled;
+		this.disabled = false;
 	}
 
 	@Override
-	public boolean getDisabledForOperation() {
+	public void setDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
-		return this.disabledForOperation;
+		if (log.isDebugEnabled()) log.debug("Set disabled " + this + " on message envelope " + messageEnvelope);
+
+		this.disabledForMessageEnvelope.add(messageEnvelope);
 	}
 
 	@Override
-	public void setDisabledForOperation(boolean disabledForOperation) {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
-		this.disabledForOperation = disabledForOperation;
+		if (! this.disabledForMessageEnvelope.contains(messageEnvelope)) return;
+		
+		if (log.isDebugEnabled()) log.debug("Clear disabled " + this + " on message envelope " + messageEnvelope);
+
+		this.disabledForMessageEnvelope.remove(messageEnvelope);
 	}
 
 	@Override
-	public boolean getDisabledForMessage() {
+	public void setDisabledForMessage(Message message) {
 
-		return this.disabledForMessage;
+		if (log.isDebugEnabled()) log.debug("Set disabled " + this + " on message " + message);
+
+		this.disabledForMessage.add(message);
 	}
 
 	@Override
-	public void setDisabledForMessage(boolean disabledForMessage) {
+	public void clearDisabledForMessage(Message message) {
 
-		this.disabledForMessage = disabledForMessage;
+		if (! this.disabledForMessage.contains(message)) return;
+
+		if (log.isDebugEnabled()) log.debug("Clear disabled " + this + " on message " + message);
+
+		this.disabledForMessage.remove(message);
 	}
 
 	@Override
-	public boolean getDisabledForMessageEnvelope() {
+	public void setDisabledForOperation(Operation operation) {
 
-		return this.disabledForMessageEnvelope;
+		if (log.isDebugEnabled()) log.debug("Set disabled " + this + " on operation " + operation);
+
+		this.disabledForOperation.add(operation);
 	}
 
 	@Override
-	public void setDisabledForMessageEnvelope(boolean disabledForMessageEnvelope) {
+	public void clearDisabledForOperation(Operation operation) {
 
-		this.disabledForMessageEnvelope = disabledForMessageEnvelope;
+		if (! this.disabledForOperation.contains(operation)) return;
+
+		if (log.isDebugEnabled()) log.debug("Clear disabled " + this + " on operation " + operation);
+
+		this.disabledForOperation.remove(operation);
 	}
 }
