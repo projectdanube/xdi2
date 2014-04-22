@@ -1,5 +1,8 @@
 package xdi2.messaging.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -11,6 +14,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
+import xdi2.messaging.context.ExecutionContext;
 
 /**
  * Various utility methods for cloning messaging components.
@@ -18,6 +22,8 @@ import xdi2.messaging.Operation;
  * @author markus
  */
 public final class MessagingCloneUtil {
+
+	private static Logger log = LoggerFactory.getLogger(MessagingCloneUtil.class.getName());
 
 	/**
 	 * Creates a clone of the given message envelope with the same contents.
@@ -28,7 +34,10 @@ public final class MessagingCloneUtil {
 
 		Graph clonedGraph = CloneUtil.cloneGraph(messageEnvelope.getGraph());
 
-		return MessageEnvelope.fromGraph(clonedGraph);
+		MessageEnvelope clonedMessageEnvelope = MessageEnvelope.fromGraph(clonedGraph);
+		if (log.isDebugEnabled()) log.debug("Cloned message envelope: " + clonedMessageEnvelope);
+
+		return clonedMessageEnvelope;
 	}
 
 	/**
@@ -43,7 +52,10 @@ public final class MessagingCloneUtil {
 
 		CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
 
-		return clonedMessageEnvelope.getMessageCollections().next();
+		MessageCollection clonedMessageCollection = clonedMessageEnvelope.getMessageCollections().next();
+		if (log.isDebugEnabled()) log.debug("Cloned message collection: " + clonedMessageCollection);
+
+		return clonedMessageCollection;
 	}
 
 	/**
@@ -71,7 +83,10 @@ public final class MessagingCloneUtil {
 			throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
 		}
 
-		return clonedMessageCollection.getMessages().next();
+		Message clonedMessage = clonedMessageCollection.getMessages().next();
+		if (log.isDebugEnabled()) log.debug("Cloned message: " + clonedMessage);
+
+		return clonedMessage;
 	}
 
 	/**
@@ -86,6 +101,9 @@ public final class MessagingCloneUtil {
 
 		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);
 
-		return clonedMessage.getOperations().next();
+		Operation clonedOperation = clonedMessage.getOperations().next();
+		if (log.isDebugEnabled()) log.debug("Cloned operation: " + clonedOperation);
+
+		return clonedOperation;
 	}
 }
