@@ -30,6 +30,12 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
+			if (httpTransportInterceptor.skip()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (GET).");
+				continue;
+			}
+
 			if (log.isDebugEnabled()) log.debug("Executing HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (GET).");
 
 			if (httpTransportInterceptor.processGetRequest(httpTransport, request, response, messagingTargetMount)) {
@@ -47,6 +53,12 @@ public class InterceptorExecutor {
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
+
+			if (httpTransportInterceptor.skip()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (PUT).");
+				continue;
+			}
 
 			if (log.isDebugEnabled()) log.debug("Executing HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (PUT).");
 
@@ -66,6 +78,12 @@ public class InterceptorExecutor {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
 
+			if (httpTransportInterceptor.skip()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (POST).");
+				continue;
+			}
+
 			if (log.isDebugEnabled()) log.debug("Executing HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (POST).");
 
 			if (httpTransportInterceptor.processPostRequest(httpTransport, request, response, messagingTargetMount)) {
@@ -83,6 +101,12 @@ public class InterceptorExecutor {
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 
 			HttpTransportInterceptor httpTransportInterceptor = httpTransportInterceptors.next();
+
+			if (httpTransportInterceptor.skip()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (DELETE).");
+				continue;
+			}
 
 			if (log.isDebugEnabled()) log.debug("Executing HTTP transport interceptor " + httpTransportInterceptor.getClass().getSimpleName() + " (DELETE).");
 

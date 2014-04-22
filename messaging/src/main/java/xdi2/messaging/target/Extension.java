@@ -18,8 +18,15 @@ public interface Extension <CONTAINER> {
 	 * Enabled?
 	 */
 
-	public boolean isEnabled();
+	public boolean skip();
+	public boolean getEnabled();
 	public void setEnabled(boolean enabled);
+	public boolean getDisabledForOperation();
+	public void setDisabledForOperation(boolean disabledForOperation);
+	public boolean getDisabledForMessage();
+	public void setDisabledForMessage(boolean disabledForMessage);
+	public boolean getDisabledForMessageEnvelope();
+	public void setDisabledForMessageEnvelope(boolean disabledForMessageEnvelope);
 
 	/*
 	 * Class for sorting by init or shutdown priority

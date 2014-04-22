@@ -153,7 +153,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
 		$interceptor.class.simpleName<br>
 			<span class="light">
-			#if($interceptor.enabled) ENABLED #else DISABLED #end
+			SKIP? $interceptor.skip()
 			</span><br><hr>
 	#end
 	#end
@@ -170,7 +170,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 			$contributor.class.simpleName<br>
 			<span class="light">
 			$contributorlist.key
-			#if($contributor.enabled) ENABLED #else DISABLED #end
+			SKIP? $interceptor.skip()
 			</span><br><hr>
 		#end
 	#end

@@ -42,7 +42,7 @@ public class InterceptorExecutor {
 
 			MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
 
-			if (! messageEnvelopeInterceptor.isEnabled()) {
+			if (messageEnvelopeInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
@@ -82,7 +82,7 @@ public class InterceptorExecutor {
 
 			MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
 
-			if (! messageEnvelopeInterceptor.isEnabled()) {
+			if (messageEnvelopeInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
@@ -120,7 +120,7 @@ public class InterceptorExecutor {
 
 			MessageEnvelopeInterceptor messageEnvelopeInterceptor = messageEnvelopeInterceptors.next();
 
-			if (! messageEnvelopeInterceptor.isEnabled()) {
+			if (messageEnvelopeInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled message envelope interceptor " + messageEnvelopeInterceptor.getClass().getSimpleName() + " (exception).");
 				continue;
@@ -151,7 +151,7 @@ public class InterceptorExecutor {
 
 			MessageInterceptor messageInterceptor = messageInterceptors.next();
 
-			if (! messageInterceptor.isEnabled()) {
+			if (messageInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor " + messageInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
@@ -191,7 +191,7 @@ public class InterceptorExecutor {
 
 			MessageInterceptor messageInterceptor = messageInterceptors.next();
 
-			if (! messageInterceptor.isEnabled()) {
+			if (messageInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled message interceptor " + messageInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
@@ -231,7 +231,7 @@ public class InterceptorExecutor {
 
 			OperationInterceptor operationInterceptor = operationInterceptors.next();
 
-			if (! operationInterceptor.isEnabled()) {
+			if (operationInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor " + operationInterceptor.getClass().getSimpleName() + " (before).");
 				continue;
@@ -271,7 +271,7 @@ public class InterceptorExecutor {
 
 			OperationInterceptor operationInterceptor = operationInterceptors.next();
 
-			if (! operationInterceptor.isEnabled()) {
+			if (operationInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled operation interceptor " + operationInterceptor.getClass().getSimpleName() + " (after).");
 				continue;
@@ -309,7 +309,7 @@ public class InterceptorExecutor {
 
 			TargetInterceptor targetInterceptor = targetInterceptors.next();
 
-			if (! targetInterceptor.isEnabled()) {
+			if (targetInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + ".");
 				continue;
@@ -348,7 +348,7 @@ public class InterceptorExecutor {
 
 			TargetInterceptor targetInterceptor = targetInterceptors.next();
 
-			if (! targetInterceptor.isEnabled()) {
+			if (targetInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + ".");
 				continue;
@@ -387,7 +387,7 @@ public class InterceptorExecutor {
 
 			MessageResultInterceptor resultInterceptor = resultInterceptors.next();
 
-			if (! resultInterceptor.isEnabled()) {
+			if (resultInterceptor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping disabled result interceptor " + resultInterceptor.getClass().getSimpleName() + " (finish).");
 				continue;
@@ -409,7 +409,7 @@ public class InterceptorExecutor {
 			}
 		}
 	}
-
+	
 	/*
 	 * Methods for finding interceptors
 	 */

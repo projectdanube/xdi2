@@ -57,7 +57,7 @@ public class ContributorExecutor {
 
 			// skip the contributor?
 
-			if (! contributor.isEnabled()) {
+			if (contributor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
 				continue;
@@ -147,7 +147,7 @@ public class ContributorExecutor {
 
 			// skip contributor?
 
-			if (! contributor.isEnabled()) {
+			if (contributor.skip()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
 				continue;

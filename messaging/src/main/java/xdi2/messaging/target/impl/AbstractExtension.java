@@ -11,12 +11,18 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	private int initPriority;
 	private int shutdownPriority;
 	private boolean enabled;
+	private boolean disabledForOperation;
+	private boolean disabledForMessage;
+	private boolean disabledForMessageEnvelope;
 
 	public AbstractExtension(int initPriority, int shutdownPriority) {
 
 		this.initPriority = initPriority;
 		this.shutdownPriority = shutdownPriority;
 		this.enabled = true;
+		this.disabledForOperation = false;
+		this.disabledForMessage = false;
+		this.disabledForMessageEnvelope = false;
 	}
 
 	public AbstractExtension() {
@@ -55,7 +61,18 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	 */
 
 	@Override
-	public boolean isEnabled() {
+	public boolean skip() {
+
+		if (! this.enabled) return true;
+		if (this.disabledForOperation) return true;
+		if (this.disabledForMessage) return true;
+		if (this.disabledForMessageEnvelope) return true;
+
+		return false;
+	}
+
+	@Override
+	public boolean getEnabled() {
 
 		return this.enabled;
 	}
@@ -64,5 +81,41 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	public void setEnabled(boolean enabled) {
 
 		this.enabled = enabled;
+	}
+
+	@Override
+	public boolean getDisabledForOperation() {
+
+		return this.disabledForOperation;
+	}
+
+	@Override
+	public void setDisabledForOperation(boolean disabledForOperation) {
+
+		this.disabledForOperation = disabledForOperation;
+	}
+
+	@Override
+	public boolean getDisabledForMessage() {
+
+		return this.disabledForMessage;
+	}
+
+	@Override
+	public void setDisabledForMessage(boolean disabledForMessage) {
+
+		this.disabledForMessage = disabledForMessage;
+	}
+
+	@Override
+	public boolean getDisabledForMessageEnvelope() {
+
+		return this.disabledForMessageEnvelope;
+	}
+
+	@Override
+	public void setDisabledForMessageEnvelope(boolean disabledForMessageEnvelope) {
+
+		this.disabledForMessageEnvelope = disabledForMessageEnvelope;
 	}
 }

@@ -243,34 +243,16 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
 
-			ToInterceptor toInterceptor = null;
-			Boolean toInterceptorEnabled = null;
-			RefInterceptor refInterceptor = null;
-			Boolean refInterceptorEnabled = null;
-			LinkContractInterceptor linkContractInterceptor = null;
-			Boolean linkContractInterceptorEnabled = null;
+			ToInterceptor toInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(ToInterceptor.class);
+			if (toInterceptor != null) toInterceptor.setDisabledForMessageEnvelope(true);
 
-			try {
+			RefInterceptor refInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
+			if (refInterceptor != null) refInterceptor.setDisabledForMessageEnvelope(true);
 
-				toInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(ToInterceptor.class);
-				toInterceptorEnabled = Boolean.valueOf(toInterceptor != null && toInterceptor.isEnabled());
-				if (toInterceptor != null) toInterceptor.setEnabled(false);
+			LinkContractInterceptor linkContractInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(true);
 
-				refInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
-				refInterceptorEnabled = Boolean.valueOf(refInterceptor != null && refInterceptor.isEnabled());
-				if (refInterceptor != null) refInterceptor.setEnabled(false);
-
-				linkContractInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-				linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
-				if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
-
-				graphMessagingTarget.execute(bootstrapMessageEnvelope, null, null);
-			} finally {
-
-				if (toInterceptor != null && toInterceptorEnabled != null) toInterceptor.setEnabled(toInterceptorEnabled.booleanValue());
-				if (refInterceptor != null && refInterceptorEnabled != null) refInterceptor.setEnabled(refInterceptorEnabled.booleanValue());
-				if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
-			}
+			graphMessagingTarget.execute(bootstrapMessageEnvelope, null, null);
 		}
 	}
 

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Prototype;
@@ -119,7 +120,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 	}
 
 	@Override
-	public Iterator<Contributor> iterator() {
+	public ReadOnlyIterator<Contributor> iterator() {
 
 		return new DescendingIterator<List<Contributor>, Contributor> (this.contributors.values().iterator()) {
 
@@ -142,6 +143,33 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		}
 
 		return buffer.toString();
+	}
+
+	public void enableAfterOperation() {
+
+		for (Contributor contributor : this.iterator()) {
+
+			contributor.setDisabledForOperation(false);
+		}
+	}
+
+	public void enableAfterMessage() {
+
+		for (Contributor contributor : this.iterator()) {
+
+			contributor.setDisabledForOperation(false);
+			contributor.setDisabledForMessage(false);
+		}
+	}
+
+	public void enableAfterMessageEnvelope() {
+
+		for (Contributor contributor : this.iterator()) {
+
+			contributor.setDisabledForOperation(false);
+			contributor.setDisabledForMessage(false);
+			contributor.setDisabledForMessageEnvelope(false);
+		}
 	}
 
 	/*

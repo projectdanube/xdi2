@@ -213,6 +213,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw (Xdi2MessagingException) ex;
 		} finally {
 
+			this.getInterceptors().enableAfterMessageEnvelope();
+			this.getContributors().enableAfterMessageEnvelope();
+
 			try {
 
 				executionContext.popMessageEnvelope();
@@ -306,6 +309,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
+			this.getInterceptors().enableAfterMessage();
+			this.getContributors().enableAfterMessage();
+
 			try {
 
 				executionContext.popMessage();
@@ -391,6 +397,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
+			this.getInterceptors().enableAfterOperation();
+			this.getContributors().enableAfterOperation();
+			
 			try {
 
 				executionContext.popOperation();

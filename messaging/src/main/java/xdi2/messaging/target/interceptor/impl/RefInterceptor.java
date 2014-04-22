@@ -420,8 +420,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// feedback
 
-		LinkContractInterceptor linkContractInterceptor = null;
-		Boolean linkContractInterceptorEnabled = null;
 		Map<String, Object> messageAttributes = null;
 		Map<String, Object> operationAttributes = null;
 
@@ -429,9 +427,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// before feedback: tweak the execution context and messaging target
 
-			linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
-			if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+			LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(true);
 
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
@@ -448,8 +445,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
-
-			if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
 
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
@@ -484,10 +479,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// feedback
 
-		RefInterceptor refInterceptor = null;
-		Boolean refInterceptorEnabled = null;
-		LinkContractInterceptor linkContractInterceptor = null; 
-		Boolean linkContractInterceptorEnabled = null;
 		Map<String, Object> messageAttributes = null;
 		Map<String, Object> operationAttributes = null;
 
@@ -495,13 +486,11 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// before feedback: tweak the execution context and messaging target
 
-			refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
-			refInterceptorEnabled = Boolean.valueOf(refInterceptor != null && refInterceptor.isEnabled());
-			if (refInterceptor != null) refInterceptor.setEnabled(false);
+			RefInterceptor refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
+			if (refInterceptor != null) refInterceptor.setDisabledForMessage(true);
 
-			linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			linkContractInterceptorEnabled = Boolean.valueOf(linkContractInterceptor != null && linkContractInterceptor.isEnabled());
-			if (linkContractInterceptor != null) linkContractInterceptor.setEnabled(false);
+			LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(true);
 
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
@@ -526,9 +515,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
-
-			if (refInterceptor != null && refInterceptorEnabled != null) refInterceptor.setEnabled(refInterceptorEnabled.booleanValue());
-			if (linkContractInterceptor != null && linkContractInterceptorEnabled != null) linkContractInterceptor.setEnabled(linkContractInterceptorEnabled.booleanValue());
 
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
