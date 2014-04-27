@@ -194,11 +194,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 					loggingTrustManager = new LoggingTrustManager();
 
-					XDI3Segment[] endpointUriTypes;
-
 					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
-					endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
-					for (int i=0; i<endpointUriTypesString.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
+					XDI3Segment[] endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
+					for (int i=0; i<endpointUriTypes.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
 
 					try {
 

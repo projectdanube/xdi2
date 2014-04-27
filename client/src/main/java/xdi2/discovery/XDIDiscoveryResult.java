@@ -2,7 +2,6 @@ package xdi2.discovery;
 
 import java.io.Serializable;
 import java.security.PublicKey;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,14 +78,9 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
-		// add <$xdi> endpoint uri
+		// find XDI endpoint uri
 
-		if (endpointUriTypes == null) endpointUriTypes = new XDI3Segment[0];
-
-		endpointUriTypes = Arrays.copyOf(endpointUriTypes, endpointUriTypes.length + 1);
-		endpointUriTypes[endpointUriTypes.length - 1] = XDIClientConstants.XRI_S_AS_XDI;
-
-		// find endpoint uris
+		endpointUriTypes = new XDI3Segment[] { XDIClientConstants.XRI_S_AS_XDI };
 
 		for (XDI3Segment endpointUriType : endpointUriTypes) {
 
