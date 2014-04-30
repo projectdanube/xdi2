@@ -79,13 +79,20 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean before(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
+		Long start = Long.valueOf(System.currentTimeMillis());
+		putStart(executionContext, start);
+
 		return false;
 	}
 
 	@Override
 	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
-		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, messageResult, executionContext, null));
+		Long start = getStart(executionContext);
+		long stop = System.currentTimeMillis();
+		long duration = start == null ? -1 : stop - start.longValue();
+
+		this.getLog().addFirst(new LogEntry(duration, request, response, messagingTarget, messageEnvelope, messageResult, executionContext, null));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
@@ -94,7 +101,11 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
 
-		this.getLog().addFirst(new LogEntry(request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex));
+		Long start = getStart(executionContext);
+		long stop = System.currentTimeMillis();
+		long duration = start == null ? -1 : stop - start.longValue();
+
+		this.getLog().addFirst(new LogEntry(duration, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 	}
 
@@ -357,12 +368,29 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	/*
+	 * ExecutionContext helper methods
+	 */
+
+	private static final String EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT = DebugHttpTransportInterceptor.class.getCanonicalName() + "#startperexecutioncontext";
+
+	public static Long getStart(ExecutionContext executionContext) {
+
+		return (Long) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT);
+	}
+
+	public static void putStart(ExecutionContext executionContext, Long start) {
+
+		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT, start);
+	}
+
+	/*
 	 * Helper classes
 	 */
 
 	public static class LogEntry {
 
 		private Date time;
+		private long duration;
 		private Request request;
 		private Response response;
 		private MessagingTarget messagingTarget;
@@ -371,9 +399,10 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+		public LogEntry(long duration, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
 
 			this.time = new Date();
+			this.duration = duration;
 			this.request = request;
 			this.response = response;
 			this.messagingTarget = messagingTarget;
@@ -391,6 +420,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		public void setTime(Date time) {
 
 			this.time = time;
+		}
+
+		public long getDuration() {
+
+			return this.duration;
+		}
+
+		public void setDuration(long duration) {
+
+			this.duration = duration;
 		}
 
 		public Request getRequest() {

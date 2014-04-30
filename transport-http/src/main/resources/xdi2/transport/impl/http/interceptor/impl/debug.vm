@@ -216,6 +216,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 <table class="pretty">
 	<tr>
 	<th>Time</th>
+	<th>Duration</th>
 	<th>Request</th>
 	<th>MessageEnvelope</th>
 	<th>MessageResult</th>
@@ -226,6 +227,9 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<tr>
     <td valign="top">
     	<b>$logentry.time</b>
+    </td>
+    <td valign="top">
+    	<b>$logentry.duration ms</b>
     </td>
     <td valign="top">
     	<b>$logentry.request.getRequestPath()</b>
