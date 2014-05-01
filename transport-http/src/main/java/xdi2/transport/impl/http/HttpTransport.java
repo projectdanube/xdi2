@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,18 +35,45 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	private static final Logger log = LoggerFactory.getLogger(HttpTransport.class);
 
-	private static final String[] HEADER_ALLOW = new String[] { "Allow", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS" };
-	private static final String[][] HEADERS_CORS = new String[][] {
-		new String[] { "Access-Control-Allow-Origin", "*" },
-		new String[] { "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept" },
-		new String[] { "Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS" }
-	};
+	private static final Map<String, String> DEFAULT_HEADERS;
+	private static final Map<String, String> DEFAULT_HEADERS_GET;
+	private static final Map<String, String> DEFAULT_HEADERS_POST;
+	private static final Map<String, String> DEFAULT_HEADERS_PUT;
+	private static final Map<String, String> DEFAULT_HEADERS_DELETE;
+	private static final Map<String, String> DEFAULT_HEADERS_OPTIONS;
+
+	static {
+
+		DEFAULT_HEADERS = new HashMap<String, String> ();
+		DEFAULT_HEADERS.put("Access-Control-Allow-Origin", "*");
+		DEFAULT_HEADERS.put("Access-Control-Allow-Credentials", "true");
+		DEFAULT_HEADERS.put("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Cache-Control, Expires, X-Cache, X-HTTP-Method-Override, Accept");
+		DEFAULT_HEADERS.put("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
+		DEFAULT_HEADERS_GET = new HashMap<String, String> ();
+		DEFAULT_HEADERS_POST = new HashMap<String, String> ();
+		DEFAULT_HEADERS_PUT = new HashMap<String, String> ();
+		DEFAULT_HEADERS_DELETE = new HashMap<String, String> ();
+		DEFAULT_HEADERS_OPTIONS = new HashMap<String, String> ();
+		DEFAULT_HEADERS_OPTIONS.put("Allow", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
+	}
 
 	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
+	private Map<String, String> headers;
+	private Map<String, String> headersGet;
+	private Map<String, String> headersPost;
+	private Map<String, String> headersPut;
+	private Map<String, String> headersDelete;
+	private Map<String, String> headersOptions;
 
 	public HttpTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.headers = DEFAULT_HEADERS;
+		this.headersGet = DEFAULT_HEADERS_GET;
+		this.headersPost = DEFAULT_HEADERS_POST;
+		this.headersPut = DEFAULT_HEADERS_PUT;
+		this.headersDelete = DEFAULT_HEADERS_DELETE;
+		this.headersOptions = DEFAULT_HEADERS_OPTIONS;
 	}
 
 	public HttpTransport() {
@@ -67,7 +96,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 	public void doGet(HttpRequest request, HttpResponse response) throws IOException {
 
 		if (log.isDebugEnabled()) log.debug("Incoming GET request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
-
+		
 		try {
 
 			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
@@ -146,10 +175,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			response.setStatus(HttpResponse.SC_OK);
-			response.setHeader(HEADER_ALLOW[0], HEADER_ALLOW[1]);
-			for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
-			response.setContentLength(0);
+			this.processOptionsRequest(request, response);
 		} catch (Exception ex) {
 
 			log.error("Unexpected exception: " + ex.getMessage(), ex);
@@ -196,7 +222,8 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// send out result
 
-		sendResult(messageResult, request, response);
+		this.sendStatusAndHeaders(request, response);
+		sendMessageResult(messageResult, request, response);
 	}
 
 	protected void processPostRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
@@ -235,7 +262,8 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// send out result
 
-		sendResult(messageResult, request, response);
+		this.sendStatusAndHeaders(request, response);
+		sendMessageResult(messageResult, request, response);
 	}
 
 	protected void processPutRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
@@ -274,7 +302,8 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// send out result
 
-		sendResult(messageResult, request, response);
+		this.sendStatusAndHeaders(request, response);
+		sendMessageResult(messageResult, request, response);
 	}
 
 	protected void processDeleteRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
@@ -313,7 +342,16 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// send out result
 
-		sendResult(messageResult, request, response);
+		this.sendStatusAndHeaders(request, response);
+		sendMessageResult(messageResult, request, response);
+	}
+
+	protected void processOptionsRequest(HttpRequest request, HttpResponse response) throws Xdi2TransportException, IOException {
+
+		// send out result
+
+		this.sendStatusAndHeaders(request, response);
+		response.setContentLength(0);
 	}
 
 	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDI3Segment operationXri) throws IOException {
@@ -412,7 +450,26 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 	 * Helper methods
 	 */
 
-	private static void sendResult(MessageResult messageResult, HttpRequest request, HttpResponse response) throws IOException {
+	private void sendStatusAndHeaders(HttpRequest request, HttpResponse response) {
+
+		response.setStatus(HttpResponse.SC_OK);
+
+		Map<String, String> headers = new HashMap<String, String> ();
+		headers.putAll(this.getHeaders());
+
+		if ("GET".equals(request.getMethod())) headers.putAll(this.getHeadersGet());
+		if ("POST".equals(request.getMethod())) headers.putAll(this.getHeadersPost());
+		if ("PUT".equals(request.getMethod())) headers.putAll(this.getHeadersPut());
+		if ("DELETE".equals(request.getMethod())) headers.putAll(this.getHeadersDelete());
+		if ("OPTIONS".equals(request.getMethod())) headers.putAll(this.getHeadersOptions());
+		
+		for (Map.Entry<String, String> header : headers.entrySet()) {
+			
+			response.setHeader(header.getKey(), header.getValue());
+		}
+	}
+
+	private static void sendMessageResult(MessageResult messageResult, HttpRequest request, HttpResponse response) throws IOException {
 
 		// find a suitable writer based on accept headers
 
@@ -433,8 +490,6 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		writer.write(messageResult.getGraph(), buffer);
 
-		response.setStatus(HttpResponse.SC_OK);
-		for (String[] HEADER_CORS : HEADERS_CORS) response.setHeader(HEADER_CORS[0], HEADER_CORS[1]);
 		response.setContentType(writer.getMimeType().toString());
 		response.setContentLength(buffer.size());
 
@@ -461,7 +516,8 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// send error result
 
-		sendResult(errorMessageResult, request, response);
+		this.sendStatusAndHeaders(request, response);
+		sendMessageResult(errorMessageResult, request, response);
 	}
 
 	/*
@@ -476,5 +532,64 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+	}
+
+	public Map<String, String> getHeaders() {
+
+		return this.headers;
+	}
+
+	public void setHeaders(Map<String, String> headers) {
+
+		this.headers = headers;
+	}
+
+	public Map<String, String> getHeadersGet() {
+		return headersGet;
+	}
+
+	public void setHeadersGet(Map<String, String> headersGet) {
+
+		this.headersGet = headersGet;
+	}
+
+	public Map<String, String> getHeadersPost() {
+
+		return this.headersPost;
+	}
+
+	public void setHeadersPost(Map<String, String> headersPost) {
+
+		this.headersPost = headersPost;
+	}
+
+	public Map<String, String> getHeadersPut() {
+
+		return this.headersPut;
+	}
+
+	public void setHeadersPut(Map<String, String> headersPut) {
+
+		this.headersPut = headersPut;
+	}
+
+	public Map<String, String> getHeadersDelete() {
+
+		return this.headersDelete;
+	}
+
+	public void setHeadersDelete(Map<String, String> headersDelete) {
+
+		this.headersDelete = headersDelete;
+	}
+
+	public Map<String, String> getHeadersOptions() {
+
+		return this.headersOptions;
+	}
+
+	public void setHeadersOptions(Map<String, String> headersOptions) {
+
+		this.headersOptions = headersOptions;
 	}
 }

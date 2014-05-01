@@ -13,17 +13,21 @@ import xdi2.transport.impl.http.impl.AbstractHttpRequest;
 public final class ServletHttpRequest extends AbstractHttpRequest implements HttpRequest {
 
 	private HttpServletRequest httpServletRequest;
+	private String method;
 	private String baseUri;
 	private String requestPath;
 
-	private ServletHttpRequest(HttpServletRequest httpServletRequest, String uri, String requestPath) { 
+	private ServletHttpRequest(HttpServletRequest httpServletRequest, String method, String uri, String requestPath) { 
 
+		this.method = method;
 		this.httpServletRequest = httpServletRequest;
 		this.baseUri = uri;
 		this.requestPath = requestPath;
 	}
 
 	public static ServletHttpRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
+
+		String method = httpServletRequest.getMethod();
 
 		String requestUri = httpServletRequest.getRequestURI();
 
@@ -47,12 +51,18 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
 
-		return new ServletHttpRequest(httpServletRequest, baseUri, requestPath);
+		return new ServletHttpRequest(httpServletRequest, method, baseUri, requestPath);
 	}
 
 	public HttpServletRequest getHttpServletRequest() {
 
 		return this.httpServletRequest;
+	}
+
+	@Override
+	public String getMethod() {
+
+		return this.method;
 	}
 
 	@Override
