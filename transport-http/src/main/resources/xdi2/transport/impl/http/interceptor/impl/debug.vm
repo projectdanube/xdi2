@@ -170,7 +170,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 			$contributor.class.simpleName<br>
 			<span class="light">
 			$contributorlist.key
-			SKIP? $interceptor.skip(null)
+			SKIP? $contributor.skip(null)
 			</span><br><hr>
 		#end
 	#end
@@ -226,7 +226,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 #foreach($logentry in $log)
 	<tr>
     <td valign="top">
-    	<b>$logentry.time</b>
+    	<b>$logentry.start</b>
     </td>
     <td valign="top">
     	<b>$logentry.duration ms</b>

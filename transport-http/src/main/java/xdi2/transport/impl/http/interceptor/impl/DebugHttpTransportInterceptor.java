@@ -79,7 +79,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean before(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
-		Long start = Long.valueOf(System.currentTimeMillis());
+		Date start = new Date();
 		putStart(executionContext, start);
 
 		return false;
@@ -88,11 +88,11 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
-		Long start = getStart(executionContext);
+		Date start = getStart(executionContext);
 		long stop = System.currentTimeMillis();
-		long duration = start == null ? -1 : stop - start.longValue();
+		long duration = start == null ? -1 : stop - start.getTime();
 
-		this.getLog().addFirst(new LogEntry(duration, request, response, messagingTarget, messageEnvelope, messageResult, executionContext, null));
+		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, messageResult, executionContext, null));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
@@ -101,11 +101,11 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	@Override
 	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
 
-		Long start = getStart(executionContext);
+		Date start = getStart(executionContext);
 		long stop = System.currentTimeMillis();
-		long duration = start == null ? -1 : stop - start.longValue();
+		long duration = start == null ? -1 : stop - start.getTime();
 
-		this.getLog().addFirst(new LogEntry(duration, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex));
+		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 	}
 
@@ -373,12 +373,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 	private static final String EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT = DebugHttpTransportInterceptor.class.getCanonicalName() + "#startperexecutioncontext";
 
-	public static Long getStart(ExecutionContext executionContext) {
+	public static Date getStart(ExecutionContext executionContext) {
 
-		return (Long) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT);
+		return (Date) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT);
 	}
 
-	public static void putStart(ExecutionContext executionContext, Long start) {
+	public static void putStart(ExecutionContext executionContext, Date start) {
 
 		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_START_PER_EXECUTIONCONTEXT, start);
 	}
@@ -389,7 +389,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 	public static class LogEntry {
 
-		private Date time;
+		private Date start;
 		private long duration;
 		private Request request;
 		private Response response;
@@ -399,9 +399,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(long duration, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+		public LogEntry(Date start, long duration, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
 
-			this.time = new Date();
+			this.start = start;
 			this.duration = duration;
 			this.request = request;
 			this.response = response;
@@ -412,14 +412,14 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			this.ex = ex;
 		}
 
-		public Date getTime() {
+		public Date getStart() {
 
-			return this.time;
+			return this.start;
 		}
 
-		public void setTime(Date time) {
+		public void setStart(Date start) {
 
-			this.time = time;
+			this.start = start;
 		}
 
 		public long getDuration() {
