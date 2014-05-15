@@ -56,9 +56,11 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 			return false;
 		}
 
-		if (! KEY_ALGORITHM_RSA.equalsIgnoreCase(getKeyAlgorithm(xdiAttribute)) && ! KEY_ALGORITHM_DSA.equalsIgnoreCase(getKeyAlgorithm(xdiAttribute))) return false;
+		String keyAlgorithm = Signatures.getKeyAlgorithm(xdiAttribute);
+		String digestAlgorithm = Signatures.getDigestAlgorithm(xdiAttribute);
 
-		if (! DIGEST_ALGORITHM_SHA.equalsIgnoreCase(getDigestAlgorithm(xdiAttribute))) return false;
+		if (! KEY_ALGORITHM_RSA.equalsIgnoreCase(keyAlgorithm) && ! KEY_ALGORITHM_DSA.equalsIgnoreCase(keyAlgorithm)) return false;
+		if (! DIGEST_ALGORITHM_SHA.equalsIgnoreCase(digestAlgorithm)) return false;
 
 		return true;
 	}
@@ -99,7 +101,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		try {
 
-			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
+			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -134,7 +136,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		try {
 
-			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
+			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);

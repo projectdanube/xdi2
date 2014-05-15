@@ -1,14 +1,9 @@
 package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 
-import java.io.UnsupportedEncodingException;
-import java.util.UUID;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.messaging.Message;
 
 /**
@@ -17,8 +12,6 @@ import xdi2.messaging.Message;
  * for producing the digest.
  */
 public abstract class DigestSecretTokenAuthenticator extends AbstractSecretTokenAuthenticator implements SecretTokenAuthenticator {
-
-	public static String PREFIX_XDI2_DIGEST = "xdi2-digest";
 
 	private static Logger log = LoggerFactory.getLogger(DigestSecretTokenAuthenticator.class.getName());
 
@@ -59,9 +52,9 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 			return false;
 		}
 
-		if (! PREFIX_XDI2_DIGEST.equals(parts[0])) {
+		if (! SecretTokens.PREFIX_XDI2_DIGEST.equals(parts[0])) {
 
-			if (log.isWarnEnabled()) log.warn("Invalid digest format (prefix '" + parts[0] + "' doesn't match expected '" + PREFIX_XDI2_DIGEST + "')");
+			if (log.isWarnEnabled()) log.warn("Invalid digest format (prefix '" + parts[0] + "' doesn't match expected '" + SecretTokens.PREFIX_XDI2_DIGEST + "')");
 
 			return false;
 		}
@@ -71,7 +64,7 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 
 		// authenticate
 
-		boolean authenticated = digestSecretToken.equals(digestSecretToken(secretToken, this.getGlobalSalt(), localSalt));
+		boolean authenticated = digestSecretToken.equals(SecretTokens.digestSecretToken(secretToken, this.getGlobalSalt(), localSalt));
 
 		return authenticated;
 	}
@@ -90,57 +83,5 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 	public void setGlobalSalt(String globalSalt) {
 
 		this.globalSalt = globalSalt;
-	}
-
-	/*
-	 * Helper methods
-	 */
-
-	public static String localSaltAndDigestSecretToken(String secretToken, String globalSalt) {
-
-		String localSalt = randomSalt();
-
-		return localSaltAndDigestSecretToken(secretToken, globalSalt, localSalt);
-	}
-
-	public static String localSaltAndDigestSecretToken(String secretToken, String globalSalt, String localSalt) {
-
-		String digestSecretToken = digestSecretToken(secretToken, globalSalt, localSalt);
-
-		return PREFIX_XDI2_DIGEST + ":" + localSalt + ":" + digestSecretToken;
-	}
-
-	public static String digestSecretToken(String secretToken, String globalSalt, String localSalt) {
-
-		if (! isValidSalt(globalSalt)) throw new Xdi2RuntimeException("Invalid global salt.");
-		if (! isValidSalt(localSalt)) throw new Xdi2RuntimeException("Invalid local salt.");
-
-		try {
-
-			return DigestUtils.sha512Hex(globalSalt + ":" + localSalt + ":" + DigestUtils.sha512Hex(globalSalt + ":" + Base64.encodeBase64String(secretToken.getBytes("UTF-8"))));
-		} catch (UnsupportedEncodingException ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
-	}
-
-	public static String randomSalt() {
-
-		return UUID.randomUUID().toString();
-	}
-
-	public static boolean isValidSalt(String salt) {
-
-		try {
-
-			UUID.fromString(salt);
-		} catch (IllegalArgumentException ex) {
-
-			return false;
-		}
-
-		if (salt.length() != 36) return false;
-
-		return true;
 	}
 }

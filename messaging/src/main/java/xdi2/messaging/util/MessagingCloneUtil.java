@@ -14,7 +14,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.Operation;
-import xdi2.messaging.context.ExecutionContext;
 
 /**
  * Various utility methods for cloning messaging components.

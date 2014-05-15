@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttribute;
@@ -54,7 +54,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 	public GenerateKeyContributor() {
 
-		this.targetGraph = null;
+		this(null);
 	}
 
 	/*
@@ -112,10 +112,10 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 		String keyAlgorithm;
 		Integer keyLength;
 
-		keyAlgorithm = getKeyAlgorithm(dataTypeXri);
+		keyAlgorithm = Keys.getKeyAlgorithm(dataTypeXri);
 		if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeXri, null, executionContext);
 
-		keyLength = getKeyLength(dataTypeXri);
+		keyLength = Keys.getKeyLength(dataTypeXri);
 		if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeXri, null, executionContext);
 
 		if (log.isDebugEnabled()) log.debug("keyAlgorithm: " + keyAlgorithm + ", keyLength: " + keyLength);
@@ -179,7 +179,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 		// done
 
-		return ContributorResult.DEFAULT;
+		return ContributorResult.SKIP_MESSAGING_TARGET;
 	}
 
 	/*
@@ -194,33 +194,5 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	public void setTargetGraph(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
-	}
-
-	/*
-	 * Helper methods
-	 */
-
-	public static String getKeyAlgorithm(XDI3Segment dataType) {
-
-		XDI3SubSegment keyAlgorithmXri = dataType.getNumSubSegments() > 0 ? dataType.getSubSegment(0) : null;
-		if (keyAlgorithmXri == null) return null;
-
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
-		if (keyAlgorithmXri.hasXRef()) return null;
-		if (! keyAlgorithmXri.hasLiteral()) return null;
-
-		return keyAlgorithmXri.getLiteral();
-	}
-
-	public static Integer getKeyLength(XDI3Segment dataType) {
-
-		XDI3SubSegment keyLengthXri = dataType.getNumSubSegments() > 1 ? dataType.getSubSegment(1) : null;
-		if (keyLengthXri == null) return null;
-
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
-		if (keyLengthXri.hasXRef()) return null;
-		if (! keyLengthXri.hasLiteral()) return null;
-
-		return Integer.valueOf(keyLengthXri.getLiteral());
 	}
 }

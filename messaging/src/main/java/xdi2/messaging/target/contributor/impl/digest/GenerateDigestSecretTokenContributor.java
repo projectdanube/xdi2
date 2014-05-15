@@ -7,6 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.DoOperation;
@@ -19,7 +20,6 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
 
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
@@ -42,8 +42,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 	public GenerateDigestSecretTokenContributor() {
 
-		this.globalSalt = null;
-		this.targetGraph = null;
+		this(null, null);
 	}
 
 	/*
@@ -102,13 +101,13 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		String secretToken = (String) literalData;
 
-		// generate digest
+		// generate local salt and digest secret token
 
 		String localSaltAndDigestSecretToken;
 
 		try {
 
-			localSaltAndDigestSecretToken = DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(secretToken, this.getGlobalSalt());
+			localSaltAndDigestSecretToken = SecretTokens.localSaltAndDigestSecretToken(secretToken, this.getGlobalSalt());
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Problem while creating digest secret token: " + ex.getMessage(), ex, executionContext);
@@ -125,7 +124,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		// done
 
-		return new ContributorResult(false, false, true);
+		return ContributorResult.SKIP_MESSAGING_TARGET;
 	}
 
 	/*

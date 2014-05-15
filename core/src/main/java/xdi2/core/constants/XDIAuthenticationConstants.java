@@ -26,6 +26,7 @@ public final class XDIAuthenticationConstants {
 
 	public static final XDI3Segment XRI_S_PUBLIC_KEY = XDI3Segment.create("<$public><$key>");
 	public static final XDI3Segment XRI_S_PRIVATE_KEY = XDI3Segment.create("<$private><$key>");
+	public static final XDI3Segment XRI_S_SECRET_KEY = XDI3Segment.create("<$secret><$key>");
 
 	public static final XDI3Segment XRI_S_MSG_SIG_KEYPAIR = XDI3Segment.create("$msg$sig$keypair");
 	public static final XDI3Segment XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY = XDI3Util.concatXris(XRI_S_MSG_SIG_KEYPAIR, XRI_S_PUBLIC_KEY);

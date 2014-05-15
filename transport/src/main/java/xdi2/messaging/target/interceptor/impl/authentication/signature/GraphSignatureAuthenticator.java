@@ -1,22 +1,15 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
 import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
 import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.keys.Keys;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
-import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -59,40 +52,30 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 	@Override
 	public PublicKey getPublicKey(Message message) {
 
+		// sender
+
 		XDI3Segment senderXri = message.getSenderXri();
 		if (senderXri == null) return null;
 
-		// sender peer root
+		// sender entity
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).findPeerRoot(senderXri, false);
-		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
+		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderXri, false);
+		senderXdiEntity = senderXdiEntity == null ? null : senderXdiEntity.dereference();
 
-		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
+		if (log.isDebugEnabled()) log.debug("Sender entity: " + senderXdiEntity);
 
-		// look for public key in the graph
+		if (senderXdiEntity == null) return null;
 
-		XdiAttribute signaturePublicKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY, true));
-		signaturePublicKeyXdiAttribute = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.dereference();
-
-		XdiValue signaturePublicKeyXdiValue = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.getXdiValue(false);
-		signaturePublicKeyXdiValue = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.dereference();
-		
-		Literal publicKeyLiteral = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.getContextNode().getLiteral();
-
-		String publicKeyString = publicKeyLiteral == null ? null : publicKeyLiteral.getLiteralDataString();
-		if (publicKeyString == null) return null;
+		// find signature public key
 
 		PublicKey publicKey;
 
 		try {
 
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString));
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-			publicKey = keyFactory.generatePublic(keySpec);
+			publicKey = Keys.getSignaturePublicKey(senderXdiEntity);
 		} catch (GeneralSecurityException ex) {
 
-			if (log.isWarnEnabled()) log.warn("Invalid RSA public key " + publicKeyString + ": " + ex.getMessage(), ex);
+			if (log.isWarnEnabled()) log.warn("Invalid signature public key: " + ex.getMessage(), ex);
 
 			return null;
 		}
@@ -107,12 +90,12 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 	 */
 
 	public Graph getPublicKeyGraph() {
-	
+
 		return this.publicKeyGraph;
 	}
 
 	public void setPublicKeyGraph(Graph publicKeyGraph) {
-	
+
 		this.publicKeyGraph = publicKeyGraph;
 	}
 }
