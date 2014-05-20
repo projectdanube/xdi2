@@ -47,15 +47,18 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
+	private XDI3Segment defaultLinkContractXri;
 
 	public LinkContractInterceptor(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
+		this.defaultLinkContractXri = null;
 	}
 
 	public LinkContractInterceptor() {
 
 		this.linkContractsGraph = null;
+		this.defaultLinkContractXri = null;
 	}
 
 	/*
@@ -72,6 +75,10 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// set the graph
 
 		interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
+
+		// set the default link contract XRI
+
+		interceptor.setDefaultLinkContractXri(this.getDefaultLinkContractXri());
 
 		// done
 
@@ -101,6 +108,9 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// find the XDI link contract referenced by the message
 
 		XDI3Segment linkContractXri = message.getLinkContractXri();
+
+		if (linkContractXri == null) linkContractXri = this.getDefaultLinkContractXri();
+
 		if (linkContractXri == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract specified by message.");
@@ -312,6 +322,16 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	public void setLinkContractsGraph(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
+	}
+
+	public XDI3Segment getDefaultLinkContractXri() {
+
+		return this.defaultLinkContractXri;
+	}
+
+	public void setDefaultLinkContractXri(XDI3Segment defaultLinkContractXri) {
+
+		this.defaultLinkContractXri = defaultLinkContractXri;
 	}
 
 	/*
