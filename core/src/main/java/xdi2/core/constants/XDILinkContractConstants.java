@@ -20,16 +20,10 @@ public final class XDILinkContractConstants {
 
 	public static final XDI3Segment XRI_S_PUBLIC = XDI3Segment.create("$public");
 
-	public static final XDI3Segment XRI_S_ANON = XDI3Segment.create("$anon");
-
-	public static final XDI3Segment XRI_S_TO = XDI3Segment.create("$to");
 	public static final XDI3Segment XRI_S_TO_VARIABLE = XDI3Segment.create("{$to}");
-	public static final XDI3Segment XRI_S_FROM = XDI3Segment.create("$from");
 	public static final XDI3Segment XRI_S_FROM_VARIABLE = XDI3Segment.create("{$from}");
 
-	public static final XDI3SubSegment XRI_SS_TO = XDI3SubSegment.create("$to");
 	public static final XDI3SubSegment XRI_SS_TO_VARIABLE = XDI3SubSegment.create("{$to}");
-	public static final XDI3SubSegment XRI_SS_FROM = XDI3SubSegment.create("$from");
 	public static final XDI3SubSegment XRI_SS_FROM_VARIABLE = XDI3SubSegment.create("{$from}");
 
 	public static final XDI3Segment XRI_S_ALL = XDI3Segment.create("$all");
