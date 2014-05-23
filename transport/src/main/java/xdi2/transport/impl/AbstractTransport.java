@@ -193,11 +193,6 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		return new SimpleDateFormat().format(this.getCurrent());
 	}
 
-	public long getCurrentAsSeconds() {
-
-		return (new Date().getTime() - this.getCurrent().getTime()) / 1000;
-	}
-
 	public Date getStartup() {
 
 		return this.startup;
