@@ -183,6 +183,21 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 	protected abstract void handleException(REQUEST request, RESPONSE response, ErrorMessageResult errorMessageResult) throws IOException;
 
+	public Date getCurrent() {
+
+		return new Date();
+	}
+
+	public String getCurrentAsString() {
+
+		return new SimpleDateFormat().format(this.getCurrent());
+	}
+
+	public long getCurrentAsSeconds() {
+
+		return (new Date().getTime() - this.getCurrent().getTime()) / 1000;
+	}
+
 	public Date getStartup() {
 
 		return this.startup;
