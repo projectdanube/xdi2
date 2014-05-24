@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.XDI3Segment;
@@ -97,6 +98,12 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public ContextNode getContextNode() {
 
 		return this.contextNode;
+	}
+
+	@Override
+	public Graph getGraph() {
+
+		return this.contextNode.getGraph();
 	}
 
 	@Override

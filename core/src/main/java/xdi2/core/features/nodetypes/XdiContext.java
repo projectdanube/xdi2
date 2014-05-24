@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Comparable<XdiContext<?>> {
 
 	public ContextNode getContextNode();
+	public Graph getGraph();
 	public XDI3SubSegment getArcXri();
 	public XDI3Segment getXri();
 	public XDI3SubSegment getBaseArcXri();
