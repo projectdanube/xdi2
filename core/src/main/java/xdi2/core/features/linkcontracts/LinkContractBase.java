@@ -102,6 +102,8 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
+		// prepare the target address
+
 		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
 		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
 
@@ -134,13 +136,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
-
-		// find the inner root
+		// prepare the target statement
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
 
 		// set the permission statement
 
@@ -170,13 +171,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+		// prepare the target statement
 
-		// find the inner root
-
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
 
 		// delete the permission statement
 
@@ -207,13 +207,14 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+		// prepare the target statement
 
-		// find the inner root
-
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return false;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
+
+		// check if the target statement exists
 
 		return this.getContextNode().getGraph().containsStatement(targetStatement);
 	}

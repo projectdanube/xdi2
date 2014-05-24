@@ -157,15 +157,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + xri + ")");
 
-		return XDI3Util.concatXris(xri, this.getContextNode().getXri());
-	}
-
-	@Override
-	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri) {
-
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + statementXri + ")");
-
-		return StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
+		return XDI3Util.concatXris(this.getContextNode().getXri(), xri);
 	}
 
 	@Override
@@ -176,37 +168,17 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		return StatementUtil.removeStartXriStatement(statementXri, this.getContextNode().getXri(), true);
 	}
 
+	@Override
+	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri) {
+
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + statementXri + ")");
+
+		return StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
+	}
+
 	/*
 	 * Helper classes
 	 */
-
-	public class MappingAbsoluteToRelativeStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
-
-		public MappingAbsoluteToRelativeStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
-
-			super(iterator);
-		}
-
-		@Override
-		public XDI3Statement map(XDI3Statement statementXri) {
-
-			return XdiAbstractRoot.this.absoluteToRelativeStatementXri(statementXri);
-		}
-	}
-
-	public class MappingRelativeToAbsoluteStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
-
-		public MappingRelativeToAbsoluteStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
-
-			super(iterator);
-		}
-
-		@Override
-		public XDI3Statement map(XDI3Statement statementXri) {
-
-			return XdiAbstractRoot.this.relativeToAbsoluteStatementXri(statementXri);
-		}
-	}
 
 	public class MappingAbsoluteToRelativeXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
 
@@ -233,6 +205,34 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		public XDI3Segment map(XDI3Segment xri) {
 
 			return XdiAbstractRoot.this.relativeToAbsoluteXri(xri);
+		}
+	}
+
+	public class MappingAbsoluteToRelativeStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
+
+		public MappingAbsoluteToRelativeStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
+
+			return XdiAbstractRoot.this.absoluteToRelativeStatementXri(statementXri);
+		}
+	}
+
+	public class MappingRelativeToAbsoluteStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
+
+		public MappingRelativeToAbsoluteStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
+
+			return XdiAbstractRoot.this.relativeToAbsoluteStatementXri(statementXri);
 		}
 	}
 

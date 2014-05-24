@@ -1,7 +1,6 @@
 package xdi2.core.features.linkcontracts;
 
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityMember;
@@ -68,7 +67,7 @@ public class PublicLinkContract extends GenericLinkContract {
 
 	public static XDI3Segment createPublicLinkContractXri(XDI3Segment ownerXri) {
 
-		return GenericLinkContract.createGenericLinkContractXri(ownerXri, XDIAuthenticationConstants.XRI_S_ANONYMOUS, XDILinkContractConstants.XRI_S_PUBLIC);
+		return GenericLinkContract.createGenericLinkContractXri(ownerXri, XDILinkContractConstants.XRI_S_PUBLIC, null);
 	}
 
 	/**
@@ -80,7 +79,7 @@ public class PublicLinkContract extends GenericLinkContract {
 		XDI3Segment ownerXri = GraphUtil.getOwnerXri(graph);
 		if (ownerXri == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, XDIAuthenticationConstants.XRI_S_ANONYMOUS, XDILinkContractConstants.XRI_S_PUBLIC, true);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, XDILinkContractConstants.XRI_S_PUBLIC, null, true);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());
