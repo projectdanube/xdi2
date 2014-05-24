@@ -1,10 +1,7 @@
 package xdi2.core.features.nodetypes;
 
-import xdi2.core.Statement;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public interface XdiRoot extends XdiContext<XdiRoot> {
 
@@ -34,7 +31,7 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @return The XDI inner root.
 	 */
 	public XdiInnerRoot findInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create);
-	
+
 	/**
 	 * Finds and returns an XDI root under this XDI root.
 	 * @param xri The XRI contained in the XDI root.
@@ -43,45 +40,15 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 */
 	public XdiRoot findRoot(XDI3Segment xri, boolean create);
 
-	/**
-	 * Finds and returns an XDI root under this XDI root.
-	 * @param arcXri The arc XRI whose XDI root to find.
-	 * @param create Whether the XDI root should be created, if it does not exist.
-	 * @return The XDI root.
-	 */
-	public XdiRoot findRoot(XDI3SubSegment arcXri, boolean create);
-
 	/*
-	 * Statements relative to this root
+	 * XRIs and statements relative to this root
 	 */
 
-	/**
-	 * Given an XRI, returns the part of it that is relative to this XDI root.
-	 * This returns null if the XRI is not contained in the XDI root.
-	 * @param xri The XRI.
-	 * @return The relative part of the XRI.
-	 */
-	public XDI3Segment getRelativePart(XDI3Segment xri);
+	public XDI3Segment absoluteToRelativeXri(XDI3Segment xri);
 
-	/**
-	 * A simple way to set a relative statement in this XDI root.
-	 */
-	public Statement setRelativeStatement(XDI3Statement statementXri);
+	public XDI3Segment relativeToAbsoluteXri(XDI3Segment xri);
 
-	/**
-	 * A simple way to find a relative statement in this XDI root.
-	 */
-	public Statement getRelativeStatement(XDI3Statement statementXri);
+	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement statementXri);
 
-	/**
-	 * A simple way to check if a relative statement exists in this XDI root.
-	 */
-	public boolean containsRelativeStatement(XDI3Statement statementXri);
-
-	/**
-	 * Returns the relative statements under this XDI root.
-	 * @param ignoreImplied Whether to ignore implied statements.
-	 * @return The relative statements.
-	 */
-	public ReadOnlyIterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied);
+	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri);
 }

@@ -1,15 +1,18 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.MappingStatementXriIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -158,13 +161,16 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statements of the operation.
 	 * @return The target statements of the operation.
 	 */
-	public ReadOnlyIterator<XDI3Statement> getTargetStatements() {
+	public Iterator<XDI3Statement> getTargetStatements() {
 
 		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
 		if (targetInnerRoot != null) {
 
-			return targetInnerRoot.getRelativeStatements(true);
+			return targetInnerRoot.new MappingAbsoluteToRelativeStatementXriIterator(
+					new MappingStatementXriIterator(
+					new SelectingNotImpliedStatementIterator<Statement> (
+							targetInnerRoot.getContextNode().getAllStatements())));
 		} else {
 
 			return null;
