@@ -1,5 +1,8 @@
 package xdi2.core.features.nodetypes;
 
+import java.util.Iterator;
+
+import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -51,4 +54,78 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement statementXri);
 
 	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri);
+
+	/*
+	 * Helper classes
+	 */
+
+	public static class MappingAbsoluteToRelativeXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
+
+		private XdiRoot xdiRoot;
+		
+		public MappingAbsoluteToRelativeXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Segment> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Segment map(XDI3Segment xri) {
+
+			return this.xdiRoot.absoluteToRelativeXri(xri);
+		}
+	}
+
+	public static class MappingRelativeToAbsoluteXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
+
+		private XdiRoot xdiRoot;
+
+		public MappingRelativeToAbsoluteXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Segment> iterator) {
+
+			super(iterator);
+			
+			this.xdiRoot = xdiRoot;
+		}
+
+		@Override
+		public XDI3Segment map(XDI3Segment xri) {
+
+			return this.xdiRoot.relativeToAbsoluteXri(xri);
+		}
+	}
+
+	public static class MappingAbsoluteToRelativeStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
+
+		private XdiRoot xdiRoot;
+
+		public MappingAbsoluteToRelativeStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Statement> iterator) {
+
+			super(iterator);
+			
+			this.xdiRoot = xdiRoot;
+		}
+
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
+
+			return this.xdiRoot.absoluteToRelativeStatementXri(statementXri);
+		}
+	}
+
+	public static class MappingRelativeToAbsoluteStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
+
+		private XdiRoot xdiRoot;
+
+		public MappingRelativeToAbsoluteStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Statement> iterator) {
+
+			super(iterator);
+			
+			this.xdiRoot = xdiRoot;
+		}
+
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
+
+			return this.xdiRoot.relativeToAbsoluteStatementXri(statementXri);
+		}
+	}
 }

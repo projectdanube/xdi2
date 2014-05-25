@@ -10,6 +10,7 @@ import xdi2.core.Statement;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.util.iterators.MappingStatementXriIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
@@ -167,10 +168,11 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 		if (targetInnerRoot != null) {
 
-			return targetInnerRoot.new MappingAbsoluteToRelativeStatementXriIterator(
+			return new MappingAbsoluteToRelativeStatementXriIterator(
+					targetInnerRoot,
 					new MappingStatementXriIterator(
-					new SelectingNotImpliedStatementIterator<Statement> (
-							targetInnerRoot.getContextNode().getAllStatements())));
+							new SelectingNotImpliedStatementIterator<Statement> (
+									targetInnerRoot.getContextNode().getAllStatements())));
 		} else {
 
 			return null;
