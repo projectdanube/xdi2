@@ -62,10 +62,12 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	public static class MappingAbsoluteToRelativeXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
 
 		private XdiRoot xdiRoot;
-		
+
 		public MappingAbsoluteToRelativeXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Segment> iterator) {
 
 			super(iterator);
+
+			this.xdiRoot = xdiRoot;
 		}
 
 		@Override
@@ -82,7 +84,7 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		public MappingRelativeToAbsoluteXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Segment> iterator) {
 
 			super(iterator);
-			
+
 			this.xdiRoot = xdiRoot;
 		}
 
@@ -100,7 +102,7 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		public MappingAbsoluteToRelativeStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Statement> iterator) {
 
 			super(iterator);
-			
+
 			this.xdiRoot = xdiRoot;
 		}
 
@@ -118,7 +120,7 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		public MappingRelativeToAbsoluteStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDI3Statement> iterator) {
 
 			super(iterator);
-			
+
 			this.xdiRoot = xdiRoot;
 		}
 
