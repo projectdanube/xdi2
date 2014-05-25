@@ -105,6 +105,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		// prepare the target address
 
 		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+
 		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
 
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
