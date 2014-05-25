@@ -369,7 +369,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		for (XDI3Segment targetAddress : positiveIterator) {
 
-			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
+			if (XDI3Util.startsWith(contextNodeXri, targetAddress, false, true) != null) {
 
 				int positiveMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
 				if (positiveMatch > longestPositivePermission) longestPositivePermission = positiveMatch;
@@ -389,7 +389,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		for (XDI3Segment targetAddress : negativeIterator) {
 
-			if (XDI3Util.startsWith(contextNodeXri, targetAddress) != null) {
+			if (XDI3Util.startsWith(contextNodeXri, targetAddress, false, true) != null) {
 
 				int negativeMatch = targetAddress.equals(XDIConstants.XRI_S_ROOT) ? 0 : targetAddress.getNumSubSegments();
 				if (negativeMatch > longestNegativePermission) longestNegativePermission = negativeMatch;
