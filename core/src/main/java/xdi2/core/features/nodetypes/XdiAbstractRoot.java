@@ -142,35 +142,43 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XDI3Segment absoluteToRelativeXri(XDI3Segment xri) {
+	public XDI3Segment absoluteToRelativeXri(XDI3Segment absoluteXri) {
 
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeXri(" + xri + ")");
+		XDI3Segment relativeXri = XDI3Util.removeStartXri(absoluteXri, this.getContextNode().getXri());
 
-		return XDI3Util.removeStartXri(xri, this.getContextNode().getXri());
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeXri(" + absoluteXri + " --> " + relativeXri + ")");
+
+		return relativeXri;
 	}
 
 	@Override
-	public XDI3Segment relativeToAbsoluteXri(XDI3Segment xri) {
+	public XDI3Segment relativeToAbsoluteXri(XDI3Segment relativeXri) {
 
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + xri + ")");
+		XDI3Segment absoluteXri = XDI3Util.concatXris(this.getContextNode().getXri(), relativeXri);
 
-		return XDI3Util.concatXris(this.getContextNode().getXri(), xri);
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + relativeXri + " --> " + absoluteXri + ")");
+
+		return absoluteXri;
 	}
 
 	@Override
-	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement statementXri) {
+	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement absoluteStatementXri) {
 
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementXri(" + statementXri + ")");
+		XDI3Statement relativeStatementXri = StatementUtil.removeStartXriStatement(absoluteStatementXri, this.getContextNode().getXri(), true);
 
-		return StatementUtil.removeStartXriStatement(statementXri, this.getContextNode().getXri(), true);
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementXri(" + absoluteStatementXri + " --> " + relativeStatementXri + ")");
+
+		return relativeStatementXri;
 	}
 
 	@Override
-	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri) {
+	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement relativeStatementXri) {
 
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + statementXri + ")");
+		XDI3Statement absoluteStatementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), relativeStatementXri.fromInnerRootNotation(true), true);
 
-		return StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + relativeStatementXri + " --> " + absoluteStatementXri + ")");
+
+		return absoluteStatementXri;
 	}
 
 	/*
