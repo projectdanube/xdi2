@@ -1,7 +1,7 @@
-([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)/$ref/
-/$is$ref/([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$to[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$from$do/$all/
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$to[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$from$do$if$and/$true/({$from}/$is/[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$to[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$from$do$if$and/$true/({$msg}$secret<$token>&/$equals/$secret<$token>&)
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24<#email>&/&/"markus.sabadello@gmail.com"
+([=]!:uuid:1111)/$ref/
+/$is$ref/([=]!:uuid:1111)
+[=]!:uuid:1111/[=]!:uuid:1111/($do/$all/)
+[=]!:uuid:1111/[=]!:uuid:1111/($do$if$and/$true/({$from}/$is/[=]!:uuid:1111))
+[=]!:uuid:1111/[=]!:uuid:1111/($do$if$and/$true/({$msg}$secret<$token>&/$equals/$secret<$token>&))
+[=]!:uuid:1111<#email>&/&/"markus.sabadello@gmail.com"
 $secret<$token>&/&/"s3cr3t"
