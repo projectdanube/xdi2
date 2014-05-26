@@ -11,6 +11,7 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
@@ -101,6 +102,10 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+
+		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
+
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
 
 		if (this.getContextNode().containsRelation(XDILinkContractConstants.XRI_S_ALL, targetAddress)) return;
@@ -130,6 +135,9 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+
 		// find the inner root
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
@@ -137,7 +145,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		// set the permission statement
 
-		xdiInnerRoot.setRelativeStatement(targetStatement);
+		this.getContextNode().getGraph().setStatement(targetStatement);
 	}
 
 	public void setNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
@@ -163,6 +171,9 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+
 		// find the inner root
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
@@ -170,7 +181,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		// delete the permission statement
 
-		Statement statement = xdiInnerRoot.getRelativeStatement(targetStatement);
+		Statement statement = this.getContextNode().getGraph().getStatement(targetStatement);
 		if (statement == null) return;
 
 		statement.delete();
@@ -197,12 +208,15 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+
 		// find the inner root
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return false;
 
-		return xdiInnerRoot.containsRelativeStatement(targetStatement);
+		return this.getContextNode().getGraph().containsStatement(targetStatement);
 	}
 
 	public boolean hasNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {

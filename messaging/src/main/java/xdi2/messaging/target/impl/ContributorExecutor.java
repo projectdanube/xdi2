@@ -20,8 +20,9 @@ import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
-import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.contributor.ContributorMap.ContributorFound;
+import xdi2.messaging.target.contributor.ContributorMount;
+import xdi2.messaging.target.contributor.ContributorResult;
 
 public class ContributorExecutor {
 
@@ -54,6 +55,16 @@ public class ContributorExecutor {
 
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
+
+			// check mount
+
+			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
+
+			if (! contributorMount.address()) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like address) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
+				continue;
+			}
 
 			// skip the contributor?
 
@@ -144,6 +155,61 @@ public class ContributorExecutor {
 
 			XDI3Segment contributorXri = contributorFound.getContributorXri();
 			Contributor contributor = contributorFound.getContributor();
+
+			// check mount
+
+			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
+
+			if (relativeTargetStatement.isContextNodeStatement()) {
+
+				if (! contributorMount.contextNodeStatement()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like context node statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+
+				if (contributorMount.contextNodeArcXris().length > 0 && ! Arrays.asList(contributorMount.contextNodeArcXris()).contains(relativeTargetStatement.getContextNodeArcXri())) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like context node arc XRI " + relativeTargetStatement.getContextNodeArcXri() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+
+				if (contributorMount.targetContextNodeXris().length > 0 && ! Arrays.asList(contributorMount.targetContextNodeXris()).contains(relativeTargetStatement.getTargetContextNodeXri())) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node XRI " + relativeTargetStatement.getTargetContextNodeXri() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+			}
+
+			if (relativeTargetStatement.isRelationStatement()) {
+
+				if (! contributorMount.relationStatement()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+
+				if (contributorMount.relationArcXris().length > 0 && ! Arrays.asList(contributorMount.relationArcXris()).contains(relativeTargetStatement.getRelationArcXri())) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation arc XRI " + relativeTargetStatement.getRelationArcXri() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+
+				if (contributorMount.targetContextNodeXris().length > 0 && ! Arrays.asList(contributorMount.targetContextNodeXris()).contains(relativeTargetStatement.getTargetContextNodeXri())) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node XRI " + relativeTargetStatement.getTargetContextNodeXri() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+			}
+
+			if (relativeTargetStatement.isLiteralStatement()) {
+
+				if (! contributorMount.literalStatement()) {
+
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like literal statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+					continue;
+				}
+			}
 
 			// skip contributor?
 

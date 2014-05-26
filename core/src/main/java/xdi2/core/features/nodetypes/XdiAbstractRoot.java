@@ -1,16 +1,15 @@
 package xdi2.core.features.nodetypes;
 
+import java.util.Iterator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
-import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.util.iterators.SelectingMappingIterator;
+import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -69,7 +68,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	public XdiLocalRoot findLocalRoot() {
 
 		if (log.isTraceEnabled()) log.trace("findLocalRoot()");
-		
+
 		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode(false));
 	}
 
@@ -110,8 +109,30 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 			XDI3SubSegment subSegment = xri.getSubSegment(i);
 
-			XdiRoot nextRoot = root.findRoot(subSegment, create);
-			if (nextRoot == null) break;
+			XdiRoot nextRoot;
+
+			if (XdiPeerRoot.isPeerRootArcXri(subSegment)) {
+
+				ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(subSegment) : this.getContextNode().getContextNode(subSegment, false);
+				if (peerRootContextNode == null) break;
+
+				nextRoot = new XdiPeerRoot(peerRootContextNode);
+			} if (XdiInnerRoot.isInnerRootArcXri(subSegment)) {
+
+				ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(subSegment) : this.getContextNode().getContextNode(subSegment, false);
+				if (innerRootContextNode == null) break;
+
+				ContextNode contextNode = create ? this.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment)) : this.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment), false);
+				if (contextNode == null) break;
+
+				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getXri()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getXri());
+				if (relation == null) break;
+
+				nextRoot = new XdiInnerRoot(innerRootContextNode);
+			} else {
+
+				break;
+			}
 
 			root = nextRoot;
 		}
@@ -119,99 +140,100 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		return root;
 	}
 
-	@Override
-	public XdiRoot findRoot(XDI3SubSegment arcXri, boolean create) {
-
-		if (log.isTraceEnabled()) log.trace("findRoot(" + arcXri + "," + create + ")");
-
-		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) {
-
-			ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
-			if (peerRootContextNode == null) return null;
-
-			return new XdiPeerRoot(peerRootContextNode);
-		}
-
-		if (XdiInnerRoot.isInnerRootArcXri(arcXri)) {
-
-			ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
-			if (innerRootContextNode == null) return null;
-
-			ContextNode contextNode = create ? this.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri)) : this.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arcXri), false);
-			if (contextNode == null) return null;
-
-			Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arcXri), innerRootContextNode.getXri()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arcXri), innerRootContextNode.getXri());
-			if (relation == null) return null;
-
-			return new XdiInnerRoot(innerRootContextNode);
-		}
-
-		return null;
-	}
-
 	/*
-	 * Statements relative to this root
+	 * Addresses and statements relative to this root
 	 */
 
 	@Override
-	public XDI3Segment getRelativePart(XDI3Segment xri) {
+	public XDI3Segment absoluteToRelativeXri(XDI3Segment xri) {
 
-		if (log.isTraceEnabled()) log.trace("getRelativePart(" + xri + ")");
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeXri(" + xri + ")");
 
 		return XDI3Util.removeStartXri(xri, this.getContextNode().getXri());
 	}
 
 	@Override
-	public Statement setRelativeStatement(XDI3Statement statementXri) {
+	public XDI3Segment relativeToAbsoluteXri(XDI3Segment xri) {
 
-		if (log.isTraceEnabled()) log.trace("setRelativeStatement(" + statementXri + ")");
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + xri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
-
-		return this.getContextNode().getGraph().setStatement(statementXri);
+		return XDI3Util.concatXris(xri, this.getContextNode().getXri());
 	}
 
 	@Override
-	public Statement getRelativeStatement(XDI3Statement statementXri) {
+	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement statementXri) {
 
-		if (log.isTraceEnabled()) log.trace("getRelativeStatement(" + statementXri + ")");
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + statementXri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
-
-		return this.getContextNode().getGraph().getStatement(statementXri);
+		return StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
 	}
 
 	@Override
-	public boolean containsRelativeStatement(XDI3Statement statementXri) {
+	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement statementXri) {
 
-		if (log.isTraceEnabled()) log.trace("containsRelativeStatement(" + statementXri + ")");
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementXri(" + statementXri + ")");
 
-		statementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), statementXri.fromInnerRootNotation(true), true);
-
-		return this.getContextNode().getGraph().containsStatement(statementXri);
+		return StatementUtil.removeStartXriStatement(statementXri, this.getContextNode().getXri(), true);
 	}
 
-	@Override
-	public ReadOnlyIterator<XDI3Statement> getRelativeStatements(final boolean ignoreImplied) {
+	/*
+	 * Helper classes
+	 */
 
-		if (log.isTraceEnabled()) log.trace("getRelativeStatements(" + ignoreImplied + ")");
+	public class MappingAbsoluteToRelativeStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
 
-		return new NotNullIterator<XDI3Statement> (new SelectingMappingIterator<Statement, XDI3Statement> (this.getContextNode().getAllStatements()) {
+		public MappingAbsoluteToRelativeStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
 
-			@Override
-			public boolean select(Statement statement) {
+			super(iterator);
+		}
 
-				if (ignoreImplied && statement.isImplied()) return false;
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
 
-				return true;
-			}
+			return XdiAbstractRoot.this.absoluteToRelativeStatementXri(statementXri);
+		}
+	}
 
-			@Override
-			public XDI3Statement map(Statement statement) {
+	public class MappingRelativeToAbsoluteStatementXriIterator extends MappingIterator<XDI3Statement, XDI3Statement> {
 
-				return StatementUtil.removeStartXriStatement(statement.getXri(), XdiAbstractRoot.this.getContextNode().getXri(), true);
-			}
-		});
+		public MappingRelativeToAbsoluteStatementXriIterator(Iterator<? extends XDI3Statement> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Statement map(XDI3Statement statementXri) {
+
+			return XdiAbstractRoot.this.relativeToAbsoluteStatementXri(statementXri);
+		}
+	}
+
+	public class MappingAbsoluteToRelativeXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
+
+		public MappingAbsoluteToRelativeXriIterator(Iterator<? extends XDI3Segment> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Segment map(XDI3Segment xri) {
+
+			return XdiAbstractRoot.this.absoluteToRelativeXri(xri);
+		}
+	}
+
+	public class MappingRelativeToAbsoluteXriIterator extends MappingIterator<XDI3Segment, XDI3Segment> {
+
+		public MappingRelativeToAbsoluteXriIterator(Iterator<? extends XDI3Segment> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDI3Segment map(XDI3Segment xri) {
+
+			return XdiAbstractRoot.this.relativeToAbsoluteXri(xri);
+		}
 	}
 
 	/*

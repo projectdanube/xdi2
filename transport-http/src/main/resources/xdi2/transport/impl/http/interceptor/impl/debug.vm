@@ -47,6 +47,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<tr><th style="width: 200px">Transport Class:</th><td>$httptransport.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
+	<tr><th style="width: 200px">Current Time:</th><td>$httptransport.getCurrentAsString()</td></tr>
 	<tr><th style="width: 200px">Startup Time:</th><td>$httptransport.getStartupAsString() ($httptransport.getStartupAsSeconds() seconds)</td></tr>
 	<tr><th style="width: 200px">Request Path:</th><td>$request.requestPath</td></tr>
 	<tr><th style="width: 200px">Transport Interceptors:</th><td>
@@ -153,7 +154,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
 		$interceptor.class.simpleName<br>
 			<span class="light">
-			SKIP? $interceptor.skip()
+			SKIP? $interceptor.skip(null)
 			</span><br><hr>
 	#end
 	#end
@@ -170,7 +171,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 			$contributor.class.simpleName<br>
 			<span class="light">
 			$contributorlist.key
-			SKIP? $interceptor.skip()
+			SKIP? $contributor.skip(null)
 			</span><br><hr>
 		#end
 	#end
@@ -216,6 +217,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 <table class="pretty">
 	<tr>
 	<th>Time</th>
+	<th>Duration</th>
 	<th>Request</th>
 	<th>MessageEnvelope</th>
 	<th>MessageResult</th>
@@ -225,7 +227,10 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 #foreach($logentry in $log)
 	<tr>
     <td valign="top">
-    	<b>$logentry.time</b>
+    	<b>$logentry.start</b>
+    </td>
+    <td valign="top">
+    	<b>$logentry.duration ms</b>
     </td>
     <td valign="top">
     	<b>$logentry.request.getRequestPath()</b>

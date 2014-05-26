@@ -1,17 +1,16 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
+import java.security.GeneralSecurityException;
 import java.security.PublicKey;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.util.XDIClientUtil;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
@@ -79,14 +78,9 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXri(((XdiPeerRoot) xdiRoot).getArcXri());
 		}
 
-		// add <$xdi> endpoint uri
+		// find XDI endpoint uri
 
-		if (endpointUriTypes == null) endpointUriTypes = new XDI3Segment[0];
-
-		endpointUriTypes = Arrays.copyOf(endpointUriTypes, endpointUriTypes.length + 1);
-		endpointUriTypes[endpointUriTypes.length - 1] = XDIClientConstants.XRI_S_AS_XDI;
-
-		// find endpoint uris
+		endpointUriTypes = new XDI3Segment[] { XDIClientConstants.XRI_S_AS_XDI };
 
 		for (XDI3Segment endpointUriType : endpointUriTypes) {
 
@@ -139,7 +133,6 @@ public class XDIDiscoveryResult implements Serializable {
 		// find cloud names
 
 
-
 		// find authority
 
 		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getXri(), false);
@@ -147,25 +140,23 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find signature public key
 
-		XdiAttribute signaturePublicKeyXdiAttribute = authorityXdiEntity.getXdiAttribute(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY, false);
-		signaturePublicKeyXdiAttribute = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.dereference();
+		try {
 
-		XdiValue signaturePublicKeyXdiValue = signaturePublicKeyXdiAttribute == null ? null : signaturePublicKeyXdiAttribute.getXdiValue(false);
-		signaturePublicKeyXdiValue = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.dereference();
+			this.signaturePublicKey = Keys.getSignaturePublicKey(authorityXdiEntity);
+		} catch (GeneralSecurityException ex) {
 
-		Literal signaturePublicKeyLiteral = signaturePublicKeyXdiValue == null ? null : signaturePublicKeyXdiValue.getContextNode().getLiteral();
-		this.signaturePublicKey = signaturePublicKeyLiteral == null ? null : XDIClientUtil.publicKeyFromPublicKeyString(signaturePublicKeyLiteral.getLiteralDataString());
+			throw new Xdi2ClientException("Invalid signature public key: " + ex.getMessage(), ex, null);
+		}
 
 		// find encryption public key
 
-		XdiAttribute encryptionPublicKeyXdiAttribute = authorityXdiEntity.getXdiAttribute(XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY, false);
-		encryptionPublicKeyXdiAttribute = encryptionPublicKeyXdiAttribute == null ? null : encryptionPublicKeyXdiAttribute.dereference();
+		try {
 
-		XdiValue encryptionPublicKeyXdiValue = encryptionPublicKeyXdiAttribute == null ? null : encryptionPublicKeyXdiAttribute.getXdiValue(false);
-		encryptionPublicKeyXdiValue = encryptionPublicKeyXdiValue == null ? null : encryptionPublicKeyXdiValue.dereference();
+			this.encryptionPublicKey = Keys.getEncryptionPublicKey(authorityXdiEntity);
+		} catch (GeneralSecurityException ex) {
 
-		Literal encryptionPublicKeyLiteral = encryptionPublicKeyXdiValue == null ? null : encryptionPublicKeyXdiValue.getContextNode().getLiteral();
-		this.encryptionPublicKey = encryptionPublicKeyLiteral == null ? null : XDIClientUtil.publicKeyFromPublicKeyString(encryptionPublicKeyLiteral.getLiteralDataString());
+			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
+		}
 
 		// find endpoint uris
 

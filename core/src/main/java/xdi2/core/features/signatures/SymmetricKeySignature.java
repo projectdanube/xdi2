@@ -57,9 +57,11 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 			return false;
 		}
 
-		if (! KEY_ALGORITHM_AES.equalsIgnoreCase(getKeyAlgorithm(xdiAttribute))) return false;
+		String keyAlgorithm = Signatures.getKeyAlgorithm(xdiAttribute);
+		String digestAlgorithm = Signatures.getDigestAlgorithm(xdiAttribute);
 
-		if (! DIGEST_ALGORITHM_SHA.equalsIgnoreCase(getDigestAlgorithm(xdiAttribute))) return false;
+		if (! KEY_ALGORITHM_AES.equalsIgnoreCase(keyAlgorithm)) return false;
+		if (! DIGEST_ALGORITHM_SHA.equalsIgnoreCase(digestAlgorithm)) return false;
 
 		return true;
 	}
@@ -99,7 +101,7 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 
 		try {
 
-			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
+			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -134,7 +136,7 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 
 		try {
 
-			normalizedSerialization = getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
+			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);

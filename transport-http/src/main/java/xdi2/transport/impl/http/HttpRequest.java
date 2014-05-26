@@ -13,6 +13,7 @@ import xdi2.transport.Request;
  */
 public interface HttpRequest extends Request {
 
+	public String getMethod();
 	public String getBaseUri();
 	public String getRequestPath();
 	public String getParameter(String name);
