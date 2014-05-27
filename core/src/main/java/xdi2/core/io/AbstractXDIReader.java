@@ -18,6 +18,8 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	private static final long serialVersionUID = -3924954880534200486L;
 
+	public static final String DEFAULT_CHARSET_NAME = "UTF-8";
+
 	protected Properties parameters;
 
 	public AbstractXDIReader(Properties parameters) {
@@ -32,7 +34,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 	@Override
 	public InputStream read(Graph graph, InputStream stream) throws IOException, Xdi2ParseException {
 
-		this.read(graph, new InputStreamReader(stream));
+		this.read(graph, new InputStreamReader(stream, DEFAULT_CHARSET_NAME));
 
 		return stream;
 	}

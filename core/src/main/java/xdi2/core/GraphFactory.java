@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.URL;
 import java.util.Properties;
 
 import xdi2.core.exceptions.Xdi2ParseException;
@@ -34,25 +33,19 @@ public interface GraphFactory {
 	 * Opens a graph and fills it with content in one of the serialization formats.
 	 * @return A new graph.
 	 */
-	public Graph loadGraph(URL url) throws IOException, Xdi2ParseException;
-
-	/**
-	 * Opens a graph and fills it with content in one of the serialization formats.
-	 * @return A new graph.
-	 */
 	public Graph loadGraph(File file) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Opens a graph and fills it with content in one of the serialization formats.
 	 * @return A new graph.
 	 */
-	public Graph loadGraph(InputStream inputStream) throws IOException, Xdi2ParseException;
+	public Graph loadGraph(Reader reader) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Opens a graph and fills it with content in one of the serialization formats.
 	 * @return A new graph.
 	 */
-	public Graph loadGraph(Reader reader) throws IOException, Xdi2ParseException;
+	public Graph loadGraph(InputStream inputStream) throws IOException, Xdi2ParseException;
 
 	/**
 	 * Opens a graph and fills it with content in one of the serialization formats.

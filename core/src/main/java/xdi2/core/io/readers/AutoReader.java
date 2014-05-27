@@ -3,6 +3,7 @@ package xdi2.core.io.readers;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,7 +80,7 @@ public class AutoReader extends AbstractXDIReader {
 
 	@Override
 	protected void init() {
-		
+
 	}
 
 	private synchronized void read(Graph graph, String string) throws Xdi2ParseException {
@@ -91,6 +92,28 @@ public class AutoReader extends AbstractXDIReader {
 			try {
 
 				xdiReader.read(graph, new StringReader(string));
+				this.lastSuccessfulReader = xdiReader;
+				return;
+			} catch(Exception ex) {
+
+				continue;
+			}
+		}
+
+		this.lastSuccessfulReader = null;
+
+		throw new Xdi2ParseException("Unknown serialization format.");
+	}
+
+	private synchronized void read(Graph graph, byte[] byteArray) throws Xdi2ParseException {
+
+		for (XDIReader xdiReader : readers) {
+
+			if (xdiReader instanceof AutoReader) continue;
+
+			try {
+
+				xdiReader.read(graph, new ByteArrayInputStream(byteArray));
 				this.lastSuccessfulReader = xdiReader;
 				return;
 			} catch(Exception ex) {
@@ -127,7 +150,7 @@ public class AutoReader extends AbstractXDIReader {
 
 		while ((b = bufferedInputStream.read()) != -1) byteArrayOutputStream.write(b);
 
-		this.read(graph, new String(byteArrayOutputStream.toByteArray(), "UTF-8"));
+		this.read(graph, byteArrayOutputStream.toByteArray());
 
 		return stream;
 	}

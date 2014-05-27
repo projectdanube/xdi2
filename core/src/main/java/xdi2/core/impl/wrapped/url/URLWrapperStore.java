@@ -21,7 +21,7 @@ public class URLWrapperStore implements WrapperStore {
 	private XDIReader xdiReader;
 	private XDIWriter xdiWriter;
 
-	public URLWrapperStore(URL url , String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
+	public URLWrapperStore(URL url, String mimeType, XDIReader xdiReader, XDIWriter xdiWriter) {
 
 		this.url = url;
 		this.mimeType = mimeType;
@@ -36,15 +36,15 @@ public class URLWrapperStore implements WrapperStore {
 
 		try {
 
-			if (log.isDebugEnabled()) log.debug("Loading URL " + this.url);
+			if (log.isDebugEnabled()) log.debug("Loading URL " + this.getUrl());
 
-			InputStream stream = this.url.openStream();
+			InputStream stream = this.getUrl().openStream();
 
 			this.xdiReader.read(memoryGraph, stream);
 			stream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Cannot load URL at " + this.url, ex);
+			throw new Xdi2RuntimeException("Cannot load URL at " + this.getUrl(), ex);
 		}
 	}
 
@@ -54,12 +54,12 @@ public class URLWrapperStore implements WrapperStore {
 	}
 
 	public URL getUrl() {
-	
+
 		return this.url;
 	}
 
 	public void setUrl(URL url) {
-	
+
 		this.url = url;
 	}
 
