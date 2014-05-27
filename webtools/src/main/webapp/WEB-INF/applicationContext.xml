@@ -153,45 +153,6 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET at /bdb-graph -->
-	<!-- MessagingTarget: GraphMessagingTarget backed by a BDBGraph -->
-
-	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory">
-	</bean>
-
-	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />
-
-	<bean name="/bdb-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
-		<property name="graph" ref="graph2" />
-		<property name="interceptors">
-			<util:list>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-			</util:list>
-		</property>
-		<property name="contributors">
-			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
-			</util:list>
-		</property>
-	</bean>
-
-	<!-- MESSAGING TARGET at /file-graph -->
-	<!-- MessagingTarget: FileMessagingTarget backed by an XDI/JSON file -->
-
-	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
-		<property name="path" value="./xdi2-file/graph.xdi" />
-		<property name="mimeType" value="application/xdi+json;implied=1;ordered=1" />
-		<property name="interceptors">
-			<util:list>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-			</util:list>
-		</property>
-	</bean>
-
 	<!-- MESSAGING TARGET at /=alice -->
 	<!-- MessagingTarget: GraphMessagingTarget backed by a MemoryGraph -->
 
@@ -217,10 +178,10 @@
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							{$self}/$public/($do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;)
-							{$self}/$public/($do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;)
-							{$self}/$public/($do/$get/({$self}$msg$encrypt$keypair/$is#/{}))
-							{$self}/$public/($do/$get/({$self}$msg$sig$keypair/$is#/{}))
+							{$self}$to$anon$from$public$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is#/{})
+							{$self}$to$anon$from$public$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							{$self}$to$anon$from$public$do/$get/({$self}$msg$sig$keypair/$is#/{})
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
