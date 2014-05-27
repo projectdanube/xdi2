@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.Properties;
 
 import xdi2.core.Graph;
@@ -24,20 +23,6 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 	}
 
 	@Override
-	public Graph loadGraph(URL url) throws IOException, Xdi2ParseException {
-
-		InputStream inputStream = url.openStream();
-
-		try {
-
-			return this.loadGraph(inputStream);
-		} finally {
-
-			inputStream.close();
-		}
-	}
-
-	@Override
 	public Graph loadGraph(File file) throws IOException, Xdi2ParseException {
 
 		Reader reader = new FileReader(file);
@@ -52,19 +37,19 @@ public abstract class AbstractGraphFactory implements GraphFactory {
 	}
 
 	@Override
-	public Graph loadGraph(InputStream inputStream) throws IOException, Xdi2ParseException {
+	public Graph loadGraph(Reader reader) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();
-		XDIReaderRegistry.getAuto().read(graph, inputStream);
+		XDIReaderRegistry.getAuto().read(graph, reader);
 
 		return graph;
 	}
 
 	@Override
-	public Graph loadGraph(Reader reader) throws IOException, Xdi2ParseException {
+	public Graph loadGraph(InputStream inputStream) throws IOException, Xdi2ParseException {
 
 		Graph graph = this.openGraph();
-		XDIReaderRegistry.getAuto().read(graph, reader);
+		XDIReaderRegistry.getAuto().read(graph, inputStream);
 
 		return graph;
 	}

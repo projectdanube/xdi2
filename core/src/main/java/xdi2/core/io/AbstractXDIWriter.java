@@ -17,6 +17,8 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final long serialVersionUID = -4120729667091454408L;
 
+	public static final String DEFAULT_CHARSET_NAME = "UTF-8";
+
 	protected Properties parameters;
 
 	public AbstractXDIWriter(Properties parameters) {
@@ -31,7 +33,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 	@Override
 	public OutputStream write(Graph graph, OutputStream stream) throws IOException {
 
-		this.write(graph, new OutputStreamWriter(stream));
+		this.write(graph, new OutputStreamWriter(stream, DEFAULT_CHARSET_NAME));
 		stream.flush();
 
 		return stream;

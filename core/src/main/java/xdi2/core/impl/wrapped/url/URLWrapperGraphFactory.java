@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import xdi2.core.GraphFactory;
-import xdi2.core.impl.wrapped.WrapperStore;
 import xdi2.core.impl.wrapped.WrappedGraphFactory;
+import xdi2.core.impl.wrapped.WrapperStore;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -45,12 +45,12 @@ public class URLWrapperGraphFactory extends WrappedGraphFactory implements Graph
 	}
 
 	public URL getUrl() {
-	
+
 		return this.url;
 	}
 
 	public void setUrl(URL url) {
-	
+
 		this.url = url;
 	}
 
