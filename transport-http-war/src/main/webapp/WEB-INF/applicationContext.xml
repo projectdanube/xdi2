@@ -56,6 +56,13 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 			</util:list>
 		</property>
+		<property name="contributors">
+			<util:list>
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
+			</util:list>
+		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET FACTORY at /any/* -->
@@ -112,6 +119,13 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 			</util:list>
 		</property>
+		<property name="contributors">
+			<util:list>
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
+			</util:list>
+		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET at /mem-graph -->
@@ -130,36 +144,11 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 			</util:list>
 		</property>
-	</bean>
-
-	<!-- MESSAGING TARGET at /bdb-graph -->
-	<!-- MessagingTarget: GraphMessagingTarget backed by a BDBGraph -->
-
-	<bean id="graphfactory2" class="xdi2.core.impl.keyvalue.bdb.BDBKeyValueGraphFactory">
-	</bean>
-
-	<bean id="graph2" factory-bean="graphfactory2" factory-method="openGraph" />
-
-	<bean name="/bdb-graph" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
-		<property name="graph" ref="graph2" />
-		<property name="interceptors">
+		<property name="contributors">
 			<util:list>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-			</util:list>
-		</property>
-	</bean>
-
-	<!-- MESSAGING TARGET at /file-graph -->
-	<!-- MessagingTarget: FileMessagingTarget backed by an XDI/JSON file -->
-
-	<bean name="/file-graph" class="xdi2.messaging.target.impl.file.FileMessagingTarget">
-		<property name="path" value="./xdi2-file/graph.xdi" />
-		<property name="mimeType" value="application/xdi+json;implied=1;ordered=1" />
-		<property name="interceptors">
-			<util:list>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -205,12 +194,26 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
+					<property name="secretTokenAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator">
+							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+							<property name="localSaltAndDigestSecretTokens">
+								<util:map>
+									<entry key="[=]!:uuid:1111" value="xdi2-digest:ec136367-5969-4e69-9c8a-483e330c317f:8a447e411ad21477b67b8793e5be16749416b996c61a40476c17231be4d9390a8e703b87cf8750b66fb541f208799d3b564ee6ed33cae8f9f84ce39c1527e62e" />
+								</util:map>
+							</property>
+						</bean>
+					</property>
+				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
 			<util:list>
-				<bean id="generateKeyContributor" class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
