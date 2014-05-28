@@ -1,4 +1,4 @@
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1/$is()/([=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24)
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1/$do/[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24$to[$do]!:uuid:1234$do
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1<$sig><$valid>&/&/false
-[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24[$msg]!1$do/$get/[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24<#email>
+[=]!:uuid:1111[$msg]!1/$is()/([=]!:uuid:1111)
+[=]!:uuid:1111[$msg]!1/$do/([=]!:uuid:1111/#trusted)[$do]!:uuid:1234
+[=]!:uuid:1111[$msg]!1<$sig><$valid>&/&/false
+[=]!:uuid:1111[$msg]!1$do/$get/[=]!:uuid:1111<#email>

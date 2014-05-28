@@ -1,2 +1,2 @@
 =stranger[$msg]!1$do/$get/=markus<#age>
-=stranger[$msg]!1/$do/=markus$to=markus$from$do
+=stranger[$msg]!1/$do/(=markus/=markus)$do

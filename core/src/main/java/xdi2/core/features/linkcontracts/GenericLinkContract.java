@@ -46,6 +46,7 @@ public class GenericLinkContract extends LinkContract {
 			if (! ((XdiEntitySingleton) xdiEntity).getArcXri().equals(XDILinkContractConstants.XRI_SS_DO)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
@@ -53,6 +54,7 @@ public class GenericLinkContract extends LinkContract {
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArcXri().equals(XDILinkContractConstants.XRI_SS_EC_DO)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 
 			return true;
 		} else {
@@ -80,7 +82,9 @@ public class GenericLinkContract extends LinkContract {
 
 		List<XDI3SubSegment> genericLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
 
-		XDI3SubSegment linkContractInnerRootArcXri = XdiInnerRoot.createInnerRootArcXri(authorizingAuthority, requestingAuthority);
+		XDI3SubSegment linkContractInnerRootArcXri = XdiInnerRoot.createInnerRootArcXri(
+				authorizingAuthority, 
+				requestingAuthority);
 
 		genericLinkContractArcXris.add(linkContractInnerRootArcXri);
 
