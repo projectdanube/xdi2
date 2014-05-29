@@ -1,8 +1,8 @@
 ([=]!:uuid:1111)/$ref/
-[=]!:uuid:1111$to#friend$from$do$if/$true/({$from}/$is/=drummond)
-[=]!:uuid:1111$to#friend$from$do$if/$true/({$from}/$is/[=]!:uuid:1111)
-[=]!:uuid:1111$to#friend$from$do/$get/[=]!:uuid:1111<#age>
-[=]!:uuid:1111$to#friend$from$do/$set/[=]!:uuid:1111
+[=]!:uuid:1111/#friend/($do$if/$true/({$from}/$is/=drummond))
+[=]!:uuid:1111/#friend/($do$if/$true/({$from}/$is/[=]!:uuid:1111))
+[=]!:uuid:1111/#friend/($do/$get/[=]!:uuid:1111<#age>)
+[=]!:uuid:1111/#friend/($do/$set/[=]!:uuid:1111)
 [=]!:uuid:1111<#age>&/&/"33"
 [=]!:uuid:1111<#name>&/&/"Markus Sabadello"
 [=]!:uuid:1111[<#email>]<!1>&/&/"markus.sabadello@gmail.com"
