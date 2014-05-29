@@ -1,3 +1,3 @@
 [=]!:uuid:1111[$msg]!1/$is()/([=]!:uuid:1111)
 [=]!:uuid:1111[$msg]!1$do/$get/[=]!:uuid:1111<#name>
-[=]!:uuid:1111[$msg]!1/$do/[=]!:uuid:1111$to#friend$from$do
+[=]!:uuid:1111[$msg]!1/$do/([=]!:uuid:1111/#friend)$do
