@@ -12,6 +12,7 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXriIterator;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
@@ -102,6 +103,8 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
+		// prepare the target address
+
 		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
 
 		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
@@ -135,13 +138,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
-
-		// find the inner root
+		// prepare the target statement
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
 
 		// set the permission statement
 
@@ -157,6 +159,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
+		// prepare the target address
+
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+
+		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
+
 		// delete the permission arc
 
 		this.getContextNode().delRelation(permissionXri, targetAddress);
@@ -171,13 +179,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+		// prepare the target statement
 
-		// find the inner root
-
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
 
 		// delete the permission statement
 
@@ -196,7 +203,16 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null) throw new NullPointerException();
 
-		return new MappingRelationTargetContextNodeXriIterator(this.getContextNode().getRelations(permissionXri));
+		// prepare the target address
+
+		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
+
+		// return the target addresses
+
+		return new MappingAbsoluteToRelativeXriIterator(
+				xdiRoot,
+				new MappingRelationTargetContextNodeXriIterator(
+						this.getContextNode().getRelations(permissionXri)));
 	}
 
 	public Iterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
@@ -208,13 +224,14 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
 
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-		targetStatement = xdiRoot.relativeToAbsoluteStatementXri(targetStatement);
+		// prepare the target statement
 
-		// find the inner root
-
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return false;
+
+		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
+
+		// check if the target statement exists
 
 		return this.getContextNode().getGraph().containsStatement(targetStatement);
 	}

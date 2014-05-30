@@ -57,9 +57,12 @@ public class LinkContractTemplate extends LinkContractBase {
 
 	public static XDI3Segment createLinkContractTemplateXri(XDI3Segment templateAuthorityAndId) {
 
+		if (templateAuthorityAndId == null) throw new NullPointerException();
+		
 		List<XDI3SubSegment> linkContractTemplateArcXris = new ArrayList<XDI3SubSegment> ();
 
 		linkContractTemplateArcXris.addAll(templateAuthorityAndId.getSubSegments());
+
 		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_DO_VARIABLE);
 
 		return XDI3Segment.fromComponents(linkContractTemplateArcXris);

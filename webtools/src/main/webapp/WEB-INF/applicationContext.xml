@@ -178,10 +178,10 @@
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							{$self}$to$anon$from$public$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
-							{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is#/{})
-							{$self}$to$anon$from$public$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
-							{$self}$to$anon$from$public$do/$get/({$self}$msg$sig$keypair/$is#/{})
+							{$self}/$public/($do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;)
+							{$self}/$public/($do/$get/({$self}$msg$encrypt$keypair/$is#/{}))
+							{$self}/$public/($do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;)
+							{$self}/$public/($do/$get/({$self}$msg$sig$keypair/$is#/{}))
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">

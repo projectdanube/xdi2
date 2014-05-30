@@ -25,10 +25,10 @@ public abstract class LinkContract extends LinkContractBase {
 		if (xdiEntity == null) return false;
 
 		return
+				GovernorLinkContract.isValid(xdiEntity) ||
 				RootLinkContract.isValid(xdiEntity) ||
 				PublicLinkContract.isValid(xdiEntity) ||
-				GenericLinkContract.isValid(xdiEntity) ||
-				MetaLinkContract.isValid(xdiEntity);
+				GenericLinkContract.isValid(xdiEntity);
 	}
 
 	/**
@@ -40,10 +40,10 @@ public abstract class LinkContract extends LinkContractBase {
 
 		LinkContract linkContract = null;
 
+		if ((linkContract = GovernorLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = MetaLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
 	}
