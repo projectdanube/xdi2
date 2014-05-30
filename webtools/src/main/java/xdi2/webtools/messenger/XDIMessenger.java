@@ -125,7 +125,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			if (recipientString == null || recipientString.trim().isEmpty()) throw new ServletException("No recipient.");
 			if (linkContractString == null || linkContractString.trim().isEmpty()) linkContractString = DEFAULT_LINKCONTRACT_STRING;
 			if (operationString == null || operationString.trim().isEmpty()) operationString = DEFAULT_OPERATION_STRING;
-			if (targetString == null || linkContractString.trim().isEmpty()) targetString = DEFAULT_TARGET_STRING;
+			if (targetString == null || targetString.trim().isEmpty()) targetString = DEFAULT_TARGET_STRING;
 
 			try {
 
