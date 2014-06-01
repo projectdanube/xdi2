@@ -10,9 +10,9 @@ public class ContributorResult implements Serializable {
 	public static final ContributorResult SKIP_PARENT_CONTRIBUTORS = new ContributorResult(true, false, false);
 	public static final ContributorResult SKIP_SIBLING_CONTRIBUTORS = new ContributorResult(false, true, false);
 	public static final ContributorResult SKIP_MESSAGING_TARGET = new ContributorResult(false, false, true);
-	public static final ContributorResult SKIP_PARENT_INTERCEPTORS_AND_MESSAGING_TARGET = new ContributorResult(true, false, true);
-	public static final ContributorResult SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET = new ContributorResult(false, true, true);
-	public static final ContributorResult SKIP_PARENT_INTERCEPTORS_AND_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET = new ContributorResult(true, true, true);
+	public static final ContributorResult SKIP_PARENT_CONTRIBUTORS_AND_MESSAGING_TARGET = new ContributorResult(true, false, true);
+	public static final ContributorResult SKIP_SIBLING_CONTRIBUTORS_AND_MESSAGING_TARGET = new ContributorResult(false, true, true);
+	public static final ContributorResult SKIP_PARENT_CONTRIBUTORS_AND_SIBLING_CONTRIBUTORS_AND_MESSAGING_TARGET = new ContributorResult(true, true, true);
 
 	private boolean skipParentContributors;
 	private boolean skipSiblingContributors;
