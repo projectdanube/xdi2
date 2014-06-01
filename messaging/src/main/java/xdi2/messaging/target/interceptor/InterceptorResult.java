@@ -7,6 +7,9 @@ public class InterceptorResult implements Serializable {
 	private static final long serialVersionUID = -1768104415596751188L;
 
 	public static final InterceptorResult DEFAULT = new InterceptorResult(false, false);
+	public static final InterceptorResult SKIP_SIBLING_INTERCEPTORS = new InterceptorResult(true, true);
+	public static final InterceptorResult SKIP_MESSAGING_TARGET = new InterceptorResult(false, true);
+	public static final InterceptorResult SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET = new InterceptorResult(true, true);
 
 	private boolean skipSiblingInterceptors;
 	private boolean skipMessagingTarget;
