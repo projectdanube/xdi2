@@ -19,5 +19,8 @@ public final class XDIDictionaryConstants {
 	public static final XDI3Segment XRI_S_REP = XDI3Segment.create("$rep");
 	public static final XDI3Segment XRI_S_IS_REP = XDI3Segment.create("$is$rep");
 
+	public static final XDI3Segment XRI_S_BOOLEAN = XDI3Segment.create("$b");
+	public static final XDI3Segment XRI_S_NUMBER = XDI3Segment.create("$n");
+
 	private XDIDictionaryConstants() { }
 }

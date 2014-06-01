@@ -27,6 +27,26 @@ public class DataTypes {
 	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "mime");
 
 	/*
+	 * Methods for booleans
+	 */
+
+	public static XDI3Segment booleanToXri(Boolean b) {
+
+		if (Boolean.TRUE.equals(b)) return XDIConstants.XRI_S_TRUE;
+		if (Boolean.FALSE.equals(b)) return XDIConstants.XRI_S_FALSE;
+
+		return null;
+	}
+
+	public static Boolean xriToBoolean(XDI3Segment xri) {
+
+		if (XDIConstants.XRI_S_TRUE.equals(xri)) return Boolean.TRUE;
+		if (XDIConstants.XRI_S_FALSE.equals(xri)) return Boolean.FALSE;
+
+		return null;
+	}
+
+	/*
 	 * Methods for data types of context nodes
 	 */
 
