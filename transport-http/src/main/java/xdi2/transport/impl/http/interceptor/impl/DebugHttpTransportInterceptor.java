@@ -19,6 +19,9 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -28,13 +31,17 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.xri3.XDI3ParserRegistry;
+import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.transport.Request;
 import xdi2.transport.Response;
 import xdi2.transport.Transport;
@@ -208,6 +215,69 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
+		if ("msg_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
+
+			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+
+			// prepare format and parameters
+
+			if (format == null) {
+
+				format = XDIDisplayWriter.FORMAT_NAME;
+				writeImplied = null;
+				writeOrdered = null;
+				writeInner = "on";
+				writePretty = null;
+			}
+
+			Properties xdiWriterParameters = new Properties();
+
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
+
+			// write message envelope
+
+			XDI3SubSegment ownerPeerRootXri = cmdMessagingTarget.getOwnerPeerRootXri();
+
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
+			if (ownerPeerRootXri != null) message.setToPeerRootXri(ownerPeerRootXri);
+			message.createGetOperation(XDIConstants.XRI_S_ROOT);
+
+			Graph graph = messageEnvelope.getGraph();
+
+			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
+			StringWriter stringWriter = new StringWriter();
+			xdiWriter.write(graph, stringWriter);
+			graphstring = stringWriter.getBuffer().toString();
+
+			// prepare velocity
+
+			VelocityContext context = new VelocityContext();
+			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("httptransport", httpTransport);
+			context.put("request", request);
+			context.put("messagingtarget", cmdMessagingTarget);
+			context.put("messagingtargetpath", cmdMessagingTargetPath);
+			context.put("graphstring", graphstring);
+
+			// send response
+
+			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-msg.vm"));
+			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.setContentType("text/html");
+			makeVelocityEngine().evaluate(context, writer, "debug-msg.vm", reader);
+			writer.close();
+
+			// done
+
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+		}
+
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
 			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
@@ -256,6 +326,90 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
 			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
+			writer.close();
+
+			// done
+
+			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+		}
+
+		if ("exec_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
+
+			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+
+			// parse and execute message envelope
+
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			MessageResult messageResult = new MessageResult();
+
+			XDIReader xdiReader = XDIReaderRegistry.getAuto();
+
+			String error = null;
+			String resultstring = null;
+
+			try {
+
+				xdiReader.read(messageEnvelope.getGraph(), new StringReader(graphstring));
+
+				if (cmdMessagingTarget instanceof AbstractMessagingTarget) {
+
+					LinkContractInterceptor linkContractInterceptor = ((AbstractMessagingTarget) cmdMessagingTarget).getInterceptors().getInterceptor(LinkContractInterceptor.class);
+					if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(messageEnvelope);
+				}
+
+				cmdMessagingTarget.execute(messageEnvelope, messageResult, null);
+			} catch (Xdi2Exception ex) {
+
+				error = ex.getMessage();
+			}
+
+			// prepare format and parameters
+
+			if (format == null) {
+
+				format = XDIDisplayWriter.FORMAT_NAME;
+				writeImplied = null;
+				writeOrdered = null;
+				writeInner = "on";
+				writePretty = null;
+			}
+
+			Properties xdiWriterParameters = new Properties();
+
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
+			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
+
+			// write message result
+
+			Graph graph = messageResult.getGraph();
+
+			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
+			StringWriter stringWriter = new StringWriter();
+			xdiWriter.write(graph, stringWriter);
+			resultstring = stringWriter.getBuffer().toString();
+
+			// prepare velocity
+
+			VelocityContext context = new VelocityContext();
+			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("httptransport", httpTransport);
+			context.put("request", request);
+			context.put("messagingtarget", cmdMessagingTarget);
+			context.put("messagingtargetpath", cmdMessagingTargetPath);
+			context.put("graphstring", graphstring);
+			context.put("resultstring", resultstring);
+			context.put("error", error);
+
+			// send response
+
+			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-msg.vm"));
+			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.setContentType("text/html");
+			makeVelocityEngine().evaluate(context, writer, "debug-msg.vm", reader);
 			writer.close();
 
 			// done

@@ -129,11 +129,15 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		    		<br>[classpath] <span class="light">$messagingtargetmount.messagingTarget.graph.wrapperStore.classpath</span>
 		    	#end
 	    	#end
-			<p><form action="" method="post">
+			<p><table><tr><td><form action="" method="post">
 				<input type="hidden" name="cmd" value="edit_messaging_target">
 				<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingTargetPath">
 				<input type="submit" value="Edit">
-			</form></p>
+			</form></td><td><form action="" method="post">
+				<input type="hidden" name="cmd" value="msg_messaging_target">
+				<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingTargetPath">
+				<input type="submit" value="Message">
+			</form></td></tr></table></p>
     	#end
     	#if($messagingtargetmount.messagingTarget.class.canonicalName=="xdi2.messaging.target.impl.file.FileMessagingTarget")
     		<br>[path] <span class="light">$messagingtargetmount.messagingTarget.path</span>
