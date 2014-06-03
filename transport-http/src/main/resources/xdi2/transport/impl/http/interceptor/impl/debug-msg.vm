@@ -48,7 +48,7 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<input type="submit" value="Back">
 </form>
 #if($resultstring)
-	<p>Message Result:</p>
+	<p>Message result:</p>
 	<textarea readonly style="width: 100%" rows="20">$resultstring</textarea>
 #end
 <hr noshade>
