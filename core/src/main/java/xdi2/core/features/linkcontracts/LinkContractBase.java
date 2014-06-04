@@ -181,7 +181,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		// prepare the target statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return;
 
 		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
@@ -226,7 +226,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		// prepare the target statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return false;
 
 		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
