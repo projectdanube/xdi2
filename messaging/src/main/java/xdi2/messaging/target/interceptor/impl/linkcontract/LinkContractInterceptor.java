@@ -416,11 +416,15 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 				linkContract.hasPermissionTargetStatement(permissionXri, statementXri) ||
 				linkContract.hasPermissionTargetStatement(XDILinkContractConstants.XRI_S_ALL, statementXri);
 
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionXri + " on " + statementXri);
+		
 		// check negative permissions for the target statement
 
 		boolean negativePermission = 
 				linkContract.hasNegativePermissionTargetStatement(permissionXri, statementXri) ||
 				linkContract.hasNegativePermissionTargetStatement(XDILinkContractConstants.XRI_S_ALL, statementXri);
+
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionXri + " on " + statementXri);
 
 		// decide
 
