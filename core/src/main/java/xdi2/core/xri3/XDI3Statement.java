@@ -242,8 +242,30 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 			return statement;
 		} else {
 
+			/*
+
 			XDI3SubSegment innerRootSubSegment = XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, this.getSubject(), this.getPredicate(), null, null));
 			XDI3Segment innerRootSegment = XDI3Segment.fromComponent(innerRootSubSegment);
+
+			XDI3Statement statement = StatementUtil.concatXriStatement(innerRootSegment, innerRootStatement, true);
+
+
+
+			 */
+			
+			
+			
+			XDI3Segment innerRootSegment = XDIConstants.XRI_S_ROOT;
+			XDI3Segment subject = this.getSubject();
+			XDI3Segment predicate = this.getPredicate();
+
+			while (subject.getNumSubSegments() > 0 && subject.getFirstSubSegment().hasXRef() && XDIConstants.XS_ROOT.equals(subject.getFirstSubSegment().getXRef().getXs())) {
+
+				innerRootSegment = XDI3Util.concatXris(innerRootSegment, subject.getFirstSubSegment());
+				subject = XDI3Util.localXri(subject, -1);
+			}
+
+			innerRootSegment = XDI3Util.concatXris(innerRootSegment, XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, subject, predicate, null, null)));
 
 			XDI3Statement statement = StatementUtil.concatXriStatement(innerRootSegment, innerRootStatement, true);
 
