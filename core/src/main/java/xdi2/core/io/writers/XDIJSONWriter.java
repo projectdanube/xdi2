@@ -117,6 +117,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		if (orderedGraph != null) orderedGraph.close();
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public Writer write(Graph graph, Writer writer) throws IOException {
 
@@ -131,7 +132,6 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		gson.toJson(jsonObject, jsonWriter);
 		jsonWriter.flush();
 		writer.flush();
-		jsonWriter.close();
 
 		return writer;
 	}
