@@ -58,7 +58,7 @@ To give you a quick start into XDI2, you may download a VirtualBox image with al
 ### Related Projects
 
 * XDI Graph Editor by Neustar: https://github.com/neustar/xdi-grapheditor.git
-* REST Wrapper for XDI2 signature creation and validation
+* REST Wrapper for XDI2 signature creation and validation: https://github.com/Meeco/rest-xdi
 
 ### Tests
 
