@@ -55,6 +55,11 @@ To give you a quick start into XDI2, you may download a VirtualBox image with al
 * [xdi2-connector-allfiled](https://github.com/projectdanube/xdi2-connector-allfiled) - Allfiled -> XDI Connector
 * [xdi2-connector-google-calendar](https://github.com/projectdanube/xdi2-connector-google-calendar) - Google Calendar -> XDI Connector
 
+### Related Projects
+
+* XDI Graph Editor by Neustar: https://github.com/neustar/xdi-grapheditor.git
+* REST Wrapper for XDI2 signature creation and validation
+
 ### Tests
 
 See [Testing](https://github.com/projectdanube/xdi2/wiki/Testing) for a description of unit tests, etc.
