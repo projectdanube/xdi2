@@ -20,9 +20,7 @@
 	
 	<hr noshade style="clear:both">
 	
-	<p>XDI2 ("XDI Two") is an XDI library for Java, supporting both traditional client/server models and distributed network topologies.</p>
-	
-	<p>It is designed to be a general-purpose, lightweight and modular implementation of XDI specifications, in order to support a wide range of use cases.</p>
+	<p>XDI2 ("XDI Two") is an XDI library for Java, designed to be a general-purpose, lightweight and modular implementation of XDI specifications.</p>
 
 	<p class="subheader">XDI Apps</p>
 
@@ -42,11 +40,15 @@
 	</table>
 	</p>
 
+	<p class="subheader">XDI Server</p>
+	Click here to access the local XDI server: <a href="xdi/">xdi/</a>
+	</p>
+
 	<p class="subheader">Google Group</p>
 
 	<a href="http://groups.google.com/group/xdi2">http://groups.google.com/group/xdi2</a>
 
-	<p class="subheader">XDI</p>
+	<p class="subheader">Information</p>
 	
 	<p><a href="http://en.wikipedia.org/wiki/XDI">XDI on Wikipedia</a></p>
 	<p><a href="http://www.oasis-open.org/committees/xdi/">OASIS XDI TC</a></p>
