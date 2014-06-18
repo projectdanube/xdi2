@@ -1,13 +1,12 @@
 package xdi2.core.features.linkcontracts.operator;
 
-import java.util.Iterator;
-
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.MappingStatementXriIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
@@ -26,7 +25,7 @@ public abstract class ConditionOperator extends Operator {
 	 * Returns the XDI conditions of the XDI policy statement.
 	 * @return The XDI conditions of the XDI policy statement.
 	 */
-	public Iterator<Condition> getConditions() {
+	public IterableIterator<Condition> getConditions() {
 
 		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 		if (innerRoot == null) throw new Xdi2RuntimeException("Missing condition in operator: " + this.getRelation());
