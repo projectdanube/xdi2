@@ -22,6 +22,7 @@ import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
@@ -174,7 +175,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	/**
 	 * Returns the XDI policies underneath this XDI policy.
 	 */
-	public Iterator<Policy> getPolicies() {
+	public ReadOnlyIterator<Policy> getPolicies() {
 
 		List<Iterator<? extends Policy>> iterators = new ArrayList<Iterator<? extends Policy>> ();
 
@@ -204,7 +205,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	/**
 	 * Returns the XDI operators underneath this XDI policy.
 	 */
-	public Iterator<Operator> getOperators() {
+	public ReadOnlyIterator<Operator> getOperators() {
 
 		// get all relations that are valid XDI operators
 
