@@ -1,7 +1,6 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Statement;
@@ -16,6 +15,7 @@ import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXriIterator
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -199,7 +199,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.delPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
 	}
 
-	public Iterator<XDI3Segment> getPermissionTargetAddresses(XDI3Segment permissionXri) {
+	public IterableIterator<XDI3Segment> getPermissionTargetAddresses(XDI3Segment permissionXri) {
 
 		if (permissionXri == null) throw new NullPointerException();
 
@@ -215,7 +215,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 						this.getContextNode().getRelations(permissionXri)));
 	}
 
-	public Iterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
+	public IterableIterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
 
 		return this.getPermissionTargetAddresses(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri));
 	}
