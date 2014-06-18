@@ -20,9 +20,9 @@ import xdi2.messaging.MessageResult;
 
 public class XDIClientUtil {
 
-	public static void authenticateSecretToken(CloudNumber cloudNumber, String xdiEndpoint, String secretToken) throws Xdi2ClientException {
+	public static void authenticateSecretToken(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken) throws Xdi2ClientException {
 
-		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpoint);
+		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(cloudNumber.getXri());
@@ -34,21 +34,21 @@ public class XDIClientUtil {
 		xdiHttpClient.send(messageEnvelope, null);
 	}
 
-	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, String xdiEndpoint, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
+	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpoint, secretToken, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
-	public static PrivateKey retrieveEncryptionPrivateKey(CloudNumber cloudNumber, String xdiEndpoint, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
+	public static PrivateKey retrieveEncryptionPrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpoint, secretToken, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
-	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, String xdiEndpoint, String secretToken, XDI3Segment privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
+	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken, XDI3Segment privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
 
 		// request the private key from the graph
 
-		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpoint);
+		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 		XDI3Segment privateKeyAddress = XDI3Util.concatXris(cloudNumber.getXri(), privateKeyRelativeAddress);
 
