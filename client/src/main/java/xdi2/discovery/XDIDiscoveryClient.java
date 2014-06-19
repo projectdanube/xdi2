@@ -197,7 +197,7 @@ public class XDIDiscoveryClient {
 
 			// fire event
 
-			this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
+			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
 		}
 
 		// parse the registry message result
@@ -277,7 +277,7 @@ public class XDIDiscoveryClient {
 
 			// fire event
 
-			this.getRegistryXdiClient().fireDiscoveryEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
+			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
 		}
 
 		// parse the authority message result

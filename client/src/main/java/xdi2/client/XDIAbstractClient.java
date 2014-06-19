@@ -28,12 +28,14 @@ public abstract class XDIAbstractClient implements XDIClient {
 		this.clientListeners.remove(clientListener);
 	}
 
+	@Override
 	public void fireSendEvent(XDISendEvent sendEvent) {
 
 		for (XDIClientListener clientListener : this.clientListeners) clientListener.onSend(sendEvent);
 	}
 
-	public void fireDiscoveryEvent(XDIDiscoverEvent discoveryEvent) {
+	@Override
+	public void fireDiscoverEvent(XDIDiscoverEvent discoveryEvent) {
 
 		for (XDIClientListener clientListener : this.clientListeners) clientListener.onDiscover(discoveryEvent);
 	}

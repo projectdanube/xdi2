@@ -1,5 +1,7 @@
 package xdi2.client;
 
+import xdi2.client.events.XDIDiscoverEvent;
+import xdi2.client.events.XDISendEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -34,4 +36,14 @@ public interface XDIClient {
 	 * Remove a listener for XDI client events.
 	 */
 	public void removeClientListener(XDIClientListener clientListener);
+
+	/**
+	 * Fire a send event.
+	 */
+	public void fireSendEvent(XDISendEvent sendEvent);
+
+	/**
+	 * Fire a discover event.
+	 */
+	public void fireDiscoverEvent(XDIDiscoverEvent discoveryEvent);
 }
