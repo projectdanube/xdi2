@@ -7,17 +7,17 @@ public class XDIDiscoverFromAuthorityEvent extends XDIDiscoverEvent {
 
 	private static final long serialVersionUID = 1161787510790828490L;
 
-	private String endpointUri;
+	private String xdiEndpointUri;
 
-	public XDIDiscoverFromAuthorityEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, String endpointUri) {
+	public XDIDiscoverFromAuthorityEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, String xdiEndpointUri) {
 
 		super(source, messageEnvelope, discoveryResult);
 
-		this.endpointUri = endpointUri;
+		this.xdiEndpointUri = xdiEndpointUri;
 	}
 
-	public String getEndpointUri() {
+	public String getXdiEndpointUri() {
 
-		return this.endpointUri;
+		return this.xdiEndpointUri;
 	}
 }

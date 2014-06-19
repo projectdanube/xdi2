@@ -8,17 +8,17 @@ public class XDIDiscoverFromRegistryEvent extends XDIDiscoverEvent {
 
 	private static final long serialVersionUID = -4512281567446646198L;
 
-	private XDI3Segment xri;
+	private XDI3Segment query;
 
-	public XDIDiscoverFromRegistryEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, XDI3Segment xri) {
+	public XDIDiscoverFromRegistryEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, XDI3Segment query) {
 
 		super(source, messageEnvelope, discoveryResult);
 
-		this.xri = xri;
+		this.query = query;
 	}
 
-	public XDI3Segment getXri() {
+	public XDI3Segment getQuery() {
 
-		return this.xri;
+		return this.query;
 	}
 }
