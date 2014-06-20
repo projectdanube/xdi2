@@ -18,7 +18,7 @@ public class BasicLiteral extends AbstractLiteral implements Literal {
 
 	public BasicLiteral(Object literalData) {
 
-		this(null, literalData);
+		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), literalData);
 	}
 
 	@Override

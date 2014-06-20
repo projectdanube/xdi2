@@ -21,7 +21,7 @@ public class BasicRelation extends AbstractRelation implements Relation {
 
 	public BasicRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
 
-		this(null, arcXri, targetContextNodeXri);
+		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), arcXri, targetContextNodeXri);
 	}
 
 	@Override
