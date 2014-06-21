@@ -91,6 +91,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDIOperator</display-name>
+		<servlet-name>XDIOperator</servlet-name>
+		<servlet-class>xdi2.webtools.operator.XDIOperator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIOperator</servlet-name>
+		<url-pattern>/XDIOperator</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIGrapher</display-name>
 		<servlet-name>XDIGrapher</servlet-name>
 		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>

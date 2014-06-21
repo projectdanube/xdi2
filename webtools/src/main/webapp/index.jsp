@@ -35,6 +35,7 @@
 	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDISigner">XDI Signer</a></td>
 	</tr><tr>
 	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIDiscoverer">XDI Discoverer</a></td>
+	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
 	<td valign="middle"><img src="images/xdi2-app.png"></td><td style="width: 180px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
 	</tr>
 	</table>
