@@ -86,35 +86,41 @@ public class XDI2X509TrustManager implements X509TrustManager {
 		return list.toArray(new X509Certificate[list.size()]);
 	}  
 
-	public static void enable() throws Exception {
+	public static void enable() {
 
-		tms = new ArrayList<X509TrustManager> ();
+		try {
 
-		// get default trust manager
+			tms = new ArrayList<X509TrustManager> ();
 
-		TrustManagerFactory tmf1 = TrustManagerFactory.getInstance("SunX509", "SunJSSE");
-		tmf1.init((KeyStore) null);
+			// get default trust manager
 
-		TrustManager tms1[] = tmf1.getTrustManagers();
-		for (TrustManager tm : tms1) if (tm instanceof X509TrustManager) tms.add((X509TrustManager) tm);
+			TrustManagerFactory tmf1 = TrustManagerFactory.getInstance("SunX509", "SunJSSE");
+			tmf1.init((KeyStore) null);
 
-		// create XDI2 trust manager
+			TrustManager tms1[] = tmf1.getTrustManagers();
+			for (TrustManager tm : tms1) if (tm instanceof X509TrustManager) tms.add((X509TrustManager) tm);
 
-		KeyStore ks2 = KeyStore.getInstance("JKS", "SUN");
-		ks2.load(XDI2X509TrustManager.class.getResourceAsStream("cacerts.jks"), "changeit".toCharArray());
+			// create XDI2 trust manager
 
-		TrustManagerFactory tmf2 = TrustManagerFactory.getInstance("SunX509", "SunJSSE");
-		tmf2.init(ks2);
+			KeyStore ks2 = KeyStore.getInstance("JKS", "SUN");
+			ks2.load(XDI2X509TrustManager.class.getResourceAsStream("cacerts.jks"), "changeit".toCharArray());
 
-		TrustManager tms2[] = tmf2.getTrustManagers();
-		for (TrustManager tm : tms2) if (tm instanceof X509TrustManager) tms.add((X509TrustManager) tm);
+			TrustManagerFactory tmf2 = TrustManagerFactory.getInstance("SunX509", "SunJSSE");
+			tmf2.init(ks2);
 
-		// set trust managers
+			TrustManager tms2[] = tmf2.getTrustManagers();
+			for (TrustManager tm : tms2) if (tm instanceof X509TrustManager) tms.add((X509TrustManager) tm);
 
-		SSLContext sslContext;
+			// set trust managers
 
-		sslContext = SSLContext.getInstance("SSL");
-		sslContext.init(null, new TrustManager[] { new XDI2X509TrustManager() }, null);
-		HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+			SSLContext sslContext;
+
+			sslContext = SSLContext.getInstance("SSL");
+			sslContext.init(null, new TrustManager[] { new XDI2X509TrustManager() }, null);
+			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 }

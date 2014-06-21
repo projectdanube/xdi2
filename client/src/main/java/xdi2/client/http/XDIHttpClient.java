@@ -64,13 +64,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	static {
 
-		try {
-
-			XDI2X509TrustManager.enable();
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
+		XDI2X509TrustManager.enable();
 	}
 
 	public XDIHttpClient() {
