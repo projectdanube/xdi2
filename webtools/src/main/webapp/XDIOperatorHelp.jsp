@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDI Discoverer - Help</title>
+<title>XDI Operator - Help</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body style="background-image: url('images/back.png'); background-repeat: repeat-y; margin-left: 60px;">
 
 	<div class="header">
-	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Discoverer</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIDiscoverer">Back...</a>
+	<img src="images/logo64.png" align="middle">&nbsp;&nbsp;&nbsp;<span id="appname">XDI Operator</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIOperator">Back...</a>
 	</div>
 
 	<div class="tabber">
@@ -21,11 +21,9 @@
 
 	<h2>Overview</h2>
 
-	<p>This tool allows you to perform XDI discovery on identifiers such as Cloud Names, Cloud Numbers, and discovery keys.</p>
+	<p>This tool allows you to authenticate to an XDI endpoint using a cloud name and a secret token, and to perform various common operations on that XDI endpoint.</p>
 	
-	<p>The first (required) step is to send an XDI discovery request to a registry service.</p>
-	
-	<p>The second (optional) step is to send an XDI discovery request to the XDI authority associated with the identifier.</p> 
+	<p>The XDI Operator serves similar purposes as the XDI Discoverer and XDI Messenger tools, but on a higher level.</p>
 
 	</div>
 
@@ -48,7 +46,7 @@
 
 	<h2>External Call</h2>
 
-	<p>The fields of the XDI Discoverer tool can be "pre-filled" by passing them as URI parameters as follows:</p>
+	<p>The fields of the XDI Operator tool can be "pre-filled" by passing them as URI parameters as follows:</p>
 
 	<ul>
 		<li>"input": The XDI identifier on which to perform discovery.</li>

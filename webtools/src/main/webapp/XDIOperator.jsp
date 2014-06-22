@@ -24,7 +24,6 @@
 	<% } %>
 
 	<% String sessionInput = (String) request.getSession().getAttribute("sessionInput"); %>
-	<% String sessionSecretToken = (String) request.getSession().getAttribute("sessionSecretToken"); %>
 	<% CloudNumber sessionCloudNumber = (CloudNumber) request.getSession().getAttribute("sessionCloudNumber"); %>
 	<% String sessionXdiEndpointUri = (String) request.getSession().getAttribute("sessionXdiEndpointUri"); %>
 
@@ -32,12 +31,11 @@
 
 	<form action="XDIOperator" method="post">
 
-		<table cellpadding="3">
-
-		<% String input = (String) request.getAttribute("input"); if (cloudName == null) input = ""; %>
+		<% String input = (String) request.getAttribute("input"); if (input == null) input = ""; %>
 		<% String secretToken = (String) request.getAttribute("secretToken"); if (secretToken == null) secretToken = ""; %>
-		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
+		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = "PROD"; %>
 
+		<table cellpadding="3">
 		<tr>
 		<td>Cloud Name / Cloud Number: </td>
 		<td><input type="text" name="input" size="80" value="<%= input %>"></td>
@@ -50,19 +48,16 @@
 
 		<tr>
 		<td>Discover from registry service: </td>
-		<td><input type="text" name="endpoint" size="80" value="<%= endpoint %>"></td>
+		<td><input type="radio" name="endpoint" value="PROD" <%= endpoint.equals("PROD") ? "checked" : "" %>> PROD &nbsp;
+		<input type="radio" name="endpoint" value="OTE" <%= endpoint.equals("OTE") ? "checked" : "" %>> OTE &nbsp;
+		<input type="hidden" name="cmd" value="login">
+		<input type="submit" value="Authenticate">
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIOperatorHelp.jsp">What can I do here?</a></td>
 		</tr>
-
-		<tr>
-		<td>&nbsp;</td>
-		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for PROD. Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for OTE.</span></td>
-		</tr>
-
 		</table>
 
-		<input type="hidden" name="cmd" value="login">
-		<input type="submit" value="Login!">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIDiscovererHelp.jsp">What can I do here?</a>
+
+		<hr noshade>
 
 	</form>
 
@@ -70,89 +65,312 @@
 
 	<form action="XDIOperator" method="post">
 
-		<table cellpadding="3">
-
-		<tr>
-		<td>Cloud Number: </td>
-		<td><%= sessionCloudNumber %></td>
-		</tr>
-
-		<tr>
-		<td>Endpoint: </td>
-		<td><%= sessionXdiEndpointUri %></td>
-		</tr>
-
-		<tr>
-		<td>&nbsp;</td>
-		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for PROD. Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for OTE.</span></td>
-		</tr>
-
-		</table>
+		Cloud Number: <span title="<%= sessionXdiEndpointUri %>" style="font-weight: bold;"><%= sessionCloudNumber %></span>&nbsp;&nbsp;
 
 		<input type="hidden" name="cmd" value="logout">
-		<input type="submit" value="Logout!">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIDiscovererHelp.jsp">What can I do here?</a>
+		<input type="submit" value="Reset">
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIOperatorHelp.jsp">What can I do here?</a>
 
 	</form>
 
-	<div class="tabber">
+	<div class="tabber" style="margin-top: 20px; margin-bottom: 20px;">
 
-    <div class="tabbertab">
+	<% String tab = (String) request.getAttribute("tab"); %>
+
+    <div class="tabbertab <%= "0".equals(tab) ? "tabbertabdefault" : "" %>">
 
 		<h2>Plain Message</h2>
 	
 		<form action="XDIOperator" method="post">
 	
-			<input type="hidden" name="cmd" value="buildPlain">
-			<input type="submit" value="Build!">
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPlain">
+			<input type="submit" name="submit" value="Plain XDI get"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPlain">
+			<input type="submit" name="submit" value="Plain XDI set"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPlain">
+			<input type="submit" name="submit" value="Plain XDI del"></td>
+			</tr>
+	
+			</table>
 	
 		</form>
 
 	</div>
 
-    <div class="tabbertab">
+    <div class="tabbertab <%= "1".equals(tab) ? "tabbertabdefault" : "" %>">
+
+		<h2>Cloud Names</h2>
+
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildCloudNames">
+			<input type="submit" name="submit" value="Get cloud names"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildCloudNames">
+			<input type="submit" name="submit" value="Set cloud name"></td>
+			<td>Cloud name: <input type="text" name="cloudName" size="40"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildCloudNames">
+			<input type="submit" name="submit" value="Del cloud name"></td>
+			<td>Cloud name: <input type="text" name="cloudName" size="40"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+	</div>
+
+    <div class="tabbertab <%= "2".equals(tab) ? "tabbertabdefault" : "" %>">
 
 		<h2>Root Link Contract</h2>
 	
 		<form action="XDIOperator" method="post">
 	
-			<input type="hidden" name="cmd" value="buildRootLinkContract">
-			<input type="submit" value="Build!">
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildRootLinkContract">
+			<input type="submit" name="submit" value="Get root link contract"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildRootLinkContract">
+			<input type="submit" name="submit" value="Set root link contract"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildRootLinkContract">
+			<input type="submit" name="submit" value="Del root link contract"></td>
+			</tr>
+	
+			</table>
 	
 		</form>
 
 	</div>
 
-    <div class="tabbertab">
+    <div class="tabbertab <%= "3".equals(tab) ? "tabbertabdefault" : "" %>">
 
-		<h2>Generic Link Contract</h2>
-	
-		<table cellpadding="3">
-
-		<tr>
-		<td>Requesting Authority: </td>
-		<td><input type="text" name="requestingAuthority" size="80"></td>
-		</tr>
-
-		</table>
+		<h2>Public Link Contract</h2>
 	
 		<form action="XDIOperator" method="post">
 	
-			<input type="hidden" name="cmd" value="buildGenericLinkContract">
-			<input type="submit" value="Build!">
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPublicLinkContract">
+			<input type="submit" name="submit" value="Get public link contract"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPublicLinkContract">
+			<input type="submit" name="submit" value="Set public link contract"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildPublicLinkContract">
+			<input type="submit" name="submit" value="Del public link contract"></td>
+			</tr>
+	
+			</table>
 	
 		</form>
 
 	</div>
 
-    <div class="tabbertab">
+    <div class="tabbertab <%= "4".equals(tab) ? "tabbertabdefault" : "" %>">
 
 		<h2>Generic Link Contract</h2>
 	
 		<form action="XDIOperator" method="post">
 	
-			<input type="hidden" name="cmd" value="buildGenericLinkContract">
-			<input type="submit" value="Build!">
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
+			<input type="submit" name="submit" value="Get generic link contract"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
+			<input type="submit" name="submit" value="Set generic link contract"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			</tr>
+	
+			</table>
+
+		</form>
+
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
+			<input type="submit" name="submit" value="Del generic link contract"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+
+	</div>
+
+    <div class="tabbertab <%= "5".equals(tab) ? "tabbertabdefault" : "" %>">
+
+		<h2>Key Pairs</h2>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildKeyPairs">
+			<input type="submit" name="submit" value="Get key pairs"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+	
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildKeyPairs">
+			<input type="submit" name="submit" value="Generate key pairs"></td>
+			</tr>
+	
+			</table>
+	
+		</form>
+	
+		<hr>
+	
+		<form action="XDIOperator" method="post">
+	
+			<table cellpadding="3">
+	
+			<tr>
+			<td><input type="hidden" name="cmd" value="buildKeyPairs">
+			<input type="submit" name="submit" value="Del key pairs"></td>
+			</tr>
+	
+			</table>
 	
 		</form>
 
@@ -162,7 +380,7 @@
 
 	<form action="XDIOperator" method="post">
 
-		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		<textarea name="message" style="width: 100%; white-space: nowrap; overflow: auto;" rows="12"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
