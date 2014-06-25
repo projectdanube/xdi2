@@ -221,7 +221,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessageEnvelope();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping message envelope.");
+				log.warn("Error while popping message envelope: " + ex.getMessage(), ex);
 			}
 
 			try {
@@ -229,7 +229,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessagingTarget();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping messaging target.");
+				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
 			if (log.isDebugEnabled()) log.debug("Trace: " + executionContext.getTraceBlock());
@@ -317,7 +317,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessage();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping message.");
+				log.warn("Error while popping message: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -405,7 +405,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popOperation();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping operation.");
+				log.warn("Error while popping operation: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -466,7 +466,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popTargetAddress();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping target address.");
+				log.warn("Error while popping target address: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -527,7 +527,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popTargetStatement();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping target statement.");
+				log.warn("Error while popping target statement: " + ex.getMessage(), ex);
 			}
 		}
 	}
