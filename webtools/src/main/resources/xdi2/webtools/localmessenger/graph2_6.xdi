@@ -1,6 +1,6 @@
 ([=]!:uuid:1111)/$ref/
-[=]!:uuid:1111/$anon/($do/$set/[=]!:uuid:1111)
-[=]!:uuid:1111/$anon/($do/$set/[=]!:uuid:2222)
+([=]!:uuid:1111/$anon)$do/$set/[=]!:uuid:1111
+([=]!:uuid:1111/$anon)$do/$set/[=]!:uuid:2222
 [=]!:uuid:1111<#name>&/&/"Alice"
 [=]!:uuid:1111<#email>&/&/"markus.sabadello@gmail.com"
 [=]!:uuid:2222<#name>&/&/"Bob"

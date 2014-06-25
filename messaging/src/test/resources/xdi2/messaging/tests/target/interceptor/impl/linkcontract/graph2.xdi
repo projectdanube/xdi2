@@ -1,6 +1,6 @@
 ([=]!:uuid:1111)/$ref/
 /$is$ref/([=]!:uuid:1111)
-[=]!:uuid:1111/[=]!:uuid:1111/($do/$all/)
+([=]!:uuid:1111/[=]!:uuid:1111)$do/$all/
 [=]!:uuid:1111/[=]!:uuid:1111/($do$if$and/$true/({$from}/$is/[=]!:uuid:1111))
 [=]!:uuid:1111/[=]!:uuid:1111/($do$if$and/$true/({$msg}$secret<$token>&/$equals/$secret<$token>&))
 [=]!:uuid:1111<#email>&/&/"markus.sabadello@gmail.com"
