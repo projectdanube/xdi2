@@ -52,7 +52,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
-	private boolean writeInner;
 	private boolean writePretty;
 	private boolean writeHtml;
 
@@ -68,11 +67,10 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
 
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
+		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {

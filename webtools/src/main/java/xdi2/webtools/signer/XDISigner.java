@@ -122,7 +122,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("key", sampleKeys.get(Integer.parseInt(sample) - 1));
@@ -142,7 +141,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
-		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String input = request.getParameter("input");
 		String key = request.getParameter("key");
@@ -162,7 +160,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -270,7 +267,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
-		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("input", input);
 		request.setAttribute("key", key);

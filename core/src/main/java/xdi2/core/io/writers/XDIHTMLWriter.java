@@ -23,7 +23,6 @@ public class XDIHTMLWriter extends XDIDisplayWriter {
 
 		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "0");
 		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "1");
 		this.parameters.setProperty(XDIWriterRegistry.PARAMETER_HTML, "1");
 
 		super.init();

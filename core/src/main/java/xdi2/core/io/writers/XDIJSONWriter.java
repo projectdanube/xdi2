@@ -51,7 +51,6 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
-	private boolean writeInner;
 	private boolean writePretty;
 
 	public XDIJSONWriter(Properties parameters) {
@@ -66,10 +65,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
+		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
 	}
 
 	private void writeInternal(Graph graph, JsonObject jsonObject) throws IOException {
@@ -138,9 +136,9 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private void putStatementIntoJsonObject(XDI3Statement statementXri, JsonObject jsonObject) throws IOException {
 
-		// inner root short notation?
+		// nested JSON object?
 
-		if (this.writeInner) if (this.tryPutStatementIntoInnerJsonObject(statementXri, jsonObject)) return;
+		if (this.tryPutStatementIntoInnerJsonObject(statementXri, jsonObject)) return;
 
 		// add the object
 

@@ -28,7 +28,6 @@ public final class XDIWriterRegistry {
 
 	public static final String PARAMETER_IMPLIED = "implied";
 	public static final String PARAMETER_ORDERED = "ordered";
-	public static final String PARAMETER_INNER = "inner";
 	public static final String PARAMETER_PRETTY = "pretty";
 	public static final String PARAMETER_HTML = "html";
 	public static final String DEFAULT_IMPLIED = "0";

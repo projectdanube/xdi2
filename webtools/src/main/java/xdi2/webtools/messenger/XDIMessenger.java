@@ -95,7 +95,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInputs.get(0));
 		request.setAttribute("endpoint", request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")) + sampleEndpoint);
@@ -195,7 +194,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			message.createOperation(operation, target);
 
 			Properties parameters = new Properties();
-			parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "1");
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat("XDI DISPLAY", parameters);
 			StringWriter buffer = new StringWriter();
 			xdiWriter.write(message.getMessageEnvelope().getGraph(), buffer);
@@ -238,7 +236,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
-		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String input = request.getParameter("input");
 		String endpoint = request.getParameter("endpoint");
@@ -250,7 +247,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -317,7 +313,6 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
-		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("input", input);
 		request.setAttribute("endpoint", endpoint);
