@@ -108,7 +108,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	public static XDI3SubSegment createInnerRootArcXri(XDI3Segment subject, XDI3Segment predicate) {
 
 		return XDI3SubSegment.fromComponents(null, false, false, null, 
-				XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, subject, predicate, null, null));
+				XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, subject, predicate, null, null));
 	}
 
 	/**

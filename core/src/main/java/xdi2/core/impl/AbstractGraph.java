@@ -245,10 +245,6 @@ public abstract class AbstractGraph implements Graph {
 
 		if (log.isTraceEnabled()) log.trace("setStatement(" + statementXri + ")");
 
-		// inner root short notation?
-
-		statementXri = statementXri.fromInnerRootNotation(true);
-
 		// set the statement
 
 		if (statementXri.isContextNodeStatement()) {

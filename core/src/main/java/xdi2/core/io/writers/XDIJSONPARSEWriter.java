@@ -224,10 +224,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 	private static JsonElement makeGom(XDI3XRef xref) {
 
-		if (xref.hasStatement()) {
-
-			return makeGom(xref.getStatement());
-		} else if (xref.hasPartialSubjectAndPredicate()) {
+		if (xref.hasPartialSubjectAndPredicate()) {
 
 			JsonArray gom = new JsonArray();
 			gom.add(makeGom(xref.getPartialSubject()));

@@ -7,19 +7,17 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 
 	private String xs;
 	private XDI3Segment segment;
-	private XDI3Statement statement;
 	private XDI3Segment partialSubject;
 	private XDI3Segment partialPredicate;
 	private String iri;
 	private String literal;
 
-	XDI3XRef(String string, String xs, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	XDI3XRef(String string, String xs, XDI3Segment segment, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		super(string);
 
 		this.xs = xs;
 		this.segment = segment;
-		this.statement = statement;
 		this.partialSubject = partialSubject;
 		this.partialPredicate = partialPredicate;
 		this.iri = iri;
@@ -31,27 +29,25 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return XDI3ParserRegistry.getInstance().getParser().parseXDI3XRef(string);
 	}
 
-	public static XDI3XRef fromComponents(String xs, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	public static XDI3XRef fromComponents(String xs, XDI3Segment segment, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
 		if (xs == null) throw new IllegalArgumentException();
-		if (segment == null && statement == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
-		if (segment != null && (statement != null || partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (statement != null && (segment != null || partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (partialSubject != null && (segment != null || statement != null || partialPredicate == null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (partialPredicate != null && (segment != null || statement != null || partialSubject == null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (iri != null && (segment != null || statement != null || partialSubject != null || partialPredicate != null || literal != null)) throw new IllegalArgumentException();
-		if (literal != null && (segment != null || statement != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
+		if (segment == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
+		if (segment != null && (partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (partialSubject != null && (segment != null || partialPredicate == null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (partialPredicate != null && (segment != null || partialSubject == null || iri != null || literal != null)) throw new IllegalArgumentException();
+		if (iri != null && (segment != null || partialSubject != null || partialPredicate != null || literal != null)) throw new IllegalArgumentException();
+		if (literal != null && (segment != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
 
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(xs.charAt(0));
 		if (segment != null) buffer.append(segment.toString());
-		if (statement != null) buffer.append(statement.toString());
 		if (partialSubject != null && partialPredicate != null) buffer.append(partialSubject.toString() + "/" + partialPredicate.toString());
 		if (iri != null) buffer.append(iri);
 		if (literal != null) buffer.append(literal);
 		buffer.append(xs.charAt(1));
 
-		return new XDI3XRef(buffer.toString(), xs, segment, statement, partialSubject, partialPredicate, iri, literal);
+		return new XDI3XRef(buffer.toString(), xs, segment, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public boolean isEmpty() {
@@ -62,11 +58,6 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	public boolean hasSegment() {
 
 		return this.segment != null;
-	}
-
-	public boolean hasStatement() {
-
-		return this.statement != null;
 	}
 
 	public boolean hasPartialSubjectAndPredicate() {
@@ -94,11 +85,6 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 		return this.segment;
 	}
 
-	public XDI3Statement getStatement() {
-
-		return this.statement;
-	}
-
 	public XDI3Segment getPartialSubject() {
 
 		return this.partialSubject;
@@ -122,7 +108,6 @@ public class XDI3XRef extends XDI3SyntaxComponent {
 	public String getValue() {
 
 		if (this.segment != null) return this.segment.toString();
-		if (this.statement != null) return this.statement.toString();
 		if (this.partialSubject != null && this.partialPredicate != null) return this.partialSubject.toString() + "/" + this.partialPredicate.toString();
 		if (this.iri != null) return this.iri;
 		if (this.literal != null) return this.literal;

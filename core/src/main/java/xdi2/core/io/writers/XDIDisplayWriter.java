@@ -145,10 +145,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private void writeStatement(BufferedWriter bufferedWriter, XDI3Statement statementXri) throws IOException {
 
-		// inner root short notation?
-
-		if (this.writeInner) statementXri = statementXri.toInnerRootNotation(true);
-
 		// write the statement
 
 		this.writeContextNodeXri(bufferedWriter, statementXri.getSubject());
@@ -161,13 +157,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			this.writeContextNodeArcXri(bufferedWriter, statementXri.getSubject(), (XDI3SubSegment) statementXri.getObject());
 		} else if (statementXri.isRelationStatement()) {
 
-			if (statementXri.isInnerRootNotation()) {
-
-				this.writeInnerRootStatement(bufferedWriter, statementXri.getInnerRootNotationStatement());
-			} else {
-
-				this.writeContextNodeXri(bufferedWriter, (XDI3Segment) statementXri.getObject());
-			}
+			this.writeContextNodeXri(bufferedWriter, (XDI3Segment) statementXri.getObject());
 		} else if (statementXri.isLiteralStatement()) {
 
 			this.writeLiteralData(bufferedWriter, statementXri.getObject());
@@ -185,34 +175,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		} else {
 
 			bufferedWriter.write("/");
-		}
-	}
-
-	private void writeOpenInnerRoot(BufferedWriter bufferedWriter) throws IOException {
-
-		if (this.writePretty && this.writeHtml) {
-
-			bufferedWriter.write("(&#9;");
-		} else if (this.writePretty) {
-
-			bufferedWriter.write("(\t");
-		} else {
-
-			bufferedWriter.write("(");
-		}
-	}
-
-	private void writeCloseInnerRoot(BufferedWriter bufferedWriter) throws IOException {
-
-		if (this.writePretty && this.writeHtml) {
-
-			bufferedWriter.write("&#9;)");
-		} else if (this.writePretty) {
-
-			bufferedWriter.write("\t)");
-		} else {
-
-			bufferedWriter.write(")");
 		}
 	}
 
@@ -268,21 +230,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (htmlColorString != null) bufferedWriter.write("<span style=\"background-color:" + htmlColorString + "\">");
 		bufferedWriter.write(contextNodeArcXri.toString());
 		if (htmlColorString != null) bufferedWriter.write("</span>");
-	}
-
-	private void writeInnerRootStatement(BufferedWriter bufferedWriter, XDI3Statement statementXri) throws IOException {
-
-		this.writeOpenInnerRoot(bufferedWriter);
-
-		if (this.writePretty || this.writeHtml) {
-
-			this.writeStatement(bufferedWriter, statementXri);
-		} else {
-
-			bufferedWriter.write(statementXri.toString());
-		}
-
-		this.writeCloseInnerRoot(bufferedWriter);
 	}
 
 	@SuppressWarnings("static-method")

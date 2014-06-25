@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.core.xri3.XDI3XRef;
@@ -436,7 +435,7 @@ public final class XDI3Util {
 	/**
 	 * Replaces all occurences of a subsegment with a segment.
 	 */
-	public static XDI3Segment replaceXri(final XDI3Segment xri, final XDI3SubSegment oldXri, final XDI3Segment newXri, final boolean replaceInXRefSegment, final boolean replaceInXRefStatement, final boolean replaceInXRefPartialSubjectAndPredicate) {
+	public static XDI3Segment replaceXri(final XDI3Segment xri, final XDI3SubSegment oldXri, final XDI3Segment newXri) {
 
 		if (xri == null) throw new NullPointerException();
 		if (oldXri == null) throw new NullPointerException();
@@ -457,31 +456,26 @@ public final class XDI3Util {
 					continue;
 				}
 
-				if (replaceInXRefSegment && subSegment.hasXRef() && subSegment.getXRef().hasSegment()) {
+				if (subSegment.hasXRef() && subSegment.getXRef().hasSegment()) {
 
 					XDI3Segment xRefSegment = subSegment.getXRef().getSegment();
 
-					xRefSegment = replaceXri(xRefSegment, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+					xRefSegment = replaceXri(xRefSegment, oldXri, newXri);
 
-					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), xRefSegment, null, null, null, null, null)));
+					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), xRefSegment, null, null, null, null)));
 
 					continue;
 				}
 
-				if (replaceInXRefStatement && subSegment.hasXRef() && subSegment.getXRef().hasStatement()) {
-
-					throw new Xdi2RuntimeException("Replacing subsegment " + subSegment.toString() + " not supported. Try not using inner root short notation.");
-				}
-
-				if (replaceInXRefPartialSubjectAndPredicate && subSegment.hasXRef() && subSegment.getXRef().hasPartialSubjectAndPredicate()) {
+				if (subSegment.hasXRef() && subSegment.getXRef().hasPartialSubjectAndPredicate()) {
 
 					XDI3Segment xRefPartialSubject = subSegment.getXRef().getPartialSubject();
 					XDI3Segment xRefPartialPredicate = subSegment.getXRef().getPartialPredicate();
 
-					xRefPartialSubject = replaceXri(xRefPartialSubject, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
-					xRefPartialPredicate = replaceXri(xRefPartialPredicate, oldXri, newXri, replaceInXRefSegment, replaceInXRefStatement, replaceInXRefPartialSubjectAndPredicate);
+					xRefPartialSubject = replaceXri(xRefPartialSubject, oldXri, newXri);
+					xRefPartialPredicate = replaceXri(xRefPartialPredicate, oldXri, newXri);
 
-					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), null, null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+					subSegments.add(XDI3SubSegment.fromComponents(subSegment.getCs(), subSegment.isClassXs(), subSegment.isAttributeXs(), null, XDI3XRef.fromComponents(subSegment.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
 
 					continue;
 				}
@@ -492,7 +486,7 @@ public final class XDI3Util {
 			{ result = XDI3Segment.fromComponents(subSegments); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("replaceXri(" + xri + "," + oldXri + "," + newXri + "," + replaceInXRefPartialSubjectAndPredicate + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("replaceXri(" + xri + "," + oldXri + "," + newXri + ") --> " + result);
 		}
 	}
 

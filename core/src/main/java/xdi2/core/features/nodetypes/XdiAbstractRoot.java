@@ -174,7 +174,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	@Override
 	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement relativeStatementXri) {
 
-		XDI3Statement absoluteStatementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), relativeStatementXri.fromInnerRootNotation(true), true);
+		XDI3Statement absoluteStatementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), relativeStatementXri, true);
 
 		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + relativeStatementXri + " --> " + absoluteStatementXri + ")");
 
