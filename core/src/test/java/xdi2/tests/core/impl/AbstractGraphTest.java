@@ -1030,7 +1030,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		graph30.clear();
 
-		graph30.setStatement(XDI3Statement.create("=a/+b/(=x/+y/(=mm/+nn/(=oo/+pp/=qq)))"));
+		graph30.setStatement(XDI3Statement.create("(=a/+b)(=x/+y)(=mm/+nn)=oo/+pp/=qq"));
 
 		graph30.clear();
 
