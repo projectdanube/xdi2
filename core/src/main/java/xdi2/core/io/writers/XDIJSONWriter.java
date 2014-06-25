@@ -156,7 +156,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
 		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
 
-		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
+		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.fromComponent(subjectFirstSubSegment));
 		if (reducedStatementXri == null) return false;
 
 		// find the inner root JSON array

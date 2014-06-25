@@ -151,7 +151,7 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	public ContributorResult executeGetOnContextNodeStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment relativeTargetAddress = relativeTargetStatement.getContextNodeXri();
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement);
 
 		MessageResult tempMessageResult = new MessageResult();
 
@@ -188,7 +188,7 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	public ContributorResult executeGetOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment relativeTargetAddress = relativeTargetStatement.getContextNodeXri();
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement);
 
 		MessageResult tempMessageResult = new MessageResult();
 
@@ -221,7 +221,7 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	public ContributorResult executeGetOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDI3Segment relativeTargetAddress = relativeTargetStatement.getContextNodeXri();
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement);
 
 		MessageResult tempMessageResult = new MessageResult();
 
