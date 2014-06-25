@@ -399,7 +399,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			this.getInterceptors().clearDisabledForOperation(operation);
 			this.getContributors().clearDisabledForOperation(operation);
-			
+
 			try {
 
 				executionContext.popOperation();
@@ -419,6 +419,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(XDI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetAddress == null) throw new NullPointerException();
+		if (operation == null) throw new NullPointerException();
+		if (operationMessageResult == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
@@ -480,6 +485,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement == null) throw new NullPointerException();
+		if (operation == null) throw new NullPointerException();
+		if (operationMessageResult == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
