@@ -27,6 +27,7 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class AbstractContextNode implements ContextNode {
@@ -703,6 +704,58 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
+	public Statement setStatement(XDI3Statement statementXri) {
+
+		// set the statement
+
+		if (statementXri.isContextNodeStatement()) {
+
+			ContextNode contextNode = this.setDeepContextNode(statementXri.getTargetContextNodeXri());
+
+			return contextNode.getStatement();
+		} else if (statementXri.isRelationStatement()) {
+
+			Relation relation = this.setDeepRelation(statementXri.getContextNodeXri(), statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
+
+			return relation.getStatement();
+		} else if (statementXri.isLiteralStatement()) {
+
+			Literal literal = this.setDeepLiteral(statementXri.getContextNodeXri(), statementXri.getLiteralData());
+
+			return literal.getStatement();
+		} else {
+
+			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
+		}
+	}
+
+	@Override
+	public Statement getStatement(XDI3Statement statementXri) {
+
+		ContextNode baseContextNode = this.getDeepContextNode(statementXri.getSubject(), false);
+		if (baseContextNode == null) return null;
+
+		if (statementXri.isContextNodeStatement()) {
+
+			ContextNode contextNode = baseContextNode.getContextNode(statementXri.getContextNodeArcXri(), false);
+
+			return contextNode == null ? null : contextNode.getStatement();
+		} else if (statementXri.isRelationStatement()) {
+
+			Relation relation = baseContextNode.getRelation(statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
+
+			return relation == null ? null : relation.getStatement();
+		} else if (statementXri.isLiteralStatement()) {
+
+			Literal literal = baseContextNode.getLiteral(statementXri.getLiteralData());
+
+			return literal == null ? null : literal.getStatement();
+		}
+
+		return null;
+	}
+
+	@Override
 	public ReadOnlyIterator<Statement> getAllStatements() {
 
 		Iterator<Statement> contextNodesStatements = null;
@@ -748,6 +801,12 @@ public abstract class AbstractContextNode implements ContextNode {
 		if (literalStatement != null) list.add(literalStatement);
 
 		return new CompositeIterator<Statement> (list.iterator());
+	}
+
+	@Override
+	public boolean containsStatement(XDI3Statement statementXri) {
+
+		return this.getStatement(statementXri) != null;
 	}
 
 	@Override

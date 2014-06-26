@@ -182,19 +182,31 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	 */
 
 	/**
-	 * A simple way to set a statement in this graph.
+	 * Sets a statement in this graph.
 	 */
 	public Statement setStatement(XDI3Statement statementXri);
 
 	/**
-	 * A simple way to get a statement in this graph.
+	 * Gets a statement in this graph.
 	 */
 	public Statement getStatement(XDI3Statement statementXri);
 
 	/**
-	 * A simple way to check if a statement exists in this graph.
+	 * Gets all statements in this graph.
+	 * @return An iterator over statements.
+	 */
+	public ReadOnlyIterator<Statement> getAllStatements();
+
+	/**
+	 * Check if a statement exists in this graph.
 	 */
 	public boolean containsStatement(XDI3Statement statementXri);
+
+	/**
+	 * Returns the number of all statements in this graph.
+	 * @return The number of statements.
+	 */
+	public long getAllStatementCount();
 
 	/*
 	 * Methods related to transactions
