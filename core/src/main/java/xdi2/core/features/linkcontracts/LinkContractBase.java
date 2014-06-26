@@ -10,8 +10,6 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXriIterator;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
@@ -103,12 +101,6 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
-		// prepare the target address
-
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-
-		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
-
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
 
 		if (this.getContextNode().containsRelation(XDILinkContractConstants.XRI_S_ALL, targetAddress)) return;
@@ -134,36 +126,28 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.setPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
 	}
 
-	public void setPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public void setPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
 		// prepare the target statement
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, true);
 		if (xdiInnerRoot == null) return;
 
-		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
-
 		// set the permission statement
 
-		this.getContextNode().getGraph().setStatement(targetStatement);
+		xdiInnerRoot.getContextNode().setStatement(targetStatementXri);
 	}
 
-	public void setNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public void setNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		this.setPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
+		this.setPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
 	}
 
 	public void delPermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
-
-		// prepare the target address
-
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-
-		targetAddress = xdiRoot.relativeToAbsoluteXri(targetAddress);
 
 		// delete the permission arc
 
@@ -175,44 +159,34 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.delPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
 	}
 
-	public void delPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public void delPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
-		// prepare the target statement
+		// delete the permission statement
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return;
 
-		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
-
-		// delete the permission statement
-
-		Statement statement = this.getContextNode().getGraph().getStatement(targetStatement);
+		Statement statement = xdiInnerRoot.getContextNode().getStatement(targetStatementXri);
 		if (statement == null) return;
 
 		statement.delete();
 	}
 
-	public void delNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public void delNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		this.delPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
+		this.delPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
 	}
 
 	public IterableIterator<XDI3Segment> getPermissionTargetAddresses(XDI3Segment permissionXri) {
 
 		if (permissionXri == null) throw new NullPointerException();
 
-		// prepare the target address
-
-		XdiRoot xdiRoot = this.getXdiSubGraph().findRoot();
-
 		// return the target addresses
 
-		return new MappingAbsoluteToRelativeXriIterator(
-				xdiRoot,
-				new MappingRelationTargetContextNodeXriIterator(
-						this.getContextNode().getRelations(permissionXri)));
+		return new MappingRelationTargetContextNodeXriIterator(
+						this.getContextNode().getRelations(permissionXri));
 	}
 
 	public IterableIterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
@@ -220,25 +194,23 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		return this.getPermissionTargetAddresses(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri));
 	}
 
-	public boolean hasPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public boolean hasPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		if (permissionXri == null || targetStatement == null) throw new NullPointerException();
+		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
 		// prepare the target statement
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return false;
 
-		targetStatement = xdiInnerRoot.relativeToAbsoluteStatementXri(targetStatement);
-
 		// check if the target statement exists
 
-		return this.getContextNode().getGraph().containsStatement(targetStatement);
+		return xdiInnerRoot.getContextNode().containsStatement(targetStatementXri);
 	}
 
-	public boolean hasNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatement) {
+	public boolean hasNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
-		return this.hasPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatement);
+		return this.hasPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
 	}
 
 	/*

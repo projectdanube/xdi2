@@ -146,16 +146,14 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorOperation(Operation operation) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
-		innerRoot.getContextNode().clear();
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).findInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
+		xdiInnerRoot.getContextNode().clear();
 
 		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
 
 		for (XDI3Statement statementXri : new MappingStatementXriIterator(operation.getMessage().getContextNode().getAllStatements())) {
 
-			statementXri = innerRoot.relativeToAbsoluteStatementXri(statementXri);
-
-			this.getGraph().setStatement(statementXri);
+			xdiInnerRoot.getContextNode().setStatement(statementXri);
 		}
 
 		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);

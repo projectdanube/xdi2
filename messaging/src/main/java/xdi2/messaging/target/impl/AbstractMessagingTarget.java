@@ -362,18 +362,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			// execute the address or statements in the operation
 
 			XDI3Segment targetAddress = operation.getTargetAddress();
-			Iterator<XDI3Statement> targetStatements = operation.getTargetStatements();
+			Iterator<XDI3Statement> targetStatementXris = operation.getTargetStatementXris();
 
 			if (targetAddress != null) {
 
 				this.execute(targetAddress, operation, operationMessageResult, executionContext);
-			} else if (targetStatements != null) {
+			} else if (targetStatementXris != null) {
 
-				while (targetStatements.hasNext()) {
+				while (targetStatementXris.hasNext()) {
 
-					XDI3Statement targetStatement = targetStatements.next();
+					XDI3Statement targetStatementXri = targetStatementXris.next();
 
-					this.execute(targetStatement, operation, operationMessageResult, executionContext);
+					this.execute(targetStatementXri, operation, operationMessageResult, executionContext);
 				}
 			}
 

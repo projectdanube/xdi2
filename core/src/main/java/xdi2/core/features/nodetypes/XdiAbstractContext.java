@@ -185,6 +185,16 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
+
+		XdiRoot xdiRoot = this.findRoot();
+
+		XDI3Segment innerRootSubjectXri = xdiRoot.absoluteToRelativeXri(this.getContextNode().getXri());
+
+		return xdiRoot.findInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
+	}
+
+	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
 
 		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);

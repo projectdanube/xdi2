@@ -146,7 +146,7 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getSenderXri(), XDIAuthenticationConstants.XRI_S_ANONYMOUS);
 		assertEquals(operation.getOperationXri(), XDIMessagingConstants.XRI_S_SET);
-		assertEquals(operation.getTargetStatements().next(), TARGET_STATEMENT);
+		assertEquals(operation.getTargetStatementXris().next(), TARGET_STATEMENT);
 		assertTrue(operation instanceof SetOperation);
 	}
 

@@ -162,7 +162,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statements of the operation.
 	 * @return The target statements of the operation.
 	 */
-	public Iterator<XDI3Statement> getTargetStatements() {
+	public Iterator<XDI3Statement> getTargetStatementXris() {
 
 		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
