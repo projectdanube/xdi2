@@ -133,6 +133,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		String category = request.getParameter("category");
 		if (category == null) category = "1";
 
@@ -164,6 +167,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		String category = request.getParameter("category");
 		String sample = request.getParameter("sample");
