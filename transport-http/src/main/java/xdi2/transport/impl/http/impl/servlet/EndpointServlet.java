@@ -70,6 +70,9 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	@Override
 	protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
+		httpServletRequest.setCharacterEncoding("UTF-8");
+		httpServletResponse.setCharacterEncoding("UTF-8");
+
 		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
 		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
 
@@ -78,6 +81,9 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 	@Override
 	protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+
+		httpServletRequest.setCharacterEncoding("UTF-8");
+		httpServletResponse.setCharacterEncoding("UTF-8");
 
 		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
 		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);

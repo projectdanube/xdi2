@@ -68,6 +68,9 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
@@ -81,6 +84,9 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		String rulename = request.getParameter("rulename");
 		String parser = request.getParameter("parser");

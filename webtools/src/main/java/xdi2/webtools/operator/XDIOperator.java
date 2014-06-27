@@ -82,6 +82,9 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
@@ -106,6 +109,9 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		if ("message".equals(request.getParameter("cmd"))) {
 

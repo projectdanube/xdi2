@@ -80,6 +80,9 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
@@ -97,6 +100,9 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
