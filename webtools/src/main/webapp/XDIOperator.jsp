@@ -29,7 +29,7 @@
 
 	<% if (sessionInput == null) { %>
 
-	<form action="XDIOperator" method="post">
+	<form action="XDIOperator" method="post" accept-charset="UTF-8">
 
 		<% String input = (String) request.getAttribute("input"); if (input == null) input = ""; %>
 		<% String secretToken = (String) request.getAttribute("secretToken"); if (secretToken == null) secretToken = ""; %>
@@ -63,7 +63,7 @@
 
 	<% } else if (sessionInput != null) { %>
 
-	<form action="XDIOperator" method="post">
+	<form action="XDIOperator" method="post" accept-charset="UTF-8">
 
 		Cloud Number: <span title="<%= sessionXdiEndpointUri %>" style="font-weight: bold;"><%= sessionCloudNumber %></span>&nbsp;&nbsp;
 
@@ -81,7 +81,7 @@
 
 		<h2>Plain Message</h2>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -96,7 +96,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -111,7 +111,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -130,7 +130,7 @@
 
 		<h2>Cloud Names</h2>
 
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -145,7 +145,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -161,7 +161,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -181,7 +181,7 @@
 
 		<h2>Root Link Contract</h2>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -196,7 +196,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -211,7 +211,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -230,7 +230,7 @@
 
 		<h2>Public Link Contract</h2>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -245,7 +245,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -260,7 +260,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -279,7 +279,7 @@
 
 		<h2>Generic Link Contract</h2>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -295,7 +295,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -311,7 +311,7 @@
 
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -331,7 +331,7 @@
 
 		<h2>Key Pairs</h2>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -346,7 +346,7 @@
 	
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -361,7 +361,7 @@
 	
 		<hr>
 	
-		<form action="XDIOperator" method="post">
+		<form action="XDIOperator" method="post" accept-charset="UTF-8">
 	
 			<table cellpadding="3">
 	
@@ -378,7 +378,7 @@
 	
 	</div>
 
-	<form action="XDIOperator" method="post">
+	<form action="XDIOperator" method="post" accept-charset="UTF-8">
 
 		<textarea name="message" style="width: 100%; white-space: nowrap; overflow: auto;" rows="12"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>
 
