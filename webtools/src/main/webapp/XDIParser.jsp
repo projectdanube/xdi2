@@ -25,7 +25,7 @@
 
 	<% } %>
 
-	<form action="XDIParser" method="post">
+	<form action="XDIParser" method="post" accept-charset="UTF-8">
 
 		<table><tr>
 		<td>Parse ABNF:</td>

@@ -45,7 +45,7 @@ function updateSamples() {
 
 	<% } %>
 
-	<form action="XDILocalMessenger" method="post">
+	<form action="XDILocalMessenger" method="post" accept-charset="UTF-8">
 
 		<textarea class="input" name="input" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 		<textarea class="input" name="message" style="width: 100%" rows="12" wrap="off"><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %></textarea><br>

@@ -25,7 +25,7 @@
 
 	<% } %>
 
-	<form action="XDIDiscoverer" method="post">
+	<form action="XDIDiscoverer" method="post" accept-charset="UTF-8">
 
 		<table cellpadding="3">
 		<tr>

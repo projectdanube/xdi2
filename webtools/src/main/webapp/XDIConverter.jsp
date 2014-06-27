@@ -25,7 +25,7 @@
 
 	<% } %>
 
-	<form action="XDIConverter" method="post" id="form">
+	<form action="XDIConverter" method="post" id="form" accept-charset="UTF-8">
 
 		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
