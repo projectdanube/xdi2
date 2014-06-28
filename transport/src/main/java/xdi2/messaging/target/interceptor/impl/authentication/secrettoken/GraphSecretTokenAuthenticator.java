@@ -56,7 +56,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getSecretTokenGraph()).findPeerRoot(senderXri, false);
+		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getSecretTokenGraph()).getPeerRoot(senderXri, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);

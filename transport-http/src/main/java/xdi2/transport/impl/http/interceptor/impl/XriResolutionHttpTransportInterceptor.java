@@ -67,13 +67,13 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 		// look into registry
 
-		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + providerid + query), false);
+		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDI3Segment.create("" + providerid + query), false);
 
 		if (peerRoot == null) {
 
 			for (XDI3Segment provideridSynonym : provideridSynonyms) {
 
-				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
+				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
 				if (peerRoot != null) break;
 			}
 		}

@@ -74,7 +74,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.concatXris(root.getContextNode().getXri(), statementXri.getSubject());
 				XDI3Segment relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
@@ -98,7 +98,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.concatXris(root.getContextNode().getXri(), statementXri.getSubject());
 				XDI3Segment relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
@@ -118,7 +118,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.findRoot(statementXri.getSubject(), true);
+				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
 				XDI3Segment absoluteSubject = XDI3Util.concatXris(root.getContextNode().getXri(), statementXri.getSubject());
 				XDI3Segment relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
@@ -131,12 +131,12 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					if (jsonEntryArrayElement instanceof JsonObject) {
 
-						root = root.findRoot(statementXri.getSubject(), true);
+						root = root.getRoot(statementXri.getSubject(), true);
 
 						XDI3Segment subject = root.absoluteToRelativeXri(XDI3Util.concatXris(root.getContextNode().getXri(), statementXri.getSubject()));
 						XDI3Segment predicate = statementXri.getPredicate();
 
-						XdiInnerRoot innerRoot = root.findInnerRoot(subject, predicate, true);
+						XdiInnerRoot innerRoot = root.getInnerRoot(subject, predicate, true);
 
 						this.read(innerRoot, (JsonObject) jsonEntryArrayElement, state);
 					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {

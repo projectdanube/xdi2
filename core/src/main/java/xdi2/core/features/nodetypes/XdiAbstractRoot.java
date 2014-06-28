@@ -58,21 +58,13 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	/*
-	 * Finding roots related to this root
+	 * Roots related to this root
 	 */
 
 	@Override
-	public XdiLocalRoot findLocalRoot() {
+	public XdiPeerRoot getPeerRoot(XDI3Segment xri, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("findLocalRoot()");
-
-		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode(false));
-	}
-
-	@Override
-	public XdiPeerRoot findPeerRoot(XDI3Segment xri, boolean create) {
-
-		if (log.isTraceEnabled()) log.trace("findPeerRoot(" + xri + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + xri + "," + create + ")");
 
 		XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(xri);
 
@@ -83,9 +75,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XdiInnerRoot findInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create) {
+	public XdiInnerRoot getInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("findInnerRoot(" + subject + "," + predicate + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getInnerRoot(" + subject + "," + predicate + "," + create + ")");
 
 		XDI3SubSegment innerRootArcXri = XdiInnerRoot.createInnerRootArcXri(subject, predicate);
 
@@ -96,9 +88,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XdiRoot findRoot(XDI3Segment xri, boolean create) {
+	public XdiRoot getRoot(XDI3Segment xri, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("findRoot(" + xri + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getRoot(" + xri + "," + create + ")");
 
 		XdiRoot root = this;
 

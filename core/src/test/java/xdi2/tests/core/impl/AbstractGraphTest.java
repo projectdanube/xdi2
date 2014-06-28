@@ -1006,7 +1006,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 0);
 
-		XdiLocalRoot.findLocalRoot(graph30).findInnerRoot(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+d"), true);
+		XdiLocalRoot.findLocalRoot(graph30).getInnerRoot(XDI3Segment.create("=a=b=c"), XDI3Segment.create("+d"), true);
 
 		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("(=a=b=c/+d)")));
 		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDI3Segment.create("=a=b=c")));
