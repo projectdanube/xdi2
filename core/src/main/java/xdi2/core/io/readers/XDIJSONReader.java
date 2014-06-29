@@ -142,7 +142,6 @@ public class XDIJSONReader extends AbstractXDIReader {
 					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
 
 						XDI3Segment targetContextNodeXri = makeXDI3Segment(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
-						targetContextNodeXri = XDI3Util.concatXris(root.getContextNode().getXri(), targetContextNodeXri);
 
 						Relation relation = baseContextNode.setRelation(arcXri, targetContextNodeXri);
 						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXri() + ": Set relation " + relation.getArcXri() + " --> " + relation.getTargetContextNodeXri());
