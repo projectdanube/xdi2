@@ -49,7 +49,6 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	</select>
 	<input name="writeImplied" type="checkbox" #if($writeImplied == "on")checked#end>implied=1
 	<input name="writeOrdered" type="checkbox" #if($writeOrdered == "on")checked#end>ordered=1
-	<input name="writeInner" type="checkbox" #if($writeInner == "on")checked#end>inner=1
 	<input name="writePretty" type="checkbox" #if($writePretty == "on")checked#end>pretty=1
 	<input type="hidden" name="cmd" value="edit_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
@@ -63,7 +62,6 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<input name="format" type="hidden" value="$format">
 	<input name="writeImplied" type="hidden" value="$writeImplied">
 	<input name="writeOrdered" type="hidden" value="$writeOrdered">
-	<input name="writeInner" type="hidden" value="$writeInner">
 	<input name="writePretty" type="hidden" value="$writePretty">
 	<input type="hidden" name="cmd" value="save_messaging_target">
 	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
