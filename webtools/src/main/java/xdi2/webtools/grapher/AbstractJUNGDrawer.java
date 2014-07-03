@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 import org.apache.commons.collections15.Transformer;
 
@@ -17,12 +18,17 @@ import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.Statement.RelationStatement;
+import xdi2.core.features.linkcontracts.operator.Operator;
+import xdi2.core.features.linkcontracts.policy.Policy;
+import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.impl.AbstractLiteral;
-import xdi2.webtools.util.WebtoolsUtil;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
+import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
@@ -32,7 +38,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 	@Override
 	public BufferedImage draw(xdi2.core.Graph graph) {
 
-		DirectedGraph<Object, Statement> directedGraph = WebtoolsUtil.JUNGDirectedGraphFromGraph(graph);
+		DirectedGraph<Object, Statement> directedGraph = JUNGDirectedGraphFromGraph(graph);
 
 		Layout<Object, Statement> layout = this.getLayout(directedGraph);
 		VisualizationViewer<Object, Statement> vv = new VisualizationViewer<Object, Statement> (layout);
@@ -128,5 +134,60 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 
 			return Float.valueOf(0.5f);
 		}
+	}
+
+	public static DirectedGraph<Object, Statement> JUNGDirectedGraphFromGraph(xdi2.core.Graph graph) {
+
+		DirectedGraph<Object, Statement> directedGraph = new DirectedSparseMultigraph<Object, Statement> ();
+
+		for (Iterator<Statement> statements = graph.getRootContextNode(true).getAllStatements(); statements.hasNext(); ) {
+
+			Statement statement = statements.next();
+
+			if (statement instanceof ContextNodeStatement) {
+
+				directedGraph.addEdge(statement, ((ContextNodeStatement) statement).getContextNode().getContextNode(), ((ContextNodeStatement) statement).getContextNode(), EdgeType.DIRECTED);
+			}
+
+			if (statement instanceof RelationStatement) {
+
+				directedGraph.addEdge(statement, ((RelationStatement) statement).getRelation().getContextNode(), ((RelationStatement) statement).getRelation().follow(), EdgeType.DIRECTED);
+			}
+
+			if (statement instanceof LiteralStatement) {
+
+				directedGraph.addEdge(statement, ((LiteralStatement) statement).getLiteral().getContextNode(), ((LiteralStatement) statement).getLiteral(), EdgeType.DIRECTED);
+			}
+		}
+
+		return directedGraph;
+	}
+
+	private static void addPolicy(DelegateTree<Object, Object> delegateTree, Policy policy) {
+
+		for (Iterator<Policy> subPolicies = policy.getPolicies(); subPolicies.hasNext(); ) {
+
+			Policy subPolicy = subPolicies.next();
+
+			delegateTree.addChild(subPolicy, policy, subPolicy, EdgeType.DIRECTED);
+			addPolicy(delegateTree, subPolicy);
+		}
+
+		for (Iterator<Operator> operators = policy.getOperators(); operators.hasNext(); ) {
+
+			Operator policyStatement = operators.next();
+
+			delegateTree.addChild(policyStatement, policy, policyStatement, EdgeType.DIRECTED);
+		}
+	}
+	
+	public static DelegateTree<Object, Object> JUNGDelegateTreeFromPolicy(PolicyRoot policyRoot) {
+
+		DelegateTree<Object, Object> delegateTree = new DelegateTree<Object, Object> ();
+
+		delegateTree.setRoot(policyRoot);
+		addPolicy(delegateTree, policyRoot);
+
+		return delegateTree;
 	}
 }
