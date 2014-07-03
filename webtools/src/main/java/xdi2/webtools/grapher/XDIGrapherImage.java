@@ -22,6 +22,10 @@ public class XDIGrapherImage extends HttpServlet {
 		byte[] image = ImageCache.get(graphId);
 
 		response.setContentType("image/png");
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Cache-Control, Expires, X-Cache, X-HTTP-Method-Override, Accept");
+		response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
 		response.getOutputStream().write(image);
 		response.getOutputStream().flush();
 		response.getOutputStream().close();

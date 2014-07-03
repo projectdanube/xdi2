@@ -48,6 +48,10 @@ public class XDIOutput extends HttpServlet {
 		}
 
 		response.setContentType("text/plain");
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Cache-Control, Expires, X-Cache, X-HTTP-Method-Override, Accept");
+		response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
 		xdiWriter.write(graph, response.getWriter());
 		response.getWriter().flush();
 		response.getWriter().close();
