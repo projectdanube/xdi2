@@ -110,8 +110,8 @@
 	<% } %>
 
 	<% if (request.getAttribute("output2") != null) { %>
-		<% if (request.getAttribute("outputId") != null) { %>
-			<a class="graphit" target="_blank" href="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html?input=<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId")) %>">Graph It!</a>
+		<% if (request.getAttribute("outputId2") != null) { %>
+			<a class="graphit" target="_blank" href="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html?input=<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId2")) %>">Graph It!</a>
 		<% } %>
 		<div class="result"><pre><%= request.getAttribute("output2") %></pre></div><br>
 	<% } %>
