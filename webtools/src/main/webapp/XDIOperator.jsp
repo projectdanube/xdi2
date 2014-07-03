@@ -423,6 +423,9 @@
 	<% } %>
 
 	<% if (request.getAttribute("output") != null) { %>
+		<% if (request.getAttribute("outputId") != null) { %>
+			<form class="graphit" target="_blank" action="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html"><input type="submit" value="Graph it!"><input type="hidden" name="input" value="<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId")) %>"></form>
+		<% } %>
 		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
 	<% } %>
 

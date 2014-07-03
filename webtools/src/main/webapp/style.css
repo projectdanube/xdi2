@@ -97,6 +97,12 @@ div.result {
 	border: 3px dashed black;
 }
 
+form.graphit {
+	display: block;
+	float: right;
+	margin: 20px;
+}
+
 /*--------------------------------------------------
   REQUIRED to hide the non-active tab content.
   But do not hide them in the print stylesheet!
