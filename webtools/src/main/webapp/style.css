@@ -97,10 +97,10 @@ div.result {
 	border: 3px dashed black;
 }
 
-form.graphit {
+a.graphit {
 	display: block;
 	float: right;
-	margin: 20px;
+	margin: 15px;
 }
 
 /*--------------------------------------------------

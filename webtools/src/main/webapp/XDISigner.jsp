@@ -92,7 +92,7 @@
 
 	<% if (request.getAttribute("output") != null) { %>
 		<% if (request.getAttribute("outputId") != null) { %>
-			<form class="graphit" target="_blank" action="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html?input=<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId")) %>"><input type="submit" value="Graph it!"></form>
+			<a class="graphit" target="_blank" href="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html?input=<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId")) %>">Graph It!</a>
 		<% } %>
 		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
 	<% } %>
