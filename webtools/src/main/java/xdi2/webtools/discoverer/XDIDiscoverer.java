@@ -283,11 +283,17 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 			output2 = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
-			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, discoveryResultRegistry.getMessageResult().getGraph());
+			if (discoveryResultRegistry != null && discoveryResultRegistry.getMessageResult() != null) {
 
-			outputId2 = UUID.randomUUID().toString();
-			OutputCache.put(outputId2, discoveryResultAuthority.getMessageResult().getGraph());
+				outputId = UUID.randomUUID().toString();
+				OutputCache.put(outputId, discoveryResultRegistry.getMessageResult().getGraph());
+			}
+
+			if (discoveryResultAuthority != null && discoveryResultAuthority.getMessageResult() != null) {
+
+				outputId2 = UUID.randomUUID().toString();
+				OutputCache.put(outputId2, discoveryResultAuthority.getMessageResult().getGraph());
+			}
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
