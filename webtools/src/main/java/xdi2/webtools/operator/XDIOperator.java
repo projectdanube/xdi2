@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor;
+import xdi2.webtools.util.OutputCache;
 import xdi2.webtools.util.SecretTokenInsertingCopyStrategy;
 
 /**
@@ -544,6 +546,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		String writePretty = request.getParameter("writePretty");
 		String message = request.getParameter("message");
 		String output = "";
+		String outputId = "";
 		String stats = "-1";
 		String error = null;
 
@@ -585,10 +588,11 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			// output the message result
 
 			StringWriter writer = new StringWriter();
-
 			xdiResultWriter.write(messageResult.getGraph(), writer);
-
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+
+			outputId = UUID.randomUUID().toString();
+			OutputCache.put(outputId, messageResult.getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
@@ -602,6 +606,9 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 					StringWriter writer2 = new StringWriter();
 					xdiResultWriter.write(messageResult.getGraph(), writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+
+					outputId = UUID.randomUUID().toString();
+					OutputCache.put(outputId, messageResult.getGraph());
 				}
 			}
 
@@ -627,6 +634,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);
+		request.setAttribute("outputId", outputId);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 	}

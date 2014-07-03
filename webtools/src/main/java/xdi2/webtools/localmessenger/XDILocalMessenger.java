@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
+import xdi2.webtools.util.OutputCache;
 
 /**
  * Servlet implementation class for Servlet: XDILocalMessenger
@@ -189,6 +191,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String input = request.getParameter("input");
 		String message = request.getParameter("message");
 		String output = "";
+		String outputId = "";
 		String stats = "-1";
 		String error = null;
 
@@ -292,6 +295,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			StringWriter writer2 = new StringWriter();
 			xdiResultWriter.write(messageResult.getGraph(), writer2);
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+
+			outputId = UUID.randomUUID().toString();
+			OutputCache.put(outputId, messageResult.getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
@@ -305,6 +311,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 					StringWriter writer2 = new StringWriter();
 					xdiResultWriter.write(messageResult.getGraph(), writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+
+					outputId = UUID.randomUUID().toString();
+					OutputCache.put(outputId, messageResult.getGraph());
 				}
 			}
 
@@ -347,6 +356,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("input", input);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);
+		request.setAttribute("outputId", outputId);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 

@@ -133,6 +133,17 @@
 		<url-pattern>/XDIGrapherJSON</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<description></description>
+		<display-name>XDIOutput</display-name>
+		<servlet-name>XDIOutput</servlet-name>
+		<servlet-class>xdi2.webtools.util.XDIOutput</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIOutput</servlet-name>
+		<url-pattern>/XDIOutput</url-pattern>
+	</servlet-mapping>
+
 	<!-- XDI SERVLET -->
 
 	<servlet>

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.MessageResult;
 import xdi2.webtools.util.LoggingTrustManager;
+import xdi2.webtools.util.OutputCache;
 
 /**
  * Servlet implementation class for Servlet: XDIDiscoverer
@@ -106,6 +108,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		String services = request.getParameter("services");
 		String output = "";
 		String output2 = "";
+		String outputId = "";
+		String outputId2 = "";
 		String stats = "-1";
 		String error = null;
 
@@ -278,6 +282,12 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 			output2 = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
+
+			outputId = UUID.randomUUID().toString();
+			OutputCache.put(outputId, discoveryResultRegistry.getMessageResult().getGraph());
+
+			outputId2 = UUID.randomUUID().toString();
+			OutputCache.put(outputId2, discoveryResultAuthority.getMessageResult().getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
@@ -291,6 +301,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					StringWriter writer = new StringWriter();
 					xdiResultWriter.write(messageResult.getGraph(), writer);
 					output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+
+					outputId = UUID.randomUUID().toString();
+					OutputCache.put(outputId, messageResult.getGraph());
 				}
 			}
 
@@ -324,6 +337,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		request.setAttribute("services", services);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
+		request.setAttribute("outputId", outputId);
+		request.setAttribute("outputId2", outputId2);
 		request.setAttribute("discoveryResultRegistry", discoveryResultRegistry);
 		request.setAttribute("discoveryResultAuthority", discoveryResultAuthority);
 		request.setAttribute("stats", stats);

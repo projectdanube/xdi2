@@ -15,6 +15,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -41,6 +42,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.webtools.util.OutputCache;
 
 /**
  * Servlet implementation class for Servlet: XDISigner
@@ -161,6 +163,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String submit = request.getParameter("submit");
 		String output = "";
 		String output2 = "";
+		String outputId = "";
 		String stats = "-1";
 		String error = null;
 
@@ -241,10 +244,11 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 			if (valid.isEmpty()) {
 
 				StringWriter writer = new StringWriter();
-
 				xdiResultWriter.write(graph, writer);
-
 				output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+
+				outputId = UUID.randomUUID().toString();
+				OutputCache.put(outputId, graph);
 			} else {
 
 				output = "Valid: " + valid.toString();
@@ -288,6 +292,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("singleton", singleton);
 		request.setAttribute("output", output);
 		request.setAttribute("output2", output2);
+		request.setAttribute("outputId", outputId);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 

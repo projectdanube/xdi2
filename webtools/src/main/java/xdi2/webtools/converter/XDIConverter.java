@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.webtools.util.OutputCache;
 
 /**
  * Servlet implementation class for Servlet: XDIConverter
@@ -102,7 +104,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
@@ -113,6 +115,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String submit = request.getParameter("submit");
 		String rawoutput = "";
 		String output = "";
+		String outputId = "";
 		String stats = "-1";
 		String error = null;
 
@@ -138,6 +141,9 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 			rawoutput = writer.getBuffer().toString();
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
+
+			outputId = UUID.randomUUID().toString();
+			OutputCache.put(outputId, graph);
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
@@ -151,8 +157,6 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		stats += Long.toString(graph.getRootContextNode(true).getAllLiteralCount()) + " literals. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " statements. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
-
-		graph.close();
 
 		// display results
 
@@ -172,6 +176,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		request.setAttribute("from", from);
 		request.setAttribute("input", input);
 		request.setAttribute("output", output);
+		request.setAttribute("outputId", outputId);
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 

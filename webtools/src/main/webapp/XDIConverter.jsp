@@ -78,6 +78,9 @@
 	<% } %>
 
 	<% if (request.getAttribute("output") != null) { %>
+		<% if (request.getAttribute("outputId") != null) { %>
+			<a href="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html?input=<%= request.getRequestURL().toString().replaceFirst("/[^/]+$", "/XDIOutput?outputId=" + request.getAttribute("outputId")) %>">result</a>
+		<% } %>
 		<div class="result"><pre><%= request.getAttribute("output") %></pre></div><br>
 	<% } %>
 
