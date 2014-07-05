@@ -1,7 +1,7 @@
 (=markus)/$ref/
 /$is$ref/(=markus)
-=markus/=markus/($do$if/$true/({$from}/$is/=drummond))
-=markus/=markus/($do$if/$true/({$from}/$is/=markus))
+(=markus/=markus)($do$if/$true){$from}/$is/=drummond
+(=markus/=markus)($do$if/$true){$from}/$is/=markus
 (=markus/=markus)$do/$get/=markus<#age>
 (=markus/=markus)$do/$set/=markus
 =markus<#age>&/&/"33"
