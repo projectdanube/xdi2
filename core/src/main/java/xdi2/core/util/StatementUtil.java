@@ -21,12 +21,10 @@ public final class StatementUtil {
 	 * Removes a start XRI from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start, final boolean removeFromTargetContextNodeXri, final boolean variablesInXri, boolean variablesInStart) {
+	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start, final boolean variablesInXri, boolean variablesInStart) {
 
 		if (statementXri == null) throw new NullPointerException();
 		if (start == null) throw new NullPointerException();
-
-		if (statementXri.isInnerRootNotation()) throw new IllegalArgumentException();
 
 		XDI3Statement result = null;
 
@@ -47,19 +45,12 @@ public final class StatementUtil {
 
 			// object
 
-			if (statementXri.isRelationStatement() && removeFromTargetContextNodeXri) {
-
-				object = XDI3Util.removeStartXri((XDI3Segment) statementXri.getObject(), start, variablesInXri, variablesInStart);
-				if (object == null) { result = null; return result; }
-			} else {
-
-				object = statementXri.getObject();
-			}
+			object = statementXri.getObject();
 
 			{ result = XDI3Statement.fromComponents(subject, predicate, object); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statementXri + "," + start + "," + removeFromTargetContextNodeXri + "," + variablesInXri + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statementXri + "," + start + "," + variablesInXri + "," + variablesInStart + ") --> " + result);
 		}
 	}
 
@@ -67,42 +58,43 @@ public final class StatementUtil {
 	 * Removes a start XRI from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start, final boolean removeFromTargetContextNodeXri) {
+	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start) {
 
-		return removeStartXriStatement(statementXri, start, removeFromTargetContextNodeXri, false, false);
+		return removeStartXriStatement(statementXri, start, false, false);
 	}
 
 	/**
 	 * Concats an XRI and a statement into a new statement.
 	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 	 */
-	public static XDI3Statement concatXriStatement(final XDI3Segment xri, final XDI3Statement statementXri, final boolean concatTargetContextNodeXri) {
+	public static XDI3Statement concatXriStatement(final XDI3Segment xri, final XDI3Statement statementXri) {
 
 		if (statementXri == null) throw new NullPointerException();
-
-		if (statementXri.isInnerRootNotation()) throw new IllegalArgumentException();
 
 		XDI3Statement result = null;
 
 		try {
 
-			XDI3Segment subject = XDI3Util.concatXris(xri, statementXri.getSubject());
-			XDI3Segment predicate = statementXri.getPredicate();
-
+			XDI3Segment subject;
+			XDI3Segment predicate;
 			Object object;
 
-			if (statementXri.isRelationStatement() && concatTargetContextNodeXri) {
+			// subject
 
-				object = XDI3Util.concatXris(xri, (XDI3Segment) statementXri.getObject());
-			} else {
+			subject = XDI3Util.concatXris(xri, statementXri.getSubject());
 
-				object = statementXri.getObject();
-			}
+			// predicate
+
+			predicate = statementXri.getPredicate();
+
+			// object
+
+			object = statementXri.getObject();
 
 			{ result = XDI3Statement.fromComponents(subject, predicate, object); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statementXri + "," + concatTargetContextNodeXri + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statementXri + ") --> " + result);
 		}
 	}
 }

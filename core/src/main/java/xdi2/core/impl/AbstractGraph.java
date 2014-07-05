@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
@@ -14,7 +11,6 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriter;
@@ -26,8 +22,6 @@ import xdi2.core.xri3.XDI3Statement;
 public abstract class AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = -5285276230236236923L;
-
-	private static final Logger log = LoggerFactory.getLogger(AbstractContextNode.class);
 
 	private GraphFactory graphFactory;
 	private String identifier;
@@ -243,69 +237,31 @@ public abstract class AbstractGraph implements Graph {
 	@Override
 	public Statement setStatement(XDI3Statement statementXri) {
 
-		if (log.isTraceEnabled()) log.trace("setStatement(" + statementXri + ")");
-
-		// inner root short notation?
-
-		statementXri = statementXri.fromInnerRootNotation(true);
-
-		// set the statement
-
-		if (statementXri.isContextNodeStatement()) {
-
-			ContextNode contextNode = this.setDeepContextNode(statementXri.getTargetContextNodeXri());
-
-			return contextNode.getStatement();
-		} else if (statementXri.isRelationStatement()) {
-
-			Relation relation = this.setDeepRelation(statementXri.getContextNodeXri(), statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
-
-			return relation.getStatement();
-		} else if (statementXri.isLiteralStatement()) {
-
-			Literal literal = this.setDeepLiteral(statementXri.getContextNodeXri(), statementXri.getLiteralData());
-
-			return literal.getStatement();
-		} else {
-
-			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
-		}
+		return this.getRootContextNode(false).setStatement(statementXri);
 	}
 
 	@Override
 	public Statement getStatement(XDI3Statement statementXri) {
 
-		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ")");
-
-		ContextNode baseContextNode = this.getDeepContextNode(statementXri.getSubject(), false);
-		if (baseContextNode == null) return null;
-
-		if (statementXri.isContextNodeStatement()) {
-
-			ContextNode contextNode = baseContextNode.getContextNode(statementXri.getContextNodeArcXri(), false);
-
-			return contextNode == null ? null : contextNode.getStatement();
-		} else if (statementXri.isRelationStatement()) {
-
-			Relation relation = baseContextNode.getRelation(statementXri.getRelationArcXri(), statementXri.getTargetContextNodeXri());
-
-			return relation == null ? null : relation.getStatement();
-		} else if (statementXri.isLiteralStatement()) {
-
-			Literal literal = baseContextNode.getLiteral(statementXri.getLiteralData());
-
-			return literal == null ? null : literal.getStatement();
-		}
-
-		return null;
+		return this.getRootContextNode(false).getStatement(statementXri);
 	}
 
 	@Override
 	public boolean containsStatement(XDI3Statement statementXri) {
 
-		if (log.isTraceEnabled()) log.trace("containsStatement(" + statementXri + ")");
+		return this.getRootContextNode(false).containsStatement(statementXri);
+	}
 
-		return this.getStatement(statementXri) != null;
+	@Override
+	public ReadOnlyIterator<Statement> getAllStatements() {
+
+		return this.getRootContextNode(false).getAllStatements();
+	}
+
+	@Override
+	public long getAllStatementCount() {
+
+		return this.getRootContextNode(false).getAllStatementCount();
 	}
 
 	/*

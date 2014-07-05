@@ -143,7 +143,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		// no static forwarding target, and target is not self, so we check if the target is local
 
 		/* SKIP THIS FOR NOW
-		
+
 		Transport<?, ?> transport = executionContext.getTransport();
 
 		if (transport instanceof HttpTransport) {
@@ -175,8 +175,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 				return InterceptorResult.DEFAULT;
 			}
 		}
-		
-		*/
+
+		 */
 
 		// no static forwarding target, and target is not self, and target is not local, so we discover the remote forwarding target dynamically
 
@@ -302,7 +302,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		Message message = operation.getMessage();
 		if (log.isDebugEnabled()) log.debug("Message as a basis for forwarding: " + message);
 
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement, false);
+		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement);
 
 		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderXri());
 

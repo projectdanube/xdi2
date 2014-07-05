@@ -153,7 +153,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("useFromInterceptor", null);
 		request.setAttribute("useToInterceptor", "on");
@@ -179,7 +178,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
-		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String useFromInterceptor = request.getParameter("useFromInterceptor");
 		String useToInterceptor = request.getParameter("useToInterceptor");
@@ -199,7 +197,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -344,7 +341,6 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
-		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("useFromInterceptor", useFromInterceptor);
 		request.setAttribute("useToInterceptor", useToInterceptor);

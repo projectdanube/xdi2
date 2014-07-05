@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.XDI3SubSegment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,7 +40,6 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
-	private boolean writeInner;
 	private boolean writePretty;
 
 	public XDIJSONTREEWriter(Properties parameters) {
@@ -57,10 +54,9 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
+		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
 	}
 
 	@Override
@@ -68,7 +64,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 		// write the statements
 
-		JsonObject json = makeJson(graph.getRootContextNode(true), this.writeImplied, this.writeInner);
+		JsonObject json = makeJson(graph.getRootContextNode(true), this.writeImplied);
 
 		JsonWriter jsonWriter = new JsonWriter(writer);
 		if (this.writePretty) jsonWriter.setIndent("  ");
@@ -84,57 +80,16 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 	 * Helper methods
 	 */
 
-	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, boolean writeInner) {
+	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied) {
 
 		Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons = new HashMap<XdiInnerRoot, JsonObject> ();
 
-		JsonObject json = makeJson(contextNode, writeImplied, writeInner, xdiInnerRootJsons);
-
-		if (writeInner) {
-
-			for (Entry<XdiInnerRoot, JsonObject> entry : xdiInnerRootJsons.entrySet()) {
-
-				XdiInnerRoot xdiInnerRoot = entry.getKey();
-				JsonObject xdiInnerRootJson = entry.getValue();
-
-				JsonObject tempJsonObject = json;
-				JsonArray tempJsonArray;
-
-				for (XDI3SubSegment subSegment : xdiInnerRoot.getSubjectOfInnerRoot().getSubSegments()) tempJsonObject = setJsonObject(tempJsonObject, subSegment.toString());
-
-				tempJsonObject = setJsonObject(tempJsonObject, "/");
-				tempJsonArray = setJsonArray(tempJsonObject, xdiInnerRoot.getPredicateOfInnerRoot().toString());
-
-				tempJsonArray.add(xdiInnerRootJson);
-			}
-		}
+		JsonObject json = makeJson(contextNode, writeImplied, xdiInnerRootJsons);
 
 		return json;
 	}
 
-	private static JsonObject setJsonObject(JsonObject json, String key) {
-
-		JsonObject innerJson = json.getAsJsonObject(key);
-		if (innerJson != null) return innerJson;
-
-		innerJson = new JsonObject();
-		json.add(key, innerJson);
-
-		return innerJson;
-	}
-
-	private static JsonArray setJsonArray(JsonObject json, String key) {
-
-		JsonArray innerJson = json.getAsJsonArray(key);
-		if (innerJson != null) return innerJson;
-
-		innerJson = new JsonArray();
-		json.add(key, innerJson);
-
-		return innerJson;
-	}
-
-	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, boolean writeInner, Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons) {
+	private static JsonObject makeJson(ContextNode contextNode, boolean writeImplied, Map<XdiInnerRoot, JsonObject> xdiInnerRootJsons) {
 
 		JsonObject json = new JsonObject();
 
@@ -144,13 +99,6 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 			if (! writeImplied && innerContextNode.getStatement().isImplied() && innerContextNode.isEmpty()) continue;
 
-			if (writeInner && XdiInnerRoot.isValid(innerContextNode)) {
-
-				xdiInnerRootJsons.put(XdiInnerRoot.fromContextNode(innerContextNode), makeJson(innerContextNode, writeImplied, writeInner));
-
-				continue;
-			}
-
 			if (json.get(innerContextNode.getArcXri().toString()) == null) {
 
 				if (innerContextNode.getArcXri().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
@@ -158,7 +106,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 					json.add(XDIConstants.CS_VALUE.toString(), AbstractLiteral.literalDataToJsonElement(innerContextNode.getLiteral().getLiteralData()));
 				} else {
 
-					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied, writeInner));
+					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied));
 				}
 			}
 		}

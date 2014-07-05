@@ -19,7 +19,6 @@ import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
@@ -53,7 +52,6 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 	private boolean writeImplied;
 	private boolean writeOrdered;
-	private boolean writeInner;
 	private boolean writePretty;
 
 	public XDIJSONPARSEWriter(Properties parameters) {
@@ -68,10 +66,9 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
 		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writeInner = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_INNER, XDIWriterRegistry.DEFAULT_INNER));
 		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
 
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writeInner=" + this.writeInner + ", writePretty=" + this.writePretty);
+		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
 	}
 
 	@Override
@@ -106,7 +103,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		// write the statements
 
-		JsonArray gom = makeGom(statements, this.writeInner);
+		JsonArray gom = makeGom(statements);
 
 		JsonWriter jsonWriter = new JsonWriter(writer);
 		if (this.writePretty) jsonWriter.setIndent("  ");
@@ -122,17 +119,13 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
-	private static JsonArray makeGom(IterableIterator<Statement> statements, boolean writeInner) {
+	private static JsonArray makeGom(IterableIterator<Statement> statements) {
 
 		JsonArray gom = new JsonArray();
 
 		for (Statement statement : statements) {
 
 			XDI3Statement statementXri = statement.getXri();
-
-			// inner root short notation?
-
-			if (writeInner) statementXri = transformStatementInInnerRoot(statementXri);
 
 			// write the statement
 
@@ -224,10 +217,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 	private static JsonElement makeGom(XDI3XRef xref) {
 
-		if (xref.hasStatement()) {
-
-			return makeGom(xref.getStatement());
-		} else if (xref.hasPartialSubjectAndPredicate()) {
+		if (xref.hasPartialSubjectAndPredicate()) {
 
 			JsonArray gom = new JsonArray();
 			gom.add(makeGom(xref.getPartialSubject()));
@@ -240,20 +230,5 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());
 		}
-	}
-
-	private static XDI3Statement transformStatementInInnerRoot(XDI3Statement statementXri) {
-
-		XDI3SubSegment subjectFirstSubSegment = statementXri.getSubject().getFirstSubSegment();
-
-		if ((! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return statementXri;
-
-		XDI3Segment innerRootSubject = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
-		XDI3Segment innerRootPredicate = statementXri.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
-
-		XDI3Statement reducedStatementXri = StatementUtil.removeStartXriStatement(statementXri, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
-		if (reducedStatementXri == null) return statementXri;
-
-		return XDI3Statement.create("" + innerRootSubject + "/" + innerRootPredicate + "/(" + transformStatementInInnerRoot(reducedStatementXri) + ")");
 	}
 }

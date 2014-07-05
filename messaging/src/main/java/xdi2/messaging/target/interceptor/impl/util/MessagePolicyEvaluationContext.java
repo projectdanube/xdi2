@@ -40,8 +40,8 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		XDI3Segment resolvedContextNodeXri = contextNodeXri;
 
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG_VARIABLE, this.getMessage().getContextNode().getXri(), true, true, true);
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM_VARIABLE, this.getMessage().getSenderXri(), true, true, true);
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG_VARIABLE, this.getMessage().getContextNode().getXri());
+		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM_VARIABLE, this.getMessage().getSenderXri());
 
 		if (log.isTraceEnabled()) log.trace("resolveXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
 

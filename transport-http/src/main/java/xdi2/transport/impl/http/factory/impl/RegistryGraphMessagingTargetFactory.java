@@ -43,7 +43,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -90,7 +90,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -136,7 +136,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).findPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
 		if (ownerPeerRoot == null) return null;
 
 		String requestPath = messagingTargetFactoryPath + "/" + ownerXri.toString();

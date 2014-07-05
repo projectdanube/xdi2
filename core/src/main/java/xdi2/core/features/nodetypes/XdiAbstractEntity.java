@@ -5,7 +5,6 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Segment;
 
 public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> implements XdiEntity {
 
@@ -48,31 +47,6 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 		if ((xdiEntity = XdiEntityMemberOrdered.fromContextNode(contextNode)) != null) return xdiEntity;
 
 		return null;
-	}
-
-	static XdiInnerRoot getXdiInnerRoot(XdiEntity xdiEntity, XDI3Segment innerRootPredicateXri, boolean create) {
-
-		XDI3Segment contextNodeXri = xdiEntity.getContextNode().getXri();
-
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(xdiEntity.getContextNode().getGraph()).findRoot(contextNodeXri, false);
-
-		XDI3Segment innerRootSubjectXri = xdiRoot.absoluteToRelativeXri(contextNodeXri);
-
-		return xdiRoot.findInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	/**
-	 * Returns an XDI inner root based on this XDI entity.
-	 * @return The XDI inner root.
-	 */
-	@Override
-	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
-
-		return getXdiInnerRoot(this, innerRootPredicateXri, create);
 	}
 
 	/*

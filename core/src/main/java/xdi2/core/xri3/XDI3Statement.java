@@ -1,9 +1,7 @@
 package xdi2.core.xri3;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.impl.AbstractLiteral;
-import xdi2.core.util.StatementUtil;
 import xdi2.core.util.XDI3Util;
 
 public class XDI3Statement extends XDI3SyntaxComponent {
@@ -103,25 +101,6 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		return new XDI3Statement(string, contextNodeXri, XDIConstants.XRI_S_LITERAL, literalData);
 	}
 
-	/**
-	 * Creates an XDI statement from an XRI segment in the form (subject/predicate/object)
-	 * @param segment The XRI segment
-	 * @return An XDI statement
-	 */
-	public static XDI3Statement fromXriSegment(XDI3Segment segment) throws Xdi2ParseException {
-
-		XDI3SubSegment subSegment = segment.getFirstSubSegment();
-		if (subSegment == null) throw new Xdi2ParseException("No subsegment found: " + segment.toString());
-
-		XDI3XRef xref = subSegment.getXRef();
-		if (xref == null) throw new Xdi2ParseException("No cross-reference found: " + segment.toString());
-
-		XDI3Statement statement = xref.getStatement();
-		if (statement == null) throw new Xdi2ParseException("No statement found: " + segment.toString());
-
-		return statement;
-	}
-
 	public XDI3Segment getSubject() {
 
 		return this.subject;
@@ -198,107 +177,5 @@ public class XDI3Statement extends XDI3SyntaxComponent {
 		}
 
 		return null;
-	}
-
-	/*
-	 * Methods related to inner root notation
-	 */
-
-	public XDI3Statement getInnerRootNotationStatement() {
-
-		if (! this.isRelationStatement()) return null;
-
-		XDI3Segment innerRootNotationTargetContextNodeSegment = this.getTargetContextNodeXri();
-		if (innerRootNotationTargetContextNodeSegment == null) return null;
-
-		XDI3SubSegment innerRootNotationTargetContextNodeSubSegment = innerRootNotationTargetContextNodeSegment.getFirstSubSegment();
-		if (innerRootNotationTargetContextNodeSubSegment == null) return null;
-
-		XDI3XRef innerRootNotationXref = innerRootNotationTargetContextNodeSubSegment.getXRef();
-		if (innerRootNotationXref == null) return null;
-
-		XDI3Statement innerRootNotationStatement = innerRootNotationXref.getStatement();
-		if (innerRootNotationStatement == null) return null;
-
-		return innerRootNotationStatement;
-	}
-
-	public boolean isInnerRootNotation() {
-
-		return this.getInnerRootNotationStatement() != null;
-	}
-
-	public XDI3Statement fromInnerRootNotation(boolean recursive) {
-
-		XDI3Statement innerRootStatement = this.getInnerRootNotationStatement();
-		if (innerRootStatement == null) return this;
-
-		if (innerRootStatement.isInnerRootNotation()) {
-
-			XDI3Statement statement = XDI3Statement.fromRelationComponents(this.getContextNodeXri(), this.getRelationArcXri(), XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement.fromInnerRootNotation(recursive), null, null, null, null))));
-
-			if (recursive) statement = statement.fromInnerRootNotation(recursive);
-
-			return statement;
-		} else {
-
-			/*
-
-			XDI3SubSegment innerRootSubSegment = XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, this.getSubject(), this.getPredicate(), null, null));
-			XDI3Segment innerRootSegment = XDI3Segment.fromComponent(innerRootSubSegment);
-
-			XDI3Statement statement = StatementUtil.concatXriStatement(innerRootSegment, innerRootStatement, true);
-
-
-
-			 */
-			
-			
-			
-			XDI3Segment innerRootSegment = XDIConstants.XRI_S_ROOT;
-			XDI3Segment subject = this.getSubject();
-			XDI3Segment predicate = this.getPredicate();
-
-			while (subject.getNumSubSegments() > 0 && subject.getFirstSubSegment().hasXRef() && XDIConstants.XS_ROOT.equals(subject.getFirstSubSegment().getXRef().getXs())) {
-
-				innerRootSegment = XDI3Util.concatXris(innerRootSegment, subject.getFirstSubSegment());
-				subject = XDI3Util.localXri(subject, -1);
-			}
-
-			innerRootSegment = XDI3Util.concatXris(innerRootSegment, XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, null, subject, predicate, null, null)));
-
-			XDI3Statement statement = StatementUtil.concatXriStatement(innerRootSegment, innerRootStatement, true);
-
-			return statement;
-		}
-	}
-
-	public XDI3Statement toInnerRootNotation(boolean recursive) {
-
-		if (this.isInnerRootNotation()) {
-
-			XDI3Statement innerRootStatement = this.getInnerRootNotationStatement();
-
-			XDI3Statement statement = XDI3Statement.fromRelationComponents(this.getContextNodeXri(), this.getRelationArcXri(), XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement.toInnerRootNotation(recursive), null, null, null, null))));
-
-			return statement;
-		} else {
-
-			XDI3SubSegment subjectFirstSubSegment = this.getSubject().getFirstSubSegment();
-
-			if (subjectFirstSubSegment == null || (! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return this;
-
-			XDI3Segment innerRootSubject = this.getSubject().getFirstSubSegment().getXRef().getPartialSubject();
-			XDI3Segment innerRootPredicate = this.getSubject().getFirstSubSegment().getXRef().getPartialPredicate();
-
-			XDI3Statement innerRootStatement = StatementUtil.removeStartXriStatement(this, XDI3Segment.fromComponent(subjectFirstSubSegment), true);
-			if (innerRootStatement == null) return this;
-
-			if (recursive) innerRootStatement = innerRootStatement.toInnerRootNotation(recursive);
-
-			XDI3Statement statement = XDI3Statement.fromRelationComponents(innerRootSubject, innerRootPredicate, XDI3Segment.fromComponent(XDI3SubSegment.fromComponents(null, false, false, null, XDI3XRef.fromComponents(XDIConstants.XS_ROOT, null, innerRootStatement, null, null, null, null))));
-
-			return statement;
-		}
 	}
 }

@@ -34,8 +34,8 @@ public abstract class XDI3Parser {
 		return new XDI3SubSegment(string, cs, classXs, attributeXs, literal, xref);
 	}
 
-	protected XDI3XRef makeXDI3XRef(String string, String xs, XDI3Segment segment, XDI3Statement statement, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
+	protected XDI3XRef makeXDI3XRef(String string, String xs, XDI3Segment segment, XDI3Segment partialSubject, XDI3Segment partialPredicate, String iri, String literal) {
 
-		return new XDI3XRef(string, xs, segment, statement, partialSubject, partialPredicate, iri, literal);
+		return new XDI3XRef(string, xs, segment, partialSubject, partialPredicate, iri, literal);
 	}
 }

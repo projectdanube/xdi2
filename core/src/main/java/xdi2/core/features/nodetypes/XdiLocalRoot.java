@@ -74,7 +74,7 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 
 		if (xri == null) return null;
 
-		selfPeerRoot = this.findPeerRoot(xri, true);
+		selfPeerRoot = this.getPeerRoot(xri, true);
 
 		ContextNode localRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();

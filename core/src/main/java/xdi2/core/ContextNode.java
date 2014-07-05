@@ -5,6 +5,7 @@ import java.io.Serializable;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.xri3.XDI3Statement;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
@@ -533,13 +534,28 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNodeStatement getStatement();
 
 	/**
-	 * Gets all statements rooted in this context node.
+	 * Sets a statement in this context node.
+	 */
+	public Statement setStatement(XDI3Statement statementXri);
+
+	/**
+	 * Gets a statement in this context node.
+	 */
+	public Statement getStatement(XDI3Statement statementXri);
+
+	/**
+	 * Gets all statements in this context node.
 	 * @return An iterator over statements.
 	 */
 	public ReadOnlyIterator<Statement> getAllStatements();
 
 	/**
-	 * Returns the number of all statements rooted in this context node.
+	 * Check if a statement exists in this context node.
+	 */
+	public boolean containsStatement(XDI3Statement statementXri);
+
+	/**
+	 * Returns the number of all statements in this context node.
 	 * @return The number of statements.
 	 */
 	public long getAllStatementCount();

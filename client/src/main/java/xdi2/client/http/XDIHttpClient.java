@@ -49,8 +49,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public static final String KEY_USERAGENT = "useragent";
 	public static final String KEY_FOLLOWREDIRECTS = "followredirects";
 
-	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0;inner=1";
-	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;implied=0;inner=1";
+	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0";
+	public static final String DEFAULT_RECVMIMETYPE = "application/xdi+json;implied=0";
 	public static final String DEFAULT_USERAGENT = "XDI2 Java Library";
 	public static final String DEFAULT_FOLLOWREDIRECTS = "false";
 

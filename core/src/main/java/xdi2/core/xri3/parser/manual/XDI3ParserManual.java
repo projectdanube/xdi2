@@ -207,14 +207,13 @@ public class XDI3ParserManual extends XDI3Parser {
 		String xs = xs(string.charAt(0));
 		if (xs == null) throw new ParserException("Invalid cross reference: " + string + " (no opening delimiter)");
 		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid cross reference: " + string + " (invalid closing '" + xs.charAt(1) + "' delimiter)");
-		if (string.length() == 2) return this.makeXDI3XRef(string, xs, null, null, null, null, null, null);
+		if (string.length() == 2) return this.makeXDI3XRef(string, xs, null, null, null, null, null);
 
 		String value = string.substring(1, string.length() - 1);
 
 		String temp = stripXs(value);
 
 		XDI3Segment segment = null;
-		XDI3Statement statement = null;
 		XDI3Segment partialSubject = null;
 		XDI3Segment partialPredicate = null;
 		String iri = null;
@@ -227,10 +226,7 @@ public class XDI3ParserManual extends XDI3Parser {
 
 			int segments = StringUtils.countMatches(temp, "/") + 1;
 
-			if (segments == 3) {
-
-				statement = this.parseXDI3Statement(value);
-			} else if (segments == 2) {
+			if (segments == 2) {
 
 				String[] parts = temp.split("/");
 				int split0 = parts[0].length();
@@ -247,8 +243,8 @@ public class XDI3ParserManual extends XDI3Parser {
 		}
 
 		// done
-		
-		return this.makeXDI3XRef(string, xs, segment, statement, partialSubject, partialPredicate, iri, literal);
+
+		return this.makeXDI3XRef(string, xs, segment, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public Object parseLiteralData(String string) {

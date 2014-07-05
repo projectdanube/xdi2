@@ -71,7 +71,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 		xdiMessageWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "0");
 		xdiMessageWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "0");
-		xdiMessageWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "1");
 		xdiMessageWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "0");
 
 		xdiMessageWriter = XDIWriterRegistry.forFormat("XDI DISPLAY", xdiMessageWriterParameters);
@@ -90,7 +89,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
-		request.setAttribute("writeInner", "on");
 		request.setAttribute("writePretty", null);
 		request.setAttribute("input", sampleInput);
 		request.setAttribute("secretToken", "");
@@ -140,7 +138,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 			request.setAttribute("writeImplied", null);
 			request.setAttribute("writeOrdered", "on");
-			request.setAttribute("writeInner", "on");
 			request.setAttribute("writePretty", null);
 		}
 
@@ -542,7 +539,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		String resultFormat = request.getParameter("resultFormat");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
-		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String message = request.getParameter("message");
 		String output = "";
@@ -556,7 +552,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 		xdiResultWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -630,7 +625,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		request.setAttribute("resultFormat", resultFormat);
 		request.setAttribute("writeImplied", writeImplied);
 		request.setAttribute("writeOrdered", writeOrdered);
-		request.setAttribute("writeInner", writeInner);
 		request.setAttribute("writePretty", writePretty);
 		request.setAttribute("message", message);
 		request.setAttribute("output", output);

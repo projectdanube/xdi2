@@ -221,7 +221,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessageEnvelope();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping message envelope.");
+				log.warn("Error while popping message envelope: " + ex.getMessage(), ex);
 			}
 
 			try {
@@ -229,7 +229,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessagingTarget();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping messaging target.");
+				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
 			if (log.isDebugEnabled()) log.debug("Trace: " + executionContext.getTraceBlock());
@@ -317,7 +317,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popMessage();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping message.");
+				log.warn("Error while popping message: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -362,18 +362,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			// execute the address or statements in the operation
 
 			XDI3Segment targetAddress = operation.getTargetAddress();
-			Iterator<XDI3Statement> targetStatements = operation.getTargetStatements();
+			Iterator<XDI3Statement> targetStatementXris = operation.getTargetStatementXris();
 
 			if (targetAddress != null) {
 
 				this.execute(targetAddress, operation, operationMessageResult, executionContext);
-			} else if (targetStatements != null) {
+			} else if (targetStatementXris != null) {
 
-				while (targetStatements.hasNext()) {
+				while (targetStatementXris.hasNext()) {
 
-					XDI3Statement targetStatement = targetStatements.next();
+					XDI3Statement targetStatementXri = targetStatementXris.next();
 
-					this.execute(targetStatement, operation, operationMessageResult, executionContext);
+					this.execute(targetStatementXri, operation, operationMessageResult, executionContext);
 				}
 			}
 
@@ -399,13 +399,13 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			this.getInterceptors().clearDisabledForOperation(operation);
 			this.getContributors().clearDisabledForOperation(operation);
-			
+
 			try {
 
 				executionContext.popOperation();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping operation.");
+				log.warn("Error while popping operation: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -419,6 +419,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(XDI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetAddress == null) throw new NullPointerException();
+		if (operation == null) throw new NullPointerException();
+		if (operationMessageResult == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
@@ -466,7 +471,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popTargetAddress();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping target address.");
+				log.warn("Error while popping target address: " + ex.getMessage(), ex);
 			}
 		}
 	}
@@ -480,6 +485,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * messaging targets, interceptors and contributors.
 	 */
 	public void execute(XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement == null) throw new NullPointerException();
+		if (operation == null) throw new NullPointerException();
+		if (operationMessageResult == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
@@ -527,7 +537,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				executionContext.popTargetStatement();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping target statement.");
+				log.warn("Error while popping target statement: " + ex.getMessage(), ex);
 			}
 		}
 	}

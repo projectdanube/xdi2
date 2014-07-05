@@ -389,26 +389,26 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetStatements The target statements to which the operation applies.
+	 * @param targetStatementXris The target statements to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
+	public Operation createOperation(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatementXris) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
-		if (targetStatements != null) while (targetStatements.hasNext()) this.getContextNode().getGraph().setStatement(innerRoot.relativeToAbsoluteStatementXri(targetStatements.next()));
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXri(), operationXri, true);
+		if (targetStatementXris != null) while (targetStatementXris.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementXris.next());
 
-		return Operation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+		return Operation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetStatementXri The target statement to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
-	public Operation createOperation(XDI3Segment operationXri, XDI3Statement targetStatement) {
+	public Operation createOperation(XDI3Segment operationXri, XDI3Statement targetStatementXri) {
 
-		return this.createOperation(operationXri, new SingleItemIterator<XDI3Statement> (targetStatement));
+		return this.createOperation(operationXri, new SingleItemIterator<XDI3Statement> (targetStatementXri));
 	}
 
 	/**
@@ -442,15 +442,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetStatements The target statements to which the operation applies.
+	 * @param targetStatementXris The target statements to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(Iterator<XDI3Statement> targetStatements) {
+	public GetOperation createGetOperation(Iterator<XDI3Statement> targetStatementXris) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
-		if (targetStatements != null) while (targetStatements.hasNext()) this.getContextNode().getGraph().setStatement(innerRoot.relativeToAbsoluteStatementXri(targetStatements.next()));
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_GET, true);
+		if (targetStatementXris != null) while (targetStatementXris.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementXris.next());
 
-		return GetOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+		return GetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -477,15 +477,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $set operation and adds it to this XDI message.
-	 * @param targetStatements The target statements to which the operation applies.
+	 * @param targetStatementXris The target statements to which the operation applies.
 	 * @return The newly created $set operation.
 	 */
-	public SetOperation createSetOperation(Iterator<XDI3Statement> targetStatements) {
+	public SetOperation createSetOperation(Iterator<XDI3Statement> targetStatementXris) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_SET, true);
-		if (targetStatements != null) while (targetStatements.hasNext()) this.getContextNode().getGraph().setStatement(innerRoot.relativeToAbsoluteStatementXri(targetStatements.next()));
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_SET, true);
+		if (targetStatementXris != null) while (targetStatementXris.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementXris.next());
 
-		return SetOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+		return SetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -512,15 +512,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetStatements The target statements to which the operation applies.
+	 * @param targetStatementXris The target statements to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(Iterator<XDI3Statement> targetStatements) {
+	public DelOperation createDelOperation(Iterator<XDI3Statement> targetStatementXris) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
-		if (targetStatements != null) while (targetStatements.hasNext()) this.getContextNode().getGraph().setStatement(innerRoot.relativeToAbsoluteStatementXri(targetStatements.next()));
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DEL, true);
+		if (targetStatementXris != null) while (targetStatementXris.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementXris.next());
 
-		return DelOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+		return DelOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
@@ -547,15 +547,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetStatements The target statements to which the operation applies.
+	 * @param targetStatementXris The target statements to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(Iterator<XDI3Statement> targetStatements) {
+	public DoOperation createDoOperation(Iterator<XDI3Statement> targetStatementXris) {
 
-		XdiInnerRoot innerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).findInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
-		if (targetStatements != null) while (targetStatements.hasNext()) this.getContextNode().getGraph().setStatement(innerRoot.relativeToAbsoluteStatementXri(targetStatements.next()));
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXri(), XDIMessagingConstants.XRI_S_DO, true);
+		if (targetStatementXris != null) while (targetStatementXris.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementXris.next());
 
-		return DoOperation.fromMessageAndRelation(this, innerRoot.getPredicateRelation());
+		return DoOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**

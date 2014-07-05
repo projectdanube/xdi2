@@ -10,7 +10,6 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.xri3.XDI3Segment;
@@ -170,11 +169,11 @@ public final class CopyUtil {
 		XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
 
 		XDI3SubSegment targetContextNodeXriLastSubSegment = targetContextNodeXri.getLastSubSegment();
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(relation.getGraph()).findRoot(relation.getContextNode().getXri(), false);
+		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(relation.getGraph()).getRoot(relation.getContextNode().getXri(), false);
 
 		Relation targetRelation;
 
-		if (XdiInnerRoot.isInnerRootArcXri(targetContextNodeXriLastSubSegment) &&
+/*		if (XdiInnerRoot.isInnerRootArcXri(targetContextNodeXriLastSubSegment) &&
 				xdiRoot.absoluteToRelativeXri(contextNodeXri).equals(XdiInnerRoot.getSubjectOfInnerRootXri(targetContextNodeXriLastSubSegment)) &&
 				arcXri.equals(XdiInnerRoot.getPredicateOfInnerRootXri(targetContextNodeXriLastSubSegment))) {
 
@@ -189,10 +188,10 @@ public final class CopyUtil {
 			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
 
 			//	copyContextNodeContents(relation.follow(), targetRelation.follow(), copyStrategy);
-		} else {
+		} else {*/
 
 			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
-		}
+/*		}*/
 
 		return targetRelation;
 	}

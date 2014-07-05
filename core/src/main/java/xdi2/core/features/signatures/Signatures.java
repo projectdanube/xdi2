@@ -111,7 +111,6 @@ public class Signatures {
 		Properties parameters = new Properties();
 		parameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
 		parameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "0");
 		parameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "0");
 
 		XDIJSONWriter writer = new XDIJSONWriter(parameters);

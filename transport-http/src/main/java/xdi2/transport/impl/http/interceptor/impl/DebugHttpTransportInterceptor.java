@@ -131,7 +131,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		String format = request.getParameter("format");
 		String writeImplied = request.getParameter("writeImplied");
 		String writeOrdered = request.getParameter("writeOrdered");
-		String writeInner = request.getParameter("writeInner");
 		String writePretty = request.getParameter("writePretty");
 		String graphstring = request.getParameter("graphstring");
 
@@ -162,7 +161,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 				format = XDIDisplayWriter.FORMAT_NAME;
 				writeImplied = null;
 				writeOrdered = null;
-				writeInner = "on";
 				writePretty = null;
 			}
 
@@ -170,7 +168,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 			// write graph
@@ -195,7 +192,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("format", format);
 			context.put("writeImplied", writeImplied);
 			context.put("writeOrdered", writeOrdered);
-			context.put("writeInner", writeInner);
 			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
 			context.put("statementcount", statementcount);
@@ -226,7 +222,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 				format = XDIDisplayWriter.FORMAT_NAME;
 				writeImplied = null;
 				writeOrdered = null;
-				writeInner = "on";
 				writePretty = null;
 			}
 
@@ -234,7 +229,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 			// write message envelope
@@ -312,7 +306,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("format", format);
 			context.put("writeImplied", writeImplied);
 			context.put("writeOrdered", writeOrdered);
-			context.put("writeInner", writeInner);
 			context.put("writePretty", writePretty);
 			context.put("graphstring", graphstring);
 			context.put("statementcount", statementcount);
@@ -370,7 +363,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 				format = XDIDisplayWriter.FORMAT_NAME;
 				writeImplied = null;
 				writeOrdered = null;
-				writeInner = "on";
 				writePretty = null;
 			}
 
@@ -378,7 +370,6 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "on".equals(writeImplied) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "on".equals(writeOrdered) ? "1" : "0");
-			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "on".equals(writeInner) ? "1" : "0");
 			xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "on".equals(writePretty) ? "1" : "0");
 
 			// write message result

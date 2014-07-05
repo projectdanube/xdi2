@@ -181,7 +181,23 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiRoot findRoot() {
 
-		return XdiLocalRoot.findLocalRoot(this.getGraph()).findRoot(this.getContextNode().getXri(), false);
+		return XdiLocalRoot.findLocalRoot(this.getGraph()).getRoot(this.getContextNode().getXri(), false);
+	}
+
+	@Override
+	public XdiLocalRoot findLocalRoot() {
+
+		return new XdiLocalRoot(this.getContextNode().getGraph().getRootContextNode(false));
+	}
+
+	@Override
+	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
+
+		XdiRoot xdiRoot = this.findRoot();
+
+		XDI3Segment innerRootSubjectXri = xdiRoot.absoluteToRelativeXri(this.getContextNode().getXri());
+
+		return xdiRoot.getInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
 	}
 
 	@Override

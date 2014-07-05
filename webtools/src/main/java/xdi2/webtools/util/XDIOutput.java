@@ -24,7 +24,6 @@ public class XDIOutput extends HttpServlet {
 
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "0");
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "0");
-		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_INNER, "0");
 		xdiWriterParameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "0");
 
 		xdiWriter = XDIWriterRegistry.forFormat("XDI DISPLAY", xdiWriterParameters);

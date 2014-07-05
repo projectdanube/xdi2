@@ -162,7 +162,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
 					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
 
-					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).findPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
+					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).getPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
 
 					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
 					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
@@ -230,7 +230,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph: " + bootstrapGraph.toString());
 
 			CopyUtil.copyGraph(bootstrapGraph, graph, null);
-			
+
 			bootstrapGraph.close();
 		}
 
@@ -279,10 +279,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 					XDI3Util.replaceXri(
 							XDI3Segment.fromComponent(contextNodeArcXri), 
 							XRI_SS_SELF, 
-							BootstrapInterceptor.this.getBootstrapOwner(), 
-							true, 
-							true, 
-							true));
+							BootstrapInterceptor.this.getBootstrapOwner()));
 
 			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
 
@@ -308,10 +305,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			XDI3Segment replacedTargetContextNodeXri = XDI3Util.replaceXri(
 					targetContextNodeXri, 
 					XRI_SS_SELF, 
-					BootstrapInterceptor.this.getBootstrapOwner(), 
-					true, 
-					true, 
-					true);
+					BootstrapInterceptor.this.getBootstrapOwner());
 
 			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
 

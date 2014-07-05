@@ -63,7 +63,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find cloud number
 
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).findPeerRoot(query, false);
+		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).getPeerRoot(query, false);
 		if (xdiRoot == null) return;
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXriOfPeerRoot())) {
