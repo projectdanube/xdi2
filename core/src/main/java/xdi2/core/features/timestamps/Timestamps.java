@@ -13,6 +13,8 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.util.XDI3Util;
+import xdi2.core.xri3.XDI3Segment;
 
 public class Timestamps {
 
@@ -58,9 +60,11 @@ public class Timestamps {
 	/**
 	 * Get the timestamp associated with a context node.
 	 */
-	public static Date getContextNodeTimestamp(ContextNode contextNode) {
+	public static Date getContextNodeTimestamp(ContextNode contextNode, XDI3Segment modifier) {
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDITimestampsConstants.XRI_SS_T), false);
+		XDI3Segment timestampXri = modifier == null ? XDITimestampsConstants.XRI_S_AS_T : XDI3Util.concatXris(modifier, XDITimestampsConstants.XRI_SS_AS_T);
+
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampXri, false);
 		if (xdiAttributeSingleton == null) return null;
 
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
@@ -73,15 +77,27 @@ public class Timestamps {
 		return timestamp;
 	}
 
+	public static Date getContextNodeTimestamp(ContextNode contextNode) {
+
+		return getContextNodeTimestamp(contextNode, null);
+	}
+
 	/**
 	 * Set the timestamp associated with a context node.
 	 */
-	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
+	public static void setContextNodeTimestamp(ContextNode contextNode, XDI3Segment modifierXri, Date timestamp) {
+
+		XDI3Segment timestampXri = modifierXri == null ? XDITimestampsConstants.XRI_S_AS_T : XDI3Util.concatXris(modifierXri, XDITimestampsConstants.XRI_SS_AS_T);
 
 		String literalData = timestampToString(timestamp);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDITimestampsConstants.XRI_SS_T), true);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampXri, true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 		xdiValue.getContextNode().setLiteralString(literalData);
+	}
+
+	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
+
+		setContextNodeTimestamp(contextNode, null, timestamp);
 	}
 }

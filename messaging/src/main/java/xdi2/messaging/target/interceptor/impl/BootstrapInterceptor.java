@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.PublicLinkContract;
 import xdi2.core.features.linkcontracts.RootLinkContract;
@@ -21,6 +23,7 @@ import xdi2.core.features.linkcontracts.policy.PolicyUtil;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
@@ -57,6 +60,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private XDI3Segment[] bootstrapOwnerSynonyms;
 	private boolean bootstrapRootLinkContract;
 	private boolean bootstrapPublicLinkContract;
+	private boolean bootstrapTimestamp;
 	private Graph bootstrapGraph;
 	private MessageEnvelope bootstrapMessageEnvelope;
 
@@ -68,6 +72,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		this.bootstrapOwnerSynonyms = null;
 		this.bootstrapRootLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
+		this.bootstrapTimestamp = false;
 		this.bootstrapGraph = null;
 		this.bootstrapMessageEnvelope = null;
 	}
@@ -220,6 +225,13 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			}
 		}
 
+		// create bootstrap timestamp
+
+		if (this.getBootstrapTimestamp()) {
+
+			Timestamps.setContextNodeTimestamp(graph.getRootContextNode(), XDITimestampsConstants.XRI_S_AS_CREATED, new Date());
+		}
+
 		// create bootstrap graph
 
 		if (this.getBootstrapGraph() != null) {
@@ -365,6 +377,16 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	public void setBootstrapPublicLinkContract(boolean bootstrapPublicLinkContract) {
 
 		this.bootstrapPublicLinkContract = bootstrapPublicLinkContract;
+	}
+
+	public boolean getBootstrapTimestamp() {
+
+		return this.bootstrapTimestamp;
+	}
+
+	public void setBootstrapTimestamp(boolean bootstrapTimestamp) {
+
+		this.bootstrapTimestamp = bootstrapTimestamp;
 	}
 
 	public Graph getBootstrapGraph() {
