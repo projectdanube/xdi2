@@ -138,7 +138,13 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XdiInnerRoot getTargetInnerRoot() {
 
-		return XdiInnerRoot.fromContextNode(this.getRelation().follow());
+		XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
+		if (xdiInnerRoot == null) return null;
+
+		if (! xdiInnerRoot.getSubjectOfInnerRoot().equals(this.getRelation().getContextNode().getXri())) return null;
+		if (! xdiInnerRoot.getPredicateOfInnerRoot().equals(this.getRelation().getArcXri())) return null;
+
+		return xdiInnerRoot;
 	}
 
 	/**
