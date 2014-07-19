@@ -126,7 +126,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment relativeContextNodeXri, boolean subgraph) {
 
-		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri) && this.isRootContextNode()) return this;
+		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri)) return this;
 
 		XDI3Segment contextNodeXri = XDI3Util.concatXris(this.getXri(), relativeContextNodeXri);
 

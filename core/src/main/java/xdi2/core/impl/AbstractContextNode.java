@@ -115,7 +115,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	public XDI3Segment getXri() {
 
-		if (this.isRootContextNode()) return XDIConstants.XRI_S_CONTEXT;
+		if (this.isRootContextNode()) return XDIConstants.XRI_S_ROOT;
 
 		StringBuilder xri = new StringBuilder();
 
@@ -175,7 +175,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public ContextNode getDeepContextNode(XDI3Segment relativeContextNodeXri, boolean subgraph) {
 
-		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri) && this.isRootContextNode()) return this;
+		if (XDIConstants.XRI_S_ROOT.equals(relativeContextNodeXri)) return this;
 
 		ContextNode contextNode = this;
 
