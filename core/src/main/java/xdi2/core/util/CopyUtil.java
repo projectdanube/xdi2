@@ -95,9 +95,9 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
-		XDI3SubSegment arcXri = contextNode.getArcXri();
+		XDI3SubSegment contextNodeArcXri = contextNode.getArcXri();
 
-		ContextNode targetInnerContextNode = targetContextNode.setContextNode(arcXri);
+		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeArcXri);
 
 		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
 
@@ -144,8 +144,8 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XDI3Segment contextNodeXri = relation.getContextNode().getXri();
-		ContextNode targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);
+		XDI3Segment relationContextNodeXri = relation.getContextNode().getXri();
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(relationContextNodeXri);
 
 		return copyRelation(relation, targetContextNode, copyStrategy);
 	}
@@ -165,36 +165,45 @@ public final class CopyUtil {
 
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
-		XDI3Segment contextNodeXri = relation.getContextNode().getXri();
-		XDI3Segment arcXri = relation.getArcXri();
-		XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
+		XDI3Segment relationContextNodeXri = relation.getContextNode().getXri();
+		XDI3Segment relationArcXri = relation.getArcXri();
+		XDI3Segment relationTargetContextNodeXri = relation.getTargetContextNodeXri();
 
-		XDI3SubSegment targetContextNodeXriLastSubSegment = targetContextNodeXri.getLastSubSegment();
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(relation.getGraph()).getRoot(relation.getContextNode().getXri(), false);
+		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
+
+		XdiRoot relationContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(relation.getContextNode().getGraph()).getRoot(relationContextNodeXri, false);
+		XdiRoot targetContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(targetContextNode.getGraph()).getRoot(targetContextNodeXri, false);
+
+		XDI3Segment relativeRelationContextNodeXri = relationContextNodeXdiRoot.absoluteToRelativeXri(relationContextNodeXri);
+		XDI3Segment relativeRelationTargetContextNodeXri = relationContextNodeXdiRoot.absoluteToRelativeXri(relationTargetContextNodeXri);
+		XDI3Segment relativeTargetContextNodeXri = targetContextNodeXdiRoot.absoluteToRelativeXri(targetContextNodeXri);
 
 		Relation targetRelation;
 
-		if (XdiInnerRoot.isInnerRootArcXri(targetContextNodeXriLastSubSegment) &&
-				xdiRoot.absoluteToRelativeXri(contextNodeXri).equals(XdiInnerRoot.getSubjectOfInnerRootXri(targetContextNodeXriLastSubSegment)) &&
-				arcXri.equals(XdiInnerRoot.getPredicateOfInnerRootXri(targetContextNodeXriLastSubSegment))) {
+		// check if this relation establishes an inner root
 
-			if (! targetContextNode.equals(relation.getContextNode())) {
+		if (relativeRelationTargetContextNodeXri != null &&
+				relativeRelationTargetContextNodeXri.getNumSubSegments() == 1 &&
+				XdiInnerRoot.isInnerRootArcXri(relativeRelationTargetContextNodeXri.getFirstSubSegment()) &&
+				XdiInnerRoot.getSubjectOfInnerRootXri(relativeRelationTargetContextNodeXri.getFirstSubSegment()).equals(relativeRelationContextNodeXri) &&
+				XdiInnerRoot.getPredicateOfInnerRootXri(relativeRelationTargetContextNodeXri.getFirstSubSegment()).equals(relationArcXri)) {
 
-				targetContextNodeXriLastSubSegment = XdiInnerRoot.createInnerRootArcXri(xdiRoot.absoluteToRelativeXri(targetContextNode.getXri()), arcXri);
-				targetContextNodeXri = XDI3Util.concatXris(XDI3Util.parentXri(targetContextNodeXri, -1), targetContextNodeXriLastSubSegment);
-				
-				//throw new Xdi2GraphException("Copying inner root to different context node is not supported.");
-				//return null;
+			// if the target context node is not the same, we need to adjust the inner root
+
+			if (! targetContextNodeXri.equals(relationContextNodeXri)) {
+
+				relativeRelationTargetContextNodeXri = XDI3Segment.fromComponent(XdiInnerRoot.createInnerRootArcXri(relativeTargetContextNodeXri, relationArcXri));
+				relationTargetContextNodeXri = targetContextNodeXdiRoot.relativeToAbsoluteXri(relativeRelationTargetContextNodeXri);
 			}
 
-			//	new Exception("Also need to copy inner root " + relation.follow()).printStackTrace();
+			targetRelation = targetContextNode.setRelation(relationArcXri, relationTargetContextNodeXri);
 
-			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
+			// also need to copy the contents of the inner root
 
 			copyContextNodeContents(relation.follow(), targetRelation.follow(), copyStrategy);
 		} else {
 
-			targetRelation = targetContextNode.setRelation(arcXri, targetContextNodeXri);
+			targetRelation = targetContextNode.setRelation(relationArcXri, relationTargetContextNodeXri);
 		}
 
 		return targetRelation;
@@ -240,8 +249,8 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XDI3Segment contextNodeXri = literal.getContextNode().getXri();
-		ContextNode targetContextNode = targetGraph.setDeepContextNode(contextNodeXri);
+		XDI3Segment literalContextNodeXri = literal.getContextNode().getXri();
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(literalContextNodeXri);
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);
 	}
