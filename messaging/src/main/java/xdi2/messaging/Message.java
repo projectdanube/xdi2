@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIAuthenticationConstants;
@@ -26,8 +27,10 @@ import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.MappingStatementXriIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -414,6 +417,17 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 */
+	public Operation createOperation(XDI3Segment operationXri, Graph targetGraph) {
+
+		return this.createOperation(operationXri, new MappingStatementXriIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
+	 * Creates a new operation and adds it to this XDI message.
+	 * @param operationXri The operation XRI to use for the new operation.
 	 * @param target The target address or target statement to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
 	 */
@@ -464,6 +478,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $get operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $get operation.
+	 */
+	public GetOperation createGetOperation(Graph targetGraph) {
+
+		return this.createGetOperation(new MappingStatementXriIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
 	 * Creates a new $set operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $set operation.
@@ -496,6 +520,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	public SetOperation createSetOperation(XDI3Statement targetStatement) {
 
 		return this.createSetOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
+	 * Creates a new $set operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $set operation.
+	 */
+	public SetOperation createSetOperation(Graph targetGraph) {
+
+		return this.createSetOperation(new MappingStatementXriIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
 	}
 
 	/**
@@ -534,6 +568,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $del operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $del operation.
+	 */
+	public DelOperation createDelOperation(Graph targetGraph) {
+
+		return this.createDelOperation(new MappingStatementXriIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
 	 * Creates a new $do operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $do operation.
@@ -566,6 +610,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	public DoOperation createDoOperation(XDI3Statement targetStatement) {
 
 		return this.createDoOperation(new SingleItemIterator<XDI3Statement> (targetStatement));
+	}
+
+	/**
+	 * Creates a new $do operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $do operation.
+	 */
+	public DoOperation createDoOperation(Graph targetGraph) {
+
+		return this.createDoOperation(new MappingStatementXriIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
 	}
 
 	/**
