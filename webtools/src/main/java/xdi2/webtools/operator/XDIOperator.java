@@ -38,7 +38,6 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDI3Util;
-import xdi2.core.util.iterators.MappingStatementXriIterator;
 import xdi2.core.xri3.CloudNumber;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
@@ -285,6 +284,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 		try {
 
+			if (cloudName == null || cloudName.trim().isEmpty()) throw new RuntimeException("Please enter a cloud name.");
+
 			// build
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
@@ -357,7 +358,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				PolicyUtil.createSecretTokenValidOperator(policyOr);
 				PolicyUtil.createSignatureValidOperator(policyOr);
 
-				message.createSetOperation(new MappingStatementXriIterator(graph.getRootContextNode().getAllStatements()));
+				message.createSetOperation(graph);
 			} else if ("Del root link contract".equals(submit)) {
 
 				message.createDelOperation(RootLinkContract.createRootLinkContractXri(cloudNumber.getXri()));
@@ -410,7 +411,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				XDI3Segment publicAddress = XDI3Util.concatXris(cloudNumber.getXri(), XDILinkContractConstants.XRI_S_PUBLIC);
 				publicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, publicAddress);
 
-				message.createSetOperation(new MappingStatementXriIterator(graph.getRootContextNode().getAllStatements()));
+				message.createSetOperation(graph);
 			} else if ("Del public link contract".equals(submit)) {
 
 				message.createDelOperation(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
@@ -434,6 +435,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 	private void buildGenericLinkContract(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String requestingAuthority = request.getParameter("requestingAuthority");
+		String requireValidSignature = request.getParameter("requireValidSignature");
+		String requireValidSecretToken = request.getParameter("requireValidSecretToken");
 		String submit = request.getParameter("submit");
 		String error = null;
 
@@ -442,6 +445,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		StringWriter output = new StringWriter();
 
 		try {
+
+			if (requestingAuthority == null || requestingAuthority.trim().isEmpty()) throw new RuntimeException("Please enter a requesting authority.");
 
 			// build
 
@@ -464,7 +469,10 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				PolicyAnd policyAnd = genericLinkContract.getPolicyRoot(true).createAndPolicy(true);
 				PolicyUtil.createSenderIsOperator(policyAnd, XDI3Segment.create(requestingAuthority));
 
-				message.createSetOperation(new MappingStatementXriIterator(graph.getRootContextNode().getAllStatements()));
+				if ("on".equals(requireValidSignature)) PolicyUtil.createSignatureValidOperator(policyAnd);
+				if ("on".equals(requireValidSecretToken)) PolicyUtil.createSecretTokenValidOperator(policyAnd);
+
+				message.createSetOperation(graph);
 			} else if ("Del generic link contract".equals(submit)) {
 
 				message.createDelOperation(GenericLinkContract.createGenericLinkContractXri(cloudNumber.getXri(), XDI3Segment.create(requestingAuthority), null));

@@ -152,7 +152,7 @@
 			<tr>
 			<td><input type="hidden" name="cmd" value="buildCloudNames">
 			<input type="submit" name="submit" value="Set cloud name"></td>
-			<td>Cloud name: <input type="text" name="cloudName" size="40"></td>
+			<td>Cloud name: <input type="text" name="cloudName" size="40" placeholder="e.g. =yourname"></td>
 			</tr>
 	
 			</table>
@@ -168,7 +168,7 @@
 			<tr>
 			<td><input type="hidden" name="cmd" value="buildCloudNames">
 			<input type="submit" name="submit" value="Del cloud name"></td>
-			<td>Cloud name: <input type="text" name="cloudName" size="40"></td>
+			<td>Cloud name: <input type="text" name="cloudName" size="40" placeholder="e.g. =yourname"></td>
 			</tr>
 	
 			</table>
@@ -286,7 +286,7 @@
 			<tr>
 			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
 			<input type="submit" name="submit" value="Get generic link contract"></td>
-			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
 			</tr>
 	
 			</table>
@@ -302,7 +302,15 @@
 			<tr>
 			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
 			<input type="submit" name="submit" value="Set generic link contract"></td>
-			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type="checkbox" name="requireValidSignature">&nbsp;&nbsp;Require Valid Signature</td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type="checkbox" name="requireValidSecretToken">&nbsp;&nbsp;Require Valid Secret Token</td>
 			</tr>
 	
 			</table>
@@ -318,7 +326,7 @@
 			<tr>
 			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
 			<input type="submit" name="submit" value="Del generic link contract"></td>
-			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40"></td>
+			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
 			</tr>
 	
 			</table>
