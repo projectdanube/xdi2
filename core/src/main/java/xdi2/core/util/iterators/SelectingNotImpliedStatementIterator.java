@@ -12,11 +12,11 @@ import xdi2.core.Statement;
  * 
  * @author markus
  */
-public class SelectingNotImpliedStatementIterator<T extends Statement> extends SelectingIterator<T> {
+public class SelectingNotImpliedStatementIterator extends SelectingIterator<Statement> {
 
 	private static final Logger log = LoggerFactory.getLogger(SelectingNotImpliedStatementIterator.class);
 
-	public SelectingNotImpliedStatementIterator(Iterator<? extends T> statements) {
+	public SelectingNotImpliedStatementIterator(Iterator<? extends Statement> statements) {
 
 		super(statements);
 	}

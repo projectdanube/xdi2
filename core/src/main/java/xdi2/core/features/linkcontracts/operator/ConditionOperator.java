@@ -1,7 +1,6 @@
 package xdi2.core.features.linkcontracts.operator;
 
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -34,7 +33,7 @@ public abstract class ConditionOperator extends Operator {
 				new MappingAbsoluteToRelativeStatementXriIterator(
 						innerRoot,
 						new MappingStatementXriIterator(
-								new SelectingNotImpliedStatementIterator<Statement> (
+								new SelectingNotImpliedStatementIterator(
 										innerRoot.getContextNode().getAllStatements())))) {
 
 			@Override

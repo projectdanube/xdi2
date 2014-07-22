@@ -99,7 +99,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		// ignore implied statements
 
-		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator<Statement> (statements);
+		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator(statements);
 
 		// write the statements
 

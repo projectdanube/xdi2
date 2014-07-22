@@ -6,7 +6,6 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.Statement;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -177,7 +176,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 			return new MappingAbsoluteToRelativeStatementXriIterator(
 					targetInnerRoot,
 					new MappingStatementXriIterator(
-							new SelectingNotImpliedStatementIterator<Statement> (
+							new SelectingNotImpliedStatementIterator(
 									targetInnerRoot.getContextNode().getAllStatements())));
 		} else {
 
