@@ -130,7 +130,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			this.endpointUri = new URL(parameters.getProperty(KEY_ENDPOINTURI, null));
 			this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE));
 			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
-			this.userAgent = parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_USERAGENT);
+			this.userAgent = parameters.getProperty(KEY_USERAGENT, DEFAULT_USERAGENT);
 			this.followRedirects = Boolean.parseBoolean(parameters.getProperty(KEY_FOLLOWREDIRECTS, DEFAULT_FOLLOWREDIRECTS));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
