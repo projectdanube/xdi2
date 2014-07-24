@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.properties.XDI2Properties;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -29,10 +30,18 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractTransport.class);
 
+	private static String VERSION;
+
 	private InterceptorList<Transport<?, ?>> interceptors;
 
 	private boolean initialized;
 	private Date startup;
+
+	static {
+
+		VERSION = "XDI2 Version: " + XDI2Properties.properties.get("project.version") + " (" + XDI2Properties.properties.get("project.build.timestamp") + "). ";
+		VERSION += "Git Commit: " + XDI2Properties.properties.get("git.branch") + " " + XDI2Properties.properties.get("git.commit.id") + " (" + XDI2Properties.properties.get("git.commit.time") + ").";
+	}
 
 	protected AbstractTransport() {
 
@@ -130,6 +139,7 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 
 			// execute the message envelope against the messaging target
 
+			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 			messagingTarget.execute(messageEnvelope, messageResult, executionContext);
 			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));

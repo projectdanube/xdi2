@@ -42,7 +42,8 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 <h1>General Information:</h1>
 <table class="pretty">
-	<tr><th style="width: 200px">XDI2 Version:</th><td>$xdi2properties["project.version"] (Timestamp $xdi2properties["project.build.timestamp"])</td></tr>
+	<tr><th style="width: 200px">XDI2 Version:</th><td>$xdi2properties["project.version"] ($xdi2properties["project.build.timestamp"])</td></tr>
+	<tr><th style="width: 200px">Git Commit:</th><td>$xdi2properties["git.branch"] $xdi2properties["git.commit.id"] ($xdi2properties["git.commit.time"])</td></tr>
 	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
 	<tr><th style="width: 200px">Transport Class:</th><td>$httptransport.class.canonicalName</td></tr>
 	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
