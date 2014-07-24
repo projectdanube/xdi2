@@ -48,7 +48,7 @@
 
 		<tr>
 		<td>&nbsp;</td>
-		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for PROD. Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for OTE.</span></td>
+		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for Neustar PROD (default).<br>Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for Neustar OTE.<br>Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getEndpointUri() %></span> for Neustar STAGE.</span></td>
 		</tr>
 
 		<tr>

@@ -42,9 +42,11 @@ public class XDIDiscoveryClient {
 
 	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
 
 	public static final XDIDiscoveryClient NEUSTAR_PROD_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient NEUSTAR_OTE_DISCOVERY_CLIENT;
+	public static final XDIDiscoveryClient NEUSTAR_STAGE_DISCOVERY_CLIENT;
 
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT;
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT;
@@ -61,8 +63,10 @@ public class XDIDiscoveryClient {
 
 		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient("https://xdidiscoveryservice.xdi.net/");
 		NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("https://xdidiscoveryserviceote.xdi.net/");
+		NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient("https://xdidiscovery-stg.cloudnames.biz/");
 		NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
+		NEUSTAR_STAGE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT);
 
 		DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 		DEFAULT_DISCOVERY_CLIENT = NEUSTAR_PROD_DISCOVERY_CLIENT;
