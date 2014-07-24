@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
@@ -34,6 +37,8 @@ import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
 
 public class Signatures {
+
+	private static Logger log = LoggerFactory.getLogger(Signatures.class.getName());
 
 	private Signatures() { }
 
@@ -130,6 +135,8 @@ public class Signatures {
 
 			graph.close();
 		}
+
+		if (log.isDebugEnabled()) log.debug("Normalized context node " + contextNode.getXri() + ": " + string);
 
 		return string;
 	}
