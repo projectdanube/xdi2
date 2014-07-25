@@ -5,4 +5,10 @@ notifications:
 branches:
     only:
         - master
+jdk:
+    - openjdk6
+    - oraclejdk6
+    - openjdk7
+    - oraclejdk7
+install: mvn install -DskipTests=true
 script: mvn clean integration-test
