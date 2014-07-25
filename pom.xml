@@ -193,6 +193,7 @@
 				<configuration>
 					<verbose>true</verbose>
 					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
