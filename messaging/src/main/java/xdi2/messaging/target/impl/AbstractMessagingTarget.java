@@ -249,7 +249,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (messageResult == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getOperationCount() + " operations).");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getContextNode().getXri().toString() + ") (" + message.getOperationCount() + " operations).");
 
 		try {
 
