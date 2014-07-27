@@ -253,7 +253,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
-			executionContext.pushMessage(message, null);
+			executionContext.pushMessage(message, message.getContextNode().getXri().toString());
 
 			// reset execution context
 
