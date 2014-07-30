@@ -58,6 +58,11 @@ public final class ExecutionContext implements Serializable {
 	private Xdi2MessagingException ex;
 
 	/**
+	 * Timestamp when the execution context is created;
+	 */
+	private long timestamp;
+
+	/**
 	 * The current execution position.
 	 * This is either a MessagingTarget, a MessageEnvelope, a Message,
 	 * an Operation, an Interceptor, a Contributor, an XDI3Segment,
@@ -73,6 +78,7 @@ public final class ExecutionContext implements Serializable {
 		this.operationAttributes = new HashMap<String, Object> ();
 
 		this.ex = null;
+		this.timestamp = System.currentTimeMillis();
 
 		this.currentExecutionPosition = new ExecutionPosition<ExecutionContext> (null, this, null);
 		this.topExecutionPosition = this.currentExecutionPosition;
@@ -220,6 +226,15 @@ public final class ExecutionContext implements Serializable {
 		this.exceptionExecutionPosition = this.currentExecutionPosition;
 
 		return this.ex;
+	}
+
+	/*
+	 * Timestamp
+	 */
+
+	public long getTimestamp() {
+
+		return this.timestamp;
 	}
 
 	/*
@@ -484,7 +499,7 @@ public final class ExecutionContext implements Serializable {
 	private <T> List<ExecutionPosition<T>> findExecutionPositions(ExecutionPosition<?> startExecutionPosition, Class<? extends T> clazz) {
 
 		List<ExecutionPosition<T>> executionPositions = new ArrayList<ExecutionPosition<T>> ();
-		
+
 		for (ExecutionPosition<?> executionPosition = startExecutionPosition; executionPosition != this.topExecutionPosition; ) {
 
 			if (clazz.isAssignableFrom(executionPosition.executionObject.getClass())) executionPositions.add((ExecutionPosition<T>) executionPosition);
@@ -557,12 +572,14 @@ public final class ExecutionContext implements Serializable {
 	 * Helper classes
 	 */
 
-	private static final class ExecutionPosition<T> {
+	private final class ExecutionPosition<T> {
 
 		private ExecutionPosition<?> parentExecutionPosition;
 		private T executionObject;
 		private String comment;
 
+		private long timestamp;
+		
 		private List<ExecutionPosition<?>> childExecutionPositions;
 
 		private ExecutionPosition(ExecutionPosition<?> parentExecutionPosition, T executionObject, String comment) {
@@ -571,6 +588,8 @@ public final class ExecutionContext implements Serializable {
 			this.executionObject = executionObject;
 			this.comment = comment;
 
+			this.timestamp = System.currentTimeMillis();
+			
 			this.childExecutionPositions = new ArrayList<ExecutionPosition<?>> ();
 
 			if (parentExecutionPosition != null) parentExecutionPosition.childExecutionPositions.add(this);
@@ -579,7 +598,7 @@ public final class ExecutionContext implements Serializable {
 		@Override
 		public String toString() {
 
-			return this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
+			return "[" + (this.timestamp - ExecutionContext.this.timestamp) + "ms]  " + this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
 		}
 	}
 }
