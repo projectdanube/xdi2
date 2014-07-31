@@ -90,7 +90,7 @@ public class ContributorExecutor {
 
 			try {
 
-				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetAddress + " [" + nextContributorChainXri + "]");
+				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetAddress + " / " + nextContributorChainXri);
 
 				// execute sub-contributors (address)
 
@@ -235,7 +235,7 @@ public class ContributorExecutor {
 
 			try {
 
-				executionContext.pushContributor(contributor, "Contributor: statement: " + nextRelativeTargetStatement + " [" + nextContributorChainXri + "]");
+				executionContext.pushContributor(contributor, "Contributor: statement: " + nextRelativeTargetStatement + " / " + nextContributorChainXri);
 
 				// execute sub-contributors (statement)
 

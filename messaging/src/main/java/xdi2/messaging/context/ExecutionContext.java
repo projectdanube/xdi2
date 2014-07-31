@@ -58,9 +58,9 @@ public final class ExecutionContext implements Serializable {
 	private Xdi2MessagingException ex;
 
 	/**
-	 * Timestamp when the execution context is created;
+	 * Timestamp of the first push.
 	 */
-	private long timestamp;
+	private long firstPush;
 
 	/**
 	 * The current execution position.
@@ -78,7 +78,7 @@ public final class ExecutionContext implements Serializable {
 		this.operationAttributes = new HashMap<String, Object> ();
 
 		this.ex = null;
-		this.timestamp = System.currentTimeMillis();
+		this.firstPush = -1;
 
 		this.currentExecutionPosition = new ExecutionPosition<ExecutionContext> (null, this, null);
 		this.topExecutionPosition = this.currentExecutionPosition;
@@ -226,15 +226,6 @@ public final class ExecutionContext implements Serializable {
 		this.exceptionExecutionPosition = this.currentExecutionPosition;
 
 		return this.ex;
-	}
-
-	/*
-	 * Timestamp
-	 */
-
-	public long getTimestamp() {
-
-		return this.timestamp;
 	}
 
 	/*
@@ -485,9 +476,14 @@ public final class ExecutionContext implements Serializable {
 		if (object == null) throw new NullPointerException();
 
 		this.currentExecutionPosition = new ExecutionPosition<T> (this.currentExecutionPosition, object, comment);
+
+		this.currentExecutionPosition.push = System.currentTimeMillis();
+		if (this.currentExecutionPosition.parentExecutionPosition == this.topExecutionPosition) this.firstPush = this.currentExecutionPosition.push;
 	}
 
 	private <T> void popExecutionPosition(Class<? extends T> clazz) {
+
+		this.currentExecutionPosition.pop = System.currentTimeMillis();
 
 		if (this.currentExecutionPosition == this.topExecutionPosition) throw new IllegalStateException("No more execution positions.");
 		if (! clazz.isAssignableFrom(this.currentExecutionPosition.executionObject.getClass())) throw new IllegalStateException("Unexpected execution position class: " + this.currentExecutionPosition.executionObject.getClass().getSimpleName() + " (should be " + clazz.getSimpleName() + ").");
@@ -578,8 +574,9 @@ public final class ExecutionContext implements Serializable {
 		private T executionObject;
 		private String comment;
 
-		private long timestamp;
-		
+		private long push;
+		private long pop;
+
 		private List<ExecutionPosition<?>> childExecutionPositions;
 
 		private ExecutionPosition(ExecutionPosition<?> parentExecutionPosition, T executionObject, String comment) {
@@ -588,8 +585,9 @@ public final class ExecutionContext implements Serializable {
 			this.executionObject = executionObject;
 			this.comment = comment;
 
-			this.timestamp = System.currentTimeMillis();
-			
+			this.push = -1;
+			this.pop = -1;
+
 			this.childExecutionPositions = new ArrayList<ExecutionPosition<?>> ();
 
 			if (parentExecutionPosition != null) parentExecutionPosition.childExecutionPositions.add(this);
@@ -598,7 +596,12 @@ public final class ExecutionContext implements Serializable {
 		@Override
 		public String toString() {
 
-			return "[" + (this.timestamp - ExecutionContext.this.timestamp) + "ms]  " + this.executionObject.getClass().getSimpleName() + (this.comment == null ? "" : " (" + this.comment + ")");
+			StringBuffer buffer = new StringBuffer();
+			if (ExecutionContext.this.firstPush != -1 && this.push != -1 && this.pop != -1) buffer.append("[" + (this.push - ExecutionContext.this.firstPush) + "-"+ (this.pop - ExecutionContext.this.firstPush) + "ms]  ");
+			buffer.append(this.executionObject.getClass().getSimpleName());
+			if (this.comment != null) buffer.append("  (" + this.comment + ")");
+
+			return buffer.toString();
 		}
 	}
 }

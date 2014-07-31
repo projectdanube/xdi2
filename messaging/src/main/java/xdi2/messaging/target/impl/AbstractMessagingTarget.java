@@ -339,7 +339,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
-			executionContext.pushOperation(operation, null);
+			executionContext.pushOperation(operation, operation.getOperationXri().toString());
 
 			// reset execution context
 
