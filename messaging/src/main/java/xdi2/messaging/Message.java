@@ -199,7 +199,11 @@ public final class Message implements Serializable, Comparable<Message> {
 	public void setToPeerRootXri(XDI3SubSegment toPeerRootXri) {
 
 		this.getContextNode().delRelations(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI);
-		this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, XDI3Segment.fromComponent(toPeerRootXri));
+
+		if (toPeerRootXri != null) {
+
+			this.getContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, XDI3Segment.fromComponent(toPeerRootXri));
+		}
 	}
 
 	/**
