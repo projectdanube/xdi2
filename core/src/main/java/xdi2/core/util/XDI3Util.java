@@ -235,22 +235,22 @@ public final class XDI3Util {
 
 		try {
 
-			StringBuilder buffer = new StringBuilder();
+			List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
 			if (numSubSegments > 0) {
 
-				for (int i = 0; i < numSubSegments; i++) buffer.append(xri.getSubSegment(i).toString());
+				for (int i = 0; i < numSubSegments; i++) subSegments.add(xri.getSubSegment(i));
 			} else if (numSubSegments < 0) {
 
-				for (int i = 0; i < xri.getNumSubSegments() - (- numSubSegments); i++) buffer.append(xri.getSubSegment(i).toString());
+				for (int i = 0; i < xri.getNumSubSegments() - (- numSubSegments); i++) subSegments.add(xri.getSubSegment(i));
 			} else {
 
 				{ result = xri; return result; }
 			}
 
-			if (buffer.length() == 0) { result = null; return result; }
+			if (subSegments.size() == 0) { result = null; return result; }
 
-			{ result = XDI3Segment.create(buffer.toString()); return result; }
+			{ result = XDI3Segment.fromComponents(subSegments); return result; }
 		} finally {
 
 			if (log.isTraceEnabled()) log.trace("parentXri(" + xri + "," + numSubSegments + ") --> " + result);
@@ -270,22 +270,22 @@ public final class XDI3Util {
 
 		try {
 
-			StringBuilder buffer = new StringBuilder();
+			List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
 			if (numSubSegments > 0) {
 
-				for (int i = xri.getNumSubSegments() - numSubSegments; i < xri.getNumSubSegments(); i++) buffer.append(xri.getSubSegment(i).toString());
+				for (int i = xri.getNumSubSegments() - numSubSegments; i < xri.getNumSubSegments(); i++) subSegments.add(xri.getSubSegment(i));
 			} else if (numSubSegments < 0) {
 
-				for (int i = (- numSubSegments); i < xri.getNumSubSegments(); i++) buffer.append(xri.getSubSegment(i).toString());
+				for (int i = (- numSubSegments); i < xri.getNumSubSegments(); i++) subSegments.add(xri.getSubSegment(i));
 			} else {
 
 				{ result = xri; return xri; }
 			}
 
-			if (buffer.length() == 0) { result = null; return result; }
+			if (subSegments.size() == 0) { result = null; return result; }
 
-			{ result = XDI3Segment.create(buffer.toString()); return result; }
+			{ result = XDI3Segment.fromComponents(subSegments); return result; }
 		} finally {
 
 			if (log.isTraceEnabled()) log.trace("localXri(" + xri + "," + numSubSegments + ") --> " + result);
@@ -499,19 +499,19 @@ public final class XDI3Util {
 
 		try {
 
-			StringBuffer buffer = new StringBuffer();
+			List<XDI3SubSegment> subSegments = new ArrayList<XDI3SubSegment> ();
 
 			if (segments != null) {
 
 				for (XDI3Segment segment : segments) {
 
-					if (segment != null && ! XDIConstants.XRI_S_ROOT.equals(segment)) buffer.append(segment.toString());
+					if (segment != null) subSegments.addAll(segment.getSubSegments());
 				}
 			}
 
-			if (buffer.length() == 0) buffer.append(XDIConstants.XRI_S_ROOT.toString());
+			if (subSegments.size() == 0) subSegments.addAll(XDIConstants.XRI_S_ROOT.getSubSegments());
 
-			{ result = XDI3Segment.create(buffer.toString()); return result; }
+			{ result = XDI3Segment.fromComponents(subSegments); return result; }
 		} finally {
 
 			if (log.isTraceEnabled()) log.trace("concatXris(" + Arrays.asList(segments) + ") --> " + result);

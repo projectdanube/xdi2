@@ -17,6 +17,7 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
+import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -37,12 +38,16 @@ public abstract class AbstractContextNode implements ContextNode {
 	private Graph graph;
 	private ContextNode contextNode;
 
+	private XDI3Segment xri;
+
 	public AbstractContextNode(Graph graph, ContextNode contextNode) {
 
 		if (graph == null) throw new NullPointerException();
 
 		this.graph = graph;
 		this.contextNode = contextNode;
+
+		this.xri = null;
 	}
 
 	@Override
@@ -110,25 +115,20 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	/*
-	 * TODO: This is inefficient for nodes deep down in the tree.
-	 */
 	public XDI3Segment getXri() {
 
-		if (this.isRootContextNode()) return XDIConstants.XRI_S_ROOT;
+		if (this.xri == null) {
 
-		StringBuilder xri = new StringBuilder();
+			if (this.isRootContextNode()) {
 
-		xri.append(this.getArcXri().toString());
+				this.xri = XDIConstants.XRI_S_ROOT;
+			} else {
 
-		for (ContextNode contextNode = this.getContextNode(); 
-				contextNode != null && ! contextNode.isRootContextNode(); 
-				contextNode = contextNode.getContextNode()) {
-
-			xri.insert(0, contextNode.getArcXri());
+				this.xri = XDI3Util.concatXris(this.getContextNode().getXri(), this.getArcXri());
+			}
 		}
 
-		return XDI3Segment.create(xri.toString());
+		return this.xri;
 	}
 
 	/*
