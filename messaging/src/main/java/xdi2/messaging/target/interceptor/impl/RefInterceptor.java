@@ -30,7 +30,6 @@ import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
@@ -40,7 +39,6 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * This interceptor handles $ref and $rep relations.
@@ -404,16 +402,18 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get source of $ref/$rep relation: " + refRepContextNode);
 
-		// prepare messaging target and message result
+		// prepare messaging target
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
+		// prepare feedback message result
+
 		MessageResult feedbackMessageResult = new MessageResult();
 
-		// prepare message
+		// prepare feedback message
 
-		Message feedbackMessage = MessagingCloneUtil.cloneMessage(operation.getMessage());
-		feedbackMessage.deleteOperations();
+		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXri());
+		feedbackMessage.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXri());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_S_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_S_PARAMETER_DEREF, Boolean.TRUE);
@@ -433,15 +433,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
 
-			// execute the message
+			// execute feedback messages
 
-			try {
-
-				messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
-			} catch (Xdi2NotAuthorizedException ex) {
-
-				if (log.isDebugEnabled()) log.debug("Not authorized to get source of $ref/$rep relation: " + refRepContextNode);
-			}
+			messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
@@ -471,10 +465,10 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// prepare feedback messages
 
-		Message feedbackMessageRef = MessagingCloneUtil.cloneMessage(operation.getMessage());
-		Message feedbackMessageRep = MessagingCloneUtil.cloneMessage(operation.getMessage());
-		feedbackMessageRef.deleteOperations();
-		feedbackMessageRep.deleteOperations();
+		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderXri());
+		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderXri());
+		feedbackMessageRef.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
+		feedbackMessageRep.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
 
 		feedbackMessageRef.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
 		feedbackMessageRep.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
