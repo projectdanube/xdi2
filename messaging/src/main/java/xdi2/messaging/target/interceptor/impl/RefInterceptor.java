@@ -461,13 +461,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXri);
 
-		// prepare messaging target and message result
+		// prepare messaging target
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
+		// prepare feedback message result
+
 		MessageResult feedbackMessageResult = new MessageResult();
 
-		// prepare messages
+		// prepare feedback messages
 
 		Message feedbackMessageRef = MessagingCloneUtil.cloneMessage(operation.getMessage());
 		Message feedbackMessageRep = MessagingCloneUtil.cloneMessage(operation.getMessage());
@@ -494,26 +496,17 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRef);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRep);
 
+			MessagePolicyInterceptor messagePolicyInterceptor = messagingTarget.getInterceptors().getInterceptor(MessagePolicyInterceptor.class);
+			if (messagePolicyInterceptor != null) messagePolicyInterceptor.setDisabledForMessage(feedbackMessageRef);
+			if (messagePolicyInterceptor != null) messagePolicyInterceptor.setDisabledForMessage(feedbackMessageRep);
+
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
 
-			// execute messages
+			// execute feedback messages
 
-			try {
-
-				messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
-			} catch (Xdi2NotAuthorizedException ex) {
-
-				if (log.isDebugEnabled()) log.debug("Not authorized to find $ref relation in context: " + contextNodeXri);
-			}
-
-			try {
-
-				messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
-			} catch (Xdi2NotAuthorizedException ex) {
-
-				if (log.isDebugEnabled()) log.debug("Not authorized to find $rep relation in context: " + contextNodeXri);
-			}
+			messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
+			messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
