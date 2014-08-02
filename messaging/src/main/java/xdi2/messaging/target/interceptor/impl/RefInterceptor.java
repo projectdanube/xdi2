@@ -2,6 +2,7 @@ package xdi2.messaging.target.interceptor.impl;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	@Override
 	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		resetRefRepRelationsPerMessageEnvelope(executionContext);
 		resetCompletedAddresses(executionContext);
 
 		return InterceptorResult.DEFAULT;
@@ -103,7 +105,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	@Override
 	public InterceptorResult before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		resetRefRepRelations(executionContext);
+		resetRefRepRelationsPerOperation(executionContext);
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -176,7 +178,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		Relation refRepRelation;
 
-		while ((refRepRelation = popRefRepRelation(executionContext)) != null) {
+		while ((refRepRelation = popRefRepRelationPerOperation(executionContext)) != null) {
 
 			// check what to do with this $ref/$rep relation
 
@@ -350,24 +352,45 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		while (! XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
 
-			// $get feedback to find $ref/$rep relations in context
+			// look up $ref/$rep relations
 
-			MessageResult feedbackMessageResult = feedbackFindRefRepRelationsInContext(contextNodeXri, operation, executionContext);
+			Relation[] refRepRelation = getRefRepRelationPerMessageEnvelope(executionContext, contextNodeXri);
+			Relation refRelation;
+			Relation repRelation;
 
-			// check for $ref/$rep relations in this context
+			// if necessary, $get feedback to find $ref/$rep relations in context
 
-			ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXri, false);
-			Relation refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
-			Relation repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
+			if (refRepRelation == null) {
+
+				MessageResult feedbackMessageResult = feedbackFindRefRepRelationsInContext(contextNodeXri, operation, executionContext);
+
+				// check for $ref/$rep relations in this context
+
+				ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXri, false);
+				refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
+				repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
+
+				// remember $ref/$rep relations in this context
+
+				refRepRelation = new Relation[2];
+				refRepRelation[0] = refRelation;
+				refRepRelation[1] = repRelation;
+
+				setRefRepRelationPerMessageEnvelope(executionContext, contextNodeXri, refRepRelation);
+			} else {
+
+				refRelation = refRepRelation[0];
+				repRelation = refRepRelation[1];
+			}
 
 			// follow $ref/$rep relations
 
 			if (refRelation != null) {
 
 				ContextNode referenceContextNode = refRelation.follow();
-				if (referenceContextNode.equals(contextNode)) break;
+				if (referenceContextNode.equals(refRelation.getContextNode())) break;
 
-				pushRefRepRelation(executionContext, refRelation);
+				pushRefRepRelationPerOperation(executionContext, refRelation);
 
 				return XDI3Util.concatXris(referenceContextNode.getXri(), localXri);
 			}
@@ -375,9 +398,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (repRelation != null) {
 
 				ContextNode replacementContextNode  = repRelation.follow();
-				if (repRelation.equals(replacementContextNode)) break;
+				if (replacementContextNode.equals(repRelation.getContextNode())) break;
 
-				pushRefRepRelation(executionContext, repRelation);
+				pushRefRepRelationPerOperation(executionContext, repRelation);
 
 				return XDI3Util.concatXris(replacementContextNode.getXri(), localXri);
 			}
@@ -537,35 +560,67 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 * ExecutionContext helper methods
 	 */
 
+	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#refreprelationspermessageenvelope";
 	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION = RefInterceptor.class.getCanonicalName() + "#refreprelationsperoperation";
 	private static final String EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#completedaddressespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static Deque<Relation> getRefRepRelations(ExecutionContext executionContext) {
+	private static Map<XDI3Segment, Relation[]> getRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
+
+		return (Map<XDI3Segment, Relation[]>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE);
+	}
+
+	private static Relation[] getRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
+
+		Map<XDI3Segment, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+
+		Relation[] refRepRelation = refRepRelations.get(contextNodeXri);
+
+		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXri + ": " + refRepRelation);
+
+		return refRepRelation;
+	}
+
+	private static void setRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDI3Segment contextNodeXri, Relation[] refRepRelation) {
+
+		Map<XDI3Segment, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+
+		refRepRelations.put(contextNodeXri, refRepRelation);
+
+		if (log.isDebugEnabled()) log.debug("Set $ref/$rep relation for " + contextNodeXri + ": " + refRepRelation);
+	}
+
+	private static void resetRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
+
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE, new HashMap<XDI3Segment, Relation[]> ());
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Deque<Relation> getRefRepRelationsPerOperation(ExecutionContext executionContext) {
 
 		return (Deque<Relation>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION);
 	}
 
-	private static Relation popRefRepRelation(ExecutionContext executionContext) {
+	private static Relation popRefRepRelationPerOperation(ExecutionContext executionContext) {
 
-		Deque<Relation> referenceRelations = getRefRepRelations(executionContext);
-		if (referenceRelations.isEmpty()) return null;
+		Deque<Relation> refRepRelations = getRefRepRelationsPerOperation(executionContext);
+		if (refRepRelations.isEmpty()) return null;
 
-		Relation referenceRelation = referenceRelations.pop();
+		Relation refRepRelation = refRepRelations.pop();
 
-		if (log.isDebugEnabled()) log.debug("Popping $ref/$rep relation: " + referenceRelation);
+		if (log.isDebugEnabled()) log.debug("Popping $ref/$rep relation: " + refRepRelation);
 
-		return referenceRelation;
+		return refRepRelation;
 	}
 
-	private static void pushRefRepRelation(ExecutionContext executionContext, Relation referenceRelation) {
+	private static void pushRefRepRelationPerOperation(ExecutionContext executionContext, Relation refRepRelation) {
 
-		getRefRepRelations(executionContext).push(referenceRelation);
+		getRefRepRelationsPerOperation(executionContext).push(refRepRelation);
 
-		if (log.isDebugEnabled()) log.debug("Pushing $ref/$rep relation: " + referenceRelation);
+		if (log.isDebugEnabled()) log.debug("Pushing $ref/$rep relation: " + refRepRelation);
 	}
 
-	private static void resetRefRepRelations(ExecutionContext executionContext) {
+	private static void resetRefRepRelationsPerOperation(ExecutionContext executionContext) {
 
 		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION, new ArrayDeque<Relation> ());
 	}
