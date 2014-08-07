@@ -95,7 +95,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	public void doGet(HttpRequest request, HttpResponse response) throws IOException {
 
-		if (log.isDebugEnabled()) log.debug("Incoming GET request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming GET request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 		
 		try {
 
@@ -114,7 +114,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	public void doPost(HttpRequest request, HttpResponse response) throws IOException {
 
-		if (log.isDebugEnabled()) log.debug("Incoming POST request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming POST request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 
 		try {
 
@@ -133,7 +133,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	public void doPut(HttpRequest request, HttpResponse response) throws IOException {
 
-		if (log.isDebugEnabled()) log.debug("Incoming PUT request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming PUT request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 
 		try {
 
@@ -152,7 +152,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	public void doDelete(HttpRequest request, HttpResponse response) throws IOException {
 
-		if (log.isDebugEnabled()) log.debug("Incoming DELETE request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming DELETE request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 
 		try {
 
@@ -171,7 +171,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 	public void doOptions(HttpRequest request, HttpResponse response) throws IOException {
 
-		if (log.isDebugEnabled()) log.debug("Incoming OPTIONS request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming OPTIONS request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 
 		try {
 

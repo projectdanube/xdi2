@@ -140,9 +140,9 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 			// execute the message envelope against the messaging target
 
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
-			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
+			if (log.isInfoEnabled()) log.info("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 			messagingTarget.execute(messageEnvelope, messageResult, executionContext);
-			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
+			if (log.isInfoEnabled()) log.info("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
 
 			// execute interceptors (after)
 
