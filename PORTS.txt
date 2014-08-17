@@ -18,6 +18,10 @@ Known default HTTP ports of various XDI2 projects.
 9110: xdi2-pixel
 9120: xdi2-oauth2
 9130: xdi2-filesys
+9201: xdi2-connect-service
+9202: xdi2-connect-auth-service
+9203: xdi2-connect-button-builder
+9204: xdi2-connect-example-rp
 7071: rn-member-graph-service
 7072: rn-discovery-service
 7073: rn-registration-service
