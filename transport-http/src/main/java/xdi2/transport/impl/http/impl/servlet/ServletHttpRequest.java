@@ -7,10 +7,15 @@ import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.transport.impl.http.HttpRequest;
 import xdi2.transport.impl.http.impl.AbstractHttpRequest;
 
 public final class ServletHttpRequest extends AbstractHttpRequest implements HttpRequest {
+
+	private static final Logger log = LoggerFactory.getLogger(ServletHttpRequest.class);
 
 	private HttpServletRequest httpServletRequest;
 	private String method;
@@ -30,6 +35,7 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		String method = httpServletRequest.getMethod();
 
 		String requestUri = httpServletRequest.getRequestURI();
+		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
 
 		String contextPath = httpServletRequest.getContextPath(); 
 		if (contextPath.endsWith("/")) contextPath = contextPath.substring(0, contextPath.length() - 1);
