@@ -374,7 +374,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		log.info("Finding messaging target for path: " + requestPath);
+		if (log.isDebugEnabled()) log.debug("Finding messaging target for path: " + requestPath);
 
 		String longestMessagingTargetPath = null;
 
@@ -386,7 +386,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 			}
 		}
 
-		log.info("Longest matching path of messaging target: " + longestMessagingTargetPath);
+		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging target: " + longestMessagingTargetPath);
 
 		return longestMessagingTargetPath;
 	}
@@ -425,7 +425,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		log.info("Finding messaging target factory for path: " + requestPath);
+		if (log.isDebugEnabled()) log.debug("Finding messaging target factory for path: " + requestPath);
 
 		String longestMessagingTargetFactoryPath = null;
 
@@ -437,7 +437,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 			}
 		}
 
-		log.info("Longest matching path of messaging target factory: " + longestMessagingTargetFactoryPath);
+		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging target factory: " + longestMessagingTargetFactoryPath);
 
 		return longestMessagingTargetFactoryPath;
 	}

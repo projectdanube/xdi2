@@ -49,7 +49,7 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
-		if (log.isDebugEnabled()) log.debug("Setting application context.");
+		if (log.isInfoEnabled()) log.info("Setting application context.");
 
 		this.httpMessagingTargetRegistry = (HttpMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
 		if (this.httpMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpMessagingTargetRegistry' not found.");
