@@ -10,11 +10,15 @@ import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.XDI3Util;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
+import xdi2.core.util.iterators.MappingStatementXriIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3Statement;
 
@@ -194,11 +198,29 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		return this.getPermissionTargetAddresses(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri));
 	}
 
+	public IterableIterator<XDI3Statement> getPermissionTargetStatements(XDI3Segment permissionXri) {
+
+		if (permissionXri == null) throw new NullPointerException();
+
+		// find the inner root
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
+		if (xdiInnerRoot == null) return new EmptyIterator<XDI3Statement> ();
+
+		// return the target statements
+
+		return new MappingAbsoluteToRelativeStatementXriIterator(
+				xdiInnerRoot,
+				new MappingStatementXriIterator(
+						new SelectingNotImpliedStatementIterator(
+								xdiInnerRoot.getContextNode().getAllStatements())));
+	}
+
 	public boolean hasPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
 
 		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
-		// prepare the target statement
+		// find the inner root
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
 		if (xdiInnerRoot == null) return false;
