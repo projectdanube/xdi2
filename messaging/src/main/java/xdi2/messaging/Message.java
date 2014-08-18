@@ -12,7 +12,11 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.linkcontracts.LinkContract;
+import xdi2.core.features.linkcontracts.PublicLinkContract;
+import xdi2.core.features.linkcontracts.RootLinkContract;
 import xdi2.core.features.linkcontracts.policy.PolicyRoot;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -242,6 +246,26 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		this.getContextNode().delRelations(XDILinkContractConstants.XRI_S_DO);
 		this.getContextNode().setRelation(XDILinkContractConstants.XRI_S_DO, linkContractXri);
+	}
+
+	/**
+	 * Set a link contract class.
+	 */
+	public void setLinkContract(Class<? extends LinkContract> clazz) {
+
+		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(this.getToPeerRootXri());
+		if (ownerXri == null) throw new Xdi2RuntimeException("No TO peer root XRI has been set yet.");
+
+		if (RootLinkContract.class.isAssignableFrom(clazz)) {
+
+			this.setLinkContractXri(RootLinkContract.createRootLinkContractXri(ownerXri));
+		} else if (PublicLinkContract.class.isAssignableFrom(clazz)) {
+
+			this.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(ownerXri));
+		} else {
+
+			throw new Xdi2RuntimeException("Cannot automatically set link contract of type " + clazz.getSimpleName());
+		}
 	}
 
 	/**
