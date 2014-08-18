@@ -16,11 +16,9 @@ import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.http.XDIHttpClient;
-
 public class XDI2X509TrustManager implements X509TrustManager {
 
-	private static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
+	private static final Logger log = LoggerFactory.getLogger(XDI2X509TrustManager.class);
 
 	private static List<X509TrustManager> tms;
 
@@ -49,7 +47,6 @@ public class XDI2X509TrustManager implements X509TrustManager {
 		if (cex != null) throw cex;
 		if (rex != null) throw rex;
 	}  
-
 
 	@Override
 	public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {  
