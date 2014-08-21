@@ -121,6 +121,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				login(request, response);
 			else if ("logout".equals(request.getParameter("cmd"))) 
 				logout(request, response);
+			else if (request.getSession().getAttribute("sessionCloudNumber") == null)
+				request.setAttribute("error", "Session expired");
 			else if ("buildPlain".equals(request.getParameter("cmd"))) 
 				buildPlain(request, response);
 			else if ("buildCloudNames".equals(request.getParameter("cmd"))) 
@@ -284,8 +286,6 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 		try {
 
-			if (cloudName == null || cloudName.trim().isEmpty()) throw new RuntimeException("Please enter a cloud name.");
-
 			// build
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
@@ -299,8 +299,12 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createGetOperation(XDI3Statement.fromComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
 			} else if ("Set cloud name".equals(submit)) {
 
+				if (cloudName == null || cloudName.trim().isEmpty()) throw new RuntimeException("Please enter a cloud name.");
+
 				message.createSetOperation(XDI3Statement.fromComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.create(cloudName)));
 			} else if ("Del cloud name".equals(submit)) {
+
+				if (cloudName == null || cloudName.trim().isEmpty()) throw new RuntimeException("Please enter a cloud name.");
 
 				message.createDelOperation(XDI3Statement.fromComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDI3Segment.create(cloudName)));
 			}
