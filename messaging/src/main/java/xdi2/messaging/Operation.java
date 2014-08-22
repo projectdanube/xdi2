@@ -128,7 +128,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XDIAddress getOperationAddress() {
 
-		return this.getRelation().getArc();
+		return this.getRelation().getAddress();
 	}
 
 	/**
@@ -141,7 +141,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (xdiInnerRoot == null) return null;
 
 		if (! xdiInnerRoot.getSubjectOfInnerRoot().equals(this.getRelation().getContextNode().getAddress())) return null;
-		if (! xdiInnerRoot.getPredicateOfInnerRoot().equals(this.getRelation().getArc())) return null;
+		if (! xdiInnerRoot.getPredicateOfInnerRoot().equals(this.getRelation().getAddress())) return null;
 
 		return xdiInnerRoot;
 	}

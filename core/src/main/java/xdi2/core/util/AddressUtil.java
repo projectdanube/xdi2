@@ -540,7 +540,7 @@ public final class AddressUtil {
 	/**
 	 * Concats address(es) and arc(s) into a new address.
 	 */
-	public static XDIAddress concatAddress(final XDIArc arc, final XDIAddress address) {
+	public static XDIAddress concatAddresses(final XDIArc arc, final XDIAddress address) {
 
 		return concatAddresses(arc == null ? null : XDIAddress.fromComponent(arc), address);
 	}

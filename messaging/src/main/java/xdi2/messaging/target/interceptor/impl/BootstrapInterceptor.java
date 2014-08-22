@@ -311,7 +311,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		public Relation replaceRelation(Relation relation) {
 
 			XDIAddress contextNodeAddress = relation.getContextNode().getAddress();
-			XDIAddress arc = relation.getArc();
+			XDIAddress arc = relation.getAddress();
 			XDIAddress targetContextNodeAddress = relation.getTargetContextNodeAddress();
 
 			XDIAddress replacedtargetContextNodeAddress = AddressUtil.replaceAddress(

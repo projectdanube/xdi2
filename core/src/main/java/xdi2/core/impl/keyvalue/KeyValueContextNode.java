@@ -347,7 +347,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArc(), relation.getTargetContextNodeAddress());
+			this.delRelationDelInnerRoot(relation.getAddress(), relation.getTargetContextNodeAddress());
 		}
 	}
 
@@ -366,7 +366,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArc(), relation.getTargetContextNodeAddress());
+			this.delRelationDelInnerRoot(relation.getAddress(), relation.getTargetContextNodeAddress());
 		}
 	}
 

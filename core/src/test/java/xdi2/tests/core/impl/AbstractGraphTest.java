@@ -691,16 +691,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph22.containsStatement(XDIStatement.create("=neustar//=les")));
 		assertTrue(graph22.containsStatement(XDIStatement.create("=markus/#friend/=neustar=les")));
 		assertTrue(graph22.containsStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph22.getStatement(XDIStatement.create("=neustar//=les")).getAddress(), XDIStatement.create("=neustar//=les"));
-		assertEquals(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress(), "=markus/#friend/=neustar=les");
-		assertEquals(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph22.getStatement(XDIStatement.create("=neustar//=les")).getStatement(), XDIStatement.create("=neustar//=les"));
+		assertEquals(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getStatement(), "=markus/#friend/=neustar=les");
+		assertEquals(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getStatement(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")).getAddress().isContextNodeStatement());
-		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress().isRelationStatement());
-		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress().isLiteralStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")).getStatement().isContextNodeStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getStatement().isRelationStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getStatement().isLiteralStatement());
 
 		CopyUtil.copyStatement(statement22_1, graph23, null);
 		CopyUtil.copyStatement(statement22_2, graph23, null);
@@ -717,16 +717,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph23.containsStatement(XDIStatement.create("=neustar//=les")));
 		assertTrue(graph23.containsStatement(XDIStatement.create("=markus/#friend/=neustar=les")));
 		assertTrue(graph23.containsStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph23.getStatement(XDIStatement.create("=neustar//=les")).getAddress(), XDIStatement.create("=neustar//=les"));
-		assertEquals(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress(), "=markus/#friend/=neustar=les");
-		assertEquals(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph23.getStatement(XDIStatement.create("=neustar//=les")).getStatement(), XDIStatement.create("=neustar//=les"));
+		assertEquals(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getStatement(), "=markus/#friend/=neustar=les");
+		assertEquals(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getStatement(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")).getAddress().isContextNodeStatement());
-		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress().isRelationStatement());
-		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress().isLiteralStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")).getStatement().isContextNodeStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getStatement().isRelationStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getStatement().isLiteralStatement());
 
 		graph22.close();
 		graph23.close();
@@ -1275,7 +1275,7 @@ public abstract class AbstractGraphTest extends TestCase {
 			for (Iterator<XDIAddress> it = arcs.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().getDeepRelations(contextNodesArray[i].getAddress(), it.next()) != null);
 			assertEquals(arcs.size(), contextNodesArray[i].getRelationCount());
 			assertEquals(arcs.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
-			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getArc()));
+			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getAddress()));
 			assertTrue(arcs.isEmpty());
 		}
 
@@ -1306,7 +1306,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!1"), abcPassportV1ContextNode.getAddress());
 		assertEquals(XDIArc.create("!2"), abcPassportV2ContextNode.getArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!2"), abcPassportV2ContextNode.getAddress());
-		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getArc());
+		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportV2RelationDollar.getTargetContextNodeAddress());
 		assertEquals(XDIArc.create("<#number>"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArc());
 		assertEquals("987654321", abcPassport1NumberLiteral.getLiteralData());
@@ -1328,15 +1328,15 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals("2010-11-11T11:11:11Z", abcPassportC1DLiteral.getLiteralData());
 		assertEquals(XDIArc.create("<$t>"), abcPassportC2DLiteral.getContextNode().getContextNode().getArc());
 		assertEquals("2010-12-22T22:22:22Z", abcPassportC2DLiteral.getLiteralData());
-		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getArc());
+		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!2"), abcPassportRelationV.getTargetContextNodeAddress());
-		assertEquals(XDIArc.create("*1"), abcPassportRelation1.getArc());
+		assertEquals(XDIArc.create("*1"), abcPassportRelation1.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!1"), abcPassportRelation1.getTargetContextNodeAddress());
-		assertEquals(XDIArc.create("*2"), abcPassportRelation2.getArc());
+		assertEquals(XDIArc.create("*2"), abcPassportRelation2.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!2"), abcPassportRelation2.getTargetContextNodeAddress());
-		assertEquals(XDIArc.create("+rel"), abcRelation1.getArc());
+		assertEquals(XDIArc.create("+rel"), abcRelation1.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!1"), abcRelation1.getTargetContextNodeAddress());
-		assertEquals(XDIArc.create("+rel"), abcRelation2.getArc());
+		assertEquals(XDIArc.create("+rel"), abcRelation2.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!2"), abcRelation2.getTargetContextNodeAddress());
 
 		assertEquals(rootContextNode.getAllContextNodeCount(), 26);
@@ -1552,7 +1552,7 @@ public abstract class AbstractGraphTest extends TestCase {
 			for (Iterator<XDIAddress> it = arcs.iterator(); it.hasNext(); ) assertTrue(contextNodesArray[i].getGraph().getDeepRelations(contextNodesArray[i].getAddress(), it.next()) != null);
 			assertEquals(arcs.size(), contextNodesArray[i].getRelationCount());
 			assertEquals(arcs.size(), new IteratorCounter(contextNodesArray[i].getRelations()).count());
-			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getArc()));
+			for (Iterator<Relation> it = contextNodesArray[i].getRelations(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getAddress()));
 			assertTrue(arcs.isEmpty());
 		}
 
@@ -1581,7 +1581,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!1"), abcPassportV1ContextNode.getAddress());
 		assertEquals(XDIArc.create("!2"), abcPassportV2ContextNode.getArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!2"), abcPassportV2ContextNode.getAddress());
-		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getArc());
+		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportV2RelationDollar.getTargetContextNodeAddress());
 		assertEquals(XDIArc.create("<#number>"), abcPassport1NumberLiteral.getContextNode().getContextNode().getArc());
 		assertEquals("987654321", abcPassport1NumberLiteral.getLiteralData());
@@ -1603,13 +1603,13 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals("2010-03-03T03:03:03Z", abcPassportC1LiteralD.getLiteralData());	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
-		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getArc());
+		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]!2"), abcPassportRelationV.getTargetContextNodeAddress());
-		assertEquals(XDIArc.create("*1"), abcPassportRelation1.getArc());
+		assertEquals(XDIArc.create("*1"), abcPassportRelation1.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!1"), abcPassportRelation1.getTargetContextNodeAddress());	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
-		assertEquals(XDIArc.create("+rel"), abcRelation1.getArc());
+		assertEquals(XDIArc.create("+rel"), abcRelation1.getAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]!1"), abcRelation1.getTargetContextNodeAddress());
 		assertNull(abcRelation2);	// MANIPULATED
 		assertNull(abcRelation2);	// MANIPULATED

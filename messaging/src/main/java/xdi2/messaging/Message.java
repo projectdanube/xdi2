@@ -164,7 +164,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 			Relation incomingRelation = incomingRelations.next();
 
-			if (incomingRelation.getArc().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_XRI)) {
+			if (incomingRelation.getAddress().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_XRI)) {
 
 				XDIArc arc = incomingRelation.getContextNode().getArc();
 

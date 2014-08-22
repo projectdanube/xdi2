@@ -166,7 +166,7 @@ public final class CopyUtil {
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
 		XDIAddress relationcontextNodeAddress = relation.getContextNode().getAddress();
-		XDIAddress relationAddress = relation.getArc();
+		XDIAddress relationAddress = relation.getAddress();
 		XDIAddress relationtargetContextNodeAddress = relation.getTargetContextNodeAddress();
 
 		XDIAddress targetContextNodeAddress = targetContextNode.getAddress();
@@ -330,7 +330,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		targetGraph.setStatement(statement.getAddress());
+		targetGraph.setStatement(statement.getStatement());
 
 		return null;
 	}

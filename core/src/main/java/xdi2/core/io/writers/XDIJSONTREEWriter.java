@@ -120,8 +120,8 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 			JsonObject relationsJson = json.getAsJsonObject("/");
 			if (relationsJson == null) { relationsJson = new JsonObject(); json.add("/", relationsJson); }
 
-			JsonArray relationJson = relationsJson.getAsJsonArray(relation.getArc().toString());
-			if (relationJson == null) { relationJson = new JsonArray(); relationsJson.add(relation.getArc().toString(), relationJson); }
+			JsonArray relationJson = relationsJson.getAsJsonArray(relation.getAddress().toString());
+			if (relationJson == null) { relationJson = new JsonArray(); relationsJson.add(relation.getAddress().toString(), relationJson); }
 
 			relationJson.add(new JsonPrimitive(relation.getTargetContextNodeAddress().toString()));
 		}

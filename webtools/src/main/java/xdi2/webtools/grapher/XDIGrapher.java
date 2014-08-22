@@ -196,7 +196,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 			buffer.append("{\n");
 			buffer.append("type: \"relation\",\n");
-			buffer.append("arc: \"" + relation.getArc() + "\",\n");
+			buffer.append("arc: \"" + relation.getAddress() + "\",\n");
 			buffer.append("target: \"" + relation.getTargetContextNodeAddress() + "\"\n");
 			buffer.append("}");
 			if (relations.hasNext()) buffer.append(",");
@@ -217,7 +217,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 			buffer.append("{\n");
 
-			buffer.append("arc: \"" + relation.getArc() + "\",\n");
+			buffer.append("arc: \"" + relation.getAddress() + "\",\n");
 			buffer.append("source: \"" + relation.getContextNode().getAddress() + "\",\n");
 			buffer.append("target: \"" + relation.getTargetContextNodeAddress() + "\"\n");
 

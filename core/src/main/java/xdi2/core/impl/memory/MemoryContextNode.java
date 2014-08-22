@@ -280,7 +280,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArc(), relation.getTargetContextNodeAddress());
+			this.delRelationDelInnerRoot(relation.getAddress(), relation.getTargetContextNodeAddress());
 		}
 	}
 
@@ -297,7 +297,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArc(), relation.getTargetContextNodeAddress());
+			this.delRelationDelInnerRoot(relation.getAddress(), relation.getTargetContextNodeAddress());
 		}
 	}
 

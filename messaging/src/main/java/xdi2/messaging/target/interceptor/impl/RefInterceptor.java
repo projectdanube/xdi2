@@ -135,7 +135,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 						// delete the $rep relation
 
-						if (XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getArc())) {
+						if (XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getAddress())) {
 
 							refRepRelation.delete();
 						}
@@ -153,7 +153,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				ContextNode refRepContextNode = refRepRelation.getContextNode();
 
-				if (XDIDictionaryConstants.XDI_ADD_REF.equals(refRepRelation.getArc()) || XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getArc())) { 
+				if (XDIDictionaryConstants.XDI_ADD_REF.equals(refRepRelation.getAddress()) || XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getAddress())) { 
 
 					ContextNode refRepTargetContextNode = refRepRelation.follow();
 					refRepRelation.delete();
@@ -183,7 +183,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			// check what to do with this $ref/$rep relation
 
 			ContextNode refRepContextNode = refRepRelation.getContextNode();
-			XDIAddress arc = refRepRelation.getArc();
+			XDIAddress arc = refRepRelation.getAddress();
 			XDIAddress targetContextNodeAddress = refRepRelation.getTargetContextNodeAddress();
 
 			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(arc) || (XDIDictionaryConstants.XDI_ADD_REF.equals(arc) && Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
@@ -219,7 +219,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doIncludeRefRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getAddress())) {
+				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getStatement())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {

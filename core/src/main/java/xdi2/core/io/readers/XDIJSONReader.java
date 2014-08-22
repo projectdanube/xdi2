@@ -144,7 +144,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 						XDIAddress targetContextNodeAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
 						Relation relation = baseContextNode.setRelation(arc, targetContextNodeAddress);
-						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getAddress() + ": Set relation " + relation.getArc() + " --> " + relation.getTargetContextNodeAddress());
+						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getAddress() + ": Set relation " + relation.getAddress() + " --> " + relation.getTargetContextNodeAddress());
 					} else {
 
 						throw new Xdi2ParseException("JSON array element must be either an object or a string: " + jsonEntryArrayElement);

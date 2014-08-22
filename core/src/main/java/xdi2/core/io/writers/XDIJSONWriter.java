@@ -103,7 +103,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			XDIStatement statementAddress = statement.getAddress();
+			XDIStatement statementAddress = statement.getStatement();
 
 			// put the statement into the JSON object
 

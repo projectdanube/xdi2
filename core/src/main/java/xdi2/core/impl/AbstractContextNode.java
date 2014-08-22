@@ -354,7 +354,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public boolean select(Relation relation) {
 
-				return relation.getArc().equals(arc);
+				return relation.getAddress().equals(arc);
 			}
 		};
 	}
@@ -387,7 +387,7 @@ public abstract class AbstractContextNode implements ContextNode {
 			@Override
 			public boolean select(Relation relation) {
 
-				return relation.getArc().equals(arc);
+				return relation.getAddress().equals(arc);
 			}
 		};
 	}
@@ -910,7 +910,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 			AbstractContextNode contextNode = ((AbstractContextNode) relation.getContextNode());
 
-			contextNode.delRelationDelInnerRoot(relation.getArc(), relation.getTargetContextNodeAddress());
+			contextNode.delRelationDelInnerRoot(relation.getAddress(), relation.getTargetContextNodeAddress());
 		}
 	}
 

@@ -30,7 +30,7 @@ public class SetOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (AddressUtil.startsWith(relation.getArc(), XDIMessagingConstants.XDI_ADD_SET) == null) return false;
+		if (AddressUtil.startsWith(relation.getAddress(), XDIMessagingConstants.XDI_ADD_SET) == null) return false;
 		if (! XdiEntitySingleton.createarc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getArc())) return false;
 
 		return true;

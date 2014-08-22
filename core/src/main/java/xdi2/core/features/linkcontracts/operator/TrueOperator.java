@@ -40,7 +40,7 @@ public class TrueOperator extends ConditionOperator {
 
 		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
 		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
-		if (! XDIConstants.XDI_ADD_TRUE.equals(relation.getArc())) return false;
+		if (! XDIConstants.XDI_ADD_TRUE.equals(relation.getAddress())) return false;
 		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 		return true;

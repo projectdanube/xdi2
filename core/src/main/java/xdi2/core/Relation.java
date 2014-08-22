@@ -34,10 +34,10 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	public void delete();
 
 	/**
-	 * Every relation has an associated arc.
-	 * @return The arc associated with the relation.
+	 * Every relation has an associated address.
+	 * @return The address associated with the relation.
 	 */
-	public XDIAddress getArc();
+	public XDIAddress getAddress();
 
 	/**
 	 * Get the target context node address.

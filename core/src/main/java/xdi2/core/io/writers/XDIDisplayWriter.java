@@ -115,7 +115,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			this.writeStatement(bufferedWriter, statement.getAddress());
+			this.writeStatement(bufferedWriter, statement.getStatement());
 
 			// HTML output
 

@@ -181,7 +181,7 @@ public class Equivalence {
 			@Override
 			public boolean select(Relation relation) {
 
-				return relation.getArc().equals(XDIDictionaryConstants.XDI_ADD_REF) || relation.getArc().equals(XDIDictionaryConstants.XDI_ADD_REP);
+				return relation.getAddress().equals(XDIDictionaryConstants.XDI_ADD_REF) || relation.getAddress().equals(XDIDictionaryConstants.XDI_ADD_REP);
 			}
 		};
 	}

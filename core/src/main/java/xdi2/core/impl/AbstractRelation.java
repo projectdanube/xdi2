@@ -35,7 +35,7 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public synchronized void delete() {
 
-		this.getContextNode().delRelation(this.getArc(), this.getTargetContextNodeAddress());
+		this.getContextNode().delRelation(this.getAddress(), this.getTargetContextNodeAddress());
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public abstract class AbstractRelation implements Relation {
 
 		return 
 				this.getContextNode().equals(other.getContextNode()) &&
-				this.getArc().equals(other.getArc()) && 
+				this.getAddress().equals(other.getAddress()) && 
 				this.getTargetContextNodeAddress().equals(other.getTargetContextNodeAddress());
 	}
 
@@ -86,7 +86,7 @@ public abstract class AbstractRelation implements Relation {
 		int hashCode = 1;
 
 		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
-		hashCode = (hashCode * 31) + this.getArc().hashCode();
+		hashCode = (hashCode * 31) + this.getAddress().hashCode();
 		hashCode = (hashCode * 31) + this.getTargetContextNodeAddress().hashCode();
 
 		return hashCode;
@@ -100,7 +100,7 @@ public abstract class AbstractRelation implements Relation {
 		int compare;
 
 		if ((compare = this.getContextNode().compareTo(other.getContextNode())) != 0) return compare;
-		if ((compare = this.getArc().compareTo(other.getArc())) != 0) return compare;
+		if ((compare = this.getAddress().compareTo(other.getAddress())) != 0) return compare;
 		if ((compare = this.getTargetContextNodeAddress().compareTo(other.getTargetContextNodeAddress())) != 0) return compare;
 
 		return 0;
@@ -123,7 +123,7 @@ public abstract class AbstractRelation implements Relation {
 		@Override
 		public XDIAddress getPredicate() {
 
-			return AbstractRelation.this.getArc();
+			return AbstractRelation.this.getAddress();
 		}
 
 		@Override

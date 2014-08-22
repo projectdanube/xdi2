@@ -50,7 +50,7 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XDIStatement getAddress() {
+	public XDIStatement getStatement() {
 
 		if (this instanceof ContextNodeStatement) {
 
@@ -73,7 +73,7 @@ public abstract class AbstractStatement implements Statement {
 	@Override
 	public String toString() {
 
-		return this.getAddress().toString();
+		return this.getStatement().toString();
 	}
 
 	@Override

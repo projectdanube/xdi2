@@ -20,6 +20,6 @@ public class MappingRelationAddressIterator extends MappingIterator<Relation, XD
 	@Override
 	public XDIAddress map(Relation relation) {
 
-		return relation.getArc();
+		return relation.getAddress();
 	}
 }

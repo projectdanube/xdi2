@@ -19,9 +19,9 @@ public class WrappedRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDIAddress getArc() {
+	public XDIAddress getAddress() {
 
-		return this.memoryRelation.getArc();
+		return this.memoryRelation.getAddress();
 	}
 
 	@Override

@@ -125,7 +125,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			XDIStatement statementAddress = statement.getAddress();
+			XDIStatement statementAddress = statement.getStatement();
 
 			// write the statement
 

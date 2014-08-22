@@ -20,6 +20,6 @@ public class MappingStatementIterator extends MappingIterator<Statement, XDIStat
 	@Override
 	public XDIStatement map(Statement statement) {
 
-		return statement.getAddress();
+		return statement.getStatement();
 	}
 }
