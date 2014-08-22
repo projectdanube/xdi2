@@ -887,9 +887,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void setContextNodeSetInnerRoot(XDIArc arc, ContextNode contextNode) {
 
-		if (XdiInnerRoot.isInnerRootarc(arc)) {
+		if (XdiInnerRoot.isInnerRootArc(arc)) {
 
-			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(arc)).setRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(arc), contextNode);
+			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootArc(arc)).setRelation(XdiInnerRoot.getPredicateOfInnerRootArc(arc), contextNode);
 		}
 	}
 

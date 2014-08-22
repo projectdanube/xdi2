@@ -201,7 +201,7 @@ public final class AddressUtil {
 					}
 				}
 
-				// no variables? just match the subsegment
+				// no variables? just match the arc
 
 				if (! (address.getArc(addressIndex).equals(endAddress.getArc(endIndex)))) { result = null; return result; }
 
@@ -223,11 +223,11 @@ public final class AddressUtil {
 	}
 
 	/**
-	 * Extracts an address's parent subsegment(s), counting either from the start or the end.
+	 * Extracts an address's parent arc(s), counting either from the start or the end.
 	 * For =a*b*c*d and 1, this returns =a
 	 * For =a*b*c*d and -1, this returns =a*b*c
 	 */
-	public static XDIAddress parentAddress(final XDIAddress address, final int numSubSegments) {
+	public static XDIAddress parentAddress(final XDIAddress address, final int numArcs) {
 
 		if (address == null) throw new NullPointerException();
 
@@ -237,12 +237,12 @@ public final class AddressUtil {
 
 			List<XDIArc> arcs = new ArrayList<XDIArc> ();
 
-			if (numSubSegments > 0) {
+			if (numArcs > 0) {
 
-				for (int i = 0; i < numSubSegments; i++) arcs.add(address.getArc(i));
-			} else if (numSubSegments < 0) {
+				for (int i = 0; i < numArcs; i++) arcs.add(address.getArc(i));
+			} else if (numArcs < 0) {
 
-				for (int i = 0; i < address.getNumArcs() - (- numSubSegments); i++) arcs.add(address.getArc(i));
+				for (int i = 0; i < address.getNumArcs() - (- numArcs); i++) arcs.add(address.getArc(i));
 			} else {
 
 				{ result = address; return result; }
@@ -253,12 +253,12 @@ public final class AddressUtil {
 			{ result = XDIAddress.fromComponents(arcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("parentAddress(" + address + "," + numSubSegments + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("parentAddress(" + address + "," + numArcs + ") --> " + result);
 		}
 	}
 
 	/**
-	 * Extracts an address's local subsegment(s).
+	 * Extracts an address's local arc(s).
 	 * For =a*b*c*d and 1, this returns *d
 	 * For =a*b*c*d and -1, this returns *b*c*d
 	 */
@@ -458,11 +458,11 @@ public final class AddressUtil {
 
 				if (arc.hasXRef() && arc.getXRef().hasAddress()) {
 
-					XDIAddress xRefSegment = arc.getXRef().getAddress();
+					XDIAddress xRefAddress = arc.getXRef().getAddress();
 
-					xRefSegment = replaceAddress(xRefSegment, oldArc, newAddress);
+					xRefAddress = replaceAddress(xRefAddress, oldArc, newAddress);
 
-					arcs.add(XDIArc.fromComponents(arc.getCs(), arc.isClassXs(), arc.isAttributeXs(), null, XDIXRef.fromComponents(arc.getXRef().getXs(), xRefSegment, null, null, null, null)));
+					arcs.add(XDIArc.fromComponents(arc.getCs(), arc.isClassXs(), arc.isAttributeXs(), null, XDIXRef.fromComponents(arc.getXRef().getXs(), xRefAddress, null, null, null, null)));
 
 					continue;
 				}

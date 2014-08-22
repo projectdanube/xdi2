@@ -37,7 +37,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		String temp = stripXs(string);
 
 		String[] parts = temp.split("/", -1);
-		if (parts.length != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of segments: " + parts.length + ")");
+		if (parts.length != 3) throw new ParserException("Invalid statement: " + string + " (wrong number of parts: " + parts.length + ")");
 		int split0 = parts[0].length();
 		int split1 = parts[1].length();
 
@@ -69,23 +69,23 @@ public class ParserImpl extends ParserAbstract implements Parser {
 	@Override
 	public XDIAddress parseXDIAddress(String string) {
 
-		if (log.isTraceEnabled()) log.trace("Parsing segment: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing address: " + string);
 
 		int start = 0, pos = 0;
 		String pair;
 		Stack<String> pairs = new Stack<String> ();
-		List<XDIArc> subSegments = new ArrayList<XDIArc> ();
+		List<XDIArc> arcs = new ArrayList<XDIArc> ();
 
 		while (pos < string.length()) {
 
-			// parse beginning of subsegment
+			// parse beginning of arc
 
 			if (pos < string.length() && (pair = cla(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && (pair = att(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && cs(string.charAt(pos)) != null) pos++;
 			if (pos < string.length() && (pair = xs(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 
-			// parse to the end of the subsegment
+			// parse to the end of the arc
 
 			while (pos < string.length()) {
 
@@ -93,7 +93,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 				if (pairs.isEmpty()) {
 
-					// reached beginning of the next subsegment
+					// reached beginning of the next arc
 
 					if (cla(string.charAt(pos)) != null) break;
 					if (att(string.charAt(pos)) != null) break;
@@ -133,20 +133,20 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 			if (! pairs.isEmpty()) throw new ParserException("Missing closing character '" + pairs.peek().charAt(1) + "' at position " + pos + ".");
 
-			subSegments.add(this.parseXDIArc(string.substring(start, pos)));
+			arcs.add(this.parseXDIArc(string.substring(start, pos)));
 
 			start = pos;
 		}
 
 		// done
 
-		return this.newXDIAddress(string, subSegments);
+		return this.newXDIAddress(string, arcs);
 	}
 
 	@Override
 	public XDIArc parseXDIArc(String string) {
 
-		if (log.isTraceEnabled()) log.trace("Parsing subsegment: " + string);
+		if (log.isTraceEnabled()) log.trace("Parsing arc: " + string);
 
 		Character cs = null;
 		String cla = null;
@@ -160,7 +160,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		if (pos < len && (cla = cla(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class at position " + pos + ")");
+			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -169,7 +169,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		if (pos < len && (att = att(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid subsegment: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute at position " + pos + ")");
+			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -190,7 +190,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 				xref = this.parseXDIXRef(string.substring(pos, len));
 			} else {
 
-				if (pos == 0) throw new ParserException("Invalid subsegment: " + string + " (no context symbol or cross reference)");
+				if (pos == 0) throw new ParserException("Invalid arc: " + string + " (no context symbol or cross reference)");
 				literal = parseLiteral(string.substring(pos, len));
 			}
 		}
@@ -214,7 +214,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		String temp = stripXs(value);
 
-		XDIAddress segment = null;
+		XDIAddress address = null;
 		XDIAddress partialSubject = null;
 		XDIAddress partialPredicate = null;
 		String iri = null;
@@ -225,9 +225,9 @@ public class ParserImpl extends ParserAbstract implements Parser {
 			iri = value;
 		} else {
 
-			int segments = StringUtils.countMatches(temp, "/") + 1;
+			int addresses = StringUtils.countMatches(temp, "/") + 1;
 
-			if (segments == 2) {
+			if (addresses == 2) {
 
 				String[] parts = temp.split("/");
 				int split0 = parts[0].length();
@@ -236,7 +236,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
 			} else if (cs(value.charAt(0)) != null || cla(value.charAt(0)) != null || att(value.charAt(0)) != null || xs(value.charAt(0)) != null) {
 
-				segment = this.parseXDIAddress(value);
+				address = this.parseXDIAddress(value);
 			} else {
 
 				literal = value;
@@ -245,7 +245,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIXRef(string, xs, segment, partialSubject, partialPredicate, iri, literal);
+		return this.newXDIXRef(string, xs, address, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public Object parseLiteralData(String string) {

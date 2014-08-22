@@ -23,9 +23,9 @@ public final class VariableUtil {
 	private VariableUtil() { }
 
 	/**
-	 * Checks if a subsegment is a valid XDI variable.
-	 * @param variable The subsegment to check.
-	 * @return True if the subsegment is a valid XDI variable.
+	 * Checks if an arc is a valid XDI variable.
+	 * @param variable The arc to check.
+	 * @return True if the arc is a valid XDI variable.
 	 */
 	public static boolean isVariable(XDIArc variable) {
 
@@ -41,20 +41,20 @@ public final class VariableUtil {
 		return isVariable(variable.getFirstArc());
 	}
 
-	public static List<XDIArc> getSubSegments(XDIArc variable) {
+	public static List<XDIArc> getArcs(XDIArc variable) {
 
 		if (! isVariable(variable)) return new ArrayList<XDIArc> ();
 		if (! variable.getXRef().hasAddress()) return new ArrayList<XDIArc> ();
 
-		XDIAddress segment = variable.getXRef().getAddress();
+		XDIAddress address = variable.getXRef().getAddress();
 
-		while (segment.getFirstArc().hasXRef()) {
+		while (address.getFirstArc().hasXRef()) {
 
-			segment = segment.getFirstArc().getXRef().getAddress();
-			if (segment == null) return new ArrayList<XDIArc> ();
+			address = address.getFirstArc().getXRef().getAddress();
+			if (address == null) return new ArrayList<XDIArc> ();
 		}
 
-		return segment.getArcs();
+		return address.getArcs();
 	}
 
 	public static String getXs(XDIArc variable) {
@@ -77,9 +77,9 @@ public final class VariableUtil {
 	}
 
 	/**
-	 * Checks if a variable matches multiple subsegments.
+	 * Checks if a variable matches multiple arcs.
 	 * @param variable The variable.
-	 * @return True, if the variable matches multiple subsegments.
+	 * @return True, if the variable matches multiple arcs.
 	 */
 	public static boolean isMultiple(XDIArc variable) {
 
@@ -93,83 +93,83 @@ public final class VariableUtil {
 	}
 
 	/**
-	 * Checks if a variables matches a subsegment.
+	 * Checks if a variables matches an arc.
 	 * @param variable The variable.
-	 * @param subSegment The subsegment to match the variable against.
-	 * @return True, if the variable matches the subsegment.
+	 * @param arc The arc to match the variable against.
+	 * @return True, if the variable matches the arc.
 	 */
-	public static boolean matches(XDIArc variable, XDIArc subSegment) {
+	public static boolean matches(XDIArc variable, XDIArc arc) {
 
-		List<XDIArc> variableSubSegments = getSubSegments(variable);
+		List<XDIArc> variableArcs = getArcs(variable);
 		String variableXs = getXs(variable);
 
-		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against subsegment " + subSegment + " (variableSubSegments=" + variableSubSegments + ", variableXs=" + variableXs + ")");
+		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against arc " + arc + " (variableArcs=" + variableArcs + ", variableXs=" + variableXs + ")");
 
 		if (variableXs != null) {
 
-			if (! subSegment.hasXRef()) {
+			if (! arc.hasXRef()) {
 
-				if (log.isTraceEnabled()) log.trace("Variable requires xs " + variableXs + ", but subsegment has no xs. No match.");
+				if (log.isTraceEnabled()) log.trace("Variable requires xs " + variableXs + ", but arc has no xs. No match.");
 				return false;
 			}
 
-			if (! variableXs.equals(subSegment.getXRef().getXs())) {
+			if (! variableXs.equals(arc.getXRef().getXs())) {
 
-				if (log.isTraceEnabled()) log.trace("Variable xs " + variableXs + " does not match subsegment xs " + subSegment.getXRef().getXs() + ". No match.");
+				if (log.isTraceEnabled()) log.trace("Variable xs " + variableXs + " does not match arc xs " + arc.getXRef().getXs() + ". No match.");
 				return false;
 			}
 		}
 
-		if (subSegment.hasXRef() && ! subSegment.hasCs()) {
+		if (arc.hasXRef() && ! arc.hasCs()) {
 
 			if (variableXs == null) {
 
-				if (log.isTraceEnabled()) log.trace("Variable requires no xs, but subsegment has xs " + subSegment.getXRef().getXs() + ". No match.");
+				if (log.isTraceEnabled()) log.trace("Variable requires no xs, but arc has xs " + arc.getXRef().getXs() + ". No match.");
 				return false;
 			}
 
-			if (! subSegment.getXRef().hasAddress()) {
+			if (! arc.getXRef().hasAddress()) {
 
-				if (log.isTraceEnabled()) log.trace("Subsegment has no inner subsegment. No match.");
+				if (log.isTraceEnabled()) log.trace("Arc has no inner address. No match.");
 				return false;
 			}
 
-			subSegment = subSegment.getXRef().getAddress().getFirstArc();
+			arc = arc.getXRef().getAddress().getFirstArc();
 		}
 
-		if (variableSubSegments.size() == 0) {
+		if (variableArcs.size() == 0) {
 
-			if (log.isTraceEnabled()) log.trace("Variable has no subsegments. Match.");
+			if (log.isTraceEnabled()) log.trace("Variable has no arcs. Match.");
 			return true;
 		}
 
-		if (! subSegment.hasCs()) {
+		if (! arc.hasCs()) {
 
-			if (log.isTraceEnabled()) log.trace("Subsegment has no cs. No match.");
+			if (log.isTraceEnabled()) log.trace("Arc has no cs. No match.");
 			return false;
 		}
 
-		for (XDIArc variableSubSegment : variableSubSegments) {
+		for (XDIArc variableArc : variableArcs) {
 
-			if (log.isTraceEnabled()) log.trace("Trying to match variable subsegment " + variableSubSegment + ".");
+			if (log.isTraceEnabled()) log.trace("Trying to match variable arc " + variableArc + ".");
 
-			if (! variableSubSegment.hasCs()) {
+			if (! variableArc.hasCs()) {
 
-				if (log.isTraceEnabled()) log.trace("Variable subsegment has no cs. Continuing.");
+				if (log.isTraceEnabled()) log.trace("Variable arc has no cs. Continuing.");
 				continue;
 			}
 
-			if (variableSubSegment.isClassXs() && ! subSegment.isClassXs()) continue;
-			if (variableSubSegment.isAttributeXs() && ! subSegment.isAttributeXs()) continue;
+			if (variableArc.isClassXs() && ! arc.isClassXs()) continue;
+			if (variableArc.isAttributeXs() && ! arc.isAttributeXs()) continue;
 
-			if (variableSubSegment.getCs().equals(subSegment.getCs())) {
+			if (variableArc.getCs().equals(arc.getCs())) {
 
-				if (log.isTraceEnabled()) log.trace("Variable cs " + variableSubSegment.getCs() + " is equal to subsegment cs. Match.");
+				if (log.isTraceEnabled()) log.trace("Variable cs " + variableArc.getCs() + " is equal to arc cs. Match.");
 				return true;
 			}
 		}
 
-		if (log.isTraceEnabled()) log.trace("No match with any subsegment. No Match.");
+		if (log.isTraceEnabled()) log.trace("No match with any arc. No Match.");
 		return false;
 	}
 }

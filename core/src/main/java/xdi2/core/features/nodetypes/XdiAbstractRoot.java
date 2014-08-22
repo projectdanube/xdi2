@@ -96,25 +96,25 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		for (int i=0; i<xri.getNumArcs(); i++) {
 
-			XDIArc subSegment = xri.getArc(i);
+			XDIArc arc = xri.getArc(i);
 
 			XdiRoot nextRoot;
 
-			if (XdiPeerRoot.isPeerRootArc(subSegment)) {
+			if (XdiPeerRoot.isPeerRootArc(arc)) {
 
-				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(subSegment) : root.getContextNode().getContextNode(subSegment, false);
+				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(arc) : root.getContextNode().getContextNode(arc, false);
 				if (peerRootContextNode == null) break;
 
 				nextRoot = new XdiPeerRoot(peerRootContextNode);
-			} if (XdiInnerRoot.isInnerRootarc(subSegment)) {
+			} if (XdiInnerRoot.isInnerRootArc(arc)) {
 
-				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(subSegment) : root.getContextNode().getContextNode(subSegment, false);
+				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(arc) : root.getContextNode().getContextNode(arc, false);
 				if (innerRootContextNode == null) break;
 
-				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(subSegment)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(subSegment), false);
+				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootArc(arc)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootArc(arc), false);
 				if (contextNode == null) break;
 
-				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(subSegment), innerRootContextNode.getAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(subSegment), innerRootContextNode.getAddress());
+				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootArc(arc), innerRootContextNode.getAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootArc(arc), innerRootContextNode.getAddress());
 				if (relation == null) break;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
@@ -187,7 +187,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		if (log.isTraceEnabled()) log.trace("isRootarc(" + arc + ")");
 
 		if (XdiPeerRoot.isPeerRootArc(arc)) return true;
-		if (XdiInnerRoot.isInnerRootarc(arc)) return true;
+		if (XdiInnerRoot.isInnerRootArc(arc)) return true;
 
 		return false;
 	}

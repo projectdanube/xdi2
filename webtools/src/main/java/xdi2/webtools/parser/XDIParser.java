@@ -198,21 +198,21 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				output7 = html(new String(buffer7.toByteArray(), "UTF-8"));
 			} else*/ if ("manual".equals(parser)) {
 
-				XDIAddress segment;
+				XDIAddress address;
 
 				try {
 
 					XDIStatement statement = XDIStatement.create(input);
-					segment = statement.getSubject();
+					address = statement.getSubject();
 				} catch (Exception ex) {
 
-					segment = XDIAddress.create(input);
+					address = XDIAddress.create(input);
 				}
 
 				Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 				List<ContextNode> contextNodes = new ArrayList<ContextNode> ();
 
-				for (ContextNode contextNode = tempGraph.setDeepContextNode(segment); contextNode != null; contextNode = contextNode.getContextNode()) {
+				for (ContextNode contextNode = tempGraph.setDeepContextNode(address); contextNode != null; contextNode = contextNode.getContextNode()) {
 
 					contextNodes.add(contextNode);
 				}

@@ -113,9 +113,9 @@ public class GovernorLinkContract extends LinkContract {
 	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
 
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
-		XDIAddress subjectAddress = XdiInnerRoot.getSubjectOfInnerRootAddress(linkContractInnerRootarc);
+		XDIAddress subjectAddress = XdiInnerRoot.getSubjectOfInnerRootArc(linkContractInnerRootarc);
 		XDIAddress requestingAuthority = subjectAddress;
 
 		return requestingAuthority;
@@ -124,9 +124,9 @@ public class GovernorLinkContract extends LinkContract {
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
 
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
-		XDIAddress predicateAddress = XdiInnerRoot.getPredicateOfInnerRootAddress(linkContractInnerRootarc);
+		XDIAddress predicateAddress = XdiInnerRoot.getPredicateOfInnerRootArc(linkContractInnerRootarc);
 		if (AddressUtil.endsWith(predicateAddress, XDILinkContractConstants.XDI_ADD_DO_VARIABLE) == null) return null;
 
 		XDIAddress templateAuthorityAndId = AddressUtil.parentAddress(predicateAddress, -1);

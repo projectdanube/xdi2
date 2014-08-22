@@ -119,17 +119,17 @@ public class GenericLinkContract extends LinkContract {
 	public static XDIAddress getAuthorizingAuthority(XDIAddress xri) {
 
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
-		return XdiInnerRoot.getSubjectOfInnerRootAddress(linkContractInnerRootarc);
+		return XdiInnerRoot.getSubjectOfInnerRootArc(linkContractInnerRootarc);
 	}
 
 	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
 
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
-		return XdiInnerRoot.getPredicateOfInnerRootAddress(linkContractInnerRootarc);
+		return XdiInnerRoot.getPredicateOfInnerRootArc(linkContractInnerRootarc);
 	}
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {

@@ -92,7 +92,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode setContextNode(XDIArc arc);
 
 	/**
-	 * Deep version of ContextNode.setContextNode(XDI3SubSegment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.setContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
 	public ContextNode setDeepContextNode(XDIAddress relativecontextNodeAddress);
 
@@ -114,12 +114,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	public ContextNode getContextNode(XDIArc arc);
 
 	/**
-	 * Deep version of ContextNode.getContextNode(XDI3SubSegment, boolean), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getContextNode(XDIArc, boolean), operates at a context node further down in the graph.
 	 */
 	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeAddress, boolean subgraph);
 
 	/**
-	 * Deep version of ContextNode.getContextNode(XDI3SubSegment), operates at a context node further down in the graph.
+	 * Deep version of ContextNode.getContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
 	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeAddress);
 

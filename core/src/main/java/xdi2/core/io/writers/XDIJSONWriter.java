@@ -149,14 +149,14 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 	private boolean tryPutStatementIntoInnerJsonObject(XDIStatement statementAddress, JsonObject jsonObject) throws IOException {
 
-		XDIArc subjectFirstSubSegment = statementAddress.getSubject().getFirstArc();
+		XDIArc subjectFirstArc = statementAddress.getSubject().getFirstArc();
 
-		if (subjectFirstSubSegment == null || (! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return false;
+		if (subjectFirstArc == null || (! subjectFirstArc.hasXRef()) || (! subjectFirstArc.getXRef().hasPartialSubjectAndPredicate())) return false;
 
 		XDIAddress innerRootSubject = statementAddress.getSubject().getFirstArc().getXRef().getPartialSubject();
 		XDIAddress innerRootPredicate = statementAddress.getSubject().getFirstArc().getXRef().getPartialPredicate();
 
-		XDIStatement reducedStatementAddress = StatementUtil.removeStartAddressStatement(statementAddress, XDIAddress.fromComponent(subjectFirstSubSegment));
+		XDIStatement reducedStatementAddress = StatementUtil.removeStartAddressStatement(statementAddress, XDIAddress.fromComponent(subjectFirstArc));
 		if (reducedStatementAddress == null) return false;
 
 		// find the inner root JSON array

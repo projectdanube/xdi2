@@ -112,22 +112,22 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 	private Graph resolveGraph(XDIAddress contextNodeAddress) {
 
-		XDIArc firstSubSegment = contextNodeAddress.getFirstArc();
+		XDIArc firstArc = contextNodeAddress.getFirstArc();
 
-		if (XdiPeerRoot.isPeerRootArc(firstSubSegment)) {
+		if (XdiPeerRoot.isPeerRootArc(firstArc)) {
 
-			firstSubSegment = XdiPeerRoot.getAddressOfPeerRootArc(firstSubSegment).getFirstArc();
-		} else if (XdiInnerRoot.isInnerRootarc(firstSubSegment)) {
+			firstArc = XdiPeerRoot.getAddressOfPeerRootArc(firstArc).getFirstArc();
+		} else if (XdiInnerRoot.isInnerRootArc(firstArc)) {
 
-			firstSubSegment = XdiInnerRoot.getSubjectOfInnerRootAddress(firstSubSegment).getFirstArc();
+			firstArc = XdiInnerRoot.getSubjectOfInnerRootArc(firstArc).getFirstArc();
 		}
 
 		Graph resolvedGraph = null;
 
-		if (XDI_ARC_MSG_VARIABLE.equals(firstSubSegment)) {
+		if (XDI_ARC_MSG_VARIABLE.equals(firstArc)) {
 
 			resolvedGraph = this.getMessage().getContextNode().getGraph();
-		} else if (XDI_ARC_FROM_VARIABLE.equals(firstSubSegment)) {
+		} else if (XDI_ARC_FROM_VARIABLE.equals(firstArc)) {
 
 			resolvedGraph = this.getTargetGraph();
 		} else {

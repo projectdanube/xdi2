@@ -152,60 +152,60 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		return gom;
 	}
 
-	private static JsonElement makeGom(XDIAddress segment) {
+	private static JsonElement makeGom(XDIAddress address) {
 
 		JsonElement gom;
 
-		if (segment.getNumArcs() == 1) {
+		if (address.getNumArcs() == 1) {
 
-			gom = makeGom(segment.getFirstArc());
+			gom = makeGom(address.getFirstArc());
 		} else {
 
 			gom = new JsonArray();
 
-			for (int i=0; i<segment.getNumArcs(); i++) ((JsonArray) gom).add(makeGom(segment.getArc(i)));
+			for (int i=0; i<address.getNumArcs(); i++) ((JsonArray) gom).add(makeGom(address.getArc(i)));
 		}
 
 		return gom;
 	}
 
-	private static JsonElement makeGom(XDIArc subSegment) {
+	private static JsonElement makeGom(XDIArc arc) {
 
 		JsonElement gom = null;
 
-		if (subSegment.hasXRef()) {
+		if (arc.hasXRef()) {
 
 			JsonObject gom2 = new JsonObject();
-			gom2.add(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
+			gom2.add(arc.getXRef().getXs(), makeGom(arc.getXRef()));
 			gom = gom2;
 		}
 
-		if (subSegment.hasLiteral()) {
+		if (arc.hasLiteral()) {
 
-			gom = new JsonPrimitive(subSegment.getLiteral());
+			gom = new JsonPrimitive(arc.getLiteral());
 		}
 
-		if (subSegment.hasCs()) {
+		if (arc.hasCs()) {
 
 			if (gom != null) {
 
 				JsonObject gom2 = new JsonObject();
-				gom2.add(subSegment.getCs().toString(), gom);
+				gom2.add(arc.getCs().toString(), gom);
 				gom = gom2;
 			} else {
 
-				gom = new JsonPrimitive(subSegment.getCs().toString());
+				gom = new JsonPrimitive(arc.getCs().toString());
 			}
 		}
 
-		if (subSegment.isAttributeXs()) {
+		if (arc.isAttributeXs()) {
 
 			JsonObject gom2 = new JsonObject();
 			gom2.add(XDIConstants.XS_ATTRIBUTE.substring(0, 1), gom);
 			gom = gom2;
 		}
 
-		if (subSegment.isClassXs()) {
+		if (arc.isClassXs()) {
 
 			JsonObject gom2 = new JsonObject();
 			gom2.add(XDIConstants.XS_CLASS.substring(0, 1), gom);

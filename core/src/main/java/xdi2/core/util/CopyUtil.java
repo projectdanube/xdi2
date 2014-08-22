@@ -184,9 +184,9 @@ public final class CopyUtil {
 
 		if (relativeRelationtargetContextNodeAddress != null &&
 				relativeRelationtargetContextNodeAddress.getNumArcs() == 1 &&
-				XdiInnerRoot.isInnerRootarc(relativeRelationtargetContextNodeAddress.getFirstArc()) &&
-				XdiInnerRoot.getSubjectOfInnerRootAddress(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relativeRelationcontextNodeAddress) &&
-				XdiInnerRoot.getPredicateOfInnerRootAddress(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relationAddress)) {
+				XdiInnerRoot.isInnerRootArc(relativeRelationtargetContextNodeAddress.getFirstArc()) &&
+				XdiInnerRoot.getSubjectOfInnerRootArc(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relativeRelationcontextNodeAddress) &&
+				XdiInnerRoot.getPredicateOfInnerRootArc(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relationAddress)) {
 
 			// if the target context node is not the same, we need to adjust the inner root
 

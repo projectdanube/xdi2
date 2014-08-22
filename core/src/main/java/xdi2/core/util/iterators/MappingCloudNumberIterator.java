@@ -6,7 +6,7 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 
 /**
- * A MappingIterator that maps XDI segments to Cloud Numbers.
+ * A MappingIterator that maps XDI addresses to Cloud Numbers.
  * 
  * @author markus
  */

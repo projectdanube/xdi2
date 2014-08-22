@@ -26,7 +26,7 @@ public class VariablesTest extends TestCase {
 				XDIArc.create("{+}")
 		};
 
-		XDIArc variablesSubSegments[][] = new XDIArc[][] {
+		XDIArc variablesArcs[][] = new XDIArc[][] {
 				new XDIArc[] { },
 				new XDIArc[] { },
 				new XDIArc[] { },
@@ -108,7 +108,7 @@ public class VariablesTest extends TestCase {
 		
 		for (XDIArc variable : variables) assertTrue(VariableUtil.isVariable(variable));
 
-		assertEquals(variables.length, variablesSubSegments.length);
+		assertEquals(variables.length, variablesArcs.length);
 		assertEquals(variables.length, variablesXs.length);
 		assertEquals(variables.length, variablesMultiple.length);
 		assertEquals(variables.length, variablesMatchesTrue.length);
@@ -116,7 +116,7 @@ public class VariablesTest extends TestCase {
 
 		for (int i=0; i<variables.length; i++) {
 
-			assertTrue(Arrays.deepEquals(variablesSubSegments[i], VariableUtil.getSubSegments(variables[i]).toArray()));
+			assertTrue(Arrays.deepEquals(variablesArcs[i], VariableUtil.getArcs(variables[i]).toArray()));
 			assertEquals(variablesXs[i], VariableUtil.getXs(variables[i]));
 			assertEquals(variablesMultiple[i], VariableUtil.isMultiple(variables[i]));
 

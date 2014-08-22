@@ -19,9 +19,9 @@ public abstract class ParserAbstract implements Parser {
 		return new XDIStatement(string, subject, predicate, object);
 	}
 	
-	protected XDIAddress newXDIAddress(String string, List<XDIArc> subSegments) {
+	protected XDIAddress newXDIAddress(String string, List<XDIArc> arcs) {
 
-		return new XDIAddress(string, subSegments);
+		return new XDIAddress(string, arcs);
 	}
 
 	protected XDIArc newXDIArc(String string, Character cs, boolean classXs, boolean attributeXs, String literal, XDIXRef xref) {
@@ -29,8 +29,8 @@ public abstract class ParserAbstract implements Parser {
 		return new XDIArc(string, cs, classXs, attributeXs, literal, xref);
 	}
 
-	protected XDIXRef newXDIXRef(String string, String xs, XDIAddress segment, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
+	protected XDIXRef newXDIXRef(String string, String xs, XDIAddress address, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
 
-		return new XDIXRef(string, xs, segment, partialSubject, partialPredicate, iri, literal);
+		return new XDIXRef(string, xs, address, partialSubject, partialPredicate, iri, literal);
 	}
 }
