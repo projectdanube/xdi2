@@ -110,23 +110,23 @@ public class GovernorLinkContract extends LinkContract {
 	 * Static methods
 	 */
 
-	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
+	public static XDIAddress getRequestingAuthority(XDIAddress address) {
 
-		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
+		XDIArc linkContractInnerRootArc = address.getFirstArc();
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootArc)) return null;
 
-		XDIAddress subjectAddress = XdiInnerRoot.getSubjectOfInnerRootArc(linkContractInnerRootarc);
+		XDIAddress subjectAddress = XdiInnerRoot.getSubjectOfInnerRootArc(linkContractInnerRootArc);
 		XDIAddress requestingAuthority = subjectAddress;
 
 		return requestingAuthority;
 	}
 
-	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress address) {
 
-		XDIArc linkContractInnerRootarc = xri.getFirstArc();
-		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
+		XDIArc linkContractInnerRootArc = address.getFirstArc();
+		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootArc)) return null;
 
-		XDIAddress predicateAddress = XdiInnerRoot.getPredicateOfInnerRootArc(linkContractInnerRootarc);
+		XDIAddress predicateAddress = XdiInnerRoot.getPredicateOfInnerRootArc(linkContractInnerRootArc);
 		if (AddressUtil.endsWith(predicateAddress, XDILinkContractConstants.XDI_ADD_DO_VARIABLE) == null) return null;
 
 		XDIAddress templateAuthorityAndId = AddressUtil.parentAddress(predicateAddress, -1);

@@ -127,10 +127,10 @@ public class LinkContractsTest extends TestCase {
 
 	public void testLinkContractTemplate() throws Exception {
 
-		XDIAddress xri = XDIAddress.create("=markus#registration{$do}");
+		XDIAddress address = XDIAddress.create("=markus#registration{$do}");
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.setDeepContextNode(xri);
+		ContextNode contextNode = graph.setDeepContextNode(address);
 
 		LinkContractTemplate l1 = LinkContractTemplate.findLinkContractTemplate(graph, XDIAddress.create("=markus#registration"), false);
 		assertNotNull(l1);
@@ -147,10 +147,10 @@ public class LinkContractsTest extends TestCase {
 
 	public void testGovernorLinkContract() throws Exception {
 
-		XDIAddress xri = XDIAddress.create("(+acmebread/+breadunion#registration{$do})$do");
+		XDIAddress address = XDIAddress.create("(+acmebread/+breadunion#registration{$do})$do");
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.setDeepContextNode(xri);
+		ContextNode contextNode = graph.setDeepContextNode(address);
 
 		GovernorLinkContract l1 = GovernorLinkContract.findGovernorLinkContract(graph, XDIAddress.create("+acmebread"), XDIAddress.create("+breadunion#registration"), false);
 		assertNotNull(l1);

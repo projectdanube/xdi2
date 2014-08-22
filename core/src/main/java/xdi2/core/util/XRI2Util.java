@@ -71,32 +71,32 @@ public final class XRI2Util {
 
 		if (log.isTraceEnabled()) log.trace("cloudNumberToINumber(" + cloudNumber + ")");
 
-		XDIAddress xri = cloudNumber.getAddress();
+		XDIAddress address = cloudNumber.getAddress();
 
-		if (xri.getNumArcs() != 2) return null;
+		if (address.getNumArcs() != 2) return null;
 
-		if (! xri.getFirstArc().isClassXs()) return null;
-		if (xri.getFirstArc().hasLiteral()) return null;
-		if (xri.getFirstArc().hasXRef()) return null;
+		if (! address.getFirstArc().isClassXs()) return null;
+		if (address.getFirstArc().hasLiteral()) return null;
+		if (address.getFirstArc().hasXRef()) return null;
 
-		char cs = xri.getFirstArc().getCs().charValue();
+		char cs = address.getFirstArc().getCs().charValue();
 
-		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(xri.getLastArc().getCs())) return null;
-		if (! xri.getLastArc().hasLiteral()) return null;
-		if (xri.getLastArc().hasXRef()) return null;
-		if (! xri.getLastArc().getLiteral().startsWith(":uuid")) return null;
-		if (xri.getLastArc().getLiteral().length() != 42) return null;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(address.getLastArc().getCs())) return null;
+		if (! address.getLastArc().hasLiteral()) return null;
+		if (address.getLastArc().hasXRef()) return null;
+		if (! address.getLastArc().getLiteral().startsWith(":uuid")) return null;
+		if (address.getLastArc().getLiteral().length() != 42) return null;
 
 		String[] parts = new String[4];
-		parts[0] = xri.getLastArc().getLiteral().substring(6, 10);
-		parts[1] = xri.getLastArc().getLiteral().substring(10, 14);
-		parts[2] = xri.getLastArc().getLiteral().substring(15, 19);
-		parts[3] = xri.getLastArc().getLiteral().substring(20, 24);
+		parts[0] = address.getLastArc().getLiteral().substring(6, 10);
+		parts[1] = address.getLastArc().getLiteral().substring(10, 14);
+		parts[2] = address.getLastArc().getLiteral().substring(15, 19);
+		parts[3] = address.getLastArc().getLiteral().substring(20, 24);
 
-		if (! parts[0].equals(xri.getLastArc().getLiteral().substring(25, 29))) return null;
-		if (! parts[1].equals(xri.getLastArc().getLiteral().substring(30, 34))) return null;
-		if (! parts[2].equals(xri.getLastArc().getLiteral().substring(34, 38))) return null;
-		if (! parts[3].equals(xri.getLastArc().getLiteral().substring(38, 42))) return null;
+		if (! parts[0].equals(address.getLastArc().getLiteral().substring(25, 29))) return null;
+		if (! parts[1].equals(address.getLastArc().getLiteral().substring(30, 34))) return null;
+		if (! parts[2].equals(address.getLastArc().getLiteral().substring(34, 38))) return null;
+		if (! parts[3].equals(address.getLastArc().getLiteral().substring(38, 42))) return null;
 
 		for (int i=0; i<parts.length; i++) {
 
@@ -123,7 +123,7 @@ public final class XRI2Util {
 	/**
 	 * Maps an XRI 2.0 service type to an XDI arc.
 	 */
-	public static XDIArc typeToXdiarc(String type) {
+	public static XDIArc typeToXdiArc(String type) {
 
 		if (log.isTraceEnabled()) log.trace("typeToXdiarc(" + type + ")");
 

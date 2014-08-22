@@ -29,10 +29,10 @@ public final class GraphUtil {
 
 	public static XDIAddress getOwnerAddress(Graph graph) {
 
-		XDIArc ownerPeerRootxri = getOwnerPeerRootAddress(graph);
-		if (ownerPeerRootxri == null) return null;
+		XDIArc ownerPeerRootArc = getOwnerPeerRootAddress(graph);
+		if (ownerPeerRootArc == null) return null;
 
-		return XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootxri);
+		return XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootArc);
 	}
 
 	public static void setOwnerPeerRootAddress(Graph graph, XDIArc ownerPeerRootAddress) {
@@ -49,7 +49,7 @@ public final class GraphUtil {
 
 	/**
 	 * Creates a context node from its components.
-	 * @param contextNodeAddress The XRI of the context node.
+	 * @param contextNodeAddress The address of the context node.
 	 * @return A context node.
 	 */
 	public static ContextNode contextNodeFromComponents(XDIAddress contextNodeAddress) {
@@ -61,9 +61,9 @@ public final class GraphUtil {
 
 	/**
 	 * Creates a relation from its components.
-	 * @param contextNodeAddress The relation XRI of the context node containing the relation.
+	 * @param contextNodeAddress The address of the context node containing the relation.
 	 * @param arc The arc of the relation.
-	 * @param targetContextNodeAddress The target context node XRI of the relation.
+	 * @param targetContextNodeAddress The target context node address of the relation.
 	 * @return A relation.
 	 */
 	public static Relation relationFromComponents(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress) {
@@ -75,7 +75,7 @@ public final class GraphUtil {
 
 	/**
 	 * Creates a literal from its components.
-	 * @param contextNodeAddress The XRI of the context node containing the literal.
+	 * @param contextNodeAddress The address of the context node containing the literal.
 	 * @param literalData The literal data of the literal.
 	 * @return A literal.
 	 */

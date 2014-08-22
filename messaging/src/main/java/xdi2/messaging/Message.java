@@ -156,15 +156,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the FROM peer root XRI.
+	 * Return the FROM peer root arc.
 	 */
-	public XDIArc getFromPeerRootAddress() {
+	public XDIArc getFromPeerRootArc() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
 			Relation incomingRelation = incomingRelations.next();
 
-			if (incomingRelation.getAddress().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_XRI)) {
+			if (incomingRelation.getAddress().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC)) {
 
 				XDIArc arc = incomingRelation.getContextNode().getArc();
 
@@ -176,37 +176,37 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the FROM peer root XRI.
+	 * Set the FROM peer root arc.
 	 */
-	public void setFromPeerRootAddress(XDIArc fromPeerRootAddress) {
+	public void setFromPeerRootArc(XDIArc fromPeerRootArc) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootAddress), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_XRI, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootArc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
 	}
 
 	/**
-	 * Return the TO peer root XRI of the message.
+	 * Return the TO peer root arc of the message.
 	 */
-	public XDIArc getToPeerRootAddress() {
+	public XDIArc getToPeerRootArc() {
 
-		Relation toPeerRootAddressRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI);
-		if (toPeerRootAddressRelation == null) return null;
+		Relation toPeerRootArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
+		if (toPeerRootArcRelation == null) return null;
 
-		XDIAddress toPeerRootAddress = toPeerRootAddressRelation.getTargetContextNodeAddress();
+		XDIAddress toPeerRootAddress = toPeerRootArcRelation.getTargetContextNodeAddress();
 		if (toPeerRootAddress.getNumArcs() > 1 || ! XdiPeerRoot.isPeerRootArc(toPeerRootAddress.getFirstArc())) return null;
 
 		return toPeerRootAddress.getFirstArc();
 	}
 
 	/**
-	 * Set the TO peer root XRI of the message.
+	 * Set the TO peer root arc of the message.
 	 */
-	public void setToPeerRootAddress(XDIArc toPeerRootAddress) {
+	public void setToPeerRootArc(XDIArc toPeerRootArc) {
 
-		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI);
+		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
 
-		if (toPeerRootAddress != null) {
+		if (toPeerRootArc != null) {
 
-			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI, XDIAddress.fromComponent(toPeerRootAddress));
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootArc));
 		}
 	}
 
@@ -228,8 +228,8 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the link contract XRI.
-	 * @return The link contract XRI.
+	 * Returns the link contract address.
+	 * @return The link contract address.
 	 */
 	public XDIAddress getLinkContractAddress() {
 
@@ -240,7 +240,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the link contract XRI.
+	 * Set the link contract address.
 	 */
 	public void setLinkContractAddress(XDIAddress linkContractAddress) {
 
@@ -253,8 +253,8 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setLinkContract(Class<? extends LinkContract> clazz) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getAddressOfPeerRootArc(this.getToPeerRootAddress());
-		if (ownerAddress == null) throw new Xdi2RuntimeException("No TO peer root XRI has been set yet.");
+		XDIAddress ownerAddress = XdiPeerRoot.getAddressOfPeerRootArc(this.getToPeerRootArc());
+		if (ownerAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
 
 		if (RootLinkContract.class.isAssignableFrom(clazz)) {
 
@@ -406,9 +406,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation XRI to use for the new operation.
+	 * @param operationAddress The operation address to use for the new operation.
 	 * @param targetAddress The target address to which the operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
 	public Operation createOperation(XDIAddress operationAddress, XDIAddress targetAddress) {
 
@@ -419,9 +419,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation XRI to use for the new operation.
+	 * @param operationAddress The operation address to use for the new operation.
 	 * @param targetStatementAddresss The target statements to which the operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
 	public Operation createOperation(XDIAddress operationAddress, Iterator<XDIStatement> targetStatementAddresss) {
 
@@ -433,9 +433,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation XRI to use for the new operation.
+	 * @param operationAddress The operation address to use for the new operation.
 	 * @param targetStatementAddress The target statement to which the operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
 	public Operation createOperation(XDIAddress operationAddress, XDIStatement targetStatementAddress) {
 
@@ -444,9 +444,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation XRI to use for the new operation.
+	 * @param operationAddress The operation address to use for the new operation.
 	 * @param targetGraph The target graph with statements to which this operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
 	public Operation createOperation(XDIAddress operationAddress, Graph targetGraph) {
 
@@ -455,9 +455,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation XRI to use for the new operation.
+	 * @param operationAddress The operation address to use for the new operation.
 	 * @param target The target address or target statement to which the operation applies.
-	 * @return The newly created, empty operation, or null if the operation XRI is not valid.
+	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
 	public Operation createOperation(XDIAddress operationAddress, String target) {
 
@@ -664,7 +664,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns all XDI operations with a given operation XRI in this XDI message.
+	 * Returns all XDI operations with a given operation address in this XDI message.
 	 * @return An iterator over all XDI operations.
 	 */
 	public ReadOnlyIterator<Operation> getOperations(XDIAddress operationAddress) {

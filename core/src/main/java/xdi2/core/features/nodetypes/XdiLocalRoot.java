@@ -67,14 +67,14 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	 * Instance methods
 	 */
 
-	public XdiPeerRoot setSelfPeerRoot(XDIAddress xri) {
+	public XdiPeerRoot setSelfPeerRoot(XDIAddress address) {
 
 		XdiPeerRoot selfPeerRoot = this.getSelfPeerRoot();
 		if (selfPeerRoot != null) selfPeerRoot.getContextNode().delete();
 
-		if (xri == null) return null;
+		if (address == null) return null;
 
-		selfPeerRoot = this.getPeerRoot(xri, true);
+		selfPeerRoot = this.getPeerRoot(address, true);
 
 		ContextNode localRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();

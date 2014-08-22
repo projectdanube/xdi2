@@ -130,7 +130,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			// check if applicable
 
-			if (! arc.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI)) return ContributorResult.DEFAULT;
+			if (! arc.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC)) return ContributorResult.DEFAULT;
 			if (! VariableUtil.isVariable(targetContextNodeAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
@@ -139,7 +139,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			// add it to the message result
 
-			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI, toPeerRootAddress);
+			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, toPeerRootAddress);
 
 			// done
 
@@ -190,7 +190,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDIAddress recipientAddress = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootAddress());
+				XDIAddress recipientAddress = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootArc());
 				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
@@ -237,7 +237,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDIAddress recipientAddress = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootAddress());
+				XDIAddress recipientAddress = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootArc());
 				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity

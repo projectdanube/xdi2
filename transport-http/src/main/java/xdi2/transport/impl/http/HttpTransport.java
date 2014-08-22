@@ -396,7 +396,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		if (ownerPeerRootAddress != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToPeerRootAddress(ownerPeerRootAddress);
+			message.setToPeerRootArc(ownerPeerRootAddress);
 		}
 
 		// done

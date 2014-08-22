@@ -436,7 +436,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		// prepare feedback message
 
 		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderAddress());
-		feedbackMessage.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
+		feedbackMessage.setToPeerRootArc(operation.getMessage().getToPeerRootArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getAddress());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
@@ -490,8 +490,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderAddress());
 		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderAddress());
-		feedbackMessageRef.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
-		feedbackMessageRep.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
+		feedbackMessageRef.setToPeerRootArc(operation.getMessage().getToPeerRootArc());
+		feedbackMessageRep.setToPeerRootArc(operation.getMessage().getToPeerRootArc());
 
 		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_VARIABLE));
 		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_VARIABLE));

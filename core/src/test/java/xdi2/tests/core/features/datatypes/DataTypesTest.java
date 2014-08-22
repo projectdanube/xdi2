@@ -30,17 +30,17 @@ public class DataTypesTest extends TestCase {
 
 		assertNotNull(dataTypes);
 
-		for (XDIAddress xriSeg : dataTypes) {
+		for (XDIAddress dataType : dataTypes) {
 
-			if (xriSeg.toString().contains("json")) {
+			if (dataType.toString().contains("json")) {
 
-				assertEquals("number", DataTypes.jsonTypeFromDataTypeAddress(xriSeg).toString());
-			} else if (xriSeg.toString().contains("xsd")) {
+				assertEquals("number", DataTypes.jsonTypeFromDataTypeAddress(dataType).toString());
+			} else if (dataType.toString().contains("xsd")) {
 
-				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeAddress(xriSeg).toString());
-			} else if (xriSeg.toString().contains("mime")) {
+				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeAddress(dataType).toString());
+			} else if (dataType.toString().contains("mime")) {
 
-				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeAddress(xriSeg).toString());
+				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeAddress(dataType).toString());
 			}
 		}
 		

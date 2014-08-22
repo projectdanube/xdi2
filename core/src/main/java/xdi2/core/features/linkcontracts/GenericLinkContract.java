@@ -116,28 +116,28 @@ public class GenericLinkContract extends LinkContract {
 	 * Static methods
 	 */
 
-	public static XDIAddress getAuthorizingAuthority(XDIAddress xri) {
+	public static XDIAddress getAuthorizingAuthority(XDIAddress address) {
 
-		XDIArc linkContractInnerRootarc = xri.getFirstArc();
+		XDIArc linkContractInnerRootarc = address.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
 		return XdiInnerRoot.getSubjectOfInnerRootArc(linkContractInnerRootarc);
 	}
 
-	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
+	public static XDIAddress getRequestingAuthority(XDIAddress address) {
 
-		XDIArc linkContractInnerRootarc = xri.getFirstArc();
+		XDIArc linkContractInnerRootarc = address.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootArc(linkContractInnerRootarc)) return null;
 
 		return XdiInnerRoot.getPredicateOfInnerRootArc(linkContractInnerRootarc);
 	}
 
-	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress address) {
 
-		int index = AddressUtil.indexOfAddress(xri, XDILinkContractConstants.XDI_ARC_DO);
-		if (index < 0) index = AddressUtil.indexOfAddress(xri, XdiEntityCollection.createarc(XDILinkContractConstants.XDI_ARC_DO));
+		int index = AddressUtil.indexOfAddress(address, XDILinkContractConstants.XDI_ARC_DO);
+		if (index < 0) index = AddressUtil.indexOfAddress(address, XdiEntityCollection.createarc(XDILinkContractConstants.XDI_ARC_DO));
 
-		return AddressUtil.subAddress(xri, 1, index);
+		return AddressUtil.subAddress(address, 1, index);
 	}
 
 	/*

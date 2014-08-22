@@ -22,21 +22,21 @@ public class SignaturesTest extends TestCase {
 
 	public void testAlgorithmAndLengthAddresss() throws Exception {
 
-		XDIAddress xriKeyPair = XDIAddress.create("$sha$256$rsa$1024");
-		XDIAddress xriSymmetricKey = XDIAddress.create("$sha$384$aes$256");
+		XDIAddress addressKeyPair = XDIAddress.create("$sha$256$rsa$1024");
+		XDIAddress addressSymmetricKey = XDIAddress.create("$sha$384$aes$256");
 
-		assertEquals(Signatures.getDigestAlgorithm(xriKeyPair), "sha");
-		assertEquals(Signatures.getDigestLength(xriKeyPair), Integer.valueOf(256));
-		assertEquals(Signatures.getKeyAlgorithm(xriKeyPair), "rsa");
-		assertEquals(Signatures.getKeyLength(xriKeyPair), Integer.valueOf(1024));
+		assertEquals(Signatures.getDigestAlgorithm(addressKeyPair), "sha");
+		assertEquals(Signatures.getDigestLength(addressKeyPair), Integer.valueOf(256));
+		assertEquals(Signatures.getKeyAlgorithm(addressKeyPair), "rsa");
+		assertEquals(Signatures.getKeyLength(addressKeyPair), Integer.valueOf(1024));
 
-		assertEquals(Signatures.getDigestAlgorithm(xriSymmetricKey), "sha");
-		assertEquals(Signatures.getDigestLength(xriSymmetricKey), Integer.valueOf(384));
-		assertEquals(Signatures.getKeyAlgorithm(xriSymmetricKey), "aes");
-		assertEquals(Signatures.getKeyLength(xriSymmetricKey), Integer.valueOf(256));
+		assertEquals(Signatures.getDigestAlgorithm(addressSymmetricKey), "sha");
+		assertEquals(Signatures.getDigestLength(addressSymmetricKey), Integer.valueOf(384));
+		assertEquals(Signatures.getKeyAlgorithm(addressSymmetricKey), "aes");
+		assertEquals(Signatures.getKeyLength(addressSymmetricKey), Integer.valueOf(256));
 
-		assertEquals(Signatures.getDataTypeAddress("sha", 256, "rsa", 1024), xriKeyPair);
-		assertEquals(Signatures.getDataTypeAddress("sha", 384, "aes", 256), xriSymmetricKey);
+		assertEquals(Signatures.getDataTypeAddress("sha", 256, "rsa", 1024), addressKeyPair);
+		assertEquals(Signatures.getDataTypeAddress("sha", 384, "aes", 256), addressSymmetricKey);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {

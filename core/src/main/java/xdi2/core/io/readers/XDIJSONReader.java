@@ -176,7 +176,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			throw new Xdi2ParseException("Graph problem: " + ex.getMessage(), ex);
 		} catch (ParserException ex) {
 
-			throw new Xdi2ParseException("Cannot parse XRI " + state.lastAddressString + ": " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("Cannot parse string " + state.lastString + ": " + ex.getMessage(), ex);
 		}
 
 		return reader;
@@ -184,24 +184,24 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	private static class State {
 
-		private String lastAddressString;
+		private String lastString;
 	}
 
-	private static XDIStatement makeStatement(String xriString, State state) {
+	private static XDIStatement makeStatement(String statementString, State state) {
 
-		state.lastAddressString = xriString;
-		return XDIStatement.create(xriString);
+		state.lastString = statementString;
+		return XDIStatement.create(statementString);
 	}
 
-	private static XDIAddress makeXDIAddress(String xriString, State state) {
+	private static XDIAddress makeXDIAddress(String addressString, State state) {
 
-		state.lastAddressString = xriString;
-		return XDIAddress.create(xriString);
+		state.lastString = addressString;
+		return XDIAddress.create(addressString);
 	}
 
-	private static XDIArc makeXDIArc(String xriString, State state) {
+	private static XDIArc makeXDIArc(String arcString, State state) {
 
-		state.lastAddressString = xriString;
-		return XDIArc.create(xriString);
+		state.lastString = arcString;
+		return XDIArc.create(arcString);
 	}
 }

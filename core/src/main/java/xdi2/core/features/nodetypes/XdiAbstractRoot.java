@@ -62,11 +62,11 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XdiPeerRoot getPeerRoot(XDIAddress xri, boolean create) {
+	public XdiPeerRoot getPeerRoot(XDIAddress address, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + xri + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + address + "," + create + ")");
 
-		XDIArc peerRootarc = XdiPeerRoot.createPeerRootArc(xri);
+		XDIArc peerRootarc = XdiPeerRoot.createPeerRootArc(address);
 
 		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootarc) : this.getContextNode().getContextNode(peerRootarc, false);
 		if (peerRootContextNode == null) return null;
@@ -88,15 +88,15 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XdiRoot getRoot(XDIAddress xri, boolean create) {
+	public XdiRoot getRoot(XDIAddress address, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("getRoot(" + xri + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getRoot(" + address + "," + create + ")");
 
 		XdiRoot root = this;
 
-		for (int i=0; i<xri.getNumArcs(); i++) {
+		for (int i=0; i<address.getNumArcs(); i++) {
 
-			XDIArc arc = xri.getArc(i);
+			XDIArc arc = address.getArc(i);
 
 			XdiRoot nextRoot;
 
@@ -174,15 +174,15 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	/*
-	 * Methods for XDI root XRIs
+	 * Methods for XDI root addresses
 	 */
 
 	/**
-	 * Checks if a given XRI is an XDI root XRI.
-	 * @param arc An XDI root XRI.
-	 * @return True, if the XRI is an XDI root XRI.
+	 * Checks if a given address is an XDI root address.
+	 * @param arc An XDI root address.
+	 * @return True, if the address is an XDI root address.
 	 */
-	public static boolean isRootarc(XDIArc arc) {
+	public static boolean isRootArc(XDIArc arc) {
 
 		if (log.isTraceEnabled()) log.trace("isRootarc(" + arc + ")");
 

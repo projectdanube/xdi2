@@ -38,14 +38,14 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	private static final Logger log = LoggerFactory.getLogger(JSONContextNode.class);
 
 	private XDIArc arc;
-	private XDIAddress xri;
+	private XDIAddress address;
 
-	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, XDIArc arc, XDIAddress xri) {
+	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, XDIArc arc, XDIAddress address) {
 
 		super(graph, contextNode);
 
 		this.arc = arc;
-		this.xri = xri;
+		this.address = address;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public XDIAddress getAddress() {
 
-		return this.xri;
+		return this.address;
 	}
 
 	/*
@@ -87,9 +87,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(arc.toString()));
 
-		XDIAddress xri = AddressUtil.concatAddresses(this.getAddress(), arc);
+		XDIAddress address = AddressUtil.concatAddresses(this.getAddress(), arc);
 
-		JSONContextNode contextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arc, xri);
+		JSONContextNode contextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arc, address);
 
 		// set inner root
 
@@ -118,9 +118,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arc.toString())).contains()) return null;
 
-		XDIAddress xri = AddressUtil.concatAddresses(this.getAddress(), arc);
+		XDIAddress address = AddressUtil.concatAddresses(this.getAddress(), arc);
 
-		return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, xri);
+		return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, address);
 	}
 
 	@Override
@@ -181,9 +181,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			public ContextNode map(JsonElement jsonElement) {
 
 				XDIArc arc = XDIArc.create(((JsonPrimitive) jsonElement).getAsString());
-				XDIAddress xri = AddressUtil.concatAddresses(JSONContextNode.this.getAddress(), arc);
+				XDIAddress address = AddressUtil.concatAddresses(JSONContextNode.this.getAddress(), arc);
 
-				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, xri);
+				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, address);
 			}
 		});
 	}

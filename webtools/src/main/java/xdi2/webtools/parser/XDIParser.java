@@ -39,7 +39,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 	static {
 
-		InputStream inputStream = XDIParser.class.getResourceAsStream("sample.xri");
+		InputStream inputStream = XDIParser.class.getResourceAsStream("sample.address");
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		int i;
 

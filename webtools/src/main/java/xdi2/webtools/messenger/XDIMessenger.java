@@ -193,8 +193,8 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			Message message = new MessageEnvelope().createMessage(sender);
 
-			message.setFromPeerRootAddress(XdiPeerRoot.createPeerRootArc(sender));
-			message.setToPeerRootAddress(XdiPeerRoot.createPeerRootArc(recipient));
+			message.setFromPeerRootArc(XdiPeerRoot.createPeerRootArc(sender));
+			message.setToPeerRootArc(XdiPeerRoot.createPeerRootArc(recipient));
 			message.setLinkContractAddress(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
@@ -340,13 +340,13 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 	}
 
-	private static XDIDiscoveryResult discover(XDIAddress xri, XDIDiscoveryClient xdiDiscoveryClient) throws Xdi2ClientException {
+	private static XDIDiscoveryResult discover(XDIAddress address, XDIDiscoveryClient xdiDiscoveryClient) throws Xdi2ClientException {
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
-		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(xri, null);
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + xri);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + xri);
+		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(address, null);
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + address);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + address);
 
 		return xdiDiscoveryResult;
 	}

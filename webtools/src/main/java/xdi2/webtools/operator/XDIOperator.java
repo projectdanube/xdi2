@@ -244,7 +244,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
@@ -290,7 +290,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
@@ -339,7 +339,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
@@ -398,7 +398,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
@@ -456,7 +456,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
@@ -513,7 +513,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setToPeerRootArc(cloudNumber.getPeerRootArc());
 			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 

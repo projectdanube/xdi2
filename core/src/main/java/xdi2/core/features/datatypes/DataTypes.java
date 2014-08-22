@@ -39,10 +39,10 @@ public class DataTypes {
 		return null;
 	}
 
-	public static Boolean xriToBoolean(XDIAddress xri) {
+	public static Boolean addressToBoolean(XDIAddress address) {
 
-		if (XDIConstants.XDI_ADD_TRUE.equals(xri)) return Boolean.TRUE;
-		if (XDIConstants.XDI_ADD_FALSE.equals(xri)) return Boolean.FALSE;
+		if (XDIConstants.XDI_ADD_TRUE.equals(address)) return Boolean.TRUE;
+		if (XDIConstants.XDI_ADD_FALSE.equals(address)) return Boolean.FALSE;
 
 		return null;
 	}

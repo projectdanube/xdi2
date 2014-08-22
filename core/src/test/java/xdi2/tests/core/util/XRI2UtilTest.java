@@ -22,10 +22,10 @@ public class XRI2UtilTest extends TestCase {
 
 	public void testTypeToXdiEntitySingletonarc() throws Exception {
 
-		assertEquals(XRI2Util.typeToXdiarc("xri://+i-service*(+contact)*($v*1.0)"), "<#(#i-service*(#contact)*($v*1.0))>");
-		assertEquals(XRI2Util.typeToXdiarc("http://openid.net/signon/1.0"), "<#(http://openid.net/signon/1.0)>");
-		assertEquals(XRI2Util.typeToXdiarc("describedby"), "<#(describedby)>");
-		assertEquals(XRI2Util.typeToXdiarc("xri://$xdi"), "<$xdi>");
-		assertEquals(XRI2Util.typeToXdiarc("<$xdi>"), "<$xdi>");
+		assertEquals(XRI2Util.typeToXdiArc("xri://+i-service*(+contact)*($v*1.0)"), "<#(#i-service*(#contact)*($v*1.0))>");
+		assertEquals(XRI2Util.typeToXdiArc("http://openid.net/signon/1.0"), "<#(http://openid.net/signon/1.0)>");
+		assertEquals(XRI2Util.typeToXdiArc("describedby"), "<#(describedby)>");
+		assertEquals(XRI2Util.typeToXdiArc("xri://$xdi"), "<$xdi>");
+		assertEquals(XRI2Util.typeToXdiArc("<$xdi>"), "<$xdi>");
 	}
 }

@@ -26,8 +26,8 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_DEL = XDIAddress.fromComponent(XDI_ARC_DEL);
 	public static final XDIAddress XDI_ADD_DO = XDIAddress.fromComponent(XDI_ARC_DO);
 
-	public static final XDIAddress XDI_ADD_FROM_PEER_ROOT_XRI = XDIAddress.create("$set");
-	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_XRI = XDIAddress.create("$is()");
+	public static final XDIAddress XDI_ADD_FROM_PEER_ROOT_ARC = XDIAddress.create("$set");
+	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 
 	private XDIMessagingConstants() { }
 }

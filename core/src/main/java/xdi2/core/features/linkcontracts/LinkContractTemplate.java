@@ -86,12 +86,12 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * Static methods
 	 */
 
-	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress address) {
 
-		int index = AddressUtil.indexOfAddress(xri, XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
+		int index = AddressUtil.indexOfAddress(address, XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
 		if (index < 0) return null;
 
-		return AddressUtil.subAddress(xri, 0, index);
+		return AddressUtil.subAddress(address, 0, index);
 	}
 
 	/*

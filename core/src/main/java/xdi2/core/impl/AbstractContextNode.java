@@ -38,7 +38,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	private Graph graph;
 	private ContextNode contextNode;
 
-	private XDIAddress xri;
+	private XDIAddress address;
 
 	public AbstractContextNode(Graph graph, ContextNode contextNode) {
 
@@ -47,7 +47,7 @@ public abstract class AbstractContextNode implements ContextNode {
 		this.graph = graph;
 		this.contextNode = contextNode;
 
-		this.xri = null;
+		this.address = null;
 	}
 
 	@Override
@@ -117,18 +117,18 @@ public abstract class AbstractContextNode implements ContextNode {
 	@Override
 	public XDIAddress getAddress() {
 
-		if (this.xri == null) {
+		if (this.address == null) {
 
 			if (this.isRootContextNode()) {
 
-				this.xri = XDIConstants.XDI_ADD_ROOT;
+				this.address = XDIConstants.XDI_ADD_ROOT;
 			} else {
 
-				this.xri = AddressUtil.concatAddresses(this.getContextNode().getAddress(), this.getArc());
+				this.address = AddressUtil.concatAddresses(this.getContextNode().getAddress(), this.getArc());
 			}
 		}
 
-		return this.xri;
+		return this.address;
 	}
 
 	/*
@@ -704,50 +704,50 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Statement setStatement(XDIStatement statementAddress) {
+	public Statement setStatement(XDIStatement statement) {
 
 		// set the statement
 
-		if (statementAddress.isContextNodeStatement()) {
+		if (statement.isContextNodeStatement()) {
 
-			ContextNode contextNode = this.setDeepContextNode(statementAddress.getTargetContextNodeAddress());
+			ContextNode contextNode = this.setDeepContextNode(statement.getTargetContextNodeAddress());
 
 			return contextNode.getStatement();
-		} else if (statementAddress.isRelationStatement()) {
+		} else if (statement.isRelationStatement()) {
 
-			Relation relation = this.setDeepRelation(statementAddress.getContextNodeAddress(), statementAddress.getRelationAddress(), statementAddress.getTargetContextNodeAddress());
+			Relation relation = this.setDeepRelation(statement.getContextNodeAddress(), statement.getRelationAddress(), statement.getTargetContextNodeAddress());
 
 			return relation.getStatement();
-		} else if (statementAddress.isLiteralStatement()) {
+		} else if (statement.isLiteralStatement()) {
 
-			Literal literal = this.setDeepLiteral(statementAddress.getContextNodeAddress(), statementAddress.getLiteralData());
+			Literal literal = this.setDeepLiteral(statement.getContextNodeAddress(), statement.getLiteralData());
 
 			return literal.getStatement();
 		} else {
 
-			throw new Xdi2GraphException("Invalid statement XRI: " + statementAddress);
+			throw new Xdi2GraphException("Invalid statement: " + statement);
 		}
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementAddress) {
+	public Statement getStatement(XDIStatement statement) {
 
-		ContextNode baseContextNode = this.getDeepContextNode(statementAddress.getSubject(), false);
+		ContextNode baseContextNode = this.getDeepContextNode(statement.getSubject(), false);
 		if (baseContextNode == null) return null;
 
-		if (statementAddress.isContextNodeStatement()) {
+		if (statement.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.getContextNode(statementAddress.getContextNodeArc(), false);
+			ContextNode contextNode = baseContextNode.getContextNode(statement.getContextNodeArc(), false);
 
 			return contextNode == null ? null : contextNode.getStatement();
-		} else if (statementAddress.isRelationStatement()) {
+		} else if (statement.isRelationStatement()) {
 
-			Relation relation = baseContextNode.getRelation(statementAddress.getRelationAddress(), statementAddress.getTargetContextNodeAddress());
+			Relation relation = baseContextNode.getRelation(statement.getRelationAddress(), statement.getTargetContextNodeAddress());
 
 			return relation == null ? null : relation.getStatement();
-		} else if (statementAddress.isLiteralStatement()) {
+		} else if (statement.isLiteralStatement()) {
 
-			Literal literal = baseContextNode.getLiteral(statementAddress.getLiteralData());
+			Literal literal = baseContextNode.getLiteral(statement.getLiteralData());
 
 			return literal == null ? null : literal.getStatement();
 		}
@@ -959,7 +959,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		ContextNode other = (ContextNode) object;
 
-		// two context nodes are equal if their XRIs are equal
+		// two context nodes are equal if their addresses are equal
 
 		return this.getAddress().equals(other.getAddress());
 	}
