@@ -20,10 +20,10 @@ public class XDI2SpringConverter implements GenericConverter {
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
 	private static List<Converter<?, ?>> converters = Arrays.asList(new Converter<?, ?> [] {
-			new StringXDI3SubSegmentConverter(),
-			new StringXDI3SegmentConverter(),
-			new StringXDI3StatementConverter(),
-			new StringXDI3XRefConverter(),
+			new StringXDIArcConverter(),
+			new StringXDIAddressConverter(),
+			new StringXDIStatementConverter(),
+			new StringXDIXRefConverter(),
 			new StringCloudNameConverter(),
 			new StringCloudNumberConverter(),
 			new StringMimeTypeConverter(),

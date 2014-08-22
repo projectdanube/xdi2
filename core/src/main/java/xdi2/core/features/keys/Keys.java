@@ -18,8 +18,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 public class Keys {
 
@@ -32,7 +32,7 @@ public class Keys {
 	 */
 	public static PublicKey getSignaturePublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Keys {
 	 */
 	public static PublicKey getEncryptionPublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Keys {
 	 */
 	public static PrivateKey getSignaturePrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class Keys {
 	 */
 	public static PrivateKey getEncryptionPrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Keys {
 	 */
 	public static SecretKey getSignatureSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Keys {
 	 */
 	public static SecretKey getEncryptionSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class Keys {
 	 * @param graph The graph.
 	 * @return A public key.
 	 */
-	public static PublicKey getPublicKey(XdiContext<?> xdiContext, XDI3Segment publicKeyRelativeAddress) throws GeneralSecurityException {
+	public static PublicKey getPublicKey(XdiContext<?> xdiContext, XDIAddress publicKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find public key
 
@@ -113,7 +113,7 @@ public class Keys {
 	 * @param graph The graph.
 	 * @return A private key.
 	 */
-	public static PrivateKey getPrivateKey(XdiContext<?> xdiContext, XDI3Segment privateKeyRelativeAddress) throws GeneralSecurityException {
+	public static PrivateKey getPrivateKey(XdiContext<?> xdiContext, XDIAddress privateKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find private key
 
@@ -136,7 +136,7 @@ public class Keys {
 	 * @param graph The graph.
 	 * @return A secret key.
 	 */
-	public static SecretKey getSecretKey(XdiContext<?> xdiContext, XDI3Segment secretKeyRelativeAddress) throws GeneralSecurityException {
+	public static SecretKey getSecretKey(XdiContext<?> xdiContext, XDIAddress secretKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find secret key
 
@@ -187,9 +187,9 @@ public class Keys {
 		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
 	}
 
-	public static String getKeyAlgorithm(XDI3Segment dataTypeXri) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment keyAlgorithmXri = dataTypeXri.getNumSubSegments() > 0 ? dataTypeXri.getSubSegment(0) : null;
+		XDIArc keyAlgorithmXri = dataTypeXri.getNumArcs() > 0 ? dataTypeXri.getArc(0) : null;
 		if (keyAlgorithmXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
@@ -199,9 +199,9 @@ public class Keys {
 		return keyAlgorithmXri.getLiteral();
 	}
 
-	public static Integer getKeyLength(XDI3Segment dataTypeXri) {
+	public static Integer getKeyLength(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment keyLengthXri = dataTypeXri.getNumSubSegments() > 1 ? dataTypeXri.getSubSegment(1) : null;
+		XDIArc keyLengthXri = dataTypeXri.getNumArcs() > 1 ? dataTypeXri.getArc(1) : null;
 		if (keyLengthXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;

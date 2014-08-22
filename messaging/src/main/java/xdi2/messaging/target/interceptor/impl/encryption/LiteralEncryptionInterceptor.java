@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -74,7 +74,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	 */
 
 	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof DoOperation) return targetStatement;
 
@@ -82,7 +82,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 
 		if (targetStatement.isLiteralStatement()) {
 
-			XDI3Segment contextNodeXri = targetStatement.getContextNodeXri();
+			XDIAddress contextNodeAddress = targetStatement.getContextNodeAddress();
 			Object literalData = targetStatement.getLiteralData();
 
 			String literalDataString = AbstractLiteral.literalDataToString(literalData);
@@ -97,7 +97,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 				throw new Xdi2MessagingException("Problem while encrypting literal string: " + ex.getMessage(), ex, executionContext);
 			}
 
-			return XDI3Statement.fromLiteralComponents(contextNodeXri, encryptedLiteralDataString);
+			return XDIStatement.fromLiteralComponents(contextNodeAddress, encryptedLiteralDataString);
 		}
 
 		// done
@@ -106,7 +106,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof DoOperation) return targetAddress;
 

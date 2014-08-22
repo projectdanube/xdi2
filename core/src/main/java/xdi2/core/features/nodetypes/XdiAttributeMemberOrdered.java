@@ -3,9 +3,9 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI ordered attribute members (context function), represented as a context node.
@@ -35,7 +35,7 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 		if (contextNode == null) return false;
 
 		return
-				isValidArcXri(contextNode.getArcXri()) &&
+				isValidarc(contextNode.getArc()) &&
 				XdiAttributeCollection.isValid(contextNode.getContextNode());
 	}
 
@@ -55,9 +55,9 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	 * Methods for XRIs
 	 */
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidarc(XDIArc arc) {
 
-		return XdiAbstractMemberOrdered.isValidArcXri(arcXri, true);
+		return XdiAbstractMemberOrdered.isValidarc(arc, true);
 	}
 
 	/*
@@ -82,9 +82,9 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	@Override
 	public XdiValue getXdiValue(boolean create) {
 
-		XDI3SubSegment valueArcXri = XdiValue.createArcXri();
+		XDIArc valuearc = XdiValue.createarc();
 
-		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valueArcXri) : this.getContextNode().getContextNode(valueArcXri, false);
+		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valuearc) : this.getContextNode().getContextNode(valuearc, false);
 		if (valueContextNode == null) return null;
 
 		return new XdiValue(valueContextNode);

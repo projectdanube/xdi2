@@ -18,12 +18,12 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.util.XDI3Util;
+import xdi2.core.util.AddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -127,15 +127,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				boolean skip = false;
 
-				for (XDI3Segment completedAddress : getCompletedAddresses(executionContext)) {
+				for (XDIAddress completedAddress : getCompletedAddresses(executionContext)) {
 
-					if (refRepRelation.getContextNode().getXri().equals(completedAddress)) {
+					if (refRepRelation.getContextNode().getAddress().equals(completedAddress)) {
 
 						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation " + refRepRelation + " because of already completed address " + completedAddress);
 
 						// delete the $rep relation
 
-						if (XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) {
+						if (XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getArc())) {
 
 							refRepRelation.delete();
 						}
@@ -153,7 +153,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				ContextNode refRepContextNode = refRepRelation.getContextNode();
 
-				if (XDIDictionaryConstants.XRI_S_REF.equals(refRepRelation.getArcXri()) || XDIDictionaryConstants.XRI_S_REP.equals(refRepRelation.getArcXri())) { 
+				if (XDIDictionaryConstants.XDI_ADD_REF.equals(refRepRelation.getArc()) || XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getArc())) { 
 
 					ContextNode refRepTargetContextNode = refRepRelation.follow();
 					refRepRelation.delete();
@@ -183,24 +183,24 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			// check what to do with this $ref/$rep relation
 
 			ContextNode refRepContextNode = refRepRelation.getContextNode();
-			XDI3Segment arcXri = refRepRelation.getArcXri();
-			XDI3Segment targetContextNodeXri = refRepRelation.getTargetContextNodeXri();
+			XDIAddress arc = refRepRelation.getArc();
+			XDIAddress targetContextNodeAddress = refRepRelation.getTargetContextNodeAddress();
 
-			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XRI_S_REP.equals(arcXri) || (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_S_PARAMETER_DEREF)));
-			boolean doIncludeRefRelations = (XDIDictionaryConstants.XRI_S_REF.equals(arcXri) && ! Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_S_PARAMETER_DEREF)));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(arc) || (XDIDictionaryConstants.XDI_ADD_REF.equals(arc) && Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XDI_ADD_REF.equals(arc) && ! Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
 
 			// replace $ref/$rep relations?
 
 			if (doReplaceRefRepRelations) {
 
-				ContextNode refRepTargetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeXri, true);
+				ContextNode refRepTargetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeAddress, true);
 
 				if (refRepTargetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
 					Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-					ContextNode tempContextNode = tempGraph.setDeepContextNode(refRepContextNode.getXri());
+					ContextNode tempContextNode = tempGraph.setDeepContextNode(refRepContextNode.getAddress());
 					CopyUtil.copyContextNodeContents(refRepTargetContextNode, tempContextNode, null);
 
 					refRepTargetContextNode.clear();
@@ -245,20 +245,20 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// remember that we completed this target
 
 		if (operation instanceof GetOperation) {
 
-			XDI3Segment contextNodeXri = targetAddress;
+			XDIAddress contextNodeAddress = targetAddress;
 
-			addCompletedAddress(executionContext, contextNodeXri);
+			addCompletedAddress(executionContext, contextNodeAddress);
 		}
 
 		// follow any $ref and $rep arcs
 
-		XDI3Segment followedTargetAddress = followAllRefRepRelations(targetAddress, operation, executionContext);
+		XDIAddress followedTargetAddress = followAllRefRepRelations(targetAddress, operation, executionContext);
 
 		if (followedTargetAddress != targetAddress) {
 
@@ -271,53 +271,53 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// remember that we completed this target
 
 		/*if (operation instanceof GetOperation) {
 
-			XDI3Segment contextNodeXri;
+			XDIAddress contextNodeAddress;
 
 			if (targetStatement.isContextNodeStatement()) {
 
-				contextNodeXri = targetStatement.getTargetContextNodeXri();
+				contextNodeAddress = targetStatement.getTargetContextNodeAddress();
 
-				addCompletedAddress(executionContext, contextNodeXri);
+				addCompletedAddress(executionContext, contextNodeAddress);
 			}
 
 			if (targetStatement.isRelationStatement() &&
-					( XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri()) ||
-							XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri()))) {
+					( XDIDictionaryConstants.XDI_ADD_REF.equals(targetStatement.getrelationAddress()) ||
+							XDIDictionaryConstants.XDI_ADD_REP.equals(targetStatement.getrelationAddress()))) {
 
-				contextNodeXri = targetStatement.getContextNodeXri();
+				contextNodeAddress = targetStatement.getContextNodeAddress();
 
-				addCompletedAddress(executionContext, contextNodeXri);
+				addCompletedAddress(executionContext, contextNodeAddress);
 			}
 		}*/
 
 		// follow any $ref and $rep arcs
 
 		boolean doFollowTargetSubject = true;
-		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
-		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
-		if (XDIDictionaryConstants.XRI_S_IS_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
-		if (XDIDictionaryConstants.XRI_S_IS_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XDI_ADD_REF.equals(targetStatement.getRelationAddress())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XDI_ADD_REP.equals(targetStatement.getRelationAddress())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XDI_ADD_IS_REF.equals(targetStatement.getRelationAddress())) doFollowTargetSubject = false;
+		if (XDIDictionaryConstants.XDI_ADD_IS_REP.equals(targetStatement.getRelationAddress())) doFollowTargetSubject = false;
 
 		boolean doFollowTargetObject = true;
-		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
-		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
-		if (XDIDictionaryConstants.XRI_S_IS_REF.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
-		if (XDIDictionaryConstants.XRI_S_IS_REP.equals(targetStatement.getRelationArcXri())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XDI_ADD_REF.equals(targetStatement.getRelationAddress())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XDI_ADD_REP.equals(targetStatement.getRelationAddress())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XDI_ADD_IS_REF.equals(targetStatement.getRelationAddress())) doFollowTargetObject = false;
+		if (XDIDictionaryConstants.XDI_ADD_IS_REP.equals(targetStatement.getRelationAddress())) doFollowTargetObject = false;
 		if (! targetStatement.isRelationStatement()) doFollowTargetObject = false;
-		if (targetStatement.isRelationStatement() && VariableUtil.isVariable(targetStatement.getTargetContextNodeXri())) doFollowTargetObject = false;
+		if (targetStatement.isRelationStatement() && VariableUtil.isVariable(targetStatement.getTargetContextNodeAddress())) doFollowTargetObject = false;
 
-		XDI3Segment followedTargetSubject = doFollowTargetSubject ? followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext) : targetStatement.getSubject();
-		Object followedTargetObject = doFollowTargetObject ? followAllRefRepRelations((XDI3Segment) targetStatement.getObject(), operation, executionContext) : targetStatement.getObject();
+		XDIAddress followedTargetSubject = doFollowTargetSubject ? followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext) : targetStatement.getSubject();
+		Object followedTargetObject = doFollowTargetObject ? followAllRefRepRelations((XDIAddress) targetStatement.getObject(), operation, executionContext) : targetStatement.getObject();
 
 		if (followedTargetSubject != targetStatement.getSubject() || followedTargetObject != targetStatement.getObject()) {
 
-			targetStatement = XDI3Statement.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
+			targetStatement = XDIStatement.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
 		}
 
 		// done
@@ -325,36 +325,36 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		return targetStatement;
 	}
 
-	private static XDI3Segment followAllRefRepRelations(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDIAddress followAllRefRepRelations(XDIAddress contextNodeAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment followedContextNodeXri = contextNodeXri;
+		XDIAddress followedcontextNodeAddress = contextNodeAddress;
 
-		XDI3Segment tempContextNodeXri;
+		XDIAddress tempcontextNodeAddress;
 
 		while (true) { 
 
-			tempContextNodeXri = followedContextNodeXri;
-			followedContextNodeXri = followRefRepRelations(tempContextNodeXri, operation, executionContext);
+			tempcontextNodeAddress = followedcontextNodeAddress;
+			followedcontextNodeAddress = followRefRepRelations(tempcontextNodeAddress, operation, executionContext);
 
-			if (followedContextNodeXri == tempContextNodeXri) break;
+			if (followedcontextNodeAddress == tempcontextNodeAddress) break;
 
-			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempContextNodeXri + " to " + followedContextNodeXri);
+			if (log.isDebugEnabled()) log.debug("In message envelope: Followed " + tempcontextNodeAddress + " to " + followedcontextNodeAddress);
 		}
 
-		return followedContextNodeXri;
+		return followedcontextNodeAddress;
 	}
 
-	private static XDI3Segment followRefRepRelations(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static XDIAddress followRefRepRelations(XDIAddress contextNodeAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment originalContextNodeXri = contextNodeXri;
+		XDIAddress originalcontextNodeAddress = contextNodeAddress;
 
-		XDI3Segment localXri = XDIConstants.XRI_S_ROOT;
+		XDIAddress localXri = XDIConstants.XDI_ADD_ROOT;
 
-		while (! XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
+		while (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeAddress)) {
 
 			// look up $ref/$rep relations
 
-			Relation[] refRepRelation = getRefRepRelationPerMessageEnvelope(executionContext, contextNodeXri);
+			Relation[] refRepRelation = getRefRepRelationPerMessageEnvelope(executionContext, contextNodeAddress);
 			Relation refRelation;
 			Relation repRelation;
 
@@ -362,11 +362,11 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (refRepRelation == null) {
 
-				MessageResult feedbackMessageResult = feedbackFindRefRepRelationsInContext(contextNodeXri, operation, executionContext);
+				MessageResult feedbackMessageResult = feedbackFindRefRepRelationsInContext(contextNodeAddress, operation, executionContext);
 
 				// check for $ref/$rep relations in this context
 
-				ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXri, false);
+				ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeAddress, false);
 				refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
 				repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
 
@@ -376,7 +376,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 				refRepRelation[0] = refRelation;
 				refRepRelation[1] = repRelation;
 
-				setRefRepRelationPerMessageEnvelope(executionContext, contextNodeXri, refRepRelation);
+				setRefRepRelationPerMessageEnvelope(executionContext, contextNodeAddress, refRepRelation);
 			} else {
 
 				refRelation = refRepRelation[0];
@@ -392,7 +392,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				pushRefRepRelationPerOperation(executionContext, refRelation);
 
-				return XDI3Util.concatXris(referenceContextNode.getXri(), localXri);
+				return AddressUtil.concatAddresses(referenceContextNode.getAddress(), localXri);
 			}
 
 			if (repRelation != null) {
@@ -402,19 +402,19 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				pushRefRepRelationPerOperation(executionContext, repRelation);
 
-				return XDI3Util.concatXris(replacementContextNode.getXri(), localXri);
+				return AddressUtil.concatAddresses(replacementContextNode.getAddress(), localXri);
 			}
 
 			// continue with parent context node XRI
 
-			localXri = XDI3Util.concatXris(XDI3Util.localXri(contextNodeXri, 1), localXri);
-			contextNodeXri = XDI3Util.parentXri(contextNodeXri, -1);
-			if (contextNodeXri == null) contextNodeXri = XDIConstants.XRI_S_ROOT;
+			localXri = AddressUtil.concatAddresses(AddressUtil.localXri(contextNodeAddress, 1), localXri);
+			contextNodeAddress = AddressUtil.parentXri(contextNodeAddress, -1);
+			if (contextNodeAddress == null) contextNodeAddress = XDIConstants.XDI_ADD_ROOT;
 		}
 
 		// done
 
-		return originalContextNodeXri;
+		return originalcontextNodeAddress;
 	}
 
 	/*
@@ -438,8 +438,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXri());
 		feedbackMessage.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
 
-		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXri());
-		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XRI_S_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XRI_S_PARAMETER_DEREF, Boolean.TRUE);
+		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getAddress());
+		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
 		// feedback
 
@@ -474,9 +474,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		return feedbackMessageResult;
 	}
 
-	private static MessageResult feedbackFindRefRepRelationsInContext(XDI3Segment contextNodeXri, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static MessageResult feedbackFindRefRepRelationsInContext(XDIAddress contextNodeAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXri);
+		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeAddress);
 
 		// prepare messaging target
 
@@ -493,8 +493,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessageRef.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
 		feedbackMessageRep.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
 
-		feedbackMessageRef.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REF, XDIConstants.XRI_S_VARIABLE));
-		feedbackMessageRep.createGetOperation(XDI3Statement.fromRelationComponents(contextNodeXri, XDIDictionaryConstants.XRI_S_REP, XDIConstants.XRI_S_VARIABLE));
+		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_VARIABLE));
+		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_VARIABLE));
 
 		// feedback
 
@@ -534,7 +534,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXri + ", message result: " + feedbackMessageResult);
+		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeAddress + ", message result: " + feedbackMessageResult);
 
 		return feedbackMessageResult;
 	}
@@ -565,34 +565,34 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	private static final String EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#completedaddressespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static Map<XDI3Segment, Relation[]> getRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
+	private static Map<XDIAddress, Relation[]> getRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
 
-		return (Map<XDI3Segment, Relation[]>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE);
+		return (Map<XDIAddress, Relation[]>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE);
 	}
 
-	private static Relation[] getRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
+	private static Relation[] getRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDIAddress contextNodeAddress) {
 
-		Map<XDI3Segment, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
 
-		Relation[] refRepRelation = refRepRelations.get(contextNodeXri);
+		Relation[] refRepRelation = refRepRelations.get(contextNodeAddress);
 
-		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXri + ": " + refRepRelation);
+		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeAddress + ": " + refRepRelation);
 
 		return refRepRelation;
 	}
 
-	private static void setRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDI3Segment contextNodeXri, Relation[] refRepRelation) {
+	private static void setRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDIAddress contextNodeAddress, Relation[] refRepRelation) {
 
-		Map<XDI3Segment, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
 
-		refRepRelations.put(contextNodeXri, refRepRelation);
+		refRepRelations.put(contextNodeAddress, refRepRelation);
 
-		if (log.isDebugEnabled()) log.debug("Set $ref/$rep relation for " + contextNodeXri + ": " + refRepRelation);
+		if (log.isDebugEnabled()) log.debug("Set $ref/$rep relation for " + contextNodeAddress + ": " + refRepRelation);
 	}
 
 	private static void resetRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE, new HashMap<XDI3Segment, Relation[]> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE, new HashMap<XDIAddress, Relation[]> ());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -626,20 +626,20 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Set<XDI3Segment> getCompletedAddresses(ExecutionContext executionContext) {
+	private static Set<XDIAddress> getCompletedAddresses(ExecutionContext executionContext) {
 
-		return (Set<XDI3Segment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
+		return (Set<XDIAddress>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
 	}
 
-	private static void addCompletedAddress(ExecutionContext executionContext, XDI3Segment contextNodeXri) {
+	private static void addCompletedAddress(ExecutionContext executionContext, XDIAddress contextNodeAddress) {
 
-		getCompletedAddresses(executionContext).add(contextNodeXri);
+		getCompletedAddresses(executionContext).add(contextNodeAddress);
 
-		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeXri);
+		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeAddress);
 	}
 
 	private static void resetCompletedAddresses(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XDI3Segment> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XDIAddress> ());
 	}
 }

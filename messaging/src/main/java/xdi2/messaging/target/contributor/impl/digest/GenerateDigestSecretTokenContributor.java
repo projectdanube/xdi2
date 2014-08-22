@@ -8,8 +8,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -29,7 +29,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
-	public static final XDI3Segment XRI_S_DIGEST_SECRET_TOKEN = XDI3Segment.create("$do<$digest><$secret><$token>");
+	public static final XDIAddress XDI_ADD_DIGEST_SECRET_TOKEN = XDIAddress.create("$do<$digest><$secret><$token>");
 
 	private String globalSalt;
 	private Graph targetGraph;
@@ -87,13 +87,13 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	 */
 
 	@Override
-	public ContributorResult executeDoOnLiteralStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnLiteralStatement(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		Object literalData = relativeTargetStatement.getLiteralData();
 
 		// check if applicable
 
-		if (! operation.getOperationXri().equals(XRI_S_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
+		if (! operation.getOperationXri().equals(XDI_ADD_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
 
 		// check parameters
 

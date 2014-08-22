@@ -34,12 +34,12 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 
 		if (localSaltAndDigestSecretToken == null) {
 
-			if (log.isDebugEnabled()) log.debug("No local salt and digest secret token found for sender: " + message.getSenderXri());
+			if (log.isDebugEnabled()) log.debug("No local salt and digest secret token found for sender: " + message.getSenderAddress());
 
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Local salt and digest secret token found for sender " + message.getSenderXri() + ": " + localSaltAndDigestSecretToken);
+		if (log.isDebugEnabled()) log.debug("Local salt and digest secret token found for sender " + message.getSenderAddress() + ": " + localSaltAndDigestSecretToken);
 
 		// prepare authentication
 

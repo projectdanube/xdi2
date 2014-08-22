@@ -11,9 +11,9 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.AddressUtil;
 
 /**
  * An XDI governor link contract, represented as an XDI entity.
@@ -42,7 +42,7 @@ public class GovernorLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! ((XdiEntitySingleton) xdiEntity).getArcXri().equals(XDILinkContractConstants.XRI_SS_DO)) return false;
+			if (! ((XdiEntitySingleton) xdiEntity).getArc().equals(XDILinkContractConstants.XDI_ARC_DO)) return false;
 
 			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
@@ -50,7 +50,7 @@ public class GovernorLinkContract extends LinkContract {
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
-			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArcXri().equals(XDILinkContractConstants.XRI_SS_EC_DO)) return false;
+			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
 
 			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
 			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
@@ -74,31 +74,31 @@ public class GovernorLinkContract extends LinkContract {
 		return new GovernorLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createGovernorLinkContractXri(XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId) {
+	public static XDIAddress createGovernorLinkContractXri(XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
 
 		if (requestingAuthority == null) throw new NullPointerException();
 		if (templateAuthorityAndId == null) throw new NullPointerException();
 
-		List<XDI3SubSegment> governorLinkContractArcXris = new ArrayList<XDI3SubSegment> ();
+		List<XDIArc> governorLinkContractarcs = new ArrayList<XDIArc> ();
 
-		XDI3SubSegment linkContractInnerRootArcXri = XdiInnerRoot.createInnerRootArcXri(
+		XDIArc linkContractInnerRootarc = XdiInnerRoot.createInnerRootarc(
 				requestingAuthority, 
-				XDI3Util.concatXris(templateAuthorityAndId, XDILinkContractConstants.XRI_SS_DO_VARIABLE));
+				AddressUtil.concatAddresses(templateAuthorityAndId, XDILinkContractConstants.XDI_ARC_DO_VARIABLE));
 
-		governorLinkContractArcXris.add(linkContractInnerRootArcXri);
+		governorLinkContractarcs.add(linkContractInnerRootarc);
 
-		governorLinkContractArcXris.add(XDILinkContractConstants.XRI_SS_DO);
+		governorLinkContractarcs.add(XDILinkContractConstants.XDI_ARC_DO);
 
-		return XDI3Segment.fromComponents(governorLinkContractArcXris);
+		return XDIAddress.fromComponents(governorLinkContractarcs);
 	}
 
 	/**
 	 * Factory method that finds or creates an XDI governor link contract for a graph.
 	 * @return The XDI governor link contract.
 	 */
-	public static GovernorLinkContract findGovernorLinkContract(Graph graph, XDI3Segment requestingAuthority, XDI3Segment templateAuthorityAndId, boolean create) {
+	public static GovernorLinkContract findGovernorLinkContract(Graph graph, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDI3Segment governorLinkContractXri = createGovernorLinkContractXri(requestingAuthority, templateAuthorityAndId);
+		XDIAddress governorLinkContractXri = createGovernorLinkContractXri(requestingAuthority, templateAuthorityAndId);
 
 		ContextNode governorLinkContractContextNode = create ? graph.setDeepContextNode(governorLinkContractXri) : graph.getDeepContextNode(governorLinkContractXri, true);
 		if (governorLinkContractContextNode == null) return null;
@@ -110,26 +110,26 @@ public class GovernorLinkContract extends LinkContract {
 	 * Static methods
 	 */
 
-	public static XDI3Segment getRequestingAuthority(XDI3Segment xri) {
+	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
 
-		XDI3SubSegment linkContractInnerRootArcXri = xri.getFirstSubSegment();
-		if (! XdiInnerRoot.isInnerRootArcXri(linkContractInnerRootArcXri)) return null;
+		XDIArc linkContractInnerRootarc = xri.getFirstArc();
+		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		XDI3Segment subjectXri = XdiInnerRoot.getSubjectOfInnerRootXri(linkContractInnerRootArcXri);
-		XDI3Segment requestingAuthority = subjectXri;
+		XDIAddress subjectXri = XdiInnerRoot.getSubjectOfInnerRootXri(linkContractInnerRootarc);
+		XDIAddress requestingAuthority = subjectXri;
 
 		return requestingAuthority;
 	}
 
-	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
 
-		XDI3SubSegment linkContractInnerRootArcXri = xri.getFirstSubSegment();
-		if (! XdiInnerRoot.isInnerRootArcXri(linkContractInnerRootArcXri)) return null;
+		XDIArc linkContractInnerRootarc = xri.getFirstArc();
+		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		XDI3Segment predicateXri = XdiInnerRoot.getPredicateOfInnerRootXri(linkContractInnerRootArcXri);
-		if (XDI3Util.endsWith(predicateXri, XDILinkContractConstants.XRI_S_DO_VARIABLE) == null) return null;
+		XDIAddress predicateXri = XdiInnerRoot.getPredicateOfInnerRootXri(linkContractInnerRootarc);
+		if (AddressUtil.endsWith(predicateXri, XDILinkContractConstants.XDI_ADD_DO_VARIABLE) == null) return null;
 
-		XDI3Segment templateAuthorityAndId = XDI3Util.parentXri(predicateXri, -1);
+		XDIAddress templateAuthorityAndId = AddressUtil.parentXri(predicateXri, -1);
 
 		return templateAuthorityAndId;
 	}
@@ -138,13 +138,13 @@ public class GovernorLinkContract extends LinkContract {
 	 * Instance methods
 	 */
 
-	public XDI3Segment getRequestingAuthority() {
+	public XDIAddress getRequestingAuthority() {
 
-		return getRequestingAuthority(this.getContextNode().getXri());
+		return getRequestingAuthority(this.getContextNode().getAddress());
 	}
 
-	public XDI3Segment getTemplateAuthorityAndId() {
+	public XDIAddress getTemplateAuthorityAndId() {
 
-		return getTemplateAuthorityAndId(this.getContextNode().getXri());
+		return getTemplateAuthorityAndId(this.getContextNode().getAddress());
 	}
 }

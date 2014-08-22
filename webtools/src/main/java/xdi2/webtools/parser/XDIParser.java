@@ -7,11 +7,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +22,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * Servlet implementation class for Servlet: XDIParser
@@ -74,7 +71,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
+		request.setAttribute("rules", new String[0]);
 		request.setAttribute("rulename", "xdi-statement");
 		request.setAttribute("parser", "manual");
 		request.setAttribute("input", sampleInput);
@@ -103,29 +100,29 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		try {
 
-			ByteArrayOutputStream buffer1 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer3 = new ByteArrayOutputStream();
-			ByteArrayOutputStream buffer4 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer1 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer3 = new ByteArrayOutputStream();
+//			ByteArrayOutputStream buffer4 = new ByteArrayOutputStream();
 			//			ByteArrayOutputStream buffer5 = new ByteArrayOutputStream();
 			//			ByteArrayOutputStream buffer6 = new ByteArrayOutputStream();
 			//			ByteArrayOutputStream buffer7 = new ByteArrayOutputStream();
 			ByteArrayOutputStream buffer8 = new ByteArrayOutputStream();
-			PrintStream stream1 = new PrintStream(buffer1);
-			PrintStream stream2 = new PrintStream(buffer2);
-			PrintStream stream3 = new PrintStream(buffer3);
-			PrintStream stream4 = new PrintStream(buffer4);
+//			PrintStream stream1 = new PrintStream(buffer1);
+//			PrintStream stream2 = new PrintStream(buffer2);
+//			PrintStream stream3 = new PrintStream(buffer3);
+//			PrintStream stream4 = new PrintStream(buffer4);
 			//			PrintStream stream5 = new PrintStream(buffer5);
 			//			PrintStream stream6 = new PrintStream(buffer6);
 			//			PrintStream stream7 = new PrintStream(buffer7);
 			PrintStream stream8 = new PrintStream(buffer8);
 
-			if ("aparse".equals(parser)) {
+			/*   DEPRECATED  if ("aparse".equals(parser)) {
 
 				List<Deque<String>> stackDeques;
 				Set<Entry<String, Integer>> countEntrySet;
 
-				xdi2.core.xri3.parser.aparse.Rule rule = xdi2.core.xri3.parser.aparse.Parser.parse(rulename, input);
+				xdi2.core.xri3.parser.aparse.Rule rule = xdi2.core.syntax.aparse.Parser.parse(rulename, input);
 
 				// tree
 
@@ -199,17 +196,17 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				output6 = html(new String(buffer6.toByteArray(), "UTF-8"));
 
 				output7 = html(new String(buffer7.toByteArray(), "UTF-8"));
-			}*/ else if ("manual".equals(parser)) {
+			} else*/ if ("manual".equals(parser)) {
 
-				XDI3Segment segment;
+				XDIAddress segment;
 
 				try {
 
-					XDI3Statement statement = XDI3Statement.create(input);
+					XDIStatement statement = XDIStatement.create(input);
 					segment = statement.getSubject();
 				} catch (Exception ex) {
 
-					segment = XDI3Segment.create(input);
+					segment = XDIAddress.create(input);
 				}
 
 				Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
@@ -229,7 +226,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 					XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 					Class<?> clazz = xdiContext.getClass();
 
-					stream8.print("<b>" + contextNode.getArcXri() + "</b>" + ": ");
+					stream8.print("<b>" + contextNode.getArc() + "</b>" + ": ");
 
 					stream8.print(clazz.getSimpleName() + " ");
 
@@ -261,7 +258,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 		// display results
 
-		request.setAttribute("rules", xdi2.core.xri3.parser.aparse.ParserRules.rules);
+		request.setAttribute("rules", new String[0]);
 		request.setAttribute("rulename", rulename);
 		request.setAttribute("parser", parser);
 		request.setAttribute("input", input.replace("\"", "&quot;"));

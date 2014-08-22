@@ -4,8 +4,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityMember;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphUtil;
-import xdi2.core.xri3.XDI3Segment;
 
 /**
  * An XDI root link contract, represented as an XDI entity.
@@ -64,7 +64,7 @@ public class RootLinkContract extends GenericLinkContract {
 		return new RootLinkContract(xdiEntity);
 	}
 
-	public static XDI3Segment createRootLinkContractXri(XDI3Segment ownerXri) {
+	public static XDIAddress createRootLinkContractXri(XDIAddress ownerXri) {
 
 		return GenericLinkContract.createGenericLinkContractXri(ownerXri, ownerXri, null);
 	}
@@ -75,7 +75,7 @@ public class RootLinkContract extends GenericLinkContract {
 	 */
 	public static RootLinkContract findRootLinkContract(Graph graph, boolean create) {
 
-		XDI3Segment ownerXri = GraphUtil.getOwnerXri(graph);
+		XDIAddress ownerXri = GraphUtil.getOwnerXri(graph);
 		if (ownerXri == null) return null;
 
 		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, ownerXri, null, create);

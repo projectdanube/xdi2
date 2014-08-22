@@ -1,7 +1,7 @@
 package xdi2.messaging.tests.target.contributor;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -17,15 +17,15 @@ public class TestContributor2 extends AbstractContributor {
 
 	@Override
 	public ContributorResult executeGetOnAddress(
-			XDI3Segment[] contributorXris,
-			XDI3Segment contributorsXri,
-			XDI3Segment relativeTargetAddress,
+			XDIAddress[] contributorXris,
+			XDIAddress contributorsXri,
+			XDIAddress relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().setStatement(XDI3Statement.fromLiteralComponents(
-				XDI3Segment.create("" + contributorsXri + "&"),
+		messageResult.getGraph().setStatement(XDIStatement.fromLiteralComponents(
+				XDIAddress.create("" + contributorsXri + "&"),
 				this.value));
 
 		return ContributorResult.DEFAULT;

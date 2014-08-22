@@ -7,11 +7,11 @@ import java.util.List;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.util.iterators.SelectingIterator;
-import xdi2.core.xri3.XDI3Segment;
 
 public class Equivalence {
 
@@ -23,7 +23,7 @@ public class Equivalence {
 
 	public static Iterator<Relation> getIdentityRelations(ContextNode contextNode) {
 
-		return contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS);
+		return contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS);
 	}
 
 	public static Iterator<ContextNode> getIdentityContextNodes(ContextNode contextNode) {
@@ -33,17 +33,17 @@ public class Equivalence {
 
 	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identityContextNode);
 	}
 
-	public static void setIdentityContextNode(ContextNode contextNode, XDI3Segment identityContextNodeXri) {
+	public static void setIdentityContextNode(ContextNode contextNode, XDIAddress identitycontextNodeAddress) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS, identityContextNodeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeAddress);
 	}
 
 	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
 
-		Iterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_IS);
+		Iterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_IS);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(identityRelations);
@@ -64,7 +64,7 @@ public class Equivalence {
 
 	public static Relation getReferenceRelation(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_REF);
+		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REF);
 	}
 
 	public static ContextNode getReferenceContextNode(ContextNode contextNode) {
@@ -83,10 +83,10 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referenceContextNode);
 	}
 
-	public static void setReferenceContextNode(ContextNode contextNode, XDI3Segment referenceContextNodeXri) {
+	public static void setReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeAddress) {
 
 		Relation referenceRelation = getReferenceRelation(contextNode);
 		if (referenceRelation != null) referenceRelation.delete();
@@ -94,12 +94,12 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, referenceContextNodeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referencecontextNodeAddress);
 	}
 
 	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
 
-		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REF);
+		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REF);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(referenceRelations);
@@ -120,7 +120,7 @@ public class Equivalence {
 
 	public static Relation getReplacementRelation(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_REP);
+		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REP);
 	}
 
 	public static ContextNode getReplacementContextNode(ContextNode contextNode) {
@@ -139,10 +139,10 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementContextNode);
 	}
 
-	public static void setReplacementContextNode(ContextNode contextNode, XDI3Segment replacementContextNodeXri) {
+	public static void setReplacementContextNode(ContextNode contextNode, XDIAddress replacementcontextNodeAddress) {
 
 		Relation referenceRelation = getReferenceRelation(contextNode);
 		if (referenceRelation != null) referenceRelation.delete();
@@ -150,12 +150,12 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_REP, replacementContextNodeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementcontextNodeAddress);
 	}
 
 	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
 
-		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XRI_S_REP);
+		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REP);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(replacementRelations);
@@ -181,7 +181,7 @@ public class Equivalence {
 			@Override
 			public boolean select(Relation relation) {
 
-				return relation.getArcXri().equals(XDIDictionaryConstants.XRI_S_REF) || relation.getArcXri().equals(XDIDictionaryConstants.XRI_S_REP);
+				return relation.getArc().equals(XDIDictionaryConstants.XDI_ADD_REF) || relation.getArc().equals(XDIDictionaryConstants.XDI_ADD_REP);
 			}
 		};
 	}

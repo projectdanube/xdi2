@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.core.convert.converter.Converter;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
 
@@ -20,18 +20,18 @@ public class MapContributorMapConverter implements Converter<Map<?, ?>, Contribu
 
 			Object key = item.getKey();
 
-			if (key instanceof String) key = XDI3Segment.create((String) key);
+			if (key instanceof String) key = XDIAddress.create((String) key);
 			
 			Object value = item.getValue();
 
 			if (value instanceof Contributor) {
 
-				target.addContributor((XDI3Segment) key, (Contributor) value);
+				target.addContributor((XDIAddress) key, (Contributor) value);
 			} else if (value instanceof List<?>) {
 
 				for (Object item2 : (List<?>) value) {
 
-					target.addContributor((XDI3Segment) key, (Contributor) item2);
+					target.addContributor((XDIAddress) key, (Contributor) item2);
 				}
 			}
 		}

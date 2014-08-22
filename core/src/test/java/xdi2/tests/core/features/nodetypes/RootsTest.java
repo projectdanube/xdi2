@@ -7,7 +7,7 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class RootsTest extends TestCase {
 
@@ -15,8 +15,8 @@ public class RootsTest extends TestCase {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		XdiLocalRoot localRoot = XdiLocalRoot.findLocalRoot(graph);
-		XdiPeerRoot peerRoot = localRoot.getPeerRoot(XDI3Segment.create("[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24"), true);
-		XdiInnerRoot innerRoot = peerRoot.getInnerRoot(XDI3Segment.create("[=]!1111"), XDI3Segment.create("$add"), true);
+		XdiPeerRoot peerRoot = localRoot.getPeerRoot(XDIAddress.create("[=]!:uuid:91f28153-f600-ae24-91f2-8153f600ae24"), true);
+		XdiInnerRoot innerRoot = peerRoot.getInnerRoot(XDIAddress.create("[=]!1111"), XDIAddress.create("$add"), true);
 		
 		assertTrue(XdiAbstractContext.fromContextNode(localRoot.getContextNode()) instanceof XdiLocalRoot);
 		assertTrue(XdiAbstractContext.fromContextNode(peerRoot.getContextNode()) instanceof XdiPeerRoot);

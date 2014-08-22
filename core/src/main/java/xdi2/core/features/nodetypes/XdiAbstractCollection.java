@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered.MappingContextNodeXdiMemberUnorderedIterator;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -17,7 +18,6 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NoDuplicatesIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQC> implements XdiCollection<EQC, EQI, C, U, O, I> {
 
@@ -74,10 +74,10 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Methods for XRIs
 	 */
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidarc(XDIArc arc) {
 
-		return XdiEntityCollection.isValidArcXri(arcXri) || 
-				XdiAttributeCollection.isValidArcXri(arcXri);
+		return XdiEntityCollection.isValidarc(arc) || 
+				XdiAttributeCollection.isValidarc(arc);
 	}
 
 	/*
@@ -89,13 +89,13 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI instance.
 	 */
 	@Override
-	public U setXdiMemberUnordered(XDI3SubSegment arcXri) {
+	public U setXdiMemberUnordered(XDIArc arc) {
 
 		boolean attribute = this.attribute();
 
-		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createRandomUuidArcXri(attribute);
+		if (arc == null) arc = XdiAbstractMemberUnordered.createRandomUuidarc(attribute);
 
-		ContextNode memberContextNode = this.getContextNode().setContextNode(arcXri);
+		ContextNode memberContextNode = this.getContextNode().setContextNode(arc);
 
 		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
 	}
@@ -105,9 +105,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI instance.
 	 */
 	@Override
-	public U getXdiMemberUnordered(XDI3SubSegment arcXri) {
+	public U getXdiMemberUnordered(XDIArc arc) {
 		
-		ContextNode memberContextNode = this.getContextNode().getContextNode(arcXri, false);
+		ContextNode memberContextNode = this.getContextNode().getContextNode(arc, false);
 		if (memberContextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
@@ -143,9 +143,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if (index < 0) index = this.getXdiMembersOrderedCount();
 
-		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), attribute);
+		XDIArc arc = XdiAbstractMemberOrdered.createarc(Long.toString(index), attribute);
 
-		ContextNode contextNode = this.getContextNode().setContextNode(arcXri);
+		ContextNode contextNode = this.getContextNode().setContextNode(arc);
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());
 	}
@@ -159,9 +159,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		boolean attribute = this.attribute();
 
-		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), attribute);
+		XDIArc arc = XdiAbstractMemberOrdered.createarc(Long.toString(index), attribute);
 
-		ContextNode contextNode = this.getContextNode().getContextNode(arcXri, false);
+		ContextNode contextNode = this.getContextNode().getContextNode(arc, false);
 		if (contextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());

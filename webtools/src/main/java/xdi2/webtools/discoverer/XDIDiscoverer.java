@@ -22,7 +22,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.MessageResult;
@@ -145,7 +145,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			loggingTrustManager = new LoggingTrustManager();
 
 			startRegistry = System.currentTimeMillis();
-			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDI3Segment.create(input), null);
+			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDIAddress.create(input), null);
 			stopRegistry = System.currentTimeMillis();
 
 			// output result from registry
@@ -172,7 +172,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					writer.write("Services: (none)\n");
 				} else {
 
-					for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultRegistry.getEndpointUris().entrySet()) {
+					for (Map.Entry<XDIAddress, String> endpointUri : discoveryResultRegistry.getEndpointUris().entrySet()) {
 
 						writer.write("Service " + endpointUri.getKey() + ": " + endpointUri.getValue() + "\n");
 					}
@@ -209,8 +209,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					loggingTrustManager = new LoggingTrustManager();
 
 					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
-					XDI3Segment[] endpointUriTypes = new XDI3Segment[endpointUriTypesString.length];
-					for (int i=0; i<endpointUriTypes.length; i++) endpointUriTypes[i] = XDI3Segment.create(endpointUriTypesString[i].trim());
+					XDIAddress[] endpointUriTypes = new XDIAddress[endpointUriTypesString.length];
+					for (int i=0; i<endpointUriTypes.length; i++) endpointUriTypes[i] = XDIAddress.create(endpointUriTypesString[i].trim());
 
 					try {
 
@@ -249,7 +249,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					writer2.write("Services: (none)\n");
 				} else {
 
-					for (Map.Entry<XDI3Segment, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
+					for (Map.Entry<XDIAddress, String> endpointUri : discoveryResultAuthority.getEndpointUris().entrySet()) {
 
 						writer2.write("Service " + endpointUri.getKey() + ": " + endpointUri.getValue() + "\n");
 					}

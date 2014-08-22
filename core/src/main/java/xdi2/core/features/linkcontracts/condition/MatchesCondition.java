@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * An XDI $matches condition, represented as a statement.
@@ -17,7 +17,7 @@ public class MatchesCondition extends Condition {
 
 	private static final long serialVersionUID = -3144452704386786096L;
 
-	protected MatchesCondition(XDI3Statement statement) {
+	protected MatchesCondition(XDIStatement statement) {
 
 		super(statement);
 	}
@@ -31,11 +31,11 @@ public class MatchesCondition extends Condition {
 	 * @param statement The statement to check.
 	 * @return True if the statement is a valid XDI $matches condition.
 	 */
-	public static boolean isValid(XDI3Statement statement) {
+	public static boolean isValid(XDIStatement statement) {
 
 		if (! statement.isRelationStatement()) return false;
 
-		if (! XDIPolicyConstants.XRI_S_MATCHES.equals(statement.getRelationArcXri())) return false;
+		if (! XDIPolicyConstants.XDI_ADD_MATCHES.equals(statement.getRelationAddress())) return false;
 
 		return true;
 	}
@@ -45,16 +45,16 @@ public class MatchesCondition extends Condition {
 	 * @param statement The statement that is an XDI $matches condition.
 	 * @return The XDI $matches condition.
 	 */
-	public static MatchesCondition fromStatement(XDI3Statement statement) {
+	public static MatchesCondition fromStatement(XDIStatement statement) {
 
 		if (! isValid(statement)) return null;
 
 		return new MatchesCondition(statement);
 	}
 
-	public static MatchesCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
+	public static MatchesCondition fromSubjectAndObject(XDIAddress subject, XDIAddress object) {
 
-		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_MATCHES, object));
+		return fromStatement(XDIStatement.fromRelationComponents(subject, XDIPolicyConstants.XDI_ADD_MATCHES, object));
 	}
 
 	/*
@@ -65,7 +65,7 @@ public class MatchesCondition extends Condition {
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatementXri().getObject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 

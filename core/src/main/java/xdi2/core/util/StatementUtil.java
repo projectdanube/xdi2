@@ -3,8 +3,8 @@ package xdi2.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * Various utility methods for working with statements.
@@ -18,83 +18,83 @@ public final class StatementUtil {
 	private StatementUtil() { }
 
 	/**
-	 * Removes a start XRI from a statement.
+	 * Removes a start address from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start, final boolean variablesInXri, boolean variablesInStart) {
+	public static XDIStatement removeStartAddressStatement(final XDIStatement statement, final XDIAddress start, final boolean variablesInAddress, boolean variablesInStart) {
 
-		if (statementXri == null) throw new NullPointerException();
+		if (statement == null) throw new NullPointerException();
 		if (start == null) throw new NullPointerException();
 
-		XDI3Statement result = null;
+		XDIStatement result = null;
 
 		try {
 
-			XDI3Segment subject;
-			XDI3Segment predicate;
+			XDIAddress subject;
+			XDIAddress predicate;
 			Object object;
 
 			// subject
 
-			subject = XDI3Util.removeStartXri(statementXri.getSubject(), start, variablesInXri, variablesInStart);
+			subject = AddressUtil.removeStartAddress(statement.getSubject(), start, variablesInAddress, variablesInStart);
 			if (subject == null) { result = null; return result; }
 
 			// predicate
 
-			predicate = statementXri.getPredicate();
+			predicate = statement.getPredicate();
 
 			// object
 
-			object = statementXri.getObject();
+			object = statement.getObject();
 
-			{ result = XDI3Statement.fromComponents(subject, predicate, object); return result; }
+			{ result = XDIStatement.fromComponents(subject, predicate, object); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("removeStartXriStatement(" + statementXri + "," + start + "," + variablesInXri + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("removeStartAddressStatement(" + statement + "," + start + "," + variablesInAddress + "," + variablesInStart + ") --> " + result);
 		}
 	}
 
 	/**
-	 * Removes a start XRI from a statement.
+	 * Removes a start address from a statement.
 	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
 	 */
-	public static XDI3Statement removeStartXriStatement(final XDI3Statement statementXri, final XDI3Segment start) {
+	public static XDIStatement removeStartAddressStatement(final XDIStatement statement, final XDIAddress start) {
 
-		return removeStartXriStatement(statementXri, start, false, false);
+		return removeStartAddressStatement(statement, start, false, false);
 	}
 
 	/**
-	 * Concats an XRI and a statement into a new statement.
+	 * Concats an address and a statement into a new statement.
 	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 	 */
-	public static XDI3Statement concatXriStatement(final XDI3Segment xri, final XDI3Statement statementXri) {
+	public static XDIStatement concatAddressStatement(final XDIAddress address, final XDIStatement statement) {
 
-		if (statementXri == null) throw new NullPointerException();
+		if (statement == null) throw new NullPointerException();
 
-		XDI3Statement result = null;
+		XDIStatement result = null;
 
 		try {
 
-			XDI3Segment subject;
-			XDI3Segment predicate;
+			XDIAddress subject;
+			XDIAddress predicate;
 			Object object;
 
 			// subject
 
-			subject = XDI3Util.concatXris(xri, statementXri.getSubject());
+			subject = AddressUtil.concatAddresses(address, statement.getSubject());
 
 			// predicate
 
-			predicate = statementXri.getPredicate();
+			predicate = statement.getPredicate();
 
 			// object
 
-			object = statementXri.getObject();
+			object = statement.getObject();
 
-			{ result = XDI3Statement.fromComponents(subject, predicate, object); return result; }
+			{ result = XDIStatement.fromComponents(subject, predicate, object); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("concatXriStatement(" + xri + "," + statementXri + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatAddressStatement(" + address + "," + statement + ") --> " + result);
 		}
 	}
 }

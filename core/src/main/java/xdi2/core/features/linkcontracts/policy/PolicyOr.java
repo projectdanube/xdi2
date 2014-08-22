@@ -36,11 +36,11 @@ public class PolicyOr extends Policy {
 	public static boolean isValid(XdiEntity xdiEntity) {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+			return ((XdiEntitySingleton) xdiEntity).getBasearc().equals(XDIPolicyConstants.XDI_ARC_OR);
 		else if (xdiEntity instanceof XdiEntityMemberUnordered)
-			return ((XdiEntityMemberUnordered) xdiEntity).getXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+			return ((XdiEntityMemberUnordered) xdiEntity).getXdiCollection().getBasearc().equals(XDIPolicyConstants.XDI_ARC_OR);
 		else if (xdiEntity instanceof XdiEntityMemberOrdered)
-			return ((XdiEntityMemberOrdered) xdiEntity).getXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_OR);
+			return ((XdiEntityMemberOrdered) xdiEntity).getXdiCollection().getBasearc().equals(XDIPolicyConstants.XDI_ARC_OR);
 
 		return false;
 	}

@@ -35,7 +35,7 @@ public class LinkContracts {
 	 */
 	public static LinkContract getLinkContract(ContextNode contextNode, boolean create) {
 
-		ContextNode linkContractContextNode = create ? contextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : contextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO, true);
+		ContextNode linkContractContextNode = create ? contextNode.setDeepContextNode(XDILinkContractConstants.XDI_ADD_DO) : contextNode.getDeepContextNode(XDILinkContractConstants.XDI_ADD_DO, true);
 		if (linkContractContextNode == null) return null;
 
 		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(linkContractContextNode);

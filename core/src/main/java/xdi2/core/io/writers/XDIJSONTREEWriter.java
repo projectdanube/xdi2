@@ -99,14 +99,14 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 			if (! writeImplied && innerContextNode.getStatement().isImplied() && innerContextNode.isEmpty()) continue;
 
-			if (json.get(innerContextNode.getArcXri().toString()) == null) {
+			if (json.get(innerContextNode.getArc().toString()) == null) {
 
-				if (innerContextNode.getArcXri().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
+				if (innerContextNode.getArc().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
 
 					json.add(XDIConstants.CS_VALUE.toString(), AbstractLiteral.literalDataToJsonElement(innerContextNode.getLiteral().getLiteralData()));
 				} else {
 
-					json.add(innerContextNode.getArcXri().toString(), makeJson(innerContextNode, writeImplied));
+					json.add(innerContextNode.getArc().toString(), makeJson(innerContextNode, writeImplied));
 				}
 			}
 		}
@@ -120,10 +120,10 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 			JsonObject relationsJson = json.getAsJsonObject("/");
 			if (relationsJson == null) { relationsJson = new JsonObject(); json.add("/", relationsJson); }
 
-			JsonArray relationJson = relationsJson.getAsJsonArray(relation.getArcXri().toString());
-			if (relationJson == null) { relationJson = new JsonArray(); relationsJson.add(relation.getArcXri().toString(), relationJson); }
+			JsonArray relationJson = relationsJson.getAsJsonArray(relation.getArc().toString());
+			if (relationJson == null) { relationJson = new JsonArray(); relationsJson.add(relation.getArc().toString(), relationJson); }
 
-			relationJson.add(new JsonPrimitive(relation.getTargetContextNodeXri().toString()));
+			relationJson.add(new JsonPrimitive(relation.getTargetContextNodeAddress().toString()));
 		}
 
 		// done

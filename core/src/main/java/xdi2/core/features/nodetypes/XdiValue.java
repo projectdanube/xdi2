@@ -5,9 +5,9 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI value (context function), represented as a context node.
@@ -36,7 +36,7 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 
 		if (contextNode == null) return false;
 
-		return isValidArcXri(contextNode.getArcXri()) &&
+		return isValidarc(contextNode.getArc()) &&
 				XdiAbstractAttribute.isValid(contextNode.getContextNode());
 	}
 
@@ -104,21 +104,21 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri() {
+	public static XDIArc createarc() {
 
-		return XDIConstants.XRI_SS_LITERAL;
+		return XDIConstants.XDI_ARC_LITERAL;
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidarc(XDIArc arc) {
 
-		if (arcXri == null) return false;
+		if (arc == null) return false;
 
-		if (arcXri.isClassXs()) return false;
-		if (arcXri.isAttributeXs()) return false;
-		if (arcXri.hasLiteral()) return false;
-		if (arcXri.hasXRef()) return false;
+		if (arc.isClassXs()) return false;
+		if (arc.isAttributeXs()) return false;
+		if (arc.hasLiteral()) return false;
+		if (arc.hasXRef()) return false;
 
-		if (! XDIConstants.CS_VALUE.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_VALUE.equals(arc.getCs())) return false;
 
 		return true;
 	}

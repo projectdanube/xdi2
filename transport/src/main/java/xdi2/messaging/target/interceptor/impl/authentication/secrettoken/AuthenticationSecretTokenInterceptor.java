@@ -88,7 +88,7 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor<Me
 		boolean authenticated = this.getSecretTokenAuthenticator().authenticate(message, secretToken);
 		if (! authenticated) throw new Xdi2AuthenticationException("Invalid secret token.", null, executionContext);
 
-		XdiAttribute secretTokenValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN_VALID));
+		XdiAttribute secretTokenValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN_VALID));
 		XdiValue secretTokenValidXdiValue = secretTokenValidXdiAttribute.getXdiValue(true);
 		Literal secretTokenValidLiteral = secretTokenValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
 

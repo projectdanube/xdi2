@@ -2,7 +2,7 @@ package xdi2.messaging;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.util.XDI3Util;
+import xdi2.core.util.AddressUtil;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -30,8 +30,8 @@ public class DoOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (XDI3Util.startsWith(relation.getArcXri(), XDIMessagingConstants.XRI_S_DO) == null) return false;
-		if (! XdiEntitySingleton.createArcXri(XDIMessagingConstants.XRI_SS_DO).equals(relation.getContextNode().getArcXri())) return false;
+		if (AddressUtil.startsWith(relation.getArc(), XDIMessagingConstants.XDI_ADD_DO) == null) return false;
+		if (! XdiEntitySingleton.createarc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getArc())) return false;
 
 		return true;
 	}

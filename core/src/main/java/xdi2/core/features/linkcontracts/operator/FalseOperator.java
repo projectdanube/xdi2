@@ -40,7 +40,7 @@ public class FalseOperator extends ConditionOperator {
 
 		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
 		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
-		if (! XDIConstants.XRI_S_FALSE.equals(relation.getArcXri())) return false;
+		if (! XDIConstants.XDI_ADD_FALSE.equals(relation.getArc())) return false;
 		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 		return true;
@@ -62,7 +62,7 @@ public class FalseOperator extends ConditionOperator {
 
 		if (policy == null) throw new NullPointerException();
 
-		XdiInnerRoot xdiInnerRoot = policy.getXdiEntity().getXdiInnerRoot(XDIConstants.XRI_S_FALSE, true);
+		XdiInnerRoot xdiInnerRoot = policy.getXdiEntity().getXdiInnerRoot(XDIConstants.XDI_ADD_FALSE, true);
 		xdiInnerRoot.getContextNode().setStatement(condition.getStatementXri());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());

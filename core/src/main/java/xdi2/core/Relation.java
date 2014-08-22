@@ -3,7 +3,7 @@ package xdi2.core;
 import java.io.Serializable;
 
 import xdi2.core.Statement.RelationStatement;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 /**
  * This interface represents a relation in an XDI graph.
@@ -34,16 +34,16 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	public void delete();
 
 	/**
-	 * Every relation has an associated arc XRI.
-	 * @return The arc XRI associated with the relation.
+	 * Every relation has an associated arc.
+	 * @return The arc associated with the relation.
 	 */
-	public XDI3Segment getArcXri();
+	public XDIAddress getArc();
 
 	/**
-	 * Get the target context node XRI.
-	 * @return The target context node XRI of the relation.
+	 * Get the target context node address.
+	 * @return The target context node address of the relation.
 	 */
-	public XDI3Segment getTargetContextNodeXri();
+	public XDIAddress getTargetContextNodeAddress();
 
 	/**
 	 * Follows the relation to the target context node.

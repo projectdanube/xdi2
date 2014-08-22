@@ -2,7 +2,7 @@ package xdi2.core.features.linkcontracts.condition;
 
 import xdi2.core.Statement;
 import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * An XDI generic condition, represented as a statement.
@@ -13,7 +13,7 @@ public class GenericCondition extends Condition {
 
 	private static final long serialVersionUID = 3812888725775095575L;
 
-	protected GenericCondition(XDI3Statement statementXri) {
+	protected GenericCondition(XDIStatement statementXri) {
 
 		super(statementXri);
 	}
@@ -27,7 +27,7 @@ public class GenericCondition extends Condition {
 	 * @param statement The statement to check.
 	 * @return True if the statement is a valid XDI generic condition.
 	 */
-	public static boolean isValid(XDI3Statement statement) {
+	public static boolean isValid(XDIStatement statement) {
 
 		return true;
 	}
@@ -37,7 +37,7 @@ public class GenericCondition extends Condition {
 	 * @param statement The statement that is an XDI generic condition.
 	 * @return The XDI generic condition.
 	 */
-	public static GenericCondition fromStatement(XDI3Statement statement) {
+	public static GenericCondition fromStatement(XDIStatement statement) {
 
 		if (! isValid(statement)) return null;
 

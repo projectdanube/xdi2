@@ -107,7 +107,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 		@Override
 		public String transform(Object object) {
 
-			if (object instanceof ContextNode) return ((ContextNode) object).getXri().getLastSubSegment().toString();
+			if (object instanceof ContextNode) return ((ContextNode) object).getAddress().getLastArc().toString();
 			if (object instanceof Literal) return AbstractLiteral.literalDataToString(((Literal) object).getLiteralData());
 
 			return null;

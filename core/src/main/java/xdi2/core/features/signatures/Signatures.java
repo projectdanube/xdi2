@@ -27,14 +27,14 @@ import xdi2.core.features.signatures.Signature.NoSignaturesCopyStrategy;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIJSONWriter;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class Signatures {
 
@@ -64,11 +64,11 @@ public class Signatures {
 		XdiAttribute signatureXdiAttribute;
 
 		if (singleton)
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), true);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createarc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
 		else
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), true).setXdiMemberUnordered(null);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createarc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(null);
 
-		XDI3Segment dataTypeXri = getDataTypeXri(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
+		XDIAddress dataTypeXri = getDataTypeXri(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
 		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXri);
 
 		return Signature.fromXdiAttribute(signatureXdiAttribute);
@@ -85,13 +85,13 @@ public class Signatures {
 
 		// add signature that is an XDI attribute singleton
 
-		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), false);
+		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createarc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (Signature.fromXdiAttribute(signatureAttributeSingleton)));
 
 		// add signatures that are XDI attribute instances
 
-		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createArcXri(XDIAuthenticationConstants.XRI_SS_SIGNATURE), false);
+		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createarc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiMembersDeref()));
 
@@ -136,21 +136,21 @@ public class Signatures {
 			graph.close();
 		}
 
-		if (log.isDebugEnabled()) log.debug("Normalized context node " + contextNode.getXri() + ": " + string);
+		if (log.isDebugEnabled()) log.debug("Normalized context node " + contextNode.getAddress() + ": " + string);
 
 		return string;
 	}
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
 		return dataTypeXri == null ? null : getDigestAlgorithm(dataTypeXri);
 	}
 
-	public static String getDigestAlgorithm(XDI3Segment dataTypeXri) {
+	public static String getDigestAlgorithm(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment digestAlgorithmXri = dataTypeXri.getNumSubSegments() > 0 ? dataTypeXri.getSubSegment(0) : null;
+		XDIArc digestAlgorithmXri = dataTypeXri.getNumArcs() > 0 ? dataTypeXri.getArc(0) : null;
 		if (digestAlgorithmXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmXri.getCs())) return null;
@@ -162,14 +162,14 @@ public class Signatures {
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
 		return dataTypeXri == null ? null : getDigestLength(dataTypeXri);
 	}
 
-	public static Integer getDigestLength(XDI3Segment dataTypeXri) {
+	public static Integer getDigestLength(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment digestLengthXri = dataTypeXri.getNumSubSegments() > 1 ? dataTypeXri.getSubSegment(1) : null;
+		XDIArc digestLengthXri = dataTypeXri.getNumArcs() > 1 ? dataTypeXri.getArc(1) : null;
 		if (digestLengthXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthXri.getCs())) return null;
@@ -181,14 +181,14 @@ public class Signatures {
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
 		return dataTypeXri == null ? null : getKeyAlgorithm(dataTypeXri);
 	}
 
-	public static String getKeyAlgorithm(XDI3Segment dataTypeXri) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment keyAlgorithmXri = dataTypeXri.getNumSubSegments() > 2 ? dataTypeXri.getSubSegment(2) : null;
+		XDIArc keyAlgorithmXri = dataTypeXri.getNumArcs() > 2 ? dataTypeXri.getArc(2) : null;
 		if (keyAlgorithmXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
@@ -200,14 +200,14 @@ public class Signatures {
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
 
-		XDI3Segment dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
 
 		return dataTypeXri == null ? null : getKeyLength(dataTypeXri);
 	}
 
-	public static Integer getKeyLength(XDI3Segment dataTypeXri) {
+	public static Integer getKeyLength(XDIAddress dataTypeXri) {
 
-		XDI3SubSegment keyLengthXri = dataTypeXri.getNumSubSegments() > 3 ? dataTypeXri.getSubSegment(3) : null;
+		XDIArc keyLengthXri = dataTypeXri.getNumArcs() > 3 ? dataTypeXri.getArc(3) : null;
 		if (keyLengthXri == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
@@ -217,7 +217,7 @@ public class Signatures {
 		return Integer.valueOf(keyLengthXri.getLiteral());
 	}
 
-	public static XDI3Segment getDataTypeXri(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+	public static XDIAddress getDataTypeXri(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
 
 		StringBuilder builder = new StringBuilder();
 
@@ -226,7 +226,7 @@ public class Signatures {
 		builder.append(XDIConstants.CS_CLASS_RESERVED + keyAlgorithm.toLowerCase());
 		builder.append(XDIConstants.CS_CLASS_RESERVED + Integer.toString(keyLength));
 
-		return XDI3Segment.create(builder.toString());
+		return XDIAddress.create(builder.toString());
 	}
 
 	/*

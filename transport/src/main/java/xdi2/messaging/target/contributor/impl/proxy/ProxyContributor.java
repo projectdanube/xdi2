@@ -10,12 +10,12 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.util.AddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
@@ -44,9 +44,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private XDI3SubSegment toPeerRootXri;
+	private XDIArc toPeerRootXri;
 	private XDIClient xdiClient;
-	private XDI3Segment linkContractXri;
+	private XDIAddress linkContractXri;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
@@ -95,7 +95,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.toPeerRootXri != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(this.toPeerRootXri), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getAddressOfPeerRootArc(this.toPeerRootXri), null);
 
 			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXri);
 
@@ -114,9 +114,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.getToPeerRootXri() != null && this.getXdiClient() != null) {
 
-			XDI3SubSegment staticForwardingTargetToPeerRootXri = this.getToPeerRootXri();
+			XDIArc staticForwardingTargetToPeerRootXri = this.getToPeerRootXri();
 			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
-			XDI3Segment staticLinkContractXri = this.getLinkContractXri();
+			XDIAddress staticLinkContractXri = this.getLinkContractXri();
 
 			if (log.isDebugEnabled()) log.debug("Setting static forwarding target: " + staticForwardingTargetToPeerRootXri + " (" + staticForwardingTargetXdiClient + ") with link contract XRI " + staticLinkContractXri);
 
@@ -130,8 +130,8 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		// no static forwarding target, so we check if the target is self
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3SubSegment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
-		XDI3SubSegment toPeerRootXri = message.getToPeerRootXri();
+		XDIArc ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDIArc toPeerRootXri = message.getToPeerRootXri();
 
 		if (toPeerRootXri == null || toPeerRootXri.equals(ownerPeerRootXri)) {
 
@@ -162,9 +162,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (messagingTargetMount != null) {
 
-				XDI3SubSegment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
+				XDIArc dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
 				XDIClient dynamicForwardingTargetXdiClient = new XDILocalClient(messagingTargetMount.getMessagingTarget());
-				XDI3Segment dynamicLinkContractXri = message.getLinkContractXri();
+				XDIAddress dynamicLinkContractXri = message.getLinkContractXri();
 
 				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ") with link contract XRI " + dynamicLinkContractXri);
 
@@ -184,7 +184,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXriOfPeerRootArcXri(toPeerRootXri), null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getAddressOfPeerRootArc(toPeerRootXri), null);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + toPeerRootXri + ": " + ex.getMessage(), ex, executionContext);
@@ -193,9 +193,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toPeerRootXri, null, executionContext);
 		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toPeerRootXri, null, executionContext);
 
-		XDI3SubSegment dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
+		XDIArc dynamicForwardingTargetToPeerRootXri = toPeerRootXri;
 		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
-		XDI3Segment dynamicLinkContractXri = message.getLinkContractXri();
+		XDIAddress dynamicLinkContractXri = message.getLinkContractXri();
 
 		if (log.isDebugEnabled()) log.debug("Setting dynamic remote forwarding target: " + dynamicForwardingTargetToPeerRootXri + " (" + dynamicForwardingTargetXdiClient + ") with link contract XRI " + dynamicLinkContractXri);
 
@@ -217,13 +217,13 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 */
 
 	@Override
-	public ContributorResult executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check forwarding target
 
-		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext, this);
+		XDIArc toPeerRootXri = getToPeerRootXri(executionContext, this);
 		XDIClient xdiClient = getXdiClient(executionContext, this);
-		XDI3Segment linkContractXri = getLinkContractXri(executionContext, this);
+		XDIAddress linkContractXri = getLinkContractXri(executionContext, this);
 
 		if (toPeerRootXri == null || xdiClient == null || linkContractXri == null) return ContributorResult.DEFAULT;
 
@@ -232,7 +232,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		Message message = operation.getMessage();
 		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding: " + message);
 
-		XDI3Segment targetAddress = XDI3Util.concatXris(contributorsXri, relativeTargetAddress);
+		XDIAddress targetAddress = AddressUtil.concatAddresses(contributorsXri, relativeTargetAddress);
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(message);
 
@@ -287,13 +287,13 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	}
 
 	@Override
-	public ContributorResult executeOnStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnStatement(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIStatement relativeTargetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check forwarding target
 
-		XDI3SubSegment toPeerRootXri = getToPeerRootXri(executionContext, this);
+		XDIArc toPeerRootXri = getToPeerRootXri(executionContext, this);
 		XDIClient xdiClient = getXdiClient(executionContext, this);
-		XDI3Segment linkContractXri = getLinkContractXri(executionContext, this);
+		XDIAddress linkContractXri = getLinkContractXri(executionContext, this);
 
 		if (toPeerRootXri == null || xdiClient == null || linkContractXri == null) return ContributorResult.DEFAULT;
 
@@ -302,9 +302,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		Message message = operation.getMessage();
 		if (log.isDebugEnabled()) log.debug("Message as a basis for forwarding: " + message);
 
-		XDI3Statement targetStatement = StatementUtil.concatXriStatement(contributorsXri, relativeTargetStatement);
+		XDIStatement targetStatement = StatementUtil.concatAddressStatement(contributorsXri, relativeTargetStatement);
 
-		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderXri());
+		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderAddress());
 
 		forwardingMessage.setToPeerRootXri(toPeerRootXri);
 		forwardingMessage.setLinkContractXri(linkContractXri);
@@ -364,12 +364,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * Getters and setters
 	 */
 
-	public XDI3SubSegment getToPeerRootXri() {
+	public XDIArc getToPeerRootXri() {
 
 		return this.toPeerRootXri;
 	}
 
-	public void setToPeerRootXri(XDI3SubSegment toPeerRootXri) {
+	public void setToPeerRootXri(XDIArc toPeerRootXri) {
 
 		this.toPeerRootXri = toPeerRootXri;
 	}
@@ -384,12 +384,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		this.xdiClient = xdiClient;
 	}
 
-	public XDI3Segment getLinkContractXri() {
+	public XDIAddress getLinkContractXri() {
 
 		return this.linkContractXri;
 	}
 
-	public void setLinkContractXri(XDI3Segment linkContractXri) {
+	public void setLinkContractXri(XDIAddress linkContractXri) {
 
 		this.linkContractXri = linkContractXri;
 	}
@@ -452,12 +452,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#xdiclientpermessage";
 	private static final String EXECUTIONCONTEXT_KEY_LINK_CONTRACT_XRI_PER_MESSAGE = ProxyContributor.class.getCanonicalName() + "#linkcontractxri";
 
-	public static XDI3SubSegment getToPeerRootXri(ExecutionContext executionContext, ProxyContributor proxyContributor) {
+	public static XDIArc getToPeerRootXri(ExecutionContext executionContext, ProxyContributor proxyContributor) {
 
-		return (XDI3SubSegment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
+		return (XDIArc) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
 	}
 
-	public static void putToPeerRootXri(ExecutionContext executionContext, XDI3SubSegment toPeerRootXri, ProxyContributor proxyContributor) {
+	public static void putToPeerRootXri(ExecutionContext executionContext, XDIArc toPeerRootXri, ProxyContributor proxyContributor) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_TO_PEER_ROOT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)), toPeerRootXri);
 	}
@@ -472,12 +472,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)), xdiClient);
 	}
 
-	public static XDI3Segment getLinkContractXri(ExecutionContext executionContext, ProxyContributor proxyContributor) {
+	public static XDIAddress getLinkContractXri(ExecutionContext executionContext, ProxyContributor proxyContributor) {
 
-		return (XDI3Segment) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINK_CONTRACT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
+		return (XDIAddress) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_LINK_CONTRACT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)));
 	}
 
-	public static void putLinkContractXri(ExecutionContext executionContext, XDI3Segment linkContractXri, ProxyContributor proxyContributor) {
+	public static void putLinkContractXri(ExecutionContext executionContext, XDIAddress linkContractXri, ProxyContributor proxyContributor) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINK_CONTRACT_XRI_PER_MESSAGE + Integer.toString(System.identityHashCode(proxyContributor)), linkContractXri);
 	}

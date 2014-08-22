@@ -2,7 +2,7 @@ package xdi2.tests.core.features.secrettokens;
 
 import junit.framework.TestCase;
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class SecretTokensTest extends TestCase {
 
@@ -16,7 +16,7 @@ public class SecretTokensTest extends TestCase {
 	public static String[] VALID_SALTS = new String[] { GLOBAL_SALT, LOCAL_SALT };
 	public static String[] INVALID_SALTS = new String[] { "3b97782d:b130:4906:b41d:f83b6968765f", "0-0-0-0-0" };
 
-	public static XDI3Segment SENDER_XRI = XDI3Segment.create("=sender");
+	public static XDIAddress SENDER_XRI = XDIAddress.create("=sender");
 
 	public void testDigestSecretTokenAuthenticatorWithChosenLocalSalt() throws Exception {
 

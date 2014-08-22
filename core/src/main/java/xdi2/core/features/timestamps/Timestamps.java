@@ -13,8 +13,8 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.AddressUtil;
 
 public class Timestamps {
 
@@ -60,9 +60,9 @@ public class Timestamps {
 	/**
 	 * Get the timestamp associated with a context node.
 	 */
-	public static Date getContextNodeTimestamp(ContextNode contextNode, XDI3Segment modifier) {
+	public static Date getContextNodeTimestamp(ContextNode contextNode, XDIAddress modifier) {
 
-		XDI3Segment timestampXri = modifier == null ? XDITimestampsConstants.XRI_S_AS_T : XDI3Util.concatXris(modifier, XDITimestampsConstants.XRI_SS_AS_T);
+		XDIAddress timestampXri = modifier == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifier, XDITimestampsConstants.XDI_ARC_AS_T);
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampXri, false);
 		if (xdiAttributeSingleton == null) return null;
@@ -85,9 +85,9 @@ public class Timestamps {
 	/**
 	 * Set the timestamp associated with a context node.
 	 */
-	public static void setContextNodeTimestamp(ContextNode contextNode, XDI3Segment modifierXri, Date timestamp) {
+	public static void setContextNodeTimestamp(ContextNode contextNode, XDIAddress modifierXri, Date timestamp) {
 
-		XDI3Segment timestampXri = modifierXri == null ? XDITimestampsConstants.XRI_S_AS_T : XDI3Util.concatXris(modifierXri, XDITimestampsConstants.XRI_SS_AS_T);
+		XDIAddress timestampXri = modifierXri == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifierXri, XDITimestampsConstants.XDI_ARC_AS_T);
 
 		String literalData = timestampToString(timestamp);
 

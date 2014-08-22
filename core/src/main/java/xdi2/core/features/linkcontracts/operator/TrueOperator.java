@@ -40,7 +40,7 @@ public class TrueOperator extends ConditionOperator {
 
 		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
 		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
-		if (! XDIConstants.XRI_S_TRUE.equals(relation.getArcXri())) return false;
+		if (! XDIConstants.XDI_ADD_TRUE.equals(relation.getArc())) return false;
 		if (! XdiInnerRoot.isValid(relation.follow())) return false;
 
 		return true;
@@ -62,7 +62,7 @@ public class TrueOperator extends ConditionOperator {
 
 		if (policy == null) throw new NullPointerException();
 
-		XdiInnerRoot xdiInnerRoot = policy.getXdiEntity().getXdiInnerRoot(XDIConstants.XRI_S_TRUE, true);
+		XdiInnerRoot xdiInnerRoot = policy.getXdiEntity().getXdiInnerRoot(XDIConstants.XDI_ADD_TRUE, true);
 		xdiInnerRoot.getContextNode().setStatement(condition.getStatementXri());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());

@@ -7,8 +7,8 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 public abstract class AbstractStatement implements Statement {
 
@@ -50,17 +50,17 @@ public abstract class AbstractStatement implements Statement {
 	}
 
 	@Override
-	public XDI3Statement getXri() {
+	public XDIStatement getXri() {
 
 		if (this instanceof ContextNodeStatement) {
 
-			return XDI3Statement.fromContextNodeComponents(((ContextNodeStatement) this).getSubject(), ((ContextNodeStatement) this).getObject());
+			return XDIStatement.fromContextNodeComponents(((ContextNodeStatement) this).getSubject(), ((ContextNodeStatement) this).getObject());
 		} else if (this instanceof RelationStatement) {
 
-			return XDI3Statement.fromRelationComponents(((RelationStatement) this).getSubject(), ((RelationStatement) this).getPredicate(), ((RelationStatement) this).getObject());
+			return XDIStatement.fromRelationComponents(((RelationStatement) this).getSubject(), ((RelationStatement) this).getPredicate(), ((RelationStatement) this).getObject());
 		} else if (this instanceof LiteralStatement) {
 
-			return XDI3Statement.fromLiteralComponents(((LiteralStatement) this).getSubject(), ((LiteralStatement) this).getObject());
+			return XDIStatement.fromLiteralComponents(((LiteralStatement) this).getSubject(), ((LiteralStatement) this).getObject());
 		}
 
 		throw new IllegalStateException("Invalid statement: " + this.getClass().getSimpleName());
@@ -139,9 +139,9 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
-		public final XDI3Segment getPredicate() {
+		public final XDIAddress getPredicate() {
 
-			return XDIConstants.XRI_S_CONTEXT;
+			return XDIConstants.XDI_ADD_CONTEXT;
 		}
 
 		@Override
@@ -167,9 +167,9 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7876412291137305476L;
 
 		@Override
-		public final XDI3Segment getPredicate() {
+		public final XDIAddress getPredicate() {
 
-			return XDIConstants.XRI_S_LITERAL;
+			return XDIConstants.XDI_ADD_LITERAL;
 		}
 
 		@Override

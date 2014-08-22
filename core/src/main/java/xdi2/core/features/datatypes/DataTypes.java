@@ -7,10 +7,10 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeAddressIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
 
 /**
  * A helper class to work with data types, i.e. get or set them. Supported data
@@ -22,26 +22,26 @@ public class DataTypes {
 
 	private DataTypes() { }
 
-	public static final XDI3Segment XRI_DATATYPE_XSD = XDI3Segment.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "xsd");
-	public static final XDI3Segment XRI_DATATYPE_JSON = XDI3Segment.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "json");
-	public static final XDI3Segment XRI_DATATYPE_MIME = XDI3Segment.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "mime");
+	public static final XDIAddress XRI_DATATYPE_XSD = XDIAddress.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "xsd");
+	public static final XDIAddress XRI_DATATYPE_JSON = XDIAddress.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "json");
+	public static final XDIAddress XRI_DATATYPE_MIME = XDIAddress.create("" + XDIConstants.CS_CLASS_UNRESERVED + XDIConstants.CS_CLASS_RESERVED + "mime");
 
 	/*
 	 * Methods for booleans
 	 */
 
-	public static XDI3Segment booleanToXri(Boolean b) {
+	public static XDIAddress booleanToXri(Boolean b) {
 
-		if (Boolean.TRUE.equals(b)) return XDIConstants.XRI_S_TRUE;
-		if (Boolean.FALSE.equals(b)) return XDIConstants.XRI_S_FALSE;
+		if (Boolean.TRUE.equals(b)) return XDIConstants.XDI_ADD_TRUE;
+		if (Boolean.FALSE.equals(b)) return XDIConstants.XDI_ADD_FALSE;
 
 		return null;
 	}
 
-	public static Boolean xriToBoolean(XDI3Segment xri) {
+	public static Boolean xriToBoolean(XDIAddress xri) {
 
-		if (XDIConstants.XRI_S_TRUE.equals(xri)) return Boolean.TRUE;
-		if (XDIConstants.XRI_S_FALSE.equals(xri)) return Boolean.FALSE;
+		if (XDIConstants.XDI_ADD_TRUE.equals(xri)) return Boolean.TRUE;
+		if (XDIConstants.XDI_ADD_FALSE.equals(xri)) return Boolean.FALSE;
 
 		return null;
 	}
@@ -56,9 +56,9 @@ public class DataTypes {
 	 * @param contextNode
 	 * @param dataTypeXri
 	 */
-	public static void setDataType(ContextNode contextNode, XDI3Segment dataTypeXri) {
+	public static void setDataType(ContextNode contextNode, XDIAddress dataTypeXri) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, dataTypeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, dataTypeXri);
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class DataTypes {
 	 * @param contextNode
 	 * @return list of datatypes
 	 */
-	public static List<XDI3Segment> getDataTypes(ContextNode contextNode) {
+	public static List<XDIAddress> getDataTypes(ContextNode contextNode) {
 
-		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
 
-		return new IteratorListMaker<XDI3Segment> (new MappingRelationTargetContextNodeXriIterator(relations)).list();
+		return new IteratorListMaker<XDIAddress> (new MappingRelationTargetContextNodeAddressIterator(relations)).list();
 	}
 
 	/**
@@ -80,11 +80,11 @@ public class DataTypes {
 	 * @param contextNode
 	 * @return datatype
 	 */
-	public static XDI3Segment getDataType(ContextNode contextNode) {
+	public static XDIAddress getDataType(ContextNode contextNode) {
 
-		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE);
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
 
-		return relation == null ? null : relation.getTargetContextNodeXri();
+		return relation == null ? null : relation.getTargetContextNodeAddress();
 	}
 
 	/*
@@ -92,14 +92,14 @@ public class DataTypes {
 	 */
 
 	/**
-	 * Returns XDI3Segment for a xsd datatype string.
+	 * Returns XDIAddress for a xsd datatype string.
 	 * 
 	 * @param xsdType
-	 * @return a xsd datatype XDI3Segment
+	 * @return a xsd datatype XDIAddress
 	 */
-	public static XDI3Segment dataTypeXriFromXsdType(String xsdType) {
+	public static XDIAddress dataTypeXriFromXsdType(String xsdType) {
 
-		return XDI3Segment.create("" + XRI_DATATYPE_XSD + XDIConstants.CS_CLASS_RESERVED + xsdType);
+		return XDIAddress.create("" + XRI_DATATYPE_XSD + XDIConstants.CS_CLASS_RESERVED + xsdType);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of xsd datatype
 	 */
-	public static String xsdTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
+	public static String xsdTypeFromDataTypeXri(XDIAddress dataTypeXri) {
 
 		String dataTypeXriString = dataTypeXri.toString();
 
@@ -116,14 +116,14 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns XDI3Segment for a json datatype string.
+	 * Returns XDIAddress for a json datatype string.
 	 * 
 	 * @param jsonType
-	 * @return a json datatype XDI3Segment
+	 * @return a json datatype XDIAddress
 	 */
-	public static XDI3Segment dataTypeXriFromJsonType(String jsonType) {
+	public static XDIAddress dataTypeXriFromJsonType(String jsonType) {
 
-		return XDI3Segment.create("" + XRI_DATATYPE_JSON + XDIConstants.CS_CLASS_RESERVED + jsonType);
+		return XDIAddress.create("" + XRI_DATATYPE_JSON + XDIConstants.CS_CLASS_RESERVED + jsonType);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of json datatype
 	 */
-	public static String jsonTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
+	public static String jsonTypeFromDataTypeXri(XDIAddress dataTypeXri) {
 
 		String dataTypeJSONString = dataTypeXri.toString();
 
@@ -140,20 +140,20 @@ public class DataTypes {
 	}
 
 	/**
-	 * Returns XDI3Segment for a mime datatype string.
+	 * Returns XDIAddress for a mime datatype string.
 	 * 
 	 * @param mimeType
-	 * @return a mime datatype XDI3Segment.
+	 * @return a mime datatype XDIAddress.
 	 */
-	public static XDI3Segment dataTypeXriFromMimeType(String mimeType) {
+	public static XDIAddress dataTypeXriFromMimeType(String mimeType) {
 
 		String[] parts;
-		XDI3Segment xri = null;
+		XDIAddress xri = null;
 
 		try {
 
 			parts = mimeType.split("/");
-			xri = XDI3Segment.create("" + XRI_DATATYPE_MIME + XDIConstants.CS_CLASS_RESERVED + parts[0] + XDIConstants.CS_CLASS_UNRESERVED + parts[1]);
+			xri = XDIAddress.create("" + XRI_DATATYPE_MIME + XDIConstants.CS_CLASS_RESERVED + parts[0] + XDIConstants.CS_CLASS_UNRESERVED + parts[1]);
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Invalid MIME Type ", ex);
@@ -168,7 +168,7 @@ public class DataTypes {
 	 * @param dataTypeXri
 	 * @return a string of mime datatype
 	 */
-	public static String mimeTypeFromDataTypeXri(XDI3Segment dataTypeXri) {
+	public static String mimeTypeFromDataTypeXri(XDIAddress dataTypeXri) {
 
 		String dataTypeMIMEString = dataTypeXri.toString();
 
@@ -210,7 +210,7 @@ public class DataTypes {
 			}
 		} catch (Exception ex) {
 
-			throw new Xdi2RuntimeException("Invalid XDI3Segment ", ex);
+			throw new Xdi2RuntimeException("Invalid XDIAddress ", ex);
 		}
 
 		return buffer.toString();

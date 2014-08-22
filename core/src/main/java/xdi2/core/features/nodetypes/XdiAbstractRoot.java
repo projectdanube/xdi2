@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.StatementUtil;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.util.AddressUtil;
 
 public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implements XdiRoot {
 
@@ -62,51 +62,51 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XdiPeerRoot getPeerRoot(XDI3Segment xri, boolean create) {
+	public XdiPeerRoot getPeerRoot(XDIAddress xri, boolean create) {
 
 		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + xri + "," + create + ")");
 
-		XDI3SubSegment peerRootArcXri = XdiPeerRoot.createPeerRootArcXri(xri);
+		XDIArc peerRootarc = XdiPeerRoot.createPeerRootArc(xri);
 
-		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootArcXri) : this.getContextNode().getContextNode(peerRootArcXri, false);
+		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootarc) : this.getContextNode().getContextNode(peerRootarc, false);
 		if (peerRootContextNode == null) return null;
 
 		return new XdiPeerRoot(peerRootContextNode);
 	}
 
 	@Override
-	public XdiInnerRoot getInnerRoot(XDI3Segment subject, XDI3Segment predicate, boolean create) {
+	public XdiInnerRoot getInnerRoot(XDIAddress subject, XDIAddress predicate, boolean create) {
 
 		if (log.isTraceEnabled()) log.trace("getInnerRoot(" + subject + "," + predicate + "," + create + ")");
 
-		XDI3SubSegment innerRootArcXri = XdiInnerRoot.createInnerRootArcXri(subject, predicate);
+		XDIArc innerRootarc = XdiInnerRoot.createInnerRootarc(subject, predicate);
 
-		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootArcXri) : this.getContextNode().getContextNode(innerRootArcXri, false);
+		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootarc) : this.getContextNode().getContextNode(innerRootarc, false);
 		if (innerRootContextNode == null) return null;
 
 		return new XdiInnerRoot(innerRootContextNode);
 	}
 
 	@Override
-	public XdiRoot getRoot(XDI3Segment xri, boolean create) {
+	public XdiRoot getRoot(XDIAddress xri, boolean create) {
 
 		if (log.isTraceEnabled()) log.trace("getRoot(" + xri + "," + create + ")");
 
 		XdiRoot root = this;
 
-		for (int i=0; i<xri.getNumSubSegments(); i++) {
+		for (int i=0; i<xri.getNumArcs(); i++) {
 
-			XDI3SubSegment subSegment = xri.getSubSegment(i);
+			XDIArc subSegment = xri.getArc(i);
 
 			XdiRoot nextRoot;
 
-			if (XdiPeerRoot.isPeerRootArcXri(subSegment)) {
+			if (XdiPeerRoot.isPeerRootArc(subSegment)) {
 
 				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(subSegment) : root.getContextNode().getContextNode(subSegment, false);
 				if (peerRootContextNode == null) break;
 
 				nextRoot = new XdiPeerRoot(peerRootContextNode);
-			} if (XdiInnerRoot.isInnerRootArcXri(subSegment)) {
+			} if (XdiInnerRoot.isInnerRootarc(subSegment)) {
 
 				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(subSegment) : root.getContextNode().getContextNode(subSegment, false);
 				if (innerRootContextNode == null) break;
@@ -114,7 +114,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment), false);
 				if (contextNode == null) break;
 
-				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getXri()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getXri());
+				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getAddress());
 				if (relation == null) break;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
@@ -134,9 +134,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XDI3Segment absoluteToRelativeXri(XDI3Segment absoluteXri) {
+	public XDIAddress absoluteToRelativeXri(XDIAddress absoluteXri) {
 
-		XDI3Segment relativeXri = XDI3Util.removeStartXri(absoluteXri, this.getContextNode().getXri());
+		XDIAddress relativeXri = AddressUtil.removeStartXri(absoluteXri, this.getContextNode().getAddress());
 
 		if (log.isTraceEnabled()) log.trace("absoluteToRelativeXri(" + absoluteXri + " --> " + relativeXri + ")");
 
@@ -144,9 +144,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XDI3Segment relativeToAbsoluteXri(XDI3Segment relativeXri) {
+	public XDIAddress relativeToAbsoluteXri(XDIAddress relativeXri) {
 
-		XDI3Segment absoluteXri = XDI3Util.concatXris(this.getContextNode().getXri(), relativeXri);
+		XDIAddress absoluteXri = AddressUtil.concatAddresses(this.getContextNode().getAddress(), relativeXri);
 
 		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + relativeXri + " --> " + absoluteXri + ")");
 
@@ -154,9 +154,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XDI3Statement absoluteToRelativeStatementXri(XDI3Statement absoluteStatementXri) {
+	public XDIStatement absoluteToRelativeStatementXri(XDIStatement absoluteStatementXri) {
 
-		XDI3Statement relativeStatementXri = StatementUtil.removeStartXriStatement(absoluteStatementXri, this.getContextNode().getXri());
+		XDIStatement relativeStatementXri = StatementUtil.removeStartAddressStatement(absoluteStatementXri, this.getContextNode().getAddress());
 
 		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementXri(" + absoluteStatementXri + " --> " + relativeStatementXri + ")");
 
@@ -164,9 +164,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XDI3Statement relativeToAbsoluteStatementXri(XDI3Statement relativeStatementXri) {
+	public XDIStatement relativeToAbsoluteStatementXri(XDIStatement relativeStatementXri) {
 
-		XDI3Statement absoluteStatementXri = StatementUtil.concatXriStatement(this.getContextNode().getXri(), relativeStatementXri);
+		XDIStatement absoluteStatementXri = StatementUtil.concatAddressStatement(this.getContextNode().getAddress(), relativeStatementXri);
 
 		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + relativeStatementXri + " --> " + absoluteStatementXri + ")");
 
@@ -179,15 +179,15 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 	/**
 	 * Checks if a given XRI is an XDI root XRI.
-	 * @param arcXri An XDI root XRI.
+	 * @param arc An XDI root XRI.
 	 * @return True, if the XRI is an XDI root XRI.
 	 */
-	public static boolean isRootArcXri(XDI3SubSegment arcXri) {
+	public static boolean isRootarc(XDIArc arc) {
 
-		if (log.isTraceEnabled()) log.trace("isRootArcXri(" + arcXri + ")");
+		if (log.isTraceEnabled()) log.trace("isRootarc(" + arc + ")");
 
-		if (XdiPeerRoot.isPeerRootArcXri(arcXri)) return true;
-		if (XdiInnerRoot.isInnerRootArcXri(arcXri)) return true;
+		if (XdiPeerRoot.isPeerRootArc(arc)) return true;
+		if (XdiInnerRoot.isInnerRootarc(arc)) return true;
 
 		return false;
 	}

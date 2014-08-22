@@ -8,11 +8,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -49,11 +49,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDI3SubSegment ownerPeerRootXri;
+	private XDIArc ownerPeerRootXri;
 	private InterceptorList<MessagingTarget> interceptors;
 	private ContributorMap contributors;
 
-	public AbstractMessagingTarget(XDI3SubSegment ownerPeerRootXri) {
+	public AbstractMessagingTarget(XDIArc ownerPeerRootXri) {
 
 		this.ownerPeerRootXri = ownerPeerRootXri;
 		this.interceptors = new InterceptorList<MessagingTarget> ();
@@ -69,7 +69,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	public AbstractMessagingTarget() {
 
-		this((XDI3SubSegment) null);
+		this((XDIArc) null);
 	}
 
 	@Override
@@ -249,11 +249,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (messageResult == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getContextNode().getXri().toString() + ") (" + message.getOperationCount() + " operations).");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getContextNode().getAddress().toString() + ") (" + message.getOperationCount() + " operations).");
 
 		try {
 
-			executionContext.pushMessage(message, message.getContextNode().getXri().toString());
+			executionContext.pushMessage(message, message.getContextNode().getAddress().toString());
 
 			// reset execution context
 
@@ -361,8 +361,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute the address or statements in the operation
 
-			XDI3Segment targetAddress = operation.getTargetAddress();
-			Iterator<XDI3Statement> targetStatementXris = operation.getTargetStatementXris();
+			XDIAddress targetAddress = operation.getTargetAddress();
+			Iterator<XDIStatement> targetStatementXris = operation.getTargetStatementXris();
 
 			if (targetAddress != null) {
 
@@ -371,7 +371,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				while (targetStatementXris.hasNext()) {
 
-					XDI3Statement targetStatementXri = targetStatementXris.next();
+					XDIStatement targetStatementXri = targetStatementXris.next();
 
 					this.execute(targetStatementXri, operation, operationMessageResult, executionContext);
 				}
@@ -418,7 +418,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDI3Segment targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIAddress targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetAddress == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
@@ -438,7 +438,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (address)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDI3Segment[0], targetAddress, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], targetAddress, operation, operationMessageResult, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -484,7 +484,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDI3Statement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIStatement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
@@ -504,7 +504,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (statement)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDI3Segment[0], targetStatement, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], targetStatement, operation, operationMessageResult, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -574,12 +574,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	public AddressHandler getAddressHandler(XDI3Segment targetAddress) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XDIAddress targetAddress) throws Xdi2MessagingException {
 
 		return null;
 	}
 
-	public StatementHandler getStatementHandler(XDI3Statement targetStatement) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(XDIStatement targetStatement) throws Xdi2MessagingException {
 
 		return null;
 	}
@@ -589,12 +589,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDI3SubSegment getOwnerPeerRootXri() {
+	public XDIArc getOwnerPeerRootXri() {
 
 		return this.ownerPeerRootXri;
 	}
 
-	public void setOwnerPeerRootXri(XDI3SubSegment ownerPeerRootXri) {
+	public void setOwnerPeerRootXri(XDIArc ownerPeerRootXri) {
 
 		this.ownerPeerRootXri = ownerPeerRootXri;
 	}

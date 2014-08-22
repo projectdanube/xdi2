@@ -2,37 +2,37 @@ package xdi2.core.impl;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class BasicRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -8757473050724884998L;
 
-	private XDI3Segment arcXri;
-	private XDI3Segment targetContextNodeXri;
+	private XDIAddress arc;
+	private XDIAddress targetContextNodeAddress;
 
-	public BasicRelation(ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public BasicRelation(ContextNode contextNode, XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		super(contextNode);
 
-		this.arcXri = arcXri;
-		this.targetContextNodeXri = targetContextNodeXri;
+		this.arc = arc;
+		this.targetContextNodeAddress = targetContextNodeAddress;
 	}
 
-	public BasicRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public BasicRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), arcXri, targetContextNodeXri);
-	}
-
-	@Override
-	public XDI3Segment getArcXri() {
-
-		return this.arcXri;
+		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), arc, targetContextNodeAddress);
 	}
 
 	@Override
-	public XDI3Segment getTargetContextNodeXri() {
+	public XDIAddress getArc() {
 
-		return this.targetContextNodeXri;
+		return this.arc;
+	}
+
+	@Override
+	public XDIAddress getTargetContextNodeAddress() {
+
+		return this.targetContextNodeAddress;
 	}
 }

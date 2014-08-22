@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
@@ -38,7 +38,7 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 	@Override
 	public PublicKey getPublicKey(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
+		XDIAddress senderXri = message.getSenderAddress();
 		if (senderXri == null) return null;
 
 		// perform discovery

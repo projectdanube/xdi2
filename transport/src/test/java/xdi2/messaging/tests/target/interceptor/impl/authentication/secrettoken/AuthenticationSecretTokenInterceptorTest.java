@@ -3,7 +3,7 @@ package xdi2.messaging.tests.target.interceptor.impl.authentication.secrettoken;
 import java.util.Collections;
 
 import junit.framework.TestCase;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator;
@@ -20,7 +20,7 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 	public static String[] VALID_SALTS = new String[] { GLOBAL_SALT, LOCAL_SALT };
 	public static String[] INVALID_SALTS = new String[] { "3b97782d:b130:4906:b41d:f83b6968765f", "0-0-0-0-0" };
 
-	public static XDI3Segment SENDER_XRI = XDI3Segment.create("=sender");
+	public static XDIAddress SENDER_XRI = XDIAddress.create("=sender");
 
 	public void testStaticSecretTokenAuthenticator() throws Exception {
 

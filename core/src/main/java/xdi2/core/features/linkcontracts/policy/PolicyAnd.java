@@ -36,11 +36,11 @@ public class PolicyAnd extends Policy {
 	public static boolean isValid(XdiEntity xdiEntity) {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiEntity).getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+			return ((XdiEntitySingleton) xdiEntity).getBasearc().equals(XDIPolicyConstants.XDI_ARC_AND);
 		else if (xdiEntity instanceof XdiEntityMemberUnordered)
-			return ((XdiEntityMemberUnordered) xdiEntity).getXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+			return ((XdiEntityMemberUnordered) xdiEntity).getXdiCollection().getBasearc().equals(XDIPolicyConstants.XDI_ARC_AND);
 		else if (xdiEntity instanceof XdiEntityMemberOrdered)
-			return ((XdiEntityMemberOrdered) xdiEntity).getXdiCollection().getBaseArcXri().equals(XDIPolicyConstants.XRI_SS_AND);
+			return ((XdiEntityMemberOrdered) xdiEntity).getXdiCollection().getBasearc().equals(XDIPolicyConstants.XDI_ARC_AND);
 
 		return false;
 	}

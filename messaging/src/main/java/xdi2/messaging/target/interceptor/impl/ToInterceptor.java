@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -23,7 +23,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
-	private XDI3SubSegment defaultToPeerRootXri;
+	private XDIArc defaultToPeerRootXri;
 
 	public ToInterceptor() {
 
@@ -52,8 +52,8 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 		// check if the owner peer root XRI matches the TO peer root XRI
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDI3SubSegment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
-		XDI3SubSegment toPeerRootXri = message.getToPeerRootXri();
+		XDIArc ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
+		XDIArc toPeerRootXri = message.getToPeerRootXri();
 
 		if (toPeerRootXri == null) toPeerRootXri = this.getDefaultToPeerRootXri();
 
@@ -78,12 +78,12 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	 * Getters and setters
 	 */
 
-	public XDI3SubSegment getDefaultToPeerRootXri() {
+	public XDIArc getDefaultToPeerRootXri() {
 
 		return this.defaultToPeerRootXri;
 	}
 
-	public void setDefaultToPeerRootXri(XDI3SubSegment defaultToPeerRootXri) {
+	public void setDefaultToPeerRootXri(XDIArc defaultToPeerRootXri) {
 
 		this.defaultToPeerRootXri = defaultToPeerRootXri;
 	}

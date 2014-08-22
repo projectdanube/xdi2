@@ -18,7 +18,7 @@ import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.readers.XDIDisplayReader;
 import xdi2.core.io.readers.XDIJSONReader;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIStatement;
 
 public class ReaderWriterTest extends TestCase {
 
@@ -43,8 +43,8 @@ public class ReaderWriterTest extends TestCase {
 		Iterator<Statement> s1 = graph1.getRootContextNode().getAllStatements();
 		Iterator<Statement> s2 = graph2.getRootContextNode().getAllStatements();
 
-		while (s1.hasNext()) { XDI3Statement s = s1.next().getXri(); assertTrue(s.toString(), graph2.containsStatement(s)); }
-		while (s2.hasNext()) { XDI3Statement s = s2.next().getXri(); assertTrue(s.toString(), graph1.containsStatement(s)); }
+		while (s1.hasNext()) { XDIStatement s = s1.next().getXri(); assertTrue(s.toString(), graph2.containsStatement(s)); }
+		while (s2.hasNext()) { XDIStatement s = s2.next().getXri(); assertTrue(s.toString(), graph1.containsStatement(s)); }
 
 		assertEquals(graph1, graph2);
 	}

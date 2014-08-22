@@ -20,9 +20,9 @@ import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -101,7 +101,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	private class TimestampContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			if (relativeTargetAddress == null) return ContributorResult.DEFAULT;
 
@@ -123,23 +123,23 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	private class ToPeerRootXriContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-			XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+			XDIAddress arc = relativeTargetStatement.getRelationAddress();
+			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeAddress();
 
 			// check if applicable
 
-			if (! arcXri.equals(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI)) return ContributorResult.DEFAULT;
-			if (! VariableUtil.isVariable(targetContextNodeXri)) return ContributorResult.DEFAULT;
+			if (! arc.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI)) return ContributorResult.DEFAULT;
+			if (! VariableUtil.isVariable(targetContextNodeAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
 
-			XDI3Segment toPeerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(operation.getSenderXri()));
+			XDIAddress toPeerRootXri = XDIAddress.fromComponent(XdiPeerRoot.createPeerRootArc(operation.getSenderXri()));
 
 			// add it to the message result
 
-			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, toPeerRootXri);
+			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_XRI, toPeerRootXri);
 
 			// done
 
@@ -151,18 +151,18 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	private class SignatureContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-			XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+			XDIAddress arc = relativeTargetStatement.getRelationAddress();
+			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeAddress();
 
 			// check if applicable
 
-			if (! arcXri.equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
+			if (! arc.equals(XDIDictionaryConstants.XDI_ADD_IS_TYPE)) return ContributorResult.DEFAULT;
 
 			// check parameters
 
-			XDI3Segment dataTypeXri = targetContextNodeXri;
+			XDIAddress dataTypeXri = targetContextNodeAddress;
 
 			String digestAlgorithm;
 			Integer digestLength;
@@ -190,7 +190,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDI3Segment recipientXri = XdiPeerRoot.getXriOfPeerRootArcXri(operation.getMessage().getToPeerRootXri());
+				XDIAddress recipientXri = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootXri());
 				if (recipientXri == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
@@ -237,7 +237,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDI3Segment recipientXri = XdiPeerRoot.getXriOfPeerRootArcXri(operation.getMessage().getToPeerRootXri());
+				XDIAddress recipientXri = XdiPeerRoot.getAddressOfPeerRootArc(operation.getMessage().getToPeerRootXri());
 				if (recipientXri == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity

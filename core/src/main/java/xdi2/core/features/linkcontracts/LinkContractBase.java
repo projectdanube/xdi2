@@ -13,14 +13,14 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
 import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.nodetypes.XdiVariable;
-import xdi2.core.util.XDI3Util;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.AddressUtil;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IterableIterator;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeXriIterator;
-import xdi2.core.util.iterators.MappingStatementXriIterator;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeAddressIterator;
+import xdi2.core.util.iterators.MappingStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 
 /**
  * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity or variable.
@@ -90,7 +90,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createArcXri(XDIPolicyConstants.XRI_SS_IF), create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createarc(XDIPolicyConstants.XDI_ARC_IF), create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
@@ -101,23 +101,23 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 * @param permissionXri The permission XRI.
 	 * @param targetAddress The target context node XRI of the permission.
 	 */
-	public void setPermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
+	public void setPermissionTargetAddress(XDIAddress permissionXri, XDIAddress targetAddress) {
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
 
-		if (this.getContextNode().containsRelation(XDILinkContractConstants.XRI_S_ALL, targetAddress)) return;
+		if (this.getContextNode().containsRelation(XDILinkContractConstants.XDI_ADD_ALL, targetAddress)) return;
 
 		// if a $all permission is added to the target node then all other permission arcs should be deleted
 
-		if (permissionXri.equals(XDILinkContractConstants.XRI_S_ALL)) {
+		if (permissionXri.equals(XDILinkContractConstants.XDI_ADD_ALL)) {
 
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_GET, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET_DO, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_SET_REF, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XRI_S_DEL, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_GET, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetAddress);
 		}
 
 		// set the permission arc
@@ -125,12 +125,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.getContextNode().setRelation(permissionXri, targetAddress);
 	}
 
-	public void setNegativePermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
+	public void setNegativePermissionTargetAddress(XDIAddress permissionXri, XDIAddress targetAddress) {
 
-		this.setPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
+		this.setPermissionTargetAddress(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri), targetAddress);
 	}
 
-	public void setPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public void setPermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
 		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
@@ -144,12 +144,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		xdiInnerRoot.getContextNode().setStatement(targetStatementXri);
 	}
 
-	public void setNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public void setNegativePermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
-		this.setPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
+		this.setPermissionTargetStatement(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri), targetStatementXri);
 	}
 
-	public void delPermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
+	public void delPermissionTargetAddress(XDIAddress permissionXri, XDIAddress targetAddress) {
 
 		if (permissionXri == null || targetAddress == null) throw new NullPointerException();
 
@@ -158,12 +158,12 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.getContextNode().delRelation(permissionXri, targetAddress);
 	}
 
-	public void delNegativePermissionTargetAddress(XDI3Segment permissionXri, XDI3Segment targetAddress) {
+	public void delNegativePermissionTargetAddress(XDIAddress permissionXri, XDIAddress targetAddress) {
 
-		this.delPermissionTargetAddress(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetAddress);
+		this.delPermissionTargetAddress(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri), targetAddress);
 	}
 
-	public void delPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public void delPermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
 		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
@@ -178,45 +178,45 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		statement.delete();
 	}
 
-	public void delNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public void delNegativePermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
-		this.delPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
+		this.delPermissionTargetStatement(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri), targetStatementXri);
 	}
 
-	public IterableIterator<XDI3Segment> getPermissionTargetAddresses(XDI3Segment permissionXri) {
+	public IterableIterator<XDIAddress> getPermissionTargetAddresses(XDIAddress permissionXri) {
 
 		if (permissionXri == null) throw new NullPointerException();
 
 		// return the target addresses
 
-		return new MappingRelationTargetContextNodeXriIterator(
+		return new MappingRelationTargetContextNodeAddressIterator(
 						this.getContextNode().getRelations(permissionXri));
 	}
 
-	public IterableIterator<XDI3Segment> getNegativePermissionTargetAddresses(XDI3Segment permissionXri) {
+	public IterableIterator<XDIAddress> getNegativePermissionTargetAddresses(XDIAddress permissionXri) {
 
-		return this.getPermissionTargetAddresses(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri));
+		return this.getPermissionTargetAddresses(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri));
 	}
 
-	public IterableIterator<XDI3Statement> getPermissionTargetStatements(XDI3Segment permissionXri) {
+	public IterableIterator<XDIStatement> getPermissionTargetStatements(XDIAddress permissionXri) {
 
 		if (permissionXri == null) throw new NullPointerException();
 
 		// find the inner root
 
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXri, false);
-		if (xdiInnerRoot == null) return new EmptyIterator<XDI3Statement> ();
+		if (xdiInnerRoot == null) return new EmptyIterator<XDIStatement> ();
 
 		// return the target statements
 
 		return new MappingAbsoluteToRelativeStatementXriIterator(
 				xdiInnerRoot,
-				new MappingStatementXriIterator(
+				new MappingStatementIterator(
 						new SelectingNotImpliedStatementIterator(
 								xdiInnerRoot.getContextNode().getAllStatements())));
 	}
 
-	public boolean hasPermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public boolean hasPermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
 		if (permissionXri == null || targetStatementXri == null) throw new NullPointerException();
 
@@ -230,9 +230,9 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		return xdiInnerRoot.getContextNode().containsStatement(targetStatementXri);
 	}
 
-	public boolean hasNegativePermissionTargetStatement(XDI3Segment permissionXri, XDI3Statement targetStatementXri) {
+	public boolean hasNegativePermissionTargetStatement(XDIAddress permissionXri, XDIStatement targetStatementXri) {
 
-		return this.hasPermissionTargetStatement(XDI3Util.concatXris(XDILinkContractConstants.XRI_S_NOT, permissionXri), targetStatementXri);
+		return this.hasPermissionTargetStatement(AddressUtil.concatAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXri), targetStatementXri);
 	}
 
 	/*

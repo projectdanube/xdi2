@@ -2,9 +2,9 @@ package xdi2.core;
 
 import java.io.Serializable;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * This interface represents a statement in an XDI graph.
@@ -22,13 +22,13 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Gets the subject of this statement.
 	 * @return A subject.
 	 */
-	public XDI3Segment getSubject();
+	public XDIAddress getSubject();
 
 	/**
 	 * Gets the predicate of this statement.
 	 * @return A predicate.
 	 */
-	public XDI3Segment getPredicate();
+	public XDIAddress getPredicate();
 
 	/**
 	 * Gets the object of this statement.
@@ -57,7 +57,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Expresses the statement as an XDI statement in the form subject/predicate/object
 	 * @return An XDI statement.
 	 */
-	public XDI3Statement getXri();
+	public XDIStatement getXri();
 
 	/*
 	 * Sub-interfaces
@@ -66,13 +66,13 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public interface ContextNodeStatement extends Statement {
 
 		@Override
-		public XDI3Segment getSubject();
+		public XDIAddress getSubject();
 
 		@Override
-		public XDI3Segment getPredicate();
+		public XDIAddress getPredicate();
 
 		@Override
-		public XDI3SubSegment getObject();
+		public XDIArc getObject();
 
 		public ContextNode getContextNode();
 	}
@@ -80,13 +80,13 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public interface RelationStatement extends Statement {
 
 		@Override
-		public XDI3Segment getSubject();
+		public XDIAddress getSubject();
 
 		@Override
-		public XDI3Segment getPredicate();
+		public XDIAddress getPredicate();
 
 		@Override
-		public XDI3Segment getObject();
+		public XDIAddress getObject();
 
 		public Relation getRelation();
 	}
@@ -94,10 +94,10 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	public interface LiteralStatement extends Statement {
 
 		@Override
-		public XDI3Segment getSubject();
+		public XDIAddress getSubject();
 
 		@Override
-		public XDI3Segment getPredicate();
+		public XDIAddress getPredicate();
 
 		@Override
 		public Object getObject();

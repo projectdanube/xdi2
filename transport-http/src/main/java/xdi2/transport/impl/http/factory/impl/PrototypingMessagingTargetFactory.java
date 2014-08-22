@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -24,7 +24,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDI3Segment ownerXri, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXri, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerXri=" + ownerXri + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 

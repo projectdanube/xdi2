@@ -10,9 +10,9 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.SelectingMappingIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -39,7 +39,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment ownerXri = XDI3Segment.create(ownerString);
+		XDIAddress ownerXri = XDIAddress.create(ownerString);
 
 		// find the owner's XDI peer root
 
@@ -62,7 +62,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// update the owner
 
-		ownerXri = ownerPeerRoot.getXriOfPeerRoot();
+		ownerXri = ownerPeerRoot.getAddressOfPeerRoot();
 
 		// find the owner's context node
 
@@ -86,7 +86,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDI3Segment ownerXri = XDI3Segment.create(ownerString);
+		XDIAddress ownerXri = XDIAddress.create(ownerString);
 
 		// find the owner's XDI peer root
 
@@ -108,11 +108,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public Iterator<XDI3SubSegment> getOwnerPeerRootXris() {
+	public Iterator<XDIArc> getOwnerPeerRootXris() {
 
 		Iterator<XdiPeerRoot> ownerPeerRoots = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoots();
 
-		return new SelectingMappingIterator<XdiPeerRoot, XDI3SubSegment> (ownerPeerRoots) {
+		return new SelectingMappingIterator<XdiPeerRoot, XDIArc> (ownerPeerRoots) {
 
 			@Override
 			public boolean select(XdiPeerRoot ownerPeerRoot) {
@@ -124,17 +124,17 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			}
 
 			@Override
-			public XDI3SubSegment map(XdiPeerRoot ownerPeerRoot) {
+			public XDIArc map(XdiPeerRoot ownerPeerRoot) {
 
-				return ownerPeerRoot.getArcXri();
+				return ownerPeerRoot.getArc();
 			}
 		};
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXri) {
 
-		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
+		XDIAddress ownerXri = XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootXri);
 
 		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
 		if (ownerPeerRoot == null) return null;

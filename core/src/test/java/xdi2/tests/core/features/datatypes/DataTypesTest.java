@@ -9,7 +9,7 @@ import org.junit.Test;
 import xdi2.core.Graph;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class DataTypesTest extends TestCase {
 
@@ -24,13 +24,13 @@ public class DataTypesTest extends TestCase {
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")), XDI3Segment.create("$mime$image$png"));
+		DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")), XDIAddress.create("$mime$image$png"));
 
-		List<XDI3Segment> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")));
+		List<XDIAddress> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")));
 
 		assertNotNull(dataTypes);
 
-		for (XDI3Segment xriSeg : dataTypes) {
+		for (XDIAddress xriSeg : dataTypes) {
 
 			if (xriSeg.toString().contains("json")) {
 
@@ -60,7 +60,7 @@ public class DataTypesTest extends TestCase {
 		try {
 
 			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>")), XDI3Segment.create("+$json$number"));
+			DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>")), XDIAddress.create("+$json$number"));
 
 			fail();
 			

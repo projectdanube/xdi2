@@ -14,7 +14,7 @@ public @interface ContributorMount {
 	boolean contextNodeStatement() default true;
 	boolean relationStatement() default true;
 	boolean literalStatement() default true;
-	String[] contextNodeArcXris() default { };
-	String[] relationArcXris() default { };
-	String[] targetContextNodeXris() default { };
+	String[] contextNodeArcs() default { };
+	String[] relationAddresss() default { };
+	String[] targetContextNodeAddresss() default { };
 }

@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XDI3XRef;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 
 /**
  * Utility methods for working with variables.
@@ -27,49 +27,49 @@ public final class VariableUtil {
 	 * @param variable The subsegment to check.
 	 * @return True if the subsegment is a valid XDI variable.
 	 */
-	public static boolean isVariable(XDI3SubSegment variable) {
+	public static boolean isVariable(XDIArc variable) {
 
 		return variable.hasXRef() &&
 				XDIConstants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
-				( variable.getXRef().isEmpty() || variable.getXRef().hasSegment() || variable.getXRef().hasLiteral() );
+				( variable.getXRef().isEmpty() || variable.getXRef().hasAddress() || variable.getXRef().hasLiteral() );
 	}
 
-	public static boolean isVariable(XDI3Segment variable) {
+	public static boolean isVariable(XDIAddress variable) {
 
-		if (variable.getNumSubSegments() != 1) return false;
+		if (variable.getNumArcs() != 1) return false;
 
-		return isVariable(variable.getFirstSubSegment());
+		return isVariable(variable.getFirstArc());
 	}
 
-	public static List<XDI3SubSegment> getSubSegments(XDI3SubSegment variable) {
+	public static List<XDIArc> getSubSegments(XDIArc variable) {
 
-		if (! isVariable(variable)) return new ArrayList<XDI3SubSegment> ();
-		if (! variable.getXRef().hasSegment()) return new ArrayList<XDI3SubSegment> ();
+		if (! isVariable(variable)) return new ArrayList<XDIArc> ();
+		if (! variable.getXRef().hasAddress()) return new ArrayList<XDIArc> ();
 
-		XDI3Segment segment = variable.getXRef().getSegment();
+		XDIAddress segment = variable.getXRef().getAddress();
 
-		while (segment.getFirstSubSegment().hasXRef()) {
+		while (segment.getFirstArc().hasXRef()) {
 
-			segment = segment.getFirstSubSegment().getXRef().getSegment();
-			if (segment == null) return new ArrayList<XDI3SubSegment> ();
+			segment = segment.getFirstArc().getXRef().getAddress();
+			if (segment == null) return new ArrayList<XDIArc> ();
 		}
 
-		return segment.getSubSegments();
+		return segment.getArcs();
 	}
 
-	public static String getXs(XDI3SubSegment variable) {
+	public static String getXs(XDIArc variable) {
 
 		if (! isVariable(variable)) return null;
-		if (! variable.getXRef().hasSegment()) return null;
+		if (! variable.getXRef().hasAddress()) return null;
 
-		XDI3XRef xref = variable.getXRef().getSegment().getFirstSubSegment().getXRef();
+		XDIXRef xref = variable.getXRef().getAddress().getFirstArc().getXRef();
 		if (xref == null) return null;
 
 		if (XDIConstants.XS_VARIABLE.equals(xref.getXs())) {
 
-			if (! xref.hasSegment()) return null;
+			if (! xref.hasAddress()) return null;
 
-			xref = xref.getSegment().getFirstSubSegment().getXRef();
+			xref = xref.getAddress().getFirstArc().getXRef();
 			if (xref == null) return null;
 		}
 
@@ -81,13 +81,13 @@ public final class VariableUtil {
 	 * @param variable The variable.
 	 * @return True, if the variable matches multiple subsegments.
 	 */
-	public static boolean isMultiple(XDI3SubSegment variable) {
+	public static boolean isMultiple(XDIArc variable) {
 
 		if (! isVariable(variable)) return false;
-		if (! variable.getXRef().hasSegment()) return false;
+		if (! variable.getXRef().hasAddress()) return false;
 
-		if (! variable.getXRef().getSegment().getFirstSubSegment().hasXRef()) return false;
-		if (! XDIConstants.XS_VARIABLE.equals(variable.getXRef().getSegment().getFirstSubSegment().getXRef().getXs())) return false;
+		if (! variable.getXRef().getAddress().getFirstArc().hasXRef()) return false;
+		if (! XDIConstants.XS_VARIABLE.equals(variable.getXRef().getAddress().getFirstArc().getXRef().getXs())) return false;
 
 		return true;
 	}
@@ -98,9 +98,9 @@ public final class VariableUtil {
 	 * @param subSegment The subsegment to match the variable against.
 	 * @return True, if the variable matches the subsegment.
 	 */
-	public static boolean matches(XDI3SubSegment variable, XDI3SubSegment subSegment) {
+	public static boolean matches(XDIArc variable, XDIArc subSegment) {
 
-		List<XDI3SubSegment> variableSubSegments = getSubSegments(variable);
+		List<XDIArc> variableSubSegments = getSubSegments(variable);
 		String variableXs = getXs(variable);
 
 		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against subsegment " + subSegment + " (variableSubSegments=" + variableSubSegments + ", variableXs=" + variableXs + ")");
@@ -128,13 +128,13 @@ public final class VariableUtil {
 				return false;
 			}
 
-			if (! subSegment.getXRef().hasSegment()) {
+			if (! subSegment.getXRef().hasAddress()) {
 
 				if (log.isTraceEnabled()) log.trace("Subsegment has no inner subsegment. No match.");
 				return false;
 			}
 
-			subSegment = subSegment.getXRef().getSegment().getFirstSubSegment();
+			subSegment = subSegment.getXRef().getAddress().getFirstArc();
 		}
 
 		if (variableSubSegments.size() == 0) {
@@ -149,7 +149,7 @@ public final class VariableUtil {
 			return false;
 		}
 
-		for (XDI3SubSegment variableSubSegment : variableSubSegments) {
+		for (XDIArc variableSubSegment : variableSubSegments) {
 
 			if (log.isTraceEnabled()) log.trace("Trying to match variable subsegment " + variableSubSegment + ".");
 

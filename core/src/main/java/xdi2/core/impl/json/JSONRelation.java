@@ -3,32 +3,32 @@ package xdi2.core.impl.json;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class JSONRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = 60162590532295669L;
 
-	private XDI3Segment arcXri;
-	private XDI3Segment targetContextNodeXri;
+	private XDIAddress arc;
+	private XDIAddress targetContextNodeAddress;
 
-	public JSONRelation(ContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public JSONRelation(ContextNode contextNode, XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		super(contextNode);
 
-		this.arcXri = arcXri;
-		this.targetContextNodeXri = targetContextNodeXri;
+		this.arc = arc;
+		this.targetContextNodeAddress = targetContextNodeAddress;
 	}
 
 	@Override
-	public XDI3Segment getArcXri() {
+	public XDIAddress getArc() {
 
-		return this.arcXri;
+		return this.arc;
 	}
 
 	@Override
-	public XDI3Segment getTargetContextNodeXri() {
+	public XDIAddress getTargetContextNodeAddress() {
 
-		return this.targetContextNodeXri;
+		return this.targetContextNodeAddress;
 	}
 }

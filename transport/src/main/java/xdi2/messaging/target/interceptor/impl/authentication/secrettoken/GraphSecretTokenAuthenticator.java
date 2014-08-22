@@ -7,7 +7,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -51,7 +51,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		// sender
 
-		XDI3Segment senderXri = message.getSenderXri();
+		XDIAddress senderXri = message.getSenderAddress();
 		if (senderXri == null) return null;
 
 		// sender peer root

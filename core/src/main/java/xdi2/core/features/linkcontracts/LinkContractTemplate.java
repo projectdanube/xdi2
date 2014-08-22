@@ -7,9 +7,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiVariable;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.AddressUtil;
 
 /**
  * An XDI link contract template, represented as an XDI variable.
@@ -36,7 +36,7 @@ public class LinkContractTemplate extends LinkContractBase {
 	 */
 	public static boolean isValid(XdiVariable xdiVariable) {
 
-		if (! xdiVariable.getArcXri().equals(XDILinkContractConstants.XRI_SS_DO_VARIABLE)) return false;
+		if (! xdiVariable.getArc().equals(XDILinkContractConstants.XDI_ARC_DO_VARIABLE)) return false;
 
 		if (getTemplateAuthorityAndId(xdiVariable.getXri()) == null) return false;
 
@@ -55,26 +55,26 @@ public class LinkContractTemplate extends LinkContractBase {
 		return new LinkContractTemplate(xdiVariable);
 	}
 
-	public static XDI3Segment createLinkContractTemplateXri(XDI3Segment templateAuthorityAndId) {
+	public static XDIAddress createLinkContractTemplateXri(XDIAddress templateAuthorityAndId) {
 
 		if (templateAuthorityAndId == null) throw new NullPointerException();
 		
-		List<XDI3SubSegment> linkContractTemplateArcXris = new ArrayList<XDI3SubSegment> ();
+		List<XDIArc> linkContractTemplatearcs = new ArrayList<XDIArc> ();
 
-		linkContractTemplateArcXris.addAll(templateAuthorityAndId.getSubSegments());
+		linkContractTemplatearcs.addAll(templateAuthorityAndId.getArcs());
 
-		linkContractTemplateArcXris.add(XDILinkContractConstants.XRI_SS_DO_VARIABLE);
+		linkContractTemplatearcs.add(XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
 
-		return XDI3Segment.fromComponents(linkContractTemplateArcXris);
+		return XDIAddress.fromComponents(linkContractTemplatearcs);
 	}
 
 	/**
 	 * Factory method that finds or creates an XDI link contract template for a graph.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDI3Segment templateAuthorityAndId, boolean create) {
+	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDI3Segment linkContractTemplateXri = createLinkContractTemplateXri(templateAuthorityAndId);
+		XDIAddress linkContractTemplateXri = createLinkContractTemplateXri(templateAuthorityAndId);
 
 		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
 		if (linkContractTemplateContextNode == null) return null;
@@ -86,12 +86,12 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * Static methods
 	 */
 
-	public static XDI3Segment getTemplateAuthorityAndId(XDI3Segment xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
 
-		int index = XDI3Util.indexOfXri(xri, XDILinkContractConstants.XRI_SS_DO_VARIABLE);
+		int index = AddressUtil.indexOfXri(xri, XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
 		if (index < 0) return null;
 
-		return XDI3Util.subXri(xri, 0, index);
+		return AddressUtil.subXri(xri, 0, index);
 	}
 
 	/*
@@ -103,8 +103,8 @@ public class LinkContractTemplate extends LinkContractBase {
 		throw new RuntimeException("Not implemented.");
 	}
 
-	public XDI3Segment getTemplateAuthorityAndId() {
+	public XDIAddress getTemplateAuthorityAndId() {
 
-		return getTemplateAuthorityAndId(this.getContextNode().getXri());
+		return getTemplateAuthorityAndId(this.getContextNode().getAddress());
 	}
 }

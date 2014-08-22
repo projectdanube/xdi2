@@ -29,23 +29,21 @@ import xdi2.tests.core.impl.memory.MemoryGraphTest;
 import xdi2.tests.core.impl.wrapped.FileWrapperGraphTest;
 import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
+import xdi2.tests.core.syntax.CloudNameTest;
+import xdi2.tests.core.syntax.CloudNumberTest;
+import xdi2.tests.core.syntax.ParserImplTest;
 import xdi2.tests.core.util.CopyUtilTest;
 import xdi2.tests.core.util.StatementUtilTest;
 import xdi2.tests.core.util.XDI3UtilTest;
 import xdi2.tests.core.util.XRI2UtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
-import xdi2.tests.core.xri3.CloudNameTest;
-import xdi2.tests.core.xri3.CloudNumberTest;
-import xdi2.tests.core.xri3.XDI3ParserAParseTest;
-import xdi2.tests.core.xri3.XDI3ParserManualTest;
 
 public class AllTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-		suite.addTestSuite(XDI3ParserAParseTest.class);
-		suite.addTestSuite(XDI3ParserManualTest.class);
+		suite.addTestSuite(ParserImplTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapKeyValueGraphTest.class);
 		suite.addTestSuite(PropertiesKeyValueGraphTest.class);

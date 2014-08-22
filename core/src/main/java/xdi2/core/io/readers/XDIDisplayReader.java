@@ -9,7 +9,7 @@ import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIStatement;
 
 public class XDIDisplayReader extends AbstractXDIReader {
 
@@ -41,11 +41,11 @@ public class XDIDisplayReader extends AbstractXDIReader {
 			line = line.trim();
 			if (line.isEmpty()) continue;
 
-			XDI3Statement statementXri;
+			XDIStatement statementXri;
 
 			try {
 
-				statementXri = XDI3Statement.create(line);
+				statementXri = XDIStatement.create(line);
 			} catch (Exception ex) {
 
 				throw new Xdi2ParseException("Parser problem at line " + lineNr + ": " + ex.getMessage(), ex);

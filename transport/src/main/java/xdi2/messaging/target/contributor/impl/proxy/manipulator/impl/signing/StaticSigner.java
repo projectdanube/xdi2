@@ -3,7 +3,7 @@ package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 import java.security.PrivateKey;
 import java.util.Map;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 
 /**
@@ -12,9 +12,9 @@ import xdi2.messaging.Message;
  */
 public class StaticSigner extends PrivateKeySigner {
 
-	private Map<XDI3Segment, PrivateKey> privateKeys;
+	private Map<XDIAddress, PrivateKey> privateKeys;
 
-	public StaticSigner(Map<XDI3Segment, PrivateKey> privateKeys) {
+	public StaticSigner(Map<XDIAddress, PrivateKey> privateKeys) {
 
 		super();
 
@@ -29,7 +29,7 @@ public class StaticSigner extends PrivateKeySigner {
 	@Override
 	protected PrivateKey getPrivateKey(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
+		XDIAddress senderXri = message.getSenderAddress();
 		if (senderXri == null) return null;
 
 		// look for static private key
@@ -46,12 +46,12 @@ public class StaticSigner extends PrivateKeySigner {
 	 * Getters and setters
 	 */
 	
-	public Map<XDI3Segment, PrivateKey> getPrivateKeys() {
+	public Map<XDIAddress, PrivateKey> getPrivateKeys() {
 
 		return this.privateKeys;
 	}
 
-	public void setPrivateKeys(Map<XDI3Segment, PrivateKey> privateKeys) {
+	public void setPrivateKeys(Map<XDIAddress, PrivateKey> privateKeys) {
 
 		this.privateKeys = privateKeys;
 	}

@@ -10,7 +10,7 @@ public class SecretTokenCensoringCopyStrategy extends CopyStrategy {
 	@Override
 	public Literal replaceLiteral(Literal literal) {
 
-		if (literal.getContextNode().getXri().toString().contains(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN.toString())) {
+		if (literal.getContextNode().getAddress().toString().contains(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN.toString())) {
 
 			return new BasicLiteral("********");
 		} else {

@@ -15,15 +15,15 @@ import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 public class SignaturesTest extends TestCase {
 
 	public void testAlgorithmAndLengthXris() throws Exception {
 
-		XDI3Segment xriKeyPair = XDI3Segment.create("$sha$256$rsa$1024");
-		XDI3Segment xriSymmetricKey = XDI3Segment.create("$sha$384$aes$256");
+		XDIAddress xriKeyPair = XDIAddress.create("$sha$256$rsa$1024");
+		XDIAddress xriSymmetricKey = XDIAddress.create("$sha$384$aes$256");
 
 		assertEquals(Signatures.getDigestAlgorithm(xriKeyPair), "sha");
 		assertEquals(Signatures.getDigestLength(xriKeyPair), Integer.valueOf(256));
@@ -48,10 +48,10 @@ public class SignaturesTest extends TestCase {
 		PrivateKey privateKey = keyPair.getPrivate();
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
+		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
-		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
+		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
 		KeyPairSignature signature = (KeyPairSignature) Signatures.createSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, 256, KeyPairSignature.KEY_ALGORITHM_RSA, 1024, false);
 		signature.sign(privateKey);
@@ -69,7 +69,7 @@ public class SignaturesTest extends TestCase {
 
 		assertTrue(signature.validate(publicKey));
 
-		contextNode.setRelation(XDI3Segment.create("#friend"), XDI3Segment.create("=joseph"));
+		contextNode.setRelation(XDIAddress.create("#friend"), XDIAddress.create("=joseph"));
 
 		assertFalse(signature.validate(publicKey));
 
@@ -83,10 +83,10 @@ public class SignaturesTest extends TestCase {
 		SecretKey secretKey = secretKeyGen.generateKey(); 
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
+		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
-		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
+		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
 		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.createSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, 384, SymmetricKeySignature.KEY_ALGORITHM_AES, 256, false);
 		signature.sign(secretKey);
@@ -104,7 +104,7 @@ public class SignaturesTest extends TestCase {
 
 		assertTrue(signature.validate(secretKey));
 
-		contextNode.setRelation(XDI3Segment.create("#friend"), XDI3Segment.create("=joseph"));
+		contextNode.setRelation(XDIAddress.create("#friend"), XDIAddress.create("=joseph"));
 
 		assertFalse(signature.validate(secretKey));
 
@@ -114,10 +114,10 @@ public class SignaturesTest extends TestCase {
 	public void testNormalizedSerialization() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDI3Statement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDI3Statement.create("=markus/#friend/=animesh"));
+		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
-		ContextNode contextNode = graph.getDeepContextNode(XDI3Segment.create("=markus"));
+		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
 		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus<#email>/\":[\"&\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>&/&\":\"markus.sabadello@gmail.com\"}";
 

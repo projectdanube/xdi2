@@ -1,6 +1,6 @@
 package xdi2.core.constants;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 /**
  * Constants for XDI dictionaries.
@@ -9,18 +9,18 @@ import xdi2.core.xri3.XDI3Segment;
  */
 public final class XDIDictionaryConstants {
 
-	public static final XDI3Segment XRI_S_IS = XDI3Segment.create("$is");
+	public static final XDIAddress XDI_ADD_IS = XDIAddress.create("$is");
 
-	public static final XDI3Segment XRI_S_IS_TYPE = XDI3Segment.create("$is#");
+	public static final XDIAddress XDI_ADD_IS_TYPE = XDIAddress.create("$is#");
 
-	public static final XDI3Segment XRI_S_REF = XDI3Segment.create("$ref");
-	public static final XDI3Segment XRI_S_IS_REF = XDI3Segment.create("$is$ref");
+	public static final XDIAddress XDI_ADD_REF = XDIAddress.create("$ref");
+	public static final XDIAddress XDI_ADD_IS_REF = XDIAddress.create("$is$ref");
 
-	public static final XDI3Segment XRI_S_REP = XDI3Segment.create("$rep");
-	public static final XDI3Segment XRI_S_IS_REP = XDI3Segment.create("$is$rep");
+	public static final XDIAddress XDI_ADD_REP = XDIAddress.create("$rep");
+	public static final XDIAddress XDI_ADD_IS_REP = XDIAddress.create("$is$rep");
 
-	public static final XDI3Segment XRI_S_BOOLEAN = XDI3Segment.create("$b");
-	public static final XDI3Segment XRI_S_NUMBER = XDI3Segment.create("$n");
+	public static final XDIAddress XDI_ADD_BOOLEAN = XDIAddress.create("$b");
+	public static final XDIAddress XDI_ADD_NUMBER = XDIAddress.create("$n");
 
 	private XDIDictionaryConstants() { }
 }

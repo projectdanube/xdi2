@@ -1,7 +1,7 @@
 package xdi2.messaging.target.contributor;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
@@ -38,7 +38,7 @@ public interface Contributor extends Extension<MessagingTarget> {
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public ContributorResult executeOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public ContributorResult executeOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Executes an XDI operation on a statement.
@@ -50,5 +50,5 @@ public interface Contributor extends Extension<MessagingTarget> {
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public ContributorResult executeOnStatement(XDI3Segment[] contributorChainXris, XDI3Segment contributorChainXri, XDI3Statement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public ContributorResult executeOnStatement(XDIAddress[] contributorChainXris, XDIAddress contributorChainXri, XDIStatement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

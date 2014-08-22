@@ -6,8 +6,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot.MappingContextNodeInnerRootIterator;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
 
 /**
  * An XDI local root, represented as a context node.
@@ -67,7 +67,7 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	 * Instance methods
 	 */
 
-	public XdiPeerRoot setSelfPeerRoot(XDI3Segment xri) {
+	public XdiPeerRoot setSelfPeerRoot(XDIAddress xri) {
 
 		XdiPeerRoot selfPeerRoot = this.getSelfPeerRoot();
 		if (selfPeerRoot != null) selfPeerRoot.getContextNode().delete();
@@ -79,18 +79,18 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 		ContextNode localRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();
 
-		localRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
-		localRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, selfPeerRootContextNode);
+		localRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_REF);
+		localRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, selfPeerRootContextNode);
 
-		selfPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
-		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, localRootContextNode);
+		selfPeerRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
+		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, localRootContextNode);
 
 		return selfPeerRoot;
 	}
 
 	public XdiPeerRoot getSelfPeerRoot() {
 
-		Relation relation = this.getContextNode().getRelation(XDIDictionaryConstants.XRI_S_IS_REF);
+		Relation relation = this.getContextNode().getRelation(XDIDictionaryConstants.XDI_ADD_IS_REF);
 		if (relation == null) return null;
 
 		return XdiPeerRoot.fromContextNode(relation.follow());

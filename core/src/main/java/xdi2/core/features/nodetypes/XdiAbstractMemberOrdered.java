@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberOrdered<EQC, EQI, C, U, O, I> {
 
@@ -53,23 +53,23 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
+	public static XDIArc createarc(String identifier, boolean attribute) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_ORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		return XDIArc.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_ORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
+	public static boolean isValidarc(XDIArc arc, boolean attribute) {
 
-		if (arcXri == null) return false;
+		if (arc == null) return false;
 
-		if (arcXri.isClassXs()) return false;
-		if (attribute && ! arcXri.isAttributeXs()) return false;
-		if (! attribute && arcXri.isAttributeXs()) return false;
-		if (arcXri.hasXRef()) return false;
+		if (arc.isClassXs()) return false;
+		if (attribute && ! arc.isAttributeXs()) return false;
+		if (! attribute && arc.isAttributeXs()) return false;
+		if (arc.hasXRef()) return false;
 
-		if (! XDIConstants.CS_MEMBER_ORDERED.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_MEMBER_ORDERED.equals(arc.getCs())) return false;
 
-		if (! arcXri.hasLiteral()) return false;
+		if (! arc.hasLiteral()) return false;
 
 		return true;
 	}

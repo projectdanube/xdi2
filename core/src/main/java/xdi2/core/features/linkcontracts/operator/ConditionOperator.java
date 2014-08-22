@@ -5,11 +5,11 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.condition.Condition;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingIterator;
-import xdi2.core.util.iterators.MappingStatementXriIterator;
+import xdi2.core.util.iterators.MappingStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Statement;
 
 public abstract class ConditionOperator extends Operator {
 
@@ -29,15 +29,15 @@ public abstract class ConditionOperator extends Operator {
 		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 		if (innerRoot == null) throw new Xdi2RuntimeException("Missing condition in operator: " + this.getRelation());
 
-		return new MappingIterator<XDI3Statement, Condition> (
+		return new MappingIterator<XDIStatement, Condition> (
 				new MappingAbsoluteToRelativeStatementXriIterator(
 						innerRoot,
-						new MappingStatementXriIterator(
+						new MappingStatementIterator(
 								new SelectingNotImpliedStatementIterator(
 										innerRoot.getContextNode().getAllStatements())))) {
 
 			@Override
-			public Condition map(XDI3Statement statementXri) {
+			public Condition map(XDIStatement statementXri) {
 
 				return Condition.fromStatement(statementXri);
 			}

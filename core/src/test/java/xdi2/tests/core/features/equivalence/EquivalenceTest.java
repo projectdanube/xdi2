@@ -6,16 +6,16 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 public class EquivalenceTest extends TestCase {
 
 	public void testIdentity() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDI3SubSegment.create("=markus"));
-		ContextNode identityContextNode = graph.getRootContextNode().setDeepContextNode(XDI3Segment.create("=pseudo"));
+		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDIArc.create("=markus"));
+		ContextNode identityContextNode = graph.getRootContextNode().setDeepContextNode(XDIAddress.create("=pseudo"));
 
 		// test $is
 
@@ -24,8 +24,8 @@ public class EquivalenceTest extends TestCase {
 		assertEquals(Equivalence.getIdentityContextNodes(contextNode).next(), identityContextNode);
 		assertEquals(Equivalence.getIncomingIdentityContextNodes(identityContextNode).next(), contextNode);
 
-		assertEquals(Equivalence.getIdentityRelations(contextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS));
-		assertEquals(Equivalence.getIncomingIdentityRelations(identityContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS));
+		assertEquals(Equivalence.getIdentityRelations(contextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS));
+		assertEquals(Equivalence.getIncomingIdentityRelations(identityContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS));
 
 		Equivalence.getIdentityContextNodes(contextNode).next().delete();
 
@@ -42,9 +42,9 @@ public class EquivalenceTest extends TestCase {
 	public void testReference() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDI3SubSegment.create("=markus"));
-		ContextNode referenceContextNode = graph.getRootContextNode().setDeepContextNode(XDI3Segment.create("=pseudo1"));
-		ContextNode replacementContextNode = graph.getRootContextNode().setDeepContextNode(XDI3Segment.create("=pseudo2"));
+		ContextNode contextNode = graph.getRootContextNode().setContextNode(XDIArc.create("=markus"));
+		ContextNode referenceContextNode = graph.getRootContextNode().setDeepContextNode(XDIAddress.create("=pseudo1"));
+		ContextNode replacementContextNode = graph.getRootContextNode().setDeepContextNode(XDIAddress.create("=pseudo2"));
 
 		// test $ref
 
@@ -54,8 +54,8 @@ public class EquivalenceTest extends TestCase {
 		assertEquals(Equivalence.getIncomingReferenceContextNodes(referenceContextNode).next(), contextNode);
 		assertNull(Equivalence.getReplacementContextNode(contextNode));
 
-		assertEquals(Equivalence.getReferenceRelation(contextNode), contextNode.getRelation(XDIDictionaryConstants.XRI_S_REF));
-		assertEquals(Equivalence.getIncomingReferenceRelations(referenceContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_REF));
+		assertEquals(Equivalence.getReferenceRelation(contextNode), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REF));
+		assertEquals(Equivalence.getIncomingReferenceRelations(referenceContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REF));
 
 		Equivalence.getReferenceContextNode(contextNode).delete();
 
@@ -67,8 +67,8 @@ public class EquivalenceTest extends TestCase {
 		assertEquals(Equivalence.getIncomingReplacementContextNodes(replacementContextNode).next(), contextNode);
 		assertNull(Equivalence.getReferenceContextNode(contextNode));
 
-		assertEquals(Equivalence.getReplacementRelation(contextNode), contextNode.getRelation(XDIDictionaryConstants.XRI_S_REP));
-		assertEquals(Equivalence.getIncomingReplacementRelations(replacementContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XRI_S_REP));
+		assertEquals(Equivalence.getReplacementRelation(contextNode), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REP));
+		assertEquals(Equivalence.getIncomingReplacementRelations(replacementContextNode).next(), contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_REP));
 
 		Equivalence.getReplacementContextNode(contextNode).delete();
 

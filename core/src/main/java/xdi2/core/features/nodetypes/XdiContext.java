@@ -5,16 +5,16 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Comparable<XdiContext<?>> {
 
 	public ContextNode getContextNode();
 	public Graph getGraph();
-	public XDI3SubSegment getArcXri();
-	public XDI3Segment getXri();
-	public XDI3SubSegment getBaseArcXri();
+	public XDIArc getArc();
+	public XDIAddress getXri();
+	public XDIArc getBasearc();
 
 	public EQ dereference();
 	public EQ getReferenceXdiContext();
@@ -23,17 +23,17 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 
 	public XdiRoot findRoot();
 	public XdiLocalRoot findLocalRoot();
-	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create);
-	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiEntityCollection getXdiEntityCollection(XDI3Segment contextNodeXri, boolean create);
-	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiAttributeCollection getXdiAttributeCollection(XDI3Segment contextNodeXri, boolean create);
-	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiEntitySingleton getXdiEntitySingleton(XDI3Segment contextNodeXri, boolean create);
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3Segment contextNodeXri, boolean create);
-	public XdiEntity getXdiEntity(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiEntity getXdiEntity(XDI3Segment contextNodeXri, boolean create);
-	public XdiAttribute getXdiAttribute(XDI3SubSegment contextNodeArcXri, boolean create);
-	public XdiAttribute getXdiAttribute(XDI3Segment contextNodeXri, boolean create);
+	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateXri, boolean create);
+	public XdiEntityCollection getXdiEntityCollection(XDIArc contextNodeArc, boolean create);
+	public XdiEntityCollection getXdiEntityCollection(XDIAddress contextNodeAddress, boolean create);
+	public XdiAttributeCollection getXdiAttributeCollection(XDIArc contextNodeArc, boolean create);
+	public XdiAttributeCollection getXdiAttributeCollection(XDIAddress contextNodeAddress, boolean create);
+	public XdiEntitySingleton getXdiEntitySingleton(XDIArc contextNodeArc, boolean create);
+	public XdiEntitySingleton getXdiEntitySingleton(XDIAddress contextNodeAddress, boolean create);
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDIArc contextNodeArc, boolean create);
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDIAddress contextNodeAddress, boolean create);
+	public XdiEntity getXdiEntity(XDIArc contextNodeArc, boolean create);
+	public XdiEntity getXdiEntity(XDIAddress contextNodeAddress, boolean create);
+	public XdiAttribute getXdiAttribute(XDIArc contextNodeArc, boolean create);
+	public XdiAttribute getXdiAttribute(XDIAddress contextNodeAddress, boolean create);
 }

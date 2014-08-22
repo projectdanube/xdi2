@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI entity class (context function), represented as a context node.
@@ -36,7 +36,7 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 		if (contextNode == null) return false;
 
 		return 
-				isValidArcXri(contextNode.getArcXri()) &&
+				isValidarc(contextNode.getArc()) &&
 				( ! XdiAttributeCollection.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
 	}
 
@@ -56,24 +56,24 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+	public static XDIArc createarc(XDIArc arc) {
 
-		return XDI3SubSegment.create("" + XDIConstants.XS_CLASS.charAt(0) + arcXri + XDIConstants.XS_CLASS.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + arc + XDIConstants.XS_CLASS.charAt(1));
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidarc(XDIArc arc) {
 
-		if (arcXri == null) return false;
+		if (arc == null) return false;
 
-		if (! arcXri.isClassXs()) return false;
-		if (arcXri.isAttributeXs()) return false;
+		if (! arc.isClassXs()) return false;
+		if (arc.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arc.getCs())) {
 
-			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arcXri.getCs())) {
+			if (! arc.hasLiteral() && ! arc.hasXRef()) return false;
+		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arc.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arc.getCs())) {
 
-			if (arcXri.hasLiteral() || arcXri.hasXRef()) return false;
+			if (arc.hasLiteral() || arc.hasXRef()) return false;
 		} else {
 
 			return false;

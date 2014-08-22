@@ -1,7 +1,7 @@
 package xdi2.client.constants;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * Constants for XDI client and discovery.
@@ -10,17 +10,17 @@ import xdi2.core.xri3.XDI3SubSegment;
  */
 public final class XDIClientConstants {
 
-	public static final XDI3Segment XRI_S_AC_XDI = XDI3Segment.create("[<$xdi>]");
-	public static final XDI3Segment XRI_S_AC_URI = XDI3Segment.create("[<$uri>]");
+	public static final XDIAddress XDI_ADD_AC_XDI = XDIAddress.create("[<$xdi>]");
+	public static final XDIAddress XDI_ADD_AC_URI = XDIAddress.create("[<$uri>]");
 
-	public static final XDI3Segment XRI_S_AS_XDI = XDI3Segment.create("<$xdi>");
-	public static final XDI3Segment XRI_S_AS_URI = XDI3Segment.create("<$uri>");
+	public static final XDIAddress XDI_ADD_AS_XDI = XDIAddress.create("<$xdi>");
+	public static final XDIAddress XDI_ADD_AS_URI = XDIAddress.create("<$uri>");
 
-	public static final XDI3SubSegment XRI_SS_AC_XDI = XDI3SubSegment.create("[<$xdi>]");
-	public static final XDI3SubSegment XRI_SS_AC_URI = XDI3SubSegment.create("[<$uri>]");
+	public static final XDIArc XDI_ARC_AC_XDI = XDIArc.create("[<$xdi>]");
+	public static final XDIArc XDI_ARC_AC_URI = XDIArc.create("[<$uri>]");
 
-	public static final XDI3SubSegment XRI_SS_AS_XDI = XDI3SubSegment.create("<$xdi>");
-	public static final XDI3SubSegment XRI_SS_AS_URI = XDI3SubSegment.create("<$uri>");
+	public static final XDIArc XDI_ARC_AS_XDI = XDIArc.create("<$xdi>");
+	public static final XDIArc XDI_ARC_AS_URI = XDIArc.create("<$uri>");
 
 	private XDIClientConstants() { }
 }

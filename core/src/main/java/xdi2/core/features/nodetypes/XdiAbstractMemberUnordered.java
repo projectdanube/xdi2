@@ -9,9 +9,9 @@ import org.apache.commons.codec.binary.Hex;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberUnordered<EQC, EQI, C, U, O, I> {
 
@@ -58,24 +58,24 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
+	public static XDIArc createarc(String identifier, boolean attribute) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_UNORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		return XDIArc.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_UNORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
 	}
 
-	public static XDI3SubSegment createUuidArcXri(String uuid, boolean attribute) {
+	public static XDIArc createUuidarc(String uuid, boolean attribute) {
 
-		return createArcXri(":uuid:" + uuid, attribute);
+		return createarc(":uuid:" + uuid, attribute);
 	}
 
-	public static XDI3SubSegment createRandomUuidArcXri(boolean attribute) {
+	public static XDIArc createRandomUuidarc(boolean attribute) {
 
 		String uuid = UUID.randomUUID().toString().toLowerCase();
 
-		return createUuidArcXri(uuid, attribute);
+		return createUuidarc(uuid, attribute);
 	}
 
-	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute, String algorithm) {
+	public static XDIArc createDigestarc(String string, boolean attribute, String algorithm) {
 
 		byte[] output;
 
@@ -91,26 +91,26 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXri(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, attribute);
+		return createarc(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, attribute);
 	}
 
-	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute) {
+	public static XDIArc createDigestarc(String string, boolean attribute) {
 
-		return createDigestArcXri(string, attribute, "SHA-512");
+		return createDigestarc(string, attribute, "SHA-512");
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
+	public static boolean isValidarc(XDIArc arc, boolean attribute) {
 
-		if (arcXri == null) return false;
+		if (arc == null) return false;
 
-		if (arcXri.isClassXs()) return false;
-		if (attribute && ! arcXri.isAttributeXs()) return false;
-		if (! attribute && arcXri.isAttributeXs()) return false;
-		if (arcXri.hasXRef()) return false;
+		if (arc.isClassXs()) return false;
+		if (attribute && ! arc.isAttributeXs()) return false;
+		if (! attribute && arc.isAttributeXs()) return false;
+		if (arc.hasXRef()) return false;
 
-		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arcXri.getCs())) return false;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arc.getCs())) return false;
 
-		if (! arcXri.hasLiteral()) return false;
+		if (! arc.hasLiteral()) return false;
 
 		return true;
 	}

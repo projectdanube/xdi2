@@ -13,7 +13,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -325,7 +325,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		return new MessagingTargetMount(messagingTargetPath, messagingTarget);
 	}
 
-	public synchronized MessagingTargetMount lookup(XDI3SubSegment ownerPeerRootXri) throws Xdi2TransportException, Xdi2MessagingException {
+	public synchronized MessagingTargetMount lookup(XDIArc ownerPeerRootXri) throws Xdi2TransportException, Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootXri);
 

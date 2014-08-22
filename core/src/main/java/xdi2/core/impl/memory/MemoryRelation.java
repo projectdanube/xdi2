@@ -2,32 +2,32 @@ package xdi2.core.impl.memory;
 
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class MemoryRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -2979718490345210876L;
 
-	private XDI3Segment arcXri;
-	private XDI3Segment targetContextNodeXri;
+	private XDIAddress arc;
+	private XDIAddress targetContextNodeAddress;
 
-	MemoryRelation(MemoryContextNode contextNode, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	MemoryRelation(MemoryContextNode contextNode, XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		super(contextNode);
 
-		this.arcXri = arcXri;
-		this.targetContextNodeXri = targetContextNodeXri;
+		this.arc = arc;
+		this.targetContextNodeAddress = targetContextNodeAddress;
 	}
 
 	@Override
-	public XDI3Segment getArcXri() {
+	public XDIAddress getArc() {
 
-		return this.arcXri;
+		return this.arc;
 	}
 
 	@Override
-	public XDI3Segment getTargetContextNodeXri() {
+	public XDIAddress getTargetContextNodeAddress() {
 
-		return this.targetContextNodeXri;
+		return this.targetContextNodeAddress;
 	}
 }

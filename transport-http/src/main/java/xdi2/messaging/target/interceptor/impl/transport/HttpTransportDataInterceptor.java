@@ -7,7 +7,7 @@ import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -29,7 +29,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 
 	private static Logger log = LoggerFactory.getLogger(HttpTransportDataInterceptor.class.getName());
 
-	public static final XDI3Segment XRI_S_IP = XDI3Segment.create("<$ip>");
+	public static final XDIAddress XDI_ADD_IP = XDIAddress.create("<$ip>");
 
 	/*
 	 * Prototype
@@ -61,7 +61,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 
 		String remoteAddr = httpRequest.getRemoteAddr();
 
-		XdiAttribute ipXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XRI_S_IP));
+		XdiAttribute ipXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDI_ADD_IP));
 		XdiValue ipXdiValue = ipXdiAttribute.getXdiValue(true);
 		Literal ipLiteral = ipXdiValue.getContextNode().setLiteralString(remoteAddr);
 
