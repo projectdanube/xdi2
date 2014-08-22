@@ -62,9 +62,9 @@ public class Timestamps {
 	 */
 	public static Date getContextNodeTimestamp(ContextNode contextNode, XDIAddress modifier) {
 
-		XDIAddress timestampXri = modifier == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifier, XDITimestampsConstants.XDI_ARC_AS_T);
+		XDIAddress timestampAddress = modifier == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifier, XDITimestampsConstants.XDI_ARC_AS_T);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampXri, false);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampAddress, false);
 		if (xdiAttributeSingleton == null) return null;
 
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
@@ -85,13 +85,13 @@ public class Timestamps {
 	/**
 	 * Set the timestamp associated with a context node.
 	 */
-	public static void setContextNodeTimestamp(ContextNode contextNode, XDIAddress modifierXri, Date timestamp) {
+	public static void setContextNodeTimestamp(ContextNode contextNode, XDIAddress modifierAddress, Date timestamp) {
 
-		XDIAddress timestampXri = modifierXri == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifierXri, XDITimestampsConstants.XDI_ARC_AS_T);
+		XDIAddress timestampAddress = modifierAddress == null ? XDITimestampsConstants.XDI_ADD_AS_T : AddressUtil.concatAddresses(modifierAddress, XDITimestampsConstants.XDI_ARC_AS_T);
 
 		String literalData = timestampToString(timestamp);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampXri, true);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampAddress, true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 		xdiValue.getContextNode().setLiteralString(literalData);
 	}

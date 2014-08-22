@@ -88,12 +88,12 @@ public class LinkContractsTest extends TestCase {
 	public void testRootLinkContract() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		GraphUtil.setOwnerXri(graph, XDIAddress.create("=markus"));
-		assertEquals(GraphUtil.getOwnerXri(graph), XDIAddress.create("=markus"));
+		GraphUtil.setOwnerAddress(graph, XDIAddress.create("=markus"));
+		assertEquals(GraphUtil.getOwnerAddress(graph), XDIAddress.create("=markus"));
 
 		RootLinkContract l = RootLinkContract.findRootLinkContract(graph, true);
 		assertNotNull(l);
-		assertEquals(l.getXdiEntity().getXri(), XDIAddress.create("(=markus/=markus)$do"));
+		assertEquals(l.getXdiEntity().getAddress(), XDIAddress.create("(=markus/=markus)$do"));
 
 		assertNotNull(RootLinkContract.findRootLinkContract(graph, false));
 		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof RootLinkContract);
@@ -108,12 +108,12 @@ public class LinkContractsTest extends TestCase {
 	public void testPublicLinkContract() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		GraphUtil.setOwnerXri(graph, XDIAddress.create("=markus"));
-		assertEquals(GraphUtil.getOwnerXri(graph), XDIAddress.create("=markus"));
+		GraphUtil.setOwnerAddress(graph, XDIAddress.create("=markus"));
+		assertEquals(GraphUtil.getOwnerAddress(graph), XDIAddress.create("=markus"));
 
 		PublicLinkContract l = PublicLinkContract.findPublicLinkContract(graph, true);
 		assertNotNull(l);
-		assertEquals(l.getXdiEntity().getXri(), XDIAddress.create("(=markus/$public)$do"));
+		assertEquals(l.getXdiEntity().getAddress(), XDIAddress.create("(=markus/$public)$do"));
 
 		assertNotNull(PublicLinkContract.findPublicLinkContract(graph, false));
 		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof PublicLinkContract);

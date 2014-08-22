@@ -704,50 +704,50 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public Statement setStatement(XDIStatement statementXri) {
+	public Statement setStatement(XDIStatement statementAddress) {
 
 		// set the statement
 
-		if (statementXri.isContextNodeStatement()) {
+		if (statementAddress.isContextNodeStatement()) {
 
-			ContextNode contextNode = this.setDeepContextNode(statementXri.getTargetContextNodeAddress());
+			ContextNode contextNode = this.setDeepContextNode(statementAddress.getTargetContextNodeAddress());
 
 			return contextNode.getStatement();
-		} else if (statementXri.isRelationStatement()) {
+		} else if (statementAddress.isRelationStatement()) {
 
-			Relation relation = this.setDeepRelation(statementXri.getContextNodeAddress(), statementXri.getRelationAddress(), statementXri.getTargetContextNodeAddress());
+			Relation relation = this.setDeepRelation(statementAddress.getContextNodeAddress(), statementAddress.getRelationAddress(), statementAddress.getTargetContextNodeAddress());
 
 			return relation.getStatement();
-		} else if (statementXri.isLiteralStatement()) {
+		} else if (statementAddress.isLiteralStatement()) {
 
-			Literal literal = this.setDeepLiteral(statementXri.getContextNodeAddress(), statementXri.getLiteralData());
+			Literal literal = this.setDeepLiteral(statementAddress.getContextNodeAddress(), statementAddress.getLiteralData());
 
 			return literal.getStatement();
 		} else {
 
-			throw new Xdi2GraphException("Invalid statement XRI: " + statementXri);
+			throw new Xdi2GraphException("Invalid statement XRI: " + statementAddress);
 		}
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementXri) {
+	public Statement getStatement(XDIStatement statementAddress) {
 
-		ContextNode baseContextNode = this.getDeepContextNode(statementXri.getSubject(), false);
+		ContextNode baseContextNode = this.getDeepContextNode(statementAddress.getSubject(), false);
 		if (baseContextNode == null) return null;
 
-		if (statementXri.isContextNodeStatement()) {
+		if (statementAddress.isContextNodeStatement()) {
 
-			ContextNode contextNode = baseContextNode.getContextNode(statementXri.getContextNodeArc(), false);
+			ContextNode contextNode = baseContextNode.getContextNode(statementAddress.getContextNodeArc(), false);
 
 			return contextNode == null ? null : contextNode.getStatement();
-		} else if (statementXri.isRelationStatement()) {
+		} else if (statementAddress.isRelationStatement()) {
 
-			Relation relation = baseContextNode.getRelation(statementXri.getRelationAddress(), statementXri.getTargetContextNodeAddress());
+			Relation relation = baseContextNode.getRelation(statementAddress.getRelationAddress(), statementAddress.getTargetContextNodeAddress());
 
 			return relation == null ? null : relation.getStatement();
-		} else if (statementXri.isLiteralStatement()) {
+		} else if (statementAddress.isLiteralStatement()) {
 
-			Literal literal = baseContextNode.getLiteral(statementXri.getLiteralData());
+			Literal literal = baseContextNode.getLiteral(statementAddress.getLiteralData());
 
 			return literal == null ? null : literal.getStatement();
 		}
@@ -804,9 +804,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsStatement(XDIStatement statementXri) {
+	public boolean containsStatement(XDIStatement statementAddress) {
 
-		return this.getStatement(statementXri) != null;
+		return this.getStatement(statementAddress) != null;
 	}
 
 	@Override
@@ -889,7 +889,7 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		if (XdiInnerRoot.isInnerRootarc(arc)) {
 
-			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(arc)).setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(arc), contextNode);
+			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(arc)).setRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(arc), contextNode);
 		}
 	}
 

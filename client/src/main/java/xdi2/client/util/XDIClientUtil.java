@@ -26,10 +26,10 @@ public class XDIClientUtil {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-		message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-		message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+		message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+		message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 		message.setSecretToken(secretToken);
-		message.createGetOperation(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+		message.createGetOperation(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 
 		xdiHttpClient.send(messageEnvelope, null);
 	}
@@ -54,8 +54,8 @@ public class XDIClientUtil {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-		message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-		message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+		message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+		message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 		message.setSecretToken(secretToken);
 		message.createGetOperation(privateKeyAddress);
 

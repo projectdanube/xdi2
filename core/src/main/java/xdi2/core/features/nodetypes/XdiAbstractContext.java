@@ -107,7 +107,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XDIAddress getXri() {
+	public XDIAddress getAddress() {
 
 		return this.getContextNode().getAddress();
 	}
@@ -191,13 +191,13 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateXri, boolean create) {
+	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create) {
 
 		XdiRoot xdiRoot = this.findRoot();
 
-		XDIAddress innerRootSubjectXri = xdiRoot.absoluteToRelativeXri(this.getContextNode().getAddress());
+		XDIAddress innerRootSubjectAddress = xdiRoot.absoluteToRelativeAddress(this.getContextNode().getAddress());
 
-		return xdiRoot.getInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
+		return xdiRoot.getInnerRoot(innerRootSubjectAddress, innerRootPredicateAddress, create);
 	}
 
 	@Override

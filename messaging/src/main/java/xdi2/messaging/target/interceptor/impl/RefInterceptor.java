@@ -219,7 +219,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doIncludeRefRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXri())) {
+				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {
@@ -348,7 +348,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		XDIAddress originalcontextNodeAddress = contextNodeAddress;
 
-		XDIAddress localXri = XDIConstants.XDI_ADD_ROOT;
+		XDIAddress localAddress = XDIConstants.XDI_ADD_ROOT;
 
 		while (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeAddress)) {
 
@@ -392,7 +392,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				pushRefRepRelationPerOperation(executionContext, refRelation);
 
-				return AddressUtil.concatAddresses(referenceContextNode.getAddress(), localXri);
+				return AddressUtil.concatAddresses(referenceContextNode.getAddress(), localAddress);
 			}
 
 			if (repRelation != null) {
@@ -402,13 +402,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				pushRefRepRelationPerOperation(executionContext, repRelation);
 
-				return AddressUtil.concatAddresses(replacementContextNode.getAddress(), localXri);
+				return AddressUtil.concatAddresses(replacementContextNode.getAddress(), localAddress);
 			}
 
 			// continue with parent context node XRI
 
-			localXri = AddressUtil.concatAddresses(AddressUtil.localXri(contextNodeAddress, 1), localXri);
-			contextNodeAddress = AddressUtil.parentXri(contextNodeAddress, -1);
+			localAddress = AddressUtil.concatAddresses(AddressUtil.localAddress(contextNodeAddress, 1), localAddress);
+			contextNodeAddress = AddressUtil.parentAddress(contextNodeAddress, -1);
 			if (contextNodeAddress == null) contextNodeAddress = XDIConstants.XDI_ADD_ROOT;
 		}
 
@@ -435,8 +435,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// prepare feedback message
 
-		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXri());
-		feedbackMessage.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
+		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderAddress());
+		feedbackMessage.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getAddress());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
@@ -488,10 +488,10 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// prepare feedback messages
 
-		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderXri());
-		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderXri());
-		feedbackMessageRef.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
-		feedbackMessageRep.setToPeerRootXri(operation.getMessage().getToPeerRootXri());
+		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderAddress());
+		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderAddress());
+		feedbackMessageRef.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
+		feedbackMessageRep.setToPeerRootAddress(operation.getMessage().getToPeerRootAddress());
 
 		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_VARIABLE));
 		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_VARIABLE));

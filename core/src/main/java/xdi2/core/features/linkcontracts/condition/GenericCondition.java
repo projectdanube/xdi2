@@ -13,9 +13,9 @@ public class GenericCondition extends Condition {
 
 	private static final long serialVersionUID = 3812888725775095575L;
 
-	protected GenericCondition(XDIStatement statementXri) {
+	protected GenericCondition(XDIStatement statementAddress) {
 
-		super(statementXri);
+		super(statementAddress);
 	}
 
 	/*
@@ -51,7 +51,7 @@ public class GenericCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		Statement statement = policyEvaluationContext.getStatement(this.getStatementXri());
+		Statement statement = policyEvaluationContext.getStatement(this.getStatementAddress());
 
 		return Boolean.valueOf(statement != null);
 	}

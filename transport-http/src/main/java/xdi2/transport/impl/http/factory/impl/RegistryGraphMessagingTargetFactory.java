@@ -39,11 +39,11 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDIAddress ownerXri = XDIAddress.create(ownerString);
+		XDIAddress ownerAddress = XDIAddress.create(ownerString);
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -62,19 +62,19 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// update the owner
 
-		ownerXri = ownerPeerRoot.getAddressOfPeerRoot();
+		ownerAddress = ownerPeerRoot.getAddressOfPeerRoot();
 
 		// find the owner's context node
 
-		ContextNode ownerContextNode = this.getRegistryGraph().getDeepContextNode(ownerXri, true);
+		ContextNode ownerContextNode = this.getRegistryGraph().getDeepContextNode(ownerAddress, true);
 
 		// create and mount the new messaging target
 
-		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerXri.toString();
+		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerAddress.toString();
 
-		log.info("Going to mount new messaging target for " + ownerXri + " at " + messagingTargetPath);
+		log.info("Going to mount new messaging target for " + ownerAddress + " at " + messagingTargetPath);
 
-		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXri, ownerPeerRoot, ownerContextNode);
+		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerAddress, ownerPeerRoot, ownerContextNode);
 	}
 
 	@Override
@@ -86,15 +86,15 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDIAddress ownerXri = XDIAddress.create(ownerString);
+		XDIAddress ownerAddress = XDIAddress.create(ownerString);
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 
 		if (ownerPeerRoot == null) {
 
-			log.warn("Peer root for " + ownerXri + " no longer found in the registry graph. Going to unmount messaging target.");
+			log.warn("Peer root for " + ownerAddress + " no longer found in the registry graph. Going to unmount messaging target.");
 
 			// unmount the messaging target
 
@@ -108,7 +108,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public Iterator<XDIArc> getOwnerPeerRootXris() {
+	public Iterator<XDIArc> getOwnerPeerRootAddresss() {
 
 		Iterator<XdiPeerRoot> ownerPeerRoots = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoots();
 
@@ -132,16 +132,16 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress) {
 
-		XDIAddress ownerXri = XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootXri);
+		XDIAddress ownerAddress = XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootAddress);
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerXri, false);
+		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 		if (ownerPeerRoot == null) return null;
 
-		String requestPath = messagingTargetFactoryPath + "/" + ownerXri.toString();
+		String requestPath = messagingTargetFactoryPath + "/" + ownerAddress.toString();
 
-		if (log.isDebugEnabled()) log.debug("requestPath for ownerPeerRootXri " + ownerPeerRootXri + " is " + requestPath);
+		if (log.isDebugEnabled()) log.debug("requestPath for ownerPeerRootAddress " + ownerPeerRootAddress + " is " + requestPath);
 
 		return requestPath;
 	}

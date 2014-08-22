@@ -22,13 +22,13 @@ public abstract class AbstractMessagingTargetFactory implements MessagingTargetF
 	}
 
 	@Override
-	public Iterator<XDIArc> getOwnerPeerRootXris() {
+	public Iterator<XDIArc> getOwnerPeerRootAddresss() {
 
 		return new EmptyIterator<XDIArc> ();
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress) {
 
 		return null;
 	}

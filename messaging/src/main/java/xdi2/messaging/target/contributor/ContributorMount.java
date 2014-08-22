@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface ContributorMount {
 
-	String[] contributorXris() default { };
+	String[] contributorAddresss() default { };
 	boolean address() default true;
 	boolean contextNodeStatement() default true;
 	boolean relationStatement() default true;

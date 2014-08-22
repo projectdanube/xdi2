@@ -44,16 +44,16 @@ public class GovernorLinkContract extends LinkContract {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getArc().equals(XDILinkContractConstants.XDI_ARC_DO)) return false;
 
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (getTemplateAuthorityAndId(xdiEntity.getAddress()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
 
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getTemplateAuthorityAndId(xdiEntity.getXri()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (getTemplateAuthorityAndId(xdiEntity.getAddress()) == null) return false;
 
 			return true;
 		} else {
@@ -74,7 +74,7 @@ public class GovernorLinkContract extends LinkContract {
 		return new GovernorLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createGovernorLinkContractXri(XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
+	public static XDIAddress createGovernorLinkContractAddress(XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
 
 		if (requestingAuthority == null) throw new NullPointerException();
 		if (templateAuthorityAndId == null) throw new NullPointerException();
@@ -98,9 +98,9 @@ public class GovernorLinkContract extends LinkContract {
 	 */
 	public static GovernorLinkContract findGovernorLinkContract(Graph graph, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDIAddress governorLinkContractXri = createGovernorLinkContractXri(requestingAuthority, templateAuthorityAndId);
+		XDIAddress governorLinkContractAddress = createGovernorLinkContractAddress(requestingAuthority, templateAuthorityAndId);
 
-		ContextNode governorLinkContractContextNode = create ? graph.setDeepContextNode(governorLinkContractXri) : graph.getDeepContextNode(governorLinkContractXri, true);
+		ContextNode governorLinkContractContextNode = create ? graph.setDeepContextNode(governorLinkContractAddress) : graph.getDeepContextNode(governorLinkContractAddress, true);
 		if (governorLinkContractContextNode == null) return null;
 
 		return new GovernorLinkContract(XdiAbstractEntity.fromContextNode(governorLinkContractContextNode));
@@ -115,8 +115,8 @@ public class GovernorLinkContract extends LinkContract {
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		XDIAddress subjectXri = XdiInnerRoot.getSubjectOfInnerRootXri(linkContractInnerRootarc);
-		XDIAddress requestingAuthority = subjectXri;
+		XDIAddress subjectAddress = XdiInnerRoot.getSubjectOfInnerRootAddress(linkContractInnerRootarc);
+		XDIAddress requestingAuthority = subjectAddress;
 
 		return requestingAuthority;
 	}
@@ -126,10 +126,10 @@ public class GovernorLinkContract extends LinkContract {
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		XDIAddress predicateXri = XdiInnerRoot.getPredicateOfInnerRootXri(linkContractInnerRootarc);
-		if (AddressUtil.endsWith(predicateXri, XDILinkContractConstants.XDI_ADD_DO_VARIABLE) == null) return null;
+		XDIAddress predicateAddress = XdiInnerRoot.getPredicateOfInnerRootAddress(linkContractInnerRootarc);
+		if (AddressUtil.endsWith(predicateAddress, XDILinkContractConstants.XDI_ADD_DO_VARIABLE) == null) return null;
 
-		XDIAddress templateAuthorityAndId = AddressUtil.parentXri(predicateXri, -1);
+		XDIAddress templateAuthorityAndId = AddressUtil.parentAddress(predicateAddress, -1);
 
 		return templateAuthorityAndId;
 	}

@@ -187,27 +187,27 @@ public class Keys {
 		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
 	}
 
-	public static String getKeyAlgorithm(XDIAddress dataTypeXri) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeAddress) {
 
-		XDIArc keyAlgorithmXri = dataTypeXri.getNumArcs() > 0 ? dataTypeXri.getArc(0) : null;
-		if (keyAlgorithmXri == null) return null;
+		XDIArc keyAlgorithmAddress = dataTypeAddress.getNumArcs() > 0 ? dataTypeAddress.getArc(0) : null;
+		if (keyAlgorithmAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
-		if (keyAlgorithmXri.hasXRef()) return null;
-		if (! keyAlgorithmXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
+		if (keyAlgorithmAddress.hasXRef()) return null;
+		if (! keyAlgorithmAddress.hasLiteral()) return null;
 
-		return keyAlgorithmXri.getLiteral();
+		return keyAlgorithmAddress.getLiteral();
 	}
 
-	public static Integer getKeyLength(XDIAddress dataTypeXri) {
+	public static Integer getKeyLength(XDIAddress dataTypeAddress) {
 
-		XDIArc keyLengthXri = dataTypeXri.getNumArcs() > 1 ? dataTypeXri.getArc(1) : null;
-		if (keyLengthXri == null) return null;
+		XDIArc keyLengthAddress = dataTypeAddress.getNumArcs() > 1 ? dataTypeAddress.getArc(1) : null;
+		if (keyLengthAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
-		if (keyLengthXri.hasXRef()) return null;
-		if (! keyLengthXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
+		if (keyLengthAddress.hasXRef()) return null;
+		if (! keyLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(keyLengthXri.getLiteral());
+		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 }

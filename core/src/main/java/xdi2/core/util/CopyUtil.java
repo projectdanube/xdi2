@@ -174,9 +174,9 @@ public final class CopyUtil {
 		XdiRoot relationContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeAddress, false);
 		XdiRoot targetContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(targetContextNode.getGraph()).getRoot(targetContextNodeAddress, false);
 
-		XDIAddress relativeRelationcontextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXri(relationcontextNodeAddress);
-		XDIAddress relativeRelationtargetContextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXri(relationtargetContextNodeAddress);
-		XDIAddress relativetargetContextNodeAddress = targetContextNodeXdiRoot.absoluteToRelativeXri(targetContextNodeAddress);
+		XDIAddress relativeRelationcontextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeAddress(relationcontextNodeAddress);
+		XDIAddress relativeRelationtargetContextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeAddress(relationtargetContextNodeAddress);
+		XDIAddress relativetargetContextNodeAddress = targetContextNodeXdiRoot.absoluteToRelativeAddress(targetContextNodeAddress);
 
 		Relation targetRelation;
 
@@ -185,15 +185,15 @@ public final class CopyUtil {
 		if (relativeRelationtargetContextNodeAddress != null &&
 				relativeRelationtargetContextNodeAddress.getNumArcs() == 1 &&
 				XdiInnerRoot.isInnerRootarc(relativeRelationtargetContextNodeAddress.getFirstArc()) &&
-				XdiInnerRoot.getSubjectOfInnerRootXri(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relativeRelationcontextNodeAddress) &&
-				XdiInnerRoot.getPredicateOfInnerRootXri(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relationAddress)) {
+				XdiInnerRoot.getSubjectOfInnerRootAddress(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relativeRelationcontextNodeAddress) &&
+				XdiInnerRoot.getPredicateOfInnerRootAddress(relativeRelationtargetContextNodeAddress.getFirstArc()).equals(relationAddress)) {
 
 			// if the target context node is not the same, we need to adjust the inner root
 
 			if (! targetContextNodeAddress.equals(relationcontextNodeAddress)) {
 
 				relativeRelationtargetContextNodeAddress = XDIAddress.fromComponent(XdiInnerRoot.createInnerRootarc(relativetargetContextNodeAddress, relationAddress));
-				relationtargetContextNodeAddress = targetContextNodeXdiRoot.relativeToAbsoluteXri(relativeRelationtargetContextNodeAddress);
+				relationtargetContextNodeAddress = targetContextNodeXdiRoot.relativeToAbsoluteAddress(relativeRelationtargetContextNodeAddress);
 			}
 
 			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeAddress);
@@ -330,7 +330,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		targetGraph.setStatement(statement.getXri());
+		targetGraph.setStatement(statement.getAddress());
 
 		return null;
 	}

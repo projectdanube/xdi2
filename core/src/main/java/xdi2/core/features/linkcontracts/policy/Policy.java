@@ -115,7 +115,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * Returns the policy XRI of the XDI policy (e.g. $and, $or).
 	 * @return The policy XRI of the XDI policy.
 	 */
-	public XDIArc getPolicyXri() {
+	public XDIArc getPolicyAddress() {
 
 		if (this.getXdiEntity() instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) this.getXdiEntity()).getBasearc();

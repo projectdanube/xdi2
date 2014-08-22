@@ -10,22 +10,22 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 
-@ContributorMount(contributorXris={"(#test)"})
+@ContributorMount(contributorAddresss={"(#test)"})
 public class TestContributor3 extends AbstractContributor {
 
 	@Override
 	public ContributorResult executeGetOnAddress(
-			XDIAddress[] contributorXris,
-			XDIAddress contributorsXri,
+			XDIAddress[] contributorAddresss,
+			XDIAddress contributorsAddress,
 			XDIAddress relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		messageResult.getGraph().setStatement(XDIStatement.fromRelationComponents(
-				XDIAddress.create("" + contributorsXri + "=markus"),
+				XDIAddress.create("" + contributorsAddress + "=markus"),
 				XDIAddress.create("" + "#friend"),
-				XDIAddress.create("" + contributorsXri + "=animesh")));
+				XDIAddress.create("" + contributorsAddress + "=animesh")));
 
 		return ContributorResult.DEFAULT;
 	}

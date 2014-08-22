@@ -16,7 +16,7 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDIAddress resolveXri(XDIAddress contextNodeAddress) {
+	public XDIAddress resolveAddress(XDIAddress contextNodeAddress) {
 
 		return contextNodeAddress;
 	}
@@ -28,9 +28,9 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementXri) {
+	public Statement getStatement(XDIStatement statementAddress) {
 
-		return this.getGraph().getStatement(statementXri);
+		return this.getGraph().getStatement(statementAddress);
 	}
 
 	public Graph getGraph() {

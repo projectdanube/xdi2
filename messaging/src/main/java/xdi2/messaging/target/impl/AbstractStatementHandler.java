@@ -36,7 +36,7 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 		else if (operation instanceof DoOperation)
 			this.executeDoOnStatement(targetStatement, (DoOperation) operation, messageResult, executionContext);
 		else 
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationAddress(), null, executionContext);
 	}
 
 	public void executeGetOnStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

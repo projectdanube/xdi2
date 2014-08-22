@@ -150,7 +150,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static XDIAddress getProviderId(Graph graph) {
 
-		return GraphUtil.getOwnerXri(graph);
+		return GraphUtil.getOwnerAddress(graph);
 	}
 
 	private static XDIAddress[] getProviderIdSynonyms(Graph graph, XDIAddress providerid) {

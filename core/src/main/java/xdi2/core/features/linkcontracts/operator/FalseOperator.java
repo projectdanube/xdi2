@@ -63,7 +63,7 @@ public class FalseOperator extends ConditionOperator {
 		if (policy == null) throw new NullPointerException();
 
 		XdiInnerRoot xdiInnerRoot = policy.getXdiEntity().getXdiInnerRoot(XDIConstants.XDI_ADD_FALSE, true);
-		xdiInnerRoot.getContextNode().setStatement(condition.getStatementXri());
+		xdiInnerRoot.getContextNode().setStatement(condition.getStatementAddress());
 
 		return fromRelation(xdiInnerRoot.getPredicateRelation());
 	}

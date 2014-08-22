@@ -23,11 +23,11 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
-	private XDIArc defaultToPeerRootXri;
+	private XDIArc defaultToPeerRootAddress;
 
 	public ToInterceptor() {
 
-		this.defaultToPeerRootXri = null;
+		this.defaultToPeerRootAddress = null;
 	}
 
 	/*
@@ -52,16 +52,16 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 		// check if the owner peer root XRI matches the TO peer root XRI
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDIArc ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
-		XDIArc toPeerRootXri = message.getToPeerRootXri();
+		XDIArc ownerPeerRootAddress = messagingTarget.getOwnerPeerRootAddress();
+		XDIArc toPeerRootAddress = message.getToPeerRootAddress();
 
-		if (toPeerRootXri == null) toPeerRootXri = this.getDefaultToPeerRootXri();
+		if (toPeerRootAddress == null) toPeerRootAddress = this.getDefaultToPeerRootAddress();
 
-		if (log.isDebugEnabled()) log.debug("ownerPeerRootXri=" + ownerPeerRootXri + ", toPeerRootXri=" + toPeerRootXri);
+		if (log.isDebugEnabled()) log.debug("ownerPeerRootAddress=" + ownerPeerRootAddress + ", toPeerRootAddress=" + toPeerRootAddress);
 
-		if (toPeerRootXri == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
+		if (toPeerRootAddress == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
 
-		if (! toPeerRootXri.equals(ownerPeerRootXri)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootXri, null, null);
+		if (! toPeerRootAddress.equals(ownerPeerRootAddress)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootAddress, null, null);
 
 		// done
 
@@ -78,13 +78,13 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	 * Getters and setters
 	 */
 
-	public XDIArc getDefaultToPeerRootXri() {
+	public XDIArc getDefaultToPeerRootAddress() {
 
-		return this.defaultToPeerRootXri;
+		return this.defaultToPeerRootAddress;
 	}
 
-	public void setDefaultToPeerRootXri(XDIArc defaultToPeerRootXri) {
+	public void setDefaultToPeerRootAddress(XDIArc defaultToPeerRootAddress) {
 
-		this.defaultToPeerRootXri = defaultToPeerRootXri;
+		this.defaultToPeerRootAddress = defaultToPeerRootAddress;
 	}
 }

@@ -59,15 +59,15 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XDIArc getOwnerPeerRootXri() {
+	public XDIArc getOwnerPeerRootAddress() {
 
-		return GraphUtil.getOwnerPeerRootXri(this.getGraph());
+		return GraphUtil.getOwnerPeerRootAddress(this.getGraph());
 	}
 
 	@Override
-	public void setOwnerPeerRootXri(XDIArc ownerPeerRootXri) {
+	public void setOwnerPeerRootAddress(XDIArc ownerPeerRootAddress) {
 
-		GraphUtil.setOwnerPeerRootXri(this.getGraph(), ownerPeerRootXri);
+		GraphUtil.setOwnerPeerRootAddress(this.getGraph(), ownerPeerRootAddress);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			String identifier = XdiPeerRoot.createPeerRootArc(prototypingContext.getOwnerXri()).toString();
+			String identifier = XdiPeerRoot.createPeerRootArc(prototypingContext.getOwnerAddress()).toString();
 
 			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {

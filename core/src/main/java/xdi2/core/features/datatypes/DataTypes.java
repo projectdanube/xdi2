@@ -30,7 +30,7 @@ public class DataTypes {
 	 * Methods for booleans
 	 */
 
-	public static XDIAddress booleanToXri(Boolean b) {
+	public static XDIAddress booleanToAddress(Boolean b) {
 
 		if (Boolean.TRUE.equals(b)) return XDIConstants.XDI_ADD_TRUE;
 		if (Boolean.FALSE.equals(b)) return XDIConstants.XDI_ADD_FALSE;
@@ -54,11 +54,11 @@ public class DataTypes {
 	 * Set a $is+ datatype associated with a context node
 	 * 
 	 * @param contextNode
-	 * @param dataTypeXri
+	 * @param dataTypeAddress
 	 */
-	public static void setDataType(ContextNode contextNode, XDIAddress dataTypeXri) {
+	public static void setDataType(ContextNode contextNode, XDIAddress dataTypeAddress) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, dataTypeXri);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, dataTypeAddress);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class DataTypes {
 	 * @param xsdType
 	 * @return a xsd datatype XDIAddress
 	 */
-	public static XDIAddress dataTypeXriFromXsdType(String xsdType) {
+	public static XDIAddress dataTypeAddressFromXsdType(String xsdType) {
 
 		return XDIAddress.create("" + XRI_DATATYPE_XSD + XDIConstants.CS_CLASS_RESERVED + xsdType);
 	}
@@ -105,14 +105,14 @@ public class DataTypes {
 	/**
 	 * Returns datatype in xsd format for a given XRI segment.
 	 * 
-	 * @param dataTypeXri
+	 * @param dataTypeAddress
 	 * @return a string of xsd datatype
 	 */
-	public static String xsdTypeFromDataTypeXri(XDIAddress dataTypeXri) {
+	public static String xsdTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
 
-		String dataTypeXriString = dataTypeXri.toString();
+		String dataTypeAddressString = dataTypeAddress.toString();
 
-		return getDataTypeFromXRISegment(dataTypeXriString, true);
+		return getDataTypeFromXRISegment(dataTypeAddressString, true);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class DataTypes {
 	 * @param jsonType
 	 * @return a json datatype XDIAddress
 	 */
-	public static XDIAddress dataTypeXriFromJsonType(String jsonType) {
+	public static XDIAddress dataTypeAddressFromJsonType(String jsonType) {
 
 		return XDIAddress.create("" + XRI_DATATYPE_JSON + XDIConstants.CS_CLASS_RESERVED + jsonType);
 	}
@@ -129,12 +129,12 @@ public class DataTypes {
 	/**
 	 * Returns datatype in json format for a given XRI segment.
 	 * 
-	 * @param dataTypeXri
+	 * @param dataTypeAddress
 	 * @return a string of json datatype
 	 */
-	public static String jsonTypeFromDataTypeXri(XDIAddress dataTypeXri) {
+	public static String jsonTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
 
-		String dataTypeJSONString = dataTypeXri.toString();
+		String dataTypeJSONString = dataTypeAddress.toString();
 
 		return getDataTypeFromXRISegment(dataTypeJSONString, false);
 	}
@@ -145,7 +145,7 @@ public class DataTypes {
 	 * @param mimeType
 	 * @return a mime datatype XDIAddress.
 	 */
-	public static XDIAddress dataTypeXriFromMimeType(String mimeType) {
+	public static XDIAddress dataTypeAddressFromMimeType(String mimeType) {
 
 		String[] parts;
 		XDIAddress xri = null;
@@ -165,12 +165,12 @@ public class DataTypes {
 	/**
 	 * Returns datatype in mime format for a given XRI segment.
 	 * 
-	 * @param dataTypeXri
+	 * @param dataTypeAddress
 	 * @return a string of mime datatype
 	 */
-	public static String mimeTypeFromDataTypeXri(XDIAddress dataTypeXri) {
+	public static String mimeTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
 
-		String dataTypeMIMEString = dataTypeXri.toString();
+		String dataTypeMIMEString = dataTypeAddress.toString();
 
 		return getDataTypeFromXRISegment(dataTypeMIMEString, false);
 	}

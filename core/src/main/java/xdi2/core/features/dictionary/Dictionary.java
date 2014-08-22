@@ -18,29 +18,29 @@ public class Dictionary {
 	 * Methods for dictionary XRIs
 	 */
 
-	public static XDIArc instanceXriToDictionaryXri(XDIArc instanceXri) {
+	public static XDIArc instanceAddressToDictionaryAddress(XDIArc instanceAddress) {
 
-		return XDIArc.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + instanceXri + ")");
+		return XDIArc.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + instanceAddress + ")");
 	}
 
-	public static XDIArc dictionaryXriToInstanceXri(XDIArc dictionaryXri) {
+	public static XDIArc dictionaryAddressToInstanceAddress(XDIArc dictionaryAddress) {
 
-		if (! XDIConstants.CS_CLASS_UNRESERVED.equals(dictionaryXri.getCs())) return null;
-		if (! dictionaryXri.hasXRef()) return null;
+		if (! XDIConstants.CS_CLASS_UNRESERVED.equals(dictionaryAddress.getCs())) return null;
+		if (! dictionaryAddress.hasXRef()) return null;
 
-		return XDIArc.create(dictionaryXri.getXRef().getValue());
+		return XDIArc.create(dictionaryAddress.getXRef().getValue());
 	}
 
-	public static XDIArc nativeIdentifierToInstanceXri(String nativeIdentifier) {
+	public static XDIArc nativeIdentifierToInstanceAddress(String nativeIdentifier) {
 
 		return XDIArc.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + nativeIdentifier + ")");
 	}
 
-	public static String instanceXriToNativeIdentifier(XDIArc instanceXri) {
+	public static String instanceAddressToNativeIdentifier(XDIArc instanceAddress) {
 
-		if (! instanceXri.hasXRef()) return null;
+		if (! instanceAddress.hasXRef()) return null;
 
-		return instanceXri.getXRef().getValue();
+		return instanceAddress.getXRef().getValue();
 	}
 
 	/*

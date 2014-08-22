@@ -233,11 +233,11 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// write message envelope
 
-			XDIArc ownerPeerRootXri = cmdMessagingTarget.getOwnerPeerRootXri();
+			XDIArc ownerPeerRootAddress = cmdMessagingTarget.getOwnerPeerRootAddress();
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
-			if (ownerPeerRootXri != null) message.setToPeerRootXri(ownerPeerRootXri);
+			if (ownerPeerRootAddress != null) message.setToPeerRootAddress(ownerPeerRootAddress);
 			message.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
 			Graph graph = messageEnvelope.getGraph();

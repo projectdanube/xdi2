@@ -19,7 +19,7 @@ public final class GraphUtil {
 
 	private GraphUtil() { }
 
-	public static XDIArc getOwnerPeerRootXri(Graph graph) {
+	public static XDIArc getOwnerPeerRootAddress(Graph graph) {
 
 		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
 		if (xdiSelfPeerRoot == null) return null;
@@ -27,24 +27,24 @@ public final class GraphUtil {
 		return xdiSelfPeerRoot.getArc();
 	}
 
-	public static XDIAddress getOwnerXri(Graph graph) {
+	public static XDIAddress getOwnerAddress(Graph graph) {
 
-		XDIArc ownerPeerRootxri = getOwnerPeerRootXri(graph);
+		XDIArc ownerPeerRootxri = getOwnerPeerRootAddress(graph);
 		if (ownerPeerRootxri == null) return null;
 
 		return XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootxri);
 	}
 
-	public static void setOwnerPeerRootXri(Graph graph, XDIArc ownerPeerRootXri) {
+	public static void setOwnerPeerRootAddress(Graph graph, XDIArc ownerPeerRootAddress) {
 
-		XDIAddress ownerXri = XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootXri);
+		XDIAddress ownerAddress = XdiPeerRoot.getAddressOfPeerRootArc(ownerPeerRootAddress);
 
-		setOwnerXri(graph, ownerXri);
+		setOwnerAddress(graph, ownerAddress);
 	}
 
-	public static void setOwnerXri(Graph graph, XDIAddress ownerXri) {
+	public static void setOwnerAddress(Graph graph, XDIAddress ownerAddress) {
 
-		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerXri);
+		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerAddress);
 	}
 
 	/**

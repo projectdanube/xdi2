@@ -68,8 +68,8 @@ public class Signatures {
 		else
 			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createarc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(null);
 
-		XDIAddress dataTypeXri = getDataTypeXri(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
-		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXri);
+		XDIAddress dataTypeAddress = getDataTypeAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
+		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeAddress);
 
 		return Signature.fromXdiAttribute(signatureXdiAttribute);
 	}
@@ -143,81 +143,81 @@ public class Signatures {
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeXri == null ? null : getDigestAlgorithm(dataTypeXri);
+		return dataTypeAddress == null ? null : getDigestAlgorithm(dataTypeAddress);
 	}
 
-	public static String getDigestAlgorithm(XDIAddress dataTypeXri) {
+	public static String getDigestAlgorithm(XDIAddress dataTypeAddress) {
 
-		XDIArc digestAlgorithmXri = dataTypeXri.getNumArcs() > 0 ? dataTypeXri.getArc(0) : null;
-		if (digestAlgorithmXri == null) return null;
+		XDIArc digestAlgorithmAddress = dataTypeAddress.getNumArcs() > 0 ? dataTypeAddress.getArc(0) : null;
+		if (digestAlgorithmAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmXri.getCs())) return null;
-		if (digestAlgorithmXri.hasXRef()) return null;
-		if (! digestAlgorithmXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmAddress.getCs())) return null;
+		if (digestAlgorithmAddress.hasXRef()) return null;
+		if (! digestAlgorithmAddress.hasLiteral()) return null;
 
-		return digestAlgorithmXri.getLiteral();
+		return digestAlgorithmAddress.getLiteral();
 	}
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeXri == null ? null : getDigestLength(dataTypeXri);
+		return dataTypeAddress == null ? null : getDigestLength(dataTypeAddress);
 	}
 
-	public static Integer getDigestLength(XDIAddress dataTypeXri) {
+	public static Integer getDigestLength(XDIAddress dataTypeAddress) {
 
-		XDIArc digestLengthXri = dataTypeXri.getNumArcs() > 1 ? dataTypeXri.getArc(1) : null;
-		if (digestLengthXri == null) return null;
+		XDIArc digestLengthAddress = dataTypeAddress.getNumArcs() > 1 ? dataTypeAddress.getArc(1) : null;
+		if (digestLengthAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthXri.getCs())) return null;
-		if (digestLengthXri.hasXRef()) return null;
-		if (! digestLengthXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthAddress.getCs())) return null;
+		if (digestLengthAddress.hasXRef()) return null;
+		if (! digestLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(digestLengthXri.getLiteral());
+		return Integer.valueOf(digestLengthAddress.getLiteral());
 	}
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeXri == null ? null : getKeyAlgorithm(dataTypeXri);
+		return dataTypeAddress == null ? null : getKeyAlgorithm(dataTypeAddress);
 	}
 
-	public static String getKeyAlgorithm(XDIAddress dataTypeXri) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeAddress) {
 
-		XDIArc keyAlgorithmXri = dataTypeXri.getNumArcs() > 2 ? dataTypeXri.getArc(2) : null;
-		if (keyAlgorithmXri == null) return null;
+		XDIArc keyAlgorithmAddress = dataTypeAddress.getNumArcs() > 2 ? dataTypeAddress.getArc(2) : null;
+		if (keyAlgorithmAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmXri.getCs())) return null;
-		if (keyAlgorithmXri.hasXRef()) return null;
-		if (! keyAlgorithmXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
+		if (keyAlgorithmAddress.hasXRef()) return null;
+		if (! keyAlgorithmAddress.hasLiteral()) return null;
 
-		return keyAlgorithmXri.getLiteral();
+		return keyAlgorithmAddress.getLiteral();
 	}
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeXri = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeXri == null ? null : getKeyLength(dataTypeXri);
+		return dataTypeAddress == null ? null : getKeyLength(dataTypeAddress);
 	}
 
-	public static Integer getKeyLength(XDIAddress dataTypeXri) {
+	public static Integer getKeyLength(XDIAddress dataTypeAddress) {
 
-		XDIArc keyLengthXri = dataTypeXri.getNumArcs() > 3 ? dataTypeXri.getArc(3) : null;
-		if (keyLengthXri == null) return null;
+		XDIArc keyLengthAddress = dataTypeAddress.getNumArcs() > 3 ? dataTypeAddress.getArc(3) : null;
+		if (keyLengthAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthXri.getCs())) return null;
-		if (keyLengthXri.hasXRef()) return null;
-		if (! keyLengthXri.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
+		if (keyLengthAddress.hasXRef()) return null;
+		if (! keyLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(keyLengthXri.getLiteral());
+		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 
-	public static XDIAddress getDataTypeXri(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+	public static XDIAddress getDataTypeAddress(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
 
 		StringBuilder builder = new StringBuilder();
 

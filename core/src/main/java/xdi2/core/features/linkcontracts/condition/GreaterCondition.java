@@ -63,8 +63,8 @@ public class GreaterCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementAddress().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementAddress().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 

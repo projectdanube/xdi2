@@ -130,7 +130,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		XDIAddress contextNodeAddress = AddressUtil.concatAddresses(this.getAddress(), relativecontextNodeAddress);
 
-		XDIAddress parentcontextNodeAddress = AddressUtil.concatAddresses(this.getAddress(), AddressUtil.parentXri(relativecontextNodeAddress, -1));
+		XDIAddress parentcontextNodeAddress = AddressUtil.concatAddresses(this.getAddress(), AddressUtil.parentAddress(relativecontextNodeAddress, -1));
 		XDIArc arc = relativecontextNodeAddress.getLastArc();
 
 		// load the JSON object for the parent context node
@@ -147,9 +147,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		for (XDIArc temparc : relativecontextNodeAddress.getArcs()) {
 
-			XDIAddress tempXri = AddressUtil.concatAddresses(contextNode.getAddress(), temparc);
+			XDIAddress tempAddress = AddressUtil.concatAddresses(contextNode.getAddress(), temparc);
 
-			contextNode = new JSONContextNode((JSONGraph) this.getGraph(), contextNode, temparc, tempXri);
+			contextNode = new JSONContextNode((JSONGraph) this.getGraph(), contextNode, temparc, tempAddress);
 		}
 
 		// retrieve subgraph?

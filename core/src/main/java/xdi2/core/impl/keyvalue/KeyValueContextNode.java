@@ -231,9 +231,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		if (! this.keyValueStore.contains(relationsKey, arc.toString())) return null;
 		if (! this.keyValueStore.contains(relationKey)) return null;
 
-		XDIAddress relationXri = XDIAddress.create(this.keyValueStore.getOne(relationKey));
+		XDIAddress relationAddress = XDIAddress.create(this.keyValueStore.getOne(relationKey));
 
-		return new KeyValueRelation(this, this.keyValueStore, relationKey, arc, relationXri);
+		return new KeyValueRelation(this, this.keyValueStore, relationKey, arc, relationAddress);
 	}
 
 	@Override
@@ -248,11 +248,11 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		List<Relation> list = new IteratorListMaker<Relation> (new MappingIterator<String, Relation> (this.keyValueStore.getAll(relationKey)) {
 
 			@Override
-			public Relation map(String relationXriString) {
+			public Relation map(String relationAddressString) {
 
-				XDIAddress relationXri = XDIAddress.create(relationXriString);
+				XDIAddress relationAddress = XDIAddress.create(relationAddressString);
 
-				return new KeyValueRelation(KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arc, relationXri);
+				return new KeyValueRelation(KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arc, relationAddress);
 			}
 		}).list();
 
@@ -275,9 +275,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 				return new MappingIterator<String, Relation> (KeyValueContextNode.this.keyValueStore.getAll(relationKey)) {
 
 					@Override
-					public Relation map(String relationXriString) {
+					public Relation map(String relationAddressString) {
 
-						return new KeyValueRelation(KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arc, XDIAddress.create(relationXriString));
+						return new KeyValueRelation(KeyValueContextNode.this, KeyValueContextNode.this.keyValueStore, relationKey, arc, XDIAddress.create(relationAddressString));
 					}
 				};
 			}

@@ -38,7 +38,7 @@ public class LinkContractTemplate extends LinkContractBase {
 
 		if (! xdiVariable.getArc().equals(XDILinkContractConstants.XDI_ARC_DO_VARIABLE)) return false;
 
-		if (getTemplateAuthorityAndId(xdiVariable.getXri()) == null) return false;
+		if (getTemplateAuthorityAndId(xdiVariable.getAddress()) == null) return false;
 
 		return true;
 	}
@@ -55,7 +55,7 @@ public class LinkContractTemplate extends LinkContractBase {
 		return new LinkContractTemplate(xdiVariable);
 	}
 
-	public static XDIAddress createLinkContractTemplateXri(XDIAddress templateAuthorityAndId) {
+	public static XDIAddress createLinkContractTemplateAddress(XDIAddress templateAuthorityAndId) {
 
 		if (templateAuthorityAndId == null) throw new NullPointerException();
 		
@@ -74,9 +74,9 @@ public class LinkContractTemplate extends LinkContractBase {
 	 */
 	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDIAddress linkContractTemplateXri = createLinkContractTemplateXri(templateAuthorityAndId);
+		XDIAddress linkContractTemplateAddress = createLinkContractTemplateAddress(templateAuthorityAndId);
 
-		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
+		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateAddress) : graph.getDeepContextNode(linkContractTemplateAddress, true);
 		if (linkContractTemplateContextNode == null) return null;
 
 		return new LinkContractTemplate(XdiVariable.fromContextNode(linkContractTemplateContextNode));
@@ -88,10 +88,10 @@ public class LinkContractTemplate extends LinkContractBase {
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
 
-		int index = AddressUtil.indexOfXri(xri, XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
+		int index = AddressUtil.indexOfAddress(xri, XDILinkContractConstants.XDI_ARC_DO_VARIABLE);
 		if (index < 0) return null;
 
-		return AddressUtil.subXri(xri, 0, index);
+		return AddressUtil.subAddress(xri, 0, index);
 	}
 
 	/*

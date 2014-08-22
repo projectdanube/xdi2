@@ -45,16 +45,16 @@ public class GenericLinkContract extends LinkContract {
 
 			if (! ((XdiEntitySingleton) xdiEntity).getArc().equals(XDILinkContractConstants.XDI_ARC_DO)) return false;
 
-			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getAddress()) == null) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
 
 			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
 
-			if (getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			if (getRequestingAuthority(xdiEntity.getXri()) == null) return false;
+			if (getAuthorizingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (getRequestingAuthority(xdiEntity.getAddress()) == null) return false;
 
 			return true;
 		} else {
@@ -75,7 +75,7 @@ public class GenericLinkContract extends LinkContract {
 		return new GenericLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createGenericLinkContractXri(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
+	public static XDIAddress createGenericLinkContractAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
 
 		if (authorizingAuthority == null) throw new NullPointerException();
 		if (requestingAuthority == null) throw new NullPointerException();
@@ -104,9 +104,9 @@ public class GenericLinkContract extends LinkContract {
 	 */
 	public static GenericLinkContract findGenericLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDIAddress genericLinkContractXri = createGenericLinkContractXri(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
+		XDIAddress genericLinkContractAddress = createGenericLinkContractAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
 
-		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXri) : graph.getDeepContextNode(genericLinkContractXri, true);
+		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractAddress) : graph.getDeepContextNode(genericLinkContractAddress, true);
 		if (genericLinkContractContextNode == null) return null;
 
 		return new GenericLinkContract(XdiAbstractEntity.fromContextNode(genericLinkContractContextNode));
@@ -121,7 +121,7 @@ public class GenericLinkContract extends LinkContract {
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		return XdiInnerRoot.getSubjectOfInnerRootXri(linkContractInnerRootarc);
+		return XdiInnerRoot.getSubjectOfInnerRootAddress(linkContractInnerRootarc);
 	}
 
 	public static XDIAddress getRequestingAuthority(XDIAddress xri) {
@@ -129,15 +129,15 @@ public class GenericLinkContract extends LinkContract {
 		XDIArc linkContractInnerRootarc = xri.getFirstArc();
 		if (! XdiInnerRoot.isInnerRootarc(linkContractInnerRootarc)) return null;
 
-		return XdiInnerRoot.getPredicateOfInnerRootXri(linkContractInnerRootarc);
+		return XdiInnerRoot.getPredicateOfInnerRootAddress(linkContractInnerRootarc);
 	}
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
 
-		int index = AddressUtil.indexOfXri(xri, XDILinkContractConstants.XDI_ARC_DO);
-		if (index < 0) index = AddressUtil.indexOfXri(xri, XdiEntityCollection.createarc(XDILinkContractConstants.XDI_ARC_DO));
+		int index = AddressUtil.indexOfAddress(xri, XDILinkContractConstants.XDI_ARC_DO);
+		if (index < 0) index = AddressUtil.indexOfAddress(xri, XdiEntityCollection.createarc(XDILinkContractConstants.XDI_ARC_DO));
 
-		return AddressUtil.subXri(xri, 1, index);
+		return AddressUtil.subAddress(xri, 1, index);
 	}
 
 	/*

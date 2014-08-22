@@ -86,8 +86,8 @@ public class GraphContextHandler extends AbstractContextHandler {
 			this.getGraph().getRootContextNode(false).delContextNode(contextNodeAddress.getFirstArc());
 		} else {
 
-			XDIAddress parentcontextNodeAddress = AddressUtil.parentXri(contextNodeAddress, -1);
-			XDIArc arc = AddressUtil.localXri(contextNodeAddress, 1).getFirstArc();
+			XDIAddress parentcontextNodeAddress = AddressUtil.parentAddress(contextNodeAddress, -1);
+			XDIArc arc = AddressUtil.localAddress(contextNodeAddress, 1).getFirstArc();
 
 			ContextNode parentContextNode = this.getGraph().getDeepContextNode(parentcontextNodeAddress, false);
 			if (parentContextNode == null) return;

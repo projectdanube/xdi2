@@ -29,12 +29,12 @@ public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticato
 	@Override
 	protected PublicKey getPublicKey(Message message) {
 
-		XDIAddress senderXri = message.getSenderAddress();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// look for static public key
 
-		PublicKey publicKey = this.getPublicKeys().get(senderXri);
+		PublicKey publicKey = this.getPublicKeys().get(senderAddress);
 		if (publicKey == null) return null;
 
 		// done

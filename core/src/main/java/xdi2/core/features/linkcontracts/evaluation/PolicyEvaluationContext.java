@@ -12,7 +12,7 @@ import xdi2.core.syntax.XDIStatement;
  */
 public interface PolicyEvaluationContext {
 
-	public XDIAddress resolveXri(XDIAddress contextNodeAddress);
+	public XDIAddress resolveAddress(XDIAddress contextNodeAddress);
 	public ContextNode getContextNode(XDIAddress contextNodeAddress);
-	public Statement getStatement(XDIStatement statementXri);
+	public Statement getStatement(XDIStatement statementAddress);
 }

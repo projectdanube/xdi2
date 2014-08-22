@@ -36,5 +36,5 @@ public interface MessagingTarget {
 	 * Returns the owner peer root XRI of the messaging target.
 	 * This may be null.
 	 */
-	public XDIArc getOwnerPeerRootXri();
+	public XDIArc getOwnerPeerRootAddress();
 }

@@ -691,16 +691,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph22.containsStatement(XDIStatement.create("=neustar//=les")));
 		assertTrue(graph22.containsStatement(XDIStatement.create("=markus/#friend/=neustar=les")));
 		assertTrue(graph22.containsStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph22.getStatement(XDIStatement.create("=neustar//=les")).getXri(), XDIStatement.create("=neustar//=les"));
-		assertEquals(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getXri(), "=markus/#friend/=neustar=les");
-		assertEquals(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph22.getStatement(XDIStatement.create("=neustar//=les")).getAddress(), XDIStatement.create("=neustar//=les"));
+		assertEquals(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress(), "=markus/#friend/=neustar=les");
+		assertEquals(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")).getXri().isContextNodeStatement());
-		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getXri().isRelationStatement());
-		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=neustar//=les")).getAddress().isContextNodeStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress().isRelationStatement());
+		assertTrue(graph22.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress().isLiteralStatement());
 
 		CopyUtil.copyStatement(statement22_1, graph23, null);
 		CopyUtil.copyStatement(statement22_2, graph23, null);
@@ -717,16 +717,16 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(graph23.containsStatement(XDIStatement.create("=neustar//=les")));
 		assertTrue(graph23.containsStatement(XDIStatement.create("=markus/#friend/=neustar=les")));
 		assertTrue(graph23.containsStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")));
-		assertEquals(graph23.getStatement(XDIStatement.create("=neustar//=les")).getXri(), XDIStatement.create("=neustar//=les"));
-		assertEquals(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getXri(), "=markus/#friend/=neustar=les");
-		assertEquals(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getXri(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
+		assertEquals(graph23.getStatement(XDIStatement.create("=neustar//=les")).getAddress(), XDIStatement.create("=neustar//=les"));
+		assertEquals(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress(), "=markus/#friend/=neustar=les");
+		assertEquals(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress(), "=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
 
 		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")) instanceof ContextNodeStatement);
 		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")) instanceof RelationStatement);
 		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")) instanceof LiteralStatement);
-		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")).getXri().isContextNodeStatement());
-		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getXri().isRelationStatement());
-		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getXri().isLiteralStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=neustar//=les")).getAddress().isContextNodeStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=markus/#friend/=neustar=les")).getAddress().isRelationStatement());
+		assertTrue(graph23.getStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\"")).getAddress().isLiteralStatement());
 
 		graph22.close();
 		graph23.close();

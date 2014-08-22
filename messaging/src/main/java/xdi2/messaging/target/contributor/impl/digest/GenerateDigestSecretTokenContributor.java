@@ -24,7 +24,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
  */
-@ContributorMount(contributorXris={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
+@ContributorMount(contributorAddresss={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
@@ -87,13 +87,13 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 	 */
 
 	@Override
-	public ContributorResult executeDoOnLiteralStatement(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnLiteralStatement(XDIAddress[] contributorAddresss, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		Object literalData = relativeTargetStatement.getLiteralData();
 
 		// check if applicable
 
-		if (! operation.getOperationXri().equals(XDI_ADD_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
+		if (! operation.getOperationAddress().equals(XDI_ADD_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
 
 		// check parameters
 
@@ -117,7 +117,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		// add it to the graph
 
-		ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
+		ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 		if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a digest secret token on an attribute.", null, executionContext);
 		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 		localSaltAndDigestSecretTokenXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(localSaltAndDigestSecretToken);

@@ -193,9 +193,9 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			Message message = new MessageEnvelope().createMessage(sender);
 
-			message.setFromPeerRootXri(XdiPeerRoot.createPeerRootArc(sender));
-			message.setToPeerRootXri(XdiPeerRoot.createPeerRootArc(recipient));
-			message.setLinkContractXri(linkContract);
+			message.setFromPeerRootAddress(XdiPeerRoot.createPeerRootArc(sender));
+			message.setToPeerRootAddress(XdiPeerRoot.createPeerRootArc(recipient));
+			message.setLinkContractAddress(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
 			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);

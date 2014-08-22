@@ -52,12 +52,12 @@ public interface MessagingTargetFactory {
 	 * MessagingTargetFactory can create. Not all MessagingTargetFactorys may
 	 * support this.
 	 */
-	public Iterator<XDIArc> getOwnerPeerRootXris();
+	public Iterator<XDIArc> getOwnerPeerRootAddresss();
 
 	/**
 	 * Returns the request path at which this MessagingTargetFactory is able to
 	 * mount a MessagingTarget with a given owner peer root XRI. Not all MessagingTargetFactorys
 	 * may support this.
 	 */
-	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXri);
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress);
 }

@@ -244,8 +244,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Plain XDI get".equals(submit)) {
@@ -290,8 +290,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Get cloud names".equals(submit)) {
@@ -339,18 +339,18 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Get root link contract".equals(submit)) {
 
-				message.createGetOperation(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+				message.createGetOperation(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			} else if ("Set root link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-				GraphUtil.setOwnerPeerRootXri(graph, cloudNumber.getPeerRootArc());
+				GraphUtil.setOwnerPeerRootAddress(graph, cloudNumber.getPeerRootArc());
 
 				RootLinkContract rootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
 				rootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XDI_ADD_ALL, XDIConstants.XDI_ADD_ROOT);
@@ -365,7 +365,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createSetOperation(graph);
 			} else if ("Del root link contract".equals(submit)) {
 
-				message.createDelOperation(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+				message.createDelOperation(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);
@@ -398,18 +398,18 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Get public link contract".equals(submit)) {
 
-				message.createGetOperation(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getAddress()));
+				message.createGetOperation(PublicLinkContract.createPublicLinkContractAddress(cloudNumber.getAddress()));
 			} else if ("Set public link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-				GraphUtil.setOwnerPeerRootXri(graph, cloudNumber.getPeerRootArc());
+				GraphUtil.setOwnerPeerRootAddress(graph, cloudNumber.getPeerRootArc());
 
 				PublicLinkContract publicLinkContract = PublicLinkContract.findPublicLinkContract(graph, true);
 				XDIAddress publicAddress = AddressUtil.concatAddresses(cloudNumber.getAddress(), XDILinkContractConstants.XDI_ADD_PUBLIC);
@@ -418,7 +418,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createSetOperation(graph);
 			} else if ("Del public link contract".equals(submit)) {
 
-				message.createDelOperation(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getAddress()));
+				message.createDelOperation(PublicLinkContract.createPublicLinkContractAddress(cloudNumber.getAddress()));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);
@@ -456,13 +456,13 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Get generic link contract".equals(submit)) {
 
-				message.createGetOperation(GenericLinkContract.createGenericLinkContractXri(cloudNumber.getAddress(), XDIAddress.create(requestingAuthority), null));
+				message.createGetOperation(GenericLinkContract.createGenericLinkContractAddress(cloudNumber.getAddress(), XDIAddress.create(requestingAuthority), null));
 			} else if ("Set generic link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
@@ -479,7 +479,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createSetOperation(graph);
 			} else if ("Del generic link contract".equals(submit)) {
 
-				message.createDelOperation(GenericLinkContract.createGenericLinkContractXri(cloudNumber.getAddress(), XDIAddress.create(requestingAuthority), null));
+				message.createDelOperation(GenericLinkContract.createGenericLinkContractAddress(cloudNumber.getAddress(), XDIAddress.create(requestingAuthority), null));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);
@@ -513,8 +513,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
 			Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-			message.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getAddress()));
+			message.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			message.setLinkContractAddress(RootLinkContract.createRootLinkContractAddress(cloudNumber.getAddress()));
 			message.setSecretToken("********");
 
 			if ("Get key pairs".equals(submit)) {

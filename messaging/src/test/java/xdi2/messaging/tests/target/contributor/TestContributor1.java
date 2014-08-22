@@ -10,7 +10,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 
-@ContributorMount(contributorXris={"(#con)"})
+@ContributorMount(contributorAddresss={"(#con)"})
 public class TestContributor1 extends AbstractContributor {
 
 	private String value = "val";
@@ -24,21 +24,21 @@ public class TestContributor1 extends AbstractContributor {
 	
 	@Override
 	public ContributorResult executeGetOnAddress(
-			XDIAddress[] contributorXris,
-			XDIAddress contributorsXri,
+			XDIAddress[] contributorAddresss,
+			XDIAddress contributorsAddress,
 			XDIAddress relativeTargetAddress,
 			GetOperation operation,
 			MessageResult messageResult,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		messageResult.getGraph().setStatement(XDIStatement.fromLiteralComponents(
-				XDIAddress.create("" + contributorsXri + "=a<#b>&"),
+				XDIAddress.create("" + contributorsAddress + "=a<#b>&"),
 				this.value));
 
 		messageResult.getGraph().setStatement(XDIStatement.fromRelationComponents(
-				XDIAddress.create("" + contributorsXri + "=x*y"),
+				XDIAddress.create("" + contributorsAddress + "=x*y"),
 				XDIAddress.create("" + "#c"),
-				XDIAddress.create("" + contributorsXri + "=d*e")));
+				XDIAddress.create("" + contributorsAddress + "=d*e")));
 
 		return ContributorResult.DEFAULT;
 	}

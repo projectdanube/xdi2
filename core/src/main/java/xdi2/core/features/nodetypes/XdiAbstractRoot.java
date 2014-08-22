@@ -111,10 +111,10 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(subSegment) : root.getContextNode().getContextNode(subSegment, false);
 				if (innerRootContextNode == null) break;
 
-				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXri(subSegment), false);
+				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(subSegment)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootAddress(subSegment), false);
 				if (contextNode == null) break;
 
-				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXri(subSegment), innerRootContextNode.getAddress());
+				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(subSegment), innerRootContextNode.getAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootAddress(subSegment), innerRootContextNode.getAddress());
 				if (relation == null) break;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
@@ -134,43 +134,43 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XDIAddress absoluteToRelativeXri(XDIAddress absoluteXri) {
+	public XDIAddress absoluteToRelativeAddress(XDIAddress absoluteAddress) {
 
-		XDIAddress relativeXri = AddressUtil.removeStartXri(absoluteXri, this.getContextNode().getAddress());
+		XDIAddress relativeAddress = AddressUtil.removeStartAddress(absoluteAddress, this.getContextNode().getAddress());
 
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeXri(" + absoluteXri + " --> " + relativeXri + ")");
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeAddress(" + absoluteAddress + " --> " + relativeAddress + ")");
 
-		return relativeXri;
+		return relativeAddress;
 	}
 
 	@Override
-	public XDIAddress relativeToAbsoluteXri(XDIAddress relativeXri) {
+	public XDIAddress relativeToAbsoluteAddress(XDIAddress relativeAddress) {
 
-		XDIAddress absoluteXri = AddressUtil.concatAddresses(this.getContextNode().getAddress(), relativeXri);
+		XDIAddress absoluteAddress = AddressUtil.concatAddresses(this.getContextNode().getAddress(), relativeAddress);
 
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteXri(" + relativeXri + " --> " + absoluteXri + ")");
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteAddress(" + relativeAddress + " --> " + absoluteAddress + ")");
 
-		return absoluteXri;
+		return absoluteAddress;
 	}
 
 	@Override
-	public XDIStatement absoluteToRelativeStatementXri(XDIStatement absoluteStatementXri) {
+	public XDIStatement absoluteToRelativeStatement(XDIStatement absoluteStatementAddress) {
 
-		XDIStatement relativeStatementXri = StatementUtil.removeStartAddressStatement(absoluteStatementXri, this.getContextNode().getAddress());
+		XDIStatement relativeStatementAddress = StatementUtil.removeStartAddressStatement(absoluteStatementAddress, this.getContextNode().getAddress());
 
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementXri(" + absoluteStatementXri + " --> " + relativeStatementXri + ")");
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementAddress(" + absoluteStatementAddress + " --> " + relativeStatementAddress + ")");
 
-		return relativeStatementXri;
+		return relativeStatementAddress;
 	}
 
 	@Override
-	public XDIStatement relativeToAbsoluteStatementXri(XDIStatement relativeStatementXri) {
+	public XDIStatement relativeToAbsoluteStatement(XDIStatement relativeStatementAddress) {
 
-		XDIStatement absoluteStatementXri = StatementUtil.concatAddressStatement(this.getContextNode().getAddress(), relativeStatementXri);
+		XDIStatement absoluteStatementAddress = StatementUtil.concatAddressStatement(this.getContextNode().getAddress(), relativeStatementAddress);
 
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementXri(" + relativeStatementXri + " --> " + absoluteStatementXri + ")");
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementAddress(" + relativeStatementAddress + " --> " + absoluteStatementAddress + ")");
 
-		return absoluteStatementXri;
+		return absoluteStatementAddress;
 	}
 
 	/*

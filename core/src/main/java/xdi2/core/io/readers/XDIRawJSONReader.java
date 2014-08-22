@@ -60,18 +60,18 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XDIArc arc = Dictionary.nativeIdentifierToInstanceXri(key);
+				XDIArc arc = Dictionary.nativeIdentifierToInstanceAddress(key);
 
 				XdiEntitySingleton xdiEntitySingleton = xdiContext.getXdiEntitySingleton(XdiEntitySingleton.createarc(arc), true);
 				readJsonObject(xdiEntitySingleton, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
-				XDIArc arc = Dictionary.nativeIdentifierToInstanceXri(key);
+				XDIArc arc = Dictionary.nativeIdentifierToInstanceAddress(key);
 
 				readJsonArray(xdiContext, arc, (JsonArray) jsonElement);
 			} else if (jsonElement instanceof JsonPrimitive) {
 
-				XDIArc arc = Dictionary.nativeIdentifierToInstanceXri(key);
+				XDIArc arc = Dictionary.nativeIdentifierToInstanceAddress(key);
 
 				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createarc(arc), true);
 				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);

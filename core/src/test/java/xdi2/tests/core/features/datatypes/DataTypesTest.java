@@ -34,13 +34,13 @@ public class DataTypesTest extends TestCase {
 
 			if (xriSeg.toString().contains("json")) {
 
-				assertEquals("number", DataTypes.jsonTypeFromDataTypeXri(xriSeg).toString());
+				assertEquals("number", DataTypes.jsonTypeFromDataTypeAddress(xriSeg).toString());
 			} else if (xriSeg.toString().contains("xsd")) {
 
-				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeXri(xriSeg).toString());
+				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeAddress(xriSeg).toString());
 			} else if (xriSeg.toString().contains("mime")) {
 
-				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeXri(xriSeg).toString());
+				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeAddress(xriSeg).toString());
 			}
 		}
 		

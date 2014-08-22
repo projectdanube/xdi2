@@ -54,12 +54,12 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender
 
-		XDIAddress senderXri = message.getSenderAddress();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// sender entity
 
-		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderXri, false);
+		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderAddress, false);
 		senderXdiEntity = senderXdiEntity == null ? null : senderXdiEntity.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender entity: " + senderXdiEntity);

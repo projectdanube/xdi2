@@ -20,7 +20,7 @@ import xdi2.core.syntax.XDIStatement;
 
 public class SignaturesTest extends TestCase {
 
-	public void testAlgorithmAndLengthXris() throws Exception {
+	public void testAlgorithmAndLengthAddresss() throws Exception {
 
 		XDIAddress xriKeyPair = XDIAddress.create("$sha$256$rsa$1024");
 		XDIAddress xriSymmetricKey = XDIAddress.create("$sha$384$aes$256");
@@ -35,8 +35,8 @@ public class SignaturesTest extends TestCase {
 		assertEquals(Signatures.getKeyAlgorithm(xriSymmetricKey), "aes");
 		assertEquals(Signatures.getKeyLength(xriSymmetricKey), Integer.valueOf(256));
 
-		assertEquals(Signatures.getDataTypeXri("sha", 256, "rsa", 1024), xriKeyPair);
-		assertEquals(Signatures.getDataTypeXri("sha", 384, "aes", 256), xriSymmetricKey);
+		assertEquals(Signatures.getDataTypeAddress("sha", 256, "rsa", 1024), xriKeyPair);
+		assertEquals(Signatures.getDataTypeAddress("sha", 384, "aes", 256), xriSymmetricKey);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {

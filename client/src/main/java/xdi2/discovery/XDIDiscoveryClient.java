@@ -240,8 +240,8 @@ public class XDIDiscoveryClient {
 
 			authorityMessageEnvelope = new MessageEnvelope();
 			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
-			authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootArc());
-			authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getAddress()));
+			authorityMessage.setToPeerRootAddress(cloudNumber.getPeerRootArc());
+			authorityMessage.setLinkContractAddress(PublicLinkContract.createPublicLinkContractAddress(cloudNumber.getAddress()));
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(cloudNumber.getAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
 			authorityMessage.createGetOperation(AddressUtil.concatAddresses(cloudNumber.getAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));

@@ -184,12 +184,12 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Sets a statement in this graph.
 	 */
-	public Statement setStatement(XDIStatement statementXri);
+	public Statement setStatement(XDIStatement statementAddress);
 
 	/**
 	 * Gets a statement in this graph.
 	 */
-	public Statement getStatement(XDIStatement statementXri);
+	public Statement getStatement(XDIStatement statementAddress);
 
 	/**
 	 * Gets all statements in this graph.
@@ -200,7 +200,7 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Check if a statement exists in this graph.
 	 */
-	public boolean containsStatement(XDIStatement statementXri);
+	public boolean containsStatement(XDIStatement statementAddress);
 
 	/**
 	 * Returns the number of all statements in this graph.

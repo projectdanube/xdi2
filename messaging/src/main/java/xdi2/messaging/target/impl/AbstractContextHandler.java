@@ -38,7 +38,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 		else if (operation instanceof DoOperation)
 			this.executeDoOnAddress(targetAddress, (DoOperation) operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationAddress(), null, executionContext);
 	}
 
 	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -75,7 +75,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 		else if (operation instanceof DoOperation)
 			this.executeDoOnStatement(targetStatement, (DoOperation) operation, messageResult, executionContext);
 		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXri(), null, executionContext);
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationAddress(), null, executionContext);
 	}
 
 	public void executeGetOnStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {

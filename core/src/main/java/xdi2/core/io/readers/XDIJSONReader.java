@@ -66,7 +66,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 			if (key.endsWith("/" + XDIConstants.XDI_ADD_CONTEXT.toString())) {
 
-				XDIStatement statementXri = makeStatement(key + "/", state);
+				XDIStatement statementAddress = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
@@ -74,9 +74,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXri(statementXri.getSubject());
-				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
+				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteAddress(statementAddress.getSubject());
+				XDIAddress relativeSubject = statementRoot.absoluteToRelativeAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
 				// add context nodes
@@ -92,15 +92,15 @@ public class XDIJSONReader extends AbstractXDIReader {
 				}
 			} else if (key.endsWith("/" + XDIConstants.XDI_ADD_LITERAL.toString())) {
 
-				XDIStatement statementXri = makeStatement(key + "/\"\"", state);
+				XDIStatement statementAddress = makeStatement(key + "/\"\"", state);
 
 				Object literalData = AbstractLiteral.jsonElementToLiteralData(jsonEntryElement);
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXri(statementXri.getSubject());
-				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
+				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteAddress(statementAddress.getSubject());
+				XDIAddress relativeSubject = statementRoot.absoluteToRelativeAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
 				// add literal
@@ -109,18 +109,18 @@ public class XDIJSONReader extends AbstractXDIReader {
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getAddress() + ": Set literal --> " + literal.getLiteralData());
 			} else {
 
-				XDIStatement statementXri = makeStatement(key + "/", state);
+				XDIStatement statementAddress = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
-				XDIAddress arc = statementXri.getPredicate();
+				XDIAddress arc = statementAddress.getPredicate();
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementXri.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXri(statementXri.getSubject());
-				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXri(absoluteSubject);
+				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteAddress(statementAddress.getSubject());
+				XDIAddress relativeSubject = statementRoot.absoluteToRelativeAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
 				// add inner root and/or relations
@@ -131,10 +131,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					if (jsonEntryArrayElement instanceof JsonObject) {
 
-						root = root.getRoot(statementXri.getSubject(), true);
+						root = root.getRoot(statementAddress.getSubject(), true);
 
-						XDIAddress subject = root.absoluteToRelativeXri(AddressUtil.concatAddresses(root.getContextNode().getAddress(), statementXri.getSubject()));
-						XDIAddress predicate = statementXri.getPredicate();
+						XDIAddress subject = root.absoluteToRelativeAddress(AddressUtil.concatAddresses(root.getContextNode().getAddress(), statementAddress.getSubject()));
+						XDIAddress predicate = statementAddress.getPredicate();
 
 						XdiInnerRoot innerRoot = root.getInnerRoot(subject, predicate, true);
 
@@ -176,7 +176,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			throw new Xdi2ParseException("Graph problem: " + ex.getMessage(), ex);
 		} catch (ParserException ex) {
 
-			throw new Xdi2ParseException("Cannot parse XRI " + state.lastXriString + ": " + ex.getMessage(), ex);
+			throw new Xdi2ParseException("Cannot parse XRI " + state.lastAddressString + ": " + ex.getMessage(), ex);
 		}
 
 		return reader;
@@ -184,24 +184,24 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 	private static class State {
 
-		private String lastXriString;
+		private String lastAddressString;
 	}
 
 	private static XDIStatement makeStatement(String xriString, State state) {
 
-		state.lastXriString = xriString;
+		state.lastAddressString = xriString;
 		return XDIStatement.create(xriString);
 	}
 
 	private static XDIAddress makeXDIAddress(String xriString, State state) {
 
-		state.lastXriString = xriString;
+		state.lastAddressString = xriString;
 		return XDIAddress.create(xriString);
 	}
 
 	private static XDIArc makeXDIArc(String xriString, State state) {
 
-		state.lastXriString = xriString;
+		state.lastAddressString = xriString;
 		return XDIArc.create(xriString);
 	}
 }

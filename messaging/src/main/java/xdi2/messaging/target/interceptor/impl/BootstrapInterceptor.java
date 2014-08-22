@@ -90,7 +90,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		// set the owner, root link contract, and public link contract
 
-		interceptor.setBootstrapOwner(prototypingContext.getOwnerXri());
+		interceptor.setBootstrapOwner(prototypingContext.getOwnerAddress());
 		interceptor.setBootstrapRootLinkContract(this.getBootstrapRootLinkContract());
 		interceptor.setBootstrapPublicLinkContract(this.getBootstrapPublicLinkContract());
 
@@ -287,8 +287,8 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			XDIArc contextNodeArc = contextNode.getArc();
 
 			XDIAddress replacedcontextNodeAddress = AddressUtil.concatAddresses(
-					AddressUtil.parentXri(contextNodeAddress, -1),
-					AddressUtil.replaceXri(
+					AddressUtil.parentAddress(contextNodeAddress, -1),
+					AddressUtil.replaceAddress(
 							XDIAddress.fromComponent(contextNodeArc), 
 							XDI_ARC_SELF, 
 							BootstrapInterceptor.this.getBootstrapOwner()));
@@ -314,7 +314,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			XDIAddress arc = relation.getArc();
 			XDIAddress targetContextNodeAddress = relation.getTargetContextNodeAddress();
 
-			XDIAddress replacedtargetContextNodeAddress = AddressUtil.replaceXri(
+			XDIAddress replacedtargetContextNodeAddress = AddressUtil.replaceAddress(
 					targetContextNodeAddress, 
 					XDI_ARC_SELF, 
 					BootstrapInterceptor.this.getBootstrapOwner());

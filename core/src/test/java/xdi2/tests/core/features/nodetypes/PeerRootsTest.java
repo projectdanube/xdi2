@@ -10,7 +10,7 @@ import xdi2.core.syntax.XDIArc;
 
 public class PeerRootsTest extends TestCase {
 
-	public void testPeerRootXris() throws Exception {
+	public void testPeerRootAddresss() throws Exception {
 		
 		assertFalse(XdiPeerRoot.isPeerRootArc(XDIArc.create("")));
 		assertTrue(XdiPeerRoot.isPeerRootArc(XDIArc.create("([=]!1111!23)")));

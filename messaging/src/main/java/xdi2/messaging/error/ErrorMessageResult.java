@@ -149,11 +149,11 @@ public class ErrorMessageResult extends MessageResult {
 		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getInnerRoot(XDI_ADD_FALSE, XDI_ADD_ERROR, true);
 		xdiInnerRoot.getContextNode().clear();
 
-		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
+		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getAddress())).getRelation();
 
-		for (XDIStatement statementXri : new MappingStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
+		for (XDIStatement statementAddress : new MappingStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
 
-			xdiInnerRoot.getContextNode().setStatement(statementXri);
+			xdiInnerRoot.getContextNode().setStatement(statementAddress);
 		}
 
 		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);

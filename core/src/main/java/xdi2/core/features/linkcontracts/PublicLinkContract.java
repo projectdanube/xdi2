@@ -37,11 +37,11 @@ public class PublicLinkContract extends GenericLinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXri()) == null) return false;
-			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()) == null) return false;
-			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXri()) != null) return false;
+			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getAddress()) == null) return false;
+			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getAddress()) != null) return false;
 
-			if (! XDILinkContractConstants.XDI_ADD_PUBLIC.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXri()))) return false;
+			if (! XDILinkContractConstants.XDI_ADD_PUBLIC.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getAddress()))) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityMember) {
@@ -65,9 +65,9 @@ public class PublicLinkContract extends GenericLinkContract {
 		return new PublicLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createPublicLinkContractXri(XDIAddress ownerXri) {
+	public static XDIAddress createPublicLinkContractAddress(XDIAddress ownerAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXri(ownerXri, XDILinkContractConstants.XDI_ADD_PUBLIC, null);
+		return GenericLinkContract.createGenericLinkContractAddress(ownerAddress, XDILinkContractConstants.XDI_ADD_PUBLIC, null);
 	}
 
 	/**
@@ -76,10 +76,10 @@ public class PublicLinkContract extends GenericLinkContract {
 	 */
 	public static PublicLinkContract findPublicLinkContract(Graph graph, boolean create) {
 
-		XDIAddress ownerXri = GraphUtil.getOwnerXri(graph);
-		if (ownerXri == null) return null;
+		XDIAddress ownerAddress = GraphUtil.getOwnerAddress(graph);
+		if (ownerAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXri, XDILinkContractConstants.XDI_ADD_PUBLIC, null, true);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerAddress, XDILinkContractConstants.XDI_ADD_PUBLIC, null, true);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());

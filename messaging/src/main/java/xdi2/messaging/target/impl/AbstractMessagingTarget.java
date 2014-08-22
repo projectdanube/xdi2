@@ -49,20 +49,20 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDIArc ownerPeerRootXri;
+	private XDIArc ownerPeerRootAddress;
 	private InterceptorList<MessagingTarget> interceptors;
 	private ContributorMap contributors;
 
-	public AbstractMessagingTarget(XDIArc ownerPeerRootXri) {
+	public AbstractMessagingTarget(XDIArc ownerPeerRootAddress) {
 
-		this.ownerPeerRootXri = ownerPeerRootXri;
+		this.ownerPeerRootAddress = ownerPeerRootAddress;
 		this.interceptors = new InterceptorList<MessagingTarget> ();
 		this.contributors = new ContributorMap();
 	}
 
 	public AbstractMessagingTarget(AbstractMessagingTarget abstractMessagingTarget) {
 
-		this.ownerPeerRootXri = abstractMessagingTarget.ownerPeerRootXri;
+		this.ownerPeerRootAddress = abstractMessagingTarget.ownerPeerRootAddress;
 		this.interceptors = new InterceptorList<MessagingTarget> (abstractMessagingTarget.interceptors);
 		this.contributors = new ContributorMap(abstractMessagingTarget.contributors);
 	}
@@ -335,11 +335,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (operationMessageResult == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation (" + operation.getOperationXri() + ").");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation (" + operation.getOperationAddress() + ").");
 
 		try {
 
-			executionContext.pushOperation(operation, operation.getOperationXri().toString());
+			executionContext.pushOperation(operation, operation.getOperationAddress().toString());
 
 			// reset execution context
 
@@ -362,18 +362,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			// execute the address or statements in the operation
 
 			XDIAddress targetAddress = operation.getTargetAddress();
-			Iterator<XDIStatement> targetStatementXris = operation.getTargetStatementXris();
+			Iterator<XDIStatement> targetStatementAddresss = operation.getTargetStatementAddresss();
 
 			if (targetAddress != null) {
 
 				this.execute(targetAddress, operation, operationMessageResult, executionContext);
-			} else if (targetStatementXris != null) {
+			} else if (targetStatementAddresss != null) {
 
-				while (targetStatementXris.hasNext()) {
+				while (targetStatementAddresss.hasNext()) {
 
-					XDIStatement targetStatementXri = targetStatementXris.next();
+					XDIStatement targetStatementAddress = targetStatementAddresss.next();
 
-					this.execute(targetStatementXri, operation, operationMessageResult, executionContext);
+					this.execute(targetStatementAddress, operation, operationMessageResult, executionContext);
 				}
 			}
 
@@ -456,7 +456,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				return;
 			}
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationAddress() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
 
 			addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
 		} catch (Exception ex) {
@@ -522,7 +522,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				return;
 			}
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXri() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationAddress() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
 			statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
 		} catch (Exception ex) {
@@ -589,14 +589,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDIArc getOwnerPeerRootXri() {
+	public XDIArc getOwnerPeerRootAddress() {
 
-		return this.ownerPeerRootXri;
+		return this.ownerPeerRootAddress;
 	}
 
-	public void setOwnerPeerRootXri(XDIArc ownerPeerRootXri) {
+	public void setOwnerPeerRootAddress(XDIArc ownerPeerRootAddress) {
 
-		this.ownerPeerRootXri = ownerPeerRootXri;
+		this.ownerPeerRootAddress = ownerPeerRootAddress;
 	}
 
 	public InterceptorList<MessagingTarget> getInterceptors() {

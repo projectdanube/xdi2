@@ -13,7 +13,7 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public ContextNode getContextNode();
 	public Graph getGraph();
 	public XDIArc getArc();
-	public XDIAddress getXri();
+	public XDIAddress getAddress();
 	public XDIArc getBasearc();
 
 	public EQ dereference();
@@ -23,7 +23,7 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 
 	public XdiRoot findRoot();
 	public XdiLocalRoot findLocalRoot();
-	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateXri, boolean create);
+	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create);
 	public XdiEntityCollection getXdiEntityCollection(XDIArc contextNodeArc, boolean create);
 	public XdiEntityCollection getXdiEntityCollection(XDIAddress contextNodeAddress, boolean create);
 	public XdiAttributeCollection getXdiAttributeCollection(XDIArc contextNodeArc, boolean create);

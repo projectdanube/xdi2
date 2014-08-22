@@ -103,11 +103,11 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			XDIStatement statementXri = statement.getXri();
+			XDIStatement statementAddress = statement.getAddress();
 
 			// put the statement into the JSON object
 
-			this.putStatementIntoJsonObject(statementXri, jsonObject);
+			this.putStatementIntoJsonObject(statementAddress, jsonObject);
 		}
 
 		// done
@@ -134,30 +134,30 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
-	private void putStatementIntoJsonObject(XDIStatement statementXri, JsonObject jsonObject) throws IOException {
+	private void putStatementIntoJsonObject(XDIStatement statementAddress, JsonObject jsonObject) throws IOException {
 
 		// nested JSON object?
 
-		if (this.tryPutStatementIntoInnerJsonObject(statementXri, jsonObject)) return;
+		if (this.tryPutStatementIntoInnerJsonObject(statementAddress, jsonObject)) return;
 
 		// add the object
 
-		String key = statementXri.getSubject() + "/" + statementXri.getPredicate();
+		String key = statementAddress.getSubject() + "/" + statementAddress.getPredicate();
 
-		addObjectToJsonObject(statementXri, jsonObject, key);
+		addObjectToJsonObject(statementAddress, jsonObject, key);
 	}
 
-	private boolean tryPutStatementIntoInnerJsonObject(XDIStatement statementXri, JsonObject jsonObject) throws IOException {
+	private boolean tryPutStatementIntoInnerJsonObject(XDIStatement statementAddress, JsonObject jsonObject) throws IOException {
 
-		XDIArc subjectFirstSubSegment = statementXri.getSubject().getFirstArc();
+		XDIArc subjectFirstSubSegment = statementAddress.getSubject().getFirstArc();
 
 		if (subjectFirstSubSegment == null || (! subjectFirstSubSegment.hasXRef()) || (! subjectFirstSubSegment.getXRef().hasPartialSubjectAndPredicate())) return false;
 
-		XDIAddress innerRootSubject = statementXri.getSubject().getFirstArc().getXRef().getPartialSubject();
-		XDIAddress innerRootPredicate = statementXri.getSubject().getFirstArc().getXRef().getPartialPredicate();
+		XDIAddress innerRootSubject = statementAddress.getSubject().getFirstArc().getXRef().getPartialSubject();
+		XDIAddress innerRootPredicate = statementAddress.getSubject().getFirstArc().getXRef().getPartialPredicate();
 
-		XDIStatement reducedStatementXri = StatementUtil.removeStartAddressStatement(statementXri, XDIAddress.fromComponent(subjectFirstSubSegment));
-		if (reducedStatementXri == null) return false;
+		XDIStatement reducedStatementAddress = StatementUtil.removeStartAddressStatement(statementAddress, XDIAddress.fromComponent(subjectFirstSubSegment));
+		if (reducedStatementAddress == null) return false;
 
 		// find the inner root JSON array
 
@@ -183,7 +183,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 
 		// put the statement into the inner root JSON object
 
-		this.putStatementIntoJsonObject(reducedStatementXri, innerRootJsonObject);
+		this.putStatementIntoJsonObject(reducedStatementAddress, innerRootJsonObject);
 
 		// done
 
@@ -200,11 +200,11 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 		return null;
 	}
 
-	private static void addObjectToJsonObject(XDIStatement statementXri, JsonObject jsonObject, String key) {
+	private static void addObjectToJsonObject(XDIStatement statementAddress, JsonObject jsonObject, String key) {
 
-		if (statementXri.isLiteralStatement()) {
+		if (statementAddress.isLiteralStatement()) {
 
-			Object literalData = statementXri.getLiteralData(); 
+			Object literalData = statementAddress.getLiteralData(); 
 
 			jsonObject.add(key, AbstractLiteral.literalDataToJsonElement(literalData));
 		} else {
@@ -217,7 +217,7 @@ public class XDIJSONWriter extends AbstractXDIWriter {
 				jsonObject.add(key, jsonArray);
 			}
 
-			jsonArray.add(new JsonPrimitive(statementXri.getObject().toString()));
+			jsonArray.add(new JsonPrimitive(statementAddress.getObject().toString()));
 		}
 	}
 }

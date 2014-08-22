@@ -115,7 +115,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			this.writeStatement(bufferedWriter, statement.getXri());
+			this.writeStatement(bufferedWriter, statement.getAddress());
 
 			// HTML output
 
@@ -141,24 +141,24 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (orderedGraph != null) orderedGraph.close();
 	}
 
-	private void writeStatement(BufferedWriter bufferedWriter, XDIStatement statementXri) throws IOException {
+	private void writeStatement(BufferedWriter bufferedWriter, XDIStatement statementAddress) throws IOException {
 
 		// write the statement
 
-		this.writecontextNodeAddress(bufferedWriter, statementXri.getSubject());
+		this.writecontextNodeAddress(bufferedWriter, statementAddress.getSubject());
 		this.writeSeparator(bufferedWriter);
-		this.writePredicateXri(bufferedWriter, statementXri.getPredicate());
+		this.writePredicateAddress(bufferedWriter, statementAddress.getPredicate());
 		this.writeSeparator(bufferedWriter);
 
-		if (statementXri.isContextNodeStatement()) {
+		if (statementAddress.isContextNodeStatement()) {
 
-			this.writecontextNodeArc(bufferedWriter, statementXri.getSubject(), (XDIArc) statementXri.getObject());
-		} else if (statementXri.isRelationStatement()) {
+			this.writecontextNodeArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
+		} else if (statementAddress.isRelationStatement()) {
 
-			this.writecontextNodeAddress(bufferedWriter, (XDIAddress) statementXri.getObject());
-		} else if (statementXri.isLiteralStatement()) {
+			this.writecontextNodeAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
+		} else if (statementAddress.isLiteralStatement()) {
 
-			this.writeLiteralData(bufferedWriter, statementXri.getObject());
+			this.writeLiteralData(bufferedWriter, statementAddress.getObject());
 		}
 	}
 
@@ -231,9 +231,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	}
 
 	@SuppressWarnings("static-method")
-	private void writePredicateXri(BufferedWriter bufferedWriter, XDIAddress predicateXri) throws IOException {
+	private void writePredicateAddress(BufferedWriter bufferedWriter, XDIAddress predicateAddress) throws IOException {
 
-		bufferedWriter.write(predicateXri.toString());
+		bufferedWriter.write(predicateAddress.toString());
 	}
 
 	@SuppressWarnings("static-method")

@@ -14,16 +14,16 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	/**
 	 * Returns an XDI peer root under this XDI root.
-	 * @param xri The XRI whose XDI peer root to find.
+	 * @param address The address whose XDI peer root to find.
 	 * @param create Whether the XDI peer root should be created, if it does not exist.
 	 * @return The XDI peer root.
 	 */
-	public XdiPeerRoot getPeerRoot(XDIAddress xri, boolean create);
+	public XdiPeerRoot getPeerRoot(XDIAddress address, boolean create);
 
 	/**
 	 * Returns an XDI inner root under this XDI root.
-	 * @param subject The subject XRI whose XDI inner root to find.
-	 * @param predicate The predicate XRI whose XDI inner root to find.
+	 * @param subject The subject address whose XDI inner root to find.
+	 * @param predicate The predicate address whose XDI inner root to find.
 	 * @param create Whether the XDI inner root should be created, if it does not exist.
 	 * @return The XDI inner root.
 	 */
@@ -31,33 +31,33 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	/**
 	 * Returns an XDI root under this XDI root.
-	 * @param xri The XRI contained in the XDI root.
+	 * @param address An address under this XDI root.
 	 * @param create Whether the XDI root should be created, if it does not exist.
 	 * @return The XDI root.
 	 */
-	public XdiRoot getRoot(XDIAddress xri, boolean create);
+	public XdiRoot getRoot(XDIAddress address, boolean create);
 
 	/*
-	 * XRIs and statements relative to this root
+	 * Addresses and statements relative to this root
 	 */
 
-	public XDIAddress absoluteToRelativeXri(XDIAddress xri);
+	public XDIAddress absoluteToRelativeAddress(XDIAddress address);
 
-	public XDIAddress relativeToAbsoluteXri(XDIAddress xri);
+	public XDIAddress relativeToAbsoluteAddress(XDIAddress address);
 
-	public XDIStatement absoluteToRelativeStatementXri(XDIStatement statementXri);
+	public XDIStatement absoluteToRelativeStatement(XDIStatement statement);
 
-	public XDIStatement relativeToAbsoluteStatementXri(XDIStatement statementXri);
+	public XDIStatement relativeToAbsoluteStatement(XDIStatement statement);
 
 	/*
 	 * Helper classes
 	 */
 
-	public static class MappingAbsoluteToRelativeXriIterator extends MappingIterator<XDIAddress, XDIAddress> {
+	public static class MappingAbsoluteToRelativeAddressIterator extends MappingIterator<XDIAddress, XDIAddress> {
 
 		private XdiRoot xdiRoot;
 
-		public MappingAbsoluteToRelativeXriIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
+		public MappingAbsoluteToRelativeAddressIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
 
 			super(iterator);
 
@@ -65,17 +65,17 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIAddress map(XDIAddress xri) {
+		public XDIAddress map(XDIAddress address) {
 
-			return this.xdiRoot.absoluteToRelativeXri(xri);
+			return this.xdiRoot.absoluteToRelativeAddress(address);
 		}
 	}
 
-	public static class MappingRelativeToAbsoluteXriIterator extends MappingIterator<XDIAddress, XDIAddress> {
+	public static class MappingRelativeToAbsoluteAddressIterator extends MappingIterator<XDIAddress, XDIAddress> {
 
 		private XdiRoot xdiRoot;
 
-		public MappingRelativeToAbsoluteXriIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
+		public MappingRelativeToAbsoluteAddressIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
 
 			super(iterator);
 
@@ -83,17 +83,17 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIAddress map(XDIAddress xri) {
+		public XDIAddress map(XDIAddress address) {
 
-			return this.xdiRoot.relativeToAbsoluteXri(xri);
+			return this.xdiRoot.relativeToAbsoluteAddress(address);
 		}
 	}
 
-	public static class MappingAbsoluteToRelativeStatementXriIterator extends MappingIterator<XDIStatement, XDIStatement> {
+	public static class MappingAbsoluteToRelativeStatementIterator extends MappingIterator<XDIStatement, XDIStatement> {
 
 		private XdiRoot xdiRoot;
 
-		public MappingAbsoluteToRelativeStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
+		public MappingAbsoluteToRelativeStatementIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
 
 			super(iterator);
 
@@ -101,17 +101,17 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIStatement map(XDIStatement statementXri) {
+		public XDIStatement map(XDIStatement statement) {
 
-			return this.xdiRoot.absoluteToRelativeStatementXri(statementXri);
+			return this.xdiRoot.absoluteToRelativeStatement(statement);
 		}
 	}
 
-	public static class MappingRelativeToAbsoluteStatementXriIterator extends MappingIterator<XDIStatement, XDIStatement> {
+	public static class MappingRelativeToAbsoluteStatementIterator extends MappingIterator<XDIStatement, XDIStatement> {
 
 		private XdiRoot xdiRoot;
 
-		public MappingRelativeToAbsoluteStatementXriIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
+		public MappingRelativeToAbsoluteStatementIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
 
 			super(iterator);
 
@@ -119,9 +119,9 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIStatement map(XDIStatement statementXri) {
+		public XDIStatement map(XDIStatement statement) {
 
-			return this.xdiRoot.relativeToAbsoluteStatementXri(statementXri);
+			return this.xdiRoot.relativeToAbsoluteStatement(statement);
 		}
 	}
 }

@@ -354,7 +354,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		response.setContentLength(0);
 	}
 
-	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDIAddress operationXri) throws IOException {
+	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 
@@ -387,16 +387,16 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (log.isDebugEnabled()) log.debug("Requested XDI context node: " + targetAddress + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
 
 		// set the TO peer root XRI to the owner peer root XRI of the messaging target
 
-		XDIArc ownerPeerRootXri = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXri();
+		XDIArc ownerPeerRootAddress = messagingTargetMount.getMessagingTarget().getOwnerPeerRootAddress();
 
-		if (ownerPeerRootXri != null) {
+		if (ownerPeerRootAddress != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToPeerRootXri(ownerPeerRootXri);
+			message.setToPeerRootAddress(ownerPeerRootAddress);
 		}
 
 		// done

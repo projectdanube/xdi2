@@ -76,7 +76,7 @@ public class StatementUtilTest extends TestCase {
 		} 
 	}
 
-	public void testremoveStartXriStatement() throws Exception {
+	public void testremoveStartAddressStatement() throws Exception {
 
 		XDIStatement contextStatement = XDIStatement.create("=markus<#full>//<#name>");
 

@@ -41,11 +41,11 @@ public class XDIDisplayReader extends AbstractXDIReader {
 			line = line.trim();
 			if (line.isEmpty()) continue;
 
-			XDIStatement statementXri;
+			XDIStatement statementAddress;
 
 			try {
 
-				statementXri = XDIStatement.create(line);
+				statementAddress = XDIStatement.create(line);
 			} catch (Exception ex) {
 
 				throw new Xdi2ParseException("Parser problem at line " + lineNr + ": " + ex.getMessage(), ex);
@@ -55,7 +55,7 @@ public class XDIDisplayReader extends AbstractXDIReader {
 
 			try {
 
-				graph.setStatement(statementXri);
+				graph.setStatement(statementAddress);
 			} catch (Exception ex) {
 
 				throw new Xdi2ParseException("Graph problem at line " + lineNr + ": " + ex.getMessage(), ex);

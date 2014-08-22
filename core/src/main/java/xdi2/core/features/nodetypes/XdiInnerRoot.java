@@ -83,7 +83,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public XDIAddress getSubjectOfInnerRoot() {
 
-		return getSubjectOfInnerRootXri(this.getContextNode().getArc());
+		return getSubjectOfInnerRootAddress(this.getContextNode().getArc());
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public XDIAddress getPredicateOfInnerRoot() {
 
-		return getPredicateOfInnerRootXri(this.getContextNode().getArc());
+		return getPredicateOfInnerRootAddress(this.getContextNode().getArc());
 	}
 
 	/*
@@ -118,7 +118,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static ContextNode getSubjectContextNode(ContextNode contextNode) {
 
-		XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootXri(contextNode.getArc());
+		XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootAddress(contextNode.getArc());
 		if (subject == null) return null;
 
 		ContextNode parentContextNode = contextNode.getContextNode();
@@ -137,7 +137,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static Relation getPredicateRelation(ContextNode contextNode) {
 
-		XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootXri(contextNode.getArc());
+		XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootAddress(contextNode.getArc());
 		if (predicate == null) return null;
 
 		ContextNode subjectContextNode = getSubjectContextNode(contextNode);
@@ -154,7 +154,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root XRI.
 	 * @return The subject XRI of the inner root XRI.
 	 */
-	public static XDIAddress getSubjectOfInnerRootXri(XDIArc arc) {
+	public static XDIAddress getSubjectOfInnerRootAddress(XDIArc arc) {
 
 		if (arc == null) return null;
 
@@ -175,7 +175,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root XRI.
 	 * @return The predicate XRI of the inner root XRI.
 	 */
-	public static XDIAddress getPredicateOfInnerRootXri(XDIArc arc) {
+	public static XDIAddress getPredicateOfInnerRootAddress(XDIArc arc) {
 
 		if (arc == null) return null;
 
@@ -198,7 +198,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isInnerRootarc(XDIArc arc) {
 
-		return getSubjectOfInnerRootXri(arc) != null && getPredicateOfInnerRootXri(arc) != null;
+		return getSubjectOfInnerRootAddress(arc) != null && getPredicateOfInnerRootAddress(arc) != null;
 	}
 
 	/*
