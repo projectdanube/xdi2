@@ -4,10 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -26,22 +25,6 @@ public class LinkContracts {
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
 
 		return new MappingContextNodeLinkContractIterator(allContextNodes);
-	}
-
-	/**
-	 * Returns an existing XDI link contract under a context node, or creates a new one.
-	 * @param create Whether to create an XDI link contract if it does not exist.
-	 * @return The existing or newly created XDI link contract.
-	 */
-	public static LinkContract getLinkContract(ContextNode contextNode, boolean create) {
-
-		ContextNode linkContractContextNode = create ? contextNode.setDeepContextNode(XDILinkContractConstants.XRI_S_DO) : contextNode.getDeepContextNode(XDILinkContractConstants.XRI_S_DO, true);
-		if (linkContractContextNode == null) return null;
-
-		XdiEntitySingleton xdiEntitySingleton = XdiEntitySingleton.fromContextNode(linkContractContextNode);
-		if (xdiEntitySingleton == null) return null;
-
-		return LinkContract.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/*

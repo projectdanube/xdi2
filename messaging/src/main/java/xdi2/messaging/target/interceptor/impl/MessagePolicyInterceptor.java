@@ -1,8 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.core.Graph;
-import xdi2.core.features.linkcontracts.evaluation.PolicyEvaluationContext;
-import xdi2.core.features.linkcontracts.policy.PolicyRoot;
+import xdi2.core.features.policy.PolicyRoot;
+import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;

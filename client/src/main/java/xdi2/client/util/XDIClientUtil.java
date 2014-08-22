@@ -8,7 +8,7 @@ import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.keys.Keys;
-import xdi2.core.features.linkcontracts.RootLinkContract;
+import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.util.XDI3Util;

@@ -4,13 +4,13 @@ import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.GenericLinkContract;
-import xdi2.core.features.linkcontracts.GovernorLinkContract;
-import xdi2.core.features.linkcontracts.LinkContract;
-import xdi2.core.features.linkcontracts.LinkContractTemplate;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.PublicLinkContract;
-import xdi2.core.features.linkcontracts.RootLinkContract;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
+import xdi2.core.features.linkcontracts.instance.RootLinkContract;
+import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
+import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -152,12 +152,12 @@ public class LinkContractsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		ContextNode contextNode = graph.setDeepContextNode(xri);
 
-		GovernorLinkContract l1 = GovernorLinkContract.findGovernorLinkContract(graph, XDI3Segment.create("+acmebread"), XDI3Segment.create("+breadunion#registration"), false);
+		RequesterLinkContract l1 = RequesterLinkContract.findGovernorLinkContract(graph, XDI3Segment.create("+acmebread"), XDI3Segment.create("+breadunion#registration"), false);
 		assertNotNull(l1);
 		assertEquals(l1.getRequestingAuthority(), XDI3Segment.create("+acmebread"));
 		assertEquals(l1.getTemplateAuthorityAndId(), XDI3Segment.create("+breadunion#registration"));
 
-		GovernorLinkContract l2 = GovernorLinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
+		RequesterLinkContract l2 = RequesterLinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 		assertNotNull(l2);
 		assertEquals(l2.getRequestingAuthority(), XDI3Segment.create("+acmebread"));
 		assertEquals(l2.getTemplateAuthorityAndId(), XDI3Segment.create("+breadunion#registration"));

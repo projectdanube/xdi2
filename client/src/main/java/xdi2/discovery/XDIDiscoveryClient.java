@@ -20,7 +20,7 @@ import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.linkcontracts.PublicLinkContract;
+import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.CloudNumber;

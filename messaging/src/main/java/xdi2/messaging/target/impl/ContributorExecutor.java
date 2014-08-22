@@ -60,9 +60,9 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
-			if (! contributorMount.address()) {
+			if (contributorMount.operationXris().length > 0 && ! Arrays.asList(contributorMount.operationXris()).contains(operation.getOperationXri())) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like address) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target address " + relativeTargetAddress + ".");
 				continue;
 			}
 
@@ -160,13 +160,13 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
+			if (contributorMount.operationXris().length > 0 && ! Arrays.asList(contributorMount.operationXris()).contains(operation.getOperationXri())) {
+
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
+				continue;
+			}
+
 			if (relativeTargetStatement.isContextNodeStatement()) {
-
-				if (! contributorMount.contextNodeStatement()) {
-
-					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like context node statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
-					continue;
-				}
 
 				if (contributorMount.contextNodeArcXris().length > 0 && ! Arrays.asList(contributorMount.contextNodeArcXris()).contains(relativeTargetStatement.getContextNodeArcXri())) {
 
@@ -183,12 +183,6 @@ public class ContributorExecutor {
 
 			if (relativeTargetStatement.isRelationStatement()) {
 
-				if (! contributorMount.relationStatement()) {
-
-					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
-					continue;
-				}
-
 				if (contributorMount.relationArcXris().length > 0 && ! Arrays.asList(contributorMount.relationArcXris()).contains(relativeTargetStatement.getRelationArcXri())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation arc XRI " + relativeTargetStatement.getRelationArcXri() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
@@ -204,11 +198,6 @@ public class ContributorExecutor {
 
 			if (relativeTargetStatement.isLiteralStatement()) {
 
-				if (! contributorMount.literalStatement()) {
-
-					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like literal statement) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on contributorXri " + contributorXri + " and relative target statement " + relativeTargetStatement + ".");
-					continue;
-				}
 			}
 
 			// skip contributor?

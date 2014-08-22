@@ -1,6 +1,9 @@
 package xdi2.core.util;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -393,13 +396,16 @@ public final class CopyUtil {
 	 */
 	public static class ReplaceXriCopyStrategy extends CopyStrategy {
 
-		private XDI3SubSegment oldXri;
-		private XDI3Segment newXri;
+		Map<XDI3SubSegment, XDI3Segment> replacements;
+
+		public ReplaceXriCopyStrategy(Map<XDI3SubSegment, XDI3Segment> replacements) {
+
+			this.replacements = replacements;
+		}
 
 		public ReplaceXriCopyStrategy(XDI3SubSegment oldXri, XDI3Segment newXri) {
 
-			this.oldXri = oldXri;
-			this.newXri = newXri;
+			this(Collections.singletonMap(oldXri, newXri));
 		}
 
 		@Override
@@ -408,12 +414,17 @@ public final class CopyUtil {
 			XDI3Segment contextNodeXri = contextNode.getXri();
 			XDI3SubSegment contextNodeArcXri = contextNode.getArcXri();
 
-			XDI3Segment replacedContextNodeXri = XDI3Util.concatXris(
-					XDI3Util.parentXri(contextNodeXri, -1),
-					XDI3Util.replaceXri(
-							XDI3Segment.fromComponent(contextNodeArcXri), 
-							this.oldXri, 
-							this.newXri));
+			XDI3Segment replacedContextNodeXri = XDI3Segment.fromComponent(contextNodeArcXri);
+
+			for (Entry<XDI3SubSegment, XDI3Segment> replacement : this.replacements.entrySet()) {
+
+				replacedContextNodeXri = XDI3Util.replaceXri(
+						replacedContextNodeXri, 
+						replacement.getKey(), 
+						replacement.getValue());
+			}
+
+			replacedContextNodeXri = XDI3Util.concatXris(XDI3Util.parentXri(contextNodeXri, -1), replacedContextNodeXri);
 
 			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
 
@@ -436,10 +447,15 @@ public final class CopyUtil {
 			XDI3Segment arcXri = relation.getArcXri();
 			XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
 
-			XDI3Segment replacedTargetContextNodeXri = XDI3Util.replaceXri(
-					targetContextNodeXri, 
-					this.oldXri, 
-					this.newXri);
+			XDI3Segment replacedTargetContextNodeXri = targetContextNodeXri;
+
+			for (Entry<XDI3SubSegment, XDI3Segment> replacement : this.replacements.entrySet()) {
+
+				targetContextNodeXri = XDI3Util.replaceXri(
+						targetContextNodeXri, 
+						replacement.getKey(), 
+						replacement.getValue());
+			}
 
 			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
 
