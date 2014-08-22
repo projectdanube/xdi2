@@ -24,7 +24,10 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
  */
-@ContributorMount(contributorXris={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"})
+@ContributorMount(
+		contributorXris={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
+		operationXris={"$do<$digest><$secret><$token>"}
+)
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
@@ -91,13 +94,9 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		Object literalData = relativeTargetStatement.getLiteralData();
 
-		// check if applicable
-
-		if (! operation.getOperationXri().equals(XRI_S_DIGEST_SECRET_TOKEN)) return ContributorResult.DEFAULT;
-
 		// check parameters
 
-		if (! (literalData instanceof String)) return new ContributorResult(false, false, true);
+		if (! (literalData instanceof String)) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 		String secretToken = (String) literalData;
 

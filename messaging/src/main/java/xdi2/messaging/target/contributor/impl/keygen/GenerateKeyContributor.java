@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
@@ -37,13 +36,17 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 /**
  * This contributor can generate key pairs and symmetric keys in a target graph.
  */
-@ContributorMount(contributorXris={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"})
+@ContributorMount(
+		contributorXris={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"},
+		operationXris={"$do$keypair", "$do<$key>"},
+		relationArcXris={"$is#"}
+)
 public class GenerateKeyContributor extends AbstractContributor implements Prototype<GenerateKeyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
 
-	public static final XDI3Segment XRI_S_DO_KEYPAIR = XDI3Segment.create("$do$keypair");
-	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("$do<$key>");
+	public static final XDI3Segment XRI_S_DO_KEYPAIR = XDI3Segment.create("");
+	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("");
 
 	private Graph targetGraph;
 
@@ -97,13 +100,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	@Override
 	public ContributorResult executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
 		XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
-
-		// check if applicable
-
-		if (! operation.getOperationXri().equals(XRI_S_DO_KEYPAIR) && ! operation.getOperationXri().equals(XRI_S_DO_KEY)) return ContributorResult.DEFAULT;
-		if (! arcXri.equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
 
 		// check parameters
 
