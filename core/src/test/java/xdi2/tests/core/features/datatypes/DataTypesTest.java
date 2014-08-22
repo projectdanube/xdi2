@@ -18,8 +18,8 @@ public class DataTypesTest extends TestCase {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("=markus<#age>&/&/\"33\"\n");
-		buffer.append("=markus<#age>/$is+/$xsd$int\n");
-		buffer.append("=markus<#age>/$is+/$json$number\n");
+		buffer.append("=markus<#age>/$is#/$xsd$int\n");
+		buffer.append("=markus<#age>/$is#/$json$number\n");
 		String xdiString = buffer.toString();
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
@@ -53,8 +53,8 @@ public class DataTypesTest extends TestCase {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("=markus<#age>/&/\"33\"\n");
-		buffer.append("=markus<#age>/$is+/+$xsd$int\n");
-		buffer.append("=markus<#age>/$is+/+$json$number\n");
+		buffer.append("=markus<#age>/$is#/+$xsd$int\n");
+		buffer.append("=markus<#age>/$is#/+$json$number\n");
 		String xdiString = buffer.toString();
 
 		try {
