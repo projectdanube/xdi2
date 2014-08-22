@@ -9,25 +9,24 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.linkcontracts.PublicLinkContract;
-import xdi2.core.features.linkcontracts.RootLinkContract;
-import xdi2.core.features.linkcontracts.policy.PolicyAnd;
-import xdi2.core.features.linkcontracts.policy.PolicyOr;
-import xdi2.core.features.linkcontracts.policy.PolicyUtil;
+import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
+import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
+import xdi2.core.features.policy.PolicyAnd;
+import xdi2.core.features.policy.PolicyOr;
+import xdi2.core.features.policy.PolicyUtil;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
-import xdi2.core.util.GraphUtil;
+import xdi2.core.util.CopyUtil.ReplaceXriCopyStrategy;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.xri3.XDI3Segment;
@@ -236,8 +235,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapGraph() != null) {
 
+			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XRI_SS_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+			
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
-			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, this.replaceSelfVariableCopyStrategy);
+			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, copyStrategy);
 
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap graph: " + bootstrapGraph.toString());
 
@@ -250,8 +251,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapMessageEnvelope() != null) {
 
+			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XRI_SS_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+
 			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
-			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), this.replaceSelfVariableCopyStrategy);
+			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), copyStrategy);
 
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
 
@@ -273,61 +276,6 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		super.shutdown(messagingTarget);
 	}
-
-	/*
-	 * Helper classes
-	 */
-
-	private final CopyStrategy replaceSelfVariableCopyStrategy = new CopyStrategy() {
-
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			XDI3Segment contextNodeXri = contextNode.getXri();
-			XDI3SubSegment contextNodeArcXri = contextNode.getArcXri();
-
-			XDI3Segment replacedContextNodeXri = XDI3Util.concatXris(
-					XDI3Util.parentXri(contextNodeXri, -1),
-					XDI3Util.replaceXri(
-							XDI3Segment.fromComponent(contextNodeArcXri), 
-							XRI_SS_SELF, 
-							BootstrapInterceptor.this.getBootstrapOwner()));
-
-			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
-
-			if (contextNodeXri.equals(replacedContextNodeXri)) return super.replaceContextNode(contextNode);
-
-			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXri);
-			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
-
-			int additionalArcs = replacedContextNodeXri.getNumSubSegments() - contextNodeXri.getNumSubSegments();
-
-			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
-
-			return replacedContextNode;
-		}
-
-		@Override
-		public Relation replaceRelation(Relation relation) {
-
-			XDI3Segment contextNodeXri = relation.getContextNode().getXri();
-			XDI3Segment arcXri = relation.getArcXri();
-			XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
-
-			XDI3Segment replacedTargetContextNodeXri = XDI3Util.replaceXri(
-					targetContextNodeXri, 
-					XRI_SS_SELF, 
-					BootstrapInterceptor.this.getBootstrapOwner());
-
-			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
-
-			if (targetContextNodeXri.equals(replacedTargetContextNodeXri)) return super.replaceRelation(relation);
-
-			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXri, arcXri, replacedTargetContextNodeXri);
-
-			return replacedRelation;
-		}
-	};
 
 	/*
 	 * Getters and setters

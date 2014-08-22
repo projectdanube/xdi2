@@ -387,4 +387,67 @@ public final class CopyUtil {
 	public static class AllCopyStrategy extends CopyStrategy {
 
 	}
+
+	/**
+	 * A strategy that replaces certain XRI parts.
+	 */
+	public static class ReplaceXriCopyStrategy extends CopyStrategy {
+
+		private XDI3SubSegment oldXri;
+		private XDI3Segment newXri;
+
+		public ReplaceXriCopyStrategy(XDI3SubSegment oldXri, XDI3Segment newXri) {
+
+			this.oldXri = oldXri;
+			this.newXri = newXri;
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			XDI3Segment contextNodeXri = contextNode.getXri();
+			XDI3SubSegment contextNodeArcXri = contextNode.getArcXri();
+
+			XDI3Segment replacedContextNodeXri = XDI3Util.concatXris(
+					XDI3Util.parentXri(contextNodeXri, -1),
+					XDI3Util.replaceXri(
+							XDI3Segment.fromComponent(contextNodeArcXri), 
+							this.oldXri, 
+							this.newXri));
+
+			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
+
+			if (contextNodeXri.equals(replacedContextNodeXri)) return super.replaceContextNode(contextNode);
+
+			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXri);
+			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
+
+			int additionalArcs = replacedContextNodeXri.getNumSubSegments() - contextNodeXri.getNumSubSegments();
+
+			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
+
+			return replacedContextNode;
+		}
+
+		@Override
+		public Relation replaceRelation(Relation relation) {
+
+			XDI3Segment contextNodeXri = relation.getContextNode().getXri();
+			XDI3Segment arcXri = relation.getArcXri();
+			XDI3Segment targetContextNodeXri = relation.getTargetContextNodeXri();
+
+			XDI3Segment replacedTargetContextNodeXri = XDI3Util.replaceXri(
+					targetContextNodeXri, 
+					this.oldXri, 
+					this.newXri);
+
+			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
+
+			if (targetContextNodeXri.equals(replacedTargetContextNodeXri)) return super.replaceRelation(relation);
+
+			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXri, arcXri, replacedTargetContextNodeXri);
+
+			return replacedRelation;
+		}
+	};
 }
