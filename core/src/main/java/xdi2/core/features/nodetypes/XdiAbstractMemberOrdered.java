@@ -53,12 +53,24 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
+	public static XDI3SubSegment createArcXri(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_ORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.CS_MEMBER_ORDERED + identifier);
+		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_ORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.XS_VARIABLE.charAt(0) + XDIConstants.CS_MEMBER_ORDERED + identifier + XDIConstants.XS_VARIABLE.charAt(1));
+		} else {
+
+			throw new IllegalArgumentException("Unknown class for ordered member " + clazz.getName());
+		}
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri, Class<? extends XdiMemberOrdered<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (arcXri == null) return false;
 

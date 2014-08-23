@@ -9,7 +9,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI attribute class (context function), represented as a context node.
+ * An XDI attribute collection, represented as a context node.
  * 
  * @author markus
  */
@@ -19,7 +19,7 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 
 	protected XdiAttributeCollection(ContextNode contextNode) {
 
-		super(contextNode, XdiAttributeMemberUnordered.class, XdiAttributeMemberOrdered.class, XdiAttributeMember.class);
+		super(contextNode, XdiAttributeCollection.class, XdiAttributeMemberUnordered.class, XdiAttributeMemberOrdered.class, XdiAttributeMember.class);
 	}
 
 	/*
@@ -27,9 +27,9 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI attribute class.
+	 * Checks if a context node is a valid XDI attribute collection.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI attribute class.
+	 * @return True if the context node is a valid XDI attribute collection.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -39,9 +39,9 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 	}
 
 	/**
-	 * Factory method that creates an XDI attribute class bound to a given context node.
-	 * @param contextNode The context node that is an XDI attribute class.
-	 * @return The XDI attribute class.
+	 * Factory method that creates an XDI attribute collection bound to a given context node.
+	 * @param contextNode The context node that is an XDI attribute collection.
+	 * @return The XDI attribute collection.
 	 */
 	public static XdiAttributeCollection fromContextNode(ContextNode contextNode) {
 

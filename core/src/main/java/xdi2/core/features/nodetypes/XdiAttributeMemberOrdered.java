@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI ordered attribute members (context function), represented as a context node.
+ * An XDI ordered attribute member, represented as a context node.
  * 
  * @author markus
  */
@@ -26,9 +26,9 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI ordered attribute instance.
+	 * Checks if a context node is a valid XDI ordered attribute member.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI ordered attribute instance.
+	 * @return True if the context node is a valid XDI ordered attribute member.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -40,9 +40,9 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	}
 
 	/**
-	 * Factory method that creates an XDI ordered attribute instance bound to a given context node.
-	 * @param contextNode The context node that is an XDI ordered attribute instance.
-	 * @return The XDI ordered attribute instance.
+	 * Factory method that creates an XDI ordered attribute member bound to a given context node.
+	 * @param contextNode The context node that is an XDI ordered attribute member.
+	 * @return The XDI ordered attribute member.
 	 */
 	public static XdiAttributeMemberOrdered fromContextNode(ContextNode contextNode) {
 
@@ -57,7 +57,7 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractMemberOrdered.isValidArcXri(arcXri, true);
+		return XdiAbstractMemberOrdered.isValidArcXri(arcXri, XdiAttributeMemberOrdered.class);
 	}
 
 	/*
@@ -65,7 +65,7 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI ordered attribute instance.
+	 * Returns the parent XDI collection of this XDI ordered attribute member.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -75,7 +75,7 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 	}
 
 	/**
-	 * Creates or returns an XDI value under this XDI ordered attribute instance.
+	 * Creates or returns an XDI value under this XDI ordered attribute member.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI value.
 	 */

@@ -58,24 +58,36 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(String identifier, boolean attribute) {
+	public static XDI3SubSegment createArcXri(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return XDI3SubSegment.create("" + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(0)) : "") + XDIConstants.CS_MEMBER_UNORDERED + identifier + (attribute ? Character.valueOf(XDIConstants.XS_ATTRIBUTE.charAt(1)) : ""));
+		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.CS_MEMBER_UNORDERED + identifier);
+		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
+
+			return XDI3SubSegment.create("" + XDIConstants.XS_VARIABLE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_VARIABLE.charAt(1));
+		} else {
+
+			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());
+		}
 	}
 
-	public static XDI3SubSegment createUuidArcXri(String uuid, boolean attribute) {
+	public static XDI3SubSegment createUuidArcXri(String uuid, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return createArcXri(":uuid:" + uuid, attribute);
+		return createArcXri(":uuid:" + uuid, clazz);
 	}
 
-	public static XDI3SubSegment createRandomUuidArcXri(boolean attribute) {
+	public static XDI3SubSegment createRandomUuidArcXri(Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		String uuid = UUID.randomUUID().toString().toLowerCase();
 
-		return createUuidArcXri(uuid, attribute);
+		return createUuidArcXri(uuid, clazz);
 	}
 
-	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute, String algorithm) {
+	public static XDI3SubSegment createDigestArcXri(String string, String algorithm, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		byte[] output;
 
@@ -91,15 +103,15 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createArcXri(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, attribute);
+		return createArcXri(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, clazz);
 	}
 
-	public static XDI3SubSegment createDigestArcXri(String string, boolean attribute) {
+	public static XDI3SubSegment createDigestArcXri(String string, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return createDigestArcXri(string, attribute, "SHA-512");
+		return createDigestArcXri(string, "SHA-512", clazz);
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri, boolean attribute) {
+	public static boolean isValidArcXri(XDI3SubSegment arcXri, Class<? extends XdiMemberUnordered<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (arcXri == null) return false;
 

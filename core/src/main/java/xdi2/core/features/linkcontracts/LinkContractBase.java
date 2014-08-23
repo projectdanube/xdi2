@@ -11,7 +11,7 @@ import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
 import xdi2.core.features.nodetypes.XdiSubGraph;
-import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -38,7 +38,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		this.xdiSubGraph = xdiEntity;
 	}
 
-	protected LinkContractBase(XdiVariable xdiVariable) {
+	protected LinkContractBase(XdiAbstractVariable xdiVariable) {
 
 		this.xdiSubGraph = xdiVariable;
 	}
@@ -69,9 +69,9 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 * Returns the underlying XDI variable to which this XDI link contract (template) (template) is bound.
 	 * @return An XDI entity that represents the XDI link contract (template).
 	 */
-	public XdiVariable getXdiVariable() {
+	public XdiAbstractVariable getXdiVariable() {
 
-		return (XdiVariable) this.xdiSubGraph;
+		return (XdiAbstractVariable) this.xdiSubGraph;
 	}
 
 	/**

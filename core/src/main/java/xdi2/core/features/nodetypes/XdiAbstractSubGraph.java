@@ -29,8 +29,7 @@ public abstract class XdiAbstractSubGraph<EQ extends XdiSubGraph<EQ>> extends Xd
 				XdiAbstractSingleton.isValid(contextNode) ||
 				XdiAbstractCollection.isValid(contextNode) ||
 				XdiAbstractMember.isValid(contextNode) ||
-				XdiValue.isValid(contextNode) ||
-				XdiVariable.isValid(contextNode);
+				XdiValue.isValid(contextNode);
 	}
 
 	/**
@@ -47,7 +46,6 @@ public abstract class XdiAbstractSubGraph<EQ extends XdiSubGraph<EQ>> extends Xd
 		if ((xdiSubGraph = XdiAbstractCollection.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiAbstractMember.fromContextNode(contextNode)) != null) return xdiSubGraph;
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
-		if ((xdiSubGraph = XdiVariable.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
 	}

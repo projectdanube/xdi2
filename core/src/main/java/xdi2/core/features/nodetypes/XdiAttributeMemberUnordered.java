@@ -8,7 +8,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI unordered attribute member (context function), represented as a context node.
+ * An XDI unordered attribute member, represented as a context node.
  * 
  * @author markus
  */
@@ -26,23 +26,23 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI unordered attribute instance.
+	 * Checks if a context node is a valid XDI unordered attribute member.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI unordered attribute instance.
+	 * @return True if the context node is a valid XDI unordered attribute member.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
 		if (contextNode == null) return false;
 
 		return
-				isValidArcXri(contextNode.getArcXri(), true) &&
+				isValidArcXri(contextNode.getArcXri()) &&
 				XdiAttributeCollection.isValid(contextNode.getContextNode());
 	}
 
 	/**
-	 * Factory method that creates an XDI unordered attribute instance bound to a given context node.
-	 * @param contextNode The context node that is an XDI unordered attribute instance.
-	 * @return The XDI unordered attribute instance.
+	 * Factory method that creates an XDI unordered attribute member bound to a given context node.
+	 * @param contextNode The context node that is an XDI unordered attribute member.
+	 * @return The XDI unordered attribute member.
 	 */
 	public static XdiAttributeMemberUnordered fromContextNode(ContextNode contextNode) {
 
@@ -57,7 +57,7 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
-		return XdiAbstractMemberUnordered.isValidArcXri(arcXri, true);
+		return XdiAbstractMemberUnordered.isValidArcXri(arcXri, XdiAttributeMemberUnordered.class);
 	}
 
 	/*
@@ -65,7 +65,7 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI unordered attribute instance.
+	 * Returns the parent XDI collection of this XDI unordered attribute member.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -75,7 +75,7 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	}
 
 	/**
-	 * Creates or returns an XDI value under this XDI attribute element.
+	 * Creates or returns an XDI value under this XDI attribute member.
 	 * @param create Whether or not to create the context node if it doesn't exist.
 	 * @return The XDI value.
 	 */

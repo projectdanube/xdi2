@@ -9,7 +9,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI attribute singleton (context function), represented as a context node.
+ * An XDI attribute singleton, represented as a context node.
  * 
  * @author markus
  */

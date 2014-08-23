@@ -9,7 +9,7 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI entity class (context function), represented as a context node.
+ * An XDI entity collection, represented as a context node.
  * 
  * @author markus
  */
@@ -19,7 +19,7 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 
 	protected XdiEntityCollection(ContextNode contextNode) {
 
-		super(contextNode, XdiEntityMemberUnordered.class, XdiEntityMemberOrdered.class, XdiEntityMember.class);
+		super(contextNode, XdiEntityCollection.class, XdiEntityMemberUnordered.class, XdiEntityMemberOrdered.class, XdiEntityMember.class);
 	}
 
 	/*
@@ -27,9 +27,9 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI entity class.
+	 * Checks if a context node is a valid XDI entity collection.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI entity class.
+	 * @return True if the context node is a valid XDI entity collection.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -41,9 +41,9 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 	}
 
 	/**
-	 * Factory method that creates an XDI entity class bound to a given context node.
-	 * @param contextNode The context node that is an XDI entity class.
-	 * @return The XDI entity class.
+	 * Factory method that creates an XDI entity collection bound to a given context node.
+	 * @param contextNode The context node that is an XDI entity collection.
+	 * @return The XDI entity collection.
 	 */
 	public static XdiEntityCollection fromContextNode(ContextNode contextNode) {
 

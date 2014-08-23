@@ -8,7 +8,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.util.XDI3Util;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.core.xri3.XDI3SubSegment;
@@ -25,7 +25,7 @@ public class LinkContractTemplate extends LinkContractBase {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
-	protected LinkContractTemplate(XdiVariable xdiVariable) {
+	protected LinkContractTemplate(XdiAbstractVariable xdiVariable) {
 
 		super(xdiVariable);
 	}
@@ -39,7 +39,7 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * @param xdiVariable The XDI variable to check.
 	 * @return True if the XDI variable is a valid XDI link contract template.
 	 */
-	public static boolean isValid(XdiVariable xdiVariable) {
+	public static boolean isValid(XdiAbstractVariable xdiVariable) {
 
 		if (! xdiVariable.getArcXri().equals(XDILinkContractConstants.XRI_SS_TEMPLATE)) return false;
 
@@ -53,7 +53,7 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * @param xdiVariable The XDI variable that is an XDI link contract template.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate fromXdiVariable(XdiVariable xdiVariable) {
+	public static LinkContractTemplate fromXdiVariable(XdiAbstractVariable xdiVariable) {
 
 		if (! isValid(xdiVariable)) return null;
 
@@ -84,7 +84,7 @@ public class LinkContractTemplate extends LinkContractBase {
 		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
 		if (linkContractTemplateContextNode == null) return null;
 
-		return new LinkContractTemplate(XdiVariable.fromContextNode(linkContractTemplateContextNode));
+		return new LinkContractTemplate(XdiAbstractVariable.fromContextNode(linkContractTemplateContextNode));
 	}
 
 	/*

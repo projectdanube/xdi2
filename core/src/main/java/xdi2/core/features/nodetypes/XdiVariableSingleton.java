@@ -9,15 +9,15 @@ import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.xri3.XDI3SubSegment;
 
 /**
- * An XDI entity singleton, represented as a context node.
+ * An XDI variable singleton, represented as a context node.
  * 
  * @author markus
  */
-public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> implements XdiEntity {
+public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable> implements XdiVariable {
 
-	private static final long serialVersionUID = 7600443284706530972L;
+	private static final long serialVersionUID = 3095667439821943614L;
 
-	protected XdiEntitySingleton(ContextNode contextNode) {
+	protected XdiVariableSingleton(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -27,9 +27,9 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI entity singleton.
+	 * Checks if a context node is a valid XDI variable singleton.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI entity singleton.
+	 * @return True if the context node is a valid XDI variable singleton.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -45,11 +45,11 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 * @param contextNode The context node that is an XDI entity singleton.
 	 * @return The XDI entity singleton.
 	 */
-	public static XdiEntitySingleton fromContextNode(ContextNode contextNode) {
+	public static XdiVariableSingleton fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntitySingleton(contextNode);
+		return new XdiVariableSingleton(contextNode);
 	}
 
 	/*
@@ -86,16 +86,16 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntitySingletonIterator extends NotNullIterator<XdiEntitySingleton> {
+	public static class MappingContextNodeXdiEntitySingletonIterator extends NotNullIterator<XdiVariableSingleton> {
 
 		public MappingContextNodeXdiEntitySingletonIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntitySingleton> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiVariableSingleton> (contextNodes) {
 
 				@Override
-				public XdiEntitySingleton map(ContextNode contextNode) {
+				public XdiVariableSingleton map(ContextNode contextNode) {
 
-					return XdiEntitySingleton.fromContextNode(contextNode);
+					return XdiVariableSingleton.fromContextNode(contextNode);
 				}
 			});
 		}

@@ -25,14 +25,16 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 	private static final Logger log = LoggerFactory.getLogger(XdiAbstractCollection.class);
 
+	private Class<C> c;
 	private Class<U> u;
 	private Class<O> o;
 	private Class<I> i;
 
-	protected XdiAbstractCollection(ContextNode contextNode, Class<U> u, Class<O> o, Class<I> i) {
+	protected XdiAbstractCollection(ContextNode contextNode, Class<C> c, Class<U> u, Class<O> o, Class<I> i) {
 
 		super(contextNode);
 
+		this.c = c;
 		this.u = u;
 		this.o = o;
 		this.i = i;
@@ -52,7 +54,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		if (contextNode == null) return false;
 
 		return XdiEntityCollection.isValid(contextNode) || 
-				XdiAttributeCollection.isValid(contextNode);
+				XdiAttributeCollection.isValid(contextNode) ||
+				XdiVariableCollection.isValid(contextNode);
 	}
 
 	/**
@@ -66,6 +69,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if ((xdiCollection = XdiEntityCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 		if ((xdiCollection = XdiAttributeCollection.fromContextNode(contextNode)) != null) return xdiCollection;
+		if ((xdiCollection = XdiVariableCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 
 		return xdiCollection;
 	}
@@ -77,7 +81,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
 
 		return XdiEntityCollection.isValidArcXri(arcXri) || 
-				XdiAttributeCollection.isValidArcXri(arcXri);
+				XdiAttributeCollection.isValidArcXri(arcXri) ||
+				XdiVariableCollection.isValidArcXri(arcXri);
 	}
 
 	/*
@@ -91,9 +96,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public U setXdiMemberUnordered(XDI3SubSegment arcXri) {
 
-		boolean attribute = this.attribute();
-
-		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createRandomUuidArcXri(attribute);
+		if (arcXri == null) arcXri = XdiAbstractMemberUnordered.createRandomUuidArcXri(this.getC());
 
 		ContextNode memberContextNode = this.getContextNode().setContextNode(arcXri);
 
@@ -139,11 +142,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public O setXdiMemberOrdered(long index) {
 
-		boolean attribute = this.attribute();
-
 		if (index < 0) index = this.getXdiMembersOrderedCount();
 
-		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), attribute);
+		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), this.getC());
 
 		ContextNode contextNode = this.getContextNode().setContextNode(arcXri);
 
@@ -157,9 +158,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public O getXdiMemberOrdered(long index) {
 
-		boolean attribute = this.attribute();
-
-		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), attribute);
+		XDI3SubSegment arcXri = XdiAbstractMemberOrdered.createArcXri(Long.toString(index), this.getC());
 
 		ContextNode contextNode = this.getContextNode().getContextNode(arcXri, false);
 		if (contextNode == null) return null;
@@ -217,6 +216,11 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		return (ReadOnlyIterator<EQI>) iterator;
 	}
 
+	public Class<C> getC() {
+
+		return this.c;
+	}
+
 	public Class<U> getU() {
 
 		return this.u;
@@ -230,20 +234,6 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	public Class<I> getI() {
 
 		return this.i;
-	}
-
-	private boolean attribute() {
-
-		boolean attribute;
-
-		if (XdiAttributeCollection.class.isAssignableFrom(this.getClass()))
-			attribute = true;
-		else if (XdiEntityCollection.class.isAssignableFrom(this.getClass()))
-			attribute = false;
-		else
-			throw new IllegalStateException("Invalid XDI collection: " + this.getClass().getSimpleName());
-
-		return attribute;
 	}
 
 	/*

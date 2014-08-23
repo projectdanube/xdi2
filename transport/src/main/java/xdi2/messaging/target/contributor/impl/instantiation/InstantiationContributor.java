@@ -7,7 +7,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
@@ -86,7 +86,7 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 		// find link contract template
 
 		ContextNode contextNode = this.getTargetGraph().getDeepContextNode(operation.getTargetAddress());
-		XdiVariable xdiVariable = XdiVariable.fromContextNode(contextNode);
+		XdiAbstractVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
 
 		// instantiate link contract
