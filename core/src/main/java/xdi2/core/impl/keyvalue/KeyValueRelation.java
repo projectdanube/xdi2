@@ -2,7 +2,7 @@ package xdi2.core.impl.keyvalue;
 
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class KeyValueRelation extends AbstractRelation implements Relation {
 
@@ -11,30 +11,30 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	private KeyValueStore keyValueStore;
 	private String key;
 
-	private XDI3Segment arcXri;
-	private XDI3Segment targetContextNodeXri;
+	private XDIAddress address;
+	private XDIAddress targetContextNodeAddress;
 
-	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDIAddress address, XDIAddress targetContextNodeAddress) {
 
 		super(contextNode);
 
 		this.keyValueStore = keyValueStore;
 		this.key = key;
 
-		this.arcXri = arcXri;
-		this.targetContextNodeXri = targetContextNodeXri;
+		this.address = address;
+		this.targetContextNodeAddress = targetContextNodeAddress;
 	}
 
 	@Override
-	public XDI3Segment getArcXri() {
+	public XDIAddress getXDIAddress() {
 
-		return this.arcXri;
+		return this.address;
 	}
 
 	@Override
-	public XDI3Segment getTargetContextNodeXri() {
+	public XDIAddress getTargetContextNodeXDIAddress() {
 
-		return this.targetContextNodeXri;
+		return this.targetContextNodeAddress;
 	}
 
 	/*

@@ -9,7 +9,7 @@ import xdi2.core.Literal;
 import xdi2.core.Statement.LiteralStatement;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -137,7 +137,7 @@ public abstract class AbstractLiteral implements Literal {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + this.getContextNode().getXri().hashCode();
+		hashCode = (hashCode * 31) + this.getContextNode().getXDIAddress().hashCode();
 		hashCode = (hashCode * 31) + this.getLiteralData().hashCode();
 
 		return hashCode;
@@ -265,9 +265,9 @@ public abstract class AbstractLiteral implements Literal {
 		private static final long serialVersionUID = -8290065911553369697L;
 
 		@Override
-		public XDI3Segment getSubject() {
+		public XDIAddress getSubject() {
 
-			return AbstractLiteral.this.getContextNode().getXri();
+			return AbstractLiteral.this.getContextNode().getXDIAddress();
 		}
 
 		@Override

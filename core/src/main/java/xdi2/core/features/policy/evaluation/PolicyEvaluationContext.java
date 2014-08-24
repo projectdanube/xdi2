@@ -2,8 +2,8 @@ package xdi2.core.features.policy.evaluation;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Statement;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * This interface provides a context for evaluating an XDI policy.
@@ -12,7 +12,7 @@ import xdi2.core.xri3.XDI3Statement;
  */
 public interface PolicyEvaluationContext {
 
-	public XDI3Segment resolveXri(XDI3Segment contextNodeXri);
-	public ContextNode getContextNode(XDI3Segment contextNodeXri);
-	public Statement getStatement(XDI3Statement statementXri);
+	public XDIAddress resolveXDIAddress(XDIAddress contextNodeAddress);
+	public ContextNode getContextNode(XDIAddress contextNodeAddress);
+	public Statement getStatement(XDIStatement statement);
 }

@@ -8,9 +8,11 @@ public abstract class LinkContract extends LinkContractBase {
 
 	private static final long serialVersionUID = 7780858453875071410L;
 
+	private XdiEntity xdiEntity;
+	
 	protected LinkContract(XdiEntity xdiEntity) {
 
-		super(xdiEntity);
+		this.xdiEntity = xdiEntity;
 	}
 
 	/*
@@ -48,5 +50,24 @@ public abstract class LinkContract extends LinkContractBase {
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
+	}
+	
+	/*
+	 * Instance methods
+	 */
+
+	/**
+	 * Returns the underlying XDI entity to which this XDI link contract is bound.
+	 * @return An XDI entity that represents the XDI link contract.
+	 */
+	public XdiEntity getXdiEntity() {
+
+		return this.xdiEntity;
+	}
+
+	@Override
+	public XdiEntity getXdiSubGraph() {
+
+		return this.xdiEntity;
 	}
 }

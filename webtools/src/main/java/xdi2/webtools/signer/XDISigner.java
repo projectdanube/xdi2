@@ -40,8 +40,8 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -191,7 +191,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			// find the context node
 
-			contextNode = graph.getDeepContextNode(XDI3Segment.create(address), true);
+			contextNode = graph.getDeepContextNode(XDIAddress.create(address), true);
 			if (contextNode == null) throw new RuntimeException("No context node found at address " + address);
 
 			// sign or validate

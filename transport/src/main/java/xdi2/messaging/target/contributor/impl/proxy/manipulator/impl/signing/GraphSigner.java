@@ -17,7 +17,7 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -59,19 +59,19 @@ public class GraphSigner extends PrivateKeySigner {
 	@Override
 	public PrivateKey getPrivateKey(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getPrivateKeyGraph()).getPeerRoot(senderXri, false);
+		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getPrivateKeyGraph()).getPeerRoot(senderAddress, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
 
 		// look for private key in the graph
 
-		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PRIVATE_KEY, true));
+		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true));
 		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
 
 		XdiValue signaturePrivateKeyXdiValue = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getXdiValue(false);

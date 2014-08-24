@@ -8,13 +8,13 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -48,7 +48,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public static boolean isValid(XdiEntityCollection xdiEntityCollection) {
 
-		return xdiEntityCollection.getContextNode().getArcXri().equals(XdiEntityCollection.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
+		return xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
 	}
 
 	/**
@@ -105,12 +105,12 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Returns the sender XRI of the message collection.
-	 * @return The sender XRI of the message collection.
+	 * Returns the sender address of the message collection.
+	 * @return The sender adddress of the message collection.
 	 */
-	public XDI3Segment getSenderXri() {
+	public XDIAddress getSenderXDIAddress() {
 
-		return this.getSender().getXri();
+		return this.getSender().getXDIAddress();
 	}
 
 	/**
@@ -120,7 +120,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	public Message createMessage() {
 
 		XdiEntityMemberUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(null);
-		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
+		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);
 	}
@@ -133,7 +133,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	public Message createMessage(long index) {
 
 		XdiEntityMemberOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(index);
-		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XRI_SS_DO, true);
+		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);
 	}

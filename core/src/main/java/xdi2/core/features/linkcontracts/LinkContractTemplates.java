@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
+import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -39,7 +40,7 @@ public class LinkContractTemplates {
 				@Override
 				public LinkContractTemplate map(ContextNode contextNode) {
 
-					XdiAbstractVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
+					XdiVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
 					if (xdiVariable == null) return null;
 
 					return LinkContractTemplate.fromXdiVariable(xdiVariable);

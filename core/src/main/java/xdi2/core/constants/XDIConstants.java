@@ -1,7 +1,7 @@
 package xdi2.core.constants;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * General XDI syntax and graph constants.
@@ -27,21 +27,21 @@ public class XDIConstants {
 
 	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_AUTHORITY_GENERAL, CS_CLASS_UNRESERVED, CS_CLASS_RESERVED, CS_VALUE, CS_MEMBER_UNORDERED, CS_MEMBER_ORDERED };
 
-	public static final XDI3Segment XRI_S_ROOT = XDI3Segment.create("");
-	public static final XDI3Segment XRI_S_CONTEXT = XDI3Segment.create("");
-	public static final XDI3Segment XRI_S_VALUE = XDI3Segment.create(XDIConstants.CS_VALUE.toString());
-	public static final XDI3Segment XRI_S_LITERAL = XDI3Segment.create(XDIConstants.CS_VALUE.toString());
+	public static final XDIAddress XDI_ADD_ROOT = XDIAddress.create("");
+	public static final XDIAddress XDI_ADD_CONTEXT = XDIAddress.create("");
+	public static final XDIAddress XDI_ADD_VALUE = XDIAddress.create(XDIConstants.CS_VALUE.toString());
+	public static final XDIAddress XDI_ADD_LITERAL = XDIAddress.create(XDIConstants.CS_VALUE.toString());
 
-	public static final XDI3SubSegment XRI_SS_VALUE = XDI3SubSegment.create(XDIConstants.CS_VALUE.toString());
-	public static final XDI3SubSegment XRI_SS_LITERAL = XDI3SubSegment.create(XDIConstants.CS_VALUE.toString());
+	public static final XDIArc XDI_ARC_VALUE = XDIArc.create(XDIConstants.CS_VALUE.toString());
+	public static final XDIArc XDI_ARC_LITERAL = XDIArc.create(XDIConstants.CS_VALUE.toString());
 
-	public static final XDI3Segment XRI_S_TRUE = XDI3Segment.create("$true");
-	public static final XDI3Segment XRI_S_FALSE = XDI3Segment.create("$false");
+	public static final XDIAddress XDI_ADD_TRUE = XDIAddress.create("$true");
+	public static final XDIAddress XDI_ADD_FALSE = XDIAddress.create("$false");
 
-	public static final XDI3SubSegment XRI_SS_TRUE = XDI3SubSegment.create("$true");
-	public static final XDI3SubSegment XRI_SS_FALSE = XDI3SubSegment.create("$false");
+	public static final XDIArc XDI_ARC_TRUE = XDIArc.create("$true");
+	public static final XDIArc XDI_ARC_FALSE = XDIArc.create("$false");
 
-	public static final XDI3Segment XRI_S_VARIABLE = XDI3Segment.create(XDIConstants.XS_VARIABLE);
+	public static final XDIAddress XDI_ADD_VARIABLE = XDIAddress.create(XDIConstants.XS_VARIABLE);
 
 	private XDIConstants() { }
 }

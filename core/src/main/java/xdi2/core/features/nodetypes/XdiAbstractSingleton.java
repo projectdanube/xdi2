@@ -1,7 +1,7 @@
 package xdi2.core.features.nodetypes;
 
 import xdi2.core.ContextNode;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
 
 public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends XdiAbstractSubGraph<EQ> implements XdiSingleton<EQ> {
 
@@ -48,9 +48,9 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 	 * Methods for XRIs
 	 */
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidXDIArc(XDIArc arc) {
 
-		return XdiEntitySingleton.isValidArcXri(arcXri) || 
-				XdiAttributeSingleton.isValidArcXri(arcXri);
+		return XdiEntitySingleton.isValidXDIArc(arc) || 
+				XdiAttributeSingleton.isValidXDIArc(arc);
 	}
 }

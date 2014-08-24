@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -59,15 +59,15 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public XDI3SubSegment getOwnerPeerRootXri() {
+	public XDIArc getOwnerPeerRootAddress() {
 
-		return GraphUtil.getOwnerPeerRootXri(this.getGraph());
+		return GraphUtil.getOwnerPeerRootXDIArc(this.getGraph());
 	}
 
 	@Override
-	public void setOwnerPeerRootXri(XDI3SubSegment ownerPeerRootXri) {
+	public void setOwnerPeerRootAddress(XDIArc ownerPeerRootAddress) {
 
-		GraphUtil.setOwnerPeerRootXri(this.getGraph(), ownerPeerRootXri);
+		GraphUtil.setOwnerPeerRootXDIArc(this.getGraph(), ownerPeerRootAddress);
 	}
 
 	@Override
@@ -95,13 +95,13 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public AddressHandler getAddressHandler(XDI3Segment address) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XDIAddress address) throws Xdi2MessagingException {
 
 		return this.graphContextHandler;
 	}
 
 	@Override
-	public StatementHandler getStatementHandler(XDI3Statement statement) throws Xdi2MessagingException {
+	public StatementHandler getStatementHandler(XDIStatement statement) throws Xdi2MessagingException {
 
 		return this.graphContextHandler;
 	}
@@ -119,7 +119,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 
 		try {
 
-			String identifier = XdiPeerRoot.createPeerRootArcXri(prototypingContext.getOwnerXri()).toString();
+			String identifier = XdiPeerRoot.createPeerRootXDIArc(prototypingContext.getOwnerAddress()).toString();
 
 			graph = this.getGraph().getGraphFactory().openGraph(identifier);
 		} catch (IOException ex) {

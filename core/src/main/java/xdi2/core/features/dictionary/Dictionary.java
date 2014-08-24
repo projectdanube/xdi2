@@ -5,10 +5,10 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.util.iterators.MappingContextNodeXriIterator;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.iterators.MappingContextNodeXDIAddressIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class Dictionary {
 
@@ -18,66 +18,66 @@ public class Dictionary {
 	 * Methods for dictionary XRIs
 	 */
 
-	public static XDI3SubSegment instanceXriToDictionaryXri(XDI3SubSegment instanceXri) {
+	public static XDIArc instanceAddressToDictionaryAddress(XDIArc instanceAddress) {
 
-		return XDI3SubSegment.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + instanceXri + ")");
+		return XDIArc.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + instanceAddress + ")");
 	}
 
-	public static XDI3SubSegment dictionaryXriToInstanceXri(XDI3SubSegment dictionaryXri) {
+	public static XDIArc dictionaryAddressToInstanceAddress(XDIArc dictionaryAddress) {
 
-		if (! XDIConstants.CS_CLASS_UNRESERVED.equals(dictionaryXri.getCs())) return null;
-		if (! dictionaryXri.hasXRef()) return null;
+		if (! XDIConstants.CS_CLASS_UNRESERVED.equals(dictionaryAddress.getCs())) return null;
+		if (! dictionaryAddress.hasXRef()) return null;
 
-		return XDI3SubSegment.create(dictionaryXri.getXRef().getValue());
+		return XDIArc.create(dictionaryAddress.getXRef().getValue());
 	}
 
-	public static XDI3SubSegment nativeIdentifierToInstanceXri(String nativeIdentifier) {
+	public static XDIArc nativeIdentifierToInstanceAddress(String nativeIdentifier) {
 
-		return XDI3SubSegment.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + nativeIdentifier + ")");
+		return XDIArc.create("" + XDIConstants.CS_CLASS_UNRESERVED + "(" + nativeIdentifier + ")");
 	}
 
-	public static String instanceXriToNativeIdentifier(XDI3SubSegment instanceXri) {
+	public static String instanceAddressToNativeIdentifier(XDIArc instanceAddress) {
 
-		if (! instanceXri.hasXRef()) return null;
+		if (! instanceAddress.hasXRef()) return null;
 
-		return instanceXri.getXRef().getValue();
+		return instanceAddress.getXRef().getValue();
 	}
 
 	/*
 	 * Methods for types of context nodes.
 	 */
 
-	public static Iterator<XDI3Segment> getContextNodeTypes(ContextNode contextNode) {
+	public static Iterator<XDIAddress> getContextNodeTypes(ContextNode contextNode) {
 
-		return new MappingContextNodeXriIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XRI_S_IS_TYPE)));
+		return new MappingContextNodeXDIAddressIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE)));
 	}
 
-	public static XDI3Segment getContextNodeType(ContextNode contextNode) {
+	public static XDIAddress getContextNodeType(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XRI_S_IS_TYPE).getTargetContextNodeXri();
+		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE).getTargetContextNodeXDIAddress();
 	}
 
-	public static boolean isContextNodeType(ContextNode contextNode, XDI3Segment type) {
+	public static boolean isContextNodeType(ContextNode contextNode, XDIAddress type) {
 
-		return contextNode.containsRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
+		return contextNode.containsRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, type);
 	}
 
-	public static void setContextNodeType(ContextNode contextNode, XDI3Segment type) {
+	public static void setContextNodeType(ContextNode contextNode, XDIAddress type) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, type);
 	}
 
-	public static void delContextNodeType(ContextNode contextNode, XDI3Segment type) {
+	public static void delContextNodeType(ContextNode contextNode, XDIAddress type) {
 
-		contextNode.delRelation(XDIDictionaryConstants.XRI_S_IS_TYPE, type);
+		contextNode.delRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, type);
 	}
 
 	public static void delContextNodeTypes(ContextNode contextNode) {
 
-		contextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_TYPE);
+		contextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
 	}
 
-	public static void replaceContextNodeType(ContextNode contextNode, XDI3Segment type) {
+	public static void replaceContextNodeType(ContextNode contextNode, XDIAddress type) {
 
 		delContextNodeTypes(contextNode);
 		setContextNodeType(contextNode, type);

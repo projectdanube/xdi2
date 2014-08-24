@@ -2,7 +2,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 
 import java.util.Map;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 
 /**
@@ -11,9 +11,9 @@ import xdi2.messaging.Message;
  */
 public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
 
-	private Map<XDI3Segment, String> localSaltAndDigestSecretTokens;
+	private Map<XDIAddress, String> localSaltAndDigestSecretTokens;
 
-	public StaticSecretTokenAuthenticator(String globalSalt, Map<XDI3Segment, String> localSaltAndDigestSecretTokens) {
+	public StaticSecretTokenAuthenticator(String globalSalt, Map<XDIAddress, String> localSaltAndDigestSecretTokens) {
 
 		super(globalSalt);
 
@@ -28,12 +28,12 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	@Override
 	public String getLocalSaltAndDigestSecretToken(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// look for static local salt and digest secret token
 
-		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(senderXri);
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(senderAddress);
 		if (localSaltAndDigestSecretToken == null) return null;
 
 		// done
@@ -41,12 +41,12 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 		return localSaltAndDigestSecretToken;
 	}
 
-	public Map<XDI3Segment, String> getLocalSaltAndDigestSecretTokens() {
+	public Map<XDIAddress, String> getLocalSaltAndDigestSecretTokens() {
 
 		return this.localSaltAndDigestSecretTokens;
 	}
 
-	public void setLocalSaltAndDigestSecretTokens(Map<XDI3Segment, String> localSaltAndDigestSecretTokens) {
+	public void setLocalSaltAndDigestSecretTokens(Map<XDIAddress, String> localSaltAndDigestSecretTokens) {
 
 		this.localSaltAndDigestSecretTokens = localSaltAndDigestSecretTokens;
 	}

@@ -11,9 +11,9 @@ import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.CloudNumber;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.CloudNumber;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -25,37 +25,37 @@ public class XDIClientUtil {
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getXri());
-		message.setToPeerRootXri(cloudNumber.getPeerRootXri());
-		message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getXri()));
+		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
+		message.setToPeerRootArc(cloudNumber.getPeerRootArc());
+		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
-		message.createGetOperation(RootLinkContract.createRootLinkContractXri(cloudNumber.getXri()));
+		message.createGetOperation(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getAddress()));
 
 		xdiHttpClient.send(messageEnvelope, null);
 	}
 
 	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
 	public static PrivateKey retrieveEncryptionPrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
-	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken, XDI3Segment privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
+	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, String xdiEndpointUri, String secretToken, XDIAddress privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
 
 		// request the private key from the graph
 
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
-		XDI3Segment privateKeyAddress = XDI3Util.concatXris(cloudNumber.getXri(), privateKeyRelativeAddress);
+		XDIAddress privateKeyAddress = XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), privateKeyRelativeAddress);
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getXri());
-		message.setToPeerRootXri(cloudNumber.getPeerRootXri());
-		message.setLinkContractXri(RootLinkContract.createRootLinkContractXri(cloudNumber.getXri()));
+		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
+		message.setToPeerRootArc(cloudNumber.getPeerRootArc());
+		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(privateKeyAddress);
 
@@ -65,7 +65,7 @@ public class XDIClientUtil {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getXri(), false);
+		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getAddress(), false);
 		if (authorityXdiEntity == null) return null;
 
 		// find private key

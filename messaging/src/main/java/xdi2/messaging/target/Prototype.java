@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 
 /**
@@ -26,14 +26,14 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 		private static final Logger log = LoggerFactory.getLogger(PrototypingContext.class);
 
 		private MessagingTarget messagingTarget;
-		private XDI3Segment ownerXri;
+		private XDIAddress ownerAddress;
 		private XdiPeerRoot ownerPeerRoot;
 		private ContextNode ownerContextNode;
 
-		public PrototypingContext(XDI3Segment ownerXri, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) {
+		public PrototypingContext(XDIAddress ownerAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) {
 
 			this.messagingTarget = null;
-			this.ownerXri = ownerXri;
+			this.ownerAddress = ownerAddress;
 			this.ownerPeerRoot = ownerPeerRoot;
 			this.ownerContextNode = ownerContextNode;
 		}
@@ -66,9 +66,9 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 			return this.messagingTarget;
 		}
 
-		public XDI3Segment getOwnerXri() {
+		public XDIAddress getOwnerAddress() {
 
-			return this.ownerXri;
+			return this.ownerAddress;
 		}
 
 		public XdiPeerRoot getOwnerPeerRoot() {

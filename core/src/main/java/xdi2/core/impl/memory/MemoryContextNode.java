@@ -12,49 +12,49 @@ import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractContextNode;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class MemoryContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = 4930852359817860369L;
 
-	private XDI3SubSegment arcXri;
+	private XDIArc arc;
 
-	private Map<XDI3SubSegment, MemoryContextNode> contextNodes;
-	private Map<XDI3Segment, Map<XDI3Segment, MemoryRelation>> relations;
+	private Map<XDIArc, MemoryContextNode> contextNodes;
+	private Map<XDIAddress, Map<XDIAddress, MemoryRelation>> relations;
 	private MemoryLiteral literal;
 
-	MemoryContextNode(MemoryGraph graph, MemoryContextNode contextNode, XDI3SubSegment arcXri) {
+	MemoryContextNode(MemoryGraph graph, MemoryContextNode contextNode, XDIArc arc) {
 
 		super(graph, contextNode);
 
-		this.arcXri = arcXri;
+		this.arc = arc;
 
 		if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
-			this.contextNodes = new TreeMap<XDI3SubSegment, MemoryContextNode> ();
-			this.relations = new TreeMap<XDI3Segment, Map<XDI3Segment, MemoryRelation>> ();
+			this.contextNodes = new TreeMap<XDIArc, MemoryContextNode> ();
+			this.relations = new TreeMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
 			this.literal = null;
 		} else if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
-			this.contextNodes = new LinkedHashMap<XDI3SubSegment, MemoryContextNode> ();
-			this.relations = new LinkedHashMap<XDI3Segment, Map<XDI3Segment, MemoryRelation>> ();
+			this.contextNodes = new LinkedHashMap<XDIArc, MemoryContextNode> ();
+			this.relations = new LinkedHashMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
 			this.literal = null;
 		} else {
 
-			this.contextNodes = new HashMap<XDI3SubSegment, MemoryContextNode> ();
-			this.relations = new HashMap<XDI3Segment, Map<XDI3Segment, MemoryRelation>> ();
+			this.contextNodes = new HashMap<XDIArc, MemoryContextNode> ();
+			this.relations = new HashMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
 			this.literal = null;
 		}
 	}
 
 	@Override
-	public XDI3SubSegment getArcXri() {
+	public XDIArc getXDIArc() {
 
-		return this.arcXri;
+		return this.arc;
 	}
 
 	/*
@@ -62,28 +62,28 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 */
 
 	@Override
-	public synchronized ContextNode setContextNode(XDI3SubSegment arcXri) {
+	public synchronized ContextNode setContextNode(XDIArc arc) {
 
 		// check validity
 
-		this.setContextNodeCheckValid(arcXri);
+		this.setContextNodeCheckValid(arc);
 
 		// set the context node
 
-		ContextNode contextNode = this.contextNodes.get(arcXri);
+		ContextNode contextNode = this.contextNodes.get(arc);
 
 		if (contextNode != null) {
 			
 			return contextNode;
 		}
 
-		contextNode = new MemoryContextNode((MemoryGraph) this.getGraph(), this, arcXri);
+		contextNode = new MemoryContextNode((MemoryGraph) this.getGraph(), this, arc);
 
-		this.contextNodes.put(arcXri, (MemoryContextNode) contextNode);
+		this.contextNodes.put(arc, (MemoryContextNode) contextNode);
 
 		// set inner root
 
-		this.setContextNodeSetInnerRoot(arcXri, contextNode);
+		this.setContextNodeSetInnerRoot(arc, contextNode);
 
 		// done
 
@@ -91,9 +91,9 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean subgraph) {
+	public ContextNode getContextNode(XDIArc arc, boolean subgraph) {
 
-		return this.contextNodes.get(arcXri);
+		return this.contextNodes.get(arc);
 	}
 
 	@Override
@@ -105,9 +105,9 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public boolean containsContextNode(XDI3SubSegment arcXri) {
+	public boolean containsContextNode(XDIArc arc) {
 
-		return this.contextNodes.containsKey(arcXri);
+		return this.contextNodes.containsKey(arc);
 	}
 
 	@Override
@@ -117,9 +117,9 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized void delContextNode(XDI3SubSegment arcXri) {
+	public synchronized void delContextNode(XDIArc arc) {
 
-		ContextNode contextNode = this.getContextNode(arcXri, true);
+		ContextNode contextNode = this.getContextNode(arc, true);
 		if (contextNode == null) return;
 
 		// delete all inner roots and incoming relations
@@ -129,7 +129,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		// delete this context node
 
-		this.contextNodes.remove(arcXri);
+		this.contextNodes.remove(arc);
 	}
 
 	@Override
@@ -153,39 +153,39 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
 
-		XDI3Segment targetContextNodeXri = targetContextNode.getXri();
+		XDIAddress targetContextNodeAddress = targetContextNode.getXDIAddress();
 		
 		// check validity
 
-		this.setRelationCheckValid(arcXri, targetContextNodeXri);
+		this.setRelationCheckValid(arc, targetContextNodeAddress);
 
 		// set the relation
 
-		Relation relation = this.getRelation(arcXri, targetContextNodeXri);
+		Relation relation = this.getRelation(arc, targetContextNodeAddress);
 		if (relation != null) return relation;
 
-		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		Map<XDIAddress, MemoryRelation> relations = this.relations.get(arc);
 		if (relations == null) {
 
 			if (((MemoryGraph) this.getGraph()).getSortMode() == MemoryGraphFactory.SORTMODE_ALPHA) {
 
-				relations = new TreeMap<XDI3Segment, MemoryRelation> ();
+				relations = new TreeMap<XDIAddress, MemoryRelation> ();
 			} else if (((MemoryGraph) this.getGraph()).getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
-				relations = new LinkedHashMap<XDI3Segment, MemoryRelation> ();
+				relations = new LinkedHashMap<XDIAddress, MemoryRelation> ();
 			} else {
 
-				relations = new HashMap<XDI3Segment, MemoryRelation> ();
+				relations = new HashMap<XDIAddress, MemoryRelation> ();
 			}
 
-			this.relations.put(arcXri, relations);
+			this.relations.put(arc, relations);
 		}
 		
-		relation = new MemoryRelation(this, arcXri, targetContextNodeXri);
+		relation = new MemoryRelation(this, arc, targetContextNodeAddress);
 		
-		relations.put(targetContextNodeXri, (MemoryRelation) relation);
+		relations.put(targetContextNodeAddress, (MemoryRelation) relation);
 
 		// done
 
@@ -193,18 +193,18 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation getRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		Map<XDIAddress, MemoryRelation> relations = this.relations.get(arc);
 		if (relations == null) return null;
 
-		return relations.get(targetContextNodeXri);
+		return relations.get(targetContextNodeAddress);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getRelations(XDIAddress arc) {
 
-		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		Map<XDIAddress, MemoryRelation> relations = this.relations.get(arc);
 		if (relations == null) return new EmptyIterator<Relation> ();
 
 		List<Relation> list = new ArrayList<Relation> (relations.values());
@@ -217,7 +217,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		List<Relation> list = new ArrayList<Relation> ();
 
-		for (Entry<XDI3Segment, Map<XDI3Segment, MemoryRelation>> relations : this.relations.entrySet()) {
+		for (Entry<XDIAddress, Map<XDIAddress, MemoryRelation>> relations : this.relations.entrySet()) {
 
 			list.addAll(relations.getValue().values());
 		}
@@ -226,18 +226,18 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public boolean containsRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public boolean containsRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		Map<XDIAddress, MemoryRelation> relations = this.relations.get(arc);
 		if (relations == null) return false;
 
-		return relations.containsKey(targetContextNodeXri);
+		return relations.containsKey(targetContextNodeAddress);
 	}
 
 	@Override
-	public boolean containsRelations(XDI3Segment arcXri) {
+	public boolean containsRelations(XDIAddress arc) {
 
-		return this.relations.containsKey(arcXri);
+		return this.relations.containsKey(arc);
 	}
 
 	@Override
@@ -247,40 +247,40 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public synchronized void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		// delete the relation
 
-		Map<XDI3Segment, MemoryRelation> relations = this.relations.get(arcXri);
+		Map<XDIAddress, MemoryRelation> relations = this.relations.get(arc);
 		if (relations == null) return;
 
-		MemoryRelation relation = relations.remove(targetContextNodeXri);
+		MemoryRelation relation = relations.remove(targetContextNodeAddress);
 		if (relation == null) return;
 
 		if (relations.isEmpty()) {
 
-			this.relations.remove(arcXri);
+			this.relations.remove(arc);
 		}
 
 		// delete inner root
 
-		this.delRelationDelInnerRoot(arcXri, targetContextNodeXri);
+		this.delRelationDelInnerRoot(arc, targetContextNodeAddress);
 	}
 
 	@Override
-	public synchronized void delRelations(XDI3Segment arcXri) {
+	public synchronized void delRelations(XDIAddress arc) {
 
-		ReadOnlyIterator<Relation> relations = this.getRelations(arcXri);
+		ReadOnlyIterator<Relation> relations = this.getRelations(arc);
 
 		// delete relations
 
-		this.relations.remove(arcXri);
+		this.relations.remove(arc);
 
 		// delete inner roots
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArcXri(), relation.getTargetContextNodeXri());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
 		}
 	}
 
@@ -297,7 +297,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getArcXri(), relation.getTargetContextNodeXri());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
 		}
 	}
 

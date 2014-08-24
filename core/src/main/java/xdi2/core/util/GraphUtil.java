@@ -7,8 +7,8 @@ import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * Various utility methods for working with context nodes, relations and literals.
@@ -19,70 +19,70 @@ public final class GraphUtil {
 
 	private GraphUtil() { }
 
-	public static XDI3SubSegment getOwnerPeerRootXri(Graph graph) {
+	public static XDIArc getOwnerPeerRootXDIArc(Graph graph) {
 
 		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
 		if (xdiSelfPeerRoot == null) return null;
 
-		return xdiSelfPeerRoot.getArcXri();
+		return xdiSelfPeerRoot.getXDIArc();
 	}
 
-	public static XDI3Segment getOwnerXri(Graph graph) {
+	public static XDIAddress getOwnerXDIAddress(Graph graph) {
 
-		XDI3SubSegment ownerPeerRootxri = getOwnerPeerRootXri(graph);
-		if (ownerPeerRootxri == null) return null;
+		XDIArc ownerPeerRootArc = getOwnerPeerRootXDIArc(graph);
+		if (ownerPeerRootArc == null) return null;
 
-		return XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootxri);
+		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootArc);
 	}
 
-	public static void setOwnerPeerRootXri(Graph graph, XDI3SubSegment ownerPeerRootXri) {
+	public static void setOwnerPeerRootXDIArc(Graph graph, XDIArc ownerPeerRootArc) {
 
-		XDI3Segment ownerXri = XdiPeerRoot.getXriOfPeerRootArcXri(ownerPeerRootXri);
+		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootArc);
 
-		setOwnerXri(graph, ownerXri);
+		setOwnerXDIAddress(graph, ownerAddress);
 	}
 
-	public static void setOwnerXri(Graph graph, XDI3Segment ownerXri) {
+	public static void setOwnerXDIAddress(Graph graph, XDIAddress ownerAddress) {
 
-		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerXri);
+		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerAddress);
 	}
 
 	/**
 	 * Creates a context node from its components.
-	 * @param contextNodeXri The XRI of the context node.
+	 * @param contextNodeAddress The address of the context node.
 	 * @return A context node.
 	 */
-	public static ContextNode contextNodeFromComponents(XDI3Segment contextNodeXri) {
+	public static ContextNode contextNodeFromComponents(XDIAddress contextNodeAddress) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXri);
+		return graph.setDeepContextNode(contextNodeAddress);
 	}
 
 	/**
 	 * Creates a relation from its components.
-	 * @param contextNodeXri The relation XRI of the context node containing the relation.
-	 * @param arcXri The arc XRI of the relation.
-	 * @param targetContextNodeXri The target context node XRI of the relation.
+	 * @param contextNodeAddress The address of the context node containing the relation.
+	 * @param arc The arc of the relation.
+	 * @param targetContextNodeAddress The target context node address of the relation.
 	 * @return A relation.
 	 */
-	public static Relation relationFromComponents(XDI3Segment contextNodeXri, XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public static Relation relationFromComponents(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXri).setRelation(arcXri, targetContextNodeXri);
+		return graph.setDeepContextNode(contextNodeAddress).setRelation(arc, targetContextNodeAddress);
 	}
 
 	/**
 	 * Creates a literal from its components.
-	 * @param contextNodeXri The XRI of the context node containing the literal.
+	 * @param contextNodeAddress The address of the context node containing the literal.
 	 * @param literalData The literal data of the literal.
 	 * @return A literal.
 	 */
-	public static Literal literalFromComponents(XDI3Segment contextNodeXri, Object literalData) {
+	public static Literal literalFromComponents(XDIAddress contextNodeAddress, Object literalData) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXri).setLiteral(literalData);
+		return graph.setDeepContextNode(contextNodeAddress).setLiteral(literalData);
 	}
 }

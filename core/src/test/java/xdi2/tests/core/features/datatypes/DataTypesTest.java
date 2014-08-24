@@ -9,7 +9,7 @@ import org.junit.Test;
 import xdi2.core.Graph;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class DataTypesTest extends TestCase {
 
@@ -18,29 +18,29 @@ public class DataTypesTest extends TestCase {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("=markus<#age>&/&/\"33\"\n");
-		buffer.append("=markus<#age>/$is+/$xsd$int\n");
-		buffer.append("=markus<#age>/$is+/$json$number\n");
+		buffer.append("=markus<#age>/$is#/$xsd$int\n");
+		buffer.append("=markus<#age>/$is#/$json$number\n");
 		String xdiString = buffer.toString();
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")), XDI3Segment.create("$mime$image$png"));
+		DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")), XDIAddress.create("$mime$image$png"));
 
-		List<XDI3Segment> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>&")));
+		List<XDIAddress> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")));
 
 		assertNotNull(dataTypes);
 
-		for (XDI3Segment xriSeg : dataTypes) {
+		for (XDIAddress dataType : dataTypes) {
 
-			if (xriSeg.toString().contains("json")) {
+			if (dataType.toString().contains("json")) {
 
-				assertEquals("number", DataTypes.jsonTypeFromDataTypeXri(xriSeg).toString());
-			} else if (xriSeg.toString().contains("xsd")) {
+				assertEquals("number", DataTypes.jsonTypeFromDataTypeAddress(dataType).toString());
+			} else if (dataType.toString().contains("xsd")) {
 
-				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeXri(xriSeg).toString());
-			} else if (xriSeg.toString().contains("mime")) {
+				assertEquals("xsd:int", DataTypes.xsdTypeFromDataTypeAddress(dataType).toString());
+			} else if (dataType.toString().contains("mime")) {
 
-				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeXri(xriSeg).toString());
+				assertEquals("image/png", DataTypes.mimeTypeFromDataTypeAddress(dataType).toString());
 			}
 		}
 		
@@ -53,14 +53,14 @@ public class DataTypesTest extends TestCase {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("=markus<#age>/&/\"33\"\n");
-		buffer.append("=markus<#age>/$is+/+$xsd$int\n");
-		buffer.append("=markus<#age>/$is+/+$json$number\n");
+		buffer.append("=markus<#age>/$is#/+$xsd$int\n");
+		buffer.append("=markus<#age>/$is#/+$json$number\n");
 		String xdiString = buffer.toString();
 
 		try {
 
 			Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString);
-			DataTypes.setDataType(graph.getDeepContextNode(XDI3Segment.create("=markus<#age>")), XDI3Segment.create("+$json$number"));
+			DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>")), XDIAddress.create("+$json$number"));
 
 			fail();
 			

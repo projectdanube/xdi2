@@ -28,7 +28,7 @@ public class SecretTokens {
 
 		// find local salt and digest secret token
 
-		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = xdiContext.getXdiAttribute(XDIAuthenticationConstants.XRI_S_DIGEST_SECRET_TOKEN, false);
+		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = xdiContext.getXdiAttribute(XDIAuthenticationConstants.XDI_ADD_DIGEST_SECRET_TOKEN, false);
 		localSaltAndDigestSecretTokenXdiAttribute = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.dereference();
 
 		XdiValue localSaltAndDigestSecretTokenXdiValue = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.getXdiValue(false);

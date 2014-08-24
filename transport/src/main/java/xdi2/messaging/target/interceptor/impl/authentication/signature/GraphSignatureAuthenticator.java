@@ -10,7 +10,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -54,12 +54,12 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender
 
-		XDI3Segment senderXri = message.getSenderXri();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// sender entity
 
-		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderXri, false);
+		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderAddress, false);
 		senderXdiEntity = senderXdiEntity == null ? null : senderXdiEntity.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender entity: " + senderXdiEntity);

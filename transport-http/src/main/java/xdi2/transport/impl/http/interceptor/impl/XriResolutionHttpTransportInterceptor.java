@@ -19,11 +19,11 @@ import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
-import xdi2.core.util.iterators.MappingContextNodeXriIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.util.iterators.MappingContextNodeXDIAddressIterator;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpRequest;
@@ -61,19 +61,19 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 		// prepare resolution information
 
-		XDI3SubSegment query = parseQuery(request);
-		XDI3Segment providerid = getProviderId(this.getRegistryGraph());
-		XDI3Segment[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
+		XDIArc query = parseQuery(request);
+		XDIAddress providerid = getProviderId(this.getRegistryGraph());
+		XDIAddress[] provideridSynonyms = getProviderIdSynonyms(this.getRegistryGraph(), providerid);
 
 		// look into registry
 
-		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDI3Segment.create("" + providerid + query), false);
+		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + providerid + query), false);
 
 		if (peerRoot == null) {
 
-			for (XDI3Segment provideridSynonym : provideridSynonyms) {
+			for (XDIAddress provideridSynonym : provideridSynonyms) {
 
-				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDI3Segment.create("" + provideridSynonym + query), false);
+				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + provideridSynonym + query), false);
 				if (peerRoot != null) break;
 			}
 		}
@@ -96,8 +96,8 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 		XdiPeerRoot referencePeerRoot = (referencePeerRootContextNode == null) ? null : XdiPeerRoot.fromContextNode(referencePeerRootContextNode);
 		if (referencePeerRoot == null) referencePeerRoot = peerRoot;
 
-		XDI3Segment canonicalid = referencePeerRoot.getXriOfPeerRoot();
-		XDI3SubSegment localid = query;
+		XDIAddress canonicalid = referencePeerRoot.getXDIAddressOfPeerRoot();
+		XDIArc localid = query;
 		String uri = constructUri(request, this.getTargetPath(), canonicalid);
 
 		// prepare velocity
@@ -130,7 +130,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 	 * Helper methods
 	 */
 
-	private static XDI3SubSegment parseQuery(HttpRequest request) {
+	private static XDIArc parseQuery(HttpRequest request) {
 
 		String query = request.getRequestPath();
 		if (query.endsWith("/")) query = query.substring(0, query.length() - 1);
@@ -138,35 +138,35 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 		if (query.isEmpty()) return null;
 
-		return XDI3SubSegment.create(query);
+		return XDIArc.create(query);
 	}
 
-	private static String constructUri(HttpRequest request, String targetPath, XDI3Segment canonicalid) {
+	private static String constructUri(HttpRequest request, String targetPath, XDIAddress canonicalid) {
 
 		String uri = request.getBaseUri() + targetPath + "/" + canonicalid.toString();
 
 		return uri;
 	}
 
-	private static XDI3Segment getProviderId(Graph graph) {
+	private static XDIAddress getProviderId(Graph graph) {
 
-		return GraphUtil.getOwnerXri(graph);
+		return GraphUtil.getOwnerXDIAddress(graph);
 	}
 
-	private static XDI3Segment[] getProviderIdSynonyms(Graph graph, XDI3Segment providerid) {
+	private static XDIAddress[] getProviderIdSynonyms(Graph graph, XDIAddress providerid) {
 
 		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
-		if (selfPeerRoot == null) return new XDI3Segment[0];
+		if (selfPeerRoot == null) return new XDIAddress[0];
 
 		Iterator<ContextNode> selfPeerRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfPeerRoot.getContextNode());
 
-		XDI3Segment[] selfSynonyms = new IteratorArrayMaker<XDI3Segment> (new MappingContextNodeXriIterator(selfPeerRootIncomingReferenceContextNodes)).array(XDI3Segment.class);
-		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = XdiPeerRoot.getXriOfPeerRootArcXri(selfSynonyms[i].getLastSubSegment());
+		XDIAddress[] selfSynonyms = new IteratorArrayMaker<XDIAddress> (new MappingContextNodeXDIAddressIterator(selfPeerRootIncomingReferenceContextNodes)).array(XDIAddress.class);
+		for (int i=0; i<selfSynonyms.length; i++) selfSynonyms[i] = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(selfSynonyms[i].getLastXDIArc());
 
 		return selfSynonyms;
 	}
 
-	private void sendNotFoundXrd(HttpTransport httpTransport, HttpRequest request, XDI3SubSegment query, HttpResponse response) throws IOException {
+	private void sendNotFoundXrd(HttpTransport httpTransport, HttpRequest request, XDIArc query, HttpResponse response) throws IOException {
 
 		// prepare velocity
 

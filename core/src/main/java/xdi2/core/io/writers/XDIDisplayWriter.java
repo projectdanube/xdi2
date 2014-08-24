@@ -25,6 +25,9 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -32,9 +35,6 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class XDIDisplayWriter extends AbstractXDIWriter {
 
@@ -115,7 +115,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			this.writeStatement(bufferedWriter, statement.getXri());
+			this.writeStatement(bufferedWriter, statement.getStatement());
 
 			// HTML output
 
@@ -141,24 +141,24 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (orderedGraph != null) orderedGraph.close();
 	}
 
-	private void writeStatement(BufferedWriter bufferedWriter, XDI3Statement statementXri) throws IOException {
+	private void writeStatement(BufferedWriter bufferedWriter, XDIStatement statementAddress) throws IOException {
 
 		// write the statement
 
-		this.writeContextNodeXri(bufferedWriter, statementXri.getSubject());
+		this.writecontextNodeAddress(bufferedWriter, statementAddress.getSubject());
 		this.writeSeparator(bufferedWriter);
-		this.writePredicateXri(bufferedWriter, statementXri.getPredicate());
+		this.writePredicateAddress(bufferedWriter, statementAddress.getPredicate());
 		this.writeSeparator(bufferedWriter);
 
-		if (statementXri.isContextNodeStatement()) {
+		if (statementAddress.isContextNodeStatement()) {
 
-			this.writeContextNodeArcXri(bufferedWriter, statementXri.getSubject(), (XDI3SubSegment) statementXri.getObject());
-		} else if (statementXri.isRelationStatement()) {
+			this.writecontextNodeArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
+		} else if (statementAddress.isRelationStatement()) {
 
-			this.writeContextNodeXri(bufferedWriter, (XDI3Segment) statementXri.getObject());
-		} else if (statementXri.isLiteralStatement()) {
+			this.writecontextNodeAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
+		} else if (statementAddress.isLiteralStatement()) {
 
-			this.writeLiteralData(bufferedWriter, statementXri.getObject());
+			this.writeLiteralData(bufferedWriter, statementAddress.getObject());
 		}
 	}
 
@@ -176,44 +176,44 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void writeContextNodeXri(BufferedWriter bufferedWriter, XDI3Segment contextNodeXri) throws IOException {
+	private void writecontextNodeAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeAddress) throws IOException {
 
 		if (this.writeHtml) {
 
 			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
-			for (XDI3SubSegment contextNodeArcXri : contextNodeXri.getSubSegments()) {
+			for (XDIArc contextNodeArc : contextNodeAddress.getXDIArcs()) {
 
-				this.writeContextNodeArcXri(bufferedWriter, contextNode, contextNodeArcXri);
+				this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);
 
-				if (! XDIConstants.XRI_S_ROOT.equals(contextNodeArcXri)) {
+				if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeArc)) {
 
-					contextNode = contextNode.setContextNode(contextNodeArcXri);
+					contextNode = contextNode.setContextNode(contextNodeArc);
 				}
 			}
 		} else {
 
-			bufferedWriter.write(contextNodeXri.toString());
+			bufferedWriter.write(contextNodeAddress.toString());
 		}
 	}
 
-	private void writeContextNodeArcXri(BufferedWriter bufferedWriter, XDI3Segment contextNodeXri, XDI3SubSegment contextNodeArcXri) throws IOException {
+	private void writecontextNodeArc(BufferedWriter bufferedWriter, XDIAddress contextNodeAddress, XDIArc contextNodeArc) throws IOException {
 
 		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
-		if (! XDIConstants.XRI_S_ROOT.equals(contextNodeXri)) {
+		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeAddress)) {
 
-			contextNode = contextNode.setDeepContextNode(contextNodeXri);
+			contextNode = contextNode.setDeepContextNode(contextNodeAddress);
 		}
 
-		this.writeContextNodeArcXri(bufferedWriter, contextNode, contextNodeArcXri);
+		this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);
 	}
 
-	private void writeContextNodeArcXri(BufferedWriter bufferedWriter, ContextNode contextNode, XDI3SubSegment contextNodeArcXri) throws IOException {
+	private void writecontextNodeArc(BufferedWriter bufferedWriter, ContextNode contextNode, XDIArc contextNodeArc) throws IOException {
 
-		if (! XDIConstants.XRI_S_ROOT.equals(contextNodeArcXri)) {
+		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeArc)) {
 
-			contextNode = contextNode.setContextNode(contextNodeArcXri);
+			contextNode = contextNode.setContextNode(contextNodeArc);
 		}
 
 		String htmlColorString = null;
@@ -226,14 +226,14 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 
 		if (htmlColorString != null) bufferedWriter.write("<span style=\"background-color:" + htmlColorString + "\">");
-		bufferedWriter.write(contextNodeArcXri.toString());
+		bufferedWriter.write(contextNodeArc.toString());
 		if (htmlColorString != null) bufferedWriter.write("</span>");
 	}
 
 	@SuppressWarnings("static-method")
-	private void writePredicateXri(BufferedWriter bufferedWriter, XDI3Segment predicateXri) throws IOException {
+	private void writePredicateAddress(BufferedWriter bufferedWriter, XDIAddress predicateAddress) throws IOException {
 
-		bufferedWriter.write(predicateXri.toString());
+		bufferedWriter.write(predicateAddress.toString());
 	}
 
 	@SuppressWarnings("static-method")

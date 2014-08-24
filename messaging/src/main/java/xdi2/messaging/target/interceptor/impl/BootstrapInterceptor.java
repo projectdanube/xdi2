@@ -24,14 +24,14 @@ import xdi2.core.features.policy.PolicyOr;
 import xdi2.core.features.policy.PolicyUtil;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXriCopyStrategy;
-import xdi2.core.util.XDI3Util;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -53,10 +53,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	public final static int INIT_PRIORITY = 20;
 	public final static int SHUTDOWN_PRIORITY = 10;
 
-	public final static XDI3SubSegment XRI_SS_SELF = XDI3SubSegment.create("{$self}");
+	public final static XDIArc XDI_ARC_SELF = XDIArc.create("{$self}");
 
-	private XDI3Segment bootstrapOwner;
-	private XDI3Segment[] bootstrapOwnerSynonyms;
+	private XDIAddress bootstrapOwner;
+	private XDIAddress[] bootstrapOwnerSynonyms;
 	private boolean bootstrapRootLinkContract;
 	private boolean bootstrapPublicLinkContract;
 	private boolean bootstrapTimestamp;
@@ -89,21 +89,21 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		// set the owner, root link contract, and public link contract
 
-		interceptor.setBootstrapOwner(prototypingContext.getOwnerXri());
+		interceptor.setBootstrapOwner(prototypingContext.getOwnerAddress());
 		interceptor.setBootstrapRootLinkContract(this.getBootstrapRootLinkContract());
 		interceptor.setBootstrapPublicLinkContract(this.getBootstrapPublicLinkContract());
 
 		// set the owner synonyms
 
-		XDI3Segment[] bootstrapOwnerSynonyms = null;
+		XDIAddress[] bootstrapOwnerSynonyms = null;
 
 		if (prototypingContext.getOwnerPeerRoot() != null) {
 
 			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
 			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
-			bootstrapOwnerSynonyms = new XDI3Segment[ownerSynonymPeerRoots.length];
-			for (int i=0; i<bootstrapOwnerSynonyms.length; i++) bootstrapOwnerSynonyms[i] = ownerSynonymPeerRoots[i].getXriOfPeerRoot();
+			bootstrapOwnerSynonyms = new XDIAddress[ownerSynonymPeerRoots.length];
+			for (int i=0; i<bootstrapOwnerSynonyms.length; i++) bootstrapOwnerSynonyms[i] = ownerSynonymPeerRoots[i].getXDIAddressOfPeerRoot();
 		}
 
 		interceptor.setBootstrapOwnerSynonyms(bootstrapOwnerSynonyms);
@@ -156,20 +156,20 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 				if (log.isDebugEnabled()) log.debug("Creating bootstrap owner synonyms: " + Arrays.asList(this.getBootstrapOwnerSynonyms()));
 
-				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+				for (XDIAddress bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
 					ContextNode bootstrapOwnerSynonymContextNode = graph.setDeepContextNode(bootstrapOwnerSynonym);
 
-					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
-					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerContextNode);
+					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
+					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, bootstrapOwnerContextNode);
 
-					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XRI_S_IS_REF);
-					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XRI_S_IS_REF, bootstrapOwnerSynonymContextNode);
+					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_REF);
+					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, bootstrapOwnerSynonymContextNode);
 
 					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiLocalRoot.findLocalRoot(graph).getPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
 
-					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XRI_S_REF);
-					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XRI_S_REF, bootstrapOwnerSelfPeerRootContextNode);
+					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
+					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, bootstrapOwnerSelfPeerRootContextNode);
 				}
 			}
 		}
@@ -188,7 +188,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
 
 			RootLinkContract bootstrapRootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
-			bootstrapRootLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_ALL, XDIConstants.XRI_S_ROOT);
+			bootstrapRootLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_ALL, XDIConstants.XDI_ADD_ROOT);
 
 			PolicyAnd policyAnd = bootstrapRootLinkContract.getPolicyRoot(true).createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
@@ -205,21 +205,21 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap public link contract.");
 
 			PublicLinkContract bootstrapPublicLinkContract = PublicLinkContract.findPublicLinkContract(graph, true);
-			XDI3Segment publicAddress = XDI3Util.concatXris(this.getBootstrapOwner(), XDILinkContractConstants.XRI_S_PUBLIC);
-			bootstrapPublicLinkContract.setPermissionTargetAddress(XDILinkContractConstants.XRI_S_GET, publicAddress);
+			XDIAddress publicAddress = XDIAddressUtil.concatXDIAddresses(this.getBootstrapOwner(), XDILinkContractConstants.XDI_ADD_PUBLIC);
+			bootstrapPublicLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, publicAddress);
 
-			XDI3Statement selfPeerRootRefStatement = XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
-			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, selfPeerRootRefStatement);
+			XDIStatement selfPeerRootRefStatement = XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE);
+			bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, selfPeerRootRefStatement);
 
-			XDI3Statement bootstrapOwnerSynonymsIsRefStatement = XDI3Statement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE);
-			bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymsIsRefStatement);
+			XDIStatement bootstrapOwnerSynonymsIsRefStatement = XDIStatement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE);
+			bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, bootstrapOwnerSynonymsIsRefStatement);
 
 			if (this.getBootstrapOwnerSynonyms() != null) {
 
-				for (XDI3Segment bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
+				for (XDIAddress bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
-					XDI3Statement bootstrapOwnerSynonymRefStatement = XDI3Statement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XRI_S_REF, this.getBootstrapOwner());
-					bootstrapPublicLinkContract.setPermissionTargetStatement(XDILinkContractConstants.XRI_S_GET, bootstrapOwnerSynonymRefStatement);
+					XDIStatement bootstrapOwnerSynonymRefStatement = XDIStatement.fromRelationComponents(bootstrapOwnerSynonym, XDIDictionaryConstants.XDI_ADD_REF, this.getBootstrapOwner());
+					bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, bootstrapOwnerSynonymRefStatement);
 				}
 			}
 		}
@@ -228,15 +228,15 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapTimestamp()) {
 
-			Timestamps.setContextNodeTimestamp(graph.getRootContextNode(), XDITimestampsConstants.XRI_S_AS_CREATED, new Date());
+			Timestamps.setContextNodeTimestamp(graph.getRootContextNode(), XDITimestampsConstants.XDI_ADD_AS_CREATED, new Date());
 		}
 
 		// create bootstrap graph
 
 		if (this.getBootstrapGraph() != null) {
 
-			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XRI_SS_SELF, BootstrapInterceptor.this.getBootstrapOwner());
-			
+			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, copyStrategy);
 
@@ -251,7 +251,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapMessageEnvelope() != null) {
 
-			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XRI_SS_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
 
 			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
 			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), copyStrategy);
@@ -281,30 +281,30 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 * Getters and setters
 	 */
 
-	public XDI3Segment getBootstrapOwner() {
+	public XDIAddress getBootstrapOwner() {
 
 		return this.bootstrapOwner;
 	}
 
-	public void setBootstrapOwner(XDI3Segment bootstrapOwner) {
+	public void setBootstrapOwner(XDIAddress bootstrapOwner) {
 
 		this.bootstrapOwner = bootstrapOwner;
 	}
 
-	public XDI3Segment[] getBootstrapOwnerSynonyms() {
+	public XDIAddress[] getBootstrapOwnerSynonyms() {
 
 		return this.bootstrapOwnerSynonyms;
 	}
 
-	public void setBootstrapOwnerSynonyms(XDI3Segment[] bootstrapOwnerSynonyms) {
+	public void setBootstrapOwnerSynonyms(XDIAddress[] bootstrapOwnerSynonyms) {
 
 		this.bootstrapOwnerSynonyms = bootstrapOwnerSynonyms;
 	}
 
 	public void setBootstrapOwnerSynonyms(String[] bootstrapOwnerSynonyms) {
 
-		this.bootstrapOwnerSynonyms = new XDI3Segment[bootstrapOwnerSynonyms.length];
-		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = XDI3Segment.create(bootstrapOwnerSynonyms[i]);
+		this.bootstrapOwnerSynonyms = new XDIAddress[bootstrapOwnerSynonyms.length];
+		for (int i=0; i<this.bootstrapOwnerSynonyms.length; i++) this.bootstrapOwnerSynonyms[i] = XDIAddress.create(bootstrapOwnerSynonyms[i]);
 	}
 
 	public boolean getBootstrapRootLinkContract() {

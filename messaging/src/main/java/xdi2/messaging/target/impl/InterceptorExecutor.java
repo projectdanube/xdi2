@@ -5,8 +5,8 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -303,7 +303,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static XDI3Segment executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIAddress executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -311,11 +311,11 @@ public class InterceptorExecutor {
 
 			if (targetInterceptor.skip(executionContext)) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on address " + targetAddress + ".");
 				continue;
 			}
 
-			if (log.isDebugEnabled()) log.debug("Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on address " + targetAddress + ".");
+			if (log.isDebugEnabled()) log.debug("Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on address " + targetAddress + ".");
 
 			try {
 
@@ -342,7 +342,7 @@ public class InterceptorExecutor {
 		return targetAddress;
 	}
 
-	public static XDI3Statement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIStatement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -350,11 +350,11 @@ public class InterceptorExecutor {
 
 			if (targetInterceptor.skip(executionContext)) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping disabled target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on statement " + targetStatement + ".");
 				continue;
 			}
 
-			if (log.isDebugEnabled()) log.debug("Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXri() + " on statement " + targetStatement + ".");
+			if (log.isDebugEnabled()) log.debug("Executing target interceptor " + targetInterceptor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on statement " + targetStatement + ".");
 
 			try {
 

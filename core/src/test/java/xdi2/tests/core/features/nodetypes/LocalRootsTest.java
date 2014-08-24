@@ -13,7 +13,7 @@ public class LocalRootsTest extends TestCase {
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		assertEquals(XdiLocalRoot.findLocalRoot(graph).getContextNode(), graph.getRootContextNode());
-		assertEquals(XdiLocalRoot.findLocalRoot(graph).getContextNode().getXri(), XDIConstants.XRI_S_CONTEXT);
+		assertEquals(XdiLocalRoot.findLocalRoot(graph).getContextNode().getXDIAddress(), XDIConstants.XDI_ADD_CONTEXT);
 
 		graph.close();
 	}

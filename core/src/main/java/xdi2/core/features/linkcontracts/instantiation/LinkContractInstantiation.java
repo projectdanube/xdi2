@@ -7,21 +7,21 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXriCopyStrategy;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class LinkContractInstantiation {
 
 	private LinkContractTemplate linkContractTemplate;
-	private XDI3Segment authorizingAuthority;
-	private XDI3Segment requestingAuthority;
+	private XDIAddress authorizingAuthority;
+	private XDIAddress requestingAuthority;
 
 	public GenericLinkContract execute(Graph targetGraph, boolean create) {
 
-		XDI3Segment templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
+		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
 		// create generic link contract
 
@@ -31,9 +31,9 @@ public class LinkContractInstantiation {
 
 		// set up permissions
 
-		Map<XDI3SubSegment, XDI3Segment> replacements = new HashMap<XDI3SubSegment, XDI3Segment> ();
-		replacements.put(XDILinkContractConstants.XRI_SS_V_FROM, this.getRequestingAuthority());
-		replacements.put(XDILinkContractConstants.XRI_SS_V_TO, this.getAuthorizingAuthority());
+		Map<XDIArc, XDIAddress> replacements = new HashMap<XDIArc, XDIAddress> ();
+		replacements.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
+		replacements.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
 
 		CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(replacements);
 
@@ -60,22 +60,22 @@ public class LinkContractInstantiation {
 		this.linkContractTemplate = linkContractTemplate;
 	}
 
-	public XDI3Segment getAuthorizingAuthority() {
+	public XDIAddress getAuthorizingAuthority() {
 
 		return this.authorizingAuthority;
 	}
 
-	public void setAuthorizingAuthority(XDI3Segment authorizingAuthority) {
+	public void setAuthorizingAuthority(XDIAddress authorizingAuthority) {
 
 		this.authorizingAuthority = authorizingAuthority;
 	}
 
-	public XDI3Segment getRequestingAuthority() {
+	public XDIAddress getRequestingAuthority() {
 
 		return this.requestingAuthority;
 	}
 
-	public void setRequestingAuthority(XDI3Segment requestingAuthority) {
+	public void setRequestingAuthority(XDIAddress requestingAuthority) {
 
 		this.requestingAuthority = requestingAuthority;
 	}

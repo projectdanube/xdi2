@@ -4,8 +4,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.impl.AbstractLiteral;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * An XDI $lesser condition, represented as a statement.
@@ -16,7 +16,7 @@ public class LesserCondition extends Condition {
 
 	private static final long serialVersionUID = -8479583948559334331L;
 
-	protected LesserCondition(XDI3Statement statement) {
+	protected LesserCondition(XDIStatement statement) {
 
 		super(statement);
 	}
@@ -30,11 +30,11 @@ public class LesserCondition extends Condition {
 	 * @param statement The statement to check.
 	 * @return True if the statement is a valid XDI $lesser condition.
 	 */
-	public static boolean isValid(XDI3Statement statement) {
+	public static boolean isValid(XDIStatement statement) {
 
 		if (! statement.isRelationStatement()) return false;
 
-		if (! XDIPolicyConstants.XRI_S_LESSER.equals(statement.getRelationArcXri())) return false;
+		if (! XDIPolicyConstants.XDI_ADD_LESSER.equals(statement.getRelationXDIAddress())) return false;
 
 		return true;
 	}
@@ -44,16 +44,16 @@ public class LesserCondition extends Condition {
 	 * @param statement The statement that is an XDI $lesser condition.
 	 * @return The XDI $lesser condition.
 	 */
-	public static LesserCondition fromStatement(XDI3Statement statement) {
+	public static LesserCondition fromStatement(XDIStatement statement) {
 
 		if (! isValid(statement)) return null;
 
 		return new LesserCondition(statement);
 	}
 
-	public static LesserCondition fromSubjectAndObject(XDI3Segment subject, XDI3Segment object) {
+	public static LesserCondition fromSubjectAndObject(XDIAddress subject, XDIAddress object) {
 
-		return fromStatement(XDI3Statement.fromRelationComponents(subject, XDIPolicyConstants.XRI_S_LESSER, object));
+		return fromStatement(XDIStatement.fromRelationComponents(subject, XDIPolicyConstants.XDI_ADD_LESSER, object));
 	}
 
 	/*
@@ -64,7 +64,7 @@ public class LesserCondition extends Condition {
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDI3Segment) this.getStatementXri().getObject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 

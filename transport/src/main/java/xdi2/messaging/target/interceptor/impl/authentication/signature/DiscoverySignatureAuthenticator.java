@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
@@ -38,8 +38,8 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 	@Override
 	public PublicKey getPublicKey(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// perform discovery
 
@@ -47,12 +47,12 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 		try {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderXri, null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderAddress, null);
 
 			if (xdiDiscoveryResult != null) publicKey = xdiDiscoveryResult.getSignaturePublicKey();
 		} catch (Xdi2ClientException ex) {
 
-			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + senderXri + ": " + ex.getMessage(), ex);
+			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + senderAddress + ": " + ex.getMessage(), ex);
 
 			return null;
 		}

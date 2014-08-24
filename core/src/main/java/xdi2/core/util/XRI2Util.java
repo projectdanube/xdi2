@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.xri3.CloudNumber;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.CloudNumber;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * Various utility methods for working with XRI 2.0 syntax.
@@ -71,32 +71,32 @@ public final class XRI2Util {
 
 		if (log.isTraceEnabled()) log.trace("cloudNumberToINumber(" + cloudNumber + ")");
 
-		XDI3Segment xri = cloudNumber.getXri();
+		XDIAddress address = cloudNumber.getAddress();
 
-		if (xri.getNumSubSegments() != 2) return null;
+		if (address.getNumXDIArcs() != 2) return null;
 
-		if (! xri.getFirstSubSegment().isClassXs()) return null;
-		if (xri.getFirstSubSegment().hasLiteral()) return null;
-		if (xri.getFirstSubSegment().hasXRef()) return null;
+		if (! address.getFirstXDIArc().isClassXs()) return null;
+		if (address.getFirstXDIArc().hasLiteral()) return null;
+		if (address.getFirstXDIArc().hasXRef()) return null;
 
-		char cs = xri.getFirstSubSegment().getCs().charValue();
+		char cs = address.getFirstXDIArc().getCs().charValue();
 
-		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(xri.getLastSubSegment().getCs())) return null;
-		if (! xri.getLastSubSegment().hasLiteral()) return null;
-		if (xri.getLastSubSegment().hasXRef()) return null;
-		if (! xri.getLastSubSegment().getLiteral().startsWith(":uuid")) return null;
-		if (xri.getLastSubSegment().getLiteral().length() != 42) return null;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(address.getLastXDIArc().getCs())) return null;
+		if (! address.getLastXDIArc().hasLiteral()) return null;
+		if (address.getLastXDIArc().hasXRef()) return null;
+		if (! address.getLastXDIArc().getLiteral().startsWith(":uuid")) return null;
+		if (address.getLastXDIArc().getLiteral().length() != 42) return null;
 
 		String[] parts = new String[4];
-		parts[0] = xri.getLastSubSegment().getLiteral().substring(6, 10);
-		parts[1] = xri.getLastSubSegment().getLiteral().substring(10, 14);
-		parts[2] = xri.getLastSubSegment().getLiteral().substring(15, 19);
-		parts[3] = xri.getLastSubSegment().getLiteral().substring(20, 24);
+		parts[0] = address.getLastXDIArc().getLiteral().substring(6, 10);
+		parts[1] = address.getLastXDIArc().getLiteral().substring(10, 14);
+		parts[2] = address.getLastXDIArc().getLiteral().substring(15, 19);
+		parts[3] = address.getLastXDIArc().getLiteral().substring(20, 24);
 
-		if (! parts[0].equals(xri.getLastSubSegment().getLiteral().substring(25, 29))) return null;
-		if (! parts[1].equals(xri.getLastSubSegment().getLiteral().substring(30, 34))) return null;
-		if (! parts[2].equals(xri.getLastSubSegment().getLiteral().substring(34, 38))) return null;
-		if (! parts[3].equals(xri.getLastSubSegment().getLiteral().substring(38, 42))) return null;
+		if (! parts[0].equals(address.getLastXDIArc().getLiteral().substring(25, 29))) return null;
+		if (! parts[1].equals(address.getLastXDIArc().getLiteral().substring(30, 34))) return null;
+		if (! parts[2].equals(address.getLastXDIArc().getLiteral().substring(34, 38))) return null;
+		if (! parts[3].equals(address.getLastXDIArc().getLiteral().substring(38, 42))) return null;
 
 		for (int i=0; i<parts.length; i++) {
 
@@ -121,25 +121,25 @@ public final class XRI2Util {
 	}
 
 	/**
-	 * Maps an XRI 2.0 service type to an XDI arc XRI.
+	 * Maps an XRI 2.0 service type to an XDI arc.
 	 */
-	public static XDI3SubSegment typeToXdiArcXri(String type) {
+	public static XDIArc typeToXdiArc(String type) {
 
-		if (log.isTraceEnabled()) log.trace("typeToXdiArcXri(" + type + ")");
+		if (log.isTraceEnabled()) log.trace("typeToXdiarc(" + type + ")");
 
 		if (type.startsWith("xri://")) type = type.substring(6);
 		type = type.replace('+' , '#');
 
-		XDI3SubSegment xdiArcXri = null;
+		XDIArc xdiarc = null;
 
-		try { xdiArcXri = XDI3SubSegment.create(type); } catch (Exception ex) { xdiArcXri = null; }
-		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("#(" + type + ")"); } catch (Exception ex) { xdiArcXri = null; }
-		if (xdiArcXri == null) try { xdiArcXri = XDI3SubSegment.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiArcXri = null; }
+		try { xdiarc = XDIArc.create(type); } catch (Exception ex) { xdiarc = null; }
+		if (xdiarc == null) try { xdiarc = XDIArc.create("#(" + type + ")"); } catch (Exception ex) { xdiarc = null; }
+		if (xdiarc == null) try { xdiarc = XDIArc.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiarc = null; }
 
-		if (xdiArcXri == null) return null;
+		if (xdiarc == null) return null;
 
-		if (! XdiAttributeSingleton.isValidArcXri(xdiArcXri)) xdiArcXri = XdiAttributeSingleton.createArcXri(xdiArcXri);
+		if (! XdiAttributeSingleton.isValidXDIArc(xdiarc)) xdiarc = XdiAttributeSingleton.createXDIArc(xdiarc);
 
-		return xdiArcXri;
+		return xdiarc;
 	}
 }

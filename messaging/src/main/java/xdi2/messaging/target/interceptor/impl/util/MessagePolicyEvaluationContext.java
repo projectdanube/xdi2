@@ -10,21 +10,21 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 
 public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 	private static final Logger log = LoggerFactory.getLogger(MessagePolicyEvaluationContext.class);
 
-	public static final XDI3Segment XRI_S_FROM_VARIABLE = XDI3Segment.create("{$from}");
-	public static final XDI3Segment XRI_S_MSG_VARIABLE = XDI3Segment.create("{$msg}");
+	public static final XDIAddress XDI_ADD_FROM_VARIABLE = XDIAddress.create("{$from}");
+	public static final XDIAddress XDI_ADD_MSG_VARIABLE = XDIAddress.create("{$msg}");
 
-	public static final XDI3SubSegment XRI_SS_FROM_VARIABLE = XDI3SubSegment.create("{$from}");
-	public static final XDI3SubSegment XRI_SS_MSG_VARIABLE = XDI3SubSegment.create("{$msg}");
+	public static final XDIArc XDI_ARC_FROM_VARIABLE = XDIArc.create("{$from}");
+	public static final XDIArc XDI_ARC_MSG_VARIABLE = XDIArc.create("{$msg}");
 
 	private Message message;
 	private Graph targetGraph;
@@ -36,72 +36,72 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDI3Segment resolveXri(XDI3Segment contextNodeXri) {
+	public XDIAddress resolveXDIAddress(XDIAddress contextNodeAddress) {
 
-		XDI3Segment resolvedContextNodeXri = contextNodeXri;
+		XDIAddress resolvedcontextNodeAddress = contextNodeAddress;
 
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_MSG_VARIABLE, this.getMessage().getContextNode().getXri());
-		resolvedContextNodeXri = XDI3Util.replaceXri(resolvedContextNodeXri, XRI_SS_FROM_VARIABLE, this.getMessage().getSenderXri());
+		resolvedcontextNodeAddress = XDIAddressUtil.replaceXDIAddress(resolvedcontextNodeAddress, XDI_ARC_MSG_VARIABLE, this.getMessage().getContextNode().getXDIAddress());
+		resolvedcontextNodeAddress = XDIAddressUtil.replaceXDIAddress(resolvedcontextNodeAddress, XDI_ARC_FROM_VARIABLE, this.getMessage().getSenderAddress());
 
-		if (log.isTraceEnabled()) log.trace("resolveXri(" + contextNodeXri + ") --> " + resolvedContextNodeXri);
+		if (log.isTraceEnabled()) log.trace("resolveXDIAddress(" + contextNodeAddress + ") --> " + resolvedcontextNodeAddress);
 
-		return resolvedContextNodeXri;
+		return resolvedcontextNodeAddress;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3Segment contextNodeXri) {
+	public ContextNode getContextNode(XDIAddress contextNodeAddress) {
 
-		Graph resolvedGraph = this.resolveGraph(contextNodeXri);
-		XDI3Segment resolvedContextNodeXri = this.resolveXri(contextNodeXri);
-		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedContextNodeXri, false);
+		Graph resolvedGraph = this.resolveGraph(contextNodeAddress);
+		XDIAddress resolvedcontextNodeAddress = this.resolveXDIAddress(contextNodeAddress);
+		ContextNode resolvedContextNode = resolvedGraph.getDeepContextNode(resolvedcontextNodeAddress, false);
 
-		if (log.isTraceEnabled()) log.trace("getContextNode(" + contextNodeXri + ") --> " + resolvedContextNodeXri + " --> " + resolvedContextNode);
+		if (log.isTraceEnabled()) log.trace("getContextNode(" + contextNodeAddress + ") --> " + resolvedcontextNodeAddress + " --> " + resolvedContextNode);
 
 		return resolvedContextNode;
 	}
 
 	@Override
-	public Statement getStatement(XDI3Statement statementXri) {
+	public Statement getStatement(XDIStatement statementAddress) {
 
-		XDI3Segment contextNodeXri = statementXri.getContextNodeXri();
-		Graph resolvedGraph = this.resolveGraph(contextNodeXri);
-		XDI3Segment resolvedContextNodeXri = this.resolveXri(contextNodeXri);
+		XDIAddress contextNodeAddress = statementAddress.getContextNodeXDIAddress();
+		Graph resolvedGraph = this.resolveGraph(contextNodeAddress);
+		XDIAddress resolvedcontextNodeAddress = this.resolveXDIAddress(contextNodeAddress);
 
-		XDI3Statement resolvedStatementXri;
+		XDIStatement resolvedStatementAddress;
 
-		if (statementXri.isContextNodeStatement()) {
+		if (statementAddress.isContextNodeStatement()) {
 
-			XDI3SubSegment contextNodeArcXri = statementXri.getContextNodeArcXri();
+			XDIArc contextNodeArc = statementAddress.getContextNodeXDIArc();
 
-			resolvedStatementXri = XDI3Statement.fromContextNodeComponents(
-					resolvedContextNodeXri, 
-					contextNodeArcXri);
-		} else if (statementXri.isRelationStatement()) {
+			resolvedStatementAddress = XDIStatement.fromContextNodeComponents(
+					resolvedcontextNodeAddress, 
+					contextNodeArc);
+		} else if (statementAddress.isRelationStatement()) {
 
-			XDI3Segment relationArcXri = statementXri.getRelationArcXri();
-			XDI3Segment targetContextNodeXri = statementXri.getTargetContextNodeXri();
+			XDIAddress relationAddress = statementAddress.getRelationXDIAddress();
+			XDIAddress targetContextNodeAddress = statementAddress.getTargetContextNodeXDIAddress();
 
-			XDI3Segment resolvedTargetContextNodeXri = this.resolveXri(targetContextNodeXri);
+			XDIAddress resolvedtargetContextNodeAddress = this.resolveXDIAddress(targetContextNodeAddress);
 
-			resolvedStatementXri = XDI3Statement.fromRelationComponents(
-					resolvedContextNodeXri, 
-					relationArcXri, 
-					resolvedTargetContextNodeXri);
-		} else if (statementXri.isLiteralStatement()) {
+			resolvedStatementAddress = XDIStatement.fromRelationComponents(
+					resolvedcontextNodeAddress, 
+					relationAddress, 
+					resolvedtargetContextNodeAddress);
+		} else if (statementAddress.isLiteralStatement()) {
 
-			Object literalData = statementXri.getLiteralData();
+			Object literalData = statementAddress.getLiteralData();
 
-			resolvedStatementXri = XDI3Statement.fromLiteralComponents(
-					resolvedContextNodeXri, 
+			resolvedStatementAddress = XDIStatement.fromLiteralComponents(
+					resolvedcontextNodeAddress, 
 					literalData);
 		} else {
 
-			throw new Xdi2RuntimeException("Unexpected statement: " + statementXri);
+			throw new Xdi2RuntimeException("Unexpected statement: " + statementAddress);
 		}
 
-		Statement resolvedStatement = resolvedGraph.getStatement(resolvedStatementXri);
+		Statement resolvedStatement = resolvedGraph.getStatement(resolvedStatementAddress);
 
-		if (log.isTraceEnabled()) log.trace("getStatement(" + statementXri + ") --> " + resolvedStatementXri + " --> " + resolvedStatement);
+		if (log.isTraceEnabled()) log.trace("getStatement(" + statementAddress + ") --> " + resolvedStatementAddress + " --> " + resolvedStatement);
 
 		return resolvedStatement;
 	}
@@ -110,24 +110,24 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	 * Helper methods
 	 */
 
-	private Graph resolveGraph(XDI3Segment contextNodeXri) {
+	private Graph resolveGraph(XDIAddress contextNodeAddress) {
 
-		XDI3SubSegment firstSubSegment = contextNodeXri.getFirstSubSegment();
+		XDIArc firstArc = contextNodeAddress.getFirstXDIArc();
 
-		if (XdiPeerRoot.isPeerRootArcXri(firstSubSegment)) {
+		if (XdiPeerRoot.isPeerRootXDIArc(firstArc)) {
 
-			firstSubSegment = XdiPeerRoot.getXriOfPeerRootArcXri(firstSubSegment).getFirstSubSegment();
-		} else if (XdiInnerRoot.isInnerRootArcXri(firstSubSegment)) {
+			firstArc = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(firstArc).getFirstXDIArc();
+		} else if (XdiInnerRoot.isInnerRootXDIArc(firstArc)) {
 
-			firstSubSegment = XdiInnerRoot.getSubjectOfInnerRootXri(firstSubSegment).getFirstSubSegment();
+			firstArc = XdiInnerRoot.getSubjectOfInnerRootXDIArc(firstArc).getFirstXDIArc();
 		}
 
 		Graph resolvedGraph = null;
 
-		if (XRI_SS_MSG_VARIABLE.equals(firstSubSegment)) {
+		if (XDI_ARC_MSG_VARIABLE.equals(firstArc)) {
 
 			resolvedGraph = this.getMessage().getContextNode().getGraph();
-		} else if (XRI_SS_FROM_VARIABLE.equals(firstSubSegment)) {
+		} else if (XDI_ARC_FROM_VARIABLE.equals(firstArc)) {
 
 			resolvedGraph = this.getTargetGraph();
 		} else {
@@ -135,7 +135,7 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 			resolvedGraph = this.getTargetGraph();
 		}
 
-		if (log.isTraceEnabled()) log.trace("getGraph(" + contextNodeXri + ") --> " + resolvedGraph);
+		if (log.isTraceEnabled()) log.trace("getGraph(" + contextNodeAddress + ") --> " + resolvedGraph);
 
 		return resolvedGraph;
 	}

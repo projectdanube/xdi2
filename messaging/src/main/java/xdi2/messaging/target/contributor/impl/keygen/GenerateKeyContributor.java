@@ -19,9 +19,9 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -37,16 +37,16 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can generate key pairs and symmetric keys in a target graph.
  */
 @ContributorMount(
-		contributorXris={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"},
-		operationXris={"$do$keypair", "$do<$key>"},
-		relationArcXris={"$is#"}
+		contributorAddresses={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"},
+		operationAddresses={"$do$keypair", "$do<$key>"},
+		relationAddresses={"$is#"}
 )
 public class GenerateKeyContributor extends AbstractContributor implements Prototype<GenerateKeyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
 
-	public static final XDI3Segment XRI_S_DO_KEYPAIR = XDI3Segment.create("");
-	public static final XDI3Segment XRI_S_DO_KEY = XDI3Segment.create("");
+	public static final XDIAddress XDI_ADD_DO_KEYPAIR = XDIAddress.create("");
+	public static final XDIAddress XDI_ADD_DO_KEY = XDIAddress.create("");
 
 	private Graph targetGraph;
 
@@ -98,28 +98,28 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 	 */
 
 	@Override
-	public ContributorResult executeDoOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+		XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
 
 		// check parameters
 
-		XDI3Segment dataTypeXri = targetContextNodeXri;
+		XDIAddress dataTypeAddress = targetContextNodeAddress;
 
 		String keyAlgorithm;
 		Integer keyLength;
 
-		keyAlgorithm = Keys.getKeyAlgorithm(dataTypeXri);
-		if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeXri, null, executionContext);
+		keyAlgorithm = Keys.getKeyAlgorithm(dataTypeAddress);
+		if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeAddress, null, executionContext);
 
-		keyLength = Keys.getKeyLength(dataTypeXri);
-		if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeXri, null, executionContext);
+		keyLength = Keys.getKeyLength(dataTypeAddress);
+		if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeAddress, null, executionContext);
 
 		if (log.isDebugEnabled()) log.debug("keyAlgorithm: " + keyAlgorithm + ", keyLength: " + keyLength);
 
 		// key pair or symmetric key?
 
-		if (XRI_S_DO_KEYPAIR.equals(operation.getOperationXri())) {
+		if (XDI_ADD_DO_KEYPAIR.equals(operation.getOperationXDIAddress())) {
 
 			// generate key pair
 
@@ -139,15 +139,15 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 			// add it to the graph
 
-			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
+			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 			if (! XdiAbstractEntity.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a key pair on an entity.", null, executionContext);
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
-			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("<$public>"), true).getXdiAttributeSingleton(XDI3SubSegment.create("<$key>"), true);
-			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDI3SubSegment.create("<$private>"), true).getXdiAttributeSingleton(XDI3SubSegment.create("<$key>"), true);
+			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$public>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
+			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$private>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
 			publicKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
 			privateKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
-			DataTypes.setDataType(contextNode, dataTypeXri);
-		} else if (XRI_S_DO_KEY.equals(operation.getOperationXri())) {
+			DataTypes.setDataType(contextNode, dataTypeAddress);
+		} else if (XDI_ADD_DO_KEY.equals(operation.getOperationXDIAddress())) {
 
 			// generate symmetric key
 
@@ -167,11 +167,11 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 			// add it to the graph
 
-			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsXri);
+			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
 			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 			symmetricKeyXdiAttribute.getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(secretKey.getEncoded()));
-			DataTypes.setDataType(contextNode, dataTypeXri);
+			DataTypes.setDataType(contextNode, dataTypeAddress);
 		}
 
 		// done

@@ -3,43 +3,43 @@ package xdi2.tests.core.features.variables;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class VariablesTest extends TestCase {
 
 	public void testVariables() throws Exception {
 
-		XDI3SubSegment variables[] = new XDI3SubSegment[] {
-				XDI3SubSegment.create("{}"),
-				XDI3SubSegment.create("{{}}"),
-				XDI3SubSegment.create("{1}"),
-				XDI3SubSegment.create("{$msg}"),
-				XDI3SubSegment.create("{(=)}"),
-				XDI3SubSegment.create("{{(=@)}}"),
-				XDI3SubSegment.create("{=}"),
-				XDI3SubSegment.create("{!*}"),
-				XDI3SubSegment.create("{{[+]}}"),
-				XDI3SubSegment.create("{{<$>}}"),
-				XDI3SubSegment.create("{{[+]<$>}}"),
-				XDI3SubSegment.create("{[<+>][<$>]}"),
-				XDI3SubSegment.create("{+}")
+		XDIArc variables[] = new XDIArc[] {
+				XDIArc.create("{}"),
+				XDIArc.create("{{}}"),
+				XDIArc.create("{1}"),
+				XDIArc.create("{$msg}"),
+				XDIArc.create("{(=)}"),
+				XDIArc.create("{{(=@)}}"),
+				XDIArc.create("{=}"),
+				XDIArc.create("{!*}"),
+				XDIArc.create("{{[+]}}"),
+				XDIArc.create("{{<$>}}"),
+				XDIArc.create("{{[+]<$>}}"),
+				XDIArc.create("{[<+>][<$>]}"),
+				XDIArc.create("{+}")
 		};
 
-		XDI3SubSegment variablesSubSegments[][] = new XDI3SubSegment[][] {
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { XDI3SubSegment.create("$msg") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("=") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("@") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("=") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[+]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("<$>") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("<$>") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+>]"), XDI3SubSegment.create("[<$>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+") }
+		XDIArc variablesArcs[][] = new XDIArc[][] {
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { XDIArc.create("$msg") },
+				new XDIArc[] { XDIArc.create("=") },
+				new XDIArc[] { XDIArc.create("="), XDIArc.create("@") },
+				new XDIArc[] { XDIArc.create("=") },
+				new XDIArc[] { XDIArc.create("!"), XDIArc.create("*") },
+				new XDIArc[] { XDIArc.create("[+]") },
+				new XDIArc[] { XDIArc.create("<$>") },
+				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("<$>") },
+				new XDIArc[] { XDIArc.create("[<+>]"), XDIArc.create("[<$>]") },
+				new XDIArc[] { XDIArc.create("+") }
 		};
 
 		String variablesXs[] = new String[] {
@@ -74,41 +74,41 @@ public class VariablesTest extends TestCase {
 				false
 		};
 
-		XDI3SubSegment variablesMatchesTrue[][] = new XDI3SubSegment[][] {
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { XDI3SubSegment.create("(=)"), XDI3SubSegment.create("(=markus)") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("(=)"), XDI3SubSegment.create("(=markus)"), XDI3SubSegment.create("(@)"), XDI3SubSegment.create("(@org)") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("="), XDI3SubSegment.create("=markus") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("!"), XDI3SubSegment.create("*"), XDI3SubSegment.create("!1234"), XDI3SubSegment.create("*work") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[+]"), XDI3SubSegment.create("[+address]"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("<$uri>"), XDI3SubSegment.create("[<$uri>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("[<$uri>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("[<+(email)>]"), XDI3SubSegment.create("<+(email)>"), XDI3SubSegment.create("[<+email>]"), XDI3SubSegment.create("<+email>") }
+		XDIArc variablesMatchesTrue[][] = new XDIArc[][] {
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { XDIArc.create("(=)"), XDIArc.create("(=markus)") },
+				new XDIArc[] { XDIArc.create("(=)"), XDIArc.create("(=markus)"), XDIArc.create("(@)"), XDIArc.create("(@org)") },
+				new XDIArc[] { XDIArc.create("="), XDIArc.create("=markus") },
+				new XDIArc[] { XDIArc.create("!"), XDIArc.create("*"), XDIArc.create("!1234"), XDIArc.create("*work") },
+				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("[+address]"), XDIArc.create("[<+email>]") },
+				new XDIArc[] { XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("[+address]"), XDIArc.create("[<+email>]"), XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("[<+email>]"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("[<+(email)>]"), XDIArc.create("<+(email)>"), XDIArc.create("[<+email>]"), XDIArc.create("<+email>") }
 		};
 
-		XDI3SubSegment variablesMatchesFalse[][] = new XDI3SubSegment[][] {
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { },
-				new XDI3SubSegment[] { XDI3SubSegment.create("(@)"), XDI3SubSegment.create("(@org)"), XDI3SubSegment.create("@org"), XDI3SubSegment.create("=markus") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("=markus"), XDI3SubSegment.create("@org") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("@"), XDI3SubSegment.create("@org"), XDI3SubSegment.create("(@org)"), XDI3SubSegment.create("(=markus)") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("@org"), XDI3SubSegment.create("=markus") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("[<$uri>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[<+email>]") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("[$v]"), XDI3SubSegment.create("$"), XDI3SubSegment.create("[$]"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<+email>") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("+"), XDI3SubSegment.create("<+>"), XDI3SubSegment.create("+address"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("<+email>"), XDI3SubSegment.create("$"), XDI3SubSegment.create("<$>"), XDI3SubSegment.create("$uri"), XDI3SubSegment.create("[$uri]"), XDI3SubSegment.create("<$uri>") },
-				new XDI3SubSegment[] { XDI3SubSegment.create("(+name)") }
+		XDIArc variablesMatchesFalse[][] = new XDIArc[][] {
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { },
+				new XDIArc[] { XDIArc.create("(@)"), XDIArc.create("(@org)"), XDIArc.create("@org"), XDIArc.create("=markus") },
+				new XDIArc[] { XDIArc.create("=markus"), XDIArc.create("@org") },
+				new XDIArc[] { XDIArc.create("@"), XDIArc.create("@org"), XDIArc.create("(@org)"), XDIArc.create("(=markus)") },
+				new XDIArc[] { XDIArc.create("@org"), XDIArc.create("=markus") },
+				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("[$v]"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<+email>"), XDIArc.create("[<+email>]") },
+				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("[$v]"), XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<+email>") },
+				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("<+email>"), XDIArc.create("$"), XDIArc.create("<$>"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<$uri>") },
+				new XDIArc[] { XDIArc.create("(+name)") }
 		};
 		
-		for (XDI3SubSegment variable : variables) assertTrue(VariableUtil.isVariable(variable));
+		for (XDIArc variable : variables) assertTrue(VariableUtil.isVariable(variable));
 
-		assertEquals(variables.length, variablesSubSegments.length);
+		assertEquals(variables.length, variablesArcs.length);
 		assertEquals(variables.length, variablesXs.length);
 		assertEquals(variables.length, variablesMultiple.length);
 		assertEquals(variables.length, variablesMatchesTrue.length);
@@ -116,7 +116,7 @@ public class VariablesTest extends TestCase {
 
 		for (int i=0; i<variables.length; i++) {
 
-			assertTrue(Arrays.deepEquals(variablesSubSegments[i], VariableUtil.getSubSegments(variables[i]).toArray()));
+			assertTrue(Arrays.deepEquals(variablesArcs[i], VariableUtil.getArcs(variables[i]).toArray()));
 			assertEquals(variablesXs[i], VariableUtil.getXs(variables[i]));
 			assertEquals(variablesMultiple[i], VariableUtil.isMultiple(variables[i]));
 

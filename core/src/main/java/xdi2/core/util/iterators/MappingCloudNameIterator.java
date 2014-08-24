@@ -2,26 +2,26 @@ package xdi2.core.util.iterators;
 
 import java.util.Iterator;
 
-import xdi2.core.xri3.CloudName;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.CloudName;
+import xdi2.core.syntax.XDIAddress;
 
 /**
- * A MappingIterator that maps XDI segments to Cloud Names.
+ * A MappingIterator that maps XDI addresses to Cloud Names.
  * 
  * @author markus
  */
-public class MappingCloudNameIterator extends MappingIterator<XDI3Segment, CloudName> {
+public class MappingCloudNameIterator extends MappingIterator<XDIAddress, CloudName> {
 
-	public MappingCloudNameIterator(Iterator<XDI3Segment> xris) {
+	public MappingCloudNameIterator(Iterator<XDIAddress> addresses) {
 
-		super(xris);
+		super(addresses);
 	}
 
 	@Override
-	public CloudName map(XDI3Segment xri) {
+	public CloudName map(XDIAddress address) {
 
-		CloudName cloudName = CloudName.fromXri(xri);
-		if (cloudName == null) cloudName = CloudName.fromPeerRootXri(xri);
+		CloudName cloudName = CloudName.fromAddress(address);
+		if (cloudName == null) cloudName = CloudName.fromPeerRootArc(address);
 		if (cloudName == null) return null;
 		
 		return cloudName;

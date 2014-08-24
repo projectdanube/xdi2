@@ -95,7 +95,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 			if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 		}
 
-		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XRI_S_SIGNATURE_VALID));
+		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
 		XdiValue signatureValidXdiValue = signatureValidXdiAttribute.getXdiValue(true);
 		Literal signatureValidLiteral = signatureValidXdiValue.getContextNode().setLiteralBoolean(Boolean.valueOf(authenticated));
 

@@ -8,7 +8,8 @@ import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -24,8 +25,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can instantiate new link contracts.
  */
 @ContributorMount(
-		contributorXris={"{{}}$template$do"},
-		operationXris={"$do$instantiate"}
+		contributorAddresses={"{{}}$template$do"},
+		operationAddresses={"$do$instantiate"}
 )
 public class InstantiationContributor extends AbstractContributor implements Prototype<InstantiationContributor> {
 
@@ -81,20 +82,20 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 	 */
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find link contract template
 
-		ContextNode contextNode = this.getTargetGraph().getDeepContextNode(operation.getTargetAddress());
-		XdiAbstractVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
+		ContextNode contextNode = this.getTargetGraph().getDeepContextNode(operation.getTargetXDIAddress());
+		XdiVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
 
 		// instantiate link contract
 
-		XDI3Segment authorizingAuthority = null;
+		XDIAddress authorizingAuthority = null;
 		
 		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation();
-		linkContractInstantiation.setRequestingAuthority(operation.getSenderXri());
+		linkContractInstantiation.setRequestingAuthority(operation.getSenderXDIAddress());
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 

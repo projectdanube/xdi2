@@ -28,7 +28,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.writers.XDIDisplayWriter;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -253,7 +253,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			if ("on".equals(useReadOnlyInterceptor)) {
 
 				ReadOnlyInterceptor readOnlyInterceptor = new ReadOnlyInterceptor();
-				readOnlyInterceptor.setReadOnlyAddresses(new XDI3Segment[] { XDI3Segment.create("") });
+				readOnlyInterceptor.setReadOnlyAddresses(new XDIAddress[] { XDIAddress.create("") });
 				messagingTarget.getInterceptors().addInterceptor(readOnlyInterceptor);
 			}
 

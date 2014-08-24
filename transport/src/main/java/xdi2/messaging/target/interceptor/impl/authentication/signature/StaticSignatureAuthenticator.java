@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.signature;
 import java.security.PublicKey;
 import java.util.Map;
 
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 
 /**
@@ -12,9 +12,9 @@ import xdi2.messaging.Message;
  */
 public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticator {
 
-	private Map<XDI3Segment, PublicKey> publicKeys;
+	private Map<XDIAddress, PublicKey> publicKeys;
 
-	public StaticSignatureAuthenticator(Map<XDI3Segment, PublicKey> publicKeys) {
+	public StaticSignatureAuthenticator(Map<XDIAddress, PublicKey> publicKeys) {
 
 		super();
 
@@ -29,12 +29,12 @@ public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticato
 	@Override
 	protected PublicKey getPublicKey(Message message) {
 
-		XDI3Segment senderXri = message.getSenderXri();
-		if (senderXri == null) return null;
+		XDIAddress senderAddress = message.getSenderAddress();
+		if (senderAddress == null) return null;
 
 		// look for static public key
 
-		PublicKey publicKey = this.getPublicKeys().get(senderXri);
+		PublicKey publicKey = this.getPublicKeys().get(senderAddress);
 		if (publicKey == null) return null;
 
 		// done
@@ -42,12 +42,12 @@ public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticato
 		return publicKey;
 	}
 
-	public Map<XDI3Segment, PublicKey> getPublicKeys() {
+	public Map<XDIAddress, PublicKey> getPublicKeys() {
 
 		return this.publicKeys;
 	}
 
-	public void setPublicKeys(Map<XDI3Segment, PublicKey> publicKeys) {
+	public void setPublicKeys(Map<XDIAddress, PublicKey> publicKeys) {
 
 		this.publicKeys = publicKeys;
 	}

@@ -5,11 +5,11 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XDI3XRef;
 
 /**
  * An XDI peer root, represented as a context node.
@@ -39,7 +39,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		if (contextNode == null) return false;
 
 		return 
-				isPeerRootArcXri(contextNode.getArcXri()) &&
+				isPeerRootXDIArc(contextNode.getXDIArc()) &&
 				XdiAbstractRoot.isValid(contextNode.getContextNode());
 	}
 
@@ -79,61 +79,61 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		return false;
 	}
 
-	public XDI3Segment getXriOfPeerRoot() {
+	public XDIAddress getXDIAddressOfPeerRoot() {
 
-		return getXriOfPeerRootArcXri(this.getContextNode().getArcXri());
+		return getXDIAddressOfPeerRootXDIArc(this.getContextNode().getXDIArc());
 	}
 
 	/*
-	 * Methods for XDI peer root XRIs
+	 * Methods for XDI peer root arcs
 	 */
 
 	/**
-	 * Returns the peer root XRI of an XRI.
-	 * @param xri An XRI.
-	 * @return The peer root XRI of the XRI.
+	 * Returns the peer root arc of an address.
+	 * @param address An address.
+	 * @return The peer root arc of the address.
 	 */
-	public static XDI3SubSegment createPeerRootArcXri(XDI3Segment xri) {
+	public static XDIArc createPeerRootXDIArc(XDIAddress address) {
 
-		return XDI3SubSegment.create("" + XDIConstants.XS_ROOT.charAt(0) + xri + XDIConstants.XS_ROOT.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_ROOT.charAt(0) + address + XDIConstants.XS_ROOT.charAt(1));
 	}
 
 	/**
-	 * Returns the XRI of the peer root XRI.
-	 * @param arcXri A peer root XRI.
-	 * @return The XRI of the peer root XRI.
+	 * Returns the address of the peer root arc.
+	 * @param arc A peer root arc.
+	 * @return The address of the peer root arc.
 	 */
-	public static XDI3Segment getXriOfPeerRootArcXri(XDI3SubSegment arcXri) {
+	public static XDIAddress getXDIAddressOfPeerRootXDIArc(XDIArc arc) {
 
-		if (arcXri == null) return null;
+		if (arc == null) return null;
 
-		if (arcXri.hasCs()) return null;
-		if (arcXri.isClassXs()) return null;
-		if (arcXri.isAttributeXs()) return null;
-		if (! arcXri.hasXRef()) return null;
+		if (arc.hasCs()) return null;
+		if (arc.isClassXs()) return null;
+		if (arc.isAttributeXs()) return null;
+		if (! arc.hasXRef()) return null;
 
-		XDI3XRef xref = arcXri.getXRef();
+		XDIXRef xref = arc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
-		if (! xref.hasSegment()) return null;
+		if (! xref.hasXDIAddress()) return null;
 
-		return xref.getSegment();
+		return xref.getXDIAddress();
 	}
 
 	/**
-	 * Returns the IRI of the peer root XRI.
-	 * @param arcXri A peer root XRI.
-	 * @return The IRI of the peer root XRI.
+	 * Returns the IRI of the peer root arc.
+	 * @param arc A peer root arc.
+	 * @return The IRI of the peer root arc.
 	 */
-	public static String getIriOfPeerRootArcXri(XDI3SubSegment arcXri) {
+	public static String getIriOfPeerRootXDIArc(XDIArc arc) {
 
-		if (arcXri == null) return null;
+		if (arc == null) return null;
 
-		if (arcXri.hasCs()) return null;
-		if (arcXri.isClassXs()) return null;
-		if (arcXri.isAttributeXs()) return null;
-		if (! arcXri.hasXRef()) return null;
+		if (arc.hasCs()) return null;
+		if (arc.isClassXs()) return null;
+		if (arc.isAttributeXs()) return null;
+		if (! arc.hasXRef()) return null;
 
-		XDI3XRef xref = arcXri.getXRef();
+		XDIXRef xref = arc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasIri()) return null;
 
@@ -141,20 +141,20 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	}
 
 	/**
-	 * Returns the literal of the peer root XRI.
-	 * @param arcXri A peer root XRI.
-	 * @return The literal of the peer root XRI.
+	 * Returns the literal of the peer root arc.
+	 * @param arc A peer root arc.
+	 * @return The literal of the peer root arc.
 	 */
-	public static String getLiteralOfPeerRootArcXri(XDI3SubSegment arcXri) {
+	public static String getLiteralOfPeerRootXDIArc(XDIArc arc) {
 
-		if (arcXri == null) return null;
+		if (arc == null) return null;
 
-		if (arcXri.hasCs()) return null;
-		if (arcXri.isClassXs()) return null;
-		if (arcXri.isAttributeXs()) return null;
-		if (! arcXri.hasXRef()) return null;
+		if (arc.hasCs()) return null;
+		if (arc.isClassXs()) return null;
+		if (arc.isAttributeXs()) return null;
+		if (! arc.hasXRef()) return null;
 
-		XDI3XRef xref = arcXri.getXRef();
+		XDIXRef xref = arc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasLiteral()) return null;
 
@@ -162,13 +162,13 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	}
 
 	/**
-	 * Checks if a given XRI is a peer root XRI.
-	 * @param arcXri A peer root XRI.
-	 * @return True, if the XRI is a peer root XRI.
+	 * Checks if a given arc is a peer root arc.
+	 * @param arc A peer root arc.
+	 * @return True, if the arc is a peer root arc.
 	 */
-	public static boolean isPeerRootArcXri(XDI3SubSegment arcXri) {
+	public static boolean isPeerRootXDIArc(XDIArc arc) {
 
-		return getXriOfPeerRootArcXri(arcXri) != null || getIriOfPeerRootArcXri(arcXri) != null || getLiteralOfPeerRootArcXri(arcXri) != null;
+		return getXDIAddressOfPeerRootXDIArc(arc) != null || getIriOfPeerRootXDIArc(arc) != null || getLiteralOfPeerRootXDIArc(arc) != null;
 	}
 
 	/*

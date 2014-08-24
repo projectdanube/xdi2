@@ -1,7 +1,7 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
@@ -23,7 +23,7 @@ public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 	 * @param executionContext The current execution context.
 	 * @return The new target address, or the original target address, or null to skip.
 	 */
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Replaces or skips the target statement before it is executed.
@@ -33,5 +33,5 @@ public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 	 * @param executionContext The current execution context.
 	 * @return The new target statement, or the original target statement, or null to skip.
 	 */
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

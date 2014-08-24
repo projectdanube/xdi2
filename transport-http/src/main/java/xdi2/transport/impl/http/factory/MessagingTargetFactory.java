@@ -2,7 +2,7 @@ package xdi2.transport.impl.http.factory;
 
 import java.util.Iterator;
 
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -52,12 +52,12 @@ public interface MessagingTargetFactory {
 	 * MessagingTargetFactory can create. Not all MessagingTargetFactorys may
 	 * support this.
 	 */
-	public Iterator<XDI3SubSegment> getOwnerPeerRootXris();
+	public Iterator<XDIArc> getOwnerPeerRootAddresses();
 
 	/**
 	 * Returns the request path at which this MessagingTargetFactory is able to
 	 * mount a MessagingTarget with a given owner peer root XRI. Not all MessagingTargetFactorys
 	 * may support this.
 	 */
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri);
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress);
 }

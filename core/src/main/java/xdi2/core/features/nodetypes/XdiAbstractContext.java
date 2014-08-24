@@ -6,9 +6,9 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI subgraph according to the multiplicity pattern, represented as a context node.
@@ -75,19 +75,19 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	/**
-	 * Returns the "base" arc XRI, without context node type syntax.
-	 * @param arcXri The arc XRI of a context node.
-	 * @return The "base" arc XRI.
+	 * Returns the "base" arc, without context node type syntax.
+	 * @param arc The arc of a context node.
+	 * @return The "base" arc.
 	 */
-	public static XDI3SubSegment getBaseArcXri(XDI3SubSegment arcXri) {
+	public static XDIArc getBasearc(XDIArc arc) {
 
 		StringBuilder buffer = new StringBuilder();
 
-		if (arcXri.hasCs()) buffer.append(arcXri.getCs());
-		if (arcXri.hasLiteral()) buffer.append(arcXri.getLiteral());
-		if (arcXri.hasXRef()) buffer.append(arcXri.getXRef());
+		if (arc.hasCs()) buffer.append(arc.getCs());
+		if (arc.hasLiteral()) buffer.append(arc.getLiteral());
+		if (arc.hasXRef()) buffer.append(arc.getXRef());
 
-		return XDI3SubSegment.create(buffer.toString());
+		return XDIArc.create(buffer.toString());
 	}
 
 	/*
@@ -107,25 +107,25 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XDI3Segment getXri() {
+	public XDIAddress getXDIAddress() {
 
-		return this.getContextNode().getXri();
+		return this.getContextNode().getXDIAddress();
 	}
 
 	@Override
-	public XDI3SubSegment getArcXri() {
+	public XDIArc getXDIArc() {
 
-		return this.getContextNode().getArcXri();
+		return this.getContextNode().getXDIArc();
 	}
 
 	/**
-	 * Returns the "base" arc XRI, without context node type syntax.
-	 * @return The "base" arc XRI.
+	 * Returns the "base" arc, without context node type syntax.
+	 * @return The "base" arc.
 	 */
 	@Override
-	public XDI3SubSegment getBaseArcXri() {
+	public XDIArc getBaseXDIArc() {
 
-		return getBaseArcXri(this.getArcXri());
+		return getBasearc(this.getXDIArc());
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiRoot findRoot() {
 
-		return XdiLocalRoot.findLocalRoot(this.getGraph()).getRoot(this.getContextNode().getXri(), false);
+		return XdiLocalRoot.findLocalRoot(this.getGraph()).getRoot(this.getContextNode().getXDIAddress(), false);
 	}
 
 	@Override
@@ -191,118 +191,118 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XdiInnerRoot getXdiInnerRoot(XDI3Segment innerRootPredicateXri, boolean create) {
+	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create) {
 
 		XdiRoot xdiRoot = this.findRoot();
 
-		XDI3Segment innerRootSubjectXri = xdiRoot.absoluteToRelativeXri(this.getContextNode().getXri());
+		XDIAddress innerRootSubjectAddress = xdiRoot.absoluteToRelativeXDIAddress(this.getContextNode().getXDIAddress());
 
-		return xdiRoot.getInnerRoot(innerRootSubjectXri, innerRootPredicateXri, create);
+		return xdiRoot.getInnerRoot(innerRootSubjectAddress, innerRootPredicateAddress, create);
 	}
 
 	@Override
-	public XdiEntityCollection getXdiEntityCollection(XDI3SubSegment arcXri, boolean create) {
+	public XdiEntityCollection getXdiEntityCollection(XDIArc arc, boolean create) {
 
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (entityCollectionContextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
 	}
 
 	@Override
-	public XdiEntityCollection getXdiEntityCollection(XDI3Segment xri, boolean create) {
+	public XdiEntityCollection getXdiEntityCollection(XDIAddress address, boolean create) {
 
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (entityCollectionContextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
 	}
 
 	@Override
-	public XdiAttributeCollection getXdiAttributeCollection(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttributeCollection getXdiAttributeCollection(XDIArc arc, boolean create) {
 
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (attributeCollectionContextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
 	}
 
 	@Override
-	public XdiAttributeCollection getXdiAttributeCollection(XDI3Segment xri, boolean create) {
+	public XdiAttributeCollection getXdiAttributeCollection(XDIAddress address, boolean create) {
 
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (attributeCollectionContextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
 	}
 
 	@Override
-	public XdiEntitySingleton getXdiEntitySingleton(XDI3SubSegment arcXri, boolean create) {
+	public XdiEntitySingleton getXdiEntitySingleton(XDIArc arc, boolean create) {
 
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (entitySingletonContextNode == null) return null;
 
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
 	}
 
 	@Override
-	public XdiEntitySingleton getXdiEntitySingleton(XDI3Segment xri, boolean create) {
+	public XdiEntitySingleton getXdiEntitySingleton(XDIAddress address, boolean create) {
 
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (entitySingletonContextNode == null) return null;
 
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
 	}
 
 	@Override
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDIArc arc, boolean create) {
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
 	}
 
 	@Override
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDI3Segment xri, boolean create) {
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDIAddress address, boolean create) {
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
 	}
 
 	@Override
-	public XdiEntity getXdiEntity(XDI3SubSegment arcXri, boolean create) {
+	public XdiEntity getXdiEntity(XDIArc arc, boolean create) {
 
-		ContextNode entityContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode entityContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (entityContextNode == null) return null;
 
 		return XdiAbstractEntity.fromContextNode(entityContextNode);
 	}
 
 	@Override
-	public XdiEntity getXdiEntity(XDI3Segment xri, boolean create) {
+	public XdiEntity getXdiEntity(XDIAddress address, boolean create) {
 
-		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (entityContextNode == null) return null;
 
 		return XdiAbstractEntity.fromContextNode(entityContextNode);
 	}
 
 	@Override
-	public XdiAttribute getXdiAttribute(XDI3SubSegment arcXri, boolean create) {
+	public XdiAttribute getXdiAttribute(XDIArc arc, boolean create) {
 
-		ContextNode attributeContextNode = create ? this.getContextNode().setContextNode(arcXri) : this.getContextNode().getContextNode(arcXri, false);
+		ContextNode attributeContextNode = create ? this.getContextNode().setContextNode(arc) : this.getContextNode().getContextNode(arc, false);
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);
 	}
 
 	@Override
-	public XdiAttribute getXdiAttribute(XDI3Segment xri, boolean create) {
+	public XdiAttribute getXdiAttribute(XDIAddress address, boolean create) {
 
-		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(xri) : this.getContextNode().getDeepContextNode(xri, false);
+		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(address) : this.getContextNode().getDeepContextNode(address, false);
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);

@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI variable singleton, represented as a context node.
@@ -36,7 +36,7 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 		if (contextNode == null) return false;
 
 		return 
-				isValidArcXri(contextNode.getArcXri()) &&
+				isValidXDIArc(contextNode.getXDIArc()) &&
 				( ! XdiAttributeCollection.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
 	}
 
@@ -56,12 +56,12 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+	public static XDIArc createArcXri(XDIArc arcXri) {
 
 		return arcXri;
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidXDIArc(XDIArc arcXri) {
 
 		if (arcXri == null) return false;
 

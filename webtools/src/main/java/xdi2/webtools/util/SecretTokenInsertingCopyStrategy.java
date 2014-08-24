@@ -17,7 +17,7 @@ public class SecretTokenInsertingCopyStrategy extends CopyStrategy {
 	@Override
 	public Literal replaceLiteral(Literal literal) {
 
-		if (literal.getContextNode().getXri().toString().contains(XDIAuthenticationConstants.XRI_S_SECRET_TOKEN.toString()) && "********".equals(literal.getLiteralData())) {
+		if (literal.getContextNode().getXDIAddress().toString().contains(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN.toString()) && "********".equals(literal.getLiteralData())) {
 
 			return new BasicLiteral(this.secretToken);
 		} else {

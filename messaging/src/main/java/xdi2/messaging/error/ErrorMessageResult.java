@@ -11,10 +11,10 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiLocalRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
-import xdi2.core.util.iterators.MappingStatementXriIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
@@ -24,10 +24,10 @@ public class ErrorMessageResult extends MessageResult {
 
 	private static final long serialVersionUID = 8816468280233966339L;
 
-	public static final XDI3Segment XRI_S_FALSE = XDI3Segment.create("$false");
-	public static final XDI3Segment XRI_S_ERROR = XDI3Segment.create("" + XdiAttributeSingleton.createArcXri(XDI3SubSegment.create("$error")));
+	public static final XDIAddress XDI_ADD_FALSE = XDIAddress.create("$false");
+	public static final XDIAddress XDI_ADD_ERROR = XDIAddress.create("" + XdiAttributeSingleton.createXDIArc(XDIArc.create("$error")));
 
-	public static final XDI3SubSegment XRI_SS_FALSE = XDI3SubSegment.create("$false");
+	public static final XDIArc XDI_ARC_FALSE = XDIArc.create("$false");
 
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";
 
@@ -54,7 +54,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		if (! MessageResult.isValid(graph)) return false;
 
-		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), false) == null) return false;
+		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDI_ARC_FALSE), false) == null) return false;
 
 		return true;
 	}
@@ -109,7 +109,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public ContextNode getErrorContextNode() {
 
-		return this.getGraph().setDeepContextNode(XRI_S_FALSE);
+		return this.getGraph().setDeepContextNode(XDI_ADD_FALSE);
 	}
 
 	public Date getErrorTimestamp() {
@@ -124,7 +124,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public String getErrorString() {
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), false);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDI_ARC_FALSE), false);
 		if (xdiAttributeSingleton == null) return null;
 
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
@@ -138,7 +138,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorString(String errorString) {
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createArcXri(XRI_SS_FALSE), true);
+		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDI_ARC_FALSE), true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
 		xdiValue.getContextNode().setLiteralString(errorString);
@@ -146,14 +146,14 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorOperation(Operation operation) {
 
-		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getInnerRoot(XRI_S_FALSE, XRI_S_ERROR, true);
+		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getInnerRoot(XDI_ADD_FALSE, XDI_ADD_ERROR, true);
 		xdiInnerRoot.getContextNode().clear();
 
-		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getXri())).getRelation();
+		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getAddress())).getRelation();
 
-		for (XDI3Statement statementXri : new MappingStatementXriIterator(operation.getMessage().getContextNode().getAllStatements())) {
+		for (XDIStatement statementAddress : new MappingXDIStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
 
-			xdiInnerRoot.getContextNode().setStatement(statementXri);
+			xdiInnerRoot.getContextNode().setStatement(statementAddress);
 		}
 
 		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);

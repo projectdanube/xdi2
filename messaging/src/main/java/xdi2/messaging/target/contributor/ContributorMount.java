@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface ContributorMount {
 
-	String[] contributorXris() default { };
-	String[] operationXris() default { };
-	String[] contextNodeArcXris() default { };
-	String[] relationArcXris() default { };
-	String[] targetContextNodeXris() default { };
+	String[] contributorAddresses() default { };
+	String[] operationAddresses() default { };
+	String[] contextNodeArcs() default { };
+	String[] relationAddresses() default { };
+	String[] targetContextNodeAddresses() default { };
 }

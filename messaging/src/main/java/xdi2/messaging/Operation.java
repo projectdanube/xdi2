@@ -9,12 +9,12 @@ import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeStatementXriIterator;
+import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.util.iterators.MappingStatementXriIterator;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -126,9 +126,9 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the operation XRI of the XDI operation (e.g. $get, $mod).
 	 * @return The operation XRI of the XDI operation.
 	 */
-	public XDI3Segment getOperationXri() {
+	public XDIAddress getOperationXDIAddress() {
 
-		return this.getRelation().getArcXri();
+		return this.getRelation().getXDIAddress();
 	}
 
 	/**
@@ -140,8 +140,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
 		if (xdiInnerRoot == null) return null;
 
-		if (! xdiInnerRoot.getSubjectOfInnerRoot().equals(this.getRelation().getContextNode().getXri())) return null;
-		if (! xdiInnerRoot.getPredicateOfInnerRoot().equals(this.getRelation().getArcXri())) return null;
+		if (! xdiInnerRoot.getSubjectOfInnerRoot().equals(this.getRelation().getContextNode().getXDIAddress())) return null;
+		if (! xdiInnerRoot.getPredicateOfInnerRoot().equals(this.getRelation().getXDIAddress())) return null;
 
 		return xdiInnerRoot;
 	}
@@ -150,7 +150,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target address of the operation.
 	 * @return The target address of the operation.
 	 */
-	public XDI3Segment getTargetAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
 		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
@@ -159,7 +159,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 			return null;
 		} else {
 
-			return this.getRelation().getTargetContextNodeXri();
+			return this.getRelation().getTargetContextNodeXDIAddress();
 		}
 	}
 
@@ -167,15 +167,15 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statements of the operation.
 	 * @return The target statements of the operation.
 	 */
-	public Iterator<XDI3Statement> getTargetStatementXris() {
+	public Iterator<XDIStatement> getTargetXDIStatements() {
 
 		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
 
 		if (targetInnerRoot != null) {
 
-			return new MappingAbsoluteToRelativeStatementXriIterator(
+			return new MappingAbsoluteToRelativeXDIStatementIterator(
 					targetInnerRoot,
-					new MappingStatementXriIterator(
+					new MappingXDIStatementIterator(
 							new SelectingNotImpliedStatementIterator(
 									targetInnerRoot.getContextNode().getAllStatements())));
 		} else {
@@ -186,13 +186,13 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Sets a parameter value of this operation.
-	 * @param parameterXri The parameter XRI.
+	 * @param parameterAddress The parameter XRI.
 	 * @param parameterValue The parameter value.
 	 */
-	public void setParameter(XDI3Segment parameterXri, Object parameterValue) {
+	public void setParameter(XDIAddress parameterAddress, Object parameterValue) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXri(), true);
-		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXri, true);
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterAddress, true);
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
 
 		xdiValue.getContextNode().setLiteral(parameterValue);
@@ -200,12 +200,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value of this operation.
-	 * @param parameterXri The parameter XRI.
+	 * @param parameterAddress The parameter XRI.
 	 * @return The parameter value.
 	 */
-	public Object getParameter(XDI3Segment parameterXri) {
+	public Object getParameter(XDIAddress parameterAddress) {
 
-		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralData();
@@ -213,12 +213,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value string of this operation.
-	 * @param parameterXri The parameter XRI.
+	 * @param parameterAddress The parameter XRI.
 	 * @return The parameter value string.
 	 */
-	public String getParameterString(XDI3Segment parameterXri) {
+	public String getParameterString(XDIAddress parameterAddress) {
 
-		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataString();
@@ -226,12 +226,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value number of this operation.
-	 * @param parameterXri The parameter XRI.
+	 * @param parameterAddress The parameter XRI.
 	 * @return The parameter value number.
 	 */
-	public Number getParameterNumber(XDI3Segment parameterXri) {
+	public Number getParameterNumber(XDIAddress parameterAddress) {
 
-		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataNumber();
@@ -239,23 +239,23 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value boolean of this operation.
-	 * @param parameterXri The parameter XRI.
+	 * @param parameterAddress The parameter XRI.
 	 * @return The parameter value boolean.
 	 */
-	public Boolean getParameterBoolean(XDI3Segment parameterXri) {
+	public Boolean getParameterBoolean(XDIAddress parameterAddress) {
 
-		Literal parameterLiteral = this.getParameterLiteral(parameterXri);
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataBoolean();
 	}
 
-	private Literal getParameterLiteral(XDI3Segment parameterXri) {
+	private Literal getParameterLiteral(XDIAddress parameterAddress) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXri(), false);
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (parameterXdiEntity == null) return null;
 
-		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXri, false);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterAddress, false);
 		if (parameterXdiAttribute == null) return null;
 
 		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(false);
@@ -277,12 +277,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the sender XRI of the operation's message collection.
-	 * @return The sender XRI of the operation's message collection.
+	 * Returns the sender address of the operation's message collection.
+	 * @return The sender address of the operation's message collection.
 	 */
-	public XDI3Segment getSenderXri() {
+	public XDIAddress getSenderXDIAddress() {
 
-		return this.getMessage().getMessageCollection().getSenderXri();
+		return this.getMessage().getMessageCollection().getSenderXDIAddress();
 	}
 
 	/**

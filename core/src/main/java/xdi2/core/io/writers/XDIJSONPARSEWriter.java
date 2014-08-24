@@ -18,6 +18,10 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -25,10 +29,6 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
-import xdi2.core.xri3.XDI3XRef;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -125,87 +125,87 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			XDI3Statement statementXri = statement.getXri();
+			XDIStatement statementAddress = statement.getStatement();
 
 			// write the statement
 
-			gom.add(makeGom(statementXri));
+			gom.add(makeGom(statementAddress));
 		}
 
 		return gom;
 	}
 
-	private static JsonArray makeGom(XDI3Statement statement) {
+	private static JsonArray makeGom(XDIStatement statement) {
 
 		JsonArray gom = new JsonArray();
 
 		gom.add(makeGom(statement.getSubject()));
 		gom.add(makeGom(statement.getPredicate()));
 
-		if (statement.getObject() instanceof XDI3Segment)
-			gom.add(makeGom((XDI3Segment) statement.getObject()));
-		else if (statement.getObject() instanceof XDI3SubSegment)
-			gom.add(makeGom((XDI3SubSegment) statement.getObject()));
+		if (statement.getObject() instanceof XDIAddress)
+			gom.add(makeGom((XDIAddress) statement.getObject()));
+		else if (statement.getObject() instanceof XDIArc)
+			gom.add(makeGom((XDIArc) statement.getObject()));
 		else
 			gom.add(AbstractLiteral.literalDataToJsonElement(statement.getObject()));
 
 		return gom;
 	}
 
-	private static JsonElement makeGom(XDI3Segment segment) {
+	private static JsonElement makeGom(XDIAddress address) {
 
 		JsonElement gom;
 
-		if (segment.getNumSubSegments() == 1) {
+		if (address.getNumXDIArcs() == 1) {
 
-			gom = makeGom(segment.getFirstSubSegment());
+			gom = makeGom(address.getFirstXDIArc());
 		} else {
 
 			gom = new JsonArray();
 
-			for (int i=0; i<segment.getNumSubSegments(); i++) ((JsonArray) gom).add(makeGom(segment.getSubSegment(i)));
+			for (int i=0; i<address.getNumXDIArcs(); i++) ((JsonArray) gom).add(makeGom(address.getXDIArc(i)));
 		}
 
 		return gom;
 	}
 
-	private static JsonElement makeGom(XDI3SubSegment subSegment) {
+	private static JsonElement makeGom(XDIArc arc) {
 
 		JsonElement gom = null;
 
-		if (subSegment.hasXRef()) {
+		if (arc.hasXRef()) {
 
 			JsonObject gom2 = new JsonObject();
-			gom2.add(subSegment.getXRef().getXs(), makeGom(subSegment.getXRef()));
+			gom2.add(arc.getXRef().getXs(), makeGom(arc.getXRef()));
 			gom = gom2;
 		}
 
-		if (subSegment.hasLiteral()) {
+		if (arc.hasLiteral()) {
 
-			gom = new JsonPrimitive(subSegment.getLiteral());
+			gom = new JsonPrimitive(arc.getLiteral());
 		}
 
-		if (subSegment.hasCs()) {
+		if (arc.hasCs()) {
 
 			if (gom != null) {
 
 				JsonObject gom2 = new JsonObject();
-				gom2.add(subSegment.getCs().toString(), gom);
+				gom2.add(arc.getCs().toString(), gom);
 				gom = gom2;
 			} else {
 
-				gom = new JsonPrimitive(subSegment.getCs().toString());
+				gom = new JsonPrimitive(arc.getCs().toString());
 			}
 		}
 
-		if (subSegment.isAttributeXs()) {
+		if (arc.isAttributeXs()) {
 
 			JsonObject gom2 = new JsonObject();
 			gom2.add(XDIConstants.XS_ATTRIBUTE.substring(0, 1), gom);
 			gom = gom2;
 		}
 
-		if (subSegment.isClassXs()) {
+		if (arc.isClassXs()) {
 
 			JsonObject gom2 = new JsonObject();
 			gom2.add(XDIConstants.XS_CLASS.substring(0, 1), gom);
@@ -215,7 +215,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		return gom;
 	}
 
-	private static JsonElement makeGom(XDI3XRef xref) {
+	private static JsonElement makeGom(XDIXRef xref) {
 
 		if (xref.hasPartialSubjectAndPredicate()) {
 
@@ -223,9 +223,9 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			gom.add(makeGom(xref.getPartialSubject()));
 			gom.add(makeGom(xref.getPartialPredicate()));
 			return gom;
-		} else if (xref.hasSegment()) {
+		} else if (xref.hasXDIAddress()) {
 
-			return makeGom(xref.getSegment());
+			return makeGom(xref.getXDIAddress());
 		} else {
 
 			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());

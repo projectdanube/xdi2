@@ -28,7 +28,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
@@ -138,12 +138,12 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 				if (senderString.toLowerCase().startsWith("ote:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(senderString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
-					senderString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(senderString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+					senderString = xdiDiscoveryResult.getCloudNumber().getAddress().toString();
 				} else if (senderString.toLowerCase().startsWith("prod:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(senderString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
-					senderString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(senderString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+					senderString = xdiDiscoveryResult.getCloudNumber().getAddress().toString();
 				}
 			} catch (Exception ex) {
 
@@ -157,15 +157,15 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 				if (recipientString.toLowerCase().startsWith("ote:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(recipientString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
-					recipientString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(recipientString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+					recipientString = xdiDiscoveryResult.getCloudNumber().getAddress().toString();
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 
 					request.setAttribute("endpoint", endpointString);
 				} else if (recipientString.toLowerCase().startsWith("prod:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(recipientString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
-					recipientString = xdiDiscoveryResult.getCloudNumber().getXri().toString();
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(recipientString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+					recipientString = xdiDiscoveryResult.getCloudNumber().getAddress().toString();
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 
 					request.setAttribute("endpoint", endpointString);
@@ -178,12 +178,12 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				return;
 			}
 
-			XDI3Segment sender = XDI3Segment.create(senderString);
-			XDI3Segment recipient = XDI3Segment.create(recipientString);
-			XDI3Segment linkContract = XDI3Segment.create(linkContractString);
-			XDI3Segment operation = XDI3Segment.create(operationString);
+			XDIAddress sender = XDIAddress.create(senderString);
+			XDIAddress recipient = XDIAddress.create(recipientString);
+			XDIAddress linkContract = XDIAddress.create(linkContractString);
+			XDIAddress operation = XDIAddress.create(operationString);
 			String target = targetString;
-			XDI3Segment messageType = messageTypeString == null ? null : XDI3Segment.create(messageTypeString);
+			XDIAddress messageType = messageTypeString == null ? null : XDIAddress.create(messageTypeString);
 			String secretToken = secretTokenString;
 			String signature = signatureString;
 			String signatureDigestAlgorithm = signatureDigestAlgorithmString;
@@ -193,9 +193,9 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			Message message = new MessageEnvelope().createMessage(sender);
 
-			message.setFromPeerRootXri(XdiPeerRoot.createPeerRootArcXri(sender));
-			message.setToPeerRootXri(XdiPeerRoot.createPeerRootArcXri(recipient));
-			message.setLinkContractXri(linkContract);
+			message.setFromPeerRootArc(XdiPeerRoot.createPeerRootXDIArc(sender));
+			message.setToPeerRootArc(XdiPeerRoot.createPeerRootXDIArc(recipient));
+			message.setLinkContractXDIAddress(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
 			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);
@@ -217,11 +217,11 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 				if (endpointString.toLowerCase().startsWith("ote:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(endpointString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(endpointString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 				} else if (endpointString.toLowerCase().startsWith("prod:")) {
 
-					XDIDiscoveryResult xdiDiscoveryResult = discover(XDI3Segment.create(endpointString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
+					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(endpointString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
 					endpointString = xdiDiscoveryResult.getXdiEndpointUri();
 				}
 			} catch (Exception ex) {
@@ -340,13 +340,13 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		request.getRequestDispatcher("/XDIMessenger.jsp").forward(request, response);
 	}
 
-	private static XDIDiscoveryResult discover(XDI3Segment xri, XDIDiscoveryClient xdiDiscoveryClient) throws Xdi2ClientException {
+	private static XDIDiscoveryResult discover(XDIAddress address, XDIDiscoveryClient xdiDiscoveryClient) throws Xdi2ClientException {
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
-		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(xri, null);
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + xri);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + xri);
+		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(address, null);
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + address);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + address);
 
 		return xdiDiscoveryResult;
 	}

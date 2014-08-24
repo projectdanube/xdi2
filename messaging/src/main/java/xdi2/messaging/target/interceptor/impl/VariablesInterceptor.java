@@ -11,10 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
-import xdi2.core.xri3.XDI3SubSegment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -30,7 +31,7 @@ import xdi2.messaging.target.interceptor.MessageResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
- * This interceptor can replace XDI variables in a $add operation with automatically generated persistent XRI subsegments.
+ * This interceptor can replace XDI variables in a $add operation with automatically generated persistent addresses.
  * 
  * @author markus
  */
@@ -78,25 +79,25 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof SetOperation)) return targetStatement;
 
-		XDI3Segment substitutedTargetSubject = substituteSegment(targetStatement.getSubject(), executionContext);
-		XDI3Segment substitutedTargetPredicate = substituteSegment(targetStatement.getPredicate(), executionContext);
+		XDIAddress substitutedTargetSubject = substituteAddress(targetStatement.getSubject(), executionContext);
+		XDIAddress substitutedTargetPredicate = substituteAddress(targetStatement.getPredicate(), executionContext);
 		Object substitutedTargetObject = substituteObject(targetStatement.getObject(), executionContext);
 
 		if (substitutedTargetSubject == targetStatement.getSubject() && substitutedTargetPredicate == targetStatement.getPredicate() && substitutedTargetObject == targetStatement.getObject()) return targetStatement;
 
-		return XDI3Statement.fromComponents(substitutedTargetSubject, substitutedTargetPredicate, substitutedTargetObject);
+		return XDIStatement.fromComponents(substitutedTargetSubject, substitutedTargetPredicate, substitutedTargetObject);
 	}
 
 	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof SetOperation)) return targetAddress;
 
-		return substituteSegment(targetAddress, executionContext);
+		return substituteAddress(targetAddress, executionContext);
 	}
 
 	/*
@@ -108,13 +109,13 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		// add $is statements for all the substituted variables
 
-		for (Entry<XDI3SubSegment, XDI3SubSegment> entry : getVariables(executionContext).entrySet()) {
+		for (Entry<XDIArc, XDIArc> entry : getVariables(executionContext).entrySet()) {
 
-			XDI3Segment subject = XDI3Segment.create(entry.getKey().toString());
-			XDI3Segment predicate = XDIDictionaryConstants.XRI_S_IS;
-			XDI3Segment object = XDI3Segment.create(entry.getValue().toString());
+			XDIAddress subject = XDIAddress.create(entry.getKey().toString());
+			XDIAddress predicate = XDIDictionaryConstants.XDI_ADD_IS;
+			XDIAddress object = XDIAddress.create(entry.getValue().toString());
 
-			XDI3Statement statement = XDI3Statement.fromComponents(subject, predicate, object);
+			XDIStatement statement = XDIStatement.fromComponents(subject, predicate, object);
 
 			messageResult.getGraph().setStatement(statement);
 		}
@@ -124,69 +125,69 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 * Substitution helper methods
 	 */
 
-	private static XDI3Segment substituteSegment(XDI3Segment segment, ExecutionContext executionContext) {
+	private static XDIAddress substituteAddress(XDIAddress address, ExecutionContext executionContext) {
 
-		List<XDI3SubSegment> substitutedSubSegments = null;
+		List<XDIArc> substitutedArcs = null;
 
-		// substitute segment
+		// substitute address
 
-		for (int i=0; i<segment.getNumSubSegments(); i++) {
+		for (int i=0; i<address.getNumXDIArcs(); i++) {
 
-			XDI3SubSegment subSegment = segment.getSubSegment(i);
-			XDI3SubSegment substitutedSubSegment = substituteSubSegment(subSegment, executionContext);
+			XDIArc arc = address.getXDIArc(i);
+			XDIArc substitutedArc = substituteArc(arc, executionContext);
 
-			if (substitutedSubSegment == null) continue;
+			if (substitutedArc == null) continue;
 
-			if (log.isDebugEnabled()) log.debug("Substituted " + subSegment + " for " + substitutedSubSegment);
+			if (log.isDebugEnabled()) log.debug("Substituted " + arc + " for " + substitutedArc);
 
-			// substitute subsegment
+			// substitute address
 
-			if (substitutedSubSegments == null) {
+			if (substitutedArcs == null) {
 
-				substitutedSubSegments = new ArrayList<XDI3SubSegment> (segment.getNumSubSegments());
-				for (int ii=0; ii<segment.getNumSubSegments(); ii++) substitutedSubSegments.add(segment.getSubSegment(ii));
+				substitutedArcs = new ArrayList<XDIArc> (address.getNumXDIArcs());
+				for (int ii=0; ii<address.getNumXDIArcs(); ii++) substitutedArcs.add(address.getXDIArc(ii));
 			}
 
-			substitutedSubSegments.set(i, substitutedSubSegment);
+			substitutedArcs.set(i, substitutedArc);
 		}
 
 		// no substitutions?
 
-		if (substitutedSubSegments == null) return segment;
+		if (substitutedArcs == null) return address;
 
 		// build new target address
 
 		StringBuilder newTargetAddress = new StringBuilder();
-		for (XDI3SubSegment subSegment : substitutedSubSegments) newTargetAddress.append(subSegment.toString());
+		for (XDIArc substitutedArc : substitutedArcs) newTargetAddress.append(substitutedArc.toString());
 
-		return XDI3Segment.create(newTargetAddress.toString());
+		return XDIAddress.create(newTargetAddress.toString());
 	}
 
 	private static Object substituteObject(Object object, ExecutionContext executionContext) {
 
-		if (! (object instanceof XDI3Segment)) return object;
+		if (! (object instanceof XDIAddress)) return object;
 
-		return substituteSegment((XDI3Segment) object, executionContext);
+		return substituteAddress((XDIAddress) object, executionContext);
 	}
 
-	private static XDI3SubSegment substituteSubSegment(XDI3SubSegment subSegment, ExecutionContext executionContext) {
+	private static XDIArc substituteArc(XDIArc arc, ExecutionContext executionContext) {
 
-		if (! VariableUtil.isVariable(subSegment)) return null;
-		if (! subSegment.getXRef().isEmpty()) return null;
+		if (! VariableUtil.isVariable(arc)) return null;
+		if (! arc.getXRef().isEmpty()) return null;
 
-		// substitute the subsegment
+		// substitute the arc
 
-		XDI3SubSegment newSubSegment = getVariable(executionContext, subSegment);
+		XDIArc newArc = getVariable(executionContext, arc);
 
-		if (newSubSegment == null) {
+		if (newArc == null) {
 
-			newSubSegment = XdiAbstractMemberUnordered.createRandomUuidArcXri(false);
-			putVariable(executionContext, subSegment, newSubSegment);
+			newArc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
+			putVariable(executionContext, arc, newArc);
 		}
 
 		// done
 
-		return newSubSegment;
+		return newArc;
 	}
 
 	/*
@@ -196,23 +197,23 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private static final String EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE = VariablesInterceptor.class.getCanonicalName() + "#variablespermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static Map<XDI3SubSegment, XDI3SubSegment> getVariables(ExecutionContext executionContext) {
+	private static Map<XDIArc, XDIArc> getVariables(ExecutionContext executionContext) {
 
-		return (Map<XDI3SubSegment, XDI3SubSegment>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
+		return (Map<XDIArc, XDIArc>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
 	}
 
-	private static XDI3SubSegment getVariable(ExecutionContext executionContext, XDI3SubSegment key) {
+	private static XDIArc getVariable(ExecutionContext executionContext, XDIArc key) {
 
 		return getVariables(executionContext).get(key);
 	}
 
-	private static void putVariable(ExecutionContext executionContext, XDI3SubSegment key, XDI3SubSegment value) {
+	private static void putVariable(ExecutionContext executionContext, XDIArc key, XDIArc value) {
 
 		getVariables(executionContext).put(key, value);
 	}
 
 	private static void resetVariables(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XDI3SubSegment, String> ());
+		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XDIArc, String> ());
 	}
 }

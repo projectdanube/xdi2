@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -63,13 +63,13 @@ public class ContributorTest extends TestCase {
 
 		for (String targetString : targetStrings) {
 
-			XDI3Segment target = XDI3Segment.create(targetString);
+			XDIAddress target = XDIAddress.create(targetString);
 
 			// execute against messaging target with contributors
 
 			log.info("Doing $get: " + targetString);
 
-			MessageEnvelope envelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_GET, target);
+			MessageEnvelope envelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, target);
 			MessageResult result = new MessageResult();
 
 			messagingTarget.execute(envelope, result, null);

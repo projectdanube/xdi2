@@ -6,37 +6,37 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class BasicContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = -3684616841641336596L;
 
-	private XDI3SubSegment arcXri;
+	private XDIArc arc;
 	private Iterable<ContextNode> contextNodes;
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XDI3SubSegment arcXri, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc arc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 
-		this.arcXri = arcXri;
+		this.arc = arc;
 		this.contextNodes = contextNodes == null ? Arrays.asList(new ContextNode[0]) : contextNodes;
 		this.relations = relations == null ? Arrays.asList(new Relation[0]) : relations;
 		this.literal = literal;
 	}
 
 	@Override
-	public XDI3SubSegment getArcXri() {
+	public XDIArc getXDIArc() {
 
-		return this.arcXri;
+		return this.arc;
 	}
 
 	@Override
-	public ContextNode setContextNode(XDI3SubSegment arcXri) {
+	public ContextNode setContextNode(XDIArc arc) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -48,7 +48,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void delContextNode(XDI3SubSegment arcXri) {
+	public void delContextNode(XDIArc arc) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -60,7 +60,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -72,13 +72,13 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void delRelations(XDI3Segment arcXri) {
+	public void delRelations(XDIAddress arc) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}

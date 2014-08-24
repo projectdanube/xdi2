@@ -1,8 +1,8 @@
 package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
+import xdi2.core.syntax.CloudNumber;
 import xdi2.core.util.XRI2Util;
-import xdi2.core.xri3.CloudNumber;
 
 public class XRI2UtilTest extends TestCase {
 
@@ -20,12 +20,12 @@ public class XRI2UtilTest extends TestCase {
 		assertNull(XRI2Util.cloudNumberToINumber(CloudNumber.create("[+]!:uuid:0f8362b1-044f")));
 	}
 
-	public void testTypeToXdiEntitySingletonArcXri() throws Exception {
+	public void testTypeToXdiEntitySingletonarc() throws Exception {
 
-		assertEquals(XRI2Util.typeToXdiArcXri("xri://+i-service*(+contact)*($v*1.0)"), "<#(#i-service*(#contact)*($v*1.0))>");
-		assertEquals(XRI2Util.typeToXdiArcXri("http://openid.net/signon/1.0"), "<#(http://openid.net/signon/1.0)>");
-		assertEquals(XRI2Util.typeToXdiArcXri("describedby"), "<#(describedby)>");
-		assertEquals(XRI2Util.typeToXdiArcXri("xri://$xdi"), "<$xdi>");
-		assertEquals(XRI2Util.typeToXdiArcXri("<$xdi>"), "<$xdi>");
+		assertEquals(XRI2Util.typeToXdiArc("xri://+i-service*(+contact)*($v*1.0)"), "<#(#i-service*(#contact)*($v*1.0))>");
+		assertEquals(XRI2Util.typeToXdiArc("http://openid.net/signon/1.0"), "<#(http://openid.net/signon/1.0)>");
+		assertEquals(XRI2Util.typeToXdiArc("describedby"), "<#(describedby)>");
+		assertEquals(XRI2Util.typeToXdiArc("xri://$xdi"), "<$xdi>");
+		assertEquals(XRI2Util.typeToXdiArc("<$xdi>"), "<$xdi>");
 	}
 }

@@ -22,10 +22,10 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.CloudNumber;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.CloudNumber;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -103,7 +103,7 @@ public class XDIDiscoveryClient {
 		this(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 	}
 
-	public XDIDiscoveryResult discover(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		// first discover from registry
 
@@ -146,7 +146,7 @@ public class XDIDiscoveryClient {
 		return xdiDiscoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromRegistry(XDI3Segment query, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -173,7 +173,7 @@ public class XDIDiscoveryClient {
 
 			registryMessageEnvelope = new MessageEnvelope();
 			Message registryMessage = registryMessageEnvelope.createMessage(null);
-			registryMessage.createGetOperation(XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(query)));
+			registryMessage.createGetOperation(XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(query)));
 
 			try {
 
@@ -213,7 +213,7 @@ public class XDIDiscoveryClient {
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDI3Segment[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -240,18 +240,18 @@ public class XDIDiscoveryClient {
 
 			authorityMessageEnvelope = new MessageEnvelope();
 			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
-			authorityMessage.setToPeerRootXri(cloudNumber.getPeerRootXri());
-			authorityMessage.setLinkContractXri(PublicLinkContract.createPublicLinkContractXri(cloudNumber.getXri()));
-			authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(XDIConstants.XRI_S_ROOT, XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-			authorityMessage.createGetOperation(XDI3Statement.fromRelationComponents(cloudNumber.getXri(), XDIDictionaryConstants.XRI_S_IS_REF, XDIConstants.XRI_S_VARIABLE));
-			authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_SIG_KEYPAIR_PUBLIC_KEY));
-			authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), XDIAuthenticationConstants.XRI_S_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.setToPeerRootArc(cloudNumber.getPeerRootArc());
+			authorityMessage.setLinkContract(PublicLinkContract.class);
+			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
+			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(cloudNumber.getAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
 			if (endpointUriTypes != null) {
 
-				for (XDI3Segment endpointUriType : endpointUriTypes) {
+				for (XDIAddress endpointUriType : endpointUriTypes) {
 
-					authorityMessage.createGetOperation(XDI3Util.concatXris(cloudNumber.getXri(), endpointUriType, XDIClientConstants.XRI_S_AS_URI));
+					authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), endpointUriType, XDIClientConstants.XDI_ADD_AS_URI));
 				}
 			}
 
@@ -301,25 +301,25 @@ public class XDIDiscoveryClient {
 
 		private static final long serialVersionUID = -2109761083423630152L;
 
-		private XDI3Segment query;
+		private XDIAddress query;
 		private String xdiEndpointUri;
-		private Set<XDI3Segment> endpointUriTypes;
+		private Set<XDIAddress> endpointUriTypes;
 
-		public DiscoveryCacheKey(XDI3Segment query, String xdiEndpointUri, Set<XDI3Segment> endpointUriTypes) {
+		public DiscoveryCacheKey(XDIAddress query, String xdiEndpointUri, Set<XDIAddress> endpointUriTypes) {
 
 			this.query = query;
 			this.xdiEndpointUri = xdiEndpointUri;
 			this.endpointUriTypes = endpointUriTypes;
 		}
 
-		private static DiscoveryCacheKey build(XDI3Segment query, XDIHttpClient registryXdiHttpClient, XDI3Segment[] endpointUriTypes) {
+		private static DiscoveryCacheKey build(XDIAddress query, XDIHttpClient registryXdiHttpClient, XDIAddress[] endpointUriTypes) {
 
-			return new DiscoveryCacheKey(query, registryXdiHttpClient.getEndpointUri().toString(), endpointUriTypes == null ? null : new HashSet<XDI3Segment> (Arrays.asList(endpointUriTypes)));
+			return new DiscoveryCacheKey(query, registryXdiHttpClient.getEndpointUri().toString(), endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
 		}
 
-		private static DiscoveryCacheKey build(CloudNumber cloudNumber, String xdiEndpointUri, XDI3Segment[] endpointUriTypes) {
+		private static DiscoveryCacheKey build(CloudNumber cloudNumber, String xdiEndpointUri, XDIAddress[] endpointUriTypes) {
 
-			return new DiscoveryCacheKey(cloudNumber.getXri(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDI3Segment> (Arrays.asList(endpointUriTypes)));
+			return new DiscoveryCacheKey(cloudNumber.getAddress(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
 		}
 
 		@Override

@@ -17,8 +17,8 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -212,7 +212,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XRI_S_GET);
+		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -292,7 +292,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XRI_S_SET);
+		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -332,7 +332,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XRI_S_DEL);
+		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
 		if (messageEnvelope == null) return;
 
 		// execute the message envelope against our message target, save result
@@ -354,7 +354,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		response.setContentLength(0);
 	}
 
-	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDI3Segment operationXri) throws IOException {
+	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 
@@ -365,7 +365,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (log.isDebugEnabled()) log.debug("XDI address: " + addr);
 
-		XDI3Segment targetAddress;
+		XDIAddress targetAddress;
 
 		if (addr.equals("")) {
 
@@ -374,7 +374,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 			try {
 
-				targetAddress = XDI3Segment.create(addr);
+				targetAddress = XDIAddress.create(addr);
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
@@ -387,16 +387,16 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (log.isDebugEnabled()) log.debug("Requested XDI context node: " + targetAddress + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_GET, targetAddress);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
 
 		// set the TO peer root XRI to the owner peer root XRI of the messaging target
 
-		XDI3SubSegment ownerPeerRootXri = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXri();
+		XDIArc ownerPeerRootAddress = messagingTargetMount.getMessagingTarget().getOwnerPeerRootAddress();
 
-		if (ownerPeerRootXri != null) {
+		if (ownerPeerRootAddress != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToPeerRootXri(ownerPeerRootXri);
+			message.setToPeerRootArc(ownerPeerRootAddress);
 		}
 
 		// done

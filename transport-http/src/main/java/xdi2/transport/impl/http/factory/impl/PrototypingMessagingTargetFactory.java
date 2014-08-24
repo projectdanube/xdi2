@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -24,9 +24,9 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDI3Segment ownerXri, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
 
-		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerXri=" + ownerXri + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerAddress=" + ownerAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
 		// create new messaging target
 
@@ -35,7 +35,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 			throw new Xdi2MessagingException("Cannot use messaging target " + this.getPrototypeMessagingTarget().getClass().getSimpleName() + " as prototype.", null, null);
 		}
 
-		PrototypingContext prototypingContext = new PrototypingContext(ownerXri, ownerPeerRoot, ownerContextNode);
+		PrototypingContext prototypingContext = new PrototypingContext(ownerAddress, ownerPeerRoot, ownerContextNode);
 
 		Prototype<? extends MessagingTarget> messagingTargetPrototype; 
 		MessagingTarget prototypedMessagingTarget;

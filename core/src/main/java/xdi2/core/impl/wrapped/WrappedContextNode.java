@@ -9,10 +9,10 @@ import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.impl.memory.MemoryContextNode;
 import xdi2.core.impl.memory.MemoryLiteral;
 import xdi2.core.impl.memory.MemoryRelation;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public class WrappedContextNode extends AbstractContextNode implements ContextNode {
 
@@ -28,9 +28,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public XDI3SubSegment getArcXri() {
+	public XDIArc getXDIArc() {
 
-		return this.memoryContextNode.getArcXri();
+		return this.memoryContextNode.getXDIArc();
 	}
 
 	/*
@@ -38,17 +38,17 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized ContextNode setContextNode(XDI3SubSegment arcXri) {
+	public synchronized ContextNode setContextNode(XDIArc arc) {
 
-		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.setContextNode(arcXri);
+		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.setContextNode(arc);
 
 		return new WrappedContextNode((WrappedGraph) this.getGraph(), this, ret);
 	}
 
 	@Override
-	public ContextNode getContextNode(XDI3SubSegment arcXri, boolean subgraph) {
+	public ContextNode getContextNode(XDIArc arc, boolean subgraph) {
 
-		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arcXri, subgraph);
+		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arc, subgraph);
 
 		return ret == null ? null : new WrappedContextNode((WrappedGraph) this.getGraph(), this, ret);
 	}
@@ -62,9 +62,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsContextNode(XDI3SubSegment arcXri) {
+	public boolean containsContextNode(XDIArc arc) {
 
-		return this.memoryContextNode.containsContextNode(arcXri);
+		return this.memoryContextNode.containsContextNode(arc);
 	}
 
 	@Override
@@ -74,9 +74,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void delContextNode(XDI3SubSegment arcXri) {
+	public synchronized void delContextNode(XDIArc arc) {
 
-		this.memoryContextNode.delContextNode(arcXri);
+		this.memoryContextNode.delContextNode(arc);
 	}
 
 	@Override
@@ -90,25 +90,25 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDI3Segment arcXri, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(arcXri, targetContextNode);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(arc, targetContextNode);
 
 		return new WrappedRelation(this, ret);
 	}
 
 	@Override
-	public Relation getRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public Relation getRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(arcXri, targetContextNodeXri);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(arc, targetContextNodeAddress);
 
 		return ret == null ? null : new WrappedRelation(this, ret);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getRelations(XDI3Segment arcXri) {
+	public ReadOnlyIterator<Relation> getRelations(XDIAddress arc) {
 
-		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(arcXri);
+		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(arc);
 
 		return new ReadOnlyIterator<Relation> (new WrappedRelationMappingIterator(ret));
 	}
@@ -122,15 +122,15 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public boolean containsRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		return this.memoryContextNode.containsRelation(arcXri, targetContextNodeXri);
+		return this.memoryContextNode.containsRelation(arc, targetContextNodeAddress);
 	}
 
 	@Override
-	public boolean containsRelations(XDI3Segment arcXri) {
+	public boolean containsRelations(XDIAddress arc) {
 
-		return this.memoryContextNode.containsRelations(arcXri);
+		return this.memoryContextNode.containsRelations(arc);
 	}
 
 	@Override
@@ -140,15 +140,15 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void delRelation(XDI3Segment arcXri, XDI3Segment targetContextNodeXri) {
+	public synchronized void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
 
-		this.memoryContextNode.delRelation(arcXri, targetContextNodeXri);
+		this.memoryContextNode.delRelation(arc, targetContextNodeAddress);
 	}
 
 	@Override
-	public synchronized void delRelations(XDI3Segment arcXri) {
+	public synchronized void delRelations(XDIAddress arc) {
 
-		this.memoryContextNode.delRelations(arcXri);
+		this.memoryContextNode.delRelations(arc);
 	}
 
 	@Override

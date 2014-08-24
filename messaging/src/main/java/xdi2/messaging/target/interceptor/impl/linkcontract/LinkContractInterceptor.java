@@ -16,10 +16,10 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.XDI3Util;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -46,18 +46,18 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
-	private XDI3Segment defaultLinkContractXri;
+	private XDIAddress defaultLinkContractAddress;
 
 	public LinkContractInterceptor(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
-		this.defaultLinkContractXri = null;
+		this.defaultLinkContractAddress = null;
 	}
 
 	public LinkContractInterceptor() {
 
 		this.linkContractsGraph = null;
-		this.defaultLinkContractXri = null;
+		this.defaultLinkContractAddress = null;
 	}
 
 	/*
@@ -77,7 +77,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// set the default link contract XRI
 
-		interceptor.setDefaultLinkContractXri(this.getDefaultLinkContractXri());
+		interceptor.setDefaultLinkContractAddress(this.getDefaultLinkContractAddress());
 
 		// done
 
@@ -106,17 +106,17 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// find the XDI link contract referenced by the message
 
-		XDI3Segment linkContractXri = message.getLinkContractXri();
+		XDIAddress linkContractAddress = message.getLinkContractXDIAddress();
 
-		if (linkContractXri == null) linkContractXri = this.getDefaultLinkContractXri();
+		if (linkContractAddress == null) linkContractAddress = this.getDefaultLinkContractAddress();
 
-		if (linkContractXri == null) {
+		if (linkContractAddress == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract specified by message.");
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXri, true);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractAddress, true);
 		if (linkContractContextNode == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract context node found in graph.");
@@ -171,7 +171,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -184,29 +184,29 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (isSetOnDoAddress(targetAddress, operation)) {
 
-			XDI3Segment doTargetAddress = XDI3Util.subXri(targetAddress, 0, XDI3Util.indexOfXri(targetAddress, XDILinkContractConstants.XRI_SS_DO));
+			XDIAddress doTargetAddress = XDIAddressUtil.subXDIAddress(targetAddress, 0, XDIAddressUtil.indexOfXDIArc(targetAddress, XDILinkContractConstants.XDI_ARC_DO));
 
-			if (decideLinkContractPermission(XDILinkContractConstants.XRI_S_SET_DO, doTargetAddress, linkContract)) {
+			if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_DO, doTargetAddress, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XRI_S_SET_DO + " permission on target address " + doTargetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
 			} else {
 
 				authorized = Boolean.FALSE;
-				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XRI_S_SET_DO + " permission on target address " + doTargetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
 			}
 		}
 
 		if (authorized == null) {
 
-			if (decideLinkContractPermission(operation.getOperationXri(), targetAddress, linkContract)) {
+			if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetAddress, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXri() + " permission on target address " + targetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetAddress);
 			} else {
 
 				authorized = Boolean.FALSE;
-				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXri() + " permissions on target address " + targetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetAddress);
 			}
 		}
 
@@ -214,7 +214,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (! Boolean.TRUE.equals(authorized)) {
 
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target address: " + targetAddress, null, executionContext);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target address: " + targetAddress, null, executionContext);
 		}
 
 		// done
@@ -223,7 +223,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -232,30 +232,30 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// check permission on target statement
 
-		XDI3Segment targetAddress;
+		XDIAddress targetAddress;
 
 		if (targetStatement.isContextNodeStatement()) {
 
-			targetAddress = targetStatement.getTargetContextNodeXri();
+			targetAddress = targetStatement.getTargetContextNodeXDIAddress();
 		} else {
 
-			targetAddress = targetStatement.getContextNodeXri();
+			targetAddress = targetStatement.getContextNodeXDIAddress();
 		}
 
 		Boolean authorized = null;
 
 		if (isSetOnDoAddress(targetAddress, operation)) {
 
-			XDI3Segment doTargetAddress = XDI3Util.subXri(targetAddress, 0, XDI3Util.indexOfXri(targetAddress, XDILinkContractConstants.XRI_SS_DO));
+			XDIAddress doTargetAddress = XDIAddressUtil.subXDIAddress(targetAddress, 0, XDIAddressUtil.indexOfXDIArc(targetAddress, XDILinkContractConstants.XDI_ARC_DO));
 
-			if (decideLinkContractPermission(XDILinkContractConstants.XRI_S_SET_DO, doTargetAddress, linkContract)) {
+			if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_DO, doTargetAddress, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XRI_S_SET_DO + " permission on target address " + doTargetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
 			} else {
 
 				authorized = Boolean.FALSE;
-				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XRI_S_SET_DO + " permission on target address " + doTargetAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
 			}
 		}
 
@@ -263,37 +263,37 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 			if (isSetOnRefRepStatement(targetStatement, operation)) {
 
-				if (decideLinkContractPermission(XDILinkContractConstants.XRI_S_SET_REF, targetStatement.getContextNodeXri(), linkContract) && 
-						decideLinkContractPermission(XDILinkContractConstants.XRI_S_SET_REF, targetStatement.getTargetContextNodeXri(), linkContract)) {
+				if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetStatement.getContextNodeXDIAddress(), linkContract) && 
+						decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetStatement.getTargetContextNodeXDIAddress(), linkContract)) {
 
 					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XRI_S_SET_REF + " permission on target addresses " + targetStatement.getContextNodeXri() + " and " + targetStatement.getTargetContextNodeXri());
-				} else if (decideLinkContractPermission(XDILinkContractConstants.XRI_S_SET_REF, targetStatement, linkContract)) {
+					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_REF + " permission on target addresses " + targetStatement.getContextNodeXDIAddress() + " and " + targetStatement.getTargetContextNodeXDIAddress());
+				} else if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetStatement, linkContract)) {
 
 					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XRI_S_SET_REF + " permission on target statement " + targetStatement);
+					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_REF + " permission on target statement " + targetStatement);
 				} else {
 
 					authorized = Boolean.FALSE;
-					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XRI_S_SET_REF + " permissions on either target addresses " + targetStatement.getContextNodeXri() + " and " + targetStatement.getTargetContextNodeXri() + ", or target statement " + targetStatement);
+					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_REF + " permissions on either target addresses " + targetStatement.getContextNodeXDIAddress() + " and " + targetStatement.getTargetContextNodeXDIAddress() + ", or target statement " + targetStatement);
 				}
 			}
 		}
 
 		if (authorized == null) {
 
-			if (decideLinkContractPermission(operation.getOperationXri(), targetAddress, linkContract)) {
+			if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetAddress, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXri() + " permission on target address " + targetAddress);
-			} else if (decideLinkContractPermission(operation.getOperationXri(), targetStatement, linkContract)) {
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetAddress);
+			} else if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetStatement, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXri() + " permission on target statement " + targetStatement);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target statement " + targetStatement);
 			} else {
 
 				authorized = Boolean.FALSE;
-				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXri() + " permissions on either target address " + targetAddress + ", or target statement " + targetStatement);
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on either target address " + targetAddress + ", or target statement " + targetStatement);
 			}
 		}
 
@@ -301,7 +301,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (! Boolean.TRUE.equals(authorized)) {
 
-			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXri() + " on target statement: " + targetStatement, null, executionContext);
+			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target statement: " + targetStatement, null, executionContext);
 		}
 
 		// done
@@ -323,77 +323,77 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		this.linkContractsGraph = linkContractsGraph;
 	}
 
-	public XDI3Segment getDefaultLinkContractXri() {
+	public XDIAddress getDefaultLinkContractAddress() {
 
-		return this.defaultLinkContractXri;
+		return this.defaultLinkContractAddress;
 	}
 
-	public void setDefaultLinkContractXri(XDI3Segment defaultLinkContractXri) {
+	public void setDefaultLinkContractAddress(XDIAddress defaultLinkContractAddress) {
 
-		this.defaultLinkContractXri = defaultLinkContractXri;
+		this.defaultLinkContractAddress = defaultLinkContractAddress;
 	}
 
 	/*
 	 * Helper methods
 	 */
 
-	private static boolean isSetOnDoAddress(XDI3Segment targetAddress, Operation operation) {
+	private static boolean isSetOnDoAddress(XDIAddress targetAddress, Operation operation) {
 
-		if (! XDIMessagingConstants.XRI_S_SET.equals(operation.getOperationXri())) return false;
-		if (XDI3Util.indexOfXri(targetAddress, XDILinkContractConstants.XRI_SS_DO) != -1) return true;
+		if (! XDIMessagingConstants.XDI_ADD_SET.equals(operation.getOperationXDIAddress())) return false;
+		if (XDIAddressUtil.indexOfXDIArc(targetAddress, XDILinkContractConstants.XDI_ARC_DO) != -1) return true;
 
 		return false;
 	}
 
-	private static boolean isSetOnRefRepStatement(XDI3Statement targetStatement, Operation operation) {
+	private static boolean isSetOnRefRepStatement(XDIStatement targetStatement, Operation operation) {
 
-		if (! XDIMessagingConstants.XRI_S_SET.equals(operation.getOperationXri())) return false;
+		if (! XDIMessagingConstants.XDI_ADD_SET.equals(operation.getOperationXDIAddress())) return false;
 		if (! targetStatement.isRelationStatement()) return false;
-		if (XDIDictionaryConstants.XRI_S_REF.equals(targetStatement.getRelationArcXri())) return true;
-		if (XDIDictionaryConstants.XRI_S_REP.equals(targetStatement.getRelationArcXri())) return true;
+		if (XDIDictionaryConstants.XDI_ADD_REF.equals(targetStatement.getRelationXDIAddress())) return true;
+		if (XDIDictionaryConstants.XDI_ADD_REP.equals(targetStatement.getRelationXDIAddress())) return true;
 
 		return false;
 	}
 
-	private static boolean decideLinkContractPermission(XDI3Segment permissionXri, XDI3Segment contextNodeXri, LinkContract linkContract) {
+	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIAddress contextNodeAddress, LinkContract linkContract) {
 
 		// check positive permissions for the target address
 
-		List<Iterator<? extends XDI3Segment>> positiveIterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
-		positiveIterators.add(linkContract.getPermissionTargetAddresses(permissionXri));
-		positiveIterators.add(linkContract.getPermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
-		CompositeIterator<XDI3Segment> positiveIterator = new CompositeIterator<XDI3Segment> (positiveIterators.iterator());
+		List<Iterator<? extends XDIAddress>> positiveIterators = new ArrayList<Iterator<? extends XDIAddress>> ();
+		positiveIterators.add(linkContract.getPermissionTargetXDIAddresses(permissionAddress));
+		positiveIterators.add(linkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_ALL));
+		CompositeIterator<XDIAddress> positiveIterator = new CompositeIterator<XDIAddress> (positiveIterators.iterator());
 
 		int longestPositivePermission = -1;
 
-		for (XDI3Segment targetAddress : positiveIterator) {
+		for (XDIAddress targetAddress : positiveIterator) {
 
-			if (XDI3Util.startsWith(contextNodeXri, targetAddress, false, true) != null) {
+			if (XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, targetAddress, false, true) != null) {
 
-				int positiveMatch = targetAddress.getNumSubSegments();
+				int positiveMatch = targetAddress.getNumXDIArcs();
 				if (positiveMatch > longestPositivePermission) longestPositivePermission = positiveMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionXri + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + contextNodeAddress);
 			}
 		}
 
 		// check negative permissions for the target address
 
-		List<Iterator<? extends XDI3Segment>> negativeIterators = new ArrayList<Iterator<? extends XDI3Segment>> ();
-		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(permissionXri));
-		negativeIterators.add(linkContract.getNegativePermissionTargetAddresses(XDILinkContractConstants.XRI_S_ALL));
-		CompositeIterator<XDI3Segment> negativeIterator = new CompositeIterator<XDI3Segment> (negativeIterators.iterator());
+		List<Iterator<? extends XDIAddress>> negativeIterators = new ArrayList<Iterator<? extends XDIAddress>> ();
+		negativeIterators.add(linkContract.getNegativePermissionTargetXDIAddresses(permissionAddress));
+		negativeIterators.add(linkContract.getNegativePermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_ALL));
+		CompositeIterator<XDIAddress> negativeIterator = new CompositeIterator<XDIAddress> (negativeIterators.iterator());
 
 		int longestNegativePermission = -1;
 
-		for (XDI3Segment targetAddress : negativeIterator) {
+		for (XDIAddress targetAddress : negativeIterator) {
 
-			if (XDI3Util.startsWith(contextNodeXri, targetAddress, false, true) != null) {
+			if (XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, targetAddress, false, true) != null) {
 
-				int negativeMatch = targetAddress.getNumSubSegments();
+				int negativeMatch = targetAddress.getNumXDIArcs();
 				if (negativeMatch > longestNegativePermission) longestNegativePermission = negativeMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionXri + " on " + contextNodeXri);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + contextNodeAddress);
 			}
 		}
 
@@ -403,28 +403,28 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionXri + " on address " + contextNodeXri + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on address " + contextNodeAddress + ": " + decision);
 
 		return decision;
 	}
 
-	private static boolean decideLinkContractPermission(XDI3Segment permissionXri, XDI3Statement statementXri, LinkContract linkContract) {
+	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIStatement statementAddress, LinkContract linkContract) {
 
 		// check positive permissions for the target statement
 
 		boolean positivePermission = 
-				linkContract.hasPermissionTargetStatement(permissionXri, statementXri) ||
-				linkContract.hasPermissionTargetStatement(XDILinkContractConstants.XRI_S_ALL, statementXri);
+				linkContract.hasPermissionTargetXDIStatement(permissionAddress, statementAddress) ||
+				linkContract.hasPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, statementAddress);
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionXri + " on " + statementXri);
-		
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + statementAddress);
+
 		// check negative permissions for the target statement
 
 		boolean negativePermission = 
-				linkContract.hasNegativePermissionTargetStatement(permissionXri, statementXri) ||
-				linkContract.hasNegativePermissionTargetStatement(XDILinkContractConstants.XRI_S_ALL, statementXri);
+				linkContract.hasNegativePermissionTargetXDIStatement(permissionAddress, statementAddress) ||
+				linkContract.hasNegativePermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, statementAddress);
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionXri + " on " + statementXri);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + statementAddress);
 
 		// decide
 
@@ -432,7 +432,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionXri + " on statement " + statementXri + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on statement " + statementAddress + ": " + decision);
 
 		return decision;
 	}

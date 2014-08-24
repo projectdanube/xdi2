@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.SingleItemIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -35,15 +35,15 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
 		graphMessagingTarget.init();
 
-		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXriAndTargetStatements(XDIMessagingConstants.XRI_S_SET, new SingleItemIterator<XDI3Statement> (XDI3Statement.create("=markus/+friend/=giovanni")));
+		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationAddressAndTargetStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (XDIStatement.create("=markus/+friend/=giovanni")));
 		MessageResult messageResult1 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
-		assertEquals(graph.getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")).getTargetContextNodeXri(), XDI3Segment.create("=giovanni"));
+		assertEquals(graph.getDeepRelation(XDIAddress.create("=markus"), XDIAddress.create("+friend")).getTargetContextNodeXDIAddress(), XDIAddress.create("=giovanni"));
 
-		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXriAndTargetAddress(XDIMessagingConstants.XRI_S_GET, XDI3Segment.create("=markus"));
+		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, XDIAddress.create("=markus"));
 		MessageResult messageResult2 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
-		assertEquals(messageResult2.getGraph().getDeepRelation(XDI3Segment.create("=markus"), XDI3Segment.create("+friend")).getTargetContextNodeXri(), XDI3Segment.create("=giovanni"));
+		assertEquals(messageResult2.getGraph().getDeepRelation(XDIAddress.create("=markus"), XDIAddress.create("+friend")).getTargetContextNodeXDIAddress(), XDIAddress.create("=giovanni"));
 
 		graphMessagingTarget.shutdown();
 	}

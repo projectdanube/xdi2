@@ -3,9 +3,9 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI unordered variable member, represented as a context node.
@@ -35,7 +35,7 @@ public final class XdiVariableMemberUnordered extends XdiAbstractMemberUnordered
 		if (contextNode == null) return false;
 
 		return
-				isValidArcXri(contextNode.getArcXri()) &&
+				isValidXDIArc(contextNode.getXDIArc()) &&
 				XdiVariableCollection.isValid(contextNode.getContextNode());
 	}
 
@@ -55,9 +55,9 @@ public final class XdiVariableMemberUnordered extends XdiAbstractMemberUnordered
 	 * Methods for XRIs
 	 */
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidXDIArc(XDIArc arcXri) {
 
-		return XdiAbstractMemberUnordered.isValidArcXri(arcXri, XdiVariableMemberUnordered.class);
+		return XdiAbstractMemberUnordered.isValidXDIArc(arcXri, XdiVariableCollection.class);
 	}
 
 	/*

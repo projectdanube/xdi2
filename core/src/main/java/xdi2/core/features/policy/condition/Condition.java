@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIStatement;
 
 /**
  * An XDI condition, represented as a statement.
@@ -19,9 +19,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	private static final Logger log = LoggerFactory.getLogger(Condition.class);
 
-	private XDI3Statement statementXri;
+	private XDIStatement statementXri;
 
-	protected Condition(XDI3Statement statementXri) {
+	protected Condition(XDIStatement statementXri) {
 
 		if (statementXri == null) throw new NullPointerException();
 
@@ -37,7 +37,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param statement The statement to check.
 	 * @return True if the statement is a valid XDI condition.
 	 */
-	public static boolean isValid(XDI3Statement statement) {
+	public static boolean isValid(XDIStatement statement) {
 
 		return
 				EqualsCondition.isValid(statement) ||
@@ -53,7 +53,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param statement The statement that is an XDI condition.
 	 * @return The XDI condition.
 	 */
-	public static Condition fromStatement(XDI3Statement statement) {
+	public static Condition fromStatement(XDIStatement statement) {
 
 		if (EqualsCondition.isValid(statement)) return EqualsCondition.fromStatement(statement);
 		if (MatchesCondition.isValid(statement)) return MatchesCondition.fromStatement(statement);
@@ -85,7 +85,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * Returns the underlying statement to which this XDI condition is bound.
 	 * @return A statement that represents the XDI condition.
 	 */
-	public XDI3Statement getStatementXri() {
+	public XDIStatement getStatementXri() {
 
 		return this.statementXri;
 	}

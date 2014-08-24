@@ -30,8 +30,8 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.plugins.PluginsLoader;
 import xdi2.core.properties.XDI2Properties;
-import xdi2.core.xri3.XDI3ParserRegistry;
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -184,7 +184,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
-			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("request", request);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -233,12 +233,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// write message envelope
 
-			XDI3SubSegment ownerPeerRootXri = cmdMessagingTarget.getOwnerPeerRootXri();
+			XDIArc ownerPeerRootAddress = cmdMessagingTarget.getOwnerPeerRootAddress();
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
-			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
-			if (ownerPeerRootXri != null) message.setToPeerRootXri(ownerPeerRootXri);
-			message.createGetOperation(XDIConstants.XRI_S_ROOT);
+			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+			if (ownerPeerRootAddress != null) message.setToPeerRootArc(ownerPeerRootAddress);
+			message.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
 			Graph graph = messageEnvelope.getGraph();
 
@@ -250,7 +250,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
-			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("request", request);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -298,7 +298,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
-			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("request", request);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -384,7 +384,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// prepare velocity
 
 			VelocityContext context = new VelocityContext();
-			context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("request", request);
 			context.put("messagingtarget", cmdMessagingTarget);
@@ -429,7 +429,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		VelocityContext context = new VelocityContext();
 		context.put("httptransport", httpTransport);
 		context.put("request", request);
-		context.put("parser", XDI3ParserRegistry.getInstance().getParser());
+		context.put("parser", ParserRegistry.getInstance().getParser());
 		context.put("pluginfiles", pluginFiles);
 		context.put("xdi2properties", xdi2Properties);
 		context.put("systemproperties", systemProperties);

@@ -2,8 +2,8 @@ package xdi2.transport.impl.http.factory;
 
 import java.util.Iterator;
 
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.EmptyIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 public abstract class AbstractMessagingTargetFactory implements MessagingTargetFactory {
 
@@ -22,13 +22,13 @@ public abstract class AbstractMessagingTargetFactory implements MessagingTargetF
 	}
 
 	@Override
-	public Iterator<XDI3SubSegment> getOwnerPeerRootXris() {
+	public Iterator<XDIArc> getOwnerPeerRootAddresses() {
 
-		return new EmptyIterator<XDI3SubSegment> ();
+		return new EmptyIterator<XDIArc> ();
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDI3SubSegment ownerPeerRootXri) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress) {
 
 		return null;
 	}

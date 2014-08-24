@@ -2,7 +2,7 @@ package xdi2.transport.spring;
 
 import org.springframework.core.convert.converter.Converter;
 
-import xdi2.core.xri3.CloudName;
+import xdi2.core.syntax.CloudName;
 
 public class StringCloudNameConverter implements Converter<String, CloudName> {
 

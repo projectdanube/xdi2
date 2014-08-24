@@ -1,8 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
-import xdi2.core.util.XDI3Util;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
@@ -19,11 +19,11 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  */
 public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, Prototype<ReadOnlyInterceptor> {
 
-	private XDI3Segment[] readOnlyAddresses;
+	private XDIAddress[] readOnlyAddresses;
 
 	public ReadOnlyInterceptor() {
 
-		this.readOnlyAddresses = new XDI3Segment[0];
+		this.readOnlyAddresses = new XDIAddress[0];
 	}
 
 	/*
@@ -43,56 +43,56 @@ public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> im
 	 */
 
 	@Override
-	public XDI3Statement targetStatement(XDI3Statement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri;
+		XDIAddress contextNodeAddress;
 
 		if (targetStatement.isContextNodeStatement()) 
-			contextNodeXri = targetStatement.getTargetContextNodeXri();
+			contextNodeAddress = targetStatement.getTargetContextNodeXDIAddress();
 		else
-			contextNodeXri = targetStatement.getContextNodeXri();
+			contextNodeAddress = targetStatement.getContextNodeXDIAddress();
 
-		this.checkReadOnly(operation, contextNodeXri, executionContext);
+		this.checkReadOnly(operation, contextNodeAddress, executionContext);
 
 		return targetStatement;
 	}
 
 	@Override
-	public XDI3Segment targetAddress(XDI3Segment targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDI3Segment contextNodeXri = targetAddress;
+		XDIAddress contextNodeAddress = targetAddress;
 		
-		this.checkReadOnly(operation, contextNodeXri, executionContext);
+		this.checkReadOnly(operation, contextNodeAddress, executionContext);
 
 		return targetAddress;
 	}
 
-	private void checkReadOnly(Operation operation, XDI3Segment contextNodeXri, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void checkReadOnly(Operation operation, XDIAddress contextNodeAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation.isReadOnlyOperation()) return;
 
-		for (XDI3Segment readOnlyAddress : this.readOnlyAddresses) {
+		for (XDIAddress readOnlyAddress : this.readOnlyAddresses) {
 
-			if (readOnlyAddress == null || XDI3Util.startsWith(contextNodeXri, readOnlyAddress) != null) {
+			if (readOnlyAddress == null || XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, readOnlyAddress) != null) {
 
-				throw new Xdi2MessagingException("This address is read-only: " + contextNodeXri, null, executionContext);
+				throw new Xdi2MessagingException("This address is read-only: " + contextNodeAddress, null, executionContext);
 			}
 		}
 	}
 
-	public XDI3Segment[] getReadOnlyAddresses() {
+	public XDIAddress[] getReadOnlyAddresses() {
 
 		return this.readOnlyAddresses;
 	}
 
-	public void setReadOnlyAddresses(XDI3Segment[] readOnlyAddresses) {
+	public void setReadOnlyAddresses(XDIAddress[] readOnlyAddresses) {
 
 		this.readOnlyAddresses = readOnlyAddresses;
 	}
 
 	public void setReadOnlyAddresses(String[] readOnlyAddresses) {
 
-		this.readOnlyAddresses = new XDI3Segment[readOnlyAddresses.length];
-		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = XDI3Segment.create(readOnlyAddresses[i]);
+		this.readOnlyAddresses = new XDIAddress[readOnlyAddresses.length];
+		for (int i=0; i<this.readOnlyAddresses.length; i++) this.readOnlyAddresses[i] = XDIAddress.create(readOnlyAddresses[i]);
 	}
 }

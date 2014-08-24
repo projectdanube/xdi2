@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
-import xdi2.core.xri3.XDI3SubSegment;
 
 /**
  * An XDI attribute singleton, represented as a context node.
@@ -35,7 +35,7 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 
 		if (contextNode == null) return false;
 		
-		return isValidArcXri(contextNode.getArcXri());
+		return isValidXDIArc(contextNode.getXDIArc());
 	}
 
 	/**
@@ -62,9 +62,9 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	@Override
 	public XdiValue getXdiValue(boolean create) {
 
-		XDI3SubSegment valueArcXri = XdiValue.createArcXri();
+		XDIArc valuearc = XdiValue.createXDIArc();
 
-		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valueArcXri) : this.getContextNode().getContextNode(valueArcXri, false);
+		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valuearc) : this.getContextNode().getContextNode(valuearc, false);
 		if (valueContextNode == null) return null;
 
 		return new XdiValue(valueContextNode);
@@ -74,21 +74,21 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	 * Methods for XRIs
 	 */
 
-	public static XDI3SubSegment createArcXri(XDI3SubSegment arcXri) {
+	public static XDIArc createXDIArc(XDIArc arc) {
 
-		return XDI3SubSegment.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + arcXri + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + arc + XDIConstants.XS_ATTRIBUTE.charAt(1));
 	}
 
-	public static boolean isValidArcXri(XDI3SubSegment arcXri) {
+	public static boolean isValidXDIArc(XDIArc arc) {
 
-		if (arcXri == null) return false;
+		if (arc == null) return false;
 
-		if (arcXri.isClassXs()) return false;
-		if (! arcXri.isAttributeXs()) return false;
+		if (arc.isClassXs()) return false;
+		if (! arc.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arc.getCs())) {
 
-			if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
+			if (! arc.hasLiteral() && ! arc.hasXRef()) return false;
 		} else {
 
 			return false;

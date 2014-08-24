@@ -10,6 +10,8 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -18,8 +20,6 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -73,56 +73,56 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param operationAddress The operation XRI to use for the new operation.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndTargetAddress(XDI3Segment operationXri, XDI3Segment targetAddress) {
+	public static MessageEnvelope fromOperationAddressAndTargetAddress(XDIAddress operationAddress, XDIAddress targetAddress) {
 
-		if (targetAddress == null) targetAddress = XDIConstants.XRI_S_CONTEXT;
+		if (targetAddress == null) targetAddress = XDIConstants.XDI_ADD_CONTEXT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
-		message.createOperation(operationXri, targetAddress);
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		message.createOperation(operationAddress, targetAddress);
 
 		return messageEnvelope;
 	}
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param operationAddress The operation XRI to use for the new operation.
 	 * @param targetStatements The target statements to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static MessageEnvelope fromOperationXriAndTargetStatements(XDI3Segment operationXri, Iterator<XDI3Statement> targetStatements) {
+	public static MessageEnvelope fromOperationAddressAndTargetStatements(XDIAddress operationAddress, Iterator<XDIStatement> targetStatements) {
 
 		if (targetStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XRI_S_ANONYMOUS);
-		message.createOperation(operationXri, targetStatements);
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		message.createOperation(operationAddress, targetStatements);
 
 		return messageEnvelope;
 	}
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXri The operation XRI to use for the new operation.
+	 * @param operationAddress The operation XRI to use for the new operation.
 	 * @param targetAddressOrTargetStatement The target address or target statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
-	public static final MessageEnvelope fromOperationXriAndTargetAddressOrTargetStatement(XDI3Segment operationXri, String targetAddressOrTargetStatement) {
+	public static final MessageEnvelope fromOperationAddressAndTargetAddressOrTargetStatement(XDIAddress operationAddress, String targetAddressOrTargetStatement) {
 
 		try {
 
 			if (targetAddressOrTargetStatement == null) targetAddressOrTargetStatement = "";
 
-			XDI3Segment targetAddress = XDI3Segment.create(targetAddressOrTargetStatement);
-			return MessageEnvelope.fromOperationXriAndTargetAddress(operationXri, targetAddress);
+			XDIAddress targetAddress = XDIAddress.create(targetAddressOrTargetStatement);
+			return MessageEnvelope.fromOperationAddressAndTargetAddress(operationAddress, targetAddress);
 		} catch (Exception ex) {
 
-			XDI3Statement targetStatement = XDI3Statement.create(targetAddressOrTargetStatement);
-			return MessageEnvelope.fromOperationXriAndTargetStatements(operationXri, new SingleItemIterator<XDI3Statement> (targetStatement));
+			XDIStatement targetStatement = XDIStatement.create(targetAddressOrTargetStatement);
+			return MessageEnvelope.fromOperationAddressAndTargetStatements(operationAddress, new SingleItemIterator<XDIStatement> (targetStatement));
 		}
 	}
 
@@ -141,16 +141,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Returns an existing XDI message collection in this XDI message envelope, or creates a new one.
-	 * @param senderXri The sender.
+	 * @param senderAddress The sender.
 	 * @param create Whether to create an XDI message collection if it does not exist.
 	 * @return The existing or newly created XDI message collection.
 	 */
-	public MessageCollection getMessageCollection(XDI3Segment senderXri, boolean create) {
+	public MessageCollection getMessageCollection(XDIAddress senderAddress, boolean create) {
 
-		if (senderXri == null) senderXri = XDIAuthenticationConstants.XRI_S_ANONYMOUS;
+		if (senderAddress == null) senderAddress = XDIAuthenticationConstants.XDI_ADD_ANONYMOUS;
 
-		XDI3Segment messageCollectionXri = XDI3Segment.create(senderXri.toString() + XdiEntityCollection.createArcXri(XDIMessagingConstants.XRI_SS_MSG));
-		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXri) : this.getGraph().getDeepContextNode(messageCollectionXri, true);
+		XDIAddress messageCollectionAddress = XDIAddress.create(senderAddress.toString() + XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
+		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionAddress) : this.getGraph().getDeepContextNode(messageCollectionAddress, true);
 
 		if (contextNode == null) return null;
 
@@ -201,12 +201,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Finds messages with a given sender in this message envelope.
-	 * @param senderXri The sender to look for.
+	 * @param senderAddress The sender to look for.
 	 * @return The messages.
 	 */
-	public ReadOnlyIterator<Message> getMessages(XDI3Segment senderXri) {
+	public ReadOnlyIterator<Message> getMessages(XDIAddress senderAddress) {
 
-		MessageCollection messageCollection = this.getMessageCollection(senderXri, false);
+		MessageCollection messageCollection = this.getMessageCollection(senderAddress, false);
 		if (messageCollection == null) return new EmptyIterator<Message> ();
 
 		return messageCollection.getMessages();
@@ -264,23 +264,23 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Creates a new XDI message in this XDI message envelope for a given sender.
-	 * @param senderXri The sender.
+	 * @param senderAddress The sender.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage(XDI3Segment senderXri) {
+	public Message createMessage(XDIAddress senderAddress) {
 
-		return this.getMessageCollection(senderXri, true).createMessage();
+		return this.getMessageCollection(senderAddress, true).createMessage();
 	}
 
 	/**
 	 * Creates a new XDI message in this XDI message envelope for a given sender.
-	 * @param senderXri The sender.
+	 * @param senderAddress The sender.
 	 * @param index Index in an ordered collection.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage(XDI3Segment senderXri, long index) {
+	public Message createMessage(XDIAddress senderAddress, long index) {
 
-		return this.getMessageCollection(senderXri, true).createMessage(index);
+		return this.getMessageCollection(senderAddress, true).createMessage(index);
 	}
 
 	/*

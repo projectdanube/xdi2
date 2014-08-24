@@ -20,9 +20,9 @@ import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.VariableUtil;
-import xdi2.core.xri3.XDI3Segment;
-import xdi2.core.xri3.XDI3Statement;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -39,7 +39,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can add metadata to a message result, e.g. a timestamp, 
  * a TO peer root XRI, and a signature.
  */
-@ContributorMount(contributorXris={""})
+@ContributorMount(contributorAddresses={""})
 public class MessageResultContributor extends AbstractContributor implements Prototype<MessageResultContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(MessageResultContributor.class);
@@ -51,7 +51,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		this.keyGraph = keyGraph;
 
 		this.getContributors().addContributor(new TimestampContributor());
-		this.getContributors().addContributor(new ToPeerRootXriContributor());
+		this.getContributors().addContributor(new ToPeerRootAddressContributor());
 		this.getContributors().addContributor(new SignatureContributor());
 	}
 
@@ -97,11 +97,11 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	 * Sub-Contributors
 	 */
 
-	@ContributorMount(contributorXris={"<$t>"})
+	@ContributorMount(contributorAddresses={"<$t>"})
 	private class TimestampContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnAddress(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Segment relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			if (relativeTargetAddress == null) return ContributorResult.DEFAULT;
 
@@ -119,27 +119,27 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		}
 	}
 
-	@ContributorMount(contributorXris={""})
-	private class ToPeerRootXriContributor extends AbstractContributor {
+	@ContributorMount(contributorAddresses={""})
+	private class ToPeerRootAddressContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-			XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+			XDIAddress arc = relativeTargetStatement.getRelationXDIAddress();
+			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
 
 			// check if applicable
 
-			if (! arcXri.equals(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI)) return ContributorResult.DEFAULT;
-			if (! VariableUtil.isVariable(targetContextNodeXri)) return ContributorResult.DEFAULT;
+			if (! arc.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC)) return ContributorResult.DEFAULT;
+			if (! VariableUtil.isVariable(targetContextNodeAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
 
-			XDI3Segment toPeerRootXri = XDI3Segment.fromComponent(XdiPeerRoot.createPeerRootArcXri(operation.getSenderXri()));
+			XDIAddress toPeerRootAddress = XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(operation.getSenderXDIAddress()));
 
 			// add it to the message result
 
-			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XRI_S_TO_PEER_ROOT_XRI, toPeerRootXri);
+			messageResult.getGraph().getRootContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, toPeerRootAddress);
 
 			// done
 
@@ -147,39 +147,39 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		}
 	}
 
-	@ContributorMount(contributorXris={"<$sig>"})
+	@ContributorMount(contributorAddresses={"<$sig>"})
 	private class SignatureContributor extends AbstractContributor {
 
 		@Override
-		public ContributorResult executeGetOnRelationStatement(XDI3Segment[] contributorXris, XDI3Segment contributorsXri, XDI3Statement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDI3Segment arcXri = relativeTargetStatement.getRelationArcXri();
-			XDI3Segment targetContextNodeXri = relativeTargetStatement.getTargetContextNodeXri();
+			XDIAddress arc = relativeTargetStatement.getRelationXDIAddress();
+			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
 
 			// check if applicable
 
-			if (! arcXri.equals(XDIDictionaryConstants.XRI_S_IS_TYPE)) return ContributorResult.DEFAULT;
+			if (! arc.equals(XDIDictionaryConstants.XDI_ADD_IS_TYPE)) return ContributorResult.DEFAULT;
 
 			// check parameters
 
-			XDI3Segment dataTypeXri = targetContextNodeXri;
+			XDIAddress dataTypeAddress = targetContextNodeAddress;
 
 			String digestAlgorithm;
 			Integer digestLength;
 			String keyAlgorithm;
 			Integer keyLength;
 
-			digestAlgorithm = Signatures.getDigestAlgorithm(dataTypeXri);
-			if (digestAlgorithm == null) throw new Xdi2MessagingException("Invalid digest algorithm: " + dataTypeXri, null, executionContext);
+			digestAlgorithm = Signatures.getDigestAlgorithm(dataTypeAddress);
+			if (digestAlgorithm == null) throw new Xdi2MessagingException("Invalid digest algorithm: " + dataTypeAddress, null, executionContext);
 
-			digestLength = Signatures.getDigestLength(dataTypeXri);
-			if (digestLength == null) throw new Xdi2MessagingException("Invalid digest length: " + dataTypeXri, null, executionContext);
+			digestLength = Signatures.getDigestLength(dataTypeAddress);
+			if (digestLength == null) throw new Xdi2MessagingException("Invalid digest length: " + dataTypeAddress, null, executionContext);
 
-			keyAlgorithm = Signatures.getKeyAlgorithm(dataTypeXri);
-			if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeXri, null, executionContext);
+			keyAlgorithm = Signatures.getKeyAlgorithm(dataTypeAddress);
+			if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeAddress, null, executionContext);
 
-			keyLength = Signatures.getKeyLength(dataTypeXri);
-			if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeXri, null, executionContext);
+			keyLength = Signatures.getKeyLength(dataTypeAddress);
+			if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeAddress, null, executionContext);
 
 			if (log.isDebugEnabled()) log.debug("digestAlgorithm: " + digestAlgorithm + ", digestLength: " + digestLength + ", keyAlgorithm: " + keyAlgorithm + ", keyLength: " + keyLength);
 
@@ -190,12 +190,12 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDI3Segment recipientXri = XdiPeerRoot.getXriOfPeerRootArcXri(operation.getMessage().getToPeerRootXri());
-				if (recipientXri == null) return ContributorResult.SKIP_MESSAGING_TARGET;
+				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootArc());
+				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientXri, false);
+				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);
@@ -227,7 +227,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 				try {
 
 					signature.sign(privateKey);
-					DataTypes.setDataType(signature.getContextNode(), dataTypeXri);
+					DataTypes.setDataType(signature.getContextNode(), dataTypeAddress);
 				} catch (GeneralSecurityException ex) {
 
 					throw new Xdi2MessagingException("Cannot sign using private key: " + ex.getMessage(), ex, null);
@@ -237,12 +237,12 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDI3Segment recipientXri = XdiPeerRoot.getXriOfPeerRootArcXri(operation.getMessage().getToPeerRootXri());
-				if (recipientXri == null) return ContributorResult.SKIP_MESSAGING_TARGET;
+				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootArc());
+				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientXri, false);
+				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);
@@ -274,7 +274,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 				try {
 
 					signature.sign(secretKey);
-					DataTypes.setDataType(signature.getContextNode(), dataTypeXri);
+					DataTypes.setDataType(signature.getContextNode(), dataTypeAddress);
 				} catch (GeneralSecurityException ex) {
 
 					throw new Xdi2MessagingException("Cannot sign using secret key: " + ex.getMessage(), ex, null);

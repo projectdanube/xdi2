@@ -49,7 +49,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonStore = jsonStore;
 
-		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XRI_S_ROOT);
+		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XDI_ADD_ROOT);
 
 		this.jsonObjectsCached = new HashMap<String, JsonObject> ();
 		this.jsonObjectsCachedWithPrefix = new HashSet<String> ();

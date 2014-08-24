@@ -13,7 +13,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import xdi2.core.xri3.XDI3SubSegment;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -325,16 +325,16 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		return new MessagingTargetMount(messagingTargetPath, messagingTarget);
 	}
 
-	public synchronized MessagingTargetMount lookup(XDI3SubSegment ownerPeerRootXri) throws Xdi2TransportException, Xdi2MessagingException {
+	public synchronized MessagingTargetMount lookup(XDIArc ownerPeerRootAddress) throws Xdi2TransportException, Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootXri);
+		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootAddress);
 
 		// look at messaging targets
 
 		for (MessagingTargetMount messagingTargetMount : this.getMessagingTargetMounts()) {
 
 			String requestPath = messagingTargetMount.getMessagingTargetPath();
-			if (! ownerPeerRootXri.equals(messagingTargetMount.getMessagingTarget().getOwnerPeerRootXri())) continue;
+			if (! ownerPeerRootAddress.equals(messagingTargetMount.getMessagingTarget().getOwnerPeerRootAddress())) continue;
 
 			return this.lookup(requestPath);
 		}
@@ -343,7 +343,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		for (MessagingTargetFactoryMount messagingTargetFactoryMount : this.getMessagingTargetFactoryMounts()) {
 
-			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootXri);
+			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootAddress);
 			if (requestPath == null) continue;
 
 			return this.lookup(requestPath);

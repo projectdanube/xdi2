@@ -3,7 +3,7 @@ package xdi2.core.impl.wrapped;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractRelation;
 import xdi2.core.impl.memory.MemoryRelation;
-import xdi2.core.xri3.XDI3Segment;
+import xdi2.core.syntax.XDIAddress;
 
 public class WrappedRelation extends AbstractRelation implements Relation {
 
@@ -19,14 +19,14 @@ public class WrappedRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDI3Segment getArcXri() {
+	public XDIAddress getXDIAddress() {
 
-		return this.memoryRelation.getArcXri();
+		return this.memoryRelation.getXDIAddress();
 	}
 
 	@Override
-	public XDI3Segment getTargetContextNodeXri() {
+	public XDIAddress getTargetContextNodeXDIAddress() {
 
-		return this.memoryRelation.getTargetContextNodeXri();
+		return this.memoryRelation.getTargetContextNodeXDIAddress();
 	}
 }
