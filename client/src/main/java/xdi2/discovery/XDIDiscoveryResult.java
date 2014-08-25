@@ -17,6 +17,7 @@ import xdi2.core.Literal;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
@@ -150,7 +151,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// init endpoint uris
 
-		this.initEndpointUris(xdiRoot, endpointUriTypes);
+		this.initEndpointUris(authorityXdiEntity, endpointUriTypes);
 	}
 
 	void initFromException(Xdi2ClientException ex) {
@@ -208,7 +209,7 @@ public class XDIDiscoveryResult implements Serializable {
 	 * Helper methods
 	 */
 
-	private void initEndpointUris(XdiRoot xdiRoot, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException {
+	private void initEndpointUris(XdiContext<?> xdiContext, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException {
 
 		if (endpointUriTypes == null) {
 
@@ -219,7 +220,7 @@ public class XDIDiscoveryResult implements Serializable {
 		for (XDIAddress endpointUriType : endpointUriTypes) {
 
 			XDIAddress endpointUriXdiAttributeAddress = XDIAddressUtil.concatXDIAddresses(endpointUriType, XDIClientConstants.XDI_ARC_AS_URI);
-			XdiAttribute endpointUriXdiAttribute = xdiRoot.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
+			XdiAttribute endpointUriXdiAttribute = xdiContext.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
 			if (endpointUriXdiAttribute == null) continue;
 
 			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
