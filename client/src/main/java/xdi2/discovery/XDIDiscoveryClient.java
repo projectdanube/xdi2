@@ -116,8 +116,6 @@ public class XDIDiscoveryClient {
 			return null;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResultRegistry);
-
 		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null || xdiDiscoveryResultRegistry.getCloudNumber() == null) {
 
 			if (log.isDebugEnabled()) log.debug("No XDI endpoint URI or cloud number from registry for " + query);
@@ -134,8 +132,6 @@ public class XDIDiscoveryClient {
 			return xdiDiscoveryResultRegistry;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResultAuthority);
-
 		// return a single discovery result from the two individual ones
 
 		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
@@ -146,7 +142,7 @@ public class XDIDiscoveryClient {
 
 	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
-		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
+		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
 
 		// check registry cache
 
@@ -180,7 +176,7 @@ public class XDIDiscoveryClient {
 				registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
 			} catch (Xdi2ClientException ex) {
 
-				discoveryResult.initFromException(ex);
+				xdiDiscoveryResult.initFromException(ex);
 				throw ex;
 			} catch (Exception ex) {
 
@@ -197,21 +193,23 @@ public class XDIDiscoveryClient {
 
 			// fire event
 
-			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, discoveryResult, query));
+			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, xdiDiscoveryResult, query));
 		}
 
 		// parse the registry message result
 
-		discoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query, endpointUriTypes);
+		xdiDiscoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query, endpointUriTypes);
 
 		// done
 
-		return discoveryResult;
+		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResult);
+
+		return xdiDiscoveryResult;
 	}
 
 	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
-		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
+		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
 
 		// check authority cache
 
@@ -258,7 +256,7 @@ public class XDIDiscoveryClient {
 				authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
 			} catch (Xdi2ClientException ex) {
 
-				discoveryResult.initFromException(ex);
+				xdiDiscoveryResult.initFromException(ex);
 				throw ex;
 			} catch (Exception ex) {
 
@@ -275,16 +273,18 @@ public class XDIDiscoveryClient {
 
 			// fire event
 
-			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, discoveryResult, xdiEndpointUri));
+			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, xdiDiscoveryResult, xdiEndpointUri));
 		}
 
 		// parse the authority message result
 
-		discoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult, endpointUriTypes);
+		xdiDiscoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult, endpointUriTypes);
 
 		// done
 
-		return discoveryResult;
+		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResult);
+
+		return xdiDiscoveryResult;
 	}
 
 	/*
