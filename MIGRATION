@@ -1,0 +1,39 @@
+Migration notes from 0.6.x to 0.7
+=================================
+
+XDI3Segment -> XDIAddress
+XDI3SubSegment -> XDIArc
+XDI3Statement -> XDIStatement
+
+String xdiEndpointUri = xdiDiscoveryResult.getXdiEndpointUri();
+->
+URL xdiEndpointUrl = xdiDiscoveryResult.getXdiEndpointUrl();
+
+in many methods "Xri" -> XDIAddress or XDIArc
+e.g. Message.setLinkContractXri() -> Message.setLinkContractXDIAddress() 
+
+changed constant names
+XRI_S_ -> XDI_ADD_
+XRI_SS_ -> XDI_ARC_
+
+slightly different exceptions in xdi2.client
+Xdi2DiscoveryException, Xdi2ClientException
+
+XdiLocalRoot -> XdiCommonRoot
+
+contributorXris -> contributorAddresses
+
+Notation Shift Migration
+========================
+
+https://github.com/projectdanube/xdi2-tools/wiki/Notation-Shift
+
+Link Contract Shift Migration
+=============================
+
+https://github.com/projectdanube/xdi2-tools/wiki/Link-Contract-Shift
+
+Great Symbol Shift Migration
+============================
+
+https://github.com/projectdanube/xdi2-tools/wiki/Great-Symbol-Shift
