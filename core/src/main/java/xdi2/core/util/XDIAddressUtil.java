@@ -8,7 +8,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIXRef;
@@ -302,6 +306,31 @@ public final class XDIAddressUtil {
 		if (XDIaddress == null) throw new NullPointerException();
 
 		return XDIAddressUtil.localXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, endIndex), - startIndex);
+	}
+
+	/**
+	 * Finds a part of an XDI address that matches a certain node type.
+	 */
+	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
+
+		try {
+
+			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
+			XdiContext<?> xdiContext = null;
+
+			while (contextNode != null) {
+
+				xdiContext = XdiAbstractContext.fromContextNode(contextNode);
+				if (clazz.isAssignableFrom(xdiContext.getClass())) return contextNode.getXDIAddress();
+
+				contextNode = contextNode.getContextNode();
+			}
+
+			return null;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Unexpected reflect error: " + ex.getMessage(), ex);
+		}
 	}
 
 	/**
