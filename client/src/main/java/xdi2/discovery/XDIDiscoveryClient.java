@@ -53,6 +53,10 @@ public class XDIDiscoveryClient {
 	public static final Cache DEFAULT_REGISTRY_CACHE;
 	public static final Cache DEFAULT_AUTHORITY_CACHE;
 
+	private XDIHttpClient registryXdiClient;
+	private Cache registryCache;
+	private Cache authorityCache;
+
 	static {
 
 		CacheManager cacheManager = CacheManager.create(XDIDiscoveryClient.class.getResourceAsStream("ehcache.xml"));
@@ -71,10 +75,6 @@ public class XDIDiscoveryClient {
 		DEFAULT_XDI_CLIENT = NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 		DEFAULT_DISCOVERY_CLIENT = NEUSTAR_PROD_DISCOVERY_CLIENT;
 	}
-
-	private XDIHttpClient registryXdiClient;
-	private Cache registryCache;
-	private Cache authorityCache;
 
 	public XDIDiscoveryClient(XDIHttpClient registryXdiClient, Cache registryCache, Cache authorityCache) {
 
@@ -112,7 +112,6 @@ public class XDIDiscoveryClient {
 		if (xdiDiscoveryResultRegistry == null) {
 
 			if (log.isDebugEnabled()) log.debug("No discovery result from registry for " + query);
-
 			return null;
 		}
 
@@ -121,7 +120,6 @@ public class XDIDiscoveryClient {
 		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null || xdiDiscoveryResultRegistry.getCloudNumber() == null) {
 
 			if (log.isDebugEnabled()) log.debug("No XDI endpoint URI or cloud number from registry for " + query);
-
 			return xdiDiscoveryResultRegistry;
 		}
 
@@ -132,7 +130,6 @@ public class XDIDiscoveryClient {
 		if (xdiDiscoveryResultAuthority == null) {
 
 			if (log.isDebugEnabled()) log.debug("No discovery result from authority for " + query);
-
 			return xdiDiscoveryResultRegistry;
 		}
 
@@ -183,7 +180,6 @@ public class XDIDiscoveryClient {
 			} catch (Xdi2ClientException ex) {
 
 				discoveryResult.initFromException(ex);
-
 				throw ex;
 			} catch (Exception ex) {
 
@@ -195,7 +191,6 @@ public class XDIDiscoveryClient {
 			if (this.getRegistryCache() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
-
 				this.getRegistryCache().put(new Element(registryDiscoveryCacheKey, registryMessageResult));
 			}
 
@@ -263,7 +258,6 @@ public class XDIDiscoveryClient {
 			} catch (Xdi2ClientException ex) {
 
 				discoveryResult.initFromException(ex);
-
 				throw ex;
 			} catch (Exception ex) {
 
@@ -275,7 +269,6 @@ public class XDIDiscoveryClient {
 			if (this.getAuthorityCache() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
-
 				this.getAuthorityCache().put(new Element(authorityDiscoveryCacheKey, authorityMessageResult));
 			}
 
