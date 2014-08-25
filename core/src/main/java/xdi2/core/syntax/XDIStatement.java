@@ -55,11 +55,11 @@ public class XDIStatement extends XDIIdentifier {
 		}
 	}
 
-	public static XDIStatement fromContextNodeComponents(XDIAddress contextNodeXDIAddress, XDIArc contextNodeArc) {
+	public static XDIStatement fromContextNodeComponents(XDIAddress contextNodeXDIAddress, XDIArc contextNodeXDIArc) {
 
-		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_CONTEXT.toString() + "/" + contextNodeArc.toString();
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_CONTEXT.toString() + "/" + contextNodeXDIArc.toString();
 
-		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeArc);
+		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeXDIArc);
 	}
 
 	public static XDIStatement fromRelationComponents(XDIAddress contextNodeXDIAddress, XDIAddress relationAddress, XDIAddress targetContextNodeXDIAddress) {

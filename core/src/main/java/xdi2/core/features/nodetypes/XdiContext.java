@@ -24,16 +24,16 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public XdiRoot findRoot();
 	public XdiCommonRoot findLocalRoot();
 	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create);
-	public XdiEntityCollection getXdiEntityCollection(XDIArc contextNodeArc, boolean create);
+	public XdiEntityCollection getXdiEntityCollection(XDIArc contextNodeXDIArc, boolean create);
 	public XdiEntityCollection getXdiEntityCollection(XDIAddress contextNodeXDIAddress, boolean create);
-	public XdiAttributeCollection getXdiAttributeCollection(XDIArc contextNodeArc, boolean create);
+	public XdiAttributeCollection getXdiAttributeCollection(XDIArc contextNodeXDIArc, boolean create);
 	public XdiAttributeCollection getXdiAttributeCollection(XDIAddress contextNodeXDIAddress, boolean create);
-	public XdiEntitySingleton getXdiEntitySingleton(XDIArc contextNodeArc, boolean create);
+	public XdiEntitySingleton getXdiEntitySingleton(XDIArc contextNodeXDIArc, boolean create);
 	public XdiEntitySingleton getXdiEntitySingleton(XDIAddress contextNodeXDIAddress, boolean create);
-	public XdiAttributeSingleton getXdiAttributeSingleton(XDIArc contextNodeArc, boolean create);
+	public XdiAttributeSingleton getXdiAttributeSingleton(XDIArc contextNodeXDIArc, boolean create);
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDIAddress contextNodeXDIAddress, boolean create);
-	public XdiEntity getXdiEntity(XDIArc contextNodeArc, boolean create);
+	public XdiEntity getXdiEntity(XDIArc contextNodeXDIArc, boolean create);
 	public XdiEntity getXdiEntity(XDIAddress contextNodeXDIAddress, boolean create);
-	public XdiAttribute getXdiAttribute(XDIArc contextNodeArc, boolean create);
+	public XdiAttribute getXdiAttribute(XDIArc contextNodeXDIArc, boolean create);
 	public XdiAttribute getXdiAttribute(XDIAddress contextNodeXDIAddress, boolean create);
 }

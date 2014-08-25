@@ -168,7 +168,7 @@ public class ContributorExecutor {
 
 			if (relativeTargetStatement.isContextNodeStatement()) {
 
-				if (contributorMount.contextNodeArcs().length > 0 && ! Arrays.asList(contributorMount.contextNodeArcs()).contains(relativeTargetStatement.getContextNodeXDIArc())) {
+				if (contributorMount.contextNodeXDIArcs().length > 0 && ! Arrays.asList(contributorMount.contextNodeXDIArcs()).contains(relativeTargetStatement.getContextNodeXDIArc())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like context node arc " + relativeTargetStatement.getContextNodeXDIArc() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributorAddress " + contributorAddress + " and relative target statement " + relativeTargetStatement + ".");
 					continue;

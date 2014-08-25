@@ -71,11 +71,11 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		if (statementAddress.isContextNodeStatement()) {
 
-			XDIArc contextNodeArc = statementAddress.getContextNodeXDIArc();
+			XDIArc contextNodeXDIArc = statementAddress.getContextNodeXDIArc();
 
 			resolvedStatementAddress = XDIStatement.fromContextNodeComponents(
 					resolvedcontextNodeXDIAddress, 
-					contextNodeArc);
+					contextNodeXDIArc);
 		} else if (statementAddress.isRelationStatement()) {
 
 			XDIAddress relationAddress = statementAddress.getRelationXDIAddress();

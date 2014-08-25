@@ -135,7 +135,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	 * Methods related to context nodes of this context node
 	 */
 
-	//	public ContextNode setContextNode(XDIArc contextNodeArc);
+	//	public ContextNode setContextNode(XDIArc contextNodeXDIArc);
 
 	@Override
 	public ContextNode setDeepContextNode(XDIAddress relativecontextNodeXDIAddress) {
@@ -145,9 +145,9 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		ContextNode contextNode = this;
 
-		for (XDIArc contextNodeArc : relativecontextNodeXDIAddress.getXDIArcs()) {
+		for (XDIArc contextNodeXDIArc : relativecontextNodeXDIAddress.getXDIArcs()) {
 
-			contextNode = contextNode.setContextNode(contextNodeArc);
+			contextNode = contextNode.setContextNode(contextNodeXDIArc);
 		}
 
 		return contextNode;
@@ -167,9 +167,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public ContextNode getContextNode(XDIArc contextNodeArc) {
+	public ContextNode getContextNode(XDIArc contextNodeXDIArc) {
 
-		return this.getContextNode(contextNodeArc, false);
+		return this.getContextNode(contextNodeXDIArc, false);
 	}
 
 	@Override
@@ -179,9 +179,9 @@ public abstract class AbstractContextNode implements ContextNode {
 
 		ContextNode contextNode = this;
 
-		for (XDIArc contextNodeArc : relativecontextNodeXDIAddress.getXDIArcs()) {
+		for (XDIArc contextNodeXDIArc : relativecontextNodeXDIAddress.getXDIArcs()) {
 
-			contextNode = contextNode.getContextNode(contextNodeArc, subgraph);
+			contextNode = contextNode.getContextNode(contextNodeXDIArc, subgraph);
 			if (contextNode == null) return null;
 		}
 
@@ -238,9 +238,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsContextNode(XDIArc contextNodeArc) {
+	public boolean containsContextNode(XDIArc contextNodeXDIArc) {
 
-		return this.getContextNode(contextNodeArc, false) != null;
+		return this.getContextNode(contextNodeXDIArc, false) != null;
 	}
 
 	@Override

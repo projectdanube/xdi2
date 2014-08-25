@@ -98,9 +98,9 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
-		XDIArc contextNodeArc = contextNode.getXDIArc();
+		XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
-		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeArc);
+		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
 
 		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
 

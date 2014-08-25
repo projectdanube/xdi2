@@ -152,7 +152,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		if (statementAddress.isContextNodeStatement()) {
 
-			this.writecontextNodeArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
+			this.writecontextNodeXDIArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
 		} else if (statementAddress.isRelationStatement()) {
 
 			this.writecontextNodeXDIAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
@@ -182,13 +182,13 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
-			for (XDIArc contextNodeArc : contextNodeXDIAddress.getXDIArcs()) {
+			for (XDIArc contextNodeXDIArc : contextNodeXDIAddress.getXDIArcs()) {
 
-				this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);
+				this.writecontextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
 
-				if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeArc)) {
+				if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIArc)) {
 
-					contextNode = contextNode.setContextNode(contextNodeArc);
+					contextNode = contextNode.setContextNode(contextNodeXDIArc);
 				}
 			}
 		} else {
@@ -197,7 +197,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void writecontextNodeArc(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress, XDIArc contextNodeArc) throws IOException {
+	private void writecontextNodeXDIArc(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress, XDIArc contextNodeXDIArc) throws IOException {
 
 		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
@@ -206,14 +206,14 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			contextNode = contextNode.setDeepContextNode(contextNodeXDIAddress);
 		}
 
-		this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);
+		this.writecontextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
 	}
 
-	private void writecontextNodeArc(BufferedWriter bufferedWriter, ContextNode contextNode, XDIArc contextNodeArc) throws IOException {
+	private void writecontextNodeXDIArc(BufferedWriter bufferedWriter, ContextNode contextNode, XDIArc contextNodeXDIArc) throws IOException {
 
-		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeArc)) {
+		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIArc)) {
 
-			contextNode = contextNode.setContextNode(contextNodeArc);
+			contextNode = contextNode.setContextNode(contextNodeXDIArc);
 		}
 
 		String htmlColorString = null;
@@ -226,7 +226,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 
 		if (htmlColorString != null) bufferedWriter.write("<span style=\"background-color:" + htmlColorString + "\">");
-		bufferedWriter.write(contextNodeArc.toString());
+		bufferedWriter.write(contextNodeXDIArc.toString());
 		if (htmlColorString != null) bufferedWriter.write("</span>");
 	}
 
