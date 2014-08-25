@@ -242,7 +242,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		try {
 
-			this.xdiEndpointUrl = xdiEndpointUri.toURL();
+			this.xdiEndpointUrl = xdiEndpointUri == null ? null : xdiEndpointUri.toURL();
 		} catch (MalformedURLException ex) {
 
 			throw new Xdi2DiscoveryException("Malformed XDI endpoint URL: " + xdiEndpointUri);
