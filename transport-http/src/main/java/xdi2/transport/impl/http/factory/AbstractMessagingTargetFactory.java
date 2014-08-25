@@ -22,7 +22,7 @@ public abstract class AbstractMessagingTargetFactory implements MessagingTargetF
 	}
 
 	@Override
-	public Iterator<XDIArc> getOwnerPeerRootAddresses() {
+	public Iterator<XDIArc> getOwnerPeerRootXDIArcs() {
 
 		return new EmptyIterator<XDIArc> ();
 	}

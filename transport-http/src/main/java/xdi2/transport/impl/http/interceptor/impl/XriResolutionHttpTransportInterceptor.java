@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -67,13 +67,13 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 		// look into registry
 
-		XdiPeerRoot peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + providerid + query), false);
+		XdiPeerRoot peerRoot = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + providerid + query), false);
 
 		if (peerRoot == null) {
 
 			for (XDIAddress provideridSynonym : provideridSynonyms) {
 
-				peerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + provideridSynonym + query), false);
+				peerRoot = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoot(XDIAddress.create("" + provideridSynonym + query), false);
 				if (peerRoot != null) break;
 			}
 		}
@@ -155,7 +155,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 
 	private static XDIAddress[] getProviderIdSynonyms(Graph graph, XDIAddress providerid) {
 
-		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
 		if (selfPeerRoot == null) return new XDIAddress[0];
 
 		Iterator<ContextNode> selfPeerRootIncomingReferenceContextNodes = Equivalence.getIncomingReferenceContextNodes(selfPeerRoot.getContextNode());

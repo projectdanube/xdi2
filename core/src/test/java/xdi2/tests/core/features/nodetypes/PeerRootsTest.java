@@ -2,7 +2,7 @@ package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
@@ -31,7 +31,7 @@ public class PeerRootsTest extends TestCase {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		assertEquals(XdiLocalRoot.findLocalRoot(graph).getPeerRoot(XDIAddress.create("[=]!1111!23"), true).getContextNode().getXDIAddress(), XDIArc.create("([=]!1111!23)"));
+		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("[=]!1111!23"), true).getContextNode().getXDIAddress(), XDIArc.create("([=]!1111!23)"));
 		
 		graph.close();
 	}
@@ -39,12 +39,12 @@ public class PeerRootsTest extends TestCase {
 	public void testSelfPeerRoots() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(XDIAddress.create("[=]!1111!23"));
+		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(XDIAddress.create("[=]!1111!23"));
 
-		XdiPeerRoot selfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
 
 		assertEquals(selfPeerRoot.getContextNode().getXDIAddress(), XDIAddress.create("([=]!1111!23)"));
-		assertEquals(XdiLocalRoot.findLocalRoot(graph).getPeerRoot(XDIAddress.create("[=]!1111!23"), false), selfPeerRoot);
+		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("[=]!1111!23"), false), selfPeerRoot);
 		assertTrue(selfPeerRoot.isSelfPeerRoot());
 
 		graph.close();

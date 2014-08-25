@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -59,7 +59,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 
 		// sender entity
 
-		XdiEntity senderXdiEntity = XdiLocalRoot.findLocalRoot(this.getPublicKeyGraph()).getXdiEntity(senderAddress, false);
+		XdiEntity senderXdiEntity = XdiCommonRoot.findCommonRoot(this.getPublicKeyGraph()).getXdiEntity(senderAddress, false);
 		senderXdiEntity = senderXdiEntity == null ? null : senderXdiEntity.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender entity: " + senderXdiEntity);

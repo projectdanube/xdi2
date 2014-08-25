@@ -4,7 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
@@ -21,7 +21,7 @@ public final class GraphUtil {
 
 	public static XDIArc getOwnerPeerRootXDIArc(Graph graph) {
 
-		XdiPeerRoot xdiSelfPeerRoot = XdiLocalRoot.findLocalRoot(graph).getSelfPeerRoot();
+		XdiPeerRoot xdiSelfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
 		if (xdiSelfPeerRoot == null) return null;
 
 		return xdiSelfPeerRoot.getXDIArc();
@@ -44,7 +44,7 @@ public final class GraphUtil {
 
 	public static void setOwnerXDIAddress(Graph graph, XDIAddress ownerAddress) {
 
-		XdiLocalRoot.findLocalRoot(graph).setSelfPeerRoot(ownerAddress);
+		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(ownerAddress);
 	}
 
 	/**

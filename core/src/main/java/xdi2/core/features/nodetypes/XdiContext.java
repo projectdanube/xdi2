@@ -22,7 +22,7 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public Iterator<EQ> getIdentityXdiContexts();
 
 	public XdiRoot findRoot();
-	public XdiLocalRoot findLocalRoot();
+	public XdiCommonRoot findLocalRoot();
 	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create);
 	public XdiEntityCollection getXdiEntityCollection(XDIArc contextNodeArc, boolean create);
 	public XdiEntityCollection getXdiEntityCollection(XDIAddress contextNodeAddress, boolean create);

@@ -14,7 +14,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -174,8 +174,8 @@ public final class CopyUtil {
 
 		XDIAddress targetContextNodeAddress = targetContextNode.getXDIAddress();
 
-		XdiRoot relationContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeAddress, false);
-		XdiRoot targetContextNodeXdiRoot = XdiLocalRoot.findLocalRoot(targetContextNode.getGraph()).getRoot(targetContextNodeAddress, false);
+		XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeAddress, false);
+		XdiRoot targetContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(targetContextNode.getGraph()).getRoot(targetContextNodeAddress, false);
 
 		XDIAddress relativeRelationcontextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationcontextNodeAddress);
 		XDIAddress relativeRelationtargetContextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationtargetContextNodeAddress);

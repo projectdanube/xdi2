@@ -14,7 +14,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signatures;
@@ -195,7 +195,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
+				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);
@@ -242,7 +242,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiLocalRoot.findLocalRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
+				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);

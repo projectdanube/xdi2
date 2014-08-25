@@ -27,7 +27,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
@@ -1006,7 +1006,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(graph30.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(graph30.getRootContextNode().getAllStatementCount(), 0);
 
-		XdiLocalRoot.findLocalRoot(graph30).getInnerRoot(XDIAddress.create("=a=b=c"), XDIAddress.create("+d"), true);
+		XdiCommonRoot.findCommonRoot(graph30).getInnerRoot(XDIAddress.create("=a=b=c"), XDIAddress.create("+d"), true);
 
 		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDIAddress.create("(=a=b=c/+d)")));
 		assertNotNull(graph30.getRootContextNode().getDeepContextNode(XDIAddress.create("=a=b=c")));

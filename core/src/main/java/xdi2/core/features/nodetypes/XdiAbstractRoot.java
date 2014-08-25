@@ -36,7 +36,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		if (contextNode == null) return false;
 
 		return
-				XdiLocalRoot.isValid(contextNode) ||
+				XdiCommonRoot.isValid(contextNode) ||
 				XdiPeerRoot.isValid(contextNode) ||
 				XdiInnerRoot.isValid(contextNode);
 	}
@@ -50,7 +50,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		XdiRoot xdiRoot;
 
-		if ((xdiRoot = XdiLocalRoot.fromContextNode(contextNode)) != null) return xdiRoot;
+		if ((xdiRoot = XdiCommonRoot.fromContextNode(contextNode)) != null) return xdiRoot;
 		if ((xdiRoot = XdiPeerRoot.fromContextNode(contextNode)) != null) return xdiRoot;
 		if ((xdiRoot = XdiInnerRoot.fromContextNode(contextNode)) != null) return xdiRoot;
 

@@ -14,7 +14,7 @@ import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
@@ -64,7 +64,7 @@ public class GraphSigner extends PrivateKeySigner {
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getPrivateKeyGraph()).getPeerRoot(senderAddress, false);
+		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getPeerRoot(senderAddress, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);

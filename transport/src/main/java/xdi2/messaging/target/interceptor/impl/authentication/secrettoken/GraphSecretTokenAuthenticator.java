@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.syntax.XDIAddress;
@@ -56,7 +56,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiLocalRoot.findLocalRoot(this.getSecretTokenGraph()).getPeerRoot(senderAddress, false);
+		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getSecretTokenGraph()).getPeerRoot(senderAddress, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);

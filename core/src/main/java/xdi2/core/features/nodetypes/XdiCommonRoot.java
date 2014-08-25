@@ -10,15 +10,15 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
 /**
- * An XDI local root, represented as a context node.
+ * An XDI common root, represented as a context node.
  * 
  * @author markus
  */
-public class XdiLocalRoot extends XdiAbstractRoot {
+public class XdiCommonRoot extends XdiAbstractRoot {
 
 	private static final long serialVersionUID = 2956364705721958108L;
 
-	protected XdiLocalRoot(ContextNode contextNode) {
+	protected XdiCommonRoot(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -28,21 +28,21 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	 */
 
 	/**
-	 * Given a graph, finds and returns the XDI local root.
+	 * Given a graph, finds and returns the XDI common root.
 	 * @param graph The graph.
-	 * @return The XDI local root.
+	 * @return The XDI common root.
 	 */
-	public static XdiLocalRoot findLocalRoot(Graph graph) {
+	public static XdiCommonRoot findCommonRoot(Graph graph) {
 
-		ContextNode localRootContextNode = graph.getRootContextNode(false);
+		ContextNode commonRootContextNode = graph.getRootContextNode(false);
 
-		return new XdiLocalRoot(localRootContextNode);
+		return new XdiCommonRoot(commonRootContextNode);
 	}
 
 	/**
-	 * Checks if a context node is a valid XDI local root.
+	 * Checks if a context node is a valid XDI common root.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI local root.
+	 * @return True if the context node is a valid XDI common root.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -52,15 +52,15 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 	}
 
 	/**
-	 * Factory method that creates an XDI local root bound to a given context node.
-	 * @param contextNode The context node that is an XDI local root.
-	 * @return The XDI local root.
+	 * Factory method that creates an XDI common root bound to a given context node.
+	 * @param contextNode The context node that is an XDI common root.
+	 * @return The XDI common root.
 	 */
-	public static XdiLocalRoot fromContextNode(ContextNode contextNode) {
+	public static XdiCommonRoot fromContextNode(ContextNode contextNode) {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiLocalRoot(contextNode);
+		return new XdiCommonRoot(contextNode);
 	}
 
 	/*
@@ -76,14 +76,14 @@ public class XdiLocalRoot extends XdiAbstractRoot {
 
 		selfPeerRoot = this.getPeerRoot(address, true);
 
-		ContextNode localRootContextNode = this.getContextNode();
+		ContextNode commonRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();
 
-		localRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_REF);
-		localRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, selfPeerRootContextNode);
+		commonRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_REF);
+		commonRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, selfPeerRootContextNode);
 
 		selfPeerRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
-		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, localRootContextNode);
+		selfPeerRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, commonRootContextNode);
 
 		return selfPeerRoot;
 	}

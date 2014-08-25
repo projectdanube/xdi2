@@ -10,7 +10,7 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -65,7 +65,7 @@ public class XDIClientUtil {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getAddress(), false);
 		if (authorityXdiEntity == null) return null;
 
 		// find private key

@@ -13,7 +13,7 @@ import xdi2.core.Literal;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -63,7 +63,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find cloud number
 
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(registryMessageResultGraph).getPeerRoot(query, false);
+		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(registryMessageResultGraph).getPeerRoot(query, false);
 		if (xdiRoot == null) return;
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
@@ -114,8 +114,8 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find cloud number
 
-		XdiRoot xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getSelfPeerRoot();
-		if (xdiRoot == null) xdiRoot = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph);
+		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getSelfPeerRoot();
+		if (xdiRoot == null) xdiRoot = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph);
 		if (xdiRoot == null) return;
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
@@ -135,7 +135,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiLocalRoot.findLocalRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getAddress(), false);
 		if (authorityXdiEntity == null) return;
 
 		// find signature public key

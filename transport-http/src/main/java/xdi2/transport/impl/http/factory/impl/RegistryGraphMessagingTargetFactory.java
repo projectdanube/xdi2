@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -43,7 +43,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
+		XdiPeerRoot ownerPeerRoot = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -90,7 +90,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		// find the owner's XDI peer root
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
+		XdiPeerRoot ownerPeerRoot = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 
 		if (ownerPeerRoot == null) {
 
@@ -108,9 +108,9 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public Iterator<XDIArc> getOwnerPeerRootAddresses() {
+	public Iterator<XDIArc> getOwnerPeerRootXDIArcs() {
 
-		Iterator<XdiPeerRoot> ownerPeerRoots = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoots();
+		Iterator<XdiPeerRoot> ownerPeerRoots = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoots();
 
 		return new SelectingMappingIterator<XdiPeerRoot, XDIArc> (ownerPeerRoots) {
 
@@ -136,7 +136,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootAddress);
 
-		XdiPeerRoot ownerPeerRoot = XdiLocalRoot.findLocalRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
+		XdiPeerRoot ownerPeerRoot = XdiCommonRoot.findCommonRoot(this.getRegistryGraph()).getPeerRoot(ownerAddress, false);
 		if (ownerPeerRoot == null) return null;
 
 		String requestPath = messagingTargetFactoryPath + "/" + ownerAddress.toString();

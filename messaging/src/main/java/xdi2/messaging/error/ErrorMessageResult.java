@@ -8,7 +8,7 @@ import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
@@ -146,7 +146,7 @@ public class ErrorMessageResult extends MessageResult {
 
 	public void setErrorOperation(Operation operation) {
 
-		XdiInnerRoot xdiInnerRoot = XdiLocalRoot.findLocalRoot(this.getGraph()).getInnerRoot(XDI_ADD_FALSE, XDI_ADD_ERROR, true);
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getGraph()).getInnerRoot(XDI_ADD_FALSE, XDI_ADD_ERROR, true);
 		xdiInnerRoot.getContextNode().clear();
 
 		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getAddress())).getRelation();

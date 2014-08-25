@@ -8,7 +8,7 @@ import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -61,7 +61,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 
 		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
 
-		for (XdiInnerRoot xdiInnerRoot : XdiLocalRoot.findLocalRoot(messageResult.getGraph()).getInnerRoots()) {
+		for (XdiInnerRoot xdiInnerRoot : XdiCommonRoot.findCommonRoot(messageResult.getGraph()).getInnerRoots()) {
 
 			contextNode = this.getGraph().getDeepContextNode(xdiInnerRoot.getContextNode().getXDIAddress(), true);
 

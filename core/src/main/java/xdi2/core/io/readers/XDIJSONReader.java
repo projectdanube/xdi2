@@ -17,7 +17,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiLocalRoot;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIReader;
@@ -160,7 +160,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 		if (! (jsonGraphElement instanceof JsonObject)) throw new Xdi2ParseException("JSON must be an object: " + jsonGraphElement);
 
-		this.read(XdiLocalRoot.findLocalRoot(graph), (JsonObject) jsonGraphElement, state);
+		this.read(XdiCommonRoot.findCommonRoot(graph), (JsonObject) jsonGraphElement, state);
 	}
 
 	@Override
