@@ -1,6 +1,9 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 import java.util.HashMap;
@@ -8,12 +11,13 @@ import java.util.Map;
 
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
@@ -30,7 +34,8 @@ public class XDIDiscoveryResult implements Serializable {
 	private CloudNumber cloudNumber;
 	private PublicKey signaturePublicKey;
 	private PublicKey encryptionPublicKey;
-	private Map<XDIAddress, String> endpointUris;
+	private Map<XDIAddress, URI> endpointUris;
+	private URL xdiEndpointUrl;
 
 	private MessageEnvelope messageEnvelope;
 	private MessageResult messageResult;
@@ -40,7 +45,8 @@ public class XDIDiscoveryResult implements Serializable {
 		this.cloudNumber = null;
 		this.signaturePublicKey = null;
 		this.encryptionPublicKey = null;
-		this.endpointUris = new HashMap<XDIAddress, String> ();
+		this.endpointUris = new HashMap<XDIAddress, URI> ();
+		this.xdiEndpointUrl = null;
 
 		this.messageEnvelope = null;
 		this.messageResult = null;
@@ -78,29 +84,13 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
-		// find XDI endpoint uri
+		// only look for the XDI endpoint URI
 
 		endpointUriTypes = new XDIAddress[] { XDIClientConstants.XDI_ADD_AS_XDI };
 
-		for (XDIAddress endpointUriType : endpointUriTypes) {
+		// init endpoint URIs
 
-			XDIAddress endpointUriXdiAttributeAddress = XDIAddressUtil.concatXDIAddresses(endpointUriType, XDIClientConstants.XDI_ARC_AS_URI);
-			XdiAttribute endpointUriXdiAttribute = xdiRoot.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
-			if (endpointUriXdiAttribute == null) continue;
-
-			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
-
-			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
-			if (endpointUriXdiValue == null) continue;
-
-			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
-			if (endpointUriLiteral == null) continue;
-
-			String endpointUri = endpointUriLiteral.getLiteralDataString();
-			if (endpointUri == null) continue;
-
-			this.endpointUris.put(endpointUriType, endpointUri);
-		}
+		initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
 	void initFromAuthorityMessageResult(MessageEnvelope authorityMessageEnvelope, MessageResult authorityMessageResult, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
@@ -158,30 +148,9 @@ public class XDIDiscoveryResult implements Serializable {
 			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
 		}
 
-		// find endpoint uris
+		// init endpoint uris
 
-		if (endpointUriTypes != null) {
-
-			for (XDIAddress endpointUriType : endpointUriTypes) {
-
-				XDIAddress endpointUriXdiAttributeAddress = XDIAddressUtil.concatXDIAddresses(endpointUriType, XDIClientConstants.XDI_ARC_AS_URI);
-				XdiAttribute endpointUriXdiAttribute = authorityXdiEntity.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
-				if (endpointUriXdiAttribute == null) continue;
-
-				endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
-
-				XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
-				if (endpointUriXdiValue == null) continue;
-
-				Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
-				if (endpointUriLiteral == null) continue;
-
-				String endpointUri = endpointUriLiteral.getLiteralDataString();
-				if (endpointUri == null) continue;
-
-				this.endpointUris.put(endpointUriType, endpointUri);
-			}
-		}
+		this.initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
 	void initFromException(Xdi2ClientException ex) {
@@ -210,17 +179,17 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.encryptionPublicKey;
 	}
 
-	public Map<XDIAddress, String> getEndpointUris() {
+	public Map<XDIAddress, URI> getEndpointUris() {
 
 		return this.endpointUris;
 	}
 
-	public String getXdiEndpointUri() {
+	public URL getXdiEndpointUrl() {
 
-		return this.getEndpointUris().get(XDIClientConstants.XDI_ADD_AS_XDI);
+		return this.xdiEndpointUrl;
 	}
 
-	public String getDefaultEndpointUri() {
+	public URI getDefaultEndpointUri() {
 
 		return this.getEndpointUris().get(null);
 	}
@@ -236,12 +205,51 @@ public class XDIDiscoveryResult implements Serializable {
 	}
 
 	/*
+	 * Helper methods
+	 */
+
+	private void initEndpointUris(XdiRoot xdiRoot, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException {
+
+		for (XDIAddress endpointUriType : endpointUriTypes) {
+
+			XDIAddress endpointUriXdiAttributeAddress = XDIAddressUtil.concatXDIAddresses(endpointUriType, XDIClientConstants.XDI_ARC_AS_URI);
+			XdiAttribute endpointUriXdiAttribute = xdiRoot.getXdiAttributeSingleton(endpointUriXdiAttributeAddress, false);
+			if (endpointUriXdiAttribute == null) continue;
+
+			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
+
+			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
+			if (endpointUriXdiValue == null) continue;
+
+			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
+			if (endpointUriLiteral == null) continue;
+
+			String endpointUri = endpointUriLiteral.getLiteralDataString();
+			if (endpointUri == null) continue;
+
+			this.endpointUris.put(endpointUriType, URI.create(endpointUri));
+		}
+
+		// XDI endpoint URI/URL
+
+		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.XDI_ADD_AS_XDI);
+
+		try {
+
+			this.xdiEndpointUrl = xdiEndpointUri.toURL();
+		} catch (MalformedURLException ex) {
+
+			throw new Xdi2DiscoveryException("Malformed XDI endpoint URL: " + xdiEndpointUri);
+		}
+	}
+
+	/*
 	 * Object methods
 	 */
 
 	@Override
 	public String toString() {
 
-		return this.getCloudNumber() + " (" + this.getXdiEndpointUri() + ")";
+		return this.getCloudNumber() + " (" + this.getXdiEndpointUrl() + ")";
 	}
 }
