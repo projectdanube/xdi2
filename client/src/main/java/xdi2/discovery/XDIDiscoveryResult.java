@@ -210,6 +210,12 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private void initEndpointUris(XdiRoot xdiRoot, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException {
 
+		if (endpointUriTypes == null) {
+
+			this.endpointUris.clear();
+			return;
+		}
+
 		for (XDIAddress endpointUriType : endpointUriTypes) {
 
 			XDIAddress endpointUriXdiAttributeAddress = XDIAddressUtil.concatXDIAddresses(endpointUriType, XDIClientConstants.XDI_ARC_AS_URI);
