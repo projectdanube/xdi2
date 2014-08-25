@@ -140,7 +140,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
 
-		if (this.endpointUri == null) throw new Xdi2ClientException("No URI set.", null);
+		if (this.endpointUri == null) throw new Xdi2ClientException("No URI set.");
 
 		// timestamp
 
@@ -157,7 +157,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			writer = XDIWriterRegistry.forMimeType(sendMimeType);
 		}
 
-		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.", null);
+		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.");
 
 		if (log.isDebugEnabled()) log.debug("Using writer " + writer.getClass().getName() + ".");
 
@@ -172,7 +172,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			reader = XDIReaderRegistry.forMimeType(recvMimeType);
 		}
 
-		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.", null);
+		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.");
 
 		if (log.isDebugEnabled()) log.debug("Using reader " + reader.getClass().getName() + ".");
 
@@ -193,10 +193,10 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			connection = this.getEndpointUri().openConnection();
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex);
 		}
 
-		if (! (connection instanceof HttpURLConnection)) throw new Xdi2ClientException("Can only work with HTTP(S) URLs.", null);
+		if (! (connection instanceof HttpURLConnection)) throw new Xdi2ClientException("Can only work with HTTP(S) URLs.");
 
 		HttpURLConnection http = (HttpURLConnection) connection;
 
@@ -212,7 +212,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			http.setRequestMethod("POST");
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex);
 		}
 
 		// send the message envelope
@@ -233,14 +233,14 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			responseMessage = http.getResponseMessage();
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex);
 		}
 
 		// check response code
 
 		if (responseCode >= 300) {
 
-			throw new Xdi2ClientException("HTTP code " + responseCode + " received: " + responseMessage, null);
+			throw new Xdi2ClientException("HTTP code " + responseCode + " received: " + responseMessage);
 		}
 
 		// check in which format we receive the result
@@ -276,7 +276,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			inputStream.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex, null);
+			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex);
 		}
 
 		http.disconnect();

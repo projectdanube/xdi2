@@ -16,6 +16,7 @@ import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.events.XDIDiscoverFromAuthorityEvent;
 import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
@@ -103,7 +104,7 @@ public class XDIDiscoveryClient {
 		this(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 	}
 
-	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		// first discover from registry
 
@@ -143,7 +144,7 @@ public class XDIDiscoveryClient {
 		return xdiDiscoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -183,7 +184,7 @@ public class XDIDiscoveryClient {
 				throw ex;
 			} catch (Exception ex) {
 
-				throw new Xdi2ClientException("Cannot send XDI message to XDI registry: " + ex.getMessage(), ex, null);
+				throw new Xdi2DiscoveryException("Cannot send XDI message to XDI registry: " + ex.getMessage(), ex);
 			}
 
 			// save in cache
@@ -208,7 +209,7 @@ public class XDIDiscoveryClient {
 		return discoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(String xdiEndpointUri, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		XDIDiscoveryResult discoveryResult = new XDIDiscoveryResult();
 
@@ -261,7 +262,7 @@ public class XDIDiscoveryClient {
 				throw ex;
 			} catch (Exception ex) {
 
-				throw new Xdi2ClientException("Cannot send XDI message to XDI authority: " + ex.getMessage(), ex, null);
+				throw new Xdi2DiscoveryException("Cannot send XDI message to XDI authority: " + ex.getMessage(), ex);
 			}
 
 			// save in cache
