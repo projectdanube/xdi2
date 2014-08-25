@@ -142,7 +142,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(statement.isRelationStatement());
 	}
 
-	public void testXDI3XRef() throws Exception {
+	public void testXDIXRef() throws Exception {
 
 		Parser parser = this.getParser();
 
