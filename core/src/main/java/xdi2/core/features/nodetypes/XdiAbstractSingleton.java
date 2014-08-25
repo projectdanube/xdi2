@@ -54,13 +54,13 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 	 * Methods for arcs
 	 */
 
-	public static boolean isSingletonXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiEntitySingleton.isEntitySingletonXDIArc(XDIarc)) return true; 
-		if (XdiAttributeSingleton.isAttributeSingletonXDIArc(XDIarc)) return true;
-		if (XdiVariableSingleton.isVariableSingletonXDIArc(XDIarc)) return true;
+		if (XdiEntitySingleton.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeSingleton.isValidXDIArc(XDIarc)) return true;
+		if (XdiVariableSingleton.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

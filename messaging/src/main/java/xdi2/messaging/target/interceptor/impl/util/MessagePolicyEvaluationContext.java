@@ -114,10 +114,10 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 		XDIArc firstArc = contextNodeXDIAddress.getFirstXDIArc();
 
-		if (XdiPeerRoot.isPeerRootXDIArc(firstArc)) {
+		if (XdiPeerRoot.isValidXDIArc(firstArc)) {
 
 			firstArc = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(firstArc).getFirstXDIArc();
-		} else if (XdiInnerRoot.isInnerRootXDIArc(firstArc)) {
+		} else if (XdiInnerRoot.isValidXDIArc(firstArc)) {
 
 			firstArc = XdiInnerRoot.getSubjectOfInnerRootXDIArc(firstArc).getFirstXDIArc();
 		}

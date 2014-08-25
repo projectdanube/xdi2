@@ -168,7 +168,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 				XDIArc XDIarc = incomingRelation.getContextNode().getXDIArc();
 
-				if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) return XDIarc;
+				if (XdiPeerRoot.isValidXDIArc(XDIarc)) return XDIarc;
 			}
 		}
 
@@ -192,7 +192,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (toPeerRootXDIArcRelation == null) return null;
 
 		XDIAddress toPeerRootAddress = toPeerRootXDIArcRelation.getTargetContextNodeXDIAddress();
-		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isPeerRootXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
+		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isValidXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
 
 		return toPeerRootAddress.getFirstXDIArc();
 	}

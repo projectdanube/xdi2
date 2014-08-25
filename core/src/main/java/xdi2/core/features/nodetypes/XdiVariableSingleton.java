@@ -35,7 +35,7 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isVariableSingletonXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
 		if (XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
 
@@ -65,7 +65,7 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 		return XDIarc;
 	}
 
-	public static boolean isVariableSingletonXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

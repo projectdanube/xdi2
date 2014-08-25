@@ -12,16 +12,16 @@ public class PeerRootsTest extends TestCase {
 
 	public void testPeerRootAddresses() throws Exception {
 		
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("")));
-		assertTrue(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("([=]!1111!23)")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("(=a*b/+c*d)")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("")));
+		assertTrue(XdiPeerRoot.isValidXDIArc(XDIArc.create("([=]!1111!23)")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("(=a*b/+c*d)")));
 
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("[<+c>]")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("{1}")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("{[<+(name)>]}")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("<+(name)>")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("[+(name)]")));
-		assertFalse(XdiPeerRoot.isPeerRootXDIArc(XDIArc.create("+(name)")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("[<+c>]")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("{1}")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("{[<+(name)>]}")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("<+(name)>")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("[+(name)]")));
+		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("+(name)")));
 
 		assertEquals(XdiPeerRoot.createPeerRootXDIArc(XDIAddress.create("[=]!1111!23")), XDIArc.create("([=]!1111!23)"));
 		assertEquals(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(XDIArc.create("([=]!1111!23)")), XDIAddress.create("[=]!1111!23"));

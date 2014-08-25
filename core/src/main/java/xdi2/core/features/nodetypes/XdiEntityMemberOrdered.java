@@ -34,7 +34,7 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isEntityMemberOrderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() == null || ! XdiEntityCollection.isValid(contextNode.getContextNode())) return false;
 
 		return true;
@@ -72,11 +72,11 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 * Methods for arcs
 	 */
 
-	public static boolean isEntityMemberOrderedXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XdiAbstractMemberOrdered.isMemberOrderedXDIArc(XDIarc, XdiEntityCollection.class)) return false;
+		if (! XdiAbstractMemberOrdered.isValidXDIArc(XDIarc, XdiEntityCollection.class)) return false;
 
 		return true;
 	}

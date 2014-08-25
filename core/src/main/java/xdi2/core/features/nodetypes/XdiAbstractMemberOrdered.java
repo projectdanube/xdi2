@@ -76,7 +76,7 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 		}
 	}
 
-	public static boolean isMemberOrderedXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

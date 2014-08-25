@@ -23,25 +23,25 @@ public class NodeTypesTest extends TestCase {
 		assertEquals(XdiAbstractMemberUnordered.createXDIArc("1", XdiEntityCollection.class), XDIArc.create("!1"));
 		assertEquals(XdiAbstractMemberOrdered.createXDIArc("1", XdiEntityCollection.class), XDIArc.create("@1"));
 
-		assertTrue(XdiEntitySingleton.isEntitySingletonXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeSingleton.isAttributeSingletonXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiEntityCollection.isEntityCollectionXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeCollection.isAttributeCollectionXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
+		assertTrue(XdiEntitySingleton.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isEntitySingletonXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
-		assertTrue(XdiAttributeSingleton.isAttributeSingletonXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiEntityCollection.isEntityCollectionXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeCollection.isAttributeCollectionXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntitySingleton.isValidXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
+		assertTrue(XdiAttributeSingleton.isValidXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isEntitySingletonXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeSingleton.isAttributeSingletonXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
-		assertTrue(XdiEntityCollection.isEntityCollectionXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeCollection.isAttributeCollectionXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntitySingleton.isValidXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
+		assertTrue(XdiEntityCollection.isValidXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeCollection.isValidXDIArc(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address"))));
 
-		assertFalse(XdiEntitySingleton.isEntitySingletonXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiAttributeSingleton.isAttributeSingletonXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
-		assertFalse(XdiEntityCollection.isEntityCollectionXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
-		assertTrue(XdiAttributeCollection.isAttributeCollectionXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntitySingleton.isValidXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiAttributeSingleton.isValidXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
+		assertFalse(XdiEntityCollection.isValidXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
+		assertTrue(XdiAttributeCollection.isValidXDIArc(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address"))));
 
 		assertEquals(XdiAbstractContext.getBaseXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))), XDIArc.create("#address"));
 		assertEquals(XdiAbstractContext.getBaseXDIArc(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address"))), XDIArc.create("#address"));

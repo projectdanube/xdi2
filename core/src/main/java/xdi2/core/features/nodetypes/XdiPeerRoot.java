@@ -38,7 +38,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isPeerRootXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() != null && ! XdiAbstractRoot.isValid(contextNode.getContextNode())) return false;
 
 		return true;
@@ -169,7 +169,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param arc A peer root arc.
 	 * @return True, if the arc is a peer root arc.
 	 */
-	public static boolean isPeerRootXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

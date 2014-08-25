@@ -38,7 +38,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isInnerRootXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() != null && ! XdiAbstractRoot.isValid(contextNode.getContextNode())) return false;
 
 		return true;
@@ -209,7 +209,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root arc.
 	 * @return True, if the arc is an inner root arc.
 	 */
-	public static boolean isInnerRootXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

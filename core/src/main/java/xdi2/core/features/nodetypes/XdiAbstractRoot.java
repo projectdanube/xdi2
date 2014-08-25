@@ -103,13 +103,13 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 			XdiRoot nextRoot;
 
-			if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) {
+			if (XdiPeerRoot.isValidXDIArc(XDIarc)) {
 
 				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
 				if (peerRootContextNode == null) break;
 
 				nextRoot = new XdiPeerRoot(peerRootContextNode);
-			} if (XdiInnerRoot.isInnerRootXDIArc(XDIarc)) {
+			} if (XdiInnerRoot.isValidXDIArc(XDIarc)) {
 
 				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
 				if (innerRootContextNode == null) break;
@@ -180,12 +180,12 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 * Methods for arcs
 	 */
 
-	public static boolean isRootXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) return true;
-		if (XdiInnerRoot.isInnerRootXDIArc(XDIarc)) return true;
+		if (XdiPeerRoot.isValidXDIArc(XDIarc)) return true;
+		if (XdiInnerRoot.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

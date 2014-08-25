@@ -35,7 +35,7 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isEntitySingletonXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() != null && XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
 		if (contextNode.getContextNode() != null && XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
 
@@ -65,7 +65,7 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 		return XDIarc;
 	}
 
-	public static boolean isEntitySingletonXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

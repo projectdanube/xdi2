@@ -58,13 +58,13 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 * Methods for arcs
 	 */
 
-	public static boolean isVariableXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiVariableSingleton.isVariableSingletonXDIArc(XDIarc)) return true;
-		if (XdiVariableMemberUnordered.isVariableMemberUnorderedXDIArc(XDIarc)) return true;
-		if (XdiVariableMemberOrdered.isVariableMemberOrderedXDIArc(XDIarc)) return true;
+		if (XdiVariableSingleton.isValidXDIArc(XDIarc)) return true;
+		if (XdiVariableMemberUnordered.isValidXDIArc(XDIarc)) return true;
+		if (XdiVariableMemberOrdered.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

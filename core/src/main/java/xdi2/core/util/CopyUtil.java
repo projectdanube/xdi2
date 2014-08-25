@@ -187,7 +187,7 @@ public final class CopyUtil {
 
 		if (relativeRelationtargetContextNodeXDIAddress != null &&
 				relativeRelationtargetContextNodeXDIAddress.getNumXDIArcs() == 1 &&
-				XdiInnerRoot.isInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()) &&
+				XdiInnerRoot.isValidXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()) &&
 				XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeXDIAddress) &&
 				XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relationAddress)) {
 

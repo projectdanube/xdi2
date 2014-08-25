@@ -56,12 +56,12 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 	 * Methods for arcs
 	 */
 
-	public static boolean isMemberXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiAbstractMemberUnordered.isMemberUnorderedXDIArc(XDIarc, clazz)) return true; 
-		if (XdiAbstractMemberOrdered.isMemberOrderedXDIArc(XDIarc, clazz)) return true;
+		if (XdiAbstractMemberUnordered.isValidXDIArc(XDIarc, clazz)) return true; 
+		if (XdiAbstractMemberOrdered.isValidXDIArc(XDIarc, clazz)) return true;
 
 		return false;
 	}

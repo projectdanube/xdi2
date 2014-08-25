@@ -79,21 +79,6 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/*
-	 * Methods for arcs
-	 */
-
-	public static boolean isCollectionXDIArc(XDIArc XDIarc) {
-
-		if (XDIarc == null) throw new NullPointerException();
-		
-		if (XdiEntityCollection.isEntityCollectionXDIArc(XDIarc)) return true; 
-		if (XdiAttributeCollection.isAttributeCollectionXDIArc(XDIarc)) return true;
-		if (XdiVariableCollection.isVariableCollectionXDIArc(XDIarc)) return true;
-
-		return false;
-	}
-
-	/*
 	 * Instance methods
 	 */
 
@@ -242,6 +227,21 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	public Class<I> getI() {
 
 		return this.i;
+	}
+
+	/*
+	 * Methods for arcs
+	 */
+
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
+
+		if (XDIarc == null) throw new NullPointerException();
+		
+		if (XdiEntityCollection.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeCollection.isValidXDIArc(XDIarc)) return true;
+		if (XdiVariableCollection.isValidXDIArc(XDIarc)) return true;
+
+		return false;
 	}
 
 	/*

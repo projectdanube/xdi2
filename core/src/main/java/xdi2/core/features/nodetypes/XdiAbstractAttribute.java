@@ -58,13 +58,13 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	 * Methods for arcs
 	 */
 
-	public static boolean isAttributeXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 		
-		if (XdiAttributeSingleton.isAttributeSingletonXDIArc(XDIarc)) return true; 
-		if (XdiAttributeMemberUnordered.isAttributeMemberUnorderedXDIArc(XDIarc)) return true;
-		if (XdiAttributeMemberOrdered.isAttributeMemberOrderedXDIArc(XDIarc)) return true;
+		if (XdiAttributeSingleton.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeMemberUnordered.isValidXDIArc(XDIarc)) return true;
+		if (XdiAttributeMemberOrdered.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

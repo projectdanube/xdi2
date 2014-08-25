@@ -35,7 +35,7 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isEntityCollectionXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() != null && XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
 		if (contextNode.getContextNode() != null && XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
 
@@ -65,7 +65,7 @@ public final class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCo
 		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + XDIarc + XDIConstants.XS_CLASS.charAt(1));
 	}
 
-	public static boolean isEntityCollectionXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

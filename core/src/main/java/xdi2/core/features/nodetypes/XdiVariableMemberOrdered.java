@@ -34,7 +34,7 @@ public final class XdiVariableMemberOrdered extends XdiAbstractMemberOrdered<Xdi
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isVariableMemberOrderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() == null || ! XdiVariableCollection.isValid(contextNode.getContextNode())) return false;
 
 		return true;
@@ -58,11 +58,11 @@ public final class XdiVariableMemberOrdered extends XdiAbstractMemberOrdered<Xdi
 	 * Methods for arcs
 	 */
 
-	public static boolean isVariableMemberOrderedXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XdiAbstractMemberOrdered.isMemberOrderedXDIArc(XDIarc, XdiVariableCollection.class)) return false;
+		if (! XdiAbstractMemberOrdered.isValidXDIArc(XDIarc, XdiVariableCollection.class)) return false;
 
 		return true;
 	}

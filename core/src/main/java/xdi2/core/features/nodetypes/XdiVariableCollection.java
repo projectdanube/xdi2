@@ -35,7 +35,7 @@ public final class XdiVariableCollection extends XdiAbstractCollection<XdiVariab
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isVariableCollectionXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		
 		return true;
 	}
@@ -63,7 +63,7 @@ public final class XdiVariableCollection extends XdiAbstractCollection<XdiVariab
 		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + XDIarc + XDIConstants.XS_CLASS.charAt(1));
 	}
 
-	public static boolean isVariableCollectionXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

@@ -119,7 +119,7 @@ public class GenericLinkContract extends LinkContract {
 	public static XDIAddress getAuthorizingAuthority(XDIAddress XDIaddress) {
 
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
-		if (! XdiInnerRoot.isInnerRootXDIArc(linkContractInnerRootXDIArc)) return null;
+		if (! XdiInnerRoot.isValidXDIArc(linkContractInnerRootXDIArc)) return null;
 
 		return XdiInnerRoot.getSubjectOfInnerRootXDIArc(linkContractInnerRootXDIArc);
 	}
@@ -127,7 +127,7 @@ public class GenericLinkContract extends LinkContract {
 	public static XDIAddress getRequestingAuthority(XDIAddress XDIaddress) {
 
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
-		if (! XdiInnerRoot.isInnerRootXDIArc(linkContractInnerRootXDIArc)) return null;
+		if (! XdiInnerRoot.isValidXDIArc(linkContractInnerRootXDIArc)) return null;
 
 		return XdiInnerRoot.getPredicateOfInnerRootXDIArc(linkContractInnerRootXDIArc);
 	}

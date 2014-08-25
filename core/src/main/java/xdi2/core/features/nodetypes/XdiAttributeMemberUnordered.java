@@ -34,7 +34,7 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (contextNode.getXDIArc() == null || ! isAttributeMemberUnorderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
 		if (contextNode.getContextNode() == null || ! XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
 
 		return true;
@@ -58,11 +58,11 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 	 * Methods for arcs
 	 */
 
-	public static boolean isAttributeMemberUnorderedXDIArc(XDIArc XDIarc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XdiAbstractMemberUnordered.isMemberUnorderedXDIArc(XDIarc, XdiAttributeCollection.class)) return false;
+		if (! XdiAbstractMemberUnordered.isValidXDIArc(XDIarc, XdiAttributeCollection.class)) return false;
 
 		return true;
 	}

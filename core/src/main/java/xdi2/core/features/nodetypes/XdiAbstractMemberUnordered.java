@@ -64,7 +64,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 * Methods for arcs
 	 */
 
-	public static boolean isMemberUnorderedXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
