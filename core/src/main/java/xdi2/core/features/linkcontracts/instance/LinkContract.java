@@ -44,9 +44,10 @@ public abstract class LinkContract extends LinkContractBase {
 
 		LinkContract linkContract = null;
 
-		if ((linkContract = RequesterLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = RequesterLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = CommunityLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;

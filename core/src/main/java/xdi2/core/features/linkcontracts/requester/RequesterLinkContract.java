@@ -1,6 +1,6 @@
 package xdi2.core.features.linkcontracts.requester;
 
-import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
 
 /**
@@ -8,7 +8,7 @@ import xdi2.core.features.nodetypes.XdiEntity;
  * 
  * @author markus
  */
-public class RequesterLinkContract extends LinkContract {
+public class RequesterLinkContract extends GenericLinkContract {
 
 	private static final long serialVersionUID = -4713483572204567144L;
 
