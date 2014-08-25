@@ -297,9 +297,7 @@ public final class XDIAddressUtil {
 	}
 
 	/**
-	 * Extracts an address from an address.
-	 * For =a*b*c*d and 1, this returns *d
-	 * For =a*b*c*d and -1, this returns *b*c*d
+	 * Extracts an partial address from an address.
 	 */
 	public static XDIAddress subXDIAddress(final XDIAddress XDIaddress, final int startIndex, final int endIndex) {
 
