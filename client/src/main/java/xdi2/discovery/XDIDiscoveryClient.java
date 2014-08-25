@@ -210,9 +210,13 @@ public class XDIDiscoveryClient {
 			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromRegistryEvent(this, registryMessageEnvelope, xdiDiscoveryResult, query));
 		}
 
-		// parse the registry message result
+		// init the registry message result
 
 		xdiDiscoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query, endpointUriTypes);
+
+		// cloud number check
+
+		if (CloudNumber.isValid(query) && ! xdiDiscoveryResult.getCloudNumber().getXDIAddress().equals(query)) throw new Xdi2DiscoveryException("Queried cloud number " + CloudNumber.fromXDIAddress(query) + " does not match discovered cloud number " + xdiDiscoveryResult.getCloudNumber());
 
 		// done
 
@@ -290,9 +294,13 @@ public class XDIDiscoveryClient {
 			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, xdiDiscoveryResult, xdiEndpointUrl));
 		}
 
-		// parse the authority message result
+		// init the authority message result
 
 		xdiDiscoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult, endpointUriTypes);
+
+		// cloud number check
+
+		if (! xdiDiscoveryResult.getCloudNumber().getXDIAddress().equals(cloudNumber)) throw new Xdi2DiscoveryException("Queried cloud number " + cloudNumber + " does not match discovered cloud number " + xdiDiscoveryResult.getCloudNumber());
 
 		// done
 
