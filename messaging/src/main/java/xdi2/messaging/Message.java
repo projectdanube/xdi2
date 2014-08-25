@@ -178,9 +178,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the FROM peer root arc.
 	 */
-	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIarc) {
+	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIArc) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootXDIarc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootXDIArc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
 	}
 
 	/**
@@ -188,10 +188,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public XDIArc getToPeerRootXDIArc() {
 
-		Relation toPeerRootXDIarcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
-		if (toPeerRootXDIarcRelation == null) return null;
+		Relation toPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
+		if (toPeerRootXDIArcRelation == null) return null;
 
-		XDIAddress toPeerRootAddress = toPeerRootXDIarcRelation.getTargetContextNodeXDIAddress();
+		XDIAddress toPeerRootAddress = toPeerRootXDIArcRelation.getTargetContextNodeXDIAddress();
 		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isPeerRootXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
 
 		return toPeerRootAddress.getFirstXDIArc();
@@ -200,13 +200,13 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the TO peer root arc of the message.
 	 */
-	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIarc) {
+	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
 
 		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
 
-		if (toPeerRootXDIarc != null) {
+		if (toPeerRootXDIArc != null) {
 
-			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIarc));
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIArc));
 		}
 	}
 

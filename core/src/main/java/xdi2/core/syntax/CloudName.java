@@ -62,9 +62,9 @@ public class CloudName {
 
 		XDIAddress XDIaddress = XDIAddress.create(buffer.toString());
 
-		XDIArc peerRootXDIarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudName(XDIaddress, peerRootXDIarc);
+		return new CloudName(XDIaddress, peerRootXDIArc);
 	}
 
 	public static CloudName fromXDIAddress(XDIAddress XDIaddress) {
@@ -78,18 +78,18 @@ public class CloudName {
 		return new CloudName(XDIaddress, peerRootXDIArc);
 	}
 
-	public static CloudName fromPeerRootXDIarc(XDIArc peerRootXDIArc) {
+	public static CloudName fromPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
 		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
 
 		return fromXDIAddress(XDIaddress);
 	}
 
-	public static CloudName fromPeerRootXDIarc(XDIAddress peerRootXDIArc) {
+	public static CloudName fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
 
 		if (peerRootXDIArc.getNumXDIArcs() > 1) return null;
 		
-		return fromPeerRootXDIarc(peerRootXDIArc.getFirstXDIArc());
+		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
 	}
 
 	public XDIAddress getXDIAddress() {

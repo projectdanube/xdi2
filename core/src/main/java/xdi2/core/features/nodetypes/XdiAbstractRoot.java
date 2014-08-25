@@ -180,7 +180,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 * Methods for arcs
 	 */
 
-	public static boolean isRootXDIarc(XDIArc XDIarc) {
+	public static boolean isRootXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

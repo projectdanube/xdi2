@@ -44,7 +44,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private XDIArc toPeerRootXDIarc;
+	private XDIArc toPeerRootXDIArc;
 	private XDIClient xdiClient;
 	private XDIAddress linkContractAddress;
 
@@ -93,11 +93,11 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if we have a static forwarding target, but no XDI client, use XDI discovery to create one
 
-		if (this.toPeerRootXDIarc != null && this.xdiClient == null) {
+		if (this.toPeerRootXDIArc != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIarc), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc), null);
 
-			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIarc);
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIArc);
 
 			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 		}
@@ -112,9 +112,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if there is a static forwarding target, we use it
 
-		if (this.getToPeerRootXDIarc() != null && this.getXdiClient() != null) {
+		if (this.getToPeerRootXDIArc() != null && this.getXdiClient() != null) {
 
-			XDIArc staticForwardingTargetToPeerRootAddress = this.getToPeerRootXDIarc();
+			XDIArc staticForwardingTargetToPeerRootAddress = this.getToPeerRootXDIArc();
 			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
 			XDIAddress staticLinkContractAddress = this.getLinkContractAddress();
 
@@ -364,14 +364,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * Getters and setters
 	 */
 
-	public XDIArc getToPeerRootXDIarc() {
+	public XDIArc getToPeerRootXDIArc() {
 
-		return this.toPeerRootXDIarc;
+		return this.toPeerRootXDIArc;
 	}
 
-	public void setToPeerRootXDIarc(XDIArc toPeerRootAddress) {
+	public void setToPeerRootXDIArc(XDIArc toPeerRootAddress) {
 
-		this.toPeerRootXDIarc = toPeerRootAddress;
+		this.toPeerRootXDIArc = toPeerRootAddress;
 	}
 
 	public XDIClient getXdiClient() {

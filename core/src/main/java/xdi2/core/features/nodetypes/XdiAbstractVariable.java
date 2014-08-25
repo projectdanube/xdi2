@@ -58,7 +58,7 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 * Methods for arcs
 	 */
 
-	public static boolean isVariableXDIarc(XDIArc XDIarc) {
+	public static boolean isVariableXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 

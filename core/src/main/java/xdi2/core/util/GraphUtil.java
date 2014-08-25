@@ -29,15 +29,15 @@ public final class GraphUtil {
 
 	public static XDIAddress getOwnerXDIAddress(Graph graph) {
 
-		XDIArc ownerPeerRootXDIarc = getOwnerPeerRootXDIArc(graph);
-		if (ownerPeerRootXDIarc == null) return null;
+		XDIArc ownerPeerRootXDIArc = getOwnerPeerRootXDIArc(graph);
+		if (ownerPeerRootXDIArc == null) return null;
 
-		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIarc);
+		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
 	}
 
-	public static void setOwnerPeerRootXDIArc(Graph graph, XDIArc ownerPeerRootXDIarc) {
+	public static void setOwnerPeerRootXDIArc(Graph graph, XDIArc ownerPeerRootXDIArc) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIarc);
+		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
 
 		setOwnerXDIAddress(graph, ownerAddress);
 	}

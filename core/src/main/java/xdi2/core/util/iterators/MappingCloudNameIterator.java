@@ -21,7 +21,7 @@ public class MappingCloudNameIterator extends MappingIterator<XDIAddress, CloudN
 	public CloudName map(XDIAddress XDIaddress) {
 
 		CloudName cloudName = CloudName.fromXDIAddress(XDIaddress);
-		if (cloudName == null) cloudName = CloudName.fromPeerRootXDIarc(XDIaddress);
+		if (cloudName == null) cloudName = CloudName.fromPeerRootXDIArc(XDIaddress);
 		if (cloudName == null) return null;
 		
 		return cloudName;

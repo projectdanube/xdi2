@@ -16,10 +16,10 @@ public class CloudNumber {
 	private XDIAddress XDIaddress;
 	private XDIArc peerRootXDIArc;
 
-	private CloudNumber(XDIAddress XDIaddress, XDIArc peerRootXDIarc) {
+	private CloudNumber(XDIAddress XDIaddress, XDIArc peerRootXDIArc) {
 
 		this.XDIaddress = XDIaddress;
-		this.peerRootXDIArc = peerRootXDIarc;
+		this.peerRootXDIArc = peerRootXDIArc;
 	}
 
 	public static boolean isValid(final XDIAddress XDIaddress) {
@@ -67,9 +67,9 @@ public class CloudNumber {
 
 		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(XDIarc1, XDIarc2);
 
-		XDIArc peerRootXDIarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudNumber(XDIaddress, peerRootXDIarc);
+		return new CloudNumber(XDIaddress, peerRootXDIArc);
 	}
 
 	public static CloudNumber fromXDIAddress(XDIAddress XDIaddress) {
@@ -83,18 +83,18 @@ public class CloudNumber {
 		return new CloudNumber(XDIaddress, peerRootAddress);
 	}
 
-	public static CloudNumber fromPeerRootXDIArc(XDIArc peerRootXDIarc) {
+	public static CloudNumber fromPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
-		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIarc);
+		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
 
 		return fromXDIAddress(XDIaddress);
 	}
 
-	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIarc) {
+	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
 
-		if (peerRootXDIarc.getNumXDIArcs() > 1) return null;
+		if (peerRootXDIArc.getNumXDIArcs() > 1) return null;
 		
-		return fromPeerRootXDIArc(peerRootXDIarc.getFirstXDIArc());
+		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
 	}
 
 	public XDIAddress getXDIAddress() {
