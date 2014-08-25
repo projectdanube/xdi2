@@ -32,11 +32,12 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return
-				isValidXDIArc(contextNode.getXDIArc()) &&
-				XdiEntityCollection.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isEntityMemberOrderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() == null || ! XdiEntityCollection.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -46,18 +47,11 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	 */
 	public static XdiEntityMemberOrdered fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		if (! isValid(contextNode)) return null;
 
 		return new XdiEntityMemberOrdered(contextNode);
-	}
-
-	/*
-	 * Methods for XRIs
-	 */
-
-	public static boolean isValidXDIArc(XDIArc arc) {
-
-		return XdiAbstractMemberOrdered.isValidXDIArc(arc, XdiEntityCollection.class);
 	}
 
 	/*
@@ -72,6 +66,19 @@ public final class XdiEntityMemberOrdered extends XdiAbstractMemberOrdered<XdiEn
 	public XdiEntityCollection getXdiCollection() {
 
 		return new XdiEntityCollection(this.getContextNode().getContextNode());
+	}
+
+	/*
+	 * Methods for arcs
+	 */
+
+	public static boolean isEntityMemberOrderedXDIArc(XDIArc XDIarc) {
+
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (! XdiAbstractMemberOrdered.isMemberOrderedXDIArc(XDIarc, XdiEntityCollection.class)) return false;
+
+		return true;
 	}
 
 	/*

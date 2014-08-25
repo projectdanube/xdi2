@@ -125,13 +125,13 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		@Override
 		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDIAddress arc = relativeTargetStatement.getRelationXDIAddress();
-			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
+			XDIAddress XDIaddress = relativeTargetStatement.getRelationXDIAddress();
+			XDIAddress targetContextNodeXDIAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
 
 			// check if applicable
 
-			if (! arc.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC)) return ContributorResult.DEFAULT;
-			if (! VariableUtil.isVariable(targetContextNodeAddress)) return ContributorResult.DEFAULT;
+			if (! XDIaddress.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC)) return ContributorResult.DEFAULT;
+			if (! VariableUtil.isVariable(targetContextNodeXDIAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
 
@@ -153,33 +153,33 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		@Override
 		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-			XDIAddress arc = relativeTargetStatement.getRelationXDIAddress();
-			XDIAddress targetContextNodeAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
+			XDIAddress XDIaddress = relativeTargetStatement.getRelationXDIAddress();
+			XDIAddress targetContextNodeXDIAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
 
 			// check if applicable
 
-			if (! arc.equals(XDIDictionaryConstants.XDI_ADD_IS_TYPE)) return ContributorResult.DEFAULT;
+			if (! XDIaddress.equals(XDIDictionaryConstants.XDI_ADD_IS_TYPE)) return ContributorResult.DEFAULT;
 
 			// check parameters
 
-			XDIAddress dataTypeAddress = targetContextNodeAddress;
+			XDIAddress dataTypeXDIAddress = targetContextNodeXDIAddress;
 
 			String digestAlgorithm;
 			Integer digestLength;
 			String keyAlgorithm;
 			Integer keyLength;
 
-			digestAlgorithm = Signatures.getDigestAlgorithm(dataTypeAddress);
-			if (digestAlgorithm == null) throw new Xdi2MessagingException("Invalid digest algorithm: " + dataTypeAddress, null, executionContext);
+			digestAlgorithm = Signatures.getDigestAlgorithm(dataTypeXDIAddress);
+			if (digestAlgorithm == null) throw new Xdi2MessagingException("Invalid digest algorithm: " + dataTypeXDIAddress, null, executionContext);
 
-			digestLength = Signatures.getDigestLength(dataTypeAddress);
-			if (digestLength == null) throw new Xdi2MessagingException("Invalid digest length: " + dataTypeAddress, null, executionContext);
+			digestLength = Signatures.getDigestLength(dataTypeXDIAddress);
+			if (digestLength == null) throw new Xdi2MessagingException("Invalid digest length: " + dataTypeXDIAddress, null, executionContext);
 
-			keyAlgorithm = Signatures.getKeyAlgorithm(dataTypeAddress);
-			if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeAddress, null, executionContext);
+			keyAlgorithm = Signatures.getKeyAlgorithm(dataTypeXDIAddress);
+			if (keyAlgorithm == null) throw new Xdi2MessagingException("Invalid key algorithm: " + dataTypeXDIAddress, null, executionContext);
 
-			keyLength = Signatures.getKeyLength(dataTypeAddress);
-			if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeAddress, null, executionContext);
+			keyLength = Signatures.getKeyLength(dataTypeXDIAddress);
+			if (keyLength == null) throw new Xdi2MessagingException("Invalid key length: " + dataTypeXDIAddress, null, executionContext);
 
 			if (log.isDebugEnabled()) log.debug("digestAlgorithm: " + digestAlgorithm + ", digestLength: " + digestLength + ", keyAlgorithm: " + keyAlgorithm + ", keyLength: " + keyLength);
 
@@ -190,7 +190,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootArc());
+				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
@@ -227,7 +227,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 				try {
 
 					signature.sign(privateKey);
-					DataTypes.setDataType(signature.getContextNode(), dataTypeAddress);
+					DataTypes.setDataType(signature.getContextNode(), dataTypeXDIAddress);
 				} catch (GeneralSecurityException ex) {
 
 					throw new Xdi2MessagingException("Cannot sign using private key: " + ex.getMessage(), ex, null);
@@ -237,7 +237,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient
 
-				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootArc());
+				XDIAddress recipientAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 				if (recipientAddress == null) return ContributorResult.SKIP_MESSAGING_TARGET;
 
 				// recipient entity
@@ -274,7 +274,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 				try {
 
 					signature.sign(secretKey);
-					DataTypes.setDataType(signature.getContextNode(), dataTypeAddress);
+					DataTypes.setDataType(signature.getContextNode(), dataTypeXDIAddress);
 				} catch (GeneralSecurityException ex) {
 
 					throw new Xdi2MessagingException("Cannot sign using secret key: " + ex.getMessage(), ex, null);

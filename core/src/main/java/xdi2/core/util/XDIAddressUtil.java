@@ -27,40 +27,40 @@ public final class XDIAddressUtil {
 	/**
 	 * Checks if an address starts with a certain other address.
 	 */
-	public static XDIAddress startsWithXDIAddress(final XDIAddress address, final XDIAddress startAddress, final boolean variablesInAddress, final boolean variablesInStart) {
+	public static XDIAddress startsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress startXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInStart) {
 
-		if (address == null) throw new NullPointerException();
-		if (startAddress == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
+		if (startXDIAddress == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
 		try {
 
-			if (startAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
-			if (address.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
+			if (startXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
 			int addressIndex = 0, startIndex = 0;
 
 			while (true) {
 
-				if (startIndex == startAddress.getNumXDIArcs()) { result = XDIAddressUtil.parentXDIAddress(address, addressIndex); return result; }
-				if (addressIndex == address.getNumXDIArcs()) { result = null; return result; }
+				if (startIndex == startXDIAddress.getNumXDIArcs()) { result = XDIAddressUtil.parentXDIAddress(XDIaddress, addressIndex); return result; }
+				if (addressIndex == XDIaddress.getNumXDIArcs()) { result = null; return result; }
 
 				// check variables
 
-				if (variablesInAddress && VariableUtil.isVariable(address.getXDIArc(addressIndex))) {
+				if (variablesinXDIAddress && VariableUtil.isVariable(XDIaddress.getXDIArc(addressIndex))) {
 
-					if (VariableUtil.matches(address.getXDIArc(addressIndex), startAddress.getXDIArc(startIndex))) {
+					if (VariableUtil.matches(XDIaddress.getXDIArc(addressIndex), startXDIAddress.getXDIArc(startIndex))) {
 
 						startIndex++;
 
-						if (VariableUtil.isMultiple(address.getXDIArc(addressIndex))) {
+						if (VariableUtil.isMultiple(XDIaddress.getXDIArc(addressIndex))) {
 
 							while (true) {
 
-								if (startIndex == startAddress.getNumXDIArcs()) break;
-								if (! VariableUtil.matches(address.getXDIArc(addressIndex), startAddress.getXDIArc(startIndex))) break;
-								if (addressIndex + 1 < address.getNumXDIArcs() && address.getXDIArc(addressIndex + 1).equals(startAddress.getXDIArc(startIndex))) break;
+								if (startIndex == startXDIAddress.getNumXDIArcs()) break;
+								if (! VariableUtil.matches(XDIaddress.getXDIArc(addressIndex), startXDIAddress.getXDIArc(startIndex))) break;
+								if (addressIndex + 1 < XDIaddress.getNumXDIArcs() && XDIaddress.getXDIArc(addressIndex + 1).equals(startXDIAddress.getXDIArc(startIndex))) break;
 
 								startIndex++;
 							}
@@ -75,19 +75,19 @@ public final class XDIAddressUtil {
 					}
 				}
 
-				if (variablesInStart && VariableUtil.isVariable(startAddress.getXDIArc(startIndex))) {
+				if (variablesInStart && VariableUtil.isVariable(startXDIAddress.getXDIArc(startIndex))) {
 
-					if (VariableUtil.matches(startAddress.getXDIArc(startIndex), address.getXDIArc(addressIndex))) {
+					if (VariableUtil.matches(startXDIAddress.getXDIArc(startIndex), XDIaddress.getXDIArc(addressIndex))) {
 
 						addressIndex++;
 
-						if (VariableUtil.isMultiple(startAddress.getXDIArc(startIndex))) {
+						if (VariableUtil.isMultiple(startXDIAddress.getXDIArc(startIndex))) {
 
 							while (true) {
 
-								if (addressIndex == address.getNumXDIArcs()) break;
-								if (! VariableUtil.matches(startAddress.getXDIArc(startIndex), address.getXDIArc(addressIndex))) break;
-								if (startIndex + 1 < startAddress.getNumXDIArcs() && address.getXDIArc(addressIndex).equals(startAddress.getXDIArc(startIndex + 1))) break;
+								if (addressIndex == XDIaddress.getNumXDIArcs()) break;
+								if (! VariableUtil.matches(startXDIAddress.getXDIArc(startIndex), XDIaddress.getXDIArc(addressIndex))) break;
+								if (startIndex + 1 < startXDIAddress.getNumXDIArcs() && XDIaddress.getXDIArc(addressIndex).equals(startXDIAddress.getXDIArc(startIndex + 1))) break;
 
 								addressIndex++;
 							}
@@ -104,62 +104,62 @@ public final class XDIAddressUtil {
 
 				// no variables? just match the arc
 
-				if (! (address.getXDIArc(addressIndex).equals(startAddress.getXDIArc(startIndex)))) { result = null; return result; }
+				if (! (XDIaddress.getXDIArc(addressIndex).equals(startXDIAddress.getXDIArc(startIndex)))) { result = null; return result; }
 
 				addressIndex++;
 				startIndex++;
 			}
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("startsWithXDIAddress(" + address + "," + startAddress + "," + variablesInAddress + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("startsWithXDIAddress(" + XDIaddress + "," + startXDIAddress + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + result);
 		}
 	}
 
 	/**
 	 * Checks if an address starts with a certain other address.
 	 */
-	public static XDIAddress startsWithXDIAddress(XDIAddress address, XDIAddress startAddress) {
+	public static XDIAddress startsWithXDIAddress(XDIAddress XDIaddress, XDIAddress startXDIAddress) {
 
-		return startsWithXDIAddress(address, startAddress, false, false);
+		return startsWithXDIAddress(XDIaddress, startXDIAddress, false, false);
 	}
 
 	/**
 	 * Checks if an address ends with a certain other address.
 	 */
-	public static XDIAddress endsWithXDIAddress(final XDIAddress address, final XDIAddress endAddress, final boolean variablesInAddress, final boolean variablesInEnd) {
+	public static XDIAddress endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInEnd) {
 
-		if (address == null) throw new NullPointerException();
-		if (endAddress == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
+		if (endXDIAddress == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
 		try {
 
-			if (endAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
-			if (address.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
+			if (endXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
-			int addressIndex = address.getNumXDIArcs() - 1, endIndex = endAddress.getNumXDIArcs() - 1;
+			int addressIndex = XDIaddress.getNumXDIArcs() - 1, endIndex = endXDIAddress.getNumXDIArcs() - 1;
 
 			while (true) {
 
-				if (endIndex == -1) { result = XDIAddressUtil.localXDIAddress(address, - addressIndex - 1); return result; }
+				if (endIndex == -1) { result = XDIAddressUtil.localXDIAddress(XDIaddress, - addressIndex - 1); return result; }
 				if (addressIndex == -1) { result = null; return result; }
 
 				// check variables
 
-				if (variablesInAddress && VariableUtil.isVariable(address.getXDIArc(addressIndex))) {
+				if (variablesinXDIAddress && VariableUtil.isVariable(XDIaddress.getXDIArc(addressIndex))) {
 
-					if (VariableUtil.matches(address.getXDIArc(addressIndex), endAddress.getXDIArc(endIndex))) {
+					if (VariableUtil.matches(XDIaddress.getXDIArc(addressIndex), endXDIAddress.getXDIArc(endIndex))) {
 
 						endIndex--;
 
-						if (VariableUtil.isMultiple(address.getXDIArc(addressIndex))) {
+						if (VariableUtil.isMultiple(XDIaddress.getXDIArc(addressIndex))) {
 
 							while (true) {
 
 								if (endIndex == -1) break;
-								if (! VariableUtil.matches(address.getXDIArc(addressIndex), endAddress.getXDIArc(endIndex))) break;
-								if (addressIndex - 1 > -1 && address.getXDIArc(addressIndex - 1).equals(endAddress.getXDIArc(endIndex))) break;
+								if (! VariableUtil.matches(XDIaddress.getXDIArc(addressIndex), endXDIAddress.getXDIArc(endIndex))) break;
+								if (addressIndex - 1 > -1 && XDIaddress.getXDIArc(addressIndex - 1).equals(endXDIAddress.getXDIArc(endIndex))) break;
 
 								endIndex--;
 							}
@@ -174,19 +174,19 @@ public final class XDIAddressUtil {
 					}
 				}
 
-				if (variablesInEnd && VariableUtil.isVariable(endAddress.getXDIArc(endIndex))) {
+				if (variablesInEnd && VariableUtil.isVariable(endXDIAddress.getXDIArc(endIndex))) {
 
-					if (VariableUtil.matches(endAddress.getXDIArc(endIndex), address.getXDIArc(addressIndex))) {
+					if (VariableUtil.matches(endXDIAddress.getXDIArc(endIndex), XDIaddress.getXDIArc(addressIndex))) {
 
 						addressIndex--;
 
-						if (VariableUtil.isMultiple(endAddress.getXDIArc(endIndex))) {
+						if (VariableUtil.isMultiple(endXDIAddress.getXDIArc(endIndex))) {
 
 							while (true) {
 
 								if (addressIndex == -1) break;
-								if (! VariableUtil.matches(endAddress.getXDIArc(endIndex), address.getXDIArc(addressIndex))) break;
-								if (endIndex - 1 > -1 && address.getXDIArc(addressIndex).equals(endAddress.getXDIArc(endIndex - 1))) break;
+								if (! VariableUtil.matches(endXDIAddress.getXDIArc(endIndex), XDIaddress.getXDIArc(addressIndex))) break;
+								if (endIndex - 1 > -1 && XDIaddress.getXDIArc(addressIndex).equals(endXDIAddress.getXDIArc(endIndex - 1))) break;
 
 								addressIndex--;
 							}
@@ -203,23 +203,23 @@ public final class XDIAddressUtil {
 
 				// no variables? just match the arc
 
-				if (! (address.getXDIArc(addressIndex).equals(endAddress.getXDIArc(endIndex)))) { result = null; return result; }
+				if (! (XDIaddress.getXDIArc(addressIndex).equals(endXDIAddress.getXDIArc(endIndex)))) { result = null; return result; }
 
 				addressIndex--;
 				endIndex--;
 			}
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("endsWithXDIAddress(" + address + "," + endAddress + "," + variablesInAddress + "," + variablesInEnd + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("endsWithXDIAddress(" + XDIaddress + "," + endXDIAddress + "," + variablesinXDIAddress + "," + variablesInEnd + ") --> " + result);
 		}
 	}
 
 	/**
 	 * Checks if an address ends with a certain other address.
 	 */
-	public static XDIAddress endsWithXDIAddress(final XDIAddress address, final XDIAddress endAddress) {
+	public static XDIAddress endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress) {
 
-		return endsWithXDIAddress(address, endAddress, false, false);
+		return endsWithXDIAddress(XDIaddress, endXDIAddress, false, false);
 	}
 
 	/**
@@ -227,9 +227,9 @@ public final class XDIAddressUtil {
 	 * For =a*b*c*d and 1, this returns =a
 	 * For =a*b*c*d and -1, this returns =a*b*c
 	 */
-	public static XDIAddress parentXDIAddress(final XDIAddress address, final int numArcs) {
+	public static XDIAddress parentXDIAddress(final XDIAddress XDIaddress, final int numArcs) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
@@ -239,13 +239,13 @@ public final class XDIAddressUtil {
 
 			if (numArcs > 0) {
 
-				for (int i = 0; i < numArcs; i++) arcs.add(address.getXDIArc(i));
+				for (int i = 0; i < numArcs; i++) arcs.add(XDIaddress.getXDIArc(i));
 			} else if (numArcs < 0) {
 
-				for (int i = 0; i < address.getNumXDIArcs() - (- numArcs); i++) arcs.add(address.getXDIArc(i));
+				for (int i = 0; i < XDIaddress.getNumXDIArcs() - (- numArcs); i++) arcs.add(XDIaddress.getXDIArc(i));
 			} else {
 
-				{ result = address; return result; }
+				{ result = XDIaddress; return result; }
 			}
 
 			if (arcs.size() == 0) { result = null; return result; }
@@ -253,7 +253,7 @@ public final class XDIAddressUtil {
 			{ result = XDIAddress.fromComponents(arcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("parentXDIAddress(" + address + "," + numArcs + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("parentXDIAddress(" + XDIaddress + "," + numArcs + ") --> " + result);
 		}
 	}
 
@@ -262,9 +262,9 @@ public final class XDIAddressUtil {
 	 * For =a*b*c*d and 1, this returns *d
 	 * For =a*b*c*d and -1, this returns *b*c*d
 	 */
-	public static XDIAddress localXDIAddress(final XDIAddress address, final int numArcs) {
+	public static XDIAddress localXDIAddress(final XDIAddress XDIaddress, final int numArcs) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
@@ -274,13 +274,13 @@ public final class XDIAddressUtil {
 
 			if (numArcs > 0) {
 
-				for (int i = address.getNumXDIArcs() - numArcs; i < address.getNumXDIArcs(); i++) arcs.add(address.getXDIArc(i));
+				for (int i = XDIaddress.getNumXDIArcs() - numArcs; i < XDIaddress.getNumXDIArcs(); i++) arcs.add(XDIaddress.getXDIArc(i));
 			} else if (numArcs < 0) {
 
-				for (int i = (- numArcs); i < address.getNumXDIArcs(); i++) arcs.add(address.getXDIArc(i));
+				for (int i = (- numArcs); i < XDIaddress.getNumXDIArcs(); i++) arcs.add(XDIaddress.getXDIArc(i));
 			} else {
 
-				{ result = address; return address; }
+				{ result = XDIaddress; return XDIaddress; }
 			}
 
 			if (arcs.size() == 0) { result = null; return result; }
@@ -288,7 +288,7 @@ public final class XDIAddressUtil {
 			{ result = XDIAddress.fromComponents(arcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("localXDIAddress(" + address + "," + numArcs + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("localXDIAddress(" + XDIaddress + "," + numArcs + ") --> " + result);
 		}
 	}
 
@@ -297,11 +297,11 @@ public final class XDIAddressUtil {
 	 * For =a*b*c*d and 1, this returns *d
 	 * For =a*b*c*d and -1, this returns *b*c*d
 	 */
-	public static XDIAddress subXDIAddress(final XDIAddress address, final int startIndex, final int endIndex) {
+	public static XDIAddress subXDIAddress(final XDIAddress XDIaddress, final int startIndex, final int endIndex) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 
-		return XDIAddressUtil.localXDIAddress(XDIAddressUtil.parentXDIAddress(address, endIndex), - startIndex);
+		return XDIAddressUtil.localXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, endIndex), - startIndex);
 	}
 
 	/**
@@ -310,16 +310,16 @@ public final class XDIAddressUtil {
 	 * For =a*b*c*d and *c, this returns =a*b*c
 	 * For =a*b*c*d and *x, this returns null
 	 */
-	public static int indexOfXDIArc(final XDIAddress address, final XDIArc search) {
+	public static int indexOfXDIArc(final XDIAddress XDIaddress, final XDIArc search) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 		if (search == null) throw new NullPointerException();
 
-		for (int i=0; i<address.getNumXDIArcs(); i++) {
+		for (int i=0; i<XDIaddress.getNumXDIArcs(); i++) {
 
-			XDIArc arc = address.getXDIArc(i);
+			XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
-			if (arc.equals(search)) return i;
+			if (XDIarc.equals(search)) return i;
 		}
 
 		return -1;
@@ -331,16 +331,16 @@ public final class XDIAddressUtil {
 	 * For =a*b*c*d and *c, this returns *c*d
 	 * For =a*b*c*d and *x, this returns null
 	 */
-	public static int lastIndexOfXDIArc(final XDIAddress address, final XDIArc search) {
+	public static int lastIndexOfXDIArc(final XDIAddress XDIaddress, final XDIArc search) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 		if (search == null) throw new NullPointerException();
 
-		for (int i=address.getNumXDIArcs()-1; i>=0; i--) {
+		for (int i=XDIaddress.getNumXDIArcs()-1; i>=0; i--) {
 
-			XDIArc arc = address.getXDIArc(i);
+			XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
-			if (arc.equals(search)) return i;
+			if (XDIarc.equals(search)) return i;
 		}
 
 		return -1;
@@ -353,27 +353,27 @@ public final class XDIAddressUtil {
 	 * E.g. for =a*b*c*d and =a*b*c*d, this returns (empty address)
 	 * E.g. for =a*b*c*d and =x, this returns null
 	 */
-	public static XDIAddress removeStartXDIAddress(final XDIAddress address, final XDIAddress start, final boolean variablesInAddress, final boolean variablesInStart) {
+	public static XDIAddress removeStartXDIAddress(final XDIAddress XDIaddress, final XDIAddress start, final boolean variablesinXDIAddress, final boolean variablesInStart) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 		if (start == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
 		try {
 
-			if (start.equals(XDIConstants.XDI_ADD_ROOT)) { result = address; return result; }
-			if (address.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
+			if (start.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIaddress; return result; }
+			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
-			XDIAddress startAddress = XDIAddressUtil.startsWithXDIAddress(address, start, variablesInAddress, variablesInStart);
-			if (startAddress == null) { result = null; return result; }
+			XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIaddress, start, variablesinXDIAddress, variablesInStart);
+			if (startXDIAddress == null) { result = null; return result; }
 
-			if (address.equals(startAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(startXDIAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
 
-			{ result = XDIAddressUtil.localXDIAddress(address, - startAddress.getNumXDIArcs()); return result; }
+			{ result = XDIAddressUtil.localXDIAddress(XDIaddress, - startXDIAddress.getNumXDIArcs()); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("removeStartXDIAddress(" + address + "," + start + "," + variablesInAddress + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("removeStartXDIAddress(" + XDIaddress + "," + start + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + result);
 		}
 	}
 
@@ -384,9 +384,9 @@ public final class XDIAddressUtil {
 	 * E.g. for =a*b*c*d and =a*b*c*d, this returns ()
 	 * E.g. for =a*b*c*d and =x, this returns null
 	 */
-	public static XDIAddress removeStartXDIAddress(final XDIAddress address, final XDIAddress start) {
+	public static XDIAddress removeStartXDIAddress(final XDIAddress XDIaddress, final XDIAddress start) {
 
-		return removeStartXDIAddress(address, start, false, false);
+		return removeStartXDIAddress(XDIaddress, start, false, false);
 	}
 
 	/**
@@ -396,27 +396,27 @@ public final class XDIAddressUtil {
 	 * E.g. for =a*b*c*d and =a*b*c*d, this returns (empty address)
 	 * E.g. for =a*b*c*d and *y, this returns null
 	 */
-	public static XDIAddress removeEndXDIAddress(final XDIAddress address, final XDIAddress end, final boolean variablesInAddress, final boolean variablesInEnd) {
+	public static XDIAddress removeEndXDIAddress(final XDIAddress XDIaddress, final XDIAddress end, final boolean variablesinXDIAddress, final boolean variablesInEnd) {
 
-		if (address == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
 		if (end == null) throw new NullPointerException();
 
 		XDIAddress result = null;
 
 		try {
 
-			if (end.equals(XDIConstants.XDI_ADD_ROOT)) { result = address; return result; }
-			if (address.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
+			if (end.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIaddress; return result; }
+			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
-			XDIAddress endAddress = XDIAddressUtil.endsWithXDIAddress(address, end, variablesInAddress, variablesInEnd);
-			if (endAddress == null) { result = null; return result; }
+			XDIAddress endXDIAddress = XDIAddressUtil.endsWithXDIAddress(XDIaddress, end, variablesinXDIAddress, variablesInEnd);
+			if (endXDIAddress == null) { result = null; return result; }
 
-			if (address.equals(endAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(endXDIAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
 
-			{ result = XDIAddressUtil.parentXDIAddress(address, - endAddress.getNumXDIArcs()); return result; }
+			{ result = XDIAddressUtil.parentXDIAddress(XDIaddress, - endXDIAddress.getNumXDIArcs()); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("removeEndXDIAddress(" + address + "," + end + "," + variablesInAddress + "," + variablesInEnd + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("removeEndXDIAddress(" + XDIaddress + "," + end + "," + variablesinXDIAddress + "," + variablesInEnd + ") --> " + result);
 		}
 	}
 
@@ -427,18 +427,18 @@ public final class XDIAddressUtil {
 	 * E.g. for =a*b*c*d and =a*b*c*d, this returns ()
 	 * E.g. for =a*b*c*d and *y, this returns null
 	 */
-	public static XDIAddress removeEndXDIAddress(final XDIAddress address, final XDIAddress end) {
+	public static XDIAddress removeEndXDIAddress(final XDIAddress XDIaddress, final XDIAddress end) {
 
-		return removeEndXDIAddress(address, end, false, false);
+		return removeEndXDIAddress(XDIaddress, end, false, false);
 	}
 
 	/**
 	 * Replaces all occurences of an arc with an address.
 	 */
-	public static XDIAddress replaceXDIAddress(final XDIAddress address, final XDIArc oldArc, final XDIAddress newAddress) {
+	public static XDIAddress replaceXDIAddress(final XDIAddress XDIaddress, final XDIArc oldXDIArc, final XDIAddress newAddress) {
 
-		if (address == null) throw new NullPointerException();
-		if (oldArc == null) throw new NullPointerException();
+		if (XDIaddress == null) throw new NullPointerException();
+		if (oldXDIArc == null) throw new NullPointerException();
 		if (newAddress == null) throw new NullPointerException();
 
 		XDIAddress result = null;
@@ -447,46 +447,46 @@ public final class XDIAddressUtil {
 
 			List<XDIArc> arcs = new ArrayList<XDIArc> ();
 
-			for (XDIArc arc : address.getXDIArcs()) {
+			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
 
-				if (arc.equals(oldArc)) {
+				if (XDIarc.equals(oldXDIArc)) {
 
 					arcs.addAll(newAddress.getXDIArcs());
 
 					continue;
 				}
 
-				if (arc.hasXRef() && arc.getXRef().hasXDIAddress()) {
+				if (XDIarc.hasXRef() && XDIarc.getXRef().hasXDIAddress()) {
 
-					XDIAddress xRefAddress = arc.getXRef().getXDIAddress();
+					XDIAddress xRefAddress = XDIarc.getXRef().getXDIAddress();
 
-					xRefAddress = replaceXDIAddress(xRefAddress, oldArc, newAddress);
+					xRefAddress = replaceXDIAddress(xRefAddress, oldXDIArc, newAddress);
 
-					arcs.add(XDIArc.fromComponents(arc.getCs(), arc.isClassXs(), arc.isAttributeXs(), null, XDIXRef.fromComponents(arc.getXRef().getXs(), xRefAddress, null, null, null, null)));
-
-					continue;
-				}
-
-				if (arc.hasXRef() && arc.getXRef().hasPartialSubjectAndPredicate()) {
-
-					XDIAddress xRefPartialSubject = arc.getXRef().getPartialSubject();
-					XDIAddress xRefPartialPredicate = arc.getXRef().getPartialPredicate();
-
-					xRefPartialSubject = replaceXDIAddress(xRefPartialSubject, oldArc, newAddress);
-					xRefPartialPredicate = replaceXDIAddress(xRefPartialPredicate, oldArc, newAddress);
-
-					arcs.add(XDIArc.fromComponents(arc.getCs(), arc.isClassXs(), arc.isAttributeXs(), null, XDIXRef.fromComponents(arc.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+					arcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isClassXs(), XDIarc.isAttributeXs(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), xRefAddress, null, null, null, null)));
 
 					continue;
 				}
 
-				arcs.add(arc);
+				if (XDIarc.hasXRef() && XDIarc.getXRef().hasPartialSubjectAndPredicate()) {
+
+					XDIAddress xRefPartialSubject = XDIarc.getXRef().getPartialSubject();
+					XDIAddress xRefPartialPredicate = XDIarc.getXRef().getPartialPredicate();
+
+					xRefPartialSubject = replaceXDIAddress(xRefPartialSubject, oldXDIArc, newAddress);
+					xRefPartialPredicate = replaceXDIAddress(xRefPartialPredicate, oldXDIArc, newAddress);
+
+					arcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isClassXs(), XDIarc.isAttributeXs(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+
+					continue;
+				}
+
+				arcs.add(XDIarc);
 			}
 
 			{ result = XDIAddress.fromComponents(arcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("replaceAddress(" + address + "," + oldArc + "," + newAddress + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("replaceAddress(" + XDIaddress + "," + oldXDIArc + "," + newAddress + ") --> " + result);
 		}
 	}
 
@@ -503,9 +503,9 @@ public final class XDIAddressUtil {
 
 			if (addresses != null) {
 
-				for (XDIAddress address : addresses) {
+				for (XDIAddress XDIaddress : addresses) {
 
-					if (address != null) arcs.addAll(address.getXDIArcs());
+					if (XDIaddress != null) arcs.addAll(XDIaddress.getXDIArcs());
 				}
 			}
 
@@ -532,17 +532,17 @@ public final class XDIAddressUtil {
 	/**
 	 * Concats address(es) and arc(s) into a new address.
 	 */
-	public static XDIAddress concatXDIAddresses(final XDIAddress address, final XDIArc arc) {
+	public static XDIAddress concatXDIAddresses(final XDIAddress XDIaddress, final XDIArc XDIarc) {
 
-		return concatXDIAddresses(address, arc == null ? null : XDIAddress.fromComponent(arc));
+		return concatXDIAddresses(XDIaddress, XDIarc == null ? null : XDIAddress.fromComponent(XDIarc));
 	}
 
 	/**
 	 * Concats address(es) and arc(s) into a new address.
 	 */
-	public static XDIAddress concatXDIAddresses(final XDIArc arc, final XDIAddress address) {
+	public static XDIAddress concatXDIAddresses(final XDIArc XDIarc, final XDIAddress XDIaddress) {
 
-		return concatXDIAddresses(arc == null ? null : XDIAddress.fromComponent(arc), address);
+		return concatXDIAddresses(XDIarc == null ? null : XDIAddress.fromComponent(XDIarc), XDIaddress);
 	}
 
 	/*

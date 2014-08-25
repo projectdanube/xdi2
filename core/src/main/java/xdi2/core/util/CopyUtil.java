@@ -66,7 +66,7 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
-		XDIAddress contextNodeAddress = contextNode.getXDIAddress();
+		XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
 
 		ContextNode targetContextNode;
 
@@ -75,7 +75,7 @@ public final class CopyUtil {
 			targetContextNode = targetGraph.getRootContextNode(false);
 		} else {
 
-			targetContextNode = targetGraph.setDeepContextNode(contextNodeAddress);
+			targetContextNode = targetGraph.setDeepContextNode(contextNodeXDIAddress);
 		}
 
 		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
@@ -147,8 +147,8 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XDIAddress relationcontextNodeAddress = relation.getContextNode().getXDIAddress();
-		ContextNode targetContextNode = targetGraph.setDeepContextNode(relationcontextNodeAddress);
+		XDIAddress relationcontextNodeXDIAddress = relation.getContextNode().getXDIAddress();
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(relationcontextNodeXDIAddress);
 
 		return copyRelation(relation, targetContextNode, copyStrategy);
 	}
@@ -168,45 +168,45 @@ public final class CopyUtil {
 
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
-		XDIAddress relationcontextNodeAddress = relation.getContextNode().getXDIAddress();
+		XDIAddress relationcontextNodeXDIAddress = relation.getContextNode().getXDIAddress();
 		XDIAddress relationAddress = relation.getXDIAddress();
-		XDIAddress relationtargetContextNodeAddress = relation.getTargetContextNodeXDIAddress();
+		XDIAddress relationtargetContextNodeXDIAddress = relation.getTargetContextNodeXDIAddress();
 
-		XDIAddress targetContextNodeAddress = targetContextNode.getXDIAddress();
+		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
 
-		XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeAddress, false);
-		XdiRoot targetContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(targetContextNode.getGraph()).getRoot(targetContextNodeAddress, false);
+		XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeXDIAddress, false);
+		XdiRoot targetContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(targetContextNode.getGraph()).getRoot(targetContextNodeXDIAddress, false);
 
-		XDIAddress relativeRelationcontextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationcontextNodeAddress);
-		XDIAddress relativeRelationtargetContextNodeAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationtargetContextNodeAddress);
-		XDIAddress relativetargetContextNodeAddress = targetContextNodeXdiRoot.absoluteToRelativeXDIAddress(targetContextNodeAddress);
+		XDIAddress relativeRelationcontextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationcontextNodeXDIAddress);
+		XDIAddress relativeRelationtargetContextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationtargetContextNodeXDIAddress);
+		XDIAddress relativetargetContextNodeXDIAddress = targetContextNodeXdiRoot.absoluteToRelativeXDIAddress(targetContextNodeXDIAddress);
 
 		Relation targetRelation;
 
 		// check if this relation establishes an inner root
 
-		if (relativeRelationtargetContextNodeAddress != null &&
-				relativeRelationtargetContextNodeAddress.getNumXDIArcs() == 1 &&
-				XdiInnerRoot.isInnerRootXDIArc(relativeRelationtargetContextNodeAddress.getFirstXDIArc()) &&
-				XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationtargetContextNodeAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeAddress) &&
-				XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationtargetContextNodeAddress.getFirstXDIArc()).equals(relationAddress)) {
+		if (relativeRelationtargetContextNodeXDIAddress != null &&
+				relativeRelationtargetContextNodeXDIAddress.getNumXDIArcs() == 1 &&
+				XdiInnerRoot.isInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()) &&
+				XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeXDIAddress) &&
+				XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relationAddress)) {
 
 			// if the target context node is not the same, we need to adjust the inner root
 
-			if (! targetContextNodeAddress.equals(relationcontextNodeAddress)) {
+			if (! targetContextNodeXDIAddress.equals(relationcontextNodeXDIAddress)) {
 
-				relativeRelationtargetContextNodeAddress = XDIAddress.fromComponent(XdiInnerRoot.createInnerRootXDIArc(relativetargetContextNodeAddress, relationAddress));
-				relationtargetContextNodeAddress = targetContextNodeXdiRoot.relativeToAbsoluteXDIAddress(relativeRelationtargetContextNodeAddress);
+				relativeRelationtargetContextNodeXDIAddress = XDIAddress.fromComponent(XdiInnerRoot.createInnerRootXDIArc(relativetargetContextNodeXDIAddress, relationAddress));
+				relationtargetContextNodeXDIAddress = targetContextNodeXdiRoot.relativeToAbsoluteXDIAddress(relativeRelationtargetContextNodeXDIAddress);
 			}
 
-			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeAddress);
+			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeXDIAddress);
 
 			// also need to copy the contents of the inner root
 
 			copyContextNodeContents(relation.follow(), targetRelation.follow(), copyStrategy);
 		} else {
 
-			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeAddress);
+			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeXDIAddress);
 		}
 
 		return targetRelation;
@@ -252,8 +252,8 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		XDIAddress literalcontextNodeAddress = literal.getContextNode().getXDIAddress();
-		ContextNode targetContextNode = targetGraph.setDeepContextNode(literalcontextNodeAddress);
+		XDIAddress literalcontextNodeXDIAddress = literal.getContextNode().getXDIAddress();
+		ContextNode targetContextNode = targetGraph.setDeepContextNode(literalcontextNodeXDIAddress);
 
 		return copyLiteral(literal, targetContextNode, copyStrategy);
 	}
@@ -392,48 +392,48 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * A strategy that replaces certain XRI parts.
+	 * A strategy that replaces certain XDI identifiers.
 	 */
-	public static class ReplaceXriCopyStrategy extends CopyStrategy {
+	public static class ReplaceXDIAddressCopyStrategy extends CopyStrategy {
 
 		Map<XDIArc, XDIAddress> replacements;
 
-		public ReplaceXriCopyStrategy(Map<XDIArc, XDIAddress> replacements) {
+		public ReplaceXDIAddressCopyStrategy(Map<XDIArc, XDIAddress> replacements) {
 
 			this.replacements = replacements;
 		}
 
-		public ReplaceXriCopyStrategy(XDIArc oldXri, XDIAddress newXri) {
+		public ReplaceXDIAddressCopyStrategy(XDIArc oldXDIArc, XDIAddress newXDIArc) {
 
-			this(Collections.singletonMap(oldXri, newXri));
+			this(Collections.singletonMap(oldXDIArc, newXDIArc));
 		}
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
-			XDIAddress contextNodeXri = contextNode.getXDIAddress();
-			XDIArc contextNodeArcXri = contextNode.getXDIArc();
+			XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
+			XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
-			XDIAddress replacedContextNodeXri = XDIAddress.fromComponent(contextNodeArcXri);
+			XDIAddress replacedContextNodeXDIAddress = XDIAddress.fromComponent(contextNodeXDIArc);
 
 			for (Entry<XDIArc, XDIAddress> replacement : this.replacements.entrySet()) {
 
-				replacedContextNodeXri = XDIAddressUtil.replaceXDIAddress(
-						replacedContextNodeXri, 
+				replacedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
+						replacedContextNodeXDIAddress, 
 						replacement.getKey(), 
 						replacement.getValue());
 			}
 
-			replacedContextNodeXri = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXri, -1), replacedContextNodeXri);
+			replacedContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1), replacedContextNodeXDIAddress);
 
-			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXri + " with " + replacedContextNodeXri);
+			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
 
-			if (contextNodeXri.equals(replacedContextNodeXri)) return super.replaceContextNode(contextNode);
+			if (contextNodeXDIAddress.equals(replacedContextNodeXDIAddress)) return super.replaceContextNode(contextNode);
 
-			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXri);
+			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
 			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
 
-			int additionalArcs = replacedContextNodeXri.getNumXDIArcs() - contextNodeXri.getNumXDIArcs();
+			int additionalArcs = replacedContextNodeXDIAddress.getNumXDIArcs() - contextNodeXDIAddress.getNumXDIArcs();
 
 			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
 
@@ -443,27 +443,27 @@ public final class CopyUtil {
 		@Override
 		public Relation replaceRelation(Relation relation) {
 
-			XDIAddress contextNodeXri = relation.getContextNode().getXDIAddress();
-			XDIAddress arcXri = relation.getXDIAddress();
-			XDIAddress targetContextNodeXri = relation.getTargetContextNodeXDIAddress();
+			XDIAddress contextNodeXDIAddress = relation.getContextNode().getXDIAddress();
+			XDIAddress XDIaddress = relation.getXDIAddress();
+			XDIAddress targetContextNodeXDIAddress = relation.getTargetContextNodeXDIAddress();
 
-			XDIAddress replacedTargetContextNodeXri = targetContextNodeXri;
+			XDIAddress replacedTargetContextNodeXDIAddress = targetContextNodeXDIAddress;
 
 			for (Entry<XDIArc, XDIAddress> replacement : this.replacements.entrySet()) {
 
-				targetContextNodeXri = XDIAddressUtil.replaceXDIAddress(
-						targetContextNodeXri, 
+				targetContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
+						targetContextNodeXDIAddress, 
 						replacement.getKey(), 
 						replacement.getValue());
 			}
 
-			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXri + " with " + replacedTargetContextNodeXri);
+			if (log.isDebugEnabled()) log.debug("Replaced " + targetContextNodeXDIAddress + " with " + replacedTargetContextNodeXDIAddress);
 
-			if (targetContextNodeXri.equals(replacedTargetContextNodeXri)) return super.replaceRelation(relation);
+			if (targetContextNodeXDIAddress.equals(replacedTargetContextNodeXDIAddress)) return super.replaceRelation(relation);
 
-			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXri, arcXri, replacedTargetContextNodeXri);
+			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetContextNodeXDIAddress);
 
 			return replacedRelation;
 		}
-	};
+	}
 }

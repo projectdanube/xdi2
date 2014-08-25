@@ -33,9 +33,12 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return isValidXDIArc(contextNode.getXDIArc());
+		if (contextNode.getXDIArc() == null || ! isAttributeCollectionXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() != null && XdiValue.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -45,30 +48,32 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 	 */
 	public static XdiAttributeCollection fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		if (! isValid(contextNode)) return null;
 
 		return new XdiAttributeCollection(contextNode);
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(XDIArc arc) {
+	public static XDIArc createAttributeCollectionXDIArc(XDIArc XDIarc) {
 
-		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + XDIConstants.XS_ATTRIBUTE.charAt(0) + arc + XDIConstants.XS_ATTRIBUTE.charAt(1) + XDIConstants.XS_CLASS.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIarc + XDIConstants.XS_ATTRIBUTE.charAt(1) + XDIConstants.XS_CLASS.charAt(1));
 	}
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isAttributeCollectionXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return false;
+		if (XDIarc == null) throw new NullPointerException();
 
-		if (! arc.isClassXs()) return false;
-		if (! arc.isAttributeXs()) return false;
+		if (! XDIarc.isClassXs()) return false;
+		if (! XDIarc.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arc.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! arc.hasLiteral() && ! arc.hasXRef()) return false;
+			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

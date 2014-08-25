@@ -126,10 +126,10 @@ public class LinkContractsTest extends TestCase {
 
 	public void testLinkContractTemplate() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=markus#registration{$do}");
+		XDIAddress XDIaddress = XDIAddress.create("=markus#registration{$do}");
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		ContextNode contextNode = graph.setDeepContextNode(address);
+		ContextNode contextNode = graph.setDeepContextNode(XDIaddress);
 
 		LinkContractTemplate l1 = LinkContractTemplate.findLinkContractTemplate(graph, XDIAddress.create("=markus#registration"), false);
 		assertNotNull(l1);

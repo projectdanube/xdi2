@@ -29,12 +29,12 @@ public class StaticSigner extends PrivateKeySigner {
 	@Override
 	protected PrivateKey getPrivateKey(Message message) {
 
-		XDIAddress senderAddress = message.getSenderAddress();
-		if (senderAddress == null) return null;
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		if (senderXDIAddress == null) return null;
 
 		// look for static private key
 
-		PrivateKey privateKey = this.getPrivateKeys().get(senderAddress);
+		PrivateKey privateKey = this.getPrivateKeys().get(senderXDIAddress);
 		if (privateKey == null) return null;
 
 		// done

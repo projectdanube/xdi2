@@ -85,97 +85,97 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	/**
 	 * Deep version of ContextNode.setContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
-	public ContextNode setDeepContextNode(XDIAddress contextNodeAddress);
+	public ContextNode setDeepContextNode(XDIAddress contextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.getContextNode(XDIArc, boolean), operates at a context node further down in the graph.
 	 */
-	public ContextNode getDeepContextNode(XDIAddress contextNodeAddress, boolean subgraph);
+	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress, boolean subgraph);
 
 	/**
 	 * Deep version of ContextNode.getContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
-	public ContextNode getDeepContextNode(XDIAddress contextNodeAddress);
+	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress contextNodeAddress);
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress contextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation setDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.
 	 */
-	public Relation setDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, ContextNode targetContextNode);
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, ContextNode targetContextNode);
 
 	/**
 	 * Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation getDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation getDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc);
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress);
 
 	/**
 	 * Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeAddress, XDIAddress arc);
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress);
 
 	/**
 	 * Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeAddress);
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteral(XDIAddress contextNodeAddress, Object literalData);
+	public Literal setDeepLiteral(XDIAddress contextNodeXDIAddress, Object literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralString(XDIAddress contextNodeAddress, String literalData);
+	public Literal setDeepLiteralString(XDIAddress contextNodeXDIAddress, String literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralNumber(XDIAddress contextNodeAddress, Double literalData);
+	public Literal setDeepLiteralNumber(XDIAddress contextNodeXDIAddress, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralBoolean(XDIAddress contextNodeAddress, Boolean literalData);
+	public Literal setDeepLiteralBoolean(XDIAddress contextNodeXDIAddress, Boolean literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteral(XDIAddress contextNodeAddress, Object literalData);
+	public Literal getDeepLiteral(XDIAddress contextNodeXDIAddress, Object literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralString(XDIAddress contextNodeAddress, String literalData);
+	public Literal getDeepLiteralString(XDIAddress contextNodeXDIAddress, String literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralNumber(XDIAddress contextNodeAddress, Double literalData);
+	public Literal getDeepLiteralNumber(XDIAddress contextNodeXDIAddress, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralBoolean(XDIAddress contextNodeAddress, Boolean literalData);
+	public Literal getDeepLiteralBoolean(XDIAddress contextNodeXDIAddress, Boolean literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteral(XDIAddress contextNodeAddress);
+	public Literal getDeepLiteral(XDIAddress contextNodeXDIAddress);
 
 	/*
 	 * Methods related to statements

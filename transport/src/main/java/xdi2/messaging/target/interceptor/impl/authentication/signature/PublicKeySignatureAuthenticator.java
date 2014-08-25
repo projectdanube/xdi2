@@ -35,12 +35,12 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 
 		if (publicKey == null) {
 
-			if (log.isDebugEnabled()) log.debug("No public key found for sender " + message.getSenderAddress());
+			if (log.isDebugEnabled()) log.debug("No public key found for sender " + message.getSenderXDIAddress());
 
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderAddress() + ": " + Base64.encodeBase64String(publicKey.getEncoded()));
+		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderXDIAddress() + ": " + Base64.encodeBase64String(publicKey.getEncoded()));
 
 		// authenticate
 

@@ -64,12 +64,12 @@ public class Signatures {
 		XdiAttribute signatureXdiAttribute;
 
 		if (singleton)
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
 		else
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(null);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(null);
 
-		XDIAddress dataTypeAddress = getDataTypeAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
-		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeAddress);
+		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
+		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);
 
 		return Signature.fromXdiAttribute(signatureXdiAttribute);
 	}
@@ -85,13 +85,13 @@ public class Signatures {
 
 		// add signature that is an XDI attribute singleton
 
-		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (Signature.fromXdiAttribute(signatureAttributeSingleton)));
 
 		// add signatures that are XDI attribute instances
 
-		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiMembersDeref()));
 
@@ -143,14 +143,14 @@ public class Signatures {
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXDIAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeAddress == null ? null : getDigestAlgorithm(dataTypeAddress);
+		return dataTypeXDIAddress == null ? null : getDigestAlgorithm(dataTypeXDIAddress);
 	}
 
-	public static String getDigestAlgorithm(XDIAddress dataTypeAddress) {
+	public static String getDigestAlgorithm(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc digestAlgorithmAddress = dataTypeAddress.getNumXDIArcs() > 0 ? dataTypeAddress.getXDIArc(0) : null;
+		XDIArc digestAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 0 ? dataTypeXDIAddress.getXDIArc(0) : null;
 		if (digestAlgorithmAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmAddress.getCs())) return null;
@@ -162,14 +162,14 @@ public class Signatures {
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXDIAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeAddress == null ? null : getDigestLength(dataTypeAddress);
+		return dataTypeXDIAddress == null ? null : getDigestLength(dataTypeXDIAddress);
 	}
 
-	public static Integer getDigestLength(XDIAddress dataTypeAddress) {
+	public static Integer getDigestLength(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc digestLengthAddress = dataTypeAddress.getNumXDIArcs() > 1 ? dataTypeAddress.getXDIArc(1) : null;
+		XDIArc digestLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 1 ? dataTypeXDIAddress.getXDIArc(1) : null;
 		if (digestLengthAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthAddress.getCs())) return null;
@@ -181,14 +181,14 @@ public class Signatures {
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXDIAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeAddress == null ? null : getKeyAlgorithm(dataTypeAddress);
+		return dataTypeXDIAddress == null ? null : getKeyAlgorithm(dataTypeXDIAddress);
 	}
 
-	public static String getKeyAlgorithm(XDIAddress dataTypeAddress) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyAlgorithmAddress = dataTypeAddress.getNumXDIArcs() > 2 ? dataTypeAddress.getXDIArc(2) : null;
+		XDIArc keyAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 2 ? dataTypeXDIAddress.getXDIArc(2) : null;
 		if (keyAlgorithmAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
@@ -200,14 +200,14 @@ public class Signatures {
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
 
-		XDIAddress dataTypeAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
+		XDIAddress dataTypeXDIAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeAddress == null ? null : getKeyLength(dataTypeAddress);
+		return dataTypeXDIAddress == null ? null : getKeyLength(dataTypeXDIAddress);
 	}
 
-	public static Integer getKeyLength(XDIAddress dataTypeAddress) {
+	public static Integer getKeyLength(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyLengthAddress = dataTypeAddress.getNumXDIArcs() > 3 ? dataTypeAddress.getXDIArc(3) : null;
+		XDIArc keyLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(3) : null;
 		if (keyLengthAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
@@ -217,7 +217,7 @@ public class Signatures {
 		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 
-	public static XDIAddress getDataTypeAddress(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+	public static XDIAddress getDataTypeXDIAddress(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
 
 		StringBuilder builder = new StringBuilder();
 

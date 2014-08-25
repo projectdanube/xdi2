@@ -33,9 +33,12 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
-		
-		return isValidXDIArc(contextNode.getXDIArc());
+		if (contextNode == null) throw new NullPointerException();
+
+		if (contextNode.getXDIArc() == null || ! isAttributeSingletonXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() != null && XdiValue.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -44,6 +47,8 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	 * @return The XDI attribute singleton.
 	 */
 	public static XdiAttributeSingleton fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -71,24 +76,24 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(XDIArc arc) {
+	public static XDIArc createAttributeSingletonXDIArc(XDIArc XDIarc) {
 
-		return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + arc + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIarc + XDIConstants.XS_ATTRIBUTE.charAt(1));
 	}
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isAttributeSingletonXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return false;
+		if (XDIarc == null) throw new NullPointerException();
 
-		if (arc.isClassXs()) return false;
-		if (! arc.isAttributeXs()) return false;
+		if (XDIarc.isClassXs()) return false;
+		if (! XDIarc.isAttributeXs()) return false;
 
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arc.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! arc.hasLiteral() && ! arc.hasXRef()) return false;
+			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

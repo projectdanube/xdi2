@@ -7,7 +7,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIStatementUtil;
 
-public class StatementUtilTest extends TestCase {
+public class XDIStatementUtilTest extends TestCase {
 
 	public void testStatementUtil() throws Exception {
 

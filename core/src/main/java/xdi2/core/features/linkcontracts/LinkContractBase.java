@@ -51,39 +51,39 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_IF), create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XdiEntitySingleton.createEntitySingletonXDIArc(XDIPolicyConstants.XDI_ARC_IF), create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/**
-	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract (template) to a target context node XRI.
-	 * @param permissionAddress The permission XRI.
-	 * @param targetAddress The target context node XRI of the permission.
+	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract (template) to a target context node address.
+	 * @param permissionXDIAddress The permission address.
+	 * @param targetXDIAddress The target context node address of the permission.
 	 */
-	public void setPermissionTargetXDIAddress(XDIAddress permissionAddress, XDIAddress targetAddress) {
+	public void setPermissionTargetXDIAddress(XDIAddress permissionXDIAddress, XDIAddress targetXDIAddress) {
 
-		if (permissionAddress == null || targetAddress == null) throw new NullPointerException();
+		if (permissionXDIAddress == null || targetXDIAddress == null) throw new NullPointerException();
 
 		// if an arc to the given target context node exists with $all, then no other permission arc should be created
 
-		if (this.getContextNode().containsRelation(XDILinkContractConstants.XDI_ADD_ALL, targetAddress)) return;
+		if (this.getContextNode().containsRelation(XDILinkContractConstants.XDI_ADD_ALL, targetXDIAddress)) return;
 
 		// if a $all permission is added to the target node then all other permission arcs should be deleted
 
-		if (permissionAddress.equals(XDILinkContractConstants.XDI_ADD_ALL)) {
+		if (permissionXDIAddress.equals(XDILinkContractConstants.XDI_ADD_ALL)) {
 
-			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_GET, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetAddress);
-			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_GET, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetXDIAddress);
 		}
 
 		// set the permission arc
 
-		this.getContextNode().setRelation(permissionAddress, targetAddress);
+		this.getContextNode().setRelation(permissionXDIAddress, targetXDIAddress);
 	}
 
 	public void setNegativePermissionTargetXDIAddress(XDIAddress permissionAddress, XDIAddress targetAddress) {

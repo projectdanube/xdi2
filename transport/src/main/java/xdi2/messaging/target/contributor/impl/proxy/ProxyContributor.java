@@ -44,7 +44,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 	private static final Logger log = LoggerFactory.getLogger(ProxyContributor.class);
 
-	private XDIArc toPeerRootArc;
+	private XDIArc toPeerRootXDIarc;
 	private XDIClient xdiClient;
 	private XDIAddress linkContractAddress;
 
@@ -93,11 +93,11 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if we have a static forwarding target, but no XDI client, use XDI discovery to create one
 
-		if (this.toPeerRootArc != null && this.xdiClient == null) {
+		if (this.toPeerRootXDIarc != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootArc), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIarc), null);
 
-			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootArc);
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIarc);
 
 			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 		}
@@ -112,9 +112,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// if there is a static forwarding target, we use it
 
-		if (this.getToPeerRootArc() != null && this.getXdiClient() != null) {
+		if (this.getToPeerRootXDIarc() != null && this.getXdiClient() != null) {
 
-			XDIArc staticForwardingTargetToPeerRootAddress = this.getToPeerRootArc();
+			XDIArc staticForwardingTargetToPeerRootAddress = this.getToPeerRootXDIarc();
 			XDIClient staticForwardingTargetXdiClient = this.getXdiClient();
 			XDIAddress staticLinkContractAddress = this.getLinkContractAddress();
 
@@ -131,7 +131,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XDIArc ownerPeerRootAddress = messagingTarget.getOwnerPeerRootAddress();
-		XDIArc toPeerRootAddress = message.getToPeerRootArc();
+		XDIArc toPeerRootAddress = message.getToPeerRootXDIArc();
 
 		if (toPeerRootAddress == null || toPeerRootAddress.equals(ownerPeerRootAddress)) {
 
@@ -236,7 +236,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		Message forwardingMessage = MessagingCloneUtil.cloneMessage(message);
 
-		forwardingMessage.setToPeerRootArc(toPeerRootAddress);
+		forwardingMessage.setToPeerRootXDIArc(toPeerRootAddress);
 		forwardingMessage.setLinkContractXDIAddress(linkContractAddress);
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXDIAddress(), targetAddress);
@@ -304,9 +304,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
 
-		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderAddress());
+		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderXDIAddress());
 
-		forwardingMessage.setToPeerRootArc(toPeerRootAddress);
+		forwardingMessage.setToPeerRootXDIArc(toPeerRootAddress);
 		forwardingMessage.setLinkContractXDIAddress(linkContractAddress);
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXDIAddress(), targetStatement);
@@ -364,14 +364,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 * Getters and setters
 	 */
 
-	public XDIArc getToPeerRootArc() {
+	public XDIArc getToPeerRootXDIarc() {
 
-		return this.toPeerRootArc;
+		return this.toPeerRootXDIarc;
 	}
 
-	public void setToPeerRootArc(XDIArc toPeerRootAddress) {
+	public void setToPeerRootXDIarc(XDIArc toPeerRootAddress) {
 
-		this.toPeerRootArc = toPeerRootAddress;
+		this.toPeerRootXDIarc = toPeerRootAddress;
 	}
 
 	public XDIClient getXdiClient() {

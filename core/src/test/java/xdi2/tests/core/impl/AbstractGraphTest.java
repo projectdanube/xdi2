@@ -396,7 +396,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph14.close();
 	}
 
-	public void testcontextNodeAddresses() throws Exception {
+	public void testcontextNodeXDIAddresses() throws Exception {
 
 		Graph graph15 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-15");
 		ContextNode root = graph15.getRootContextNode();
@@ -1184,7 +1184,7 @@ public abstract class AbstractGraphTest extends TestCase {
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]!2<$t>&"))
 		};
 
-		XDIArc[][] contextNodeAddressArray = new XDIArc[][] {
+		XDIArc[][] contextNodeXDIAddressArray = new XDIArc[][] {
 				new XDIArc[] { XDIArc.create("=abc") },
 				new XDIArc[] { XDIArc.create("[#passport]") },
 				new XDIArc[] { XDIArc.create("!1"), XDIArc.create("!2"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },
@@ -1250,7 +1250,7 @@ public abstract class AbstractGraphTest extends TestCase {
 				Boolean.TRUE
 		};
 
-		assertEquals(contextNodesArray.length, contextNodeAddressArray.length);
+		assertEquals(contextNodesArray.length, contextNodeXDIAddressArray.length);
 		assertEquals(contextNodesArray.length, relationAddressesArray.length);
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
@@ -1258,9 +1258,9 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		for (int i=0; i<contextNodesArray.length; i++) {
 
-			if (contextNodesArray[i] == null) { assertNull(contextNodeAddressArray[i]); continue; } else assertNotNull(contextNodeAddressArray[i]);
+			if (contextNodesArray[i] == null) { assertNull(contextNodeXDIAddressArray[i]); continue; } else assertNotNull(contextNodeXDIAddressArray[i]);
 
-			Set<XDIArc> arcs = new HashSet<XDIArc> (Arrays.asList(contextNodeAddressArray[i]));
+			Set<XDIArc> arcs = new HashSet<XDIArc> (Arrays.asList(contextNodeXDIAddressArray[i]));
 			assertEquals(arcs.size(), contextNodesArray[i].getContextNodeCount());
 			assertEquals(arcs.size(), new IteratorCounter(contextNodesArray[i].getContextNodes()).count());
 			for (Iterator<ContextNode> it = contextNodesArray[i].getContextNodes(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getXDIArc()));
@@ -1461,7 +1461,7 @@ public abstract class AbstractGraphTest extends TestCase {
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]!2<$t>&"))
 		};
 
-		XDIArc[][] contextNodeAddressArray = new XDIArc[][] {
+		XDIArc[][] contextNodeXDIAddressArray = new XDIArc[][] {
 				new XDIArc[] { XDIArc.create("=abc") },
 				new XDIArc[] { XDIArc.create("[#passport]") },
 				new XDIArc[] { XDIArc.create("!1"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },	// MANIPULATED
@@ -1527,7 +1527,7 @@ public abstract class AbstractGraphTest extends TestCase {
 				null	// MANIPULATED
 		};
 
-		assertEquals(contextNodesArray.length, contextNodeAddressArray.length);
+		assertEquals(contextNodesArray.length, contextNodeXDIAddressArray.length);
 		assertEquals(contextNodesArray.length, relationAddressesArray.length);
 		assertEquals(contextNodesArray.length, literalsArray.length);
 
@@ -1535,9 +1535,9 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		for (int i=0; i<contextNodesArray.length; i++) {
 
-			if (contextNodesArray[i] == null) { assertNull(contextNodeAddressArray[i]); continue; } else assertNotNull(contextNodeAddressArray[i]);
+			if (contextNodesArray[i] == null) { assertNull(contextNodeXDIAddressArray[i]); continue; } else assertNotNull(contextNodeXDIAddressArray[i]);
 
-			Set<XDIArc> arcs = new HashSet<XDIArc> (Arrays.asList(contextNodeAddressArray[i]));
+			Set<XDIArc> arcs = new HashSet<XDIArc> (Arrays.asList(contextNodeXDIAddressArray[i]));
 			assertEquals(arcs.size(), contextNodesArray[i].getContextNodeCount());
 			assertEquals(arcs.size(), new IteratorCounter(contextNodesArray[i].getContextNodes()).count());
 			for (Iterator<ContextNode> it = contextNodesArray[i].getContextNodes(); it.hasNext(); ) assertTrue(arcs.remove(it.next().getXDIArc()));

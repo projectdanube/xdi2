@@ -22,7 +22,7 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.syntax.XDIXRef;
 
 /**
- * An XRI parser implemented manually in pure Java.
+ * An XDI parser implemented manually in pure Java.
  * This parser does not use an ABNF.
  */
 public class ParserImpl extends ParserAbstract implements Parser {
@@ -214,7 +214,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		String temp = stripXs(value);
 
-		XDIAddress address = null;
+		XDIAddress XDIaddress = null;
 		XDIAddress partialSubject = null;
 		XDIAddress partialPredicate = null;
 		String iri = null;
@@ -236,7 +236,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
 			} else if (cs(value.charAt(0)) != null || cla(value.charAt(0)) != null || att(value.charAt(0)) != null || xs(value.charAt(0)) != null) {
 
-				address = this.parseXDIAddress(value);
+				XDIaddress = this.parseXDIAddress(value);
 			} else {
 
 				literal = value;
@@ -245,7 +245,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIXRef(string, xs, address, partialSubject, partialPredicate, iri, literal);
+		return this.newXDIXRef(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public Object parseLiteralData(String string) {

@@ -17,8 +17,8 @@ public class CloudNumberTest extends TestCase {
 		assertTrue(CloudNumber.isValid(XDIAddress.create("[+]!1111")));
 		assertTrue(CloudNumber.isValid(XDIAddress.create("[+]!1111[+]!2222")));
 
-		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_PERSONAL).getAddress()));
-		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_LEGAL).getAddress()));
+		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_PERSONAL).getXDIAddress()));
+		assertTrue(CloudNumber.isValid(CloudNumber.createRandom(XDIConstants.CS_AUTHORITY_LEGAL).getXDIAddress()));
 	}
 
 	public void testIsCloudNumber() throws Exception {

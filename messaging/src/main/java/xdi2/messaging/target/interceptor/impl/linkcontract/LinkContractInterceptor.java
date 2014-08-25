@@ -355,7 +355,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		return false;
 	}
 
-	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIAddress contextNodeAddress, LinkContract linkContract) {
+	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIAddress contextNodeXDIAddress, LinkContract linkContract) {
 
 		// check positive permissions for the target address
 
@@ -368,12 +368,12 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		for (XDIAddress targetAddress : positiveIterator) {
 
-			if (XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, targetAddress, false, true) != null) {
+			if (XDIAddressUtil.startsWithXDIAddress(contextNodeXDIAddress, targetAddress, false, true) != null) {
 
 				int positiveMatch = targetAddress.getNumXDIArcs();
 				if (positiveMatch > longestPositivePermission) longestPositivePermission = positiveMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + contextNodeAddress);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + contextNodeXDIAddress);
 			}
 		}
 
@@ -388,12 +388,12 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		for (XDIAddress targetAddress : negativeIterator) {
 
-			if (XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, targetAddress, false, true) != null) {
+			if (XDIAddressUtil.startsWithXDIAddress(contextNodeXDIAddress, targetAddress, false, true) != null) {
 
 				int negativeMatch = targetAddress.getNumXDIArcs();
 				if (negativeMatch > longestNegativePermission) longestNegativePermission = negativeMatch;
 
-				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + contextNodeAddress);
+				if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + contextNodeXDIAddress);
 			}
 		}
 
@@ -403,7 +403,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on address " + contextNodeAddress + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on address " + contextNodeXDIAddress + ": " + decision);
 
 		return decision;
 	}

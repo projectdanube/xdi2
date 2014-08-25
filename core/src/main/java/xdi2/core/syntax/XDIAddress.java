@@ -23,17 +23,17 @@ public final class XDIAddress extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIAddress(string);
 	}
 
-	public static XDIAddress fromComponents(List<XDIArc> arcs) {
+	public static XDIAddress fromComponents(List<XDIArc> XDIarcs) {
 
 		StringBuffer buffer = new StringBuffer();
-		for (XDIArc arc : arcs) buffer.append(arc.toString());
+		for (XDIArc XDIarc : XDIarcs) buffer.append(XDIarc.toString());
 
-		return new XDIAddress(buffer.toString(), arcs);
+		return new XDIAddress(buffer.toString(), XDIarcs);
 	}
 
-	public static XDIAddress fromComponent(XDIArc arc) {
+	public static XDIAddress fromComponent(XDIArc XDIarc) {
 
-		return new XDIAddress(arc.toString(), Collections.singletonList(arc));
+		return new XDIAddress(XDIarc.toString(), Collections.singletonList(XDIarc));
 	}
 
 	public List<XDIArc> getXDIArcs() {

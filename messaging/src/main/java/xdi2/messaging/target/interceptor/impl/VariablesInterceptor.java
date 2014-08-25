@@ -125,40 +125,40 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 * Substitution helper methods
 	 */
 
-	private static XDIAddress substituteAddress(XDIAddress address, ExecutionContext executionContext) {
+	private static XDIAddress substituteAddress(XDIAddress XDIaddress, ExecutionContext executionContext) {
 
-		List<XDIArc> substitutedArcs = null;
+		List<XDIArc> substitutedXDIArcs = null;
 
 		// substitute address
 
-		for (int i=0; i<address.getNumXDIArcs(); i++) {
+		for (int i=0; i<XDIaddress.getNumXDIArcs(); i++) {
 
-			XDIArc arc = address.getXDIArc(i);
-			XDIArc substitutedArc = substituteArc(arc, executionContext);
+			XDIArc XDIarc = XDIaddress.getXDIArc(i);
+			XDIArc substitutedXDIArc = substituteXDIArc(XDIarc, executionContext);
 
-			if (substitutedArc == null) continue;
+			if (substitutedXDIArc == null) continue;
 
-			if (log.isDebugEnabled()) log.debug("Substituted " + arc + " for " + substitutedArc);
+			if (log.isDebugEnabled()) log.debug("Substituted " + XDIarc + " for " + substitutedXDIArc);
 
-			// substitute address
+			// substitute arc
 
-			if (substitutedArcs == null) {
+			if (substitutedXDIArcs == null) {
 
-				substitutedArcs = new ArrayList<XDIArc> (address.getNumXDIArcs());
-				for (int ii=0; ii<address.getNumXDIArcs(); ii++) substitutedArcs.add(address.getXDIArc(ii));
+				substitutedXDIArcs = new ArrayList<XDIArc> (XDIaddress.getNumXDIArcs());
+				for (int ii=0; ii<XDIaddress.getNumXDIArcs(); ii++) substitutedXDIArcs.add(XDIaddress.getXDIArc(ii));
 			}
 
-			substitutedArcs.set(i, substitutedArc);
+			substitutedXDIArcs.set(i, substitutedXDIArc);
 		}
 
 		// no substitutions?
 
-		if (substitutedArcs == null) return address;
+		if (substitutedXDIArcs == null) return XDIaddress;
 
 		// build new target address
 
 		StringBuilder newTargetAddress = new StringBuilder();
-		for (XDIArc substitutedArc : substitutedArcs) newTargetAddress.append(substitutedArc.toString());
+		for (XDIArc substitutedArc : substitutedXDIArcs) newTargetAddress.append(substitutedArc.toString());
 
 		return XDIAddress.create(newTargetAddress.toString());
 	}
@@ -170,19 +170,19 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 		return substituteAddress((XDIAddress) object, executionContext);
 	}
 
-	private static XDIArc substituteArc(XDIArc arc, ExecutionContext executionContext) {
+	private static XDIArc substituteXDIArc(XDIArc XDIarc, ExecutionContext executionContext) {
 
-		if (! VariableUtil.isVariable(arc)) return null;
-		if (! arc.getXRef().isEmpty()) return null;
+		if (! VariableUtil.isVariable(XDIarc)) return null;
+		if (! XDIarc.getXRef().isEmpty()) return null;
 
 		// substitute the arc
 
-		XDIArc newArc = getVariable(executionContext, arc);
+		XDIArc newArc = getVariable(executionContext, XDIarc);
 
 		if (newArc == null) {
 
 			newArc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
-			putVariable(executionContext, arc, newArc);
+			putVariable(executionContext, XDIarc, newArc);
 		}
 
 		// done

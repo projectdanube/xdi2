@@ -36,11 +36,12 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return 
-				isPeerRootXDIArc(contextNode.getXDIArc()) &&
-				XdiAbstractRoot.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isPeerRootXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() != null && ! XdiAbstractRoot.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -49,6 +50,8 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @return The XDI peer root.
 	 */
 	public static XdiPeerRoot fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -85,7 +88,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	}
 
 	/*
-	 * Methods for XDI peer root arcs
+	 * Methods for arcs
 	 */
 
 	/**
@@ -93,9 +96,9 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param address An address.
 	 * @return The peer root arc of the address.
 	 */
-	public static XDIArc createPeerRootXDIArc(XDIAddress address) {
+	public static XDIArc createPeerRootXDIArc(XDIAddress XDIaddress) {
 
-		return XDIArc.create("" + XDIConstants.XS_ROOT.charAt(0) + address + XDIConstants.XS_ROOT.charAt(1));
+		return XDIArc.create("" + XDIConstants.XS_ROOT.charAt(0) + XDIaddress + XDIConstants.XS_ROOT.charAt(1));
 	}
 
 	/**
@@ -103,16 +106,16 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param arc A peer root arc.
 	 * @return The address of the peer root arc.
 	 */
-	public static XDIAddress getXDIAddressOfPeerRootXDIArc(XDIArc arc) {
+	public static XDIAddress getXDIAddressOfPeerRootXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (arc.hasCs()) return null;
-		if (arc.isClassXs()) return null;
-		if (arc.isAttributeXs()) return null;
-		if (! arc.hasXRef()) return null;
+		if (XDIarc.hasCs()) return null;
+		if (XDIarc.isClassXs()) return null;
+		if (XDIarc.isAttributeXs()) return null;
+		if (! XDIarc.hasXRef()) return null;
 
-		XDIXRef xref = arc.getXRef();
+		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasXDIAddress()) return null;
 
@@ -124,16 +127,16 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param arc A peer root arc.
 	 * @return The IRI of the peer root arc.
 	 */
-	public static String getIriOfPeerRootXDIArc(XDIArc arc) {
+	public static String getIriOfPeerRootXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (arc.hasCs()) return null;
-		if (arc.isClassXs()) return null;
-		if (arc.isAttributeXs()) return null;
-		if (! arc.hasXRef()) return null;
+		if (XDIarc.hasCs()) return null;
+		if (XDIarc.isClassXs()) return null;
+		if (XDIarc.isAttributeXs()) return null;
+		if (! XDIarc.hasXRef()) return null;
 
-		XDIXRef xref = arc.getXRef();
+		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasIri()) return null;
 
@@ -145,16 +148,16 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param arc A peer root arc.
 	 * @return The literal of the peer root arc.
 	 */
-	public static String getLiteralOfPeerRootXDIArc(XDIArc arc) {
+	public static String getLiteralOfPeerRootXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (arc.hasCs()) return null;
-		if (arc.isClassXs()) return null;
-		if (arc.isAttributeXs()) return null;
-		if (! arc.hasXRef()) return null;
+		if (XDIarc.hasCs()) return null;
+		if (XDIarc.isClassXs()) return null;
+		if (XDIarc.isAttributeXs()) return null;
+		if (! XDIarc.hasXRef()) return null;
 
-		XDIXRef xref = arc.getXRef();
+		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasLiteral()) return null;
 
@@ -166,9 +169,15 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 * @param arc A peer root arc.
 	 * @return True, if the arc is a peer root arc.
 	 */
-	public static boolean isPeerRootXDIArc(XDIArc arc) {
+	public static boolean isPeerRootXDIArc(XDIArc XDIarc) {
 
-		return getXDIAddressOfPeerRootXDIArc(arc) != null || getIriOfPeerRootXDIArc(arc) != null || getLiteralOfPeerRootXDIArc(arc) != null;
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (getXDIAddressOfPeerRootXDIArc(XDIarc) != null) return true;
+		if (getIriOfPeerRootXDIArc(XDIarc) != null) return true;
+		if (getLiteralOfPeerRootXDIArc(XDIarc) != null) return true;
+
+		return false;
 	}
 
 	/*

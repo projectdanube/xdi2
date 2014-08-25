@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -26,10 +27,12 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return XdiAbstractMemberUnordered.isValid(contextNode) ||
-				XdiAbstractMemberOrdered.isValid(contextNode);
+		if (XdiAbstractMemberUnordered.isValid(contextNode)) return true;
+		if (XdiAbstractMemberOrdered.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
@@ -39,12 +42,28 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 	 */
 	public static XdiMember<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		XdiMember<?, ?, ?, ?, ?, ?> xdiMember = null;
 
 		if ((xdiMember = XdiAbstractMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 		if ((xdiMember = XdiAbstractMemberOrdered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
+	}
+
+	/*
+	 * Methods for arcs
+	 */
+
+	public static boolean isMemberXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (XdiAbstractMemberUnordered.isMemberUnorderedXDIArc(XDIarc, clazz)) return true; 
+		if (XdiAbstractMemberOrdered.isMemberOrderedXDIArc(XDIarc, clazz)) return true;
+
+		return false;
 	}
 
 	/*

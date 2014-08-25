@@ -53,7 +53,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XDIArc ownerPeerRootAddress = messagingTarget.getOwnerPeerRootAddress();
-		XDIArc toPeerRootAddress = message.getToPeerRootArc();
+		XDIArc toPeerRootAddress = message.getToPeerRootXDIArc();
 
 		if (toPeerRootAddress == null) toPeerRootAddress = this.getDefaultToPeerRootAddress();
 

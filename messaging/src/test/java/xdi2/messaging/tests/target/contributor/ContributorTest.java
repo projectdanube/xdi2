@@ -69,7 +69,7 @@ public class ContributorTest extends TestCase {
 
 			log.info("Doing $get: " + targetString);
 
-			MessageEnvelope envelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, target);
+			MessageEnvelope envelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
 			MessageResult result = new MessageResult();
 
 			messagingTarget.execute(envelope, result, null);

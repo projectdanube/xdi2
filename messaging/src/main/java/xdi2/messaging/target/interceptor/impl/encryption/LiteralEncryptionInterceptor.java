@@ -82,7 +82,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 
 		if (targetStatement.isLiteralStatement()) {
 
-			XDIAddress contextNodeAddress = targetStatement.getContextNodeXDIAddress();
+			XDIAddress contextNodeXDIAddress = targetStatement.getContextNodeXDIAddress();
 			Object literalData = targetStatement.getLiteralData();
 
 			String literalDataString = AbstractLiteral.literalDataToString(literalData);
@@ -97,7 +97,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 				throw new Xdi2MessagingException("Problem while encrypting literal string: " + ex.getMessage(), ex, executionContext);
 			}
 
-			return XDIStatement.fromLiteralComponents(contextNodeAddress, encryptedLiteralDataString);
+			return XDIStatement.fromLiteralComponents(contextNodeXDIAddress, encryptedLiteralDataString);
 		}
 
 		// done

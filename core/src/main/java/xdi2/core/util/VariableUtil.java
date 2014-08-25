@@ -46,15 +46,15 @@ public final class VariableUtil {
 		if (! isVariable(variable)) return new ArrayList<XDIArc> ();
 		if (! variable.getXRef().hasXDIAddress()) return new ArrayList<XDIArc> ();
 
-		XDIAddress address = variable.getXRef().getXDIAddress();
+		XDIAddress XDIaddress = variable.getXRef().getXDIAddress();
 
-		while (address.getFirstXDIArc().hasXRef()) {
+		while (XDIaddress.getFirstXDIArc().hasXRef()) {
 
-			address = address.getFirstXDIArc().getXRef().getXDIAddress();
-			if (address == null) return new ArrayList<XDIArc> ();
+			XDIaddress = XDIaddress.getFirstXDIArc().getXRef().getXDIAddress();
+			if (XDIaddress == null) return new ArrayList<XDIArc> ();
 		}
 
-		return address.getXDIArcs();
+		return XDIaddress.getXDIArcs();
 	}
 
 	public static String getXs(XDIArc variable) {
@@ -98,43 +98,43 @@ public final class VariableUtil {
 	 * @param arc The arc to match the variable against.
 	 * @return True, if the variable matches the arc.
 	 */
-	public static boolean matches(XDIArc variable, XDIArc arc) {
+	public static boolean matches(XDIArc variable, XDIArc XDIarc) {
 
 		List<XDIArc> variableArcs = getArcs(variable);
 		String variableXs = getXs(variable);
 
-		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against arc " + arc + " (variableArcs=" + variableArcs + ", variableXs=" + variableXs + ")");
+		if (log.isTraceEnabled()) log.trace("Matching variable " + variable + " against arc " + XDIarc + " (variableArcs=" + variableArcs + ", variableXs=" + variableXs + ")");
 
 		if (variableXs != null) {
 
-			if (! arc.hasXRef()) {
+			if (! XDIarc.hasXRef()) {
 
 				if (log.isTraceEnabled()) log.trace("Variable requires xs " + variableXs + ", but arc has no xs. No match.");
 				return false;
 			}
 
-			if (! variableXs.equals(arc.getXRef().getXs())) {
+			if (! variableXs.equals(XDIarc.getXRef().getXs())) {
 
-				if (log.isTraceEnabled()) log.trace("Variable xs " + variableXs + " does not match arc xs " + arc.getXRef().getXs() + ". No match.");
+				if (log.isTraceEnabled()) log.trace("Variable xs " + variableXs + " does not match arc xs " + XDIarc.getXRef().getXs() + ". No match.");
 				return false;
 			}
 		}
 
-		if (arc.hasXRef() && ! arc.hasCs()) {
+		if (XDIarc.hasXRef() && ! XDIarc.hasCs()) {
 
 			if (variableXs == null) {
 
-				if (log.isTraceEnabled()) log.trace("Variable requires no xs, but arc has xs " + arc.getXRef().getXs() + ". No match.");
+				if (log.isTraceEnabled()) log.trace("Variable requires no xs, but arc has xs " + XDIarc.getXRef().getXs() + ". No match.");
 				return false;
 			}
 
-			if (! arc.getXRef().hasXDIAddress()) {
+			if (! XDIarc.getXRef().hasXDIAddress()) {
 
 				if (log.isTraceEnabled()) log.trace("Arc has no inner address. No match.");
 				return false;
 			}
 
-			arc = arc.getXRef().getXDIAddress().getFirstXDIArc();
+			XDIarc = XDIarc.getXRef().getXDIAddress().getFirstXDIArc();
 		}
 
 		if (variableArcs.size() == 0) {
@@ -143,7 +143,7 @@ public final class VariableUtil {
 			return true;
 		}
 
-		if (! arc.hasCs()) {
+		if (! XDIarc.hasCs()) {
 
 			if (log.isTraceEnabled()) log.trace("Arc has no cs. No match.");
 			return false;
@@ -159,10 +159,10 @@ public final class VariableUtil {
 				continue;
 			}
 
-			if (variableArc.isClassXs() && ! arc.isClassXs()) continue;
-			if (variableArc.isAttributeXs() && ! arc.isAttributeXs()) continue;
+			if (variableArc.isClassXs() && ! XDIarc.isClassXs()) continue;
+			if (variableArc.isAttributeXs() && ! XDIarc.isAttributeXs()) continue;
 
-			if (variableArc.getCs().equals(arc.getCs())) {
+			if (variableArc.getCs().equals(XDIarc.getCs())) {
 
 				if (log.isTraceEnabled()) log.trace("Variable cs " + variableArc.getCs() + " is equal to arc cs. Match.");
 				return true;

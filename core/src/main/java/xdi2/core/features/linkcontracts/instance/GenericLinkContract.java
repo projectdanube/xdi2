@@ -80,22 +80,22 @@ public class GenericLinkContract extends LinkContract {
 		if (authorizingAuthority == null) throw new NullPointerException();
 		if (requestingAuthority == null) throw new NullPointerException();
 
-		List<XDIArc> genericLinkContractArcXris = new ArrayList<XDIArc> ();
+		List<XDIArc> genericLinkContractXDIArcs = new ArrayList<XDIArc> ();
 
-		XDIArc linkContractInnerRootArcXri = XdiInnerRoot.createInnerRootXDIArc(
+		XDIArc linkContractInnerRootXDIArc = XdiInnerRoot.createInnerRootXDIArc(
 				authorizingAuthority, 
 				requestingAuthority);
 
-		genericLinkContractArcXris.add(linkContractInnerRootArcXri);
+		genericLinkContractXDIArcs.add(linkContractInnerRootXDIArc);
 
 		if (templateAuthorityAndId != null) {
 
-			genericLinkContractArcXris.addAll(templateAuthorityAndId.getXDIArcs());
+			genericLinkContractXDIArcs.addAll(templateAuthorityAndId.getXDIArcs());
 		}
 
-		genericLinkContractArcXris.add(XDILinkContractConstants.XDI_ARC_DO);
+		genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_DO);
 
-		return XDIAddress.fromComponents(genericLinkContractArcXris);
+		return XDIAddress.fromComponents(genericLinkContractXDIArcs);
 	}
 
 	/**
@@ -104,9 +104,9 @@ public class GenericLinkContract extends LinkContract {
 	 */
 	public static GenericLinkContract findGenericLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDIAddress genericLinkContractXri = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
+		XDIAddress genericLinkContractXDIArc = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
 
-		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXri) : graph.getDeepContextNode(genericLinkContractXri, true);
+		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXDIArc) : graph.getDeepContextNode(genericLinkContractXDIArc, true);
 		if (genericLinkContractContextNode == null) return null;
 
 		return new GenericLinkContract(XdiAbstractEntity.fromContextNode(genericLinkContractContextNode));
@@ -116,28 +116,28 @@ public class GenericLinkContract extends LinkContract {
 	 * Static methods
 	 */
 
-	public static XDIAddress getAuthorizingAuthority(XDIAddress address) {
+	public static XDIAddress getAuthorizingAuthority(XDIAddress XDIaddress) {
 
-		XDIArc linkContractInnerRootXDIArc = address.getFirstXDIArc();
+		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
 		if (! XdiInnerRoot.isInnerRootXDIArc(linkContractInnerRootXDIArc)) return null;
 
 		return XdiInnerRoot.getSubjectOfInnerRootXDIArc(linkContractInnerRootXDIArc);
 	}
 
-	public static XDIAddress getRequestingAuthority(XDIAddress address) {
+	public static XDIAddress getRequestingAuthority(XDIAddress XDIaddress) {
 
-		XDIArc linkContractInnerRootXDIArc = address.getFirstXDIArc();
+		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
 		if (! XdiInnerRoot.isInnerRootXDIArc(linkContractInnerRootXDIArc)) return null;
 
 		return XdiInnerRoot.getPredicateOfInnerRootXDIArc(linkContractInnerRootXDIArc);
 	}
 
-	public static XDIAddress getTemplateAuthorityAndId(XDIAddress address) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
 
-		int index = XDIAddressUtil.indexOfXDIArc(address, XDILinkContractConstants.XDI_ARC_DO);
-		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(address, XdiEntityCollection.createXDIArc(XDILinkContractConstants.XDI_ARC_DO));
+		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_DO);
+		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createEntityCollectionXDIArc(XDILinkContractConstants.XDI_ARC_DO));
 
-		return XDIAddressUtil.subXDIAddress(address, 1, index);
+		return XDIAddressUtil.subXDIAddress(XDIaddress, 1, index);
 	}
 
 	/*

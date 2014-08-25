@@ -63,11 +63,11 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		Parser parser = this.getParser();
 
-		XDIAddress address = parser.parseXDIAddress("+(user)<#(first_name)>");
+		XDIAddress XDIaddress = parser.parseXDIAddress("+(user)<#(first_name)>");
 
-		assertEquals(address.getNumXDIArcs(), 2);
-		assertEquals(address.getXDIArc(0), parser.parseXDIArc("+(user)"));
-		assertEquals(address.getXDIArc(1), parser.parseXDIArc("<#(first_name)>"));
+		assertEquals(XDIaddress.getNumXDIArcs(), 2);
+		assertEquals(XDIaddress.getXDIArc(0), parser.parseXDIArc("+(user)"));
+		assertEquals(XDIaddress.getXDIArc(1), parser.parseXDIArc("<#(first_name)>"));
 	}
 
 	public void testXDIStatement() throws Exception {

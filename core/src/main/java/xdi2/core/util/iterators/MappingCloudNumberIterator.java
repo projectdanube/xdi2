@@ -12,16 +12,16 @@ import xdi2.core.syntax.XDIAddress;
  */
 public class MappingCloudNumberIterator extends MappingIterator<XDIAddress, CloudNumber> {
 
-	public MappingCloudNumberIterator(Iterator<XDIAddress> addresses) {
+	public MappingCloudNumberIterator(Iterator<XDIAddress> XDIaddresses) {
 
-		super(addresses);
+		super(XDIaddresses);
 	}
 
 	@Override
-	public CloudNumber map(XDIAddress address) {
+	public CloudNumber map(XDIAddress XDIaddress) {
 
-		CloudNumber cloudNumber = CloudNumber.fromAddress(address);
-		if (cloudNumber == null) cloudNumber = CloudNumber.fromPeerRootArc(address);
+		CloudNumber cloudNumber = CloudNumber.fromXDIAddress(XDIaddress);
+		if (cloudNumber == null) cloudNumber = CloudNumber.fromPeerRootXDIArc(XDIaddress);
 		if (cloudNumber == null) return null;
 
 		return cloudNumber;

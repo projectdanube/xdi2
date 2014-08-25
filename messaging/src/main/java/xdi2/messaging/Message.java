@@ -150,7 +150,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the sender address of the message's message collection.
 	 * @return The sender address of the message's message collection.
 	 */
-	public XDIAddress getSenderAddress() {
+	public XDIAddress getSenderXDIAddress() {
 
 		return this.getMessageCollection().getSenderXDIAddress();
 	}
@@ -158,7 +158,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Return the FROM peer root arc.
 	 */
-	public XDIArc getFromPeerRootArc() {
+	public XDIArc getFromPeerRootXDIArc() {
 
 		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
 
@@ -166,9 +166,9 @@ public final class Message implements Serializable, Comparable<Message> {
 
 			if (incomingRelation.getXDIAddress().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC)) {
 
-				XDIArc arc = incomingRelation.getContextNode().getXDIArc();
+				XDIArc XDIarc = incomingRelation.getContextNode().getXDIArc();
 
-				if (XdiPeerRoot.isPeerRootXDIArc(arc)) return arc;
+				if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) return XDIarc;
 			}
 		}
 
@@ -178,20 +178,20 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the FROM peer root arc.
 	 */
-	public void setFromPeerRootArc(XDIArc fromPeerRootArc) {
+	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIarc) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootArc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootXDIarc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
 	}
 
 	/**
 	 * Return the TO peer root arc of the message.
 	 */
-	public XDIArc getToPeerRootArc() {
+	public XDIArc getToPeerRootXDIArc() {
 
-		Relation toPeerRootArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
-		if (toPeerRootArcRelation == null) return null;
+		Relation toPeerRootXDIarcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
+		if (toPeerRootXDIarcRelation == null) return null;
 
-		XDIAddress toPeerRootAddress = toPeerRootArcRelation.getTargetContextNodeXDIAddress();
+		XDIAddress toPeerRootAddress = toPeerRootXDIarcRelation.getTargetContextNodeXDIAddress();
 		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isPeerRootXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
 
 		return toPeerRootAddress.getFirstXDIArc();
@@ -200,13 +200,13 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the TO peer root arc of the message.
 	 */
-	public void setToPeerRootArc(XDIArc toPeerRootArc) {
+	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIarc) {
 
 		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
 
-		if (toPeerRootArc != null) {
+		if (toPeerRootXDIarc != null) {
 
-			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootArc));
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIarc));
 		}
 	}
 
@@ -253,7 +253,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setLinkContract(Class<? extends LinkContract> clazz) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootArc());
+		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootXDIArc());
 		if (ownerAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
 
 		if (RootLinkContract.class.isAssignableFrom(clazz)) {

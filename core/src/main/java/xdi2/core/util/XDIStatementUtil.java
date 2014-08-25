@@ -67,7 +67,7 @@ public final class XDIStatementUtil {
 	 * Concats an address and a statement into a new statement.
 	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
 	 */
-	public static XDIStatement concatXDIStatement(final XDIAddress address, final XDIStatement statement) {
+	public static XDIStatement concatXDIStatement(final XDIAddress XDIaddress, final XDIStatement statement) {
 
 		if (statement == null) throw new NullPointerException();
 
@@ -81,7 +81,7 @@ public final class XDIStatementUtil {
 
 			// subject
 
-			subject = XDIAddressUtil.concatXDIAddresses(address, statement.getSubject());
+			subject = XDIAddressUtil.concatXDIAddresses(XDIaddress, statement.getSubject());
 
 			// predicate
 
@@ -94,7 +94,7 @@ public final class XDIStatementUtil {
 			{ result = XDIStatement.fromComponents(subject, predicate, object); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("concatXDIStatement(" + address + "," + statement + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatXDIStatement(" + XDIaddress + "," + statement + ") --> " + result);
 		}
 	}
 }

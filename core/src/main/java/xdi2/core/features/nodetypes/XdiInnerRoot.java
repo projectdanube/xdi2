@@ -36,11 +36,12 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return
-				isInnerRootXDIArc(contextNode.getXDIArc()) &&
-				XdiAbstractRoot.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isInnerRootXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() != null && ! XdiAbstractRoot.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -49,6 +50,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @return The XDI inner root.
 	 */
 	public static XdiInnerRoot fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -164,16 +167,16 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root arc.
 	 * @return The subject address of the inner root arc.
 	 */
-	public static XDIAddress getSubjectOfInnerRootXDIArc(XDIArc arc) {
+	public static XDIAddress getSubjectOfInnerRootXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (arc.hasCs()) return null;
-		if (arc.isClassXs()) return null;
-		if (arc.isAttributeXs()) return null;
-		if (! arc.hasXRef()) return null;
+		if (XDIarc.hasCs()) return null;
+		if (XDIarc.isClassXs()) return null;
+		if (XDIarc.isAttributeXs()) return null;
+		if (! XDIarc.hasXRef()) return null;
 
-		XDIXRef xref = arc.getXRef();
+		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
@@ -185,16 +188,16 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root arc.
 	 * @return The predicate address of the inner root arc.
 	 */
-	public static XDIAddress getPredicateOfInnerRootXDIArc(XDIArc arc) {
+	public static XDIAddress getPredicateOfInnerRootXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (arc.hasCs()) return null;
-		if (arc.isClassXs()) return null;
-		if (arc.isAttributeXs()) return null;
-		if (! arc.hasXRef()) return null;
+		if (XDIarc.hasCs()) return null;
+		if (XDIarc.isClassXs()) return null;
+		if (XDIarc.isAttributeXs()) return null;
+		if (! XDIarc.hasXRef()) return null;
 
-		XDIXRef xref = arc.getXRef();
+		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
 		if (! xref.hasPartialSubjectAndPredicate()) return null;
 
@@ -206,9 +209,14 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @param arc An inner root arc.
 	 * @return True, if the arc is an inner root arc.
 	 */
-	public static boolean isInnerRootXDIArc(XDIArc arc) {
+	public static boolean isInnerRootXDIArc(XDIArc XDIarc) {
 
-		return getSubjectOfInnerRootXDIArc(arc) != null && getPredicateOfInnerRootXDIArc(arc) != null;
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (getSubjectOfInnerRootXDIArc(XDIarc) == null) return false;
+		if (getPredicateOfInnerRootXDIArc(XDIarc) == null) return false;
+
+		return true;
 	}
 
 	/*

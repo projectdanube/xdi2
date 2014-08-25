@@ -51,12 +51,12 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 
 		// sender
 
-		XDIAddress senderAddress = message.getSenderAddress();
-		if (senderAddress == null) return null;
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		if (senderXDIAddress == null) return null;
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getSecretTokenGraph()).getPeerRoot(senderAddress, false);
+		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getSecretTokenGraph()).getPeerRoot(senderXDIAddress, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);

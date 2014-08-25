@@ -46,9 +46,11 @@ public class XdiCommonRoot extends XdiAbstractRoot {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return contextNode.isRootContextNode();
+		if (! contextNode.isRootContextNode()) return false;
+
+		return true;
 	}
 
 	/**
@@ -57,6 +59,8 @@ public class XdiCommonRoot extends XdiAbstractRoot {
 	 * @return The XDI common root.
 	 */
 	public static XdiCommonRoot fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -67,14 +71,14 @@ public class XdiCommonRoot extends XdiAbstractRoot {
 	 * Instance methods
 	 */
 
-	public XdiPeerRoot setSelfPeerRoot(XDIAddress address) {
+	public XdiPeerRoot setSelfPeerRoot(XDIAddress XDIaddress) {
 
 		XdiPeerRoot selfPeerRoot = this.getSelfPeerRoot();
 		if (selfPeerRoot != null) selfPeerRoot.getContextNode().delete();
 
-		if (address == null) return null;
+		if (XDIaddress == null) return null;
 
-		selfPeerRoot = this.getPeerRoot(address, true);
+		selfPeerRoot = this.getPeerRoot(XDIaddress, true);
 
 		ContextNode commonRootContextNode = this.getContextNode();
 		ContextNode selfPeerRootContextNode = selfPeerRoot.getContextNode();

@@ -95,7 +95,7 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public AddressHandler getAddressHandler(XDIAddress address) throws Xdi2MessagingException {
+	public AddressHandler getAddressHandler(XDIAddress XDIaddress) throws Xdi2MessagingException {
 
 		return this.graphContextHandler;
 	}

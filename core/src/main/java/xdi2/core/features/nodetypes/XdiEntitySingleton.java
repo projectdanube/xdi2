@@ -33,11 +33,13 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return 
-				isValidXDIArc(contextNode.getXDIArc()) &&
-				( ! XdiAttributeCollection.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
+		if (contextNode.getXDIArc() == null || ! isEntitySingletonXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() != null && XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
+		if (contextNode.getContextNode() != null && XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -47,32 +49,34 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 	 */
 	public static XdiEntitySingleton fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		if (! isValid(contextNode)) return null;
 
 		return new XdiEntitySingleton(contextNode);
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(XDIArc arc) {
+	public static XDIArc createEntitySingletonXDIArc(XDIArc XDIarc) {
 
-		return arc;
+		return XDIarc;
 	}
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isEntitySingletonXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return false;
+		if (XDIarc == null) throw new NullPointerException();
 
-		if (arc.isAttributeXs()) return false;
-		if (arc.isClassXs()) return false;
+		if (XDIarc.isAttributeXs()) return false;
+		if (XDIarc.isClassXs()) return false;
 
-		if (! arc.hasLiteral() && ! arc.hasXRef()) return false;
+		if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
 
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arc.getCs())) {
+		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arc.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arc.getCs())) {
+		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(XDIarc.getCs())) {
 
 		} else {
 

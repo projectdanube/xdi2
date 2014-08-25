@@ -1,6 +1,7 @@
 package xdi2.core.features.linkcontracts.instance;
 
 import xdi2.core.features.linkcontracts.LinkContractBase;
+import xdi2.core.features.linkcontracts.community.CommunityLinkContract;
 import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
 

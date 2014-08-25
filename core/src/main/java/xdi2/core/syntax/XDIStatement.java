@@ -55,25 +55,25 @@ public class XDIStatement extends XDIIdentifier {
 		}
 	}
 
-	public static XDIStatement fromContextNodeComponents(XDIAddress contextNodeAddress, XDIArc contextNodeArc) {
+	public static XDIStatement fromContextNodeComponents(XDIAddress contextNodeXDIAddress, XDIArc contextNodeArc) {
 
-		String string = contextNodeAddress.toString() + "/" + XDIConstants.XDI_ADD_CONTEXT.toString() + "/" + contextNodeArc.toString();
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_CONTEXT.toString() + "/" + contextNodeArc.toString();
 
-		return new XDIStatement(string, contextNodeAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeArc);
+		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeArc);
 	}
 
-	public static XDIStatement fromRelationComponents(XDIAddress contextNodeAddress, XDIAddress relationAddress, XDIAddress targetContextNodeAddress) {
+	public static XDIStatement fromRelationComponents(XDIAddress contextNodeXDIAddress, XDIAddress relationAddress, XDIAddress targetContextNodeXDIAddress) {
 
-		String string = contextNodeAddress.toString() + "/" + relationAddress.toString() + "/" + targetContextNodeAddress.toString();
+		String string = contextNodeXDIAddress.toString() + "/" + relationAddress.toString() + "/" + targetContextNodeXDIAddress.toString();
 
-		return new XDIStatement(string, contextNodeAddress, relationAddress, targetContextNodeAddress);
+		return new XDIStatement(string, contextNodeXDIAddress, relationAddress, targetContextNodeXDIAddress);
 	}
 
-	public static XDIStatement fromLiteralComponents(XDIAddress contextNodeAddress, Object literalData) {
+	public static XDIStatement fromLiteralComponents(XDIAddress contextNodeXDIAddress, Object literalData) {
 
-		String string = contextNodeAddress.toString() + "/" + XDIConstants.XDI_ADD_LITERAL.toString() + "/" + AbstractLiteral.literalDataToString(literalData);
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_LITERAL.toString() + "/" + AbstractLiteral.literalDataToString(literalData);
 
-		return new XDIStatement(string, contextNodeAddress, XDIConstants.XDI_ADD_LITERAL, literalData);
+		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_LITERAL, literalData);
 	}
 
 	/*

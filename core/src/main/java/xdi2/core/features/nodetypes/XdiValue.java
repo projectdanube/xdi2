@@ -34,10 +34,12 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return isValidXDIArc(contextNode.getXDIArc()) &&
-				XdiAbstractAttribute.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
+		if (! XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -46,6 +48,8 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 	 * @return The XDI value.
 	 */
 	public static XdiValue fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -101,7 +105,7 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
 	public static XDIArc createXDIArc() {
@@ -109,16 +113,16 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 		return XDIConstants.XDI_ARC_LITERAL;
 	}
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
-		if (arc == null) return false;
+		if (XDIarc == null) return false;
 
-		if (arc.isClassXs()) return false;
-		if (arc.isAttributeXs()) return false;
-		if (arc.hasLiteral()) return false;
-		if (arc.hasXRef()) return false;
+		if (XDIarc.isClassXs()) return false;
+		if (XDIarc.isAttributeXs()) return false;
+		if (XDIarc.hasLiteral()) return false;
+		if (XDIarc.hasXRef()) return false;
 
-		if (! XDIConstants.CS_VALUE.equals(arc.getCs())) return false;
+		if (! XDIConstants.CS_VALUE.equals(XDIarc.getCs())) return false;
 
 		return true;
 	}

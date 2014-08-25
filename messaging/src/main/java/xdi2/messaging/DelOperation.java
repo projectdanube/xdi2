@@ -31,7 +31,7 @@ public class DelOperation extends Operation {
 	public static boolean isValid(Relation relation) {
 
 		if (XDIAddressUtil.startsWithXDIAddress(relation.getXDIAddress(), XDIMessagingConstants.XDI_ADD_DEL) == null) return false;
-		if (! XdiEntitySingleton.createXDIArc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getXDIArc())) return false;
+		if (! XdiEntitySingleton.createEntitySingletonXDIArc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getXDIArc())) return false;
 
 		return true;
 	}

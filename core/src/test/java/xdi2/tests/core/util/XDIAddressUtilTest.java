@@ -5,46 +5,46 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
 
-public class AddressUtilTest extends TestCase {
+public class XDIAddressUtilTest extends TestCase {
 
 	public void testParentAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, 0), XDIAddress.create("=a*b*c*d"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, 1), XDIAddress.create("=a"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, -1), XDIAddress.create("=a*b*c"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, 2), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, -2), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, 3), XDIAddress.create("=a*b*c"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, -3), XDIAddress.create("=a"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, 4), XDIAddress.create("=a*b*c*d"));
-		assertNull(XDIAddressUtil.parentXDIAddress(address, -4));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 0), XDIAddress.create("=a*b*c*d"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 1), XDIAddress.create("=a"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), XDIAddress.create("=a*b*c"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 2), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -2), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 3), XDIAddress.create("=a*b*c"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -3), XDIAddress.create("=a"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 4), XDIAddress.create("=a*b*c*d"));
+		assertNull(XDIAddressUtil.parentXDIAddress(XDIaddress, -4));
 
-		assertEquals(XDIAddressUtil.parentXDIAddress(address, -1), XDIAddress.create("=a*b*c"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(address, -1), -1), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(address, -1), -1), -1), XDIAddress.create("=a"));
-		assertNull(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(address, -1), -1), -1), -1));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), XDIAddress.create("=a*b*c"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), XDIAddress.create("=a"));
+		assertNull(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), -1));
 	}
 
 	public void testLocalAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.localXDIAddress(address, 0), XDIAddress.create("=a*b*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, 1), XDIAddress.create("*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, -1), XDIAddress.create("*b*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, 2), XDIAddress.create("*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, -2), XDIAddress.create("*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, 3), XDIAddress.create("*b*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, -3), XDIAddress.create("*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(address, 4), XDIAddress.create("=a*b*c*d"));
-		assertNull(XDIAddressUtil.localXDIAddress(address, -4));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 0), XDIAddress.create("=a*b*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 1), XDIAddress.create("*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -1), XDIAddress.create("*b*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 2), XDIAddress.create("*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -2), XDIAddress.create("*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 3), XDIAddress.create("*b*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -3), XDIAddress.create("*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 4), XDIAddress.create("=a*b*c*d"));
+		assertNull(XDIAddressUtil.localXDIAddress(XDIaddress, -4));
 
-		assertEquals(XDIAddressUtil.localXDIAddress(address, -1), XDIAddress.create("*b*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(address, -1), -1), XDIAddress.create("*c*d"));
-		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(address, -1), -1), -1), XDIAddress.create("*d"));
-		assertNull(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(address, -1), -1), -1), -1));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -1), XDIAddress.create("*b*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), XDIAddress.create("*c*d"));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), XDIAddress.create("*d"));
+		assertNull(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), -1));
 	}
 
 	public void testStartsWith() throws Exception {
@@ -136,20 +136,20 @@ public class AddressUtilTest extends TestCase {
 
 	public void testStartAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.indexOfXDIArc(address, XDIArc.create("*b")), 1);
-		assertEquals(XDIAddressUtil.indexOfXDIArc(address, XDIArc.create("*c")), 2);
-		assertEquals(XDIAddressUtil.indexOfXDIArc(address, XDIArc.create("*x")), -1);
+		assertEquals(XDIAddressUtil.indexOfXDIArc(XDIaddress, XDIArc.create("*b")), 1);
+		assertEquals(XDIAddressUtil.indexOfXDIArc(XDIaddress, XDIArc.create("*c")), 2);
+		assertEquals(XDIAddressUtil.indexOfXDIArc(XDIaddress, XDIArc.create("*x")), -1);
 	}
 
 	public void testEndAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(address, XDIArc.create("*b")), 1);
-		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(address, XDIArc.create("*c")), 2);
-		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(address, XDIArc.create("*x")), -1);
+		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(XDIaddress, XDIArc.create("*b")), 1);
+		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(XDIaddress, XDIArc.create("*c")), 2);
+		assertEquals(XDIAddressUtil.lastIndexOfXDIArc(XDIaddress, XDIArc.create("*x")), -1);
 	}
 
 	public void testSubAddress() throws Exception {
@@ -175,26 +175,26 @@ public class AddressUtilTest extends TestCase {
 
 	public void testRemoveStartAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("")), XDIAddress.create("=a*b*c*d"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("=a")), XDIAddress.create("*b*c*d"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("=a*b")), XDIAddress.create("*c*d"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("=a*b*c")), XDIAddress.create("*d"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("=a*b*c*d")), XDIAddress.create(""));
-		assertNull(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("=x")));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("")), XDIAddress.create("=a*b*c*d"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("=a")), XDIAddress.create("*b*c*d"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("=a*b")), XDIAddress.create("*c*d"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("=a*b*c")), XDIAddress.create("*d"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("=a*b*c*d")), XDIAddress.create(""));
+		assertNull(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("=x")));
 	}
 
 	public void testRemoveEndAddress() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b*c*d");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b*c*d");
 
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("")), XDIAddress.create("=a*b*c*d"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("*d")), XDIAddress.create("=a*b*c"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("*c*d")), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("*b*c*d")), XDIAddress.create("=a"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("=a*b*c*d")), XDIAddress.create(""));
-		assertNull(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("*y")));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("")), XDIAddress.create("=a*b*c*d"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("*d")), XDIAddress.create("=a*b*c"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("*c*d")), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("*b*c*d")), XDIAddress.create("=a"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("=a*b*c*d")), XDIAddress.create(""));
+		assertNull(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("*y")));
 	}
 
 	public void testConcatAddresses() throws Exception {
@@ -227,37 +227,37 @@ public class AddressUtilTest extends TestCase {
 
 	public void testRemoveStartAddressVariables() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b+c!d#e$f*g");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b+c!d#e$f*g");
 
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{}"), false, true), XDIAddress.create("*b+c!d#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{=}"), false, true), XDIAddress.create("*b+c!d#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{}{}"), false, true), XDIAddress.create("+c!d#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{=*}}"), false, true), XDIAddress.create("+c!d#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{}{*}"), false, true), XDIAddress.create("+c!d#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{*=}}{{!+}}"), false, true), XDIAddress.create("#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{*=}}{}{!}"), false, true), XDIAddress.create("#e$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{*=}}{}{!}{}"), false, true), XDIAddress.create("$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{*=}}{}{{!}}{#}"), false, true), XDIAddress.create("$f*g"));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{*=}}{}{!}{#}{$}{*}"), false, true), XDIAddress.create(""));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{=+*#$!}}"), false, true), XDIAddress.create(""));
-		assertNull(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{#}"), false, true));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{}"), false, true), XDIAddress.create("*b+c!d#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{=}"), false, true), XDIAddress.create("*b+c!d#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{}{}"), false, true), XDIAddress.create("+c!d#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{=*}}"), false, true), XDIAddress.create("+c!d#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{}{*}"), false, true), XDIAddress.create("+c!d#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{*=}}{{!+}}"), false, true), XDIAddress.create("#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{*=}}{}{!}"), false, true), XDIAddress.create("#e$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{*=}}{}{!}{}"), false, true), XDIAddress.create("$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{*=}}{}{{!}}{#}"), false, true), XDIAddress.create("$f*g"));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{*=}}{}{!}{#}{$}{*}"), false, true), XDIAddress.create(""));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{=+*#$!}}"), false, true), XDIAddress.create(""));
+		assertNull(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{#}"), false, true));
 	}
 
 	public void testRemoveEndAddressVariables() throws Exception {
 
-		XDIAddress address = XDIAddress.create("=a*b+c!d#e$f*g");
+		XDIAddress XDIaddress = XDIAddress.create("=a*b+c!d#e$f*g");
 
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{}"), false, true), XDIAddress.create("=a*b+c!d#e$f"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{*}"), false, true), XDIAddress.create("=a*b+c!d#e$f"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{}{}"), false, true), XDIAddress.create("=a*b+c!d#e"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{{$*}}"), false, true), XDIAddress.create("=a*b+c!d#e"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{$}{}"), false, true), XDIAddress.create("=a*b+c!d#e"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{{!#}}{{$*}}"), false, true), XDIAddress.create("=a*b+c"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{!}{}{{$*}}"), false, true), XDIAddress.create("=a*b+c"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{}{!}{}{{$*}}"), false, true), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{+}{{!}}{}{{$*}}"), false, true), XDIAddress.create("=a*b"));
-		assertEquals(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{=}{*}{+}{!}{}{{$*}}"), false, true), XDIAddress.create(""));
-		assertEquals(XDIAddressUtil.removeStartXDIAddress(address, XDIAddress.create("{{=+*#$!}}"), false, true), XDIAddress.create(""));
-		assertNull(XDIAddressUtil.removeEndXDIAddress(address, XDIAddress.create("{!}"), false, true));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{}"), false, true), XDIAddress.create("=a*b+c!d#e$f"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{*}"), false, true), XDIAddress.create("=a*b+c!d#e$f"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{}{}"), false, true), XDIAddress.create("=a*b+c!d#e"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{{$*}}"), false, true), XDIAddress.create("=a*b+c!d#e"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{$}{}"), false, true), XDIAddress.create("=a*b+c!d#e"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{{!#}}{{$*}}"), false, true), XDIAddress.create("=a*b+c"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{!}{}{{$*}}"), false, true), XDIAddress.create("=a*b+c"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{}{!}{}{{$*}}"), false, true), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{+}{{!}}{}{{$*}}"), false, true), XDIAddress.create("=a*b"));
+		assertEquals(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{=}{*}{+}{!}{}{{$*}}"), false, true), XDIAddress.create(""));
+		assertEquals(XDIAddressUtil.removeStartXDIAddress(XDIaddress, XDIAddress.create("{{=+*#$!}}"), false, true), XDIAddress.create(""));
+		assertNull(XDIAddressUtil.removeEndXDIAddress(XDIaddress, XDIAddress.create("{!}"), false, true));
 	}
 }

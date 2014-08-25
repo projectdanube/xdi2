@@ -28,12 +28,12 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	@Override
 	public String getLocalSaltAndDigestSecretToken(Message message) {
 
-		XDIAddress senderAddress = message.getSenderAddress();
-		if (senderAddress == null) return null;
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		if (senderXDIAddress == null) return null;
 
 		// look for static local salt and digest secret token
 
-		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(senderAddress);
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretTokens().get(senderXDIAddress);
 		if (localSaltAndDigestSecretToken == null) return null;
 
 		// done

@@ -145,7 +145,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// write the statement
 
-		this.writecontextNodeAddress(bufferedWriter, statementAddress.getSubject());
+		this.writecontextNodeXDIAddress(bufferedWriter, statementAddress.getSubject());
 		this.writeSeparator(bufferedWriter);
 		this.writePredicateAddress(bufferedWriter, statementAddress.getPredicate());
 		this.writeSeparator(bufferedWriter);
@@ -155,7 +155,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			this.writecontextNodeArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
 		} else if (statementAddress.isRelationStatement()) {
 
-			this.writecontextNodeAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
+			this.writecontextNodeXDIAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
 		} else if (statementAddress.isLiteralStatement()) {
 
 			this.writeLiteralData(bufferedWriter, statementAddress.getObject());
@@ -176,13 +176,13 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void writecontextNodeAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeAddress) throws IOException {
+	private void writecontextNodeXDIAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress) throws IOException {
 
 		if (this.writeHtml) {
 
 			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
-			for (XDIArc contextNodeArc : contextNodeAddress.getXDIArcs()) {
+			for (XDIArc contextNodeArc : contextNodeXDIAddress.getXDIArcs()) {
 
 				this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);
 
@@ -193,17 +193,17 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			}
 		} else {
 
-			bufferedWriter.write(contextNodeAddress.toString());
+			bufferedWriter.write(contextNodeXDIAddress.toString());
 		}
 	}
 
-	private void writecontextNodeArc(BufferedWriter bufferedWriter, XDIAddress contextNodeAddress, XDIArc contextNodeArc) throws IOException {
+	private void writecontextNodeArc(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress, XDIArc contextNodeArc) throws IOException {
 
 		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
-		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeAddress)) {
+		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIAddress)) {
 
-			contextNode = contextNode.setDeepContextNode(contextNodeAddress);
+			contextNode = contextNode.setDeepContextNode(contextNodeXDIAddress);
 		}
 
 		this.writecontextNodeArc(bufferedWriter, contextNode, contextNodeArc);

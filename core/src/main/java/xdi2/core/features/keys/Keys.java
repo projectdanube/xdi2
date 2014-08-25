@@ -187,9 +187,9 @@ public class Keys {
 		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
 	}
 
-	public static String getKeyAlgorithm(XDIAddress dataTypeAddress) {
+	public static String getKeyAlgorithm(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyAlgorithmAddress = dataTypeAddress.getNumXDIArcs() > 0 ? dataTypeAddress.getXDIArc(0) : null;
+		XDIArc keyAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 0 ? dataTypeXDIAddress.getXDIArc(0) : null;
 		if (keyAlgorithmAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
@@ -199,9 +199,9 @@ public class Keys {
 		return keyAlgorithmAddress.getLiteral();
 	}
 
-	public static Integer getKeyLength(XDIAddress dataTypeAddress) {
+	public static Integer getKeyLength(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyLengthAddress = dataTypeAddress.getNumXDIArcs() > 1 ? dataTypeAddress.getXDIArc(1) : null;
+		XDIArc keyLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 1 ? dataTypeXDIAddress.getXDIArc(1) : null;
 		if (keyLengthAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;

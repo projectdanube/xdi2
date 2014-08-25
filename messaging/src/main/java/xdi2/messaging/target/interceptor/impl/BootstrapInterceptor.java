@@ -29,7 +29,7 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
-import xdi2.core.util.CopyUtil.ReplaceXriCopyStrategy;
+import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.messaging.MessageEnvelope;
@@ -235,7 +235,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapGraph() != null) {
 
-			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+			CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
 
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, copyStrategy);
@@ -251,7 +251,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapMessageEnvelope() != null) {
 
-			CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+			CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
 
 			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
 			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), copyStrategy);

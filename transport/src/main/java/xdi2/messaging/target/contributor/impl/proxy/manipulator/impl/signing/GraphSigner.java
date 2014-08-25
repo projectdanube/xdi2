@@ -59,12 +59,12 @@ public class GraphSigner extends PrivateKeySigner {
 	@Override
 	public PrivateKey getPrivateKey(Message message) {
 
-		XDIAddress senderAddress = message.getSenderAddress();
-		if (senderAddress == null) return null;
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		if (senderXDIAddress == null) return null;
 
 		// sender peer root
 
-		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getPeerRoot(senderAddress, false);
+		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getPeerRoot(senderXDIAddress, false);
 		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);

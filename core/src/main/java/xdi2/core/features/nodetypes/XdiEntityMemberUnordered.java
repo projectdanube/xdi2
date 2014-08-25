@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -31,11 +32,12 @@ public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<X
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return
-				isValidXDIArc(contextNode.getXDIArc(), XdiEntityCollection.class) &&
-				XdiEntityCollection.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isEntityMemberUnorderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() == null || ! XdiEntityCollection.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -44,6 +46,8 @@ public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<X
 	 * @return The XDI unordered entity member.
 	 */
 	public static XdiEntityMemberUnordered fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		if (! isValid(contextNode)) return null;
 
@@ -62,6 +66,19 @@ public final class XdiEntityMemberUnordered extends XdiAbstractMemberUnordered<X
 	public XdiEntityCollection getXdiCollection() {
 
 		return new XdiEntityCollection(this.getContextNode().getContextNode());
+	}
+
+	/*
+	 * Methods for arcs
+	 */
+
+	public static boolean isEntityMemberUnorderedXDIArc(XDIArc XDIarc) {
+
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (! XdiAbstractMemberUnordered.isMemberUnorderedXDIArc(XDIarc, XdiEntityCollection.class)) return false;
+
+		return true;
 	}
 
 	/*

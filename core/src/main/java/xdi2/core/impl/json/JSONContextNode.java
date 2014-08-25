@@ -37,15 +37,15 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 	private static final Logger log = LoggerFactory.getLogger(JSONContextNode.class);
 
-	private XDIArc arc;
-	private XDIAddress address;
+	private XDIArc XDIarc;
+	private XDIAddress XDIaddress;
 
-	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, XDIArc arc, XDIAddress address) {
+	JSONContextNode(JSONGraph graph, JSONContextNode contextNode, XDIArc XDIarc, XDIAddress XDIaddress) {
 
 		super(graph, contextNode);
 
-		this.arc = arc;
-		this.address = address;
+		this.XDIarc = XDIarc;
+		this.XDIaddress = XDIaddress;
 	}
 
 	@Override
@@ -63,13 +63,13 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public XDIArc getXDIArc() {
 
-		return this.arc;
+		return this.XDIarc;
 	}
 
 	@Override
 	public XDIAddress getXDIAddress() {
 
-		return this.address;
+		return this.XDIaddress;
 	}
 
 	/*
@@ -77,23 +77,23 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	 */
 
 	@Override
-	public ContextNode setContextNode(XDIArc arc) {
+	public ContextNode setContextNode(XDIArc XDIarc) {
 
 		// check validity
 
-		this.setContextNodeCheckValid(arc);
+		this.setContextNodeCheckValid(XDIarc);
 
 		// set the context node
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(arc.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
 
-		XDIAddress address = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), arc);
+		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIarc);
 
-		JSONContextNode contextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, arc, address);
+		JSONContextNode contextNode = new JSONContextNode((JSONGraph) this.getGraph(), this, XDIarc, XDIaddress);
 
 		// set inner root
 
-		this.setContextNodeSetInnerRoot(arc, contextNode);
+		this.setContextNodeSetInnerRoot(XDIarc, contextNode);
 
 		// done
 
@@ -101,7 +101,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public ContextNode getContextNode(XDIArc arc, boolean subgraph) {
+	public ContextNode getContextNode(XDIArc XDIarc, boolean subgraph) {
 
 		JsonObject jsonObject;
 
@@ -116,36 +116,36 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
-		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arc.toString())).contains()) return null;
+		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(XDIarc.toString())).contains()) return null;
 
-		XDIAddress address = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), arc);
+		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIarc);
 
-		return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, address);
+		return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, XDIarc, XDIaddress);
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeAddress, boolean subgraph) {
+	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeXDIAddress, boolean subgraph) {
 
-		if (XDIConstants.XDI_ADD_ROOT.equals(relativecontextNodeAddress)) return this;
+		if (XDIConstants.XDI_ADD_ROOT.equals(relativecontextNodeXDIAddress)) return this;
 
-		XDIAddress contextNodeAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), relativecontextNodeAddress);
+		XDIAddress contextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), relativecontextNodeXDIAddress);
 
-		XDIAddress parentcontextNodeAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIAddressUtil.parentXDIAddress(relativecontextNodeAddress, -1));
-		XDIArc arc = relativecontextNodeAddress.getLastXDIArc();
+		XDIAddress parentcontextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIAddressUtil.parentXDIAddress(relativecontextNodeXDIAddress, -1));
+		XDIArc XDIarc = relativecontextNodeXDIAddress.getLastXDIArc();
 
 		// load the JSON object for the parent context node
 
-		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentcontextNodeAddress.toString());
+		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentcontextNodeXDIAddress.toString());
 
 		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
-		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(arc.toString())).contains()) return null;
+		if (! new IteratorContains<JsonElement> (jsonArrayContexts.iterator(), new JsonPrimitive(XDIarc.toString())).contains()) return null;
 
 		JSONContextNode contextNode = this;
 
-		for (XDIArc temparc : relativecontextNodeAddress.getXDIArcs()) {
+		for (XDIArc temparc : relativecontextNodeXDIAddress.getXDIArcs()) {
 
 			XDIAddress tempAddress = XDIAddressUtil.concatXDIAddresses(contextNode.getXDIAddress(), temparc);
 
@@ -156,7 +156,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (subgraph) {
 
-			((JSONGraph) this.getGraph()).jsonLoadWithPrefix(contextNodeAddress.toString());
+			((JSONGraph) this.getGraph()).jsonLoadWithPrefix(contextNodeXDIAddress.toString());
 		}
 
 		// done
@@ -180,18 +180,18 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 			@Override
 			public ContextNode map(JsonElement jsonElement) {
 
-				XDIArc arc = XDIArc.create(((JsonPrimitive) jsonElement).getAsString());
-				XDIAddress address = XDIAddressUtil.concatXDIAddresses(JSONContextNode.this.getXDIAddress(), arc);
+				XDIArc XDIarc = XDIArc.create(((JsonPrimitive) jsonElement).getAsString());
+				XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(JSONContextNode.this.getXDIAddress(), XDIarc);
 
-				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, arc, address);
+				return new JSONContextNode((JSONGraph) JSONContextNode.this.getGraph(), JSONContextNode.this, XDIarc, XDIaddress);
 			}
 		});
 	}
 
 	@Override
-	public void delContextNode(XDIArc arc) {
+	public void delContextNode(XDIArc XDIarc) {
 
-		ContextNode contextNode = this.getContextNode(arc, true);
+		ContextNode contextNode = this.getContextNode(XDIarc, true);
 		if (contextNode == null) return;
 
 		// delete all relations and incoming relations
@@ -202,24 +202,24 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		// delete this context node
 
 		((JSONGraph) this.getGraph()).jsonDelete(contextNode.getXDIAddress().toString());
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(arc.toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
 	}
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
 
-		XDIAddress targetContextNodeAddress = targetContextNode.getXDIAddress();
+		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
 
 		// check validity
 
-		this.setRelationCheckValid(arc, targetContextNodeAddress);
+		this.setRelationCheckValid(XDIaddress, targetContextNodeXDIAddress);
 
 		// set the relation
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), arc.toString(), new JsonPrimitive(targetContextNodeAddress.toString()));
-		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNodeAddress.toString(), "/" + arc.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetContextNodeXDIAddress.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNodeXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
 
-		JSONRelation relation = new JSONRelation(this, arc, targetContextNodeAddress);
+		JSONRelation relation = new JSONRelation(this, XDIaddress, targetContextNodeXDIAddress);
 
 		// done
 
@@ -240,9 +240,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 				if (entry.getKey().startsWith("/")) return null;
 
-				final XDIAddress arc = XDIAddress.create(entry.getKey());
-				if (XDIConstants.XDI_ADD_CONTEXT.equals(arc)) return null;
-				if (XDIConstants.XDI_ADD_LITERAL.equals(arc)) return null;
+				final XDIAddress XDIaddress = XDIAddress.create(entry.getKey());
+				if (XDIConstants.XDI_ADD_CONTEXT.equals(XDIaddress)) return null;
+				if (XDIConstants.XDI_ADD_LITERAL.equals(XDIaddress)) return null;
 
 				JsonArray jsonArrayRelations = (JsonArray) entry.getValue();
 
@@ -253,9 +253,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 					@Override
 					public Relation map(JsonElement jsonElement) {
 
-						XDIAddress targetContextNodeAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
+						XDIAddress targetContextNodeXDIAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
 
-						return new JSONRelation(JSONContextNode.this, arc, targetContextNodeAddress);
+						return new JSONRelation(JSONContextNode.this, XDIaddress, targetContextNodeXDIAddress);
 					}
 				});
 			}
@@ -276,7 +276,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 				if (! entry.getKey().startsWith("/")) return null;
 
-				final XDIAddress arc = XDIAddress.create(entry.getKey().substring(1));
+				final XDIAddress XDIaddress = XDIAddress.create(entry.getKey().substring(1));
 
 				JsonArray jsonArrayIncomingRelations = (JsonArray) entry.getValue();
 
@@ -287,18 +287,18 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 					@Override
 					public Relation map(JsonElement jsonElement) {
 
-						XDIAddress contextNodeAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
+						XDIAddress contextNodeXDIAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
 
-						ContextNode contextNode = JSONContextNode.this.getGraph().getDeepContextNode(contextNodeAddress, false);
+						ContextNode contextNode = JSONContextNode.this.getGraph().getDeepContextNode(contextNodeXDIAddress, false);
 
 						if (contextNode == null) {
 
-							log.warn("In context node " + JSONContextNode.this.getXDIAddress() + " found incoming relation " + arc + " from non-existent context node " + contextNodeAddress);
+							log.warn("In context node " + JSONContextNode.this.getXDIAddress() + " found incoming relation " + XDIaddress + " from non-existent context node " + contextNodeXDIAddress);
 
 							return null;
 						}
 
-						return new JSONRelation(contextNode, arc, JSONContextNode.this.getXDIAddress());
+						return new JSONRelation(contextNode, XDIaddress, JSONContextNode.this.getXDIAddress());
 					}
 				});
 			}
@@ -306,16 +306,16 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
 		// delete the relation
 
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), arc.toString(), new JsonPrimitive(targetContextNodeAddress.toString()));
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(targetContextNodeAddress.toString(), "/" + arc.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetContextNodeXDIAddress.toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(targetContextNodeXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
 
 		// delete inner root
 
-		this.delRelationDelInnerRoot(arc, targetContextNodeAddress);
+		this.delRelationDelInnerRoot(XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override

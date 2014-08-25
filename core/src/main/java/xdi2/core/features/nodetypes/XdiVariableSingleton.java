@@ -33,11 +33,13 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return 
-				isValidXDIArc(contextNode.getXDIArc()) &&
-				( ! XdiAttributeCollection.isValid(contextNode.getContextNode()) && ! XdiAbstractAttribute.isValid(contextNode.getContextNode()) );
+		if (contextNode.getXDIArc() == null || ! isVariableSingletonXDIArc(contextNode.getXDIArc())) return false;
+		if (XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
+		if (XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -47,37 +49,32 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 	 */
 	public static XdiVariableSingleton fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		if (! isValid(contextNode)) return null;
 
 		return new XdiVariableSingleton(contextNode);
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static XDIArc createArcXri(XDIArc arcXri) {
+	public static XDIArc createVariableXDIArc(XDIArc XDIarc) {
 
-		return arcXri;
+		return XDIarc;
 	}
 
-	public static boolean isValidXDIArc(XDIArc arcXri) {
+	public static boolean isVariableSingletonXDIArc(XDIArc XDIarc) {
 
-		if (arcXri == null) return false;
+		if (XDIarc == null) throw new NullPointerException();
 
-		if (arcXri.isAttributeXs()) return false;
-		if (arcXri.isClassXs()) return false;
-
-		if (! arcXri.hasLiteral() && ! arcXri.hasXRef()) return false;
-
-		if (XDIConstants.CS_CLASS_UNRESERVED.equals(arcXri.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(arcXri.getCs())) {
-
-		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(arcXri.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(arcXri.getCs())) {
-
-		} else {
-
-			return false;
-		}
+		if (XDIarc.hasCs()) return false;
+		if (XDIarc.isClassXs()) return false;
+		if (XDIarc.isAttributeXs()) return false;
+		if (XDIarc.hasLiteral()) return false;
+		if (! XDIarc.hasXRef()) return false;
+		if (! XDIConstants.XS_VARIABLE.equals(XDIarc.getXRef().getXs())) return false;
 
 		return true;
 	}

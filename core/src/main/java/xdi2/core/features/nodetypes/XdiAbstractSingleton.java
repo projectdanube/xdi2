@@ -23,10 +23,13 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return XdiEntitySingleton.isValid(contextNode) || 
-				XdiAttributeSingleton.isValid(contextNode);
+		if (XdiEntitySingleton.isValid(contextNode)) return true; 
+		if (XdiAttributeSingleton.isValid(contextNode)) return true;
+		if (XdiVariableSingleton.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
@@ -36,21 +39,29 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 	 */
 	public static XdiSingleton<?> fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		XdiSingleton<?> xdiSingleton;
 
 		if ((xdiSingleton = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
+		if ((xdiSingleton = XdiVariableSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 
 		return null;
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isSingletonXDIArc(XDIArc XDIarc) {
 
-		return XdiEntitySingleton.isValidXDIArc(arc) || 
-				XdiAttributeSingleton.isValidXDIArc(arc);
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (XdiEntitySingleton.isEntitySingletonXDIArc(XDIarc)) return true; 
+		if (XdiAttributeSingleton.isAttributeSingletonXDIArc(XDIarc)) return true;
+		if (XdiVariableSingleton.isVariableSingletonXDIArc(XDIarc)) return true;
+
+		return false;
 	}
 }

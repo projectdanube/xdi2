@@ -32,11 +32,12 @@ public final class XdiVariableMemberUnordered extends XdiAbstractMemberUnordered
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return
-				isValidXDIArc(contextNode.getXDIArc()) &&
-				XdiVariableCollection.isValid(contextNode.getContextNode());
+		if (contextNode.getXDIArc() == null || ! isVariableMemberUnorderedXDIArc(contextNode.getXDIArc())) return false;
+		if (contextNode.getContextNode() == null || ! XdiVariableCollection.isValid(contextNode.getContextNode())) return false;
+
+		return true;
 	}
 
 	/**
@@ -46,18 +47,24 @@ public final class XdiVariableMemberUnordered extends XdiAbstractMemberUnordered
 	 */
 	public static XdiVariableMemberUnordered fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		if (! isValid(contextNode)) return null;
 
 		return new XdiVariableMemberUnordered(contextNode);
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static boolean isValidXDIArc(XDIArc arcXri) {
+	public static boolean isVariableMemberUnorderedXDIArc(XDIArc XDIarc) {
 
-		return XdiAbstractMemberUnordered.isValidXDIArc(arcXri, XdiVariableCollection.class);
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (! XdiAbstractMemberUnordered.isMemberUnorderedXDIArc(XDIarc, XdiVariableCollection.class)) return false;
+
+		return true;
 	}
 
 	/*

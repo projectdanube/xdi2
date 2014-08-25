@@ -14,10 +14,10 @@ public class DictionaryTest extends TestCase {
 
 	public void testXRIs() throws Exception {
 
-		assertEquals(Dictionary.instanceAddressToDictionaryAddress(XDIArc.create("#friend")), XDIArc.create("#(#friend)"));
-		assertEquals(Dictionary.dictionaryAddressToInstanceAddress(XDIArc.create("#(#friend)")), XDIArc.create("#friend"));
-		assertEquals(Dictionary.nativeIdentifierToInstanceAddress("user_name"), XDIArc.create("#(user_name)"));
-		assertEquals(Dictionary.instanceAddressToNativeIdentifier(XDIArc.create("#(user_name)")), "user_name");
+		assertEquals(Dictionary.instanceXDIArcToDictionaryXDIArc(XDIArc.create("#friend")), XDIArc.create("#(#friend)"));
+		assertEquals(Dictionary.dictionaryXDIArcToInstanceXDIArc(XDIArc.create("#(#friend)")), XDIArc.create("#friend"));
+		assertEquals(Dictionary.nativeIdentifierToInstanceXDIArc("user_name"), XDIArc.create("#(user_name)"));
+		assertEquals(Dictionary.instanceXDIArcToNativeIdentifier(XDIArc.create("#(user_name)")), "user_name");
 	}
 
 	public void testTypes() throws Exception {

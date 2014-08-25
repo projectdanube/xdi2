@@ -14,16 +14,16 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 
 	private static final long serialVersionUID = -3684616841641336596L;
 
-	private XDIArc arc;
+	private XDIArc XDIarc;
 	private Iterable<ContextNode> contextNodes;
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc arc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc XDIarc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 
-		this.arc = arc;
+		this.XDIarc = XDIarc;
 		this.contextNodes = contextNodes == null ? Arrays.asList(new ContextNode[0]) : contextNodes;
 		this.relations = relations == null ? Arrays.asList(new Relation[0]) : relations;
 		this.literal = literal;
@@ -32,11 +32,11 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	@Override
 	public XDIArc getXDIArc() {
 
-		return this.arc;
+		return this.XDIarc;
 	}
 
 	@Override
-	public ContextNode setContextNode(XDIArc arc) {
+	public ContextNode setContextNode(XDIArc XDIarc) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -48,7 +48,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void delContextNode(XDIArc arc) {
+	public void delContextNode(XDIArc XDIarc) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -60,7 +60,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
+	public Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -72,13 +72,13 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public void delRelations(XDIAddress arc) {
+	public void delRelations(XDIAddress XDIaddress) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}

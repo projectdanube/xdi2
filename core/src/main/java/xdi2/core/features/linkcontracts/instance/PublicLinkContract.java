@@ -65,9 +65,9 @@ public class PublicLinkContract extends GenericLinkContract {
 		return new PublicLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createPublicLinkContractXDIAddress(XDIAddress ownerXri) {
+	public static XDIAddress createPublicLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXri, XDILinkContractConstants.XDI_ADD_PUBLIC, null);
+		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_PUBLIC, null);
 	}
 
 	/**

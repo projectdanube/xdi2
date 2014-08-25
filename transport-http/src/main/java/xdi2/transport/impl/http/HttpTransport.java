@@ -387,7 +387,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (log.isDebugEnabled()) log.debug("Requested XDI context node: " + targetAddress + ".");
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
 
 		// set the TO peer root XRI to the owner peer root XRI of the messaging target
 
@@ -396,7 +396,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		if (ownerPeerRootAddress != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToPeerRootArc(ownerPeerRootAddress);
+			message.setToPeerRootXDIArc(ownerPeerRootAddress);
 		}
 
 		// done

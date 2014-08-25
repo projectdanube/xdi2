@@ -12,45 +12,45 @@ public class CloudName {
 
 	private static final Logger log = LoggerFactory.getLogger(CloudName.class);
 
-	private XDIAddress address;
-	private XDIArc peerRootArc;
+	private XDIAddress XDIaddress;
+	private XDIArc peerRootXDIArc;
 
-	private CloudName(XDIAddress address, XDIArc peerRootArc) {
+	private CloudName(XDIAddress XDIaddress, XDIArc peerRootXDIArc) {
 
-		this.address = address;
-		this.peerRootArc = peerRootArc;
+		this.XDIaddress = XDIaddress;
+		this.peerRootXDIArc = peerRootXDIArc;
 	}
 
-	public static boolean isValid(final XDIAddress address) {
+	public static boolean isValid(final XDIAddress XDIaddress) {
 
-		if (address == null) return false;
+		if (XDIaddress == null) return false;
 
 		Boolean result = null;
 
 		try {
 
-			if (address.getNumXDIArcs() < 1) { result = Boolean.FALSE; return result.booleanValue(); }
+			if (XDIaddress.getNumXDIArcs() < 1) { result = Boolean.FALSE; return result.booleanValue(); }
 
-			for (int i=0; i< address.getNumXDIArcs(); i++) {
+			for (int i=0; i< XDIaddress.getNumXDIArcs(); i++) {
 
-				XDIArc arc = address.getXDIArc(i);
+				XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
-				if (arc.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (arc.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (arc.hasXRef() || ! arc.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(arc.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(arc.getCs()) && ! XDIConstants.CS_AUTHORITY_GENERAL.equals(arc.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.hasXRef() || ! XDIarc.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_GENERAL.equals(XDIarc.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("isValid(" + address + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("isValid(" + XDIaddress + ") --> " + result);
 		}
 	}
 
 	public static CloudName create(String string) {
 
-		return fromAddress(XDIAddress.create(string));
+		return fromXDIAddress(XDIAddress.create(string));
 	}
 
 	public static CloudName createRandom(Character cs, String prefix) {
@@ -60,51 +60,51 @@ public class CloudName {
 		if (prefix != null) buffer.append(prefix);
 		buffer.append(UUID.randomUUID().toString().toLowerCase().replace('-', '.'));
 
-		XDIAddress address = XDIAddress.create(buffer.toString());
+		XDIAddress XDIaddress = XDIAddress.create(buffer.toString());
 
-		XDIArc peerRootArc = XdiPeerRoot.createPeerRootXDIArc(address);
+		XDIArc peerRootXDIarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudName(address, peerRootArc);
+		return new CloudName(XDIaddress, peerRootXDIarc);
 	}
 
-	public static CloudName fromAddress(XDIAddress address) {
+	public static CloudName fromXDIAddress(XDIAddress XDIaddress) {
 
-		address = XDIAddress.create(address.toString().toLowerCase());
+		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
-		if (! isValid(address)) return null;
+		if (! isValid(XDIaddress)) return null;
 
-		XDIArc peerRootArc = XdiPeerRoot.createPeerRootXDIArc(address);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudName(address, peerRootArc);
+		return new CloudName(XDIaddress, peerRootXDIArc);
 	}
 
-	public static CloudName fromPeerRootArc(XDIArc peerRootArc) {
+	public static CloudName fromPeerRootXDIarc(XDIArc peerRootXDIArc) {
 
-		XDIAddress address = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootArc);
+		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
 
-		return fromAddress(address);
+		return fromXDIAddress(XDIaddress);
 	}
 
-	public static CloudName fromPeerRootArc(XDIAddress peerRootArc) {
+	public static CloudName fromPeerRootXDIarc(XDIAddress peerRootXDIArc) {
 
-		if (peerRootArc.getNumXDIArcs() > 1) return null;
+		if (peerRootXDIArc.getNumXDIArcs() > 1) return null;
 		
-		return fromPeerRootArc(peerRootArc.getFirstXDIArc());
+		return fromPeerRootXDIarc(peerRootXDIArc.getFirstXDIArc());
 	}
 
-	public XDIAddress getAddress() {
+	public XDIAddress getXDIAddress() {
 
-		return this.address;
+		return this.XDIaddress;
 	}
 
-	public XDIArc getPeerRootArc() {
+	public XDIArc getPeerRootXDIArc() {
 
-		return this.peerRootArc;
+		return this.peerRootXDIArc;
 	}
 
 	public Character getCs() {
 
-		return this.getAddress().getFirstXDIArc().getCs();
+		return this.getXDIAddress().getFirstXDIArc().getCs();
 	}
 
 	@Override
@@ -113,18 +113,18 @@ public class CloudName {
 		if (! (object instanceof CloudName)) return false;
 		if (object == this) return true;
 
-		return this.getAddress().equals(((CloudName) object).getAddress());
+		return this.getXDIAddress().equals(((CloudName) object).getXDIAddress());
 	}
 
 	@Override
 	public int hashCode() {
 
-		return this.getAddress().hashCode();
+		return this.getXDIAddress().hashCode();
 	}
 
 	@Override
 	public String toString() {
 
-		return this.getAddress().toString();
+		return this.getXDIAddress().toString();
 	}
 }

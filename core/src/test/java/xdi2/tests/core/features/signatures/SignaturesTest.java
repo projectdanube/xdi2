@@ -22,21 +22,21 @@ public class SignaturesTest extends TestCase {
 
 	public void testAlgorithmAndLengthAddresses() throws Exception {
 
-		XDIAddress addressKeyPair = XDIAddress.create("$sha$256$rsa$1024");
-		XDIAddress addressSymmetricKey = XDIAddress.create("$sha$384$aes$256");
+		XDIAddress keyPairXDIAddress = XDIAddress.create("$sha$256$rsa$1024");
+		XDIAddress symmetricKeyXDIAddress = XDIAddress.create("$sha$384$aes$256");
 
-		assertEquals(Signatures.getDigestAlgorithm(addressKeyPair), "sha");
-		assertEquals(Signatures.getDigestLength(addressKeyPair), Integer.valueOf(256));
-		assertEquals(Signatures.getKeyAlgorithm(addressKeyPair), "rsa");
-		assertEquals(Signatures.getKeyLength(addressKeyPair), Integer.valueOf(1024));
+		assertEquals(Signatures.getDigestAlgorithm(keyPairXDIAddress), "sha");
+		assertEquals(Signatures.getDigestLength(keyPairXDIAddress), Integer.valueOf(256));
+		assertEquals(Signatures.getKeyAlgorithm(keyPairXDIAddress), "rsa");
+		assertEquals(Signatures.getKeyLength(keyPairXDIAddress), Integer.valueOf(1024));
 
-		assertEquals(Signatures.getDigestAlgorithm(addressSymmetricKey), "sha");
-		assertEquals(Signatures.getDigestLength(addressSymmetricKey), Integer.valueOf(384));
-		assertEquals(Signatures.getKeyAlgorithm(addressSymmetricKey), "aes");
-		assertEquals(Signatures.getKeyLength(addressSymmetricKey), Integer.valueOf(256));
+		assertEquals(Signatures.getDigestAlgorithm(symmetricKeyXDIAddress), "sha");
+		assertEquals(Signatures.getDigestLength(symmetricKeyXDIAddress), Integer.valueOf(384));
+		assertEquals(Signatures.getKeyAlgorithm(symmetricKeyXDIAddress), "aes");
+		assertEquals(Signatures.getKeyLength(symmetricKeyXDIAddress), Integer.valueOf(256));
 
-		assertEquals(Signatures.getDataTypeAddress("sha", 256, "rsa", 1024), addressKeyPair);
-		assertEquals(Signatures.getDataTypeAddress("sha", 384, "aes", 256), addressSymmetricKey);
+		assertEquals(Signatures.getDataTypeXDIAddress("sha", 256, "rsa", 1024), keyPairXDIAddress);
+		assertEquals(Signatures.getDataTypeXDIAddress("sha", 384, "aes", 256), symmetricKeyXDIAddress);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {

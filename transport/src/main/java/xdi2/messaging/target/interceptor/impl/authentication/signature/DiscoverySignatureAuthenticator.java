@@ -38,8 +38,8 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 	@Override
 	public PublicKey getPublicKey(Message message) {
 
-		XDIAddress senderAddress = message.getSenderAddress();
-		if (senderAddress == null) return null;
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		if (senderXDIAddress == null) return null;
 
 		// perform discovery
 
@@ -47,12 +47,12 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 		try {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderAddress, null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(senderXDIAddress, null);
 
 			if (xdiDiscoveryResult != null) publicKey = xdiDiscoveryResult.getSignaturePublicKey();
 		} catch (Xdi2ClientException ex) {
 
-			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + senderAddress + ": " + ex.getMessage(), ex);
+			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + senderXDIAddress + ": " + ex.getMessage(), ex);
 
 			return null;
 		}

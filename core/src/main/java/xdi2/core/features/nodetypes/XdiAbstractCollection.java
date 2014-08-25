@@ -51,11 +51,13 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return XdiEntityCollection.isValid(contextNode) || 
-				XdiAttributeCollection.isValid(contextNode) ||
-				XdiVariableCollection.isValid(contextNode);
+		if (XdiEntityCollection.isValid(contextNode)) return true; 
+		if (XdiAttributeCollection.isValid(contextNode)) return true;
+		if (XdiVariableCollection.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
@@ -64,6 +66,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI collection.
 	 */
 	public static XdiCollection<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		XdiCollection<?, ?, ?, ?, ?, ?> xdiCollection;
 
@@ -75,14 +79,18 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static boolean isValidXDIArc(XDIArc arc) {
+	public static boolean isCollectionXDIArc(XDIArc XDIarc) {
 
-		return XdiEntityCollection.isValidXDIArc(arc) || 
-				XdiAttributeCollection.isValidXDIArc(arc) ||
-				XdiVariableCollection.isValidXDIArc(arc);
+		if (XDIarc == null) throw new NullPointerException();
+		
+		if (XdiEntityCollection.isEntityCollectionXDIArc(XDIarc)) return true; 
+		if (XdiAttributeCollection.isAttributeCollectionXDIArc(XDIarc)) return true;
+		if (XdiVariableCollection.isVariableCollectionXDIArc(XDIarc)) return true;
+
+		return false;
 	}
 
 	/*
@@ -94,11 +102,11 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI instance.
 	 */
 	@Override
-	public U setXdiMemberUnordered(XDIArc arc) {
+	public U setXdiMemberUnordered(XDIArc XDIarc) {
 
-		if (arc == null) arc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(this.getC());
+		if (XDIarc == null) XDIarc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(this.getC());
 
-		ContextNode memberContextNode = this.getContextNode().setContextNode(arc);
+		ContextNode memberContextNode = this.getContextNode().setContextNode(XDIarc);
 
 		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
 	}
@@ -108,9 +116,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI instance.
 	 */
 	@Override
-	public U getXdiMemberUnordered(XDIArc arc) {
-		
-		ContextNode memberContextNode = this.getContextNode().getContextNode(arc, false);
+	public U getXdiMemberUnordered(XDIArc XDIarc) {
+
+		ContextNode memberContextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (memberContextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(memberContextNode, this.getU());
@@ -144,9 +152,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if (index < 0) index = this.getXdiMembersOrderedCount();
 
-		XDIArc arc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
+		XDIArc XDIarc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
 
-		ContextNode contextNode = this.getContextNode().setContextNode(arc);
+		ContextNode contextNode = this.getContextNode().setContextNode(XDIarc);
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());
 	}
@@ -158,9 +166,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public O getXdiMemberOrdered(long index) {
 
-		XDIArc arc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
+		XDIArc XDIarc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
 
-		ContextNode contextNode = this.getContextNode().getContextNode(arc, false);
+		ContextNode contextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (contextNode == null) return null;
 
 		return XdiAbstractContext.fromContextNode(contextNode, this.getO());

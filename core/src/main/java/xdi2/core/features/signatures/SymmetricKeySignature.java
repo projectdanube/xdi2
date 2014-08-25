@@ -48,10 +48,10 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
-			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBasearc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
+			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
 		} else if (xdiAttribute instanceof XdiAttributeMember) {
 
-			if (! ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBasearc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
+			if (! ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
 		} else {
 
 			return false;

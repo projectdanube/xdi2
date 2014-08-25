@@ -11,7 +11,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CopyStrategy;
-import xdi2.core.util.CopyUtil.ReplaceXriCopyStrategy;
+import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 
 public class LinkContractInstantiation {
 
@@ -35,7 +35,7 @@ public class LinkContractInstantiation {
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
 
-		CopyStrategy copyStrategy = new ReplaceXriCopyStrategy(replacements);
+		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(replacements);
 
 		CopyUtil.copyRelations(this.getLinkContractTemplate().getContextNode(), genericLinkContract.getContextNode(), copyStrategy);
 

@@ -85,9 +85,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					if (! (jsonEntryArrayElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryArrayElement).isString()) throw new Xdi2ParseException("JSON array element must be a string: " + jsonEntryArrayElement);
 
-					XDIArc arc = makeXDIArc(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
+					XDIArc XDIarc = makeXDIArc(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
-					ContextNode contextNode = baseContextNode.setContextNode(arc);
+					ContextNode contextNode = baseContextNode.setContextNode(XDIarc);
 					if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set context node " + contextNode.getXDIArc() + " --> " + contextNode.getXDIAddress());
 				}
 			} else if (key.endsWith("/" + XDIConstants.XDI_ADD_LITERAL.toString())) {
@@ -113,7 +113,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
-				XDIAddress arc = statementAddress.getPredicate();
+				XDIAddress XDIaddress = statementAddress.getPredicate();
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
@@ -141,9 +141,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 						this.read(innerRoot, (JsonObject) jsonEntryArrayElement, state);
 					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
 
-						XDIAddress targetContextNodeAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
+						XDIAddress targetContextNodeXDIAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
-						Relation relation = baseContextNode.setRelation(arc, targetContextNodeAddress);
+						Relation relation = baseContextNode.setRelation(XDIaddress, targetContextNodeXDIAddress);
 						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set relation " + relation.getXDIAddress() + " --> " + relation.getTargetContextNodeXDIAddress());
 					} else {
 

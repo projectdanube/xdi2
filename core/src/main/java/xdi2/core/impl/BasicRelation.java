@@ -8,31 +8,31 @@ public class BasicRelation extends AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -8757473050724884998L;
 
-	private XDIAddress arc;
-	private XDIAddress targetContextNodeAddress;
+	private XDIAddress XDIaddress;
+	private XDIAddress targetContextNodeXDIAddress;
 
-	public BasicRelation(ContextNode contextNode, XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public BasicRelation(ContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
 		super(contextNode);
 
-		this.arc = arc;
-		this.targetContextNodeAddress = targetContextNodeAddress;
+		this.XDIaddress = XDIaddress;
+		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
 	}
 
-	public BasicRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public BasicRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), arc, targetContextNodeAddress);
+		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override
 	public XDIAddress getXDIAddress() {
 
-		return this.arc;
+		return this.XDIaddress;
 	}
 
 	@Override
 	public XDIAddress getTargetContextNodeXDIAddress() {
 
-		return this.targetContextNodeAddress;
+		return this.targetContextNodeXDIAddress;
 	}
 }

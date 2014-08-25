@@ -45,14 +45,14 @@ public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> im
 	@Override
 	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress contextNodeAddress;
+		XDIAddress contextNodeXDIAddress;
 
 		if (targetStatement.isContextNodeStatement()) 
-			contextNodeAddress = targetStatement.getTargetContextNodeXDIAddress();
+			contextNodeXDIAddress = targetStatement.getTargetContextNodeXDIAddress();
 		else
-			contextNodeAddress = targetStatement.getContextNodeXDIAddress();
+			contextNodeXDIAddress = targetStatement.getContextNodeXDIAddress();
 
-		this.checkReadOnly(operation, contextNodeAddress, executionContext);
+		this.checkReadOnly(operation, contextNodeXDIAddress, executionContext);
 
 		return targetStatement;
 	}
@@ -60,22 +60,22 @@ public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> im
 	@Override
 	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress contextNodeAddress = targetAddress;
+		XDIAddress contextNodeXDIAddress = targetAddress;
 		
-		this.checkReadOnly(operation, contextNodeAddress, executionContext);
+		this.checkReadOnly(operation, contextNodeXDIAddress, executionContext);
 
 		return targetAddress;
 	}
 
-	private void checkReadOnly(Operation operation, XDIAddress contextNodeAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void checkReadOnly(Operation operation, XDIAddress contextNodeXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation.isReadOnlyOperation()) return;
 
 		for (XDIAddress readOnlyAddress : this.readOnlyAddresses) {
 
-			if (readOnlyAddress == null || XDIAddressUtil.startsWithXDIAddress(contextNodeAddress, readOnlyAddress) != null) {
+			if (readOnlyAddress == null || XDIAddressUtil.startsWithXDIAddress(contextNodeXDIAddress, readOnlyAddress) != null) {
 
-				throw new Xdi2MessagingException("This address is read-only: " + contextNodeAddress, null, executionContext);
+				throw new Xdi2MessagingException("This address is read-only: " + contextNodeXDIAddress, null, executionContext);
 			}
 		}
 	}

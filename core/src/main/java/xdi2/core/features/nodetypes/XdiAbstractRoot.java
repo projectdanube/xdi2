@@ -33,12 +33,13 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return
-				XdiCommonRoot.isValid(contextNode) ||
-				XdiPeerRoot.isValid(contextNode) ||
-				XdiInnerRoot.isValid(contextNode);
+		if (XdiCommonRoot.isValid(contextNode)) return true;
+		if (XdiPeerRoot.isValid(contextNode)) return true;
+		if (XdiInnerRoot.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
@@ -47,6 +48,8 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 * @return The XDI root.
 	 */
 	public static XdiRoot fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		XdiRoot xdiRoot;
 
@@ -62,11 +65,11 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	 */
 
 	@Override
-	public XdiPeerRoot getPeerRoot(XDIAddress address, boolean create) {
+	public XdiPeerRoot getPeerRoot(XDIAddress XDIaddress, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + address + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + XDIaddress + "," + create + ")");
 
-		XDIArc peerRootarc = XdiPeerRoot.createPeerRootXDIArc(address);
+		XDIArc peerRootarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
 		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootarc) : this.getContextNode().getContextNode(peerRootarc, false);
 		if (peerRootContextNode == null) return null;
@@ -88,33 +91,33 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
-	public XdiRoot getRoot(XDIAddress address, boolean create) {
+	public XdiRoot getRoot(XDIAddress XDIaddress, boolean create) {
 
-		if (log.isTraceEnabled()) log.trace("getRoot(" + address + "," + create + ")");
+		if (log.isTraceEnabled()) log.trace("getRoot(" + XDIaddress + "," + create + ")");
 
 		XdiRoot root = this;
 
-		for (int i=0; i<address.getNumXDIArcs(); i++) {
+		for (int i=0; i<XDIaddress.getNumXDIArcs(); i++) {
 
-			XDIArc arc = address.getXDIArc(i);
+			XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
 			XdiRoot nextRoot;
 
-			if (XdiPeerRoot.isPeerRootXDIArc(arc)) {
+			if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) {
 
-				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(arc) : root.getContextNode().getContextNode(arc, false);
+				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
 				if (peerRootContextNode == null) break;
 
 				nextRoot = new XdiPeerRoot(peerRootContextNode);
-			} if (XdiInnerRoot.isInnerRootXDIArc(arc)) {
+			} if (XdiInnerRoot.isInnerRootXDIArc(XDIarc)) {
 
-				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(arc) : root.getContextNode().getContextNode(arc, false);
+				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
 				if (innerRootContextNode == null) break;
 
-				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(arc)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(arc), false);
+				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc), false);
 				if (contextNode == null) break;
 
-				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(arc), innerRootContextNode.getXDIAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(arc), innerRootContextNode.getXDIAddress());
+				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc), innerRootContextNode.getXDIAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc), innerRootContextNode.getXDIAddress());
 				if (relation == null) break;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
@@ -174,20 +177,15 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	/*
-	 * Methods for XDI root addresses
+	 * Methods for arcs
 	 */
 
-	/**
-	 * Checks if a given address is an XDI root address.
-	 * @param arc An XDI root address.
-	 * @return True, if the address is an XDI root address.
-	 */
-	public static boolean isRootArc(XDIArc arc) {
+	public static boolean isRootXDIarc(XDIArc XDIarc) {
 
-		if (log.isTraceEnabled()) log.trace("isRootarc(" + arc + ")");
+		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiPeerRoot.isPeerRootXDIArc(arc)) return true;
-		if (XdiInnerRoot.isInnerRootXDIArc(arc)) return true;
+		if (XdiPeerRoot.isPeerRootXDIArc(XDIarc)) return true;
+		if (XdiInnerRoot.isInnerRootXDIArc(XDIarc)) return true;
 
 		return false;
 	}

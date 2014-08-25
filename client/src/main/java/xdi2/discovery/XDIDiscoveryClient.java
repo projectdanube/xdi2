@@ -240,18 +240,18 @@ public class XDIDiscoveryClient {
 
 			authorityMessageEnvelope = new MessageEnvelope();
 			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
-			authorityMessage.setToPeerRootArc(cloudNumber.getPeerRootArc());
+			authorityMessage.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			authorityMessage.setLinkContract(PublicLinkContract.class);
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
-			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(cloudNumber.getAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
-			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
-			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(cloudNumber.getXDIAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
 			if (endpointUriTypes != null) {
 
 				for (XDIAddress endpointUriType : endpointUriTypes) {
 
-					authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), endpointUriType, XDIClientConstants.XDI_ADD_AS_URI));
+					authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), endpointUriType, XDIClientConstants.XDI_ADD_AS_URI));
 				}
 			}
 
@@ -319,7 +319,7 @@ public class XDIDiscoveryClient {
 
 		private static DiscoveryCacheKey build(CloudNumber cloudNumber, String xdiEndpointUri, XDIAddress[] endpointUriTypes) {
 
-			return new DiscoveryCacheKey(cloudNumber.getAddress(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
+			return new DiscoveryCacheKey(cloudNumber.getXDIAddress(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
 		}
 
 		@Override

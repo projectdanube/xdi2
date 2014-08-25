@@ -63,17 +63,17 @@ public class LinkContractTemplate extends LinkContractBase {
 		return new LinkContractTemplate(xdiVariable);
 	}
 
-	public static XDIAddress createLinkContractTemplateXri(XDIAddress templateAuthorityAndId) {
+	public static XDIAddress createLinkContractTemplateXDIAddress(XDIAddress templateAuthorityAndId) {
 
 		if (templateAuthorityAndId == null) throw new NullPointerException();
 
-		List<XDIArc> linkContractTemplateArcXris = new ArrayList<XDIArc> ();
+		List<XDIArc> linkContractTemplateArcXDIAddresses = new ArrayList<XDIArc> ();
 
-		linkContractTemplateArcXris.addAll(templateAuthorityAndId.getXDIArcs());
+		linkContractTemplateArcXDIAddresses.addAll(templateAuthorityAndId.getXDIArcs());
 
-		linkContractTemplateArcXris.add(XDILinkContractConstants.XDI_ARC_V_DO);
+		linkContractTemplateArcXDIAddresses.add(XDILinkContractConstants.XDI_ARC_V_DO);
 
-		return XDIAddress.fromComponents(linkContractTemplateArcXris);
+		return XDIAddress.fromComponents(linkContractTemplateArcXDIAddresses);
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class LinkContractTemplate extends LinkContractBase {
 	 */
 	public static LinkContractTemplate findLinkContractTemplate(Graph graph, XDIAddress templateAuthorityAndId, boolean create) {
 
-		XDIAddress linkContractTemplateXri = createLinkContractTemplateXri(templateAuthorityAndId);
+		XDIAddress linkContractTemplateXDIAddress = createLinkContractTemplateXDIAddress(templateAuthorityAndId);
 
-		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXri) : graph.getDeepContextNode(linkContractTemplateXri, true);
+		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXDIAddress) : graph.getDeepContextNode(linkContractTemplateXDIAddress, true);
 		if (linkContractTemplateContextNode == null) return null;
 
 		return new LinkContractTemplate(XdiAbstractVariable.fromContextNode(linkContractTemplateContextNode));
@@ -94,12 +94,12 @@ public class LinkContractTemplate extends LinkContractBase {
 	 * Static methods
 	 */
 
-	public static XDIAddress getTemplateAuthorityAndId(XDIAddress xri) {
+	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
 
-		int index = XDIAddressUtil.indexOfXDIArc(xri, XDILinkContractConstants.XDI_ARC_V_DO);
+		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_V_DO);
 		if (index < 0) return null;
 
-		return XDIAddressUtil.subXDIAddress(xri, 0, index);
+		return XDIAddressUtil.subXDIAddress(XDIaddress, 0, index);
 	}
 
 	/*

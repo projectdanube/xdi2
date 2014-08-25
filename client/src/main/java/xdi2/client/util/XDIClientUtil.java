@@ -25,11 +25,11 @@ public class XDIClientUtil {
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-		message.setToPeerRootArc(cloudNumber.getPeerRootArc());
+		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
-		message.createGetOperation(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getAddress()));
+		message.createGetOperation(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 
 		xdiHttpClient.send(messageEnvelope, null);
 	}
@@ -50,11 +50,11 @@ public class XDIClientUtil {
 
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
-		XDIAddress privateKeyAddress = XDIAddressUtil.concatXDIAddresses(cloudNumber.getAddress(), privateKeyRelativeAddress);
+		XDIAddress privateKeyAddress = XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), privateKeyRelativeAddress);
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getAddress());
-		message.setToPeerRootArc(cloudNumber.getPeerRootArc());
+		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(privateKeyAddress);
@@ -65,7 +65,7 @@ public class XDIClientUtil {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getXDIAddress(), false);
 		if (authorityXdiEntity == null) return null;
 
 		// find private key

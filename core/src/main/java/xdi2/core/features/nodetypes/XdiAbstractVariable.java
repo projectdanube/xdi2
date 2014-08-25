@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -26,11 +27,13 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return XdiVariableSingleton.isValid(contextNode) || 
-				XdiVariableMemberUnordered.isValid(contextNode) ||
-				XdiVariableMemberOrdered.isValid(contextNode);
+		if (XdiVariableSingleton.isValid(contextNode)) return true; 
+		if (XdiVariableMemberUnordered.isValid(contextNode)) return true;
+		if (XdiVariableMemberOrdered.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
@@ -40,6 +43,8 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 */
 	public static XdiVariable fromContextNode(ContextNode contextNode) {
 
+		if (contextNode == null) throw new NullPointerException();
+
 		XdiVariable xdiVariable = null;
 
 		if ((xdiVariable = XdiVariableSingleton.fromContextNode(contextNode)) != null) return xdiVariable;
@@ -47,6 +52,21 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 		if ((xdiVariable = XdiVariableMemberOrdered.fromContextNode(contextNode)) != null) return xdiVariable;
 
 		return null;
+	}
+
+	/*
+	 * Methods for arcs
+	 */
+
+	public static boolean isVariableXDIarc(XDIArc XDIarc) {
+
+		if (XDIarc == null) throw new NullPointerException();
+
+		if (XdiVariableSingleton.isVariableSingletonXDIArc(XDIarc)) return true;
+		if (XdiVariableMemberUnordered.isVariableMemberUnorderedXDIArc(XDIarc)) return true;
+		if (XdiVariableMemberOrdered.isVariableMemberOrderedXDIArc(XDIarc)) return true;
+
+		return false;
 	}
 
 	/*

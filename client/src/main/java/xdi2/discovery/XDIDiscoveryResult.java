@@ -68,14 +68,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootArc(((XdiPeerRoot) xdiRoot).getXDIArc());
+			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootArc(((XdiPeerRoot) xdiRoot).getXDIArc());
+			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
 		// find XDI endpoint uri
@@ -120,14 +120,14 @@ public class XDIDiscoveryResult implements Serializable {
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootArc(((XdiPeerRoot) xdiRoot).getXDIArc());
+			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
 		xdiRoot = xdiRoot == null ? null : xdiRoot.dereference();
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
 
-			this.cloudNumber = CloudNumber.fromPeerRootArc(((XdiPeerRoot) xdiRoot).getXDIArc());
+			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
 		// find cloud names
@@ -135,7 +135,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
 		if (authorityXdiEntity == null) return;
 
 		// find signature public key

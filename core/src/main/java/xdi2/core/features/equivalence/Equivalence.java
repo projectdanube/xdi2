@@ -36,9 +36,9 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identityContextNode);
 	}
 
-	public static void setIdentityContextNode(ContextNode contextNode, XDIAddress identitycontextNodeAddress) {
+	public static void setIdentityContextNode(ContextNode contextNode, XDIAddress identitycontextNodeXDIAddress) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeAddress);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeXDIAddress);
 	}
 
 	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
@@ -86,7 +86,7 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referenceContextNode);
 	}
 
-	public static void setReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeAddress) {
+	public static void setReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeXDIAddress) {
 
 		Relation referenceRelation = getReferenceRelation(contextNode);
 		if (referenceRelation != null) referenceRelation.delete();
@@ -94,7 +94,7 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referencecontextNodeAddress);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referencecontextNodeXDIAddress);
 	}
 
 	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
@@ -142,7 +142,7 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementContextNode);
 	}
 
-	public static void setReplacementContextNode(ContextNode contextNode, XDIAddress replacementcontextNodeAddress) {
+	public static void setReplacementContextNode(ContextNode contextNode, XDIAddress replacementcontextNodeXDIAddress) {
 
 		Relation referenceRelation = getReferenceRelation(contextNode);
 		if (referenceRelation != null) referenceRelation.delete();
@@ -150,7 +150,7 @@ public class Equivalence {
 		Relation replacementRelation = getReplacementRelation(contextNode);
 		if (replacementRelation != null) replacementRelation.delete();
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementcontextNodeAddress);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementcontextNodeXDIAddress);
 	}
 
 	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {

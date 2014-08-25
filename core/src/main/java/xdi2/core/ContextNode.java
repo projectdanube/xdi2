@@ -89,12 +89,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arc The arc of the new or existing context node.
 	 * @return The newly created or existing context node.
 	 */
-	public ContextNode setContextNode(XDIArc arc);
+	public ContextNode setContextNode(XDIArc XDIarc);
 
 	/**
 	 * Deep version of ContextNode.setContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
-	public ContextNode setDeepContextNode(XDIAddress relativecontextNodeAddress);
+	public ContextNode setDeepContextNode(XDIAddress relativecontextNodeXDIAddress);
 
 	/**
 	 * Returns the context node with a given arc.
@@ -104,24 +104,24 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * or may not actually use this parameter.
 	 * @return The context node with the given arc, or null.
 	 */
-	public ContextNode getContextNode(XDIArc arc, boolean subgraph);
+	public ContextNode getContextNode(XDIArc XDIarc, boolean subgraph);
 
 	/**
 	 * Returns the context node with a given arc.
 	 * @param arc The arc of the context node.
 	 * @return The context node with the given arc, or null.
 	 */
-	public ContextNode getContextNode(XDIArc arc);
+	public ContextNode getContextNode(XDIArc XDIarc);
 
 	/**
 	 * Deep version of ContextNode.getContextNode(XDIArc, boolean), operates at a context node further down in the graph.
 	 */
-	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeAddress, boolean subgraph);
+	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeXDIAddress, boolean subgraph);
 
 	/**
 	 * Deep version of ContextNode.getContextNode(XDIArc), operates at a context node further down in the graph.
 	 */
-	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeAddress);
+	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeXDIAddress);
 
 	/**
 	 * Returns the context nodes under this context node.
@@ -132,7 +132,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress relativecontextNodeAddress);
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress relativecontextNodeXDIAddress);
 
 	/**
 	 * Returns all context nodes under this context node.
@@ -151,7 +151,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arc The arc to look for. 
 	 * @return True if this context node has a context node with the given arc.
 	 */
-	public boolean containsContextNode(XDIArc arc);
+	public boolean containsContextNode(XDIArc XDIarc);
 
 	/**
 	 * Checks if this context node has one or more context nodes.
@@ -163,7 +163,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * Deletes the context node with a given arc.
 	 * @param arc The arc of the context node.
 	 */
-	public void delContextNode(XDIArc arc);
+	public void delContextNode(XDIArc XDIarc);
 
 	/**
 	 * Deletes all context nodes from this context node.
@@ -188,16 +188,16 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 
 	/**
 	 * Creates a new relation and adds it to this context node, or returns an existing relation.
-	 * @param arc The arc of the relation.
-	 * @param targetContextNodeAddress The target context node XRI of the relation.
+	 * @param XDIarc The arc of the relation.
+	 * @param targetContextNodeXDIAddress The target context node address of the relation.
 	 * @return The newly created or existing relation.
 	 */
-	public Relation setRelation(XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation setRelation(XDIAddress XDIarc, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation setDeepRelation(XDIAddress relativecontextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation setDeepRelation(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIarc, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Creates a new relation and adds it to this context node, or returns an existing relation.
@@ -205,49 +205,49 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param targetContextNode The target context node of the relation.
 	 * @return The newly created or existing relation.
 	 */
-	public Relation setRelation(XDIAddress arc, ContextNode targetContextNode);
+	public Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode);
 
 	/**
 	 * Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.
 	 */
-	public Relation setDeepRelation(XDIAddress relativecontextNodeAddress, XDIAddress arc, ContextNode targetContextNode);
+	public Relation setDeepRelation(XDIAddress relativecontextNodeXDIAddress, XDIAddress XDIaddress, ContextNode targetContextNode);
 
 	/**
 	 * Returns a relation at this context node. 
 	 * @param arc The arc to look for. 
-	 * @param targetContextNodeAddress The target context node XRI of the relation.
+	 * @param targetContextNodeXDIAddress The target context node XRI of the relation.
 	 * @return The relation with the given arc, or null.
 	 */
-	public Relation getRelation(XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation getDeepRelation(XDIAddress relativecontextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public Relation getDeepRelation(XDIAddress relativecontextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Returns a relation at this context node. 
 	 * @param arc The arc to look for. 
 	 * @return The relation with the given arc, or null.
 	 */
-	public Relation getRelation(XDIAddress arc);
+	public Relation getRelation(XDIAddress XDIaddress);
 
 	/**
 	 * Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.
 	 */
-	public Relation getDeepRelation(XDIAddress relativecontextNodeAddress, XDIAddress arc);
+	public Relation getDeepRelation(XDIAddress relativecontextNodeXDIAddress, XDIAddress XDIaddress);
 
 	/**
 	 * Returns relations at this context node. 
 	 * @param arc The arc to look for. 
 	 * @return An iterator over relations with the given arc, or null.
 	 */
-	public ReadOnlyIterator<Relation> getRelations(XDIAddress arc);
+	public ReadOnlyIterator<Relation> getRelations(XDIAddress XDIaddress);
 
 	/**
 	 * Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress relativecontextNodeAddress, XDIAddress arc);
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress relativecontextNodeXDIAddress, XDIAddress XDIaddress);
 
 	/**
 	 * Returns the relations of this context node.
@@ -258,14 +258,14 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.
 	 */
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress relativecontextNodeAddress);
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress relativecontextNodeXDIAddress);
 
 	/**
 	 * Returns the incoming relations with a given arc.
 	 * @param arc The arc to look for. 
 	 * @return An iterator over relations with the given arc, or null.
 	 */
-	public ReadOnlyIterator<Relation> getIncomingRelations(XDIAddress arc);
+	public ReadOnlyIterator<Relation> getIncomingRelations(XDIAddress XDIaddress);
 
 	/**
 	 * Returns the incoming relations of this context node.
@@ -288,17 +288,17 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Checks if a relation with a given arc and target context node XRI exists in this context node.
 	 * @param arc The arc of the relations. 
-	 * @param targetContextNodeAddress The target context node XRI of the relation.
+	 * @param targetContextNodeXDIAddress The target context node XRI of the relation.
 	 * @return True if this context node has a relation with the given arc and target context node XRI.
 	 */
-	public boolean containsRelation(XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Checks if relations with a given arc exist in this context node.
 	 * @param arc The arc of the relations. 
 	 * @return True if this context node has relations with the given arc.
 	 */
-	public boolean containsRelations(XDIAddress arc);
+	public boolean containsRelations(XDIAddress XDIaddress);
 
 	/**
 	 * Checks if this context node has one or more relations.
@@ -311,7 +311,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arc The arc of the incoming relations. 
 	 * @return True if this context node has incoming relations with the given arc.
 	 */
-	public boolean containsIncomingRelations(XDIAddress arc);
+	public boolean containsIncomingRelations(XDIAddress XDIaddress);
 
 	/**
 	 * Checks if this context node has one or more incoming relations.
@@ -322,15 +322,15 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deletes the relation with a given arc from this context node.
 	 * @param arc The arc of the relation.
-	 * @param targetContextNodeAddress The target context node XRI of the relation.
+	 * @param targetContextNodeXDIAddress The target context node XRI of the relation.
 	 */
-	public void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress);
+	public void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress);
 
 	/**
 	 * Deletes the relation with a given arc from this context node.
 	 * @param arc The arc of the relation.
 	 */
-	public void delRelations(XDIAddress arc);
+	public void delRelations(XDIAddress XDIaddress);
 
 	/**
 	 * Deletes all relations from this context node.
@@ -347,7 +347,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	 * @param arc The arc to look for. 
 	 * @return The number of relations.
 	 */
-	public long getRelationCount(XDIAddress arc);
+	public long getRelationCount(XDIAddress XDIaddress);
 
 	/**
 	 * Returns the number of relations of this context node.
@@ -396,22 +396,22 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteral(XDIAddress relativecontextNodeAddress, Object literalData);
+	public Literal setDeepLiteral(XDIAddress relativecontextNodeXDIAddress, Object literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralString(XDIAddress relativecontextNodeAddress, String literalData);
+	public Literal setDeepLiteralString(XDIAddress relativecontextNodeXDIAddress, String literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralNumber(XDIAddress relativecontextNodeAddress, Double literalData);
+	public Literal setDeepLiteralNumber(XDIAddress relativecontextNodeXDIAddress, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
-	public Literal setDeepLiteralBoolean(XDIAddress relativecontextNodeAddress, Boolean literalData);
+	public Literal setDeepLiteralBoolean(XDIAddress relativecontextNodeXDIAddress, Boolean literalData);
 
 	/**
 	 * Returns the literal of this context node.
@@ -450,27 +450,27 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteral(XDIAddress relativecontextNodeAddress, Object literalData);
+	public Literal getDeepLiteral(XDIAddress relativecontextNodeXDIAddress, Object literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralString(XDIAddress relativecontextNodeAddress, String literalData);
+	public Literal getDeepLiteralString(XDIAddress relativecontextNodeXDIAddress, String literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteraNumber(Double), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralNumber(XDIAddress relativecontextNodeAddress, Double literalData);
+	public Literal getDeepLiteralNumber(XDIAddress relativecontextNodeXDIAddress, Double literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteralBoolean(XDIAddress relativecontextNodeAddress, Boolean literalData);
+	public Literal getDeepLiteralBoolean(XDIAddress relativecontextNodeXDIAddress, Boolean literalData);
 
 	/**
 	 * Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.
 	 */
-	public Literal getDeepLiteral(XDIAddress relativecontextNodeAddress);
+	public Literal getDeepLiteral(XDIAddress relativecontextNodeXDIAddress);
 
 	/**
 	 * Returns all literals of this context node.

@@ -35,12 +35,12 @@ public abstract class SecretKeySignatureAuthenticator extends AbstractSignatureA
 
 		if (secretKey == null) {
 
-			if (log.isDebugEnabled()) log.debug("No secret key found for sender " + message.getSenderAddress());
+			if (log.isDebugEnabled()) log.debug("No secret key found for sender " + message.getSenderXDIAddress());
 
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Secret key found for sender " + message.getSenderAddress() + ": " + Base64.encodeBase64String(secretKey.getEncoded()));
+		if (log.isDebugEnabled()) log.debug("Secret key found for sender " + message.getSenderXDIAddress() + ": " + Base64.encodeBase64String(secretKey.getEncoded()));
 
 		// authenticate
 

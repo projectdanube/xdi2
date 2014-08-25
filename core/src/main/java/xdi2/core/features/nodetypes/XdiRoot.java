@@ -18,7 +18,7 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @param create Whether the XDI peer root should be created, if it does not exist.
 	 * @return The XDI peer root.
 	 */
-	public XdiPeerRoot getPeerRoot(XDIAddress address, boolean create);
+	public XdiPeerRoot getPeerRoot(XDIAddress XDIaddress, boolean create);
 
 	/**
 	 * Returns an XDI inner root under this XDI root.
@@ -35,15 +35,15 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @param create Whether the XDI root should be created, if it does not exist.
 	 * @return The XDI root.
 	 */
-	public XdiRoot getRoot(XDIAddress address, boolean create);
+	public XdiRoot getRoot(XDIAddress XDIaddress, boolean create);
 
 	/*
 	 * Addresses and statements relative to this root
 	 */
 
-	public XDIAddress absoluteToRelativeXDIAddress(XDIAddress address);
+	public XDIAddress absoluteToRelativeXDIAddress(XDIAddress XDIaddress);
 
-	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress address);
+	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress XDIaddress);
 
 	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement statement);
 
@@ -65,9 +65,9 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIAddress map(XDIAddress address) {
+		public XDIAddress map(XDIAddress XDIaddress) {
 
-			return this.xdiRoot.absoluteToRelativeXDIAddress(address);
+			return this.xdiRoot.absoluteToRelativeXDIAddress(XDIaddress);
 		}
 	}
 
@@ -83,9 +83,9 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 		}
 
 		@Override
-		public XDIAddress map(XDIAddress address) {
+		public XDIAddress map(XDIAddress XDIaddress) {
 
-			return this.xdiRoot.relativeToAbsoluteXDIAddress(address);
+			return this.xdiRoot.relativeToAbsoluteXDIAddress(XDIaddress);
 		}
 	}
 

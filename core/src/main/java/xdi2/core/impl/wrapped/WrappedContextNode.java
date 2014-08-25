@@ -38,17 +38,17 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized ContextNode setContextNode(XDIArc arc) {
+	public synchronized ContextNode setContextNode(XDIArc XDIarc) {
 
-		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.setContextNode(arc);
+		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.setContextNode(XDIarc);
 
 		return new WrappedContextNode((WrappedGraph) this.getGraph(), this, ret);
 	}
 
 	@Override
-	public ContextNode getContextNode(XDIArc arc, boolean subgraph) {
+	public ContextNode getContextNode(XDIArc XDIarc, boolean subgraph) {
 
-		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(arc, subgraph);
+		MemoryContextNode ret = (MemoryContextNode) this.memoryContextNode.getContextNode(XDIarc, subgraph);
 
 		return ret == null ? null : new WrappedContextNode((WrappedGraph) this.getGraph(), this, ret);
 	}
@@ -62,9 +62,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsContextNode(XDIArc arc) {
+	public boolean containsContextNode(XDIArc XDIarc) {
 
-		return this.memoryContextNode.containsContextNode(arc);
+		return this.memoryContextNode.containsContextNode(XDIarc);
 	}
 
 	@Override
@@ -74,9 +74,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void delContextNode(XDIArc arc) {
+	public synchronized void delContextNode(XDIArc XDIarc) {
 
-		this.memoryContextNode.delContextNode(arc);
+		this.memoryContextNode.delContextNode(XDIarc);
 	}
 
 	@Override
@@ -90,25 +90,25 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress arc, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(arc, targetContextNode);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(XDIaddress, targetContextNode);
 
 		return new WrappedRelation(this, ret);
 	}
 
 	@Override
-	public Relation getRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(arc, targetContextNodeAddress);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(XDIaddress, targetContextNodeXDIAddress);
 
 		return ret == null ? null : new WrappedRelation(this, ret);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getRelations(XDIAddress arc) {
+	public ReadOnlyIterator<Relation> getRelations(XDIAddress XDIaddress) {
 
-		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(arc);
+		ReadOnlyIterator<Relation> ret = this.memoryContextNode.getRelations(XDIaddress);
 
 		return new ReadOnlyIterator<Relation> (new WrappedRelationMappingIterator(ret));
 	}
@@ -122,15 +122,15 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		return this.memoryContextNode.containsRelation(arc, targetContextNodeAddress);
+		return this.memoryContextNode.containsRelation(XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override
-	public boolean containsRelations(XDIAddress arc) {
+	public boolean containsRelations(XDIAddress XDIaddress) {
 
-		return this.memoryContextNode.containsRelations(arc);
+		return this.memoryContextNode.containsRelations(XDIaddress);
 	}
 
 	@Override
@@ -140,15 +140,15 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void delRelation(XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		this.memoryContextNode.delRelation(arc, targetContextNodeAddress);
+		this.memoryContextNode.delRelation(XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override
-	public synchronized void delRelations(XDIAddress arc) {
+	public synchronized void delRelations(XDIAddress XDIaddress) {
 
-		this.memoryContextNode.delRelations(arc);
+		this.memoryContextNode.delRelations(XDIaddress);
 	}
 
 	@Override

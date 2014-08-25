@@ -13,103 +13,103 @@ public class CloudNumber {
 
 	private static final Logger log = LoggerFactory.getLogger(CloudNumber.class);
 
-	private XDIAddress address;
-	private XDIArc peerRootArc;
+	private XDIAddress XDIaddress;
+	private XDIArc peerRootXDIArc;
 
-	private CloudNumber(XDIAddress address, XDIArc peerRootArc) {
+	private CloudNumber(XDIAddress XDIaddress, XDIArc peerRootXDIarc) {
 
-		this.address = address;
-		this.peerRootArc = peerRootArc;
+		this.XDIaddress = XDIaddress;
+		this.peerRootXDIArc = peerRootXDIarc;
 	}
 
-	public static boolean isValid(final XDIAddress address) {
+	public static boolean isValid(final XDIAddress XDIaddress) {
 
-		if (address == null) return false;
+		if (XDIaddress == null) return false;
 
 		Boolean result = null;
 
 		try {
 
-			if (address.getNumXDIArcs() < 2) { result = Boolean.FALSE; return result.booleanValue(); }
+			if (XDIaddress.getNumXDIArcs() < 2) { result = Boolean.FALSE; return result.booleanValue(); }
 
-			for (int i=0; i< address.getNumXDIArcs(); i+=2) {
+			for (int i=0; i< XDIaddress.getNumXDIArcs(); i+=2) {
 
-				XDIArc arc0 = address.getXDIArc(i);
-				XDIArc arc1 = address.getXDIArc(i + 1);
+				XDIArc XDIarc0 = XDIaddress.getXDIArc(i);
+				XDIArc XDIarc1 = XDIaddress.getXDIArc(i + 1);
 
-				if (arc0.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! arc0.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (arc0.hasXRef() || arc0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(arc0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(arc0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc0.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIarc0.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc0.hasXRef() || XDIarc0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 
-				if (arc1.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (arc1.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (arc1.hasXRef() || ! arc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("isValid(" + address + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("isValid(" + XDIaddress + ") --> " + result);
 		}
 	}
 
 	public static CloudNumber create(String string) {
 
-		return fromAddress(XDIAddress.create(string));
+		return fromXDIAddress(XDIAddress.create(string));
 	}
 
 	public static CloudNumber createRandom(Character cs) {
 
-		XDIArc arc1 = XdiEntityCollection.createXDIArc(XDIArc.fromComponents(cs, false, false, null, null));
-		XDIArc arc2 = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
+		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, null, null));
+		XDIArc XDIarc2 = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
 
-		XDIAddress address = XDIAddressUtil.concatXDIAddresses(arc1, arc2);
+		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(XDIarc1, XDIarc2);
 
-		XDIArc peerRootArc = XdiPeerRoot.createPeerRootXDIArc(address);
+		XDIArc peerRootXDIarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudNumber(address, peerRootArc);
+		return new CloudNumber(XDIaddress, peerRootXDIarc);
 	}
 
-	public static CloudNumber fromAddress(XDIAddress address) {
+	public static CloudNumber fromXDIAddress(XDIAddress XDIaddress) {
 
-		address = XDIAddress.create(address.toString().toLowerCase());
+		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
-		if (! isValid(address)) return null;
+		if (! isValid(XDIaddress)) return null;
 
-		XDIArc peerRootAddress = XdiPeerRoot.createPeerRootXDIArc(address);
+		XDIArc peerRootAddress = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudNumber(address, peerRootAddress);
+		return new CloudNumber(XDIaddress, peerRootAddress);
 	}
 
-	public static CloudNumber fromPeerRootArc(XDIArc peerRootArc) {
+	public static CloudNumber fromPeerRootXDIArc(XDIArc peerRootXDIarc) {
 
-		XDIAddress address = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootArc);
+		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIarc);
 
-		return fromAddress(address);
+		return fromXDIAddress(XDIaddress);
 	}
 
-	public static CloudNumber fromPeerRootArc(XDIAddress peerRootArc) {
+	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIarc) {
 
-		if (peerRootArc.getNumXDIArcs() > 1) return null;
+		if (peerRootXDIarc.getNumXDIArcs() > 1) return null;
 		
-		return fromPeerRootArc(peerRootArc.getFirstXDIArc());
+		return fromPeerRootXDIArc(peerRootXDIarc.getFirstXDIArc());
 	}
 
-	public XDIAddress getAddress() {
+	public XDIAddress getXDIAddress() {
 
-		return this.address;
+		return this.XDIaddress;
 	}
 
-	public XDIArc getPeerRootArc() {
+	public XDIArc getPeerRootXDIArc() {
 
-		return this.peerRootArc;
+		return this.peerRootXDIArc;
 	}
 
 	public Character getCs() {
 
-		return this.getAddress().getFirstXDIArc().getCs();
+		return this.getXDIAddress().getFirstXDIArc().getCs();
 	}
 
 	@Override
@@ -118,18 +118,18 @@ public class CloudNumber {
 		if (! (object instanceof CloudNumber)) return false;
 		if (object == this) return true;
 
-		return this.getAddress().equals(((CloudNumber) object).getAddress());
+		return this.getXDIAddress().equals(((CloudNumber) object).getXDIAddress());
 	}
 
 	@Override
 	public int hashCode() {
 
-		return this.getAddress().hashCode();
+		return this.getXDIAddress().hashCode();
 	}
 
 	@Override
 	public String toString() {
 
-		return this.getAddress().toString();
+		return this.getXDIAddress().toString();
 	}
 }

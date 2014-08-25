@@ -71,32 +71,32 @@ public final class XRI2Util {
 
 		if (log.isTraceEnabled()) log.trace("cloudNumberToINumber(" + cloudNumber + ")");
 
-		XDIAddress address = cloudNumber.getAddress();
+		XDIAddress XDIaddress = cloudNumber.getXDIAddress();
 
-		if (address.getNumXDIArcs() != 2) return null;
+		if (XDIaddress.getNumXDIArcs() != 2) return null;
 
-		if (! address.getFirstXDIArc().isClassXs()) return null;
-		if (address.getFirstXDIArc().hasLiteral()) return null;
-		if (address.getFirstXDIArc().hasXRef()) return null;
+		if (! XDIaddress.getFirstXDIArc().isClassXs()) return null;
+		if (XDIaddress.getFirstXDIArc().hasLiteral()) return null;
+		if (XDIaddress.getFirstXDIArc().hasXRef()) return null;
 
-		char cs = address.getFirstXDIArc().getCs().charValue();
+		char cs = XDIaddress.getFirstXDIArc().getCs().charValue();
 
-		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(address.getLastXDIArc().getCs())) return null;
-		if (! address.getLastXDIArc().hasLiteral()) return null;
-		if (address.getLastXDIArc().hasXRef()) return null;
-		if (! address.getLastXDIArc().getLiteral().startsWith(":uuid")) return null;
-		if (address.getLastXDIArc().getLiteral().length() != 42) return null;
+		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIaddress.getLastXDIArc().getCs())) return null;
+		if (! XDIaddress.getLastXDIArc().hasLiteral()) return null;
+		if (XDIaddress.getLastXDIArc().hasXRef()) return null;
+		if (! XDIaddress.getLastXDIArc().getLiteral().startsWith(":uuid")) return null;
+		if (XDIaddress.getLastXDIArc().getLiteral().length() != 42) return null;
 
 		String[] parts = new String[4];
-		parts[0] = address.getLastXDIArc().getLiteral().substring(6, 10);
-		parts[1] = address.getLastXDIArc().getLiteral().substring(10, 14);
-		parts[2] = address.getLastXDIArc().getLiteral().substring(15, 19);
-		parts[3] = address.getLastXDIArc().getLiteral().substring(20, 24);
+		parts[0] = XDIaddress.getLastXDIArc().getLiteral().substring(6, 10);
+		parts[1] = XDIaddress.getLastXDIArc().getLiteral().substring(10, 14);
+		parts[2] = XDIaddress.getLastXDIArc().getLiteral().substring(15, 19);
+		parts[3] = XDIaddress.getLastXDIArc().getLiteral().substring(20, 24);
 
-		if (! parts[0].equals(address.getLastXDIArc().getLiteral().substring(25, 29))) return null;
-		if (! parts[1].equals(address.getLastXDIArc().getLiteral().substring(30, 34))) return null;
-		if (! parts[2].equals(address.getLastXDIArc().getLiteral().substring(34, 38))) return null;
-		if (! parts[3].equals(address.getLastXDIArc().getLiteral().substring(38, 42))) return null;
+		if (! parts[0].equals(XDIaddress.getLastXDIArc().getLiteral().substring(25, 29))) return null;
+		if (! parts[1].equals(XDIaddress.getLastXDIArc().getLiteral().substring(30, 34))) return null;
+		if (! parts[2].equals(XDIaddress.getLastXDIArc().getLiteral().substring(34, 38))) return null;
+		if (! parts[3].equals(XDIaddress.getLastXDIArc().getLiteral().substring(38, 42))) return null;
 
 		for (int i=0; i<parts.length; i++) {
 
@@ -123,23 +123,23 @@ public final class XRI2Util {
 	/**
 	 * Maps an XRI 2.0 service type to an XDI arc.
 	 */
-	public static XDIArc typeToXdiArc(String type) {
+	public static XDIArc typeToXDIArc(String type) {
 
 		if (log.isTraceEnabled()) log.trace("typeToXdiarc(" + type + ")");
 
 		if (type.startsWith("xri://")) type = type.substring(6);
 		type = type.replace('+' , '#');
 
-		XDIArc xdiarc = null;
+		XDIArc XDIarc = null;
 
-		try { xdiarc = XDIArc.create(type); } catch (Exception ex) { xdiarc = null; }
-		if (xdiarc == null) try { xdiarc = XDIArc.create("#(" + type + ")"); } catch (Exception ex) { xdiarc = null; }
-		if (xdiarc == null) try { xdiarc = XDIArc.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { xdiarc = null; }
+		try { XDIarc = XDIArc.create(type); } catch (Exception ex) { XDIarc = null; }
+		if (XDIarc == null) try { XDIarc = XDIArc.create("#(" + type + ")"); } catch (Exception ex) { XDIarc = null; }
+		if (XDIarc == null) try { XDIarc = XDIArc.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { XDIarc = null; }
 
-		if (xdiarc == null) return null;
+		if (XDIarc == null) return null;
 
-		if (! XdiAttributeSingleton.isValidXDIArc(xdiarc)) xdiarc = XdiAttributeSingleton.createXDIArc(xdiarc);
+		if (! XdiAttributeSingleton.isAttributeSingletonXDIArc(XDIarc)) XDIarc = XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIarc);
 
-		return xdiarc;
+		return XDIarc;
 	}
 }

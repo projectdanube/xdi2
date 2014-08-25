@@ -39,10 +39,10 @@ public class DataTypes {
 		return null;
 	}
 
-	public static Boolean addressToBoolean(XDIAddress address) {
+	public static Boolean addressToBoolean(XDIAddress XDIaddress) {
 
-		if (XDIConstants.XDI_ADD_TRUE.equals(address)) return Boolean.TRUE;
-		if (XDIConstants.XDI_ADD_FALSE.equals(address)) return Boolean.FALSE;
+		if (XDIConstants.XDI_ADD_TRUE.equals(XDIaddress)) return Boolean.TRUE;
+		if (XDIConstants.XDI_ADD_FALSE.equals(XDIaddress)) return Boolean.FALSE;
 
 		return null;
 	}
@@ -55,11 +55,11 @@ public class DataTypes {
 	 * Set a $is# datatype associated with a context node
 	 * 
 	 * @param contextNode
-	 * @param dataTypeAddress
+	 * @param dataTypeXDIAddress
 	 */
-	public static void setDataType(ContextNode contextNode, XDIAddress dataTypeAddress) {
+	public static void setDataType(ContextNode contextNode, XDIAddress dataTypeXDIAddress) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, dataTypeAddress);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE, dataTypeXDIAddress);
 	}
 
 	/**
@@ -95,66 +95,66 @@ public class DataTypes {
 	/**
 	 * Returns an XDI address for an XSD data type.
 	 */
-	public static XDIAddress dataTypeAddressFromXsdType(String xsdType) {
+	public static XDIAddress dataTypeXDIAddressFromXsdType(String xsdType) {
 
-		XDIAddress xsdTypeAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + xsdType.replace(":", XDIConstants.CS_CLASS_RESERVED.toString()));
+		XDIAddress xsdTypeXDIAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + xsdType.replace(":", XDIConstants.CS_CLASS_RESERVED.toString()));
 
-		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_XSD, xsdTypeAddress);
+		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_XSD, xsdTypeXDIAddress);
 	}
 
 	/**
 	 * Returns an XDI address for a JSON data type.
 	 */
-	public static XDIAddress dataTypeAddressFromJsonType(String jsonType) {
+	public static XDIAddress dataTypeXDIAddressFromJsonType(String jsonType) {
 
-		XDIAddress jsonTypeAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + jsonType);
+		XDIAddress jsonTypeXDIAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + jsonType);
 
-		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_JSON, jsonTypeAddress);
+		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_JSON, jsonTypeXDIAddress);
 	}
 
 	/**
 	 * Returns an XDI address for a MIME data type.
 	 */
-	public static XDIAddress dataTypeAddressFromMimeType(String mimeType) {
+	public static XDIAddress dataTypeXDIAddressFromMimeType(String mimeType) {
 
-		XDIAddress mimeTypeAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + mimeType.replace("/", XDIConstants.CS_CLASS_RESERVED.toString()));
+		XDIAddress mimeTypeXDIAddress = XDIAddress.create("" + XDIConstants.CS_CLASS_RESERVED + mimeType.replace("/", XDIConstants.CS_CLASS_RESERVED.toString()));
 
-		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_MIME, mimeTypeAddress);
+		return XDIAddressUtil.concatXDIAddresses(XDI_ADD_DATATYPE_MIME, mimeTypeXDIAddress);
 	}
 
 	/**
 	 * Returns an XSD data type for an XDI address.
 	 */
-	public static String xsdTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
+	public static String xsdTypeFromDataTypeXDIAddress(XDIAddress dataTypeXDIAddress) {
 
-		if (XDIAddressUtil.startsWithXDIAddress(dataTypeAddress, XDI_ADD_DATATYPE_XSD) == null) throw new Xdi2RuntimeException("Invalid XSD data type address: " + dataTypeAddress);
+		if (XDIAddressUtil.startsWithXDIAddress(dataTypeXDIAddress, XDI_ADD_DATATYPE_XSD) == null) throw new Xdi2RuntimeException("Invalid XSD data type address: " + dataTypeXDIAddress);
 
-		XDIAddress xsdTypeAddress = XDIAddressUtil.localXDIAddress(dataTypeAddress, - XDI_ADD_DATATYPE_XSD.getNumXDIArcs());
+		XDIAddress xsdTypeXDIAddress = XDIAddressUtil.localXDIAddress(dataTypeXDIAddress, - XDI_ADD_DATATYPE_XSD.getNumXDIArcs());
 
-		return xsdTypeAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), ":");
+		return xsdTypeXDIAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), ":");
 	}
 
 	/**
 	 * Returns an XSD data type for a JSON data type.
 	 */
-	public static String jsonTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
+	public static String jsonTypeFromDataTypeXDIAddress(XDIAddress dataTypeXDIAddress) {
 
-		if (XDIAddressUtil.startsWithXDIAddress(dataTypeAddress, XDI_ADD_DATATYPE_JSON) == null) throw new Xdi2RuntimeException("Invalid JSON data type address: " + dataTypeAddress);
+		if (XDIAddressUtil.startsWithXDIAddress(dataTypeXDIAddress, XDI_ADD_DATATYPE_JSON) == null) throw new Xdi2RuntimeException("Invalid JSON data type address: " + dataTypeXDIAddress);
 
-		XDIAddress jsonTypeAddress = XDIAddressUtil.localXDIAddress(dataTypeAddress, - XDI_ADD_DATATYPE_JSON.getNumXDIArcs());
+		XDIAddress jsonTypeXDIAddress = XDIAddressUtil.localXDIAddress(dataTypeXDIAddress, - XDI_ADD_DATATYPE_JSON.getNumXDIArcs());
 
-		return jsonTypeAddress.toString().substring(1);
+		return jsonTypeXDIAddress.toString().substring(1);
 	}
 
 	/**
 	 * Returns a MIME data type for an XDI address.
 	 */
-	public static String mimeTypeFromDataTypeAddress(XDIAddress dataTypeAddress) {
+	public static String mimeTypeFromDataTypeXDIAddress(XDIAddress dataTypeXDIAddress) {
 
-		if (XDIAddressUtil.startsWithXDIAddress(dataTypeAddress, XDI_ADD_DATATYPE_MIME) == null) throw new Xdi2RuntimeException("Invalid MIME data type address: " + dataTypeAddress);
+		if (XDIAddressUtil.startsWithXDIAddress(dataTypeXDIAddress, XDI_ADD_DATATYPE_MIME) == null) throw new Xdi2RuntimeException("Invalid MIME data type address: " + dataTypeXDIAddress);
 		
-		XDIAddress mimeTypeAddress = XDIAddressUtil.localXDIAddress(dataTypeAddress, - XDI_ADD_DATATYPE_MIME.getNumXDIArcs());
+		XDIAddress mimeTypeXDIAddress = XDIAddressUtil.localXDIAddress(dataTypeXDIAddress, - XDI_ADD_DATATYPE_MIME.getNumXDIArcs());
 
-		return mimeTypeAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), "/");
+		return mimeTypeXDIAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), "/");
 	}
 }

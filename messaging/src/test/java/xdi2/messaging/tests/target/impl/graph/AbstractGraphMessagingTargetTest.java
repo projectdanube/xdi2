@@ -35,12 +35,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget(); graphMessagingTarget.setGraph(graph);
 		graphMessagingTarget.init();
 
-		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationAddressAndTargetStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (XDIStatement.create("=markus/+friend/=giovanni")));
+		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXDIAddressAndTargetXDIStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (XDIStatement.create("=markus/+friend/=giovanni")));
 		MessageResult messageResult1 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
 		assertEquals(graph.getDeepRelation(XDIAddress.create("=markus"), XDIAddress.create("+friend")).getTargetContextNodeXDIAddress(), XDIAddress.create("=giovanni"));
 
-		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_GET, XDIAddress.create("=markus"));
+		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, XDIAddress.create("=markus"));
 		MessageResult messageResult2 = new MessageResult();
 		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
 		assertEquals(messageResult2.getGraph().getDeepRelation(XDIAddress.create("=markus"), XDIAddress.create("+friend")).getTargetContextNodeXDIAddress(), XDIAddress.create("=giovanni"));

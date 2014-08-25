@@ -11,30 +11,30 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	private KeyValueStore keyValueStore;
 	private String key;
 
-	private XDIAddress address;
-	private XDIAddress targetContextNodeAddress;
+	private XDIAddress XDIaddress;
+	private XDIAddress targetContextNodeXDIAddress;
 
-	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDIAddress address, XDIAddress targetContextNodeAddress) {
+	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
 		super(contextNode);
 
 		this.keyValueStore = keyValueStore;
 		this.key = key;
 
-		this.address = address;
-		this.targetContextNodeAddress = targetContextNodeAddress;
+		this.XDIaddress = XDIaddress;
+		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
 	}
 
 	@Override
 	public XDIAddress getXDIAddress() {
 
-		return this.address;
+		return this.XDIaddress;
 	}
 
 	@Override
 	public XDIAddress getTargetContextNodeXDIAddress() {
 
-		return this.targetContextNodeAddress;
+		return this.targetContextNodeXDIAddress;
 	}
 
 	/*

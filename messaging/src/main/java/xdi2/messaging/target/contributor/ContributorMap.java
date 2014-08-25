@@ -45,16 +45,16 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		this.contributors = new LinkedHashMap<XDIAddress, List<Contributor>> ();
 	}
 
-	public void addContributor(XDIAddress contextNodeAddress, Contributor contributor) {
+	public void addContributor(XDIAddress contextNodeXDIAddress, Contributor contributor) {
 
-		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contextNodeAddress);
+		if (log.isDebugEnabled()) log.debug("Adding contributor " + contributor.getClass().getSimpleName() + " under " + contextNodeXDIAddress);
 
-		List<Contributor> contributors = this.contributors.get(contextNodeAddress);
+		List<Contributor> contributors = this.contributors.get(contextNodeXDIAddress);
 
 		if (contributors == null) {
 
 			contributors = new ArrayList<Contributor> ();
-			this.contributors.put(contextNodeAddress, contributors);
+			this.contributors.put(contextNodeXDIAddress, contributors);
 		}
 
 		contributors.add(contributor);

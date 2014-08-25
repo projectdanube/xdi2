@@ -27,73 +27,79 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI unordered instance.
+	 * Checks if a context node is a valid XDI unordered member.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI unordered instance.
+	 * @return True if the context node is a valid XDI unordered member.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
-		if (contextNode == null) return false;
+		if (contextNode == null) throw new NullPointerException();
 
-		return XdiEntityMemberUnordered.isValid(contextNode) || 
-				XdiAttributeMemberUnordered.isValid(contextNode);
+		if (XdiEntityMemberUnordered.isValid(contextNode)) return true;
+		if (XdiAttributeMemberUnordered.isValid(contextNode)) return true;
+		if (XdiVariableMemberUnordered.isValid(contextNode)) return true;
+
+		return false;
 	}
 
 	/**
-	 * Factory method that creates an XDI unordered instance bound to a given context node.
-	 * @param contextNode The context node that is an XDI unordered instance.
-	 * @return The XDI unordered instance.
+	 * Factory method that creates an XDI unordered member bound to a given context node.
+	 * @param contextNode The context node that is an XDI unordered member.
+	 * @return The XDI unordered member.
 	 */
 	public static XdiMemberUnordered<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+
+		if (contextNode == null) throw new NullPointerException();
 
 		XdiMemberUnordered<?, ?, ?, ?, ?, ?> xdiMember;
 
 		if ((xdiMember = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiVariableMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
 	}
 
 	/*
-	 * Methods for XRIs
+	 * Methods for arcs
 	 */
 
-	public static boolean isValidXDIArc(XDIArc arc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static boolean isMemberUnorderedXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		if (arc == null) return false;
+		if (XDIarc == null) throw new NullPointerException();
 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arc.getCs())) return false;
-			if (arc.isClassXs()) return false;
-			if (arc.isAttributeXs()) return false;
-			if (! arc.hasLiteral()) return false;
-			if (arc.hasXRef()) return false;
+			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
+			if (XDIarc.isClassXs()) return false;
+			if (XDIarc.isAttributeXs()) return false;
+			if (! XDIarc.hasLiteral()) return false;
+			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arc.getCs())) return false;
-			if (arc.isClassXs()) return false;
-			if (! arc.isAttributeXs()) return false;
-			if (! arc.hasLiteral()) return false;
-			if (arc.hasXRef()) return false;
+			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
+			if (XDIarc.isClassXs()) return false;
+			if (! XDIarc.isAttributeXs()) return false;
+			if (! XDIarc.hasLiteral()) return false;
+			if (XDIarc.hasXRef()) return false;
 		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
 
-			if (arc.hasCs()) return false;
-			if (arc.isClassXs()) return false;
-			if (arc.isAttributeXs()) return false;
-			if (arc.hasLiteral()) return false;
-			if (! arc.hasXRef()) return false;
-			if (! XDIConstants.XS_VARIABLE.equals(arc.getXRef().getXs())) return false;
-			if (! arc.getXRef().hasXDIAddress()) return false;
-			if (arc.getXRef().hasPartialSubjectAndPredicate()) return false;
-			if (arc.getXRef().hasLiteral()) return false;
-			if (arc.getXRef().hasIri()) return false;
-			if (arc.getXRef().getXDIAddress().getNumXDIArcs() != 1) return false;
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(arc.getXRef().getXDIAddress().getFirstXDIArc())) return false;
-			if (arc.getXRef().getXDIAddress().getFirstXDIArc().isClassXs()) return false;
-			if (arc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
-			if (! arc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
-			if (arc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
+			if (XDIarc.hasCs()) return false;
+			if (XDIarc.isClassXs()) return false;
+			if (XDIarc.isAttributeXs()) return false;
+			if (XDIarc.hasLiteral()) return false;
+			if (! XDIarc.hasXRef()) return false;
+			if (! XDIConstants.XS_VARIABLE.equals(XDIarc.getXRef().getXs())) return false;
+			if (! XDIarc.getXRef().hasXDIAddress()) return false;
+			if (XDIarc.getXRef().hasPartialSubjectAndPredicate()) return false;
+			if (XDIarc.getXRef().hasLiteral()) return false;
+			if (XDIarc.getXRef().hasIri()) return false;
+			if (XDIarc.getXRef().getXDIAddress().getNumXDIArcs() != 1) return false;
+			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getXRef().getXDIAddress().getFirstXDIArc())) return false;
+			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isClassXs()) return false;
+			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
+			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
+			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
 		}
 
 		return true;

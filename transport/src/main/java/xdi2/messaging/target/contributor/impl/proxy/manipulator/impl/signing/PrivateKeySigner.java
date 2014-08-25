@@ -34,12 +34,12 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 
 		if (privateKey == null) {
 
-			if (log.isWarnEnabled()) log.warn("No private key found for sender " + message.getSenderAddress());
+			if (log.isWarnEnabled()) log.warn("No private key found for sender " + message.getSenderXDIAddress());
 
 			return null;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Private key found for sender " + message.getSenderAddress() + ".");
+		if (log.isDebugEnabled()) log.debug("Private key found for sender " + message.getSenderXDIAddress() + ".");
 
 		// create signature
 

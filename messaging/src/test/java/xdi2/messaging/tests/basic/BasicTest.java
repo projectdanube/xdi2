@@ -23,7 +23,7 @@ public class BasicTest extends TestCase {
 	private static final XDIAddress TARGET_ADDRESS = XDIAddress.create("=markus");
 	private static final XDIStatement TARGET_STATEMENT = XDIStatement.create("=markus/+friend/=giovanni");
 
-	private static final XDIAddress contextNodeAddressS[] = new XDIAddress[] {
+	private static final XDIAddress contextNodeXDIAddressS[] = new XDIAddress[] {
 		XDIAddress.create("=markus+email"),
 		XDIAddress.create("=markus"),
 		XDIAddress.create("=markus+friends"),
@@ -82,8 +82,8 @@ public class BasicTest extends TestCase {
 
 		// create some operations
 
-		ContextNode[] contextNodes = new ContextNode[contextNodeAddressS.length]; 
-		for (int i=0; i<contextNodeAddressS.length; i++) contextNodes[i] = messageEnvelope.getGraph().setDeepContextNode(contextNodeAddressS[i]);
+		ContextNode[] contextNodes = new ContextNode[contextNodeXDIAddressS.length]; 
+		for (int i=0; i<contextNodeXDIAddressS.length; i++) contextNodes[i] = messageEnvelope.getGraph().setDeepContextNode(contextNodeXDIAddressS[i]);
 
 		Operation setOperation = message.createSetOperation(contextNodes[0].getXDIAddress());
 		Operation getOperation = message.createGetOperation(contextNodes[1].getXDIAddress());
@@ -101,7 +101,7 @@ public class BasicTest extends TestCase {
 		assertEquals(messageCollection.getOperationCount(), 3);
 		assertEquals(message.getOperationCount(), 3);
 		assertEquals(messageCollection.getSenderXDIAddress(), SENDER);
-		assertEquals(message.getSenderAddress(), SENDER);
+		assertEquals(message.getSenderXDIAddress(), SENDER);
 		assertEquals(setOperation.getSenderXDIAddress(), SENDER);
 		assertEquals(getOperation.getSenderXDIAddress(), SENDER);
 		assertEquals(delOperation.getSenderXDIAddress(), SENDER);
@@ -112,7 +112,7 @@ public class BasicTest extends TestCase {
 
 	public void testMessagingFromOperationAddressAndTargetAddress() throws Exception {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationAddressAndTargetAddress(XDIMessagingConstants.XDI_ADD_SET, TARGET_ADDRESS);
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_SET, TARGET_ADDRESS);
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
@@ -123,7 +123,7 @@ public class BasicTest extends TestCase {
 		assertEquals(messageCollection.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
 		assertEquals(messageCollection.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
-		assertEquals(message.getSenderAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		assertEquals(message.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_SET);
 		assertEquals(operation.getTargetXDIAddress(), TARGET_ADDRESS);
@@ -132,7 +132,7 @@ public class BasicTest extends TestCase {
 
 	public void testMessagingFromOperationAddressAndTargetStatement() throws Exception {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationAddressAndTargetStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (TARGET_STATEMENT));
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (TARGET_STATEMENT));
 		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
 		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
@@ -143,7 +143,7 @@ public class BasicTest extends TestCase {
 		assertEquals(messageCollection.getOperationCount(), 1);
 		assertEquals(message.getOperationCount(), 1);
 		assertEquals(messageCollection.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
-		assertEquals(message.getSenderAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		assertEquals(message.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getSenderXDIAddress(), XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_SET);
 		assertEquals(operation.getTargetXDIStatements().next(), TARGET_STATEMENT);
@@ -154,9 +154,9 @@ public class BasicTest extends TestCase {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(XDIAddress.create("=sender"));
-		message.setFromPeerRootArc(XDIArc.create("([=]!1111)"));
-		message.setToPeerRootArc(XDIArc.create("([=]!2222)"));
-		assertEquals(message.getFromPeerRootArc(), XDIAddress.create("([=]!1111)"));
-		assertEquals(message.getToPeerRootArc(), XDIAddress.create("([=]!2222)"));
+		message.setFromPeerRootXDIArc(XDIArc.create("([=]!1111)"));
+		message.setToPeerRootXDIArc(XDIArc.create("([=]!2222)"));
+		assertEquals(message.getFromPeerRootXDIArc(), XDIAddress.create("([=]!1111)"));
+		assertEquals(message.getToPeerRootXDIArc(), XDIAddress.create("([=]!2222)"));
 	}
 }

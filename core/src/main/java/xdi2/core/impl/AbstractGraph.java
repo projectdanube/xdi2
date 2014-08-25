@@ -111,123 +111,123 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public ContextNode setDeepContextNode(XDIAddress contextNodeAddress) {
+	public ContextNode setDeepContextNode(XDIAddress contextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).setDeepContextNode(contextNodeAddress);
+		return this.getRootContextNode(false).setDeepContextNode(contextNodeXDIAddress);
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDIAddress contextNodeAddress, boolean subgraph) {
+	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress, boolean subgraph) {
 
-		if (XDIConstants.XDI_ADD_ROOT.equals(contextNodeAddress)) {
+		if (XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIAddress)) {
 
 			return this.getRootContextNode(subgraph);
 		} else {
 
-			return this.getRootContextNode(false).getDeepContextNode(contextNodeAddress, subgraph);
+			return this.getRootContextNode(false).getDeepContextNode(contextNodeXDIAddress, subgraph);
 		}
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDIAddress contextNodeAddress) {
+	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).getDeepContextNode(contextNodeAddress);
+		return this.getRootContextNode(false).getDeepContextNode(contextNodeXDIAddress);
 	}
 
 	@Override
-	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress contextNodeAddress) {
+	public ReadOnlyIterator<ContextNode> getDeepContextNodes(XDIAddress contextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).getDeepContextNodes(contextNodeAddress);
+		return this.getRootContextNode(false).getDeepContextNodes(contextNodeXDIAddress);
 	}
 
 	@Override
-	public Relation setDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).setDeepRelation(contextNodeAddress, arc, targetContextNodeAddress);
+		return this.getRootContextNode(false).setDeepRelation(contextNodeXDIAddress, XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override
-	public Relation setDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, ContextNode targetContextNode) {
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, ContextNode targetContextNode) {
 
-		return this.getRootContextNode(false).setDeepRelation(contextNodeAddress, arc, targetContextNode);
+		return this.getRootContextNode(false).setDeepRelation(contextNodeXDIAddress, XDIaddress, targetContextNode);
 	}
 
 	@Override
-	public Relation getDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc, XDIAddress targetContextNodeAddress) {
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).getDeepRelation(contextNodeAddress, arc, targetContextNodeAddress);
+		return this.getRootContextNode(false).getDeepRelation(contextNodeXDIAddress, XDIaddress, targetContextNodeXDIAddress);
 	}
 
 	@Override
-	public Relation getDeepRelation(XDIAddress contextNodeAddress, XDIAddress arc) {
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress) {
 
-		return this.getRootContextNode(false).getDeepRelation(contextNodeAddress, arc);
+		return this.getRootContextNode(false).getDeepRelation(contextNodeXDIAddress, XDIaddress);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeAddress, XDIAddress arc) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress) {
 
-		return this.getRootContextNode(false).getDeepRelations(contextNodeAddress, arc);
+		return this.getRootContextNode(false).getDeepRelations(contextNodeXDIAddress, XDIaddress);
 	}
 
 	@Override
-	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeAddress) {
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).getDeepRelations(contextNodeAddress);
+		return this.getRootContextNode(false).getDeepRelations(contextNodeXDIAddress);
 	}
 
 	@Override
-	public Literal setDeepLiteral(XDIAddress contextNodeAddress, Object literalData) {
+	public Literal setDeepLiteral(XDIAddress contextNodeXDIAddress, Object literalData) {
 
-		return this.getRootContextNode(false).setDeepLiteral(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).setDeepLiteral(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralString(XDIAddress contextNodeAddress, String literalData) {
+	public Literal setDeepLiteralString(XDIAddress contextNodeXDIAddress, String literalData) {
 
-		return this.getRootContextNode(false).setDeepLiteralString(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).setDeepLiteralString(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralNumber(XDIAddress contextNodeAddress, Double literalData) {
+	public Literal setDeepLiteralNumber(XDIAddress contextNodeXDIAddress, Double literalData) {
 
-		return this.getRootContextNode(false).setDeepLiteralNumber(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).setDeepLiteralNumber(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal setDeepLiteralBoolean(XDIAddress contextNodeAddress, Boolean literalData) {
+	public Literal setDeepLiteralBoolean(XDIAddress contextNodeXDIAddress, Boolean literalData) {
 
-		return this.getRootContextNode(false).setDeepLiteralBoolean(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).setDeepLiteralBoolean(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteral(XDIAddress contextNodeAddress, Object literalData) {
+	public Literal getDeepLiteral(XDIAddress contextNodeXDIAddress, Object literalData) {
 
-		return this.getRootContextNode(false).getDeepLiteral(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).getDeepLiteral(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralString(XDIAddress contextNodeAddress, String literalData) {
+	public Literal getDeepLiteralString(XDIAddress contextNodeXDIAddress, String literalData) {
 
-		return this.getRootContextNode(false).getDeepLiteralString(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).getDeepLiteralString(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralNumber(XDIAddress contextNodeAddress, Double literalData) {
+	public Literal getDeepLiteralNumber(XDIAddress contextNodeXDIAddress, Double literalData) {
 
-		return this.getRootContextNode(false).getDeepLiteralNumber(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).getDeepLiteralNumber(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteralBoolean(XDIAddress contextNodeAddress, Boolean literalData) {
+	public Literal getDeepLiteralBoolean(XDIAddress contextNodeXDIAddress, Boolean literalData) {
 
-		return this.getRootContextNode(false).getDeepLiteralBoolean(contextNodeAddress, literalData);
+		return this.getRootContextNode(false).getDeepLiteralBoolean(contextNodeXDIAddress, literalData);
 	}
 
 	@Override
-	public Literal getDeepLiteral(XDIAddress contextNodeAddress) {
+	public Literal getDeepLiteral(XDIAddress contextNodeXDIAddress) {
 
-		return this.getRootContextNode(false).getDeepLiteral(contextNodeAddress);
+		return this.getRootContextNode(false).getDeepLiteral(contextNodeXDIAddress);
 	}
 
 	/*
