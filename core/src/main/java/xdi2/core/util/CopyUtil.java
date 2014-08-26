@@ -454,8 +454,8 @@ public final class CopyUtil {
 
 			for (Entry<XDIArc, XDIAddress> replacement : this.replacements.entrySet()) {
 
-				targetContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
-						targetContextNodeXDIAddress, 
+				replacedTargetContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
+						replacedTargetContextNodeXDIAddress, 
 						replacement.getKey(), 
 						replacement.getValue());
 			}
