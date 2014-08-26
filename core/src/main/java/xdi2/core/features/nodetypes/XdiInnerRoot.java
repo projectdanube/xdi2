@@ -5,6 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIXRef;
@@ -109,6 +110,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 * @return The inner root arc of the subject address and the predicate address.
 	 */
 	public static XDIArc createInnerRootXDIArc(XDIAddress subject, XDIAddress predicate) {
+
+		if (XdiAbstractRoot.isValidXDIArc(subject.getFirstXDIArc())) throw new Xdi2GraphException("Cannot create an inner root XDI arc for subject " + subject + " and predicate " + predicate);
 
 		return XDIArc.fromComponents(
 				null, 

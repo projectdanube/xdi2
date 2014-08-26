@@ -14,6 +14,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractStatement.AbstractContextNodeStatement;
@@ -935,7 +936,11 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void delRelationDelInnerRoot(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		if (XdiInnerRoot.createInnerRootXDIArc(this.getXDIAddress(), XDIaddress).equals(targetContextNodeXDIAddress)) {
+		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(this);
+		XdiInnerRoot xdiInnerRoot = xdiContext.getXdiInnerRoot(XDIaddress, false);
+		if (xdiInnerRoot == null) return;
+
+		if (xdiInnerRoot.getXDIAddress().equals(targetContextNodeXDIAddress)) {
 
 			this.getGraph().getDeepContextNode(targetContextNodeXDIAddress, false).delete();
 		}
