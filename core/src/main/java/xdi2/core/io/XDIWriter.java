@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.Writer;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 
 /**
@@ -31,6 +32,22 @@ public interface XDIWriter extends Serializable {
 	 * @return The byte stream.
 	 */
 	public OutputStream write(Graph graph, OutputStream stream) throws IOException;
+
+	/**
+	 * Writes an XDI context node to a character stream.
+	 * @param contextNode A context node that will be written to the stream.
+	 * @param writer The character stream to write to.
+	 * @return The character stream.
+	 */
+	public Writer write(ContextNode contextNode, Writer writer) throws IOException;
+
+	/**
+	 * Writes an XDI context node to a byte stream.
+	 * @param graph A context node that will be written to the stream.
+	 * @param stream The byte stream to write to.
+	 * @return The byte stream.
+	 */
+	public OutputStream write(ContextNode contextNode, OutputStream stream) throws IOException;
 
 	/**
 	 * Returns the format this XDIWriter can write, e.g.

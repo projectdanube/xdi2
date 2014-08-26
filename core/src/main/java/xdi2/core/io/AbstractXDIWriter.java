@@ -3,10 +3,14 @@ package xdi2.core.io;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CopyUtil;
 
 /**
  * If you extend this class, you only have to implement write(Graph, Writer, Properties)
@@ -37,6 +41,24 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		stream.flush();
 
 		return stream;
+	}
+
+	@Override
+	public OutputStream write(ContextNode contextNode, OutputStream stream) throws IOException {
+		
+		Graph subGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(contextNode, subGraph, null);
+		
+		return this.write(subGraph, stream);
+	}
+
+	@Override
+	public Writer write(ContextNode contextNode, Writer writer) throws IOException {
+		
+		Graph subGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(contextNode, subGraph, null);
+		
+		return this.write(subGraph, writer);
 	}
 
 	private final Object getFieldValue(String fieldName) {
