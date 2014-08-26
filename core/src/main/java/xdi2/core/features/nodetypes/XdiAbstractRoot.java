@@ -4,12 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Relation;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.XDIStatementUtil;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.core.util.XDIStatementUtil;
 
 public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implements XdiRoot {
 
@@ -82,9 +81,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (log.isTraceEnabled()) log.trace("getInnerRoot(" + subject + "," + predicate + "," + create + ")");
 
-		XDIArc innerRootarc = XdiInnerRoot.createInnerRootXDIArc(subject, predicate);
+		XDIArc innerRootXDIArc = XdiInnerRoot.createInnerRootXDIArc(subject, predicate);
 
-		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootarc) : this.getContextNode().getContextNode(innerRootarc, false);
+		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootXDIArc) : this.getContextNode().getContextNode(innerRootXDIArc, false);
 		if (innerRootContextNode == null) return null;
 
 		return new XdiInnerRoot(innerRootContextNode);
@@ -113,12 +112,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
 				if (innerRootContextNode == null) break;
-
-				ContextNode contextNode = create ? root.getContextNode().setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc)) : root.getContextNode().getDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc), false);
-				if (contextNode == null) break;
-
-				Relation relation = create ? contextNode.setRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc), innerRootContextNode.getXDIAddress()) : contextNode.getRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc), innerRootContextNode.getXDIAddress());
-				if (relation == null) break;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
 			} else {

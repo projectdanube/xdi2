@@ -168,45 +168,45 @@ public final class CopyUtil {
 
 		if ((relation = copyStrategy.replaceRelation(relation)) == null) return null;
 
-		XDIAddress relationcontextNodeXDIAddress = relation.getContextNode().getXDIAddress();
-		XDIAddress relationAddress = relation.getXDIAddress();
-		XDIAddress relationtargetContextNodeXDIAddress = relation.getTargetContextNodeXDIAddress();
+		XDIAddress relationContextNodeXDIAddress = relation.getContextNode().getXDIAddress();
+		XDIAddress relationXDIAddress = relation.getXDIAddress();
+		XDIAddress relationTargetContextNodeXDIAddress = relation.getTargetContextNodeXDIAddress();
 
 		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
 
-		XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(relation.getContextNode().getGraph()).getRoot(relationcontextNodeXDIAddress, false);
+		XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(relation.getContextNode().getGraph()).getRoot(relationContextNodeXDIAddress, false);
 		XdiRoot targetContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(targetContextNode.getGraph()).getRoot(targetContextNodeXDIAddress, false);
 
-		XDIAddress relativeRelationcontextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationcontextNodeXDIAddress);
-		XDIAddress relativeRelationtargetContextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationtargetContextNodeXDIAddress);
-		XDIAddress relativetargetContextNodeXDIAddress = targetContextNodeXdiRoot.absoluteToRelativeXDIAddress(targetContextNodeXDIAddress);
+		XDIAddress relativeRelationcontextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationContextNodeXDIAddress);
+		XDIAddress relativeRelationTargetContextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationTargetContextNodeXDIAddress);
+		XDIAddress relativeTargetContextNodeXDIAddress = targetContextNodeXdiRoot.absoluteToRelativeXDIAddress(targetContextNodeXDIAddress);
 
 		Relation targetRelation;
 
 		// check if this relation establishes an inner root
 
-		if (relativeRelationtargetContextNodeXDIAddress != null &&
-				relativeRelationtargetContextNodeXDIAddress.getNumXDIArcs() == 1 &&
-				XdiInnerRoot.isValidXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()) &&
-				XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeXDIAddress) &&
-				XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationtargetContextNodeXDIAddress.getFirstXDIArc()).equals(relationAddress)) {
+		if (relativeRelationTargetContextNodeXDIAddress != null &&
+				relativeRelationTargetContextNodeXDIAddress.getNumXDIArcs() == 1 &&
+				XdiInnerRoot.isValidXDIArc(relativeRelationTargetContextNodeXDIAddress.getFirstXDIArc()) &&
+				XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationTargetContextNodeXDIAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeXDIAddress) &&
+				XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationTargetContextNodeXDIAddress.getFirstXDIArc()).equals(relationXDIAddress)) {
 
 			// if the target context node is not the same, we need to adjust the inner root
 
-			if (! targetContextNodeXDIAddress.equals(relationcontextNodeXDIAddress)) {
+			if (! targetContextNodeXDIAddress.equals(relationContextNodeXDIAddress)) {
 
-				relativeRelationtargetContextNodeXDIAddress = XDIAddress.fromComponent(XdiInnerRoot.createInnerRootXDIArc(relativetargetContextNodeXDIAddress, relationAddress));
-				relationtargetContextNodeXDIAddress = targetContextNodeXdiRoot.relativeToAbsoluteXDIAddress(relativeRelationtargetContextNodeXDIAddress);
+				relativeRelationTargetContextNodeXDIAddress = XDIAddress.fromComponent(XdiInnerRoot.createInnerRootXDIArc(relativeTargetContextNodeXDIAddress, relationXDIAddress));
+				relationTargetContextNodeXDIAddress = targetContextNodeXdiRoot.relativeToAbsoluteXDIAddress(relativeRelationTargetContextNodeXDIAddress);
 			}
 
-			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeXDIAddress);
+			targetRelation = targetContextNode.setRelation(relationXDIAddress, relationTargetContextNodeXDIAddress);
 
 			// also need to copy the contents of the inner root
 
 			copyContextNodeContents(relation.follow(), targetRelation.follow(), copyStrategy);
 		} else {
 
-			targetRelation = targetContextNode.setRelation(relationAddress, relationtargetContextNodeXDIAddress);
+			targetRelation = targetContextNode.setRelation(relationXDIAddress, relationTargetContextNodeXDIAddress);
 		}
 
 		return targetRelation;
