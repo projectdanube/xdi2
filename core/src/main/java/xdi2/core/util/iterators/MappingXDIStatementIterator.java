@@ -20,6 +20,6 @@ public class MappingXDIStatementIterator extends MappingIterator<Statement, XDIS
 	@Override
 	public XDIStatement map(Statement statement) {
 
-		return statement.getStatement();
+		return statement.getXDIStatement();
 	}
 }

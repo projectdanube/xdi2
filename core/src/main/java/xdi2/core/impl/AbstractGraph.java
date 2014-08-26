@@ -235,21 +235,21 @@ public abstract class AbstractGraph implements Graph {
 	 */
 
 	@Override
-	public Statement setStatement(XDIStatement statementAddress) {
+	public Statement setStatement(XDIStatement XDIstatement) {
 
-		return this.getRootContextNode(false).setStatement(statementAddress);
+		return this.getRootContextNode(false).setStatement(XDIstatement);
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementAddress) {
+	public Statement getStatement(XDIStatement XDIstatement) {
 
-		return this.getRootContextNode(false).getStatement(statementAddress);
+		return this.getRootContextNode(false).getStatement(XDIstatement);
 	}
 
 	@Override
-	public boolean containsStatement(XDIStatement statementAddress) {
+	public boolean containsStatement(XDIStatement XDIstatement) {
 
-		return this.getRootContextNode(false).containsStatement(statementAddress);
+		return this.getRootContextNode(false).containsStatement(XDIstatement);
 	}
 
 	@Override

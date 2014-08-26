@@ -151,9 +151,9 @@ public class ErrorMessageResult extends MessageResult {
 
 		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getAddress())).getRelation();
 
-		for (XDIStatement statementAddress : new MappingXDIStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
+		for (XDIStatement XDIstatement : new MappingXDIStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
 
-			xdiInnerRoot.getContextNode().setStatement(statementAddress);
+			xdiInnerRoot.getContextNode().setStatement(XDIstatement);
 		}
 
 		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);

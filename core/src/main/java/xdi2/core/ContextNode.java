@@ -536,12 +536,12 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Sets a statement in this context node.
 	 */
-	public Statement setStatement(XDIStatement statementAddress);
+	public Statement setStatement(XDIStatement XDIstatement);
 
 	/**
 	 * Gets a statement in this context node.
 	 */
-	public Statement getStatement(XDIStatement statementAddress);
+	public Statement getStatement(XDIStatement XDIstatement);
 
 	/**
 	 * Gets all statements in this context node.
@@ -552,7 +552,7 @@ public interface ContextNode extends Serializable, Comparable<ContextNode> {
 	/**
 	 * Check if a statement exists in this context node.
 	 */
-	public boolean containsStatement(XDIStatement statementAddress);
+	public boolean containsStatement(XDIStatement XDIstatement);
 
 	/**
 	 * Returns the number of all statements in this context node.

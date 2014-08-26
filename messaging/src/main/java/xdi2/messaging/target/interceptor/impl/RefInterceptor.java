@@ -219,7 +219,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doIncludeRefRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getStatement())) {
+				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXDIStatement())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {

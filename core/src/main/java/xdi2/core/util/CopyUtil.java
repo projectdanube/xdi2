@@ -333,7 +333,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		targetGraph.setStatement(statement.getStatement());
+		targetGraph.setStatement(statement.getXDIStatement());
 
 		return null;
 	}

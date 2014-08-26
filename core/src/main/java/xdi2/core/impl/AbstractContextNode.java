@@ -804,9 +804,9 @@ public abstract class AbstractContextNode implements ContextNode {
 	}
 
 	@Override
-	public boolean containsStatement(XDIStatement statementAddress) {
+	public boolean containsStatement(XDIStatement XDIstatement) {
 
-		return this.getStatement(statementAddress) != null;
+		return this.getStatement(XDIstatement) != null;
 	}
 
 	@Override

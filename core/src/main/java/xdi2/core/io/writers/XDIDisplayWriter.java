@@ -115,7 +115,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			this.writeStatement(bufferedWriter, statement.getStatement());
+			this.writeStatement(bufferedWriter, statement.getXDIStatement());
 
 			// HTML output
 
@@ -141,24 +141,24 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		if (orderedGraph != null) orderedGraph.close();
 	}
 
-	private void writeStatement(BufferedWriter bufferedWriter, XDIStatement statementAddress) throws IOException {
+	private void writeStatement(BufferedWriter bufferedWriter, XDIStatement XDIstatement) throws IOException {
 
 		// write the statement
 
-		this.writecontextNodeXDIAddress(bufferedWriter, statementAddress.getSubject());
+		this.writecontextNodeXDIAddress(bufferedWriter, XDIstatement.getSubject());
 		this.writeSeparator(bufferedWriter);
-		this.writePredicateAddress(bufferedWriter, statementAddress.getPredicate());
+		this.writePredicateAddress(bufferedWriter, XDIstatement.getPredicate());
 		this.writeSeparator(bufferedWriter);
 
-		if (statementAddress.isContextNodeStatement()) {
+		if (XDIstatement.isContextNodeStatement()) {
 
-			this.writecontextNodeXDIArc(bufferedWriter, statementAddress.getSubject(), (XDIArc) statementAddress.getObject());
-		} else if (statementAddress.isRelationStatement()) {
+			this.writecontextNodeXDIArc(bufferedWriter, XDIstatement.getSubject(), (XDIArc) XDIstatement.getObject());
+		} else if (XDIstatement.isRelationStatement()) {
 
-			this.writecontextNodeXDIAddress(bufferedWriter, (XDIAddress) statementAddress.getObject());
-		} else if (statementAddress.isLiteralStatement()) {
+			this.writecontextNodeXDIAddress(bufferedWriter, (XDIAddress) XDIstatement.getObject());
+		} else if (XDIstatement.isLiteralStatement()) {
 
-			this.writeLiteralData(bufferedWriter, statementAddress.getObject());
+			this.writeLiteralData(bufferedWriter, XDIstatement.getObject());
 		}
 	}
 

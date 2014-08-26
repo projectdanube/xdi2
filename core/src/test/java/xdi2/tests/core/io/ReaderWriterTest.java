@@ -43,8 +43,8 @@ public class ReaderWriterTest extends TestCase {
 		Iterator<Statement> s1 = graph1.getRootContextNode().getAllStatements();
 		Iterator<Statement> s2 = graph2.getRootContextNode().getAllStatements();
 
-		while (s1.hasNext()) { XDIStatement s = s1.next().getStatement(); assertTrue(s.toString(), graph2.containsStatement(s)); }
-		while (s2.hasNext()) { XDIStatement s = s2.next().getStatement(); assertTrue(s.toString(), graph1.containsStatement(s)); }
+		while (s1.hasNext()) { XDIStatement s = s1.next().getXDIStatement(); assertTrue(s.toString(), graph2.containsStatement(s)); }
+		while (s2.hasNext()) { XDIStatement s = s2.next().getXDIStatement(); assertTrue(s.toString(), graph1.containsStatement(s)); }
 
 		assertEquals(graph1, graph2);
 	}

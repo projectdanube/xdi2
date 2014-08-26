@@ -66,7 +66,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 			if (key.endsWith("/" + XDIConstants.XDI_ADD_CONTEXT.toString())) {
 
-				XDIStatement statementAddress = makeStatement(key + "/", state);
+				XDIStatement XDIstatement = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
@@ -74,8 +74,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(statementAddress.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -92,14 +92,14 @@ public class XDIJSONReader extends AbstractXDIReader {
 				}
 			} else if (key.endsWith("/" + XDIConstants.XDI_ADD_LITERAL.toString())) {
 
-				XDIStatement statementAddress = makeStatement(key + "/\"\"", state);
+				XDIStatement XDIstatement = makeStatement(key + "/\"\"", state);
 
 				Object literalData = AbstractLiteral.jsonElementToLiteralData(jsonEntryElement);
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(statementAddress.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -109,17 +109,17 @@ public class XDIJSONReader extends AbstractXDIReader {
 				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set literal --> " + literal.getLiteralData());
 			} else {
 
-				XDIStatement statementAddress = makeStatement(key + "/", state);
+				XDIStatement XDIstatement = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
-				XDIAddress XDIaddress = statementAddress.getPredicate();
+				XDIAddress XDIaddress = XDIstatement.getPredicate();
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(statementAddress.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(statementAddress.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -131,10 +131,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					if (jsonEntryArrayElement instanceof JsonObject) {
 
-						root = root.getRoot(statementAddress.getSubject(), true);
+						root = root.getRoot(XDIstatement.getSubject(), true);
 
-						XDIAddress subject = root.absoluteToRelativeXDIAddress(XDIAddressUtil.concatXDIAddresses(root.getContextNode().getXDIAddress(), statementAddress.getSubject()));
-						XDIAddress predicate = statementAddress.getPredicate();
+						XDIAddress subject = root.absoluteToRelativeXDIAddress(XDIAddressUtil.concatXDIAddresses(root.getContextNode().getXDIAddress(), XDIstatement.getSubject()));
+						XDIAddress predicate = XDIstatement.getPredicate();
 
 						XdiInnerRoot innerRoot = root.getInnerRoot(subject, predicate, true);
 

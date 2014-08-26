@@ -408,23 +408,23 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		return decision;
 	}
 
-	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIStatement statementAddress, LinkContract linkContract) {
+	private static boolean decideLinkContractPermission(XDIAddress permissionAddress, XDIStatement XDIstatement, LinkContract linkContract) {
 
 		// check positive permissions for the target statement
 
 		boolean positivePermission = 
-				linkContract.hasPermissionTargetXDIStatement(permissionAddress, statementAddress) ||
-				linkContract.hasPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, statementAddress);
+				linkContract.hasPermissionTargetXDIStatement(permissionAddress, XDIstatement) ||
+				linkContract.hasPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, XDIstatement);
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + statementAddress);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " allows " + permissionAddress + " on " + XDIstatement);
 
 		// check negative permissions for the target statement
 
 		boolean negativePermission = 
-				linkContract.hasNegativePermissionTargetXDIStatement(permissionAddress, statementAddress) ||
-				linkContract.hasNegativePermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, statementAddress);
+				linkContract.hasNegativePermissionTargetXDIStatement(permissionAddress, XDIstatement) ||
+				linkContract.hasNegativePermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_ALL, XDIstatement);
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + statementAddress);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " does not allow " + permissionAddress + " on " + XDIstatement);
 
 		// decide
 
@@ -432,7 +432,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on statement " + statementAddress + ": " + decision);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " decision for " + permissionAddress + " on statement " + XDIstatement + ": " + decision);
 
 		return decision;
 	}

@@ -61,25 +61,25 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementAddress) {
+	public Statement getStatement(XDIStatement XDIstatement) {
 
-		XDIAddress contextNodeXDIAddress = statementAddress.getContextNodeXDIAddress();
+		XDIAddress contextNodeXDIAddress = XDIstatement.getContextNodeXDIAddress();
 		Graph resolvedGraph = this.resolveGraph(contextNodeXDIAddress);
 		XDIAddress resolvedcontextNodeXDIAddress = this.resolveXDIAddress(contextNodeXDIAddress);
 
 		XDIStatement resolvedStatementAddress;
 
-		if (statementAddress.isContextNodeStatement()) {
+		if (XDIstatement.isContextNodeStatement()) {
 
-			XDIArc contextNodeXDIArc = statementAddress.getContextNodeXDIArc();
+			XDIArc contextNodeXDIArc = XDIstatement.getContextNodeXDIArc();
 
 			resolvedStatementAddress = XDIStatement.fromContextNodeComponents(
 					resolvedcontextNodeXDIAddress, 
 					contextNodeXDIArc);
-		} else if (statementAddress.isRelationStatement()) {
+		} else if (XDIstatement.isRelationStatement()) {
 
-			XDIAddress relationAddress = statementAddress.getRelationXDIAddress();
-			XDIAddress targetContextNodeXDIAddress = statementAddress.getTargetContextNodeXDIAddress();
+			XDIAddress relationAddress = XDIstatement.getRelationXDIAddress();
+			XDIAddress targetContextNodeXDIAddress = XDIstatement.getTargetContextNodeXDIAddress();
 
 			XDIAddress resolvedtargetContextNodeXDIAddress = this.resolveXDIAddress(targetContextNodeXDIAddress);
 
@@ -87,21 +87,21 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 					resolvedcontextNodeXDIAddress, 
 					relationAddress, 
 					resolvedtargetContextNodeXDIAddress);
-		} else if (statementAddress.isLiteralStatement()) {
+		} else if (XDIstatement.isLiteralStatement()) {
 
-			Object literalData = statementAddress.getLiteralData();
+			Object literalData = XDIstatement.getLiteralData();
 
 			resolvedStatementAddress = XDIStatement.fromLiteralComponents(
 					resolvedcontextNodeXDIAddress, 
 					literalData);
 		} else {
 
-			throw new Xdi2RuntimeException("Unexpected statement: " + statementAddress);
+			throw new Xdi2RuntimeException("Unexpected statement: " + XDIstatement);
 		}
 
 		Statement resolvedStatement = resolvedGraph.getStatement(resolvedStatementAddress);
 
-		if (log.isTraceEnabled()) log.trace("getStatement(" + statementAddress + ") --> " + resolvedStatementAddress + " --> " + resolvedStatement);
+		if (log.isTraceEnabled()) log.trace("getStatement(" + XDIstatement + ") --> " + resolvedStatementAddress + " --> " + resolvedStatement);
 
 		return resolvedStatement;
 	}

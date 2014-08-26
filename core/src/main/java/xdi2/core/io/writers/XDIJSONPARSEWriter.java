@@ -125,11 +125,11 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		for (Statement statement : statements) {
 
-			XDIStatement statementAddress = statement.getStatement();
+			XDIStatement XDIstatement = statement.getXDIStatement();
 
 			// write the statement
 
-			gom.add(makeGom(statementAddress));
+			gom.add(makeGom(XDIstatement));
 		}
 
 		return gom;
