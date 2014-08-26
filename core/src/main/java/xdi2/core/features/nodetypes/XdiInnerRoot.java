@@ -111,7 +111,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	 */
 	public static XDIArc createInnerRootXDIArc(XDIAddress subject, XDIAddress predicate) {
 
-		if (XdiAbstractRoot.isValidXDIArc(subject.getFirstXDIArc())) throw new Xdi2GraphException("Cannot create an inner root XDI arc for subject " + subject + " and predicate " + predicate);
+		if (subject.getNumXDIArcs() > 0 && XdiAbstractRoot.isValidXDIArc(subject.getFirstXDIArc())) throw new Xdi2GraphException("Cannot create an inner root XDI arc for subject " + subject + " and predicate " + predicate);
 
 		return XDIArc.fromComponents(
 				null, 
