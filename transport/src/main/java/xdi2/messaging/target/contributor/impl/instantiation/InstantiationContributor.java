@@ -1,8 +1,7 @@
 package xdi2.messaging.target.contributor.impl.instantiation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import xdi2.client.agent.XDIAgent;
+import xdi2.client.agent.impl.XDIBasicAgent;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
@@ -25,12 +24,10 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can instantiate new link contracts.
  */
 @ContributorMount(
-		contributorAddresses={"{{}}$template$do"},
-		operationAddresses={"$do$instantiate"}
-)
+		contributorAddresses={"{{}}{$do}"},
+		operationAddresses={"$do{}"}
+		)
 public class InstantiationContributor extends AbstractContributor implements Prototype<InstantiationContributor> {
-
-	private static final Logger log = LoggerFactory.getLogger(InstantiationContributor.class);
 
 	private Graph targetGraph;
 
@@ -84,23 +81,36 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 	@Override
 	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// find link contract template
+		// use agent to obtain link contract template
 
-		ContextNode contextNode = this.getTargetGraph().getDeepContextNode(operation.getTargetXDIAddress());
+		ContextNode contextNode;
+
+		try {
+
+			XDIAgent xdiAgent = new XDIBasicAgent();
+			contextNode = xdiAgent.get(operation.getTargetXDIAddress(), null);
+		} catch (Exception ex) {
+
+			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
+		}
+
 		XdiVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
+		if (xdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
+
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
+		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
 
 		// instantiate link contract
-
-		XDIAddress authorizingAuthority = null;
 		
+		XDIAddress authorizingAuthority = null;
+
 		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation();
 		linkContractInstantiation.setRequestingAuthority(operation.getSenderXDIAddress());
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 
 		linkContractInstantiation.execute(this.getTargetGraph(), true);
-		
+
 		// done
 
 		return ContributorResult.SKIP_MESSAGING_TARGET;

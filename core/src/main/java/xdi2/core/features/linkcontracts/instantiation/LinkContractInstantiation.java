@@ -3,6 +3,9 @@ package xdi2.core.features.linkcontracts.instantiation;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
@@ -14,6 +17,8 @@ import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 
 public class LinkContractInstantiation {
+
+	private static final Logger log = LoggerFactory.getLogger(LinkContractInstantiation.class);
 
 	private LinkContractTemplate linkContractTemplate;
 	private XDIAddress authorizingAuthority;
@@ -28,6 +33,8 @@ public class LinkContractInstantiation {
 		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(targetGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, create);
 		if (genericLinkContract == null) return null;
 		if (genericLinkContract != null && ! create) return genericLinkContract;
+
+		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + genericLinkContract + " from link contract template " + this.getLinkContractTemplate());
 
 		// set up permissions
 
