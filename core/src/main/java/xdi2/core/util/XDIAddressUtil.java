@@ -50,7 +50,7 @@ public final class XDIAddressUtil {
 				if (startIndex == startXDIAddress.getNumXDIArcs()) { result = XDIAddressUtil.parentXDIAddress(XDIaddress, addressIndex); return result; }
 				if (addressIndex == XDIaddress.getNumXDIArcs()) { result = null; return result; }
 
-				// check variables
+				// try to match variable in address
 
 				if (variablesinXDIAddress && VariableUtil.isVariable(XDIaddress.getXDIArc(addressIndex))) {
 
@@ -73,11 +73,10 @@ public final class XDIAddressUtil {
 						addressIndex++;
 
 						continue;
-					} else {
-
-						{ result = null; return result; }
 					}
 				}
+
+				// try to match variable in start
 
 				if (variablesInStart && VariableUtil.isVariable(startXDIAddress.getXDIArc(startIndex))) {
 
@@ -100,13 +99,10 @@ public final class XDIAddressUtil {
 						startIndex++;
 
 						continue;
-					} else {
-
-						{ result = null; return result; }
 					}
 				}
 
-				// no variables? just match the arc
+				// try to match the arc
 
 				if (! (XDIaddress.getXDIArc(addressIndex).equals(startXDIAddress.getXDIArc(startIndex)))) { result = null; return result; }
 
