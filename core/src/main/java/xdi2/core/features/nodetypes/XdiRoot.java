@@ -45,9 +45,9 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress XDIaddress);
 
-	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement statement);
+	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement XDIstatement);
 
-	public XDIStatement relativeToAbsoluteXDIStatement(XDIStatement statement);
+	public XDIStatement relativeToAbsoluteXDIStatement(XDIStatement XDIstatement);
 
 	/*
 	 * Helper classes

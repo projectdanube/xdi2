@@ -16,8 +16,8 @@ import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIReader;
@@ -26,7 +26,6 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.syntax.parser.ParserException;
-import xdi2.core.util.XDIAddressUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -131,12 +130,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 					if (jsonEntryArrayElement instanceof JsonObject) {
 
-						root = root.getRoot(XDIstatement.getSubject(), true);
-
-						XDIAddress subject = root.absoluteToRelativeXDIAddress(XDIAddressUtil.concatXDIAddresses(root.getContextNode().getXDIAddress(), XDIstatement.getSubject()));
-						XDIAddress predicate = XDIstatement.getPredicate();
-
-						XdiInnerRoot innerRoot = root.getInnerRoot(subject, predicate, true);
+						XdiInnerRoot innerRoot = statementRoot.getInnerRoot(relativeSubject, XDIaddress, true);
 
 						this.read(innerRoot, (JsonObject) jsonEntryArrayElement, state);
 					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
