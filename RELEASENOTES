@@ -1,5 +1,5 @@
-Migration notes from 0.6.x to 0.7
-=================================
+Release Notes 0.7
+=================
 
 XDI3Segment -> XDIAddress
 XDI3SubSegment -> XDIArc
