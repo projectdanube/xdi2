@@ -14,8 +14,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
-import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -76,12 +76,16 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find out the target peer root of the address
 
-		XDIAddress peerRootXDIAddress = XDIAddressUtil.findXDIAddress(XDIaddress, XdiPeerRoot.class);
-		XDIAddress entityXDIAddress = XDIAddressUtil.findXDIAddress(XDIaddress, XdiEntity.class);
+		XDIAddress targetPeerRootXDIAddress = XDIAddressUtil.findXDIAddress(XDIaddress, XdiPeerRoot.class);
+		CloudNumber targetCloudNumber = CloudNumber.fromXDIAddress(XDIaddress);
+		CloudName targetCloudName = CloudName.fromXDIAddress(XDIaddress);
+
+		if (log.isDebugEnabled()) log.debug("Peer root: " + targetPeerRootXDIAddress + ", Cloud Number: " + targetCloudNumber + ", Cloud Name: " + targetCloudName);
 
 		XDIArc targetPeerRootXDIArc = null;
-		if (peerRootXDIAddress != null) targetPeerRootXDIArc = peerRootXDIAddress.getLastXDIArc();
-		if (entityXDIAddress != null) targetPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(entityXDIAddress);
+		if (targetPeerRootXDIAddress != null) targetPeerRootXDIArc = targetPeerRootXDIAddress.getLastXDIArc();
+		if (targetCloudNumber != null) targetPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(targetCloudNumber.getXDIAddress());
+		if (targetCloudName != null) targetPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(targetCloudName.getXDIAddress());
 
 		if (log.isDebugEnabled()) log.debug("Determined target peer root: " + targetPeerRootXDIArc);
 
@@ -97,8 +101,8 @@ public class XDIBasicAgent implements XDIAgent {
 
 		XDIAddress targetXDIAddress = null;
 
-		if (peerRootXDIAddress != null) 
-			targetXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, peerRootXDIAddress.getNumXDIArcs());
+		if (targetPeerRootXDIAddress != null) 
+			targetXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, targetPeerRootXDIAddress.getNumXDIArcs());
 		else
 			targetXDIAddress = XDIaddress;
 
