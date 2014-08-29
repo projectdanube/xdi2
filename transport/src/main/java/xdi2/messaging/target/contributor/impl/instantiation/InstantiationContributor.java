@@ -9,6 +9,7 @@ import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.GraphUtil;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -100,12 +101,18 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
 		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
 
+		// determine requesting authority
+
+		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
+
+		// determine authorizing authority
+
+		XDIAddress authorizingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
+
 		// instantiate link contract
-		
-		XDIAddress authorizingAuthority = null;
 
 		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation();
-		linkContractInstantiation.setRequestingAuthority(operation.getSenderXDIAddress());
+		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 
