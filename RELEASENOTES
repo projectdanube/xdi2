@@ -17,7 +17,7 @@ XRI_S_ -> XDI_ADD_
 XRI_SS_ -> XDI_ARC_
 
 slightly different exceptions in xdi2.client
-Xdi2DiscoveryException, Xdi2ClientException
+Xdi2DiscoveryException, Xdi2ClientException, Xdi2AgentException
 
 XdiLocalRoot -> XdiCommonRoot
 
