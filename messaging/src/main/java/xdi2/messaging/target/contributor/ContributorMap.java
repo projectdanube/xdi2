@@ -62,11 +62,11 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 	public void addContributor(Contributor contributor) {
 
-		String[] contributorAddresses = contributor.getContributorMount().contributorAddresses();
+		String[] contributorXDIAddresses = contributor.getContributorMount().contributorAddresses();
 
-		for (String contributorAddress : contributorAddresses) {
+		for (String contributorXDIAddress : contributorXDIAddresses) {
 
-			this.addContributor(XDIAddress.create(contributorAddress), contributor);
+			this.addContributor(XDIAddress.create(contributorXDIAddress), contributor);
 		}
 	}
 
@@ -81,18 +81,18 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		return null;
 	}
 
-	public void removeContributor(XDIAddress contributorAddress, Contributor contributor) {
+	public void removeContributor(XDIAddress contributorXDIAddress, Contributor contributor) {
 
-		if (log.isDebugEnabled()) log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorAddress);
+		if (log.isDebugEnabled()) log.debug("Removing contributor " + contributor.getClass().getSimpleName() + " from " + contributorXDIAddress);
 
-		List<Contributor> contributors = this.contributors.get(contributorAddress);
+		List<Contributor> contributors = this.contributors.get(contributorXDIAddress);
 		if (contributors == null) return;
 
 		contributors.remove(contributor);
 
 		if (contributors.isEmpty()) {
 
-			this.contributors.remove(contributorAddress);
+			this.contributors.remove(contributorXDIAddress);
 		}
 	}
 
@@ -188,7 +188,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 		for (Map.Entry<XDIAddress, List<Contributor>> entry : this.contributors.entrySet()) {
 
-			XDIAddress contributorAddress = entry.getKey();
+			XDIAddress contributorXDIAddress = entry.getKey();
 			List<Contributor> contributors = entry.getValue();
 
 			for (Contributor contributor : contributors) {
@@ -203,7 +203,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 					Prototype<? extends Contributor> contributorPrototype = (Prototype<? extends Contributor>) contributor;
 					Contributor prototypedContributor = prototypingContext.instanceFor(contributorPrototype);
 
-					contributorMap.addContributor(contributorAddress, prototypedContributor);
+					contributorMap.addContributor(contributorXDIAddress, prototypedContributor);
 				} catch (Xdi2MessagingException ex) {
 
 					throw new Xdi2MessagingException("Cannot instantiate interceptor for prototype " + contributor.getClass().getSimpleName() + ": " + ex.getMessage(), ex, null);
@@ -222,18 +222,18 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 	public static class ContributorFound {
 
-		private XDIAddress contributorAddress;
+		private XDIAddress contributorXDIAddress;
 		private Contributor contributor;
 
-		public ContributorFound(XDIAddress contributorAddress, Contributor contributor) {
+		public ContributorFound(XDIAddress contributorXDIAddress, Contributor contributor) {
 
-			this.contributorAddress = contributorAddress;
+			this.contributorXDIAddress = contributorXDIAddress;
 			this.contributor = contributor;
 		}
 
-		public XDIAddress getContributorAddress() {
+		public XDIAddress getContributorXDIAddress() {
 
-			return this.contributorAddress;
+			return this.contributorXDIAddress;
 		}
 
 		public Contributor getContributor() {
@@ -244,7 +244,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		@Override
 		public String toString() {
 
-			return this.contributorAddress.toString() + ":" + this.contributor.getClass().getSimpleName();
+			return this.contributorXDIAddress.toString() + ":" + this.contributor.getClass().getSimpleName();
 		}
 	}
 }
