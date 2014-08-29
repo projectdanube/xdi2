@@ -216,6 +216,7 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.instantiation.InstantiationContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
