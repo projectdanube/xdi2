@@ -45,8 +45,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
 
-	public static final XDIAddress XDI_ADD_DO_KEYPAIR = XDIAddress.create("");
-	public static final XDIAddress XDI_ADD_DO_KEY = XDIAddress.create("");
+	public static final XDIAddress XDI_ADD_DO_KEYPAIR = XDIAddress.create("$do$keypair");
+	public static final XDIAddress XDI_ADD_DO_KEY = XDIAddress.create("$do<$key>");
 
 	private Graph targetGraph;
 
