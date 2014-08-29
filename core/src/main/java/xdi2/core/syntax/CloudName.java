@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.util.XDIAddressUtil;
 
 public class CloudName {
 
@@ -69,6 +70,7 @@ public class CloudName {
 
 	public static CloudName fromXDIAddress(XDIAddress XDIaddress) {
 
+		XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, 1);
 		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
 		if (! isValid(XDIaddress)) return null;

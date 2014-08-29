@@ -74,6 +74,7 @@ public class CloudNumber {
 
 	public static CloudNumber fromXDIAddress(XDIAddress XDIaddress) {
 
+		XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, 2);
 		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
 		if (! isValid(XDIaddress)) return null;
