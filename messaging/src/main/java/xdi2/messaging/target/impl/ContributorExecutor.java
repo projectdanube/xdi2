@@ -113,8 +113,8 @@ public class ContributorExecutor {
 				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIAddress, operation, tempMessageResult, executionContext);
 				contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
-				XDIAddress tempcontextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempcontextNodeXDIAddress, true);
+				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
+				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 
@@ -247,8 +247,8 @@ public class ContributorExecutor {
 				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIStatement, operation, operationMessageResult, executionContext);
 				contributorResultXDIStatement = contributorResultXDIStatement.or(contributorResult);
 
-				XDIAddress tempcontextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempcontextNodeXDIAddress, true);
+				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
+				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
 
