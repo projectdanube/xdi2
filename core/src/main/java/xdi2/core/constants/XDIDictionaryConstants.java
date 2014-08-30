@@ -11,6 +11,7 @@ public final class XDIDictionaryConstants {
 
 	public static final XDIAddress XDI_ADD_IS = XDIAddress.create("$is");
 
+	public static final XDIAddress XDI_ADD_TYPE = XDIAddress.create("#");
 	public static final XDIAddress XDI_ADD_IS_TYPE = XDIAddress.create("$is#");
 
 	public static final XDIAddress XDI_ADD_REF = XDIAddress.create("$ref");
