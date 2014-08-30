@@ -4,11 +4,14 @@ import xdi2.client.agent.XDIAgent;
 import xdi2.client.agent.impl.XDIBasicAgent;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
@@ -116,7 +119,14 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 
-		linkContractInstantiation.execute(this.getTargetGraph(), true);
+		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(this.getTargetGraph(), true);
+
+		// return link contract instance in result
+
+		messageResult.getGraph().setStatement(XDIStatement.fromComponents(
+				genericLinkContract.getContextNode().getXDIAddress(), 
+				XDIDictionaryConstants.XDI_ADD_IS_TYPE, 
+				linkContractTemplate.getContextNode().getXDIAddress()));
 
 		// done
 
