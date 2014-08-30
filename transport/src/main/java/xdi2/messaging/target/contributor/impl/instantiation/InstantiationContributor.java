@@ -124,9 +124,9 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 		// return link contract instance in result
 
 		messageResult.getGraph().setStatement(XDIStatement.fromComponents(
-				genericLinkContract.getContextNode().getXDIAddress(), 
-				XDIDictionaryConstants.XDI_ADD_IS_TYPE, 
-				linkContractTemplate.getContextNode().getXDIAddress()));
+				linkContractTemplate.getContextNode().getXDIAddress(),
+				XDIDictionaryConstants.XDI_ADD_TYPE, 
+				genericLinkContract.getContextNode().getXDIAddress())); 
 
 		// done
 
