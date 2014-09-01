@@ -35,21 +35,33 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 	private XDIClient xdiClient;
+	private XDIAddress linkContractXDIAddress;
 
-	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient, XDIClient xdiClient) {
+	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient, XDIClient xdiClient, XDIAddress linkContractXDIAddress) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 		this.xdiClient = xdiClient;
+		this.linkContractXDIAddress = linkContractXDIAddress;
 	}
 
-	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient, XDIClient xdiClient) {
 
-		this(xdiDiscoveryClient, null);
+		this(xdiDiscoveryClient, xdiClient, null);
+	}
+
+	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient, XDIAddress linkContractAddress) {
+
+		this(xdiDiscoveryClient, null, linkContractAddress);
+	}
+
+	public XDIBasicAgent(XDIAddress linkContractAddress) {
+
+		this(null, null, linkContractAddress);
 	}
 
 	public XDIBasicAgent() {
 
-		this(null, null);
+		this(null, null, null);
 	}
 
 	@Override
@@ -129,8 +141,9 @@ public class XDIBasicAgent implements XDIAgent {
 		// message construction step
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(this.constructSenderXDIAddress());
+		Message message = this.createMessage(messageEnvelope);
 		message.setToPeerRootXDIArc(targetPeerRootXDIArc);
+		this.setMessageLinkContract(message);
 		message.setLinkContract(PublicLinkContract.class);
 		Operation operation = message.createGetOperation(targetXDIAddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
@@ -178,9 +191,20 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClient;
 	}
 
-	protected XDIAddress constructSenderXDIAddress() {
+	protected Message createMessage(MessageEnvelope messageEnvelope) {
 
-		return XDIAuthenticationConstants.XDI_ADD_ANONYMOUS;
+		return messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+	}
+
+	protected void setMessageLinkContract(Message message) {
+
+		if (this.getLinkContractXDIAddress() != null) {
+
+			message.setLinkContractXDIAddress(this.getLinkContractXDIAddress());
+		} else {
+
+			message.setLinkContract(PublicLinkContract.class);
+		}
 	}
 
 	/*
@@ -205,5 +229,15 @@ public class XDIBasicAgent implements XDIAgent {
 	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
+	}
+
+	public XDIAddress getLinkContractXDIAddress() {
+
+		return this.linkContractXDIAddress;
+	}
+
+	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
+
+		this.linkContractXDIAddress = linkContractXDIAddress;
 	}
 }
