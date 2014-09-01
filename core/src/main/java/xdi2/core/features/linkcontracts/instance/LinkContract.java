@@ -5,12 +5,12 @@ import xdi2.core.features.linkcontracts.community.CommunityLinkContract;
 import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
 import xdi2.core.features.nodetypes.XdiEntity;
 
-public abstract class LinkContract extends LinkContractBase {
+public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 	private static final long serialVersionUID = 7780858453875071410L;
 
 	private XdiEntity xdiEntity;
-	
+
 	protected LinkContract(XdiEntity xdiEntity) {
 
 		this.xdiEntity = xdiEntity;
@@ -53,7 +53,7 @@ public abstract class LinkContract extends LinkContractBase {
 
 		return null;
 	}
-	
+
 	/*
 	 * Instance methods
 	 */

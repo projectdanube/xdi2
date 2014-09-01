@@ -25,7 +25,7 @@ import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
  * 
  * @author markus
  */
-public abstract class LinkContractBase implements Serializable, Comparable<LinkContractBase> {
+public abstract class LinkContractBase <N extends XdiSubGraph<N>> implements Serializable, Comparable<LinkContractBase<N>> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 
@@ -33,7 +33,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	 * Instance methods
 	 */
 
-	public abstract XdiSubGraph<?> getXdiSubGraph();
+	public abstract N getXdiSubGraph();
 
 	/**
 	 * Returns the underlying context node to which this XDI link contract (template) is bound.
@@ -212,7 +212,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 		if (object == null || !(object instanceof LinkContractBase)) return false;
 		if (object == this) return true;
 
-		LinkContractBase other = (LinkContractBase) object;
+		LinkContractBase<?> other = (LinkContractBase<?>) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -228,7 +228,7 @@ public abstract class LinkContractBase implements Serializable, Comparable<LinkC
 	}
 
 	@Override
-	public int compareTo(LinkContractBase other) {
+	public int compareTo(LinkContractBase<N> other) {
 
 		if (other == this || other == null) return 0;
 

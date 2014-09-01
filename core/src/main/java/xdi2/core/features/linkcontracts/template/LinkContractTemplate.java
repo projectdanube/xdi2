@@ -18,11 +18,11 @@ import xdi2.core.util.XDIAddressUtil;
  * An XDI link contract template, represented as an XDI variable.
  * 
  * Example addresses:
- * [+]!:uuid:1234#registration$template
+ * [+]!:uuid:1234#registration{$do}
  * 
  * @author markus
  */
-public class LinkContractTemplate extends LinkContractBase {
+public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
