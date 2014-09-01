@@ -144,7 +144,6 @@ public class XDIBasicAgent implements XDIAgent {
 		Message message = this.createMessage(messageEnvelope);
 		message.setToPeerRootXDIArc(targetPeerRootXDIArc);
 		this.setMessageLinkContract(message);
-		message.setLinkContract(PublicLinkContract.class);
 		Operation operation = message.createGetOperation(targetXDIAddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
