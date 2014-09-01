@@ -86,8 +86,9 @@ public class Signatures {
 		// add signature that is an XDI attribute singleton
 
 		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		Signature<?, ?> signatureSingleton = signatureAttributeSingleton == null ? null : Signature.fromXdiAttribute(signatureAttributeSingleton);
 
-		if (signatureAttributeSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (Signature.fromXdiAttribute(signatureAttributeSingleton)));
+		if (signatureSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (signatureSingleton));
 
 		// add signatures that are XDI attribute instances
 
