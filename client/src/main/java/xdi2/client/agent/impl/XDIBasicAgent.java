@@ -49,6 +49,16 @@ public class XDIBasicAgent implements XDIAgent {
 		this(xdiDiscoveryClient, xdiClient, null);
 	}
 
+	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient) {
+
+		this(xdiDiscoveryClient, null, null);
+	}
+
+	public XDIBasicAgent(XDIClient xdiClient) {
+
+		this(null, xdiClient, null);
+	}
+
 	public XDIBasicAgent(XDIDiscoveryClient xdiDiscoveryClient, XDIAddress linkContractAddress) {
 
 		this(xdiDiscoveryClient, null, linkContractAddress);
