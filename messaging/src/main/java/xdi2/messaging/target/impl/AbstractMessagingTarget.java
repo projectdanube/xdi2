@@ -49,20 +49,20 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
 
-	private XDIArc ownerPeerRootAddress;
+	private XDIArc ownerPeerRootXDIArc;
 	private InterceptorList<MessagingTarget> interceptors;
 	private ContributorMap contributors;
 
-	public AbstractMessagingTarget(XDIArc ownerPeerRootAddress) {
+	public AbstractMessagingTarget(XDIArc ownerPeerRootXDIArc) {
 
-		this.ownerPeerRootAddress = ownerPeerRootAddress;
+		this.ownerPeerRootXDIArc = ownerPeerRootXDIArc;
 		this.interceptors = new InterceptorList<MessagingTarget> ();
 		this.contributors = new ContributorMap();
 	}
 
 	public AbstractMessagingTarget(AbstractMessagingTarget abstractMessagingTarget) {
 
-		this.ownerPeerRootAddress = abstractMessagingTarget.ownerPeerRootAddress;
+		this.ownerPeerRootXDIArc = abstractMessagingTarget.ownerPeerRootXDIArc;
 		this.interceptors = new InterceptorList<MessagingTarget> (abstractMessagingTarget.interceptors);
 		this.contributors = new ContributorMap(abstractMessagingTarget.contributors);
 	}
@@ -589,14 +589,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 */
 
 	@Override
-	public XDIArc getOwnerPeerRootAddress() {
+	public XDIArc getOwnerPeerRootXDIArc() {
 
-		return this.ownerPeerRootAddress;
+		return this.ownerPeerRootXDIArc;
 	}
 
-	public void setOwnerPeerRootAddress(XDIArc ownerPeerRootAddress) {
+	public void setOwnerPeerRootXDIArc(XDIArc ownerPeerRootXDIArc) {
 
-		this.ownerPeerRootAddress = ownerPeerRootAddress;
+		this.ownerPeerRootXDIArc = ownerPeerRootXDIArc;
 	}
 
 	public InterceptorList<MessagingTarget> getInterceptors() {

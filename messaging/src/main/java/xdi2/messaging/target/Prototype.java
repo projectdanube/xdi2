@@ -26,14 +26,14 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 		private static final Logger log = LoggerFactory.getLogger(PrototypingContext.class);
 
 		private MessagingTarget messagingTarget;
-		private XDIAddress ownerAddress;
+		private XDIAddress ownerXDIAddress;
 		private XdiPeerRoot ownerPeerRoot;
 		private ContextNode ownerContextNode;
 
-		public PrototypingContext(XDIAddress ownerAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) {
+		public PrototypingContext(XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) {
 
 			this.messagingTarget = null;
-			this.ownerAddress = ownerAddress;
+			this.ownerXDIAddress = ownerXDIAddress;
 			this.ownerPeerRoot = ownerPeerRoot;
 			this.ownerContextNode = ownerContextNode;
 		}
@@ -66,9 +66,9 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 			return this.messagingTarget;
 		}
 
-		public XDIAddress getOwnerAddress() {
+		public XDIAddress getOwnerXDIAddress() {
 
-			return this.ownerAddress;
+			return this.ownerXDIAddress;
 		}
 
 		public XdiPeerRoot getOwnerPeerRoot() {

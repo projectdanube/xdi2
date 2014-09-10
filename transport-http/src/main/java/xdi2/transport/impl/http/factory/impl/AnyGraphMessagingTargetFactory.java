@@ -33,15 +33,15 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDIAddress ownerAddress = XDIAddress.create(ownerString);
+		XDIAddress ownerXDIAddress = XDIAddress.create(ownerString);
 
 		// create and mount the new messaging target
 
-		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerAddress.toString();
+		String messagingTargetPath = messagingTargetFactoryPath + "/" + ownerXDIAddress.toString();
 
-		log.info("Will create messaging target for " + ownerAddress + " at " + messagingTargetPath);
+		log.info("Will create messaging target for " + ownerXDIAddress + " at " + messagingTargetPath);
 
-		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerAddress, null, null);
+		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXDIAddress, null, null);
 	}
 
 	@Override
@@ -51,15 +51,15 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXDIArc) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootAddress);
+		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
 
 		String ownerString;
 
 		try {
 
-			ownerString = URLEncoder.encode(ownerAddress.toString(), "UTF-8");
+			ownerString = URLEncoder.encode(ownerXDIAddress.toString(), "UTF-8");
 		} catch (UnsupportedEncodingException ex) { 
 
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);

@@ -37,14 +37,14 @@ public final class GraphUtil {
 
 	public static void setOwnerPeerRootXDIArc(Graph graph, XDIArc ownerPeerRootXDIArc) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
+		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
 
-		setOwnerXDIAddress(graph, ownerAddress);
+		setOwnerXDIAddress(graph, ownerXDIAddress);
 	}
 
-	public static void setOwnerXDIAddress(Graph graph, XDIAddress ownerAddress) {
+	public static void setOwnerXDIAddress(Graph graph, XDIAddress ownerXDIAddress) {
 
-		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(ownerAddress);
+		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(ownerXDIAddress);
 	}
 
 	/**

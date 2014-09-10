@@ -325,16 +325,16 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		return new MessagingTargetMount(messagingTargetPath, messagingTarget);
 	}
 
-	public synchronized MessagingTargetMount lookup(XDIArc ownerPeerRootAddress) throws Xdi2TransportException, Xdi2MessagingException {
+	public synchronized MessagingTargetMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootAddress);
+		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootXDIArc);
 
 		// look at messaging targets
 
 		for (MessagingTargetMount messagingTargetMount : this.getMessagingTargetMounts()) {
 
 			String requestPath = messagingTargetMount.getMessagingTargetPath();
-			if (! ownerPeerRootAddress.equals(messagingTargetMount.getMessagingTarget().getOwnerPeerRootAddress())) continue;
+			if (! ownerPeerRootXDIArc.equals(messagingTargetMount.getMessagingTarget().getOwnerPeerRootXDIArc())) continue;
 
 			return this.lookup(requestPath);
 		}
@@ -343,7 +343,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		for (MessagingTargetFactoryMount messagingTargetFactoryMount : this.getMessagingTargetFactoryMounts()) {
 
-			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootAddress);
+			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootXDIArc);
 			if (requestPath == null) continue;
 
 			return this.lookup(requestPath);

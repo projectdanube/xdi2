@@ -24,9 +24,9 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
 
-		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerAddress=" + ownerAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
+		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerXDIAddress=" + ownerXDIAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
 		// create new messaging target
 
@@ -35,7 +35,7 @@ public abstract class PrototypingMessagingTargetFactory extends AbstractMessagin
 			throw new Xdi2MessagingException("Cannot use messaging target " + this.getPrototypeMessagingTarget().getClass().getSimpleName() + " as prototype.", null, null);
 		}
 
-		PrototypingContext prototypingContext = new PrototypingContext(ownerAddress, ownerPeerRoot, ownerContextNode);
+		PrototypingContext prototypingContext = new PrototypingContext(ownerXDIAddress, ownerPeerRoot, ownerContextNode);
 
 		Prototype<? extends MessagingTarget> messagingTargetPrototype; 
 		MessagingTarget prototypedMessagingTarget;

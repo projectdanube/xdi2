@@ -28,7 +28,7 @@ public abstract class AbstractMessagingTargetFactory implements MessagingTargetF
 	}
 
 	@Override
-	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootAddress) {
+	public String getRequestPath(String messagingTargetFactoryPath, XDIArc ownerPeerRootXDIArc) {
 
 		return null;
 	}

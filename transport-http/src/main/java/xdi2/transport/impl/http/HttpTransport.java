@@ -391,12 +391,12 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// set the TO peer root XRI to the owner peer root XRI of the messaging target
 
-		XDIArc ownerPeerRootAddress = messagingTargetMount.getMessagingTarget().getOwnerPeerRootAddress();
+		XDIArc ownerPeerRootXDIArc = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXDIArc();
 
-		if (ownerPeerRootAddress != null) {
+		if (ownerPeerRootXDIArc != null) {
 
 			Message message = messageEnvelope.getMessages().next();
-			message.setToPeerRootXDIArc(ownerPeerRootAddress);
+			message.setToPeerRootXDIArc(ownerPeerRootXDIArc);
 		}
 
 		// done

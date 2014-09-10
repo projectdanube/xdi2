@@ -253,15 +253,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setLinkContract(Class<? extends LinkContract> clazz) {
 
-		XDIAddress ownerAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootXDIArc());
-		if (ownerAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
+		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootXDIArc());
+		if (ownerXDIAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
 
 		if (RootLinkContract.class.isAssignableFrom(clazz)) {
 
-			this.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(ownerAddress));
+			this.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(ownerXDIAddress));
 		} else if (PublicLinkContract.class.isAssignableFrom(clazz)) {
 
-			this.setLinkContractXDIAddress(PublicLinkContract.createPublicLinkContractXDIAddress(ownerAddress));
+			this.setLinkContractXDIAddress(PublicLinkContract.createPublicLinkContractXDIAddress(ownerXDIAddress));
 		} else {
 
 			throw new Xdi2RuntimeException("Cannot automatically set link contract of type " + clazz.getSimpleName());

@@ -23,11 +23,11 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
-	private XDIArc defaultToPeerRootAddress;
+	private XDIArc defaultToPeerRootXDIArc;
 
 	public ToInterceptor() {
 
-		this.defaultToPeerRootAddress = null;
+		this.defaultToPeerRootXDIArc = null;
 	}
 
 	/*
@@ -52,16 +52,16 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 		// check if the owner peer root XRI matches the TO peer root XRI
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		XDIArc ownerPeerRootAddress = messagingTarget.getOwnerPeerRootAddress();
-		XDIArc toPeerRootAddress = message.getToPeerRootXDIArc();
+		XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
+		XDIArc toPeerRootXDIArc = message.getToPeerRootXDIArc();
 
-		if (toPeerRootAddress == null) toPeerRootAddress = this.getDefaultToPeerRootAddress();
+		if (toPeerRootXDIArc == null) toPeerRootXDIArc = this.getDefaultToPeerRootXDIArc();
 
-		if (log.isDebugEnabled()) log.debug("ownerPeerRootAddress=" + ownerPeerRootAddress + ", toPeerRootAddress=" + toPeerRootAddress);
+		if (log.isDebugEnabled()) log.debug("ownerPeerRootXDIArc=" + ownerPeerRootXDIArc + ", toPeerRootXDIArc=" + toPeerRootXDIArc);
 
-		if (toPeerRootAddress == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
+		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
 
-		if (! toPeerRootAddress.equals(ownerPeerRootAddress)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootAddress, null, null);
+		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootXDIArc, null, null);
 
 		// done
 
@@ -78,13 +78,13 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	 * Getters and setters
 	 */
 
-	public XDIArc getDefaultToPeerRootAddress() {
+	public XDIArc getDefaultToPeerRootXDIArc() {
 
-		return this.defaultToPeerRootAddress;
+		return this.defaultToPeerRootXDIArc;
 	}
 
-	public void setDefaultToPeerRootAddress(XDIArc defaultToPeerRootAddress) {
+	public void setDefaultToPeerRootXDIArc(XDIArc defaultToPeerRootXDIArc) {
 
-		this.defaultToPeerRootAddress = defaultToPeerRootAddress;
+		this.defaultToPeerRootXDIArc = defaultToPeerRootXDIArc;
 	}
 }
