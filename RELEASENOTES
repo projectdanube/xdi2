@@ -1,27 +1,33 @@
 Release Notes 0.7
 =================
 
+* To move away from old "XRI" terminology, classes were renamed, e.g.:
 XDI3Segment -> XDIAddress
 XDI3SubSegment -> XDIArc
 XDI3Statement -> XDIStatement
 
+* To move away from old "XRI" terminology, methods were renamed, e.g.:
+Message.setLinkContractXri() -> Message.setLinkContractXDIAddress() 
+
+* To move away from old "XRI" terminology, constants were renamed, e.g.:
+XRI_S_* -> XDI_ADD_*
+XRI_SS_* -> XDI_ARC_*
+
+* Use of the URL class instead of String in discovery:
 String xdiEndpointUri = xdiDiscoveryResult.getXdiEndpointUri();
 ->
 URL xdiEndpointUrl = xdiDiscoveryResult.getXdiEndpointUrl();
 
-in many methods "Xri" -> XDIAddress or XDIArc
-e.g. Message.setLinkContractXri() -> Message.setLinkContractXDIAddress() 
-
-changed constant names
-XRI_S_ -> XDI_ADD_
-XRI_SS_ -> XDI_ARC_
-
-slightly different exceptions in xdi2.client
+* Exceptions in xdi2.client were refactored:
 Xdi2DiscoveryException, Xdi2ClientException, Xdi2AgentException
 
-XdiLocalRoot -> XdiCommonRoot
+* XdiLocalRoot -> XdiCommonRoot
 
-contributorXris -> contributorAddresses
+* contributorXris -> contributorAddresses
+
+* The XdiMetaClass class is removed. 
+This represented the XDI context nodes [#] and [$], which are not valid anymore.
+If you have these context nodes in a graph, you should remove them before upgrading the code.
 
 Notation Shift Migration
 ========================
