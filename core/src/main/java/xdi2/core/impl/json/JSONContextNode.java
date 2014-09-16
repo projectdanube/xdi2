@@ -124,14 +124,14 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public ContextNode getDeepContextNode(XDIAddress relativecontextNodeXDIAddress, boolean subgraph) {
+	public ContextNode getDeepContextNode(XDIAddress relativeContextNodeXDIAddress, boolean subgraph) {
 
-		if (XDIConstants.XDI_ADD_ROOT.equals(relativecontextNodeXDIAddress)) return this;
+		if (XDIConstants.XDI_ADD_ROOT.equals(relativeContextNodeXDIAddress)) return this;
 
-		XDIAddress contextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), relativecontextNodeXDIAddress);
+		XDIAddress contextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), relativeContextNodeXDIAddress);
 
-		XDIAddress parentcontextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIAddressUtil.parentXDIAddress(relativecontextNodeXDIAddress, -1));
-		XDIArc XDIarc = relativecontextNodeXDIAddress.getLastXDIArc();
+		XDIAddress parentcontextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIAddressUtil.parentXDIAddress(relativeContextNodeXDIAddress, -1));
+		XDIArc XDIarc = relativeContextNodeXDIAddress.getLastXDIArc();
 
 		// load the JSON object for the parent context node
 
@@ -145,7 +145,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JSONContextNode contextNode = this;
 
-		for (XDIArc temparc : relativecontextNodeXDIAddress.getXDIArcs()) {
+		for (XDIArc temparc : relativeContextNodeXDIAddress.getXDIArcs()) {
 
 			XDIAddress tempAddress = XDIAddressUtil.concatXDIAddresses(contextNode.getXDIAddress(), temparc);
 

@@ -42,11 +42,11 @@ public class ContributorExecutor {
 
 		// find an address with contributors
 
-		XDIAddress relativecontextNodeXDIAddress = relativeTargetXDIAddress;
+		XDIAddress relativeContextNodeXDIAddress = relativeTargetXDIAddress;
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(findHigherContributors(contributorMap, relativecontextNodeXDIAddress));
-		contributorFounds.addAll(findLowerContributors(contributorMap, relativecontextNodeXDIAddress));
+		contributorFounds.addAll(findHigherContributors(contributorMap, relativeContextNodeXDIAddress));
+		contributorFounds.addAll(findLowerContributors(contributorMap, relativeContextNodeXDIAddress));
 		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetXDIAddress + " found contributors: " + contributorFounds);
@@ -143,10 +143,10 @@ public class ContributorExecutor {
 
 		// find an address with contributors
 
-		XDIAddress relativecontextNodeXDIAddress = relativeTargetXDIStatement == null ? null : relativeTargetXDIStatement.getContextNodeXDIAddress();
+		XDIAddress relativeContextNodeXDIAddress = relativeTargetXDIStatement == null ? null : relativeTargetXDIStatement.getContextNodeXDIAddress();
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(findHigherContributors(contributorMap, relativecontextNodeXDIAddress));
+		contributorFounds.addAll(findHigherContributors(contributorMap, relativeContextNodeXDIAddress));
 		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetXDIStatement + " found contributors: " + contributorFounds);
