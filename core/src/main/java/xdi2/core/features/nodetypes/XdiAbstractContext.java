@@ -10,11 +10,6 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 
-/**
- * An XDI subgraph according to the multiplicity pattern, represented as a context node.
- * 
- * @author markus
- */
 public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements XdiContext<EQ> {
 
 	private static final long serialVersionUID = -8756059289169602694L;
