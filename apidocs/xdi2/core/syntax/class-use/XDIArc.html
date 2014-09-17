@@ -1,0 +1,1867 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Uses of Class xdi2.core.syntax.XDIArc (xdi2 0.7-SNAPSHOT API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Uses of Class xdi2.core.syntax.XDIArc (xdi2 0.7-SNAPSHOT API)";
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../index-all.html">Index</a></li>
+<li><a href="../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../index.html?xdi2/core/syntax/class-use/XDIArc.html" target="_top">Frames</a></li>
+<li><a href="XDIArc.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<div class="header">
+<h2 title="Uses of Class xdi2.core.syntax.XDIArc" class="title">Uses of Class<br>xdi2.core.syntax.XDIArc</h2>
+</div>
+<div class="classUseContainer">
+<ul class="blockList">
+<li class="blockList">
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing packages, and an explanation">
+<caption><span>Packages that use <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Package</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.client.constants">xdi2.client.constants</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core">xdi2.core</a></td>
+<td class="colLast">
+<div class="block">The XDI graph model and basic operations on it.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.constants">xdi2.core.constants</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.features.dictionary">xdi2.core.features.dictionary</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.features.nodetypes">xdi2.core.features.nodetypes</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.features.policy">xdi2.core.features.policy</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.impl">xdi2.core.impl</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.impl.json">xdi2.core.impl.json</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.impl.keyvalue">xdi2.core.impl.keyvalue</a></td>
+<td class="colLast">
+<div class="block">Implementation of the XDI graph model as key/value pairs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.impl.memory">xdi2.core.impl.memory</a></td>
+<td class="colLast">
+<div class="block">In-memory implementation of the XDI graph model.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.impl.wrapped">xdi2.core.impl.wrapped</a></td>
+<td class="colLast">
+<div class="block">XDI graph model implementations that wrap an in-memory XDI graph.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.syntax">xdi2.core.syntax</a></td>
+<td class="colLast">
+<div class="block">EXPERIMENTAL implementation of a 3.0 syntax parser.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.syntax.parser">xdi2.core.syntax.parser</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.core.util">xdi2.core.util</a></td>
+<td class="colLast">
+<div class="block">Utility classes.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.core.util.iterators">xdi2.core.util.iterators</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging">xdi2.messaging</a></td>
+<td class="colLast">
+<div class="block">Support for XDI messaging documents and transport protocols.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.messaging.constants">xdi2.messaging.constants</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging.error">xdi2.messaging.error</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.messaging.target">xdi2.messaging.target</a></td>
+<td class="colLast">
+<div class="block">Base classes for implementing XDI messaging targets.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.contributor.impl.proxy">xdi2.messaging.target.contributor.impl.proxy</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.impl">xdi2.messaging.target.impl</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.impl.graph">xdi2.messaging.target.impl.graph</a></td>
+<td class="colLast">
+<div class="block">Messaging target that allows messages to be applied to the standard graph implementations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.interceptor.impl">xdi2.messaging.target.interceptor.impl</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.interceptor.impl.util">xdi2.messaging.target.interceptor.impl.util</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.transport.impl.http.factory">xdi2.transport.impl.http.factory</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.transport.impl.http.factory.impl">xdi2.transport.impl.http.factory.impl</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="#xdi2.transport.impl.http.registry">xdi2.transport.impl.http.registry</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.transport.spring">xdi2.transport.spring</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList">
+<ul class="blockList">
+<li class="blockList"><a name="xdi2.client.constants">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/client/constants/package-summary.html">xdi2.client.constants</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/client/constants/package-summary.html">xdi2.client.constants</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIClientConstants.</span><code><strong><a href="../../../../xdi2/client/constants/XDIClientConstants.html#XDI_ARC_AC_URI">XDI_ARC_AC_URI</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIClientConstants.</span><code><strong><a href="../../../../xdi2/client/constants/XDIClientConstants.html#XDI_ARC_AC_XDI">XDI_ARC_AC_XDI</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIClientConstants.</span><code><strong><a href="../../../../xdi2/client/constants/XDIClientConstants.html#XDI_ARC_AS_URI">XDI_ARC_AS_URI</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIClientConstants.</span><code><strong><a href="../../../../xdi2/client/constants/XDIClientConstants.html#XDI_ARC_AS_XDI">XDI_ARC_AS_XDI</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/package-summary.html">xdi2.core</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/package-summary.html">xdi2.core</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Statement.ContextNodeStatement.</span><code><strong><a href="../../../../xdi2/core/Statement.ContextNodeStatement.html#getObject()">getObject</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>
+<div class="block">Every context node has an associated arc.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/package-summary.html">xdi2.core</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#containsContextNode(xdi2.core.syntax.XDIArc)">containsContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Checks if a context node with a given arc exists under this context node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Deletes the context node with a given arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the context node with a given arc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+              boolean&nbsp;subgraph)</code>
+<div class="block">Returns the context node with a given arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../../xdi2/core/ContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Creates a new context node and adds it to this context node, or returns an existing context node.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.constants">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/constants/package-summary.html">xdi2.core.constants</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/core/constants/package-summary.html">xdi2.core.constants</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIPolicyConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIPolicyConstants.html#XDI_ARC_AND">XDI_ARC_AND</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDITimestampsConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDITimestampsConstants.html#XDI_ARC_AS_CREATED">XDI_ARC_AS_CREATED</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDITimestampsConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDITimestampsConstants.html#XDI_ARC_AS_EXPIRES">XDI_ARC_AS_EXPIRES</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDITimestampsConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDITimestampsConstants.html#XDI_ARC_AS_T">XDI_ARC_AS_T</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_DO">XDI_ARC_DO</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_EC_DO">XDI_ARC_EC_DO</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIConstants.html#XDI_ARC_FALSE">XDI_ARC_FALSE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIPolicyConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIPolicyConstants.html#XDI_ARC_IF">XDI_ARC_IF</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIConstants.html#XDI_ARC_LITERAL">XDI_ARC_LITERAL</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIPolicyConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIPolicyConstants.html#XDI_ARC_NOT">XDI_ARC_NOT</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIPolicyConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIPolicyConstants.html#XDI_ARC_OR">XDI_ARC_OR</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIAuthenticationConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIAuthenticationConstants.html#XDI_ARC_SIGNATURE">XDI_ARC_SIGNATURE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIConstants.html#XDI_ARC_TRUE">XDI_ARC_TRUE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_V_DO">XDI_ARC_V_DO</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_V_FROM">XDI_ARC_V_FROM</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_V_TO">XDI_ARC_V_TO</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDIConstants.html#XDI_ARC_VALUE">XDI_ARC_VALUE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDILinkContractConstants.</span><code><strong><a href="../../../../xdi2/core/constants/XDILinkContractConstants.html#XDI_ARC_VC_DO">XDI_ARC_VC_DO</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.features.dictionary">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#dictionaryXDIArcToInstanceXDIArc(xdi2.core.syntax.XDIArc)">dictionaryXDIArcToInstanceXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;dictionaryXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#instanceXDIArcToDictionaryXDIArc(xdi2.core.syntax.XDIArc)">instanceXDIArcToDictionaryXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;instanceXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#nativeIdentifierToInstanceXDIArc(java.lang.String)">nativeIdentifierToInstanceXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;nativeIdentifier)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/features/dictionary/package-summary.html">xdi2.core.features.dictionary</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#dictionaryXDIArcToInstanceXDIArc(xdi2.core.syntax.XDIArc)">dictionaryXDIArcToInstanceXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;dictionaryXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#instanceXDIArcToDictionaryXDIArc(xdi2.core.syntax.XDIArc)">instanceXDIArcToDictionaryXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;instanceXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">Dictionary.</span><code><strong><a href="../../../../xdi2/core/features/dictionary/Dictionary.html#instanceXDIArcToNativeIdentifier(xdi2.core.syntax.XDIArc)">instanceXDIArcToNativeIdentifier</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;instanceXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/features/nodetypes/package-summary.html">xdi2.core.features.nodetypes</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/features/nodetypes/package-summary.html">xdi2.core.features.nodetypes</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#createAttributeCollectionXDIArc(xdi2.core.syntax.XDIArc)">createAttributeCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html#createAttributeSingletonXDIArc(xdi2.core.syntax.XDIArc)">createAttributeSingletonXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createDigestXDIArc(java.lang.String, java.lang.Class)">createDigestXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+                  <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createDigestXDIArc(java.lang.String, java.lang.String, java.lang.Class)">createDigestXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+                  <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;algorithm,
+                  <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiEntityCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#createEntityCollectionXDIArc(xdi2.core.syntax.XDIArc)">createEntityCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiEntitySingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html#createEntitySingletonXDIArc(xdi2.core.syntax.XDIArc)">createEntitySingletonXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiInnerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#createInnerRootXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">createInnerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
+                     <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate)</code>
+<div class="block">Returns the inner root arc of a subject address and a predicate address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#createPeerRootXDIArc(xdi2.core.syntax.XDIAddress)">createPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
+<div class="block">Returns the peer root arc of an address.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createRandomUuidXDIArc(java.lang.Class)">createRandomUuidXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createUuidXDIArc(java.lang.String, java.lang.Class)">createUuidXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uuid,
+                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiVariableCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableCollection.html#createVariableCollectionXDIArc(xdi2.core.syntax.XDIArc)">createVariableCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiVariableSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableSingleton.html#createVariableXDIArc(xdi2.core.syntax.XDIArc)">createVariableXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiValue.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiValue.html#createXDIArc()">createXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#createXDIArc(java.lang.String, java.lang.Class)">createXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;identifier,
+            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html#createXDIArc(java.lang.String, java.lang.Class)">createXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;identifier,
+            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc()">getBaseXDIArc</a></strong>()</code>
+<div class="block">Returns the "base" arc, without context node type syntax.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc(xdi2.core.syntax.XDIArc)">getBaseXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the "base" arc, without context node type syntax.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/features/nodetypes/package-summary.html">xdi2.core.features.nodetypes</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#createAttributeCollectionXDIArc(xdi2.core.syntax.XDIArc)">createAttributeCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html#createAttributeSingletonXDIArc(xdi2.core.syntax.XDIArc)">createAttributeSingletonXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiEntityCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#createEntityCollectionXDIArc(xdi2.core.syntax.XDIArc)">createEntityCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiEntitySingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html#createEntitySingletonXDIArc(xdi2.core.syntax.XDIArc)">createEntitySingletonXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiVariableCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableCollection.html#createVariableCollectionXDIArc(xdi2.core.syntax.XDIArc)">createVariableCollectionXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiVariableSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableSingleton.html#createVariableXDIArc(xdi2.core.syntax.XDIArc)">createVariableXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc(xdi2.core.syntax.XDIArc)">getBaseXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the "base" arc, without context node type syntax.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getIriOfPeerRootXDIArc(xdi2.core.syntax.XDIArc)">getIriOfPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the IRI of the peer root arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getLiteralOfPeerRootXDIArc(xdi2.core.syntax.XDIArc)">getLiteralOfPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the literal of the peer root arc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XdiInnerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getPredicateOfInnerRootXDIArc(xdi2.core.syntax.XDIArc)">getPredicateOfInnerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the predicate address of the inner root arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XdiInnerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getSubjectOfInnerRootXDIArc(xdi2.core.syntax.XDIArc)">getSubjectOfInnerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the subject address of the inner root arcc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#getXDIAddressOfPeerRootXDIArc(xdi2.core.syntax.XDIArc)">getXDIAddressOfPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Returns the address of the peer root arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+               boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+               boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                         boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+                         boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                        boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+                        boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+            boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+            boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                      boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+                      boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                     boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a></code></td>
+<td class="colLast"><span class="strong">XdiContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc,
+                     boolean&nbsp;create)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a></code></td>
+<td class="colLast"><span class="strong">XdiCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberUnordered(xdi2.core.syntax.XDIArc)">getXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#getXdiMemberUnordered(xdi2.core.syntax.XDIArc)">getXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">gets an XDI instance under this XDI collection.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAttributeSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAttributeCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiVariableMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAttributeMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiInnerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Checks if a given arc is an inner root arc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiEntityMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiVariableMemberOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractVariable.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractVariable.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiEntityCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAttributeMemberOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiValue.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiValue.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Checks if a given arc is a peer root arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiEntitySingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractAttribute.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractEntity.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiEntityMemberOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiVariableCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableCollection.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiVariableSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiVariableSingleton.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSingleton.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html#isValidXDIArc(xdi2.core.syntax.XDIArc, java.lang.Class)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractMemberOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html#isValidXDIArc(xdi2.core.syntax.XDIArc, java.lang.Class)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">XdiAbstractMember.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMember.html#isValidXDIArc(xdi2.core.syntax.XDIArc, java.lang.Class)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a></code></td>
+<td class="colLast"><span class="strong">XdiCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(xdi2.core.syntax.XDIArc)">setXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="type parameter in XdiAbstractCollection">U</a></code></td>
+<td class="colLast"><span class="strong">XdiAbstractCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#setXdiMemberUnordered(xdi2.core.syntax.XDIArc)">setXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Sets an XDI instance under this XDI collection.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.features.policy">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/features/policy/package-summary.html">xdi2.core.features.policy</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/features/policy/package-summary.html">xdi2.core.features.policy</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Policy.</span><code><strong><a href="../../../../xdi2/core/features/policy/Policy.html#getPolicyXDIArc()">getPolicyXDIArc</a></strong>()</code>
+<div class="block">Returns the policy arc of the XDI policy (e.g.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.impl">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">BasicContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/BasicContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsContextNode(xdi2.core.syntax.XDIArc)">containsContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">BasicContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/BasicContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;relativeContextNodeXDIAddress,
+              boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">BasicContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/BasicContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeCheckValid(xdi2.core.syntax.XDIArc)">setContextNodeCheckValid</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Checks if a context node can be created.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeSetInnerRoot(xdi2.core.syntax.XDIArc, xdi2.core.ContextNode)">setContextNodeSetInnerRoot</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                          <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>
+<div class="block">When a context node is created, check if the inner root subject and predicate have to be created too.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../xdi2/core/impl/package-summary.html">xdi2.core.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.syntax.XDIArc, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</a></strong>(<a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph,
+                <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
+                <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;contextNodes,
+                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations,
+                <a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.impl.json">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/json/JSONContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/json/package-summary.html">xdi2.core.impl.json</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/json/JSONContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/json/JSONContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+              boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/json/JSONContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.impl.keyvalue">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/impl/keyvalue/package-summary.html">xdi2.core.impl.keyvalue</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/keyvalue/package-summary.html">xdi2.core.impl.keyvalue</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/keyvalue/package-summary.html">xdi2.core.impl.keyvalue</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#containsContextNode(xdi2.core.syntax.XDIArc)">containsContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+              boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../xdi2/core/impl/keyvalue/package-summary.html">xdi2.core.impl.keyvalue</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#KeyValueContextNode(xdi2.core.impl.keyvalue.KeyValueGraph, xdi2.core.impl.keyvalue.KeyValueContextNode, xdi2.core.impl.keyvalue.KeyValueStore, java.lang.String, xdi2.core.syntax.XDIArc)">KeyValueContextNode</a></strong>(<a href="../../../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</a>&nbsp;graph,
+                   <a href="../../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</a>&nbsp;contextNode,
+                   <a href="../../../../xdi2/core/impl/keyvalue/KeyValueStore.html" title="interface in xdi2.core.impl.keyvalue">KeyValueStore</a>&nbsp;keyValueStore,
+                   <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;key,
+                   <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.impl.memory">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/impl/memory/package-summary.html">xdi2.core.impl.memory</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/memory/package-summary.html">xdi2.core.impl.memory</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/memory/MemoryContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/memory/package-summary.html">xdi2.core.impl.memory</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/memory/MemoryContextNode.html#containsContextNode(xdi2.core.syntax.XDIArc)">containsContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/memory/MemoryContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/memory/MemoryContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+              boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/memory/MemoryContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.impl.wrapped">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/impl/wrapped/package-summary.html">xdi2.core.impl.wrapped</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#containsContextNode(xdi2.core.syntax.XDIArc)">containsContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#delContextNode(xdi2.core.syntax.XDIArc)">delContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getContextNode(xdi2.core.syntax.XDIArc, boolean)">getContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+              boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setContextNode(xdi2.core.syntax.XDIArc)">setContextNode</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.syntax">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/syntax/package-summary.html">xdi2.core.syntax</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/syntax/package-summary.html">xdi2.core.syntax</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIArc.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIArc.html#create(java.lang.String)">create</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIArc.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIArc.html#fromComponents(java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">fromComponents</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
+              boolean&nbsp;classXs,
+              boolean&nbsp;attributeXs,
+              <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
+              <a href="../../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIStatement.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIStatement.html#getContextNodeXDIArc()">getContextNodeXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#getFirstXDIArc()">getFirstXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#getLastXDIArc()">getLastXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">CloudName.</span><code><strong><a href="../../../../xdi2/core/syntax/CloudName.html#getPeerRootXDIArc()">getPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">CloudNumber.</span><code><strong><a href="../../../../xdi2/core/syntax/CloudNumber.html#getPeerRootXDIArc()">getPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#getXDIArc(int)">getXDIArc</a></strong>(int&nbsp;i)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ParserAbstract.</span><code><strong><a href="../../../../xdi2/core/syntax/ParserAbstract.html#newXDIArc(java.lang.String, java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">newXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+         <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
+         boolean&nbsp;classXs,
+         boolean&nbsp;attributeXs,
+         <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
+         <a href="../../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Parser.</span><code><strong><a href="../../../../xdi2/core/syntax/Parser.html#parseXDIArc(java.lang.String)">parseXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/syntax/package-summary.html">xdi2.core.syntax</a> that return types with arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#getXDIArcs()">getXDIArcs</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/syntax/package-summary.html">xdi2.core.syntax</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#fromComponent(xdi2.core.syntax.XDIArc)">fromComponent</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
+<td class="colLast"><span class="strong">XDIStatement.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIStatement.html#fromContextNodeComponents(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">fromContextNodeComponents</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+                         <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;contextNodeXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/CloudName.html" title="class in xdi2.core.syntax">CloudName</a></code></td>
+<td class="colLast"><span class="strong">CloudName.</span><code><strong><a href="../../../../xdi2/core/syntax/CloudName.html#fromPeerRootXDIArc(xdi2.core.syntax.XDIArc)">fromPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;peerRootXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/CloudNumber.html" title="class in xdi2.core.syntax">CloudNumber</a></code></td>
+<td class="colLast"><span class="strong">CloudNumber.</span><code><strong><a href="../../../../xdi2/core/syntax/CloudNumber.html#fromPeerRootXDIArc(xdi2.core.syntax.XDIArc)">fromPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;peerRootXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
+<td class="colLast"><span class="strong">ParserAbstract.</span><code><strong><a href="../../../../xdi2/core/syntax/ParserAbstract.html#newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">newXDIStatement</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+               <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
+               <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
+               <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;object)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../xdi2/core/syntax/package-summary.html">xdi2.core.syntax</a> with type arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddress.</span><code><strong><a href="../../../../xdi2/core/syntax/XDIAddress.html#fromComponents(java.util.List)">fromComponents</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;&nbsp;XDIarcs)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">ParserAbstract.</span><code><strong><a href="../../../../xdi2/core/syntax/ParserAbstract.html#newXDIAddress(java.lang.String, java.util.List)">newXDIAddress</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;&nbsp;arcs)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.syntax.parser">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/syntax/parser/package-summary.html">xdi2.core.syntax.parser</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/syntax/parser/package-summary.html">xdi2.core.syntax.parser</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ParserImpl.</span><code><strong><a href="../../../../xdi2/core/syntax/parser/ParserImpl.html#parseXDIArc(java.lang.String)">parseXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.util">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">GraphUtil.</span><code><strong><a href="../../../../xdi2/core/util/GraphUtil.html#getOwnerPeerRootXDIArc(xdi2.core.Graph)">getOwnerPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XRI2Util.</span><code><strong><a href="../../../../xdi2/core/util/XRI2Util.html#typeToXDIArc(java.lang.String)">typeToXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;type)</code>
+<div class="block">Maps an XRI 2.0 service type to an XDI arc.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a> that return types with arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#getArcs(xdi2.core.syntax.XDIArc)">getArcs</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#concatXDIAddresses(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">concatXDIAddresses</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                  <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Concats address(es) and arc(s) into a new address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#concatXDIAddresses(xdi2.core.syntax.XDIArc...)">concatXDIAddresses</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>...&nbsp;arcs)</code>
+<div class="block">Concats address(es) and arc(s) into a new address.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#concatXDIAddresses(xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIAddress)">concatXDIAddresses</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
+                  <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
+<div class="block">Concats address(es) and arc(s) into a new address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#getArcs(xdi2.core.syntax.XDIArc)">getArcs</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#getXs(xdi2.core.syntax.XDIArc)">getXs</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#indexOfXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">indexOfXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+             <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;searchXDIArc)</code>
+<div class="block">Get the index of an arc inside an address.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#isMultiple(xdi2.core.syntax.XDIArc)">isMultiple</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>
+<div class="block">Checks if a variable matches multiple arcs.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#isVariable(xdi2.core.syntax.XDIArc)">isVariable</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>
+<div class="block">Checks if an arc is a valid XDI variable.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#lastIndexOfXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">lastIndexOfXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                 <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;searchXDIArc)</code>
+<div class="block">Get the last index of an arc inside an address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">VariableUtil.</span><code><strong><a href="../../../../xdi2/core/util/VariableUtil.html#matches(xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIArc)">matches</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable,
+       <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
+<div class="block">Checks if a variables matches an arc.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">XDIAddressUtil.</span><code><strong><a href="../../../../xdi2/core/util/XDIAddressUtil.html#replaceXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIAddress)">replaceXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                 <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;oldXDIArc,
+                 <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;newXDIAddress)</code>
+<div class="block">Replaces all occurences of an arc with an address.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><span class="strong">GraphUtil.</span><code><strong><a href="../../../../xdi2/core/util/GraphUtil.html#setOwnerPeerRootXDIArc(xdi2.core.Graph, xdi2.core.syntax.XDIArc)">setOwnerPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph,
+                      <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/util/CopyUtil.ReplaceXDIAddressCopyStrategy.html#CopyUtil.ReplaceXDIAddressCopyStrategy(xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIAddress)">CopyUtil.ReplaceXDIAddressCopyStrategy</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;oldXDIArc,
+                                      <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;newXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructor parameters in <a href="../../../../xdi2/core/util/package-summary.html">xdi2.core.util</a> with type arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/util/CopyUtil.ReplaceXDIAddressCopyStrategy.html#CopyUtil.ReplaceXDIAddressCopyStrategy(java.util.Map)">CopyUtil.ReplaceXDIAddressCopyStrategy</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>,<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&gt;&nbsp;replacements)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.core.util.iterators">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/core/util/iterators/package-summary.html">xdi2.core.util.iterators</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/core/util/iterators/package-summary.html">xdi2.core.util.iterators</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">MappingContextNodeXDIArcIterator.</span><code><strong><a href="../../../../xdi2/core/util/iterators/MappingContextNodeXDIArcIterator.html#map(xdi2.core.ContextNode)">map</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/package-summary.html">xdi2.messaging</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/package-summary.html">xdi2.messaging</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../../xdi2/messaging/Message.html#getFromPeerRootXDIArc()">getFromPeerRootXDIArc</a></strong>()</code>
+<div class="block">Return the FROM peer root arc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../../xdi2/messaging/Message.html#getID()">getID</a></strong>()</code>
+<div class="block">Returns the ID of the message.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../../xdi2/messaging/Message.html#getToPeerRootXDIArc()">getToPeerRootXDIArc</a></strong>()</code>
+<div class="block">Return the TO peer root arc of the message.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/package-summary.html">xdi2.messaging</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../../xdi2/messaging/Message.html#setFromPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setFromPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;fromPeerRootXDIArc)</code>
+<div class="block">Set the FROM peer root arc.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../../xdi2/messaging/Message.html#setToPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setToPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;toPeerRootXDIArc)</code>
+<div class="block">Set the TO peer root arc of the message.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.constants">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/constants/package-summary.html">xdi2.messaging.constants</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/messaging/constants/package-summary.html">xdi2.messaging.constants</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIMessagingConstants.</span><code><strong><a href="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XDI_ARC_DEL">XDI_ARC_DEL</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIMessagingConstants.</span><code><strong><a href="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XDI_ARC_DO">XDI_ARC_DO</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIMessagingConstants.</span><code><strong><a href="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XDI_ARC_GET">XDI_ARC_GET</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIMessagingConstants.</span><code><strong><a href="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XDI_ARC_MSG">XDI_ARC_MSG</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">XDIMessagingConstants.</span><code><strong><a href="../../../../xdi2/messaging/constants/XDIMessagingConstants.html#XDI_ARC_SET">XDI_ARC_SET</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.error">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/error/package-summary.html">xdi2.messaging.error</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/messaging/error/package-summary.html">xdi2.messaging.error</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ErrorMessageResult.</span><code><strong><a href="../../../../xdi2/messaging/error/ErrorMessageResult.html#XDI_ARC_FALSE">XDI_ARC_FALSE</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/package-summary.html">xdi2.messaging.target</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">MessagingTarget.</span><code><strong><a href="../../../../xdi2/messaging/target/MessagingTarget.html#getOwnerPeerRootXDIArc()">getOwnerPeerRootXDIArc</a></strong>()</code>
+<div class="block">Returns the owner peer root XRI of the messaging target.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.contributor.impl.proxy">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ProxyContributor.</span><code><strong><a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getToPeerRootXDIArc()">getToPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ProxyContributor.</span><code><strong><a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#getToPeerRootXDIArc(xdi2.messaging.context.ExecutionContext, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">getToPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext,
+                   <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</a>&nbsp;proxyContributor)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/package-summary.html">xdi2.messaging.target.contributor.impl.proxy</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><span class="strong">ProxyContributor.</span><code><strong><a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#putToPeerRootXDIArc(xdi2.messaging.context.ExecutionContext, xdi2.core.syntax.XDIArc, xdi2.messaging.target.contributor.impl.proxy.ProxyContributor)">putToPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext,
+                   <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;toPeerRootXDIArc,
+                   <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</a>&nbsp;proxyContributor)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">ProxyContributor.</span><code><strong><a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html#setToPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setToPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;toPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.impl">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTarget.</span><code><strong><a href="../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#getOwnerPeerRootXDIArc()">getOwnerPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTarget.</span><code><strong><a href="../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#setOwnerPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setOwnerPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../xdi2/messaging/target/impl/package-summary.html">xdi2.messaging.target.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/impl/AbstractMessagingTarget.html#AbstractMessagingTarget(xdi2.core.syntax.XDIArc)">AbstractMessagingTarget</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.impl.graph">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/impl/graph/package-summary.html">xdi2.messaging.target.impl.graph</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/impl/graph/package-summary.html">xdi2.messaging.target.impl.graph</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">GraphMessagingTarget.</span><code><strong><a href="../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#getOwnerPeerRootXDIArc()">getOwnerPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/impl/graph/package-summary.html">xdi2.messaging.target.impl.graph</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">GraphMessagingTarget.</span><code><strong><a href="../../../../xdi2/messaging/target/impl/graph/GraphMessagingTarget.html#setOwnerPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setOwnerPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.interceptor.impl">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">BootstrapInterceptor.</span><code><strong><a href="../../../../xdi2/messaging/target/interceptor/impl/BootstrapInterceptor.html#XDI_ARC_SELF">XDI_ARC_SELF</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">ToInterceptor.</span><code><strong><a href="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html#getDefaultToPeerRootXDIArc()">getDefaultToPeerRootXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/messaging/target/interceptor/impl/package-summary.html">xdi2.messaging.target.interceptor.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><span class="strong">ToInterceptor.</span><code><strong><a href="../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html#setDefaultToPeerRootXDIArc(xdi2.core.syntax.XDIArc)">setDefaultToPeerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;defaultToPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.interceptor.impl.util">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing fields, and an explanation">
+<caption><span>Fields in <a href="../../../../xdi2/messaging/target/interceptor/impl/util/package-summary.html">xdi2.messaging.target.interceptor.impl.util</a> declared as <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">MessagePolicyEvaluationContext.</span><code><strong><a href="../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XDI_ARC_FROM_VARIABLE">XDI_ARC_FROM_VARIABLE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">MessagePolicyEvaluationContext.</span><code><strong><a href="../../../../xdi2/messaging/target/interceptor/impl/util/MessagePolicyEvaluationContext.html#XDI_ARC_MSG_VARIABLE">XDI_ARC_MSG_VARIABLE</a></strong></code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.transport.impl.http.factory">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/transport/impl/http/factory/package-summary.html">xdi2.transport.impl.http.factory</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/impl/http/factory/package-summary.html">xdi2.transport.impl.http.factory</a> that return types with arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/AbstractMessagingTargetFactory.html#getOwnerPeerRootXDIArcs()">getOwnerPeerRootXDIArcs</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">MessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#getOwnerPeerRootXDIArcs()">getOwnerPeerRootXDIArcs</a></strong>()</code>
+<div class="block">Returns a list of all owner peer root XRIs of the MessagingTargets this
+ MessagingTargetFactory can create.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/impl/http/factory/package-summary.html">xdi2.transport.impl.http.factory</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/AbstractMessagingTargetFactory.html#getRequestPath(java.lang.String, xdi2.core.syntax.XDIArc)">getRequestPath</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+              <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">MessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#getRequestPath(java.lang.String, xdi2.core.syntax.XDIArc)">getRequestPath</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+              <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>
+<div class="block">Returns the request path at which this MessagingTargetFactory is able to
+ mount a MessagingTarget with a given owner peer root XRI.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.transport.impl.http.factory.impl">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/transport/impl/http/factory/impl/package-summary.html">xdi2.transport.impl.http.factory.impl</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/impl/http/factory/impl/package-summary.html">xdi2.transport.impl.http.factory.impl</a> that return types with arguments of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
+<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#getOwnerPeerRootXDIArcs()">getOwnerPeerRootXDIArcs</a></strong>()</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/impl/http/factory/impl/package-summary.html">xdi2.transport.impl.http.factory.impl</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#getRequestPath(java.lang.String, xdi2.core.syntax.XDIArc)">getRequestPath</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+              <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><span class="strong">AnyGraphMessagingTargetFactory.</span><code><strong><a href="../../../../xdi2/transport/impl/http/factory/impl/AnyGraphMessagingTargetFactory.html#getRequestPath(java.lang.String, xdi2.core.syntax.XDIArc)">getRequestPath</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+              <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.transport.impl.http.registry">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/transport/impl/http/registry/package-summary.html">xdi2.transport.impl.http.registry</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/impl/http/registry/package-summary.html">xdi2.transport.impl.http.registry</a> with parameters of type <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/transport/impl/http/registry/MessagingTargetMount.html" title="class in xdi2.transport.impl.http.registry">MessagingTargetMount</a></code></td>
+<td class="colLast"><span class="strong">HttpMessagingTargetRegistry.</span><code><strong><a href="../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html#lookup(xdi2.core.syntax.XDIArc)">lookup</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;ownerPeerRootXDIArc)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.transport.spring">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a> in <a href="../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Methods in <a href="../../../../xdi2/transport/spring/package-summary.html">xdi2.transport.spring</a> that return <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><span class="strong">StringXDIArcConverter.</span><code><strong><a href="../../../../xdi2/transport/spring/StringXDIArcConverter.html#convert(java.lang.String)">convert</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../overview-summary.html">Overview</a></li>
+<li><a href="../package-summary.html">Package</a></li>
+<li><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">Class</a></li>
+<li class="navBarCell1Rev">Use</li>
+<li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../index-all.html">Index</a></li>
+<li><a href="../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev</li>
+<li>Next</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../index.html?xdi2/core/syntax/class-use/XDIArc.html" target="_top">Frames</a></li>
+<li><a href="XDIArc.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+</body>
+</html>

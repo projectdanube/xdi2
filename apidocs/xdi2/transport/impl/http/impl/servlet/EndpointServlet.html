@@ -1,560 +1,497 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<TITLE>
-EndpointServlet (xdi2 0.2-SNAPSHOT API)
-</TITLE>
-
-<META NAME="keywords" CONTENT="xdi2.transport.impl.http.impl.servlet.EndpointServlet class">
-<META NAME="keywords" CONTENT="setApplicationContext()">
-<META NAME="keywords" CONTENT="init()">
-<META NAME="keywords" CONTENT="doGet()">
-<META NAME="keywords" CONTENT="doPost()">
-<META NAME="keywords" CONTENT="doPut()">
-<META NAME="keywords" CONTENT="doDelete()">
-<META NAME="keywords" CONTENT="doOptions()">
-<META NAME="keywords" CONTENT="getHttpMessagingTargetRegistry()">
-<META NAME="keywords" CONTENT="setHttpMessagingTargetRegistry()">
-<META NAME="keywords" CONTENT="getHttpTransport()">
-<META NAME="keywords" CONTENT="setHttpTransport()">
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>EndpointServlet (xdi2 0.7-SNAPSHOT API)</title>
+<meta name="keywords" content="xdi2.transport.impl.http.impl.servlet.EndpointServlet class">
+<meta name="keywords" content="setApplicationContext()">
+<meta name="keywords" content="init()">
+<meta name="keywords" content="doGet()">
+<meta name="keywords" content="doPost()">
+<meta name="keywords" content="doPut()">
+<meta name="keywords" content="doDelete()">
+<meta name="keywords" content="doOptions()">
+<meta name="keywords" content="getHttpMessagingTargetRegistry()">
+<meta name="keywords" content="setHttpMessagingTargetRegistry()">
+<meta name="keywords" content="getHttpTransport()">
+<meta name="keywords" content="setHttpTransport()">
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="EndpointServlet (xdi2 0.2-SNAPSHOT API)";
+        parent.document.title="EndpointServlet (xdi2 0.7-SNAPSHOT API)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/EndpointServlet.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/PluginsLoaderListener.html" title="class in xdi2.transport.impl.http.impl.servlet"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?xdi2/transport/impl/http/impl/servlet/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/EndpointServlet.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/PluginsLoaderListener.html" title="class in xdi2.transport.impl.http.impl.servlet"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?xdi2/transport/impl/http/impl/servlet/EndpointServlet.html" target="_top">Frames</a></li>
+<li><a href="EndpointServlet.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-xdi2.transport.impl.http.impl.servlet</FONT>
-<BR>
-Class EndpointServlet</H2>
-<PRE>
-<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">javax.servlet.GenericServlet
-      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">javax.servlet.http.HttpServlet
-          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>xdi2.transport.impl.http.impl.servlet.EndpointServlet</B>
-</PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</A>, javax.servlet.Servlet, javax.servlet.ServletConfig, org.springframework.context.ApplicationContextAware</DD>
-</DL>
-<HR>
-<DL>
-<DT><PRE>public final class <B>EndpointServlet</B><DT>extends javax.servlet.http.HttpServlet<DT>implements org.springframework.context.ApplicationContextAware</DL>
-</PRE>
-
-<P>
-The XDI endpoint servlet.
+<div class="header">
+<div class="subTitle">xdi2.transport.impl.http.impl.servlet</div>
+<h2 title="Class EndpointServlet" class="title">Class EndpointServlet</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li>javax.servlet.GenericServlet</li>
+<li>
+<ul class="inheritance">
+<li>javax.servlet.http.HttpServlet</li>
+<li>
+<ul class="inheritance">
+<li>xdi2.transport.impl.http.impl.servlet.EndpointServlet</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, javax.servlet.Servlet, javax.servlet.ServletConfig, org.springframework.context.ApplicationContextAware</dd>
+</dl>
+<hr>
+<br>
+<pre>public final class <span class="strong">EndpointServlet</span>
+extends javax.servlet.http.HttpServlet
+implements org.springframework.context.ApplicationContextAware</pre>
+<div class="block">The XDI endpoint servlet.
  
- It reads and installs all XDI messaging targets from a Spring application context.
-<P>
-
-<P>
-<DL>
-<DT><B>Author:</B></DT>
-  <DD>markus</DD>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../serialized-form.html#xdi2.transport.impl.http.impl.servlet.EndpointServlet">Serialized Form</A></DL>
-<HR>
-
-<P>
-
+ It reads and installs all XDI messaging targets from a Spring application context.</div>
+<dl><dt><span class="strong">Author:</span></dt>
+  <dd>markus</dd>
+<dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../serialized-form.html#xdi2.transport.impl.http.impl.servlet.EndpointServlet">Serialized Form</a></dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#EndpointServlet()">EndpointServlet</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#EndpointServlet()">EndpointServlet</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doDelete</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doGet</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-      javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doOptions</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-          javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPost</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-       javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPut</A></B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-      javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#getHttpMessagingTargetRegistry()">getHttpMessagingTargetRegistry</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#getHttpTransport()">getHttpTransport</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#init(javax.servlet.ServletConfig)">init</A></B>(javax.servlet.ServletConfig&nbsp;servletConfig)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setApplicationContext(org.springframework.context.ApplicationContext)">setApplicationContext</A></B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)">setHttpMessagingTargetRegistry</A></B>(<A HREF="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</A>&nbsp;httpMessagingTargetRegistry)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setHttpTransport(xdi2.transport.impl.http.HttpTransport)">setHttpTransport</A></B>(<A HREF="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_javax.servlet.http.HttpServlet"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class javax.servlet.http.HttpServlet</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>doHead, doTrace, getLastModified, service, service</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_javax.servlet.GenericServlet"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class javax.servlet.GenericServlet</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doDelete</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+        javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doGet</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+     javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doOptions</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPost</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+      javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">doPut</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+     javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#getHttpMessagingTargetRegistry()">getHttpMessagingTargetRegistry</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#getHttpTransport()">getHttpTransport</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#init(javax.servlet.ServletConfig)">init</a></strong>(javax.servlet.ServletConfig&nbsp;servletConfig)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setApplicationContext(org.springframework.context.ApplicationContext)">setApplicationContext</a></strong>(org.springframework.context.ApplicationContext&nbsp;applicationContext)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)">setHttpMessagingTargetRegistry</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setHttpTransport(xdi2.transport.impl.http.HttpTransport)">setHttpTransport</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</a>&nbsp;httpTransport)</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_javax.servlet.http.HttpServlet">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;javax.servlet.http.HttpServlet</h3>
+<code>doHead, doTrace, getLastModified, service, service</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_javax.servlet.GenericServlet">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;javax.servlet.GenericServlet</h3>
+<code>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="EndpointServlet()"><!-- --></A><H3>
-EndpointServlet</H3>
-<PRE>
-public <B>EndpointServlet</B>()</PRE>
-<DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="EndpointServlet()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>EndpointServlet</h4>
+<pre>public&nbsp;EndpointServlet()</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="setApplicationContext(org.springframework.context.ApplicationContext)"><!-- --></A><H3>
-setApplicationContext</H3>
-<PRE>
-public void <B>setApplicationContext</B>(org.springframework.context.ApplicationContext&nbsp;applicationContext)
-                           throws org.springframework.beans.BeansException</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>setApplicationContext</CODE> in interface <CODE>org.springframework.context.ApplicationContextAware</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>org.springframework.beans.BeansException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="init(javax.servlet.ServletConfig)"><!-- --></A><H3>
-init</H3>
-<PRE>
-public void <B>init</B>(javax.servlet.ServletConfig&nbsp;servletConfig)
-          throws javax.servlet.ServletException</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>init</CODE> in interface <CODE>javax.servlet.Servlet</CODE><DT><B>Overrides:</B><DD><CODE>init</CODE> in class <CODE>javax.servlet.GenericServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-doGet</H3>
-<PRE>
-protected void <B>doGet</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-                     javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="setApplicationContext(org.springframework.context.ApplicationContext)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setApplicationContext</h4>
+<pre>public&nbsp;void&nbsp;setApplicationContext(org.springframework.context.ApplicationContext&nbsp;applicationContext)
+                           throws org.springframework.beans.BeansException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setApplicationContext</code>&nbsp;in interface&nbsp;<code>org.springframework.context.ApplicationContextAware</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>org.springframework.beans.BeansException</code></dd></dl>
+</li>
+</ul>
+<a name="init(javax.servlet.ServletConfig)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>init</h4>
+<pre>public&nbsp;void&nbsp;init(javax.servlet.ServletConfig&nbsp;servletConfig)
+          throws javax.servlet.ServletException</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>init</code>&nbsp;in interface&nbsp;<code>javax.servlet.Servlet</code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>init</code>&nbsp;in class&nbsp;<code>javax.servlet.GenericServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd></dl>
+</li>
+</ul>
+<a name="doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doGet</h4>
+<pre>protected&nbsp;void&nbsp;doGet(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
               throws javax.servlet.ServletException,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doGet</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-doPost</H3>
-<PRE>
-protected void <B>doPost</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-                      javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>doGet</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doPost</h4>
+<pre>protected&nbsp;void&nbsp;doPost(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+          javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
                throws javax.servlet.ServletException,
-                      <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doPost</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-doPut</H3>
-<PRE>
-protected void <B>doPut</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-                     javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+                      <a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>doPost</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doPut</h4>
+<pre>protected&nbsp;void&nbsp;doPut(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
               throws javax.servlet.ServletException,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doPut</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-doDelete</H3>
-<PRE>
-protected void <B>doDelete</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-                        javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>doPut</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doDelete</h4>
+<pre>protected&nbsp;void&nbsp;doDelete(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+            javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
                  throws javax.servlet.ServletException,
-                        <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doDelete</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-doOptions</H3>
-<PRE>
-protected void <B>doOptions</B>(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
-                         javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
+                        <a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>doDelete</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doOptions</h4>
+<pre>protected&nbsp;void&nbsp;doOptions(javax.servlet.http.HttpServletRequest&nbsp;httpServletRequest,
+             javax.servlet.http.HttpServletResponse&nbsp;httpServletResponse)
                   throws javax.servlet.ServletException,
-                         <A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>doOptions</CODE> in class <CODE>javax.servlet.http.HttpServlet</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>javax.servlet.ServletException</CODE>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getHttpMessagingTargetRegistry()"><!-- --></A><H3>
-getHttpMessagingTargetRegistry</H3>
-<PRE>
-public <A HREF="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</A> <B>getHttpMessagingTargetRegistry</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)"><!-- --></A><H3>
-setHttpMessagingTargetRegistry</H3>
-<PRE>
-public void <B>setHttpMessagingTargetRegistry</B>(<A HREF="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</A>&nbsp;httpMessagingTargetRegistry)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getHttpTransport()"><!-- --></A><H3>
-getHttpTransport</H3>
-<PRE>
-public <A HREF="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A> <B>getHttpTransport</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setHttpTransport(xdi2.transport.impl.http.HttpTransport)"><!-- --></A><H3>
-setHttpTransport</H3>
-<PRE>
-public void <B>setHttpTransport</B>(<A HREF="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</A>&nbsp;httpTransport)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
+                         <a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>doOptions</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>javax.servlet.ServletException</code></dd>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+<a name="getHttpMessagingTargetRegistry()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHttpMessagingTargetRegistry</h4>
+<pre>public&nbsp;<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;getHttpMessagingTargetRegistry()</pre>
+</li>
+</ul>
+<a name="setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHttpMessagingTargetRegistry</h4>
+<pre>public&nbsp;void&nbsp;setHttpMessagingTargetRegistry(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry)</pre>
+</li>
+</ul>
+<a name="getHttpTransport()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHttpTransport</h4>
+<pre>public&nbsp;<a href="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</a>&nbsp;getHttpTransport()</pre>
+</li>
+</ul>
+<a name="setHttpTransport(xdi2.transport.impl.http.HttpTransport)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setHttpTransport</h4>
+<pre>public&nbsp;void&nbsp;setHttpTransport(<a href="../../../../../../xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</a>&nbsp;httpTransport)</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/EndpointServlet.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../../xdi2/transport/impl/http/impl/servlet/PluginsLoaderListener.html" title="class in xdi2.transport.impl.http.impl.servlet"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?xdi2/transport/impl/http/impl/servlet/EndpointServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="EndpointServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/EndpointServlet.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/PluginsLoaderListener.html" title="class in xdi2.transport.impl.http.impl.servlet"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?xdi2/transport/impl/http/impl/servlet/EndpointServlet.html" target="_top">Frames</a></li>
+<li><a href="EndpointServlet.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-Copyright &#169; 2014. All Rights Reserved.
-</BODY>
-</HTML>
+<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+</body>
+</html>

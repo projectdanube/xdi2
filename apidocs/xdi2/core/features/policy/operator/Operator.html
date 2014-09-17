@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Operator (xdi2 0.7-SNAPSHOT API)</title>
+<meta name="keywords" content="xdi2.core.features.policy.operator.Operator class">
+<meta name="keywords" content="relation">
+<meta name="keywords" content="isValid()">
+<meta name="keywords" content="fromRelation()">
+<meta name="keywords" content="castOperator()">
+<meta name="keywords" content="getRelation()">
+<meta name="keywords" content="evaluate()">
+<meta name="keywords" content="evaluateInternal()">
+<meta name="keywords" content="toString()">
+<meta name="keywords" content="equals()">
+<meta name="keywords" content="hashCode()">
+<meta name="keywords" content="compareTo()">
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Operator (xdi2 0.7-SNAPSHOT API)";
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Operator.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../xdi2/core/features/policy/operator/FalseOperator.html" title="class in xdi2.core.features.policy.operator"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../xdi2/core/features/policy/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.policy.operator"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?xdi2/core/features/policy/operator/Operator.html" target="_top">Frames</a></li>
+<li><a href="Operator.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">xdi2.core.features.policy.operator</div>
+<h2 title="Class Operator" class="title">Class Operator</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li>xdi2.core.features.policy.operator.Operator</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&gt;</dd>
+</dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../../../xdi2/core/features/policy/operator/ConditionOperator.html" title="class in xdi2.core.features.policy.operator">ConditionOperator</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public abstract class <span class="strong">Operator</span>
+extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
+implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&gt;</pre>
+<div class="block">An XDI operator, represented as a relation.</div>
+<dl><dt><span class="strong">Author:</span></dt>
+  <dd>markus</dd>
+<dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../serialized-form.html#xdi2.core.features.policy.operator.Operator">Serialized Form</a></dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.policy.operator">Operator.MappingRelationOperatorIterator</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#relation">relation</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier</th>
+<th class="colLast" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected </code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#Operator(xdi2.core.Relation)">Operator</a></strong>(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#castOperator(xdi2.core.features.policy.operator.Operator)">castOperator</a></strong>(<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;operator)</code>
+<div class="block">Factory method that casts an Operator to the right subclass, e.g. to a TruePolicyStatement.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#compareTo(xdi2.core.features.policy.operator.Operator)">compareTo</a></strong>(<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;other)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#equals(java.lang.Object)">equals</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>[]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#evaluate(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">evaluate</a></strong>(<a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a>&nbsp;policyEvaluationContext)</code>
+<div class="block">Checks if the XDI policy statement evaluates to true or false.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected abstract <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>[]</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#evaluateInternal(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">evaluateInternal</a></strong>(<a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a>&nbsp;policyEvaluationContext)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#fromRelation(xdi2.core.Relation)">fromRelation</a></strong>(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Factory method that creates an XDI operator bound to a given relation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#getRelation()">getRelation</a></strong>()</code>
+<div class="block">Returns the underlying relation to which this XDI policy statement is bound.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#hashCode()">hashCode</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Checks if a relation is a valid XDI policy statement.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/operator/Operator.html#toString()">toString</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="relation">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>relation</h4>
+<pre>protected&nbsp;<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a> relation</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="Operator(xdi2.core.Relation)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Operator</h4>
+<pre>protected&nbsp;Operator(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="isValid(xdi2.core.Relation)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isValid</h4>
+<pre>public static&nbsp;boolean&nbsp;isValid(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</pre>
+<div class="block">Checks if a relation is a valid XDI policy statement.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>relation</code> - The relation to check.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>True if the relation is a valid XDI policy statement.</dd></dl>
+</li>
+</ul>
+<a name="fromRelation(xdi2.core.Relation)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromRelation</h4>
+<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;fromRelation(<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</pre>
+<div class="block">Factory method that creates an XDI operator bound to a given relation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>relation</code> - The relation that is an XDI operator.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The XDI operator.</dd></dl>
+</li>
+</ul>
+<a name="castOperator(xdi2.core.features.policy.operator.Operator)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>castOperator</h4>
+<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;castOperator(<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;operator)</pre>
+<div class="block">Factory method that casts an Operator to the right subclass, e.g. to a TruePolicyStatement.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>operator</code> - The Operator to be cast.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The casted Operator.</dd></dl>
+</li>
+</ul>
+<a name="getRelation()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRelation</h4>
+<pre>public&nbsp;<a href="../../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;getRelation()</pre>
+<div class="block">Returns the underlying relation to which this XDI policy statement is bound.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>A relation that represents the XDI policy statement.</dd></dl>
+</li>
+</ul>
+<a name="evaluate(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>evaluate</h4>
+<pre>public final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>[]&nbsp;evaluate(<a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a>&nbsp;policyEvaluationContext)</pre>
+<div class="block">Checks if the XDI policy statement evaluates to true or false.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>policyEvaluationContext</code> - An object that can locate context nodes.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>True or false.</dd></dl>
+</li>
+</ul>
+<a name="evaluateInternal(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>evaluateInternal</h4>
+<pre>protected abstract&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>[]&nbsp;evaluateInternal(<a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a>&nbsp;policyEvaluationContext)</pre>
+</li>
+</ul>
+<a name="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;toString()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre>public&nbsp;boolean&nbsp;equals(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a></code>&nbsp;in class&nbsp;<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre>public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="compareTo(xdi2.core.features.policy.operator.Operator)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>compareTo</h4>
+<pre>public&nbsp;int&nbsp;compareTo(<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&nbsp;other)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true#compareTo(T)" title="class or interface in java.lang">compareTo</a></code>&nbsp;in interface&nbsp;<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../../xdi2/core/features/policy/operator/Operator.html" title="class in xdi2.core.features.policy.operator">Operator</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Operator.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../xdi2/core/features/policy/operator/FalseOperator.html" title="class in xdi2.core.features.policy.operator"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../xdi2/core/features/policy/operator/Operator.MappingRelationOperatorIterator.html" title="class in xdi2.core.features.policy.operator"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../index.html?xdi2/core/features/policy/operator/Operator.html" target="_top">Frames</a></li>
+<li><a href="Operator.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_class_summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+</body>
+</html>

@@ -1,939 +1,823 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<TITLE>
-XDIHttpClient (xdi2 0.2-SNAPSHOT API)
-</TITLE>
-
-<META NAME="keywords" CONTENT="xdi2.client.http.XDIHttpClient class">
-<META NAME="keywords" CONTENT="KEY_ENDPOINTURI">
-<META NAME="keywords" CONTENT="KEY_SENDMIMETYPE">
-<META NAME="keywords" CONTENT="KEY_RECVMIMETYPE">
-<META NAME="keywords" CONTENT="KEY_USERAGENT">
-<META NAME="keywords" CONTENT="KEY_FOLLOWREDIRECTS">
-<META NAME="keywords" CONTENT="DEFAULT_SENDMIMETYPE">
-<META NAME="keywords" CONTENT="DEFAULT_RECVMIMETYPE">
-<META NAME="keywords" CONTENT="DEFAULT_USERAGENT">
-<META NAME="keywords" CONTENT="DEFAULT_FOLLOWREDIRECTS">
-<META NAME="keywords" CONTENT="log">
-<META NAME="keywords" CONTENT="endpointUri">
-<META NAME="keywords" CONTENT="sendMimeType">
-<META NAME="keywords" CONTENT="recvMimeType">
-<META NAME="keywords" CONTENT="userAgent">
-<META NAME="keywords" CONTENT="followRedirects">
-<META NAME="keywords" CONTENT="send()">
-<META NAME="keywords" CONTENT="close()">
-<META NAME="keywords" CONTENT="getEndpointUri()">
-<META NAME="keywords" CONTENT="setEndpointUri()">
-<META NAME="keywords" CONTENT="getSendMimeType()">
-<META NAME="keywords" CONTENT="setSendMimeType()">
-<META NAME="keywords" CONTENT="getRecvMimeType()">
-<META NAME="keywords" CONTENT="setRecvMimeType()">
-<META NAME="keywords" CONTENT="getUserAgent()">
-<META NAME="keywords" CONTENT="setUserAgent()">
-<META NAME="keywords" CONTENT="getFollowRedirects()">
-<META NAME="keywords" CONTENT="setFollowRedirects()">
-<META NAME="keywords" CONTENT="toString()">
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>XDIHttpClient (xdi2 0.7-SNAPSHOT API)</title>
+<meta name="keywords" content="xdi2.client.http.XDIHttpClient class">
+<meta name="keywords" content="KEY_endpointUrl">
+<meta name="keywords" content="KEY_SENDMIMETYPE">
+<meta name="keywords" content="KEY_RECVMIMETYPE">
+<meta name="keywords" content="KEY_USERAGENT">
+<meta name="keywords" content="KEY_FOLLOWREDIRECTS">
+<meta name="keywords" content="DEFAULT_SENDMIMETYPE">
+<meta name="keywords" content="DEFAULT_RECVMIMETYPE">
+<meta name="keywords" content="DEFAULT_USERAGENT">
+<meta name="keywords" content="DEFAULT_FOLLOWREDIRECTS">
+<meta name="keywords" content="log">
+<meta name="keywords" content="xdiEndpointUrl">
+<meta name="keywords" content="sendMimeType">
+<meta name="keywords" content="recvMimeType">
+<meta name="keywords" content="userAgent">
+<meta name="keywords" content="followRedirects">
+<meta name="keywords" content="send()">
+<meta name="keywords" content="close()">
+<meta name="keywords" content="getXdiEndpointUrl()">
+<meta name="keywords" content="setXdiEndpointUrl()">
+<meta name="keywords" content="getSendMimeType()">
+<meta name="keywords" content="setSendMimeType()">
+<meta name="keywords" content="getRecvMimeType()">
+<meta name="keywords" content="setRecvMimeType()">
+<meta name="keywords" content="getUserAgent()">
+<meta name="keywords" content="setUserAgent()">
+<meta name="keywords" content="getFollowRedirects()">
+<meta name="keywords" content="setFollowRedirects()">
+<meta name="keywords" content="toString()">
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="XDIHttpClient (xdi2 0.2-SNAPSHOT API)";
+        parent.document.title="XDIHttpClient (xdi2 0.7-SNAPSHOT API)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIHttpClient.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/client/http/XDIHttpClient.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="XDIHttpClient.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/XDIHttpClient.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-all.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?xdi2/client/http/XDIHttpClient.html" target="_top">Frames</a></li>
+<li><a href="XDIHttpClient.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-xdi2.client.http</FONT>
-<BR>
-Class XDIHttpClient</H2>
-<PRE>
-<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</A>
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">xdi2.client.XDIAbstractClient</A>
-      <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>xdi2.client.http.XDIHttpClient</B>
-</PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></DD>
-</DL>
-<HR>
-<DL>
-<DT><PRE>public class <B>XDIHttpClient</B><DT>extends <A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</A><DT>implements <A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></DL>
-</PRE>
-
-<P>
-An XDI client that can send XDI messages over HTTP and receive results.
+<div class="header">
+<div class="subTitle">xdi2.client.http</div>
+<h2 title="Class XDIHttpClient" class="title">Class XDIHttpClient</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">xdi2.client.XDIAbstractClient</a></li>
+<li>
+<ul class="inheritance">
+<li>xdi2.client.http.XDIHttpClient</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public class <span class="strong">XDIHttpClient</span>
+extends <a href="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</a>
+implements <a href="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</a></pre>
+<div class="block">An XDI client that can send XDI messages over HTTP and receive results.
  It supports the following parameters (passed to the init method):
  <ul>
- <li>endpointUri - The URL of the XDI endpoint to talk to.</li>
+ <li>endpointUrl - The URL of the XDI endpoint to talk to.</li>
  <li>sendMimeType - The mime type to use to send the XDI messages to the endpoint. The Content-type header will be set accordingly.</li>
  <li>recvMimeType - The mime type in which we want to receive the results from the endpoint. The Accept header will be set accordingly.
  If the endpoint replies in some other mime type than requested, we will still try to read it.</li>
  <li>useragent - The User-Agent HTTP header to use.</li>
- </ul>
-<P>
-
-<P>
-<DL>
-<DT><B>Author:</B></DT>
-  <DD>markus</DD>
-</DL>
-<HR>
-
-<P>
+ </ul></div>
+<dl><dt><span class="strong">Author:</span></dt>
+  <dd>markus</dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_FOLLOWREDIRECTS">DEFAULT_FOLLOWREDIRECTS</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_RECVMIMETYPE">DEFAULT_RECVMIMETYPE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_SENDMIMETYPE">DEFAULT_SENDMIMETYPE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_USERAGENT">DEFAULT_USERAGENT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#endpointUri">endpointUri</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#followRedirects">followRedirects</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#KEY_ENDPOINTURI">KEY_ENDPOINTURI</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#KEY_FOLLOWREDIRECTS">KEY_FOLLOWREDIRECTS</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#KEY_RECVMIMETYPE">KEY_RECVMIMETYPE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#KEY_SENDMIMETYPE">KEY_SENDMIMETYPE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#KEY_USERAGENT">KEY_USERAGENT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;org.slf4j.Logger</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#log">log</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#recvMimeType">recvMimeType</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#sendMimeType">sendMimeType</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#userAgent">userAgent</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_FOLLOWREDIRECTS">DEFAULT_FOLLOWREDIRECTS</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_RECVMIMETYPE">DEFAULT_RECVMIMETYPE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_SENDMIMETYPE">DEFAULT_SENDMIMETYPE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#DEFAULT_USERAGENT">DEFAULT_USERAGENT</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#followRedirects">followRedirects</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#KEY_endpointUrl">KEY_endpointUrl</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#KEY_FOLLOWREDIRECTS">KEY_FOLLOWREDIRECTS</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#KEY_RECVMIMETYPE">KEY_RECVMIMETYPE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#KEY_SENDMIMETYPE">KEY_SENDMIMETYPE</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#KEY_USERAGENT">KEY_USERAGENT</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected static org.slf4j.Logger</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#log">log</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#recvMimeType">recvMimeType</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#sendMimeType">sendMimeType</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#userAgent">userAgent</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#xdiEndpointUrl">xdiEndpointUrl</a></strong></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient()">XDIHttpClient</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.util.Properties)">XDIHttpClient</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</A>&nbsp;parameters)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.lang.String)">XDIHttpClient</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.lang.String, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String)">XDIHttpClient</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri,
-              <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;sendMimeType,
-              <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;recvMimeType,
-              <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;userAgent)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient()">XDIHttpClient</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.util.Properties)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</a>&nbsp;parameters)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.lang.String)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;xdiEndpointUrl)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.net.URL)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String, java.lang.Boolean)">XDIHttpClient</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;followRedirects)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#close()">close</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shuts down the client.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#getEndpointUri()">getEndpointUri</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#getFollowRedirects()">getFollowRedirects</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#getRecvMimeType()">getRecvMimeType</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#getSendMimeType()">getSendMimeType</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#getUserAgent()">getUserAgent</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">send</A></B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-     <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sends an XDI message envelope to an XDI endpoint and retrieves the results.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#setEndpointUri(java.net.URL)">setEndpointUri</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A>&nbsp;endpointUri)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#setFollowRedirects(boolean)">setFollowRedirects</A></B>(boolean&nbsp;followRedirects)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#setRecvMimeType(xdi2.core.io.MimeType)">setRecvMimeType</A></B>(<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;recvMimeFormat)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#setSendMimeType(xdi2.core.io.MimeType)">setSendMimeType</A></B>(<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;sendMimeType)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#setUserAgent(java.lang.String)">setUserAgent</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;userAgent)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../xdi2/client/http/XDIHttpClient.html#toString()">toString</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_xdi2.client.XDIAbstractClient"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class xdi2.client.<A HREF="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/client/XDIAbstractClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#fireDiscoveryEvent(xdi2.client.events.XDIDiscoverEvent)">fireDiscoveryEvent</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#fireSendEvent(xdi2.client.events.XDISendEvent)">fireSendEvent</A>, <A HREF="../../../xdi2/client/XDIAbstractClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_xdi2.client.XDIClient"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface xdi2.client.<A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../xdi2/client/XDIClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</A>, <A HREF="../../../xdi2/client/XDIClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#close()">close</a></strong>()</code>
+<div class="block">Shuts down the client.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#getFollowRedirects()">getFollowRedirects</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#getRecvMimeType()">getRecvMimeType</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#getSendMimeType()">getSendMimeType</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#getUserAgent()">getUserAgent</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#getXdiEndpointUrl()">getXdiEndpointUrl</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">send</a></strong>(<a href="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</a>&nbsp;messageEnvelope,
+    <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult)</code>
+<div class="block">Sends an XDI message envelope to an XDI endpoint and retrieves the results.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#setFollowRedirects(boolean)">setFollowRedirects</a></strong>(boolean&nbsp;followRedirects)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#setRecvMimeType(xdi2.core.io.MimeType)">setRecvMimeType</a></strong>(<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeFormat)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#setSendMimeType(xdi2.core.io.MimeType)">setSendMimeType</a></strong>(<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#setUserAgent(java.lang.String)">setUserAgent</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#setXdiEndpointUrl(java.net.URL)">setXdiEndpointUrl</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/client/http/XDIHttpClient.html#toString()">toString</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_xdi2.client.XDIAbstractClient">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;xdi2.client.<a href="../../../xdi2/client/XDIAbstractClient.html" title="class in xdi2.client">XDIAbstractClient</a></h3>
+<code><a href="../../../xdi2/client/XDIAbstractClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</a>, <a href="../../../xdi2/client/XDIAbstractClient.html#fireDiscoverEvent(xdi2.client.events.XDIDiscoverEvent)">fireDiscoverEvent</a>, <a href="../../../xdi2/client/XDIAbstractClient.html#fireSendEvent(xdi2.client.events.XDISendEvent)">fireSendEvent</a>, <a href="../../../xdi2/client/XDIAbstractClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
+<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_xdi2.client.XDIClient">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;xdi2.client.<a href="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</a></h3>
+<code><a href="../../../xdi2/client/XDIClient.html#addClientListener(xdi2.client.XDIClientListener)">addClientListener</a>, <a href="../../../xdi2/client/XDIClient.html#fireDiscoverEvent(xdi2.client.events.XDIDiscoverEvent)">fireDiscoverEvent</a>, <a href="../../../xdi2/client/XDIClient.html#fireSendEvent(xdi2.client.events.XDISendEvent)">fireSendEvent</a>, <a href="../../../xdi2/client/XDIClient.html#removeClientListener(xdi2.client.XDIClientListener)">removeClientListener</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="KEY_ENDPOINTURI"><!-- --></A><H3>
-KEY_ENDPOINTURI</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>KEY_ENDPOINTURI</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_ENDPOINTURI">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="KEY_SENDMIMETYPE"><!-- --></A><H3>
-KEY_SENDMIMETYPE</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>KEY_SENDMIMETYPE</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_SENDMIMETYPE">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="KEY_RECVMIMETYPE"><!-- --></A><H3>
-KEY_RECVMIMETYPE</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>KEY_RECVMIMETYPE</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_RECVMIMETYPE">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="KEY_USERAGENT"><!-- --></A><H3>
-KEY_USERAGENT</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>KEY_USERAGENT</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_USERAGENT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="KEY_FOLLOWREDIRECTS"><!-- --></A><H3>
-KEY_FOLLOWREDIRECTS</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>KEY_FOLLOWREDIRECTS</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_FOLLOWREDIRECTS">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_SENDMIMETYPE"><!-- --></A><H3>
-DEFAULT_SENDMIMETYPE</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_SENDMIMETYPE</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_SENDMIMETYPE">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_RECVMIMETYPE"><!-- --></A><H3>
-DEFAULT_RECVMIMETYPE</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_RECVMIMETYPE</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_RECVMIMETYPE">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_USERAGENT"><!-- --></A><H3>
-DEFAULT_USERAGENT</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_USERAGENT</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_USERAGENT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_FOLLOWREDIRECTS"><!-- --></A><H3>
-DEFAULT_FOLLOWREDIRECTS</H3>
-<PRE>
-public static final <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>DEFAULT_FOLLOWREDIRECTS</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_FOLLOWREDIRECTS">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="log"><!-- --></A><H3>
-log</H3>
-<PRE>
-protected static final org.slf4j.Logger <B>log</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="endpointUri"><!-- --></A><H3>
-endpointUri</H3>
-<PRE>
-protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A> <B>endpointUri</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="sendMimeType"><!-- --></A><H3>
-sendMimeType</H3>
-<PRE>
-protected <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A> <B>sendMimeType</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="recvMimeType"><!-- --></A><H3>
-recvMimeType</H3>
-<PRE>
-protected <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A> <B>recvMimeType</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="userAgent"><!-- --></A><H3>
-userAgent</H3>
-<PRE>
-protected <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>userAgent</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="followRedirects"><!-- --></A><H3>
-followRedirects</H3>
-<PRE>
-protected boolean <B>followRedirects</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="KEY_endpointUrl">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_endpointUrl</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_endpointUrl</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_endpointUrl">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_SENDMIMETYPE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_SENDMIMETYPE</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_SENDMIMETYPE</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_SENDMIMETYPE">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_RECVMIMETYPE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_RECVMIMETYPE</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_RECVMIMETYPE</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_RECVMIMETYPE">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_USERAGENT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_USERAGENT</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_USERAGENT</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_USERAGENT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="KEY_FOLLOWREDIRECTS">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>KEY_FOLLOWREDIRECTS</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> KEY_FOLLOWREDIRECTS</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.KEY_FOLLOWREDIRECTS">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_SENDMIMETYPE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_SENDMIMETYPE</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DEFAULT_SENDMIMETYPE</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_SENDMIMETYPE">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_RECVMIMETYPE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_RECVMIMETYPE</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DEFAULT_RECVMIMETYPE</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_RECVMIMETYPE">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_USERAGENT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_USERAGENT</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DEFAULT_USERAGENT</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_USERAGENT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="DEFAULT_FOLLOWREDIRECTS">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_FOLLOWREDIRECTS</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DEFAULT_FOLLOWREDIRECTS</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.client.http.XDIHttpClient.DEFAULT_FOLLOWREDIRECTS">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="log">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>log</h4>
+<pre>protected static final&nbsp;org.slf4j.Logger log</pre>
+</li>
+</ul>
+<a name="xdiEndpointUrl">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>xdiEndpointUrl</h4>
+<pre>protected&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a> xdiEndpointUrl</pre>
+</li>
+</ul>
+<a name="sendMimeType">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sendMimeType</h4>
+<pre>protected&nbsp;<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a> sendMimeType</pre>
+</li>
+</ul>
+<a name="recvMimeType">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>recvMimeType</h4>
+<pre>protected&nbsp;<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a> recvMimeType</pre>
+</li>
+</ul>
+<a name="userAgent">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>userAgent</h4>
+<pre>protected&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> userAgent</pre>
+</li>
+</ul>
+<a name="followRedirects">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>followRedirects</h4>
+<pre>protected&nbsp;boolean followRedirects</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="XDIHttpClient()"><!-- --></A><H3>
-XDIHttpClient</H3>
-<PRE>
-public <B>XDIHttpClient</B>()</PRE>
-<DL>
-</DL>
-<HR>
-
-<A NAME="XDIHttpClient(java.lang.String)"><!-- --></A><H3>
-XDIHttpClient</H3>
-<PRE>
-public <B>XDIHttpClient</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri)</PRE>
-<DL>
-</DL>
-<HR>
-
-<A NAME="XDIHttpClient(java.lang.String, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String)"><!-- --></A><H3>
-XDIHttpClient</H3>
-<PRE>
-public <B>XDIHttpClient</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;endpointUri,
-                     <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;sendMimeType,
-                     <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;recvMimeType,
-                     <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;userAgent)</PRE>
-<DL>
-</DL>
-<HR>
-
-<A NAME="XDIHttpClient(java.util.Properties)"><!-- --></A><H3>
-XDIHttpClient</H3>
-<PRE>
-public <B>XDIHttpClient</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</A>&nbsp;parameters)
-              throws <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></PRE>
-<DL>
-<DL>
-
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</A></CODE></DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="XDIHttpClient()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient()</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String, java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;followRedirects)</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType,
+             <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent)</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.net.URL, xdi2.core.io.MimeType, xdi2.core.io.MimeType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType,
+             <a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeType)</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.net.URL)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl)</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;xdiEndpointUrl)</pre>
+</li>
+</ul>
+<a name="XDIHttpClient(java.util.Properties)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>XDIHttpClient</h4>
+<pre>public&nbsp;XDIHttpClient(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</a>&nbsp;parameters)
+              throws <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)"><!-- --></A><H3>
-send</H3>
-<PRE>
-public <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A> <B>send</B>(<A HREF="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</A>&nbsp;messageEnvelope,
-                          <A HREF="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</A>&nbsp;messageResult)
-                   throws <A HREF="../../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/client/XDIClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">XDIClient</A></CODE></B></DD>
-<DD>Sends an XDI message envelope to an XDI endpoint and retrieves the results.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/client/XDIClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">send</A></CODE> in interface <CODE><A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>messageEnvelope</CODE> - The XDI message envelope to send.<DD><CODE>messageResult</CODE> - The message result that will hold results of the message. If this is null,
- a new message result will be created.
-<DT><B>Returns:</B><DD>The message result.
-<DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</A></CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="close()"><!-- --></A><H3>
-close</H3>
-<PRE>
-public void <B>close</B>()</PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../xdi2/client/XDIClient.html#close()">XDIClient</A></CODE></B></DD>
-<DD>Shuts down the client.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../xdi2/client/XDIClient.html#close()">close</A></CODE> in interface <CODE><A HREF="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getEndpointUri()"><!-- --></A><H3>
-getEndpointUri</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A> <B>getEndpointUri</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setEndpointUri(java.net.URL)"><!-- --></A><H3>
-setEndpointUri</H3>
-<PRE>
-public void <B>setEndpointUri</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</A>&nbsp;endpointUri)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getSendMimeType()"><!-- --></A><H3>
-getSendMimeType</H3>
-<PRE>
-public <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A> <B>getSendMimeType</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setSendMimeType(xdi2.core.io.MimeType)"><!-- --></A><H3>
-setSendMimeType</H3>
-<PRE>
-public void <B>setSendMimeType</B>(<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;sendMimeType)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRecvMimeType()"><!-- --></A><H3>
-getRecvMimeType</H3>
-<PRE>
-public <A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A> <B>getRecvMimeType</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setRecvMimeType(xdi2.core.io.MimeType)"><!-- --></A><H3>
-setRecvMimeType</H3>
-<PRE>
-public void <B>setRecvMimeType</B>(<A HREF="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</A>&nbsp;recvMimeFormat)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getUserAgent()"><!-- --></A><H3>
-getUserAgent</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getUserAgent</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setUserAgent(java.lang.String)"><!-- --></A><H3>
-setUserAgent</H3>
-<PRE>
-public void <B>setUserAgent</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;userAgent)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getFollowRedirects()"><!-- --></A><H3>
-getFollowRedirects</H3>
-<PRE>
-public boolean <B>getFollowRedirects</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setFollowRedirects(boolean)"><!-- --></A><H3>
-setFollowRedirects</H3>
-<PRE>
-public void <B>setFollowRedirects</B>(boolean&nbsp;followRedirects)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="toString()"><!-- --></A><H3>
-toString</H3>
-<PRE>
-public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>toString</B>()</PRE>
-<DL>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A></CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>send</h4>
+<pre>public&nbsp;<a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;send(<a href="../../../xdi2/messaging/MessageEnvelope.html" title="class in xdi2.messaging">MessageEnvelope</a>&nbsp;messageEnvelope,
+                 <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult)
+                   throws <a href="../../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</a></pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/client/XDIClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">XDIClient</a></code></strong></div>
+<div class="block">Sends an XDI message envelope to an XDI endpoint and retrieves the results.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/client/XDIClient.html#send(xdi2.messaging.MessageEnvelope, xdi2.messaging.MessageResult)">send</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>messageEnvelope</code> - The XDI message envelope to send.</dd><dd><code>messageResult</code> - The message result that will hold results of the message. If this is null,
+ a new message result will be created.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The message result.</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../xdi2/client/exceptions/Xdi2ClientException.html" title="class in xdi2.client.exceptions">Xdi2ClientException</a></code></dd></dl>
+</li>
+</ul>
+<a name="close()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>close</h4>
+<pre>public&nbsp;void&nbsp;close()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/client/XDIClient.html#close()">XDIClient</a></code></strong></div>
+<div class="block">Shuts down the client.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/client/XDIClient.html#close()">close</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/client/XDIClient.html" title="interface in xdi2.client">XDIClient</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getXdiEndpointUrl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getXdiEndpointUrl</h4>
+<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;getXdiEndpointUrl()</pre>
+</li>
+</ul>
+<a name="setXdiEndpointUrl(java.net.URL)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setXdiEndpointUrl</h4>
+<pre>public&nbsp;void&nbsp;setXdiEndpointUrl(<a href="http://download.oracle.com/javase/6/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;xdiEndpointUrl)</pre>
+</li>
+</ul>
+<a name="getSendMimeType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSendMimeType</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;getSendMimeType()</pre>
+</li>
+</ul>
+<a name="setSendMimeType(xdi2.core.io.MimeType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSendMimeType</h4>
+<pre>public&nbsp;void&nbsp;setSendMimeType(<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;sendMimeType)</pre>
+</li>
+</ul>
+<a name="getRecvMimeType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRecvMimeType</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;getRecvMimeType()</pre>
+</li>
+</ul>
+<a name="setRecvMimeType(xdi2.core.io.MimeType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRecvMimeType</h4>
+<pre>public&nbsp;void&nbsp;setRecvMimeType(<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;recvMimeFormat)</pre>
+</li>
+</ul>
+<a name="getUserAgent()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserAgent</h4>
+<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getUserAgent()</pre>
+</li>
+</ul>
+<a name="setUserAgent(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserAgent</h4>
+<pre>public&nbsp;void&nbsp;setUserAgent(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;userAgent)</pre>
+</li>
+</ul>
+<a name="getFollowRedirects()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFollowRedirects</h4>
+<pre>public&nbsp;boolean&nbsp;getFollowRedirects()</pre>
+</li>
+</ul>
+<a name="setFollowRedirects(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFollowRedirects</h4>
+<pre>public&nbsp;void&nbsp;setFollowRedirects(boolean&nbsp;followRedirects)</pre>
+</li>
+</ul>
+<a name="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;toString()</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XDIHttpClient.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?xdi2/client/http/XDIHttpClient.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="XDIHttpClient.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/XDIHttpClient.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-all.html">Index</a></li>
+<li><a href="../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../index.html?xdi2/client/http/XDIHttpClient.html" target="_top">Frames</a></li>
+<li><a href="XDIHttpClient.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-Copyright &#169; 2014. All Rights Reserved.
-</BODY>
-</HTML>
+<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+</body>
+</html>
