@@ -1,5 +1,7 @@
 body {
-	font-family: Calibri, Arial, Helvetica, sans-serif;
+	font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
+	font-size: 16px;
+	color: #333;
 	padding: 0px;
 	margin: 0px;
 	background-image: url('images/back.png');
@@ -54,7 +56,11 @@ div.header {
 a {
 	text-decoration: none;
 	color: #540dd8;
-	border-bottom: 3px solid #540dd8;
+	padding: 8px;
+}
+
+a:hover {
+	background-color: #d6c9f1;
 }
 
 p.subheader {

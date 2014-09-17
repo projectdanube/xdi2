@@ -3,9 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
-body { font-family: "Arial", "Helvetica", sans-serif; border: 30px solid #bbbbbb; margin: 0px; padding: 60px; }
+body { font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif; border: 30px solid #bbbbbb; margin: 0px; padding: 60px; }
 * { font-size: 12pt; }
-a { text-decoration: none; color: #540dd8; border-bottom: 3px solid #540dd8; }
+a { text-decoration: none; color: #540dd8; padding: 8px; }
+a:hover { background-color: white; }
 hr { color: black; background-color: black; height: 1px; }
 h1 { font-size: 1.4em; margin-top: 20px; }
 table.pretty { margin: 10px; text-align: left; border-collapse: collapse; border: 2px solid black; }
@@ -158,9 +159,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	#else
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
 		$interceptor.class.simpleName<br>
-			<span class="light">
-			SKIP? $interceptor.skip(null)
-			</span><br><hr>
+			<hr>
 	#end
 	#end
 	</div>
@@ -176,7 +175,6 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 			$contributor.class.simpleName<br>
 			<span class="light">
 			$contributorlist.key
-			SKIP? $contributor.skip(null)
 			</span><br><hr>
 		#end
 	#end
