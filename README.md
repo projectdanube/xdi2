@@ -2,6 +2,8 @@
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 [![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2)
 
+Latest release: [release-0.6](https://github.com/projectdanube/xdi2/releases/tag/release-0.6)
+
 [XDI2](http://github.com/projectdanube/xdi2) is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange. 
 
 A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
@@ -35,17 +37,6 @@ Then go to:
 
     http://localhost:8080/
 
-### Feature Branches
-
-| Information | Code | Status |
-| ----------- | ---- | ------ |
-| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | merged per [946b5c8](https://github.com/projectdanube/xdi2/commit/946b5c8f8d5e2eb94bfd701ce73a4969012cfa9d) on 4th Apr 2014 after [snapshot-0.2-pre-symbol.shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.2-pre-symbol-shift)
-| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | merged per [1c1ae72](https://github.com/projectdanube/xdi2/commit/1c1ae72b5b1c56bd825f97b7769967208035e99b) on 30th May 2014 after [snapshot-0.4-pre-link-contract-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.4-pre-link-contract-shift)
-| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | merged per [2224dd1](https://github.com/projectdanube/xdi2/commit/2224dd1c6b5cbfdbd0058928053ffca937fa17f9) on 5th Jul 2014 after [snapshot-0.5-pre-notation-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.5-pre-notation-shift)
-| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | merged per [7a1194b](https://github.com/projectdanube/xdi2/commit/7a1194b2ec748d446dc6d5ca02455c02eb461223) on 24th Aug 2014 after [snapshot-0.7-pre-no-xri](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-no-xri)
-| [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | active
-| [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | active
-
 ### Plugins
 
 | Link | Type | Description |
@@ -56,6 +47,17 @@ Then go to:
 | [xdi2-connector-personal](https://github.com/projectdanube/xdi2-connector-personal) | Connector | Personal.com -> XDI Connector
 | [xdi2-connector-allfiled](https://github.com/projectdanube/xdi2-connector-allfiled) | Connector | Allfiled -> XDI Connector
 | [xdi2-connector-google-calendar](https://github.com/projectdanube/xdi2-connector-google-calendar) | Connector | Google Calendar -> XDI Connector
+
+### Feature Branches
+
+| Information | Code | Status |
+| ----------- | ---- | ------ |
+| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | merged per [946b5c8](https://github.com/projectdanube/xdi2/commit/946b5c8f8d5e2eb94bfd701ce73a4969012cfa9d) on 4th Apr 2014 after [snapshot-0.2-pre-symbol.shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.2-pre-symbol-shift)
+| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | merged per [1c1ae72](https://github.com/projectdanube/xdi2/commit/1c1ae72b5b1c56bd825f97b7769967208035e99b) on 30th May 2014 after [snapshot-0.4-pre-link-contract-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.4-pre-link-contract-shift)
+| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | merged per [2224dd1](https://github.com/projectdanube/xdi2/commit/2224dd1c6b5cbfdbd0058928053ffca937fa17f9) on 5th Jul 2014 after [snapshot-0.5-pre-notation-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.5-pre-notation-shift)
+| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | merged per [7a1194b](https://github.com/projectdanube/xdi2/commit/7a1194b2ec748d446dc6d5ca02455c02eb461223) on 24th Aug 2014 after [snapshot-0.7-pre-no-xri](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-no-xri)
+| [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | active
+| [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | active
 
 ### Community
 
