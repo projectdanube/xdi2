@@ -39,12 +39,12 @@ Then go to:
 
 Branch-specific information:
 
-* [[great-symbol-shift]]
-* [[link-contract-shift]]
-* [[notation-shift]]
-* [[no-xri]]
-* [[add-mod]]
-* [[no-value-nodes]]
+* Information: [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) Code: [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) Status: merged
+* Information: [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) Code: [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) Status: merged
+* Information: [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) Code: [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) Status: merged
+* Information: [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) Code: [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) Status: merged
+* Information: [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) Code: [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) Status: active
+* Information: [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) Code: [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) Status: active
 
 ### Community
 
