@@ -35,6 +35,17 @@ Then go to:
 
     http://localhost:8080/
 
+### Branches
+
+Branch-specific information:
+
+* [[great-symbol-shift]]
+* [[link-contract-shift]]
+* [[notation-shift]]
+* [[no-xri]]
+* [[add-mod]]
+* [[no-value-nodes]]
+
 ### Community
 
 Google Group: http://groups.google.com/group/xdi2
