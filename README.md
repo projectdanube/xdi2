@@ -35,16 +35,14 @@ Then go to:
 
     http://localhost:8080/
 
-### Branches
-
-Branch-specific information:
+### Feature Branches
 
 | Information | Code | Status |
 | ----------- | ---- | ------ |
-| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | merged
-| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | merged
-| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | merged
-| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | merged
+| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | merged per commit [946b5c8](https://github.com/projectdanube/xdi2/commit/946b5c8f8d5e2eb94bfd701ce73a4969012cfa9d)
+| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | merged per commit [1c1ae72](https://github.com/projectdanube/xdi2/commit/1c1ae72b5b1c56bd825f97b7769967208035e99b)
+| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | merged per commit [2224dd1](https://github.com/projectdanube/xdi2/commit/2224dd1c6b5cbfdbd0058928053ffca937fa17f9)
+| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | merged per commit [7a1194b](https://github.com/projectdanube/xdi2/commit/7a1194b2ec748d446dc6d5ca02455c02eb461223)
 | [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | active
 | [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | active
 
