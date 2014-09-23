@@ -6,7 +6,7 @@ branches:
     only:
         - master
 git:
-	depth: 1
+    depth: 1
 jdk:
     - openjdk6
     - oraclejdk6
