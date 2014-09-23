@@ -561,6 +561,96 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetAddress The target address to which the operation applies.
+	 * @return The newly created $add operation.
+	 */
+	public AddOperation createAddOperation(XDIAddress targetAddress) {
+
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_ADD, targetAddress);
+
+		return AddOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @return The newly created $add operation.
+	 */
+	public AddOperation createAddOperation(Iterator<XDIStatement> targetStatementAddresses) {
+
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_ADD, true);
+		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+
+		return AddOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $add operation.
+	 */
+	public AddOperation createAddOperation(XDIStatement targetStatement) {
+
+		return this.createAddOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+	}
+
+	/**
+	 * Creates a new $add operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $add operation.
+	 */
+	public AddOperation createAddOperation(Graph targetGraph) {
+
+		return this.createAddOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetAddress The target address to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(XDIAddress targetAddress) {
+
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_MOD, targetAddress);
+
+		return ModOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(Iterator<XDIStatement> targetStatementAddresses) {
+
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_MOD, true);
+		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+
+		return ModOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetStatement The target statement to which the operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(XDIStatement targetStatement) {
+
+		return this.createModOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+	}
+
+	/**
+	 * Creates a new $mod operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $mod operation.
+	 */
+	public ModOperation createModOperation(Graph targetGraph) {
+
+		return this.createModOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
 	 * Creates a new $del operation and adds it to this XDI message.
 	 * @param targetAddress The target address to which the operation applies.
 	 * @return The newly created $del operation.
@@ -703,6 +793,32 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Returns all XDI $add operations in this XDI message.
+	 * @return An iterator over all XDI $add operations.
+	 */
+	public ReadOnlyIterator<AddOperation> getAddOperations() {
+
+		// get all relations that are valid XDI $add operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_ADD);
+
+		return new MappingRelationAddOperationIterator(this, relations);
+	}
+
+	/**
+	 * Returns all XDI $mod operations in this XDI message.
+	 * @return An iterator over all XDI $mod operations.
+	 */
+	public ReadOnlyIterator<ModOperation> getModOperations() {
+
+		// get all relations that are valid XDI $mod operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_MOD);
+
+		return new MappingRelationModOperationIterator(this, relations);
+	}
+
+	/**
 	 * Returns all XDI $del operations in this XDI message.
 	 * @return An iterator over all XDI $del operations.
 	 */
@@ -840,6 +956,36 @@ public final class Message implements Serializable, Comparable<Message> {
 				public SetOperation map(Relation relation) {
 
 					return SetOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationAddOperationIterator extends NotNullIterator<AddOperation> {
+
+		public MappingRelationAddOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, AddOperation> (relations) {
+
+				@Override
+				public AddOperation map(Relation relation) {
+
+					return AddOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationModOperationIterator extends NotNullIterator<ModOperation> {
+
+		public MappingRelationModOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, ModOperation> (relations) {
+
+				@Override
+				public ModOperation map(Relation relation) {
+
+					return ModOperation.fromMessageAndRelation(message, relation);
 				}
 			});
 		}

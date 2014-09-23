@@ -15,6 +15,8 @@ public final class XDIMessagingConstants {
 	public static final XDIArc XDI_ARC_MSG = XDIArc.create("$msg");
 	public static final XDIArc XDI_ARC_GET = XDIArc.create("$get");
 	public static final XDIArc XDI_ARC_SET = XDIArc.create("$set");
+	public static final XDIArc XDI_ARC_ADD = XDIArc.create("$add");
+	public static final XDIArc XDI_ARC_MOD = XDIArc.create("$mod");
 	public static final XDIArc XDI_ARC_DEL = XDIArc.create("$del");
 	public static final XDIArc XDI_ARC_DO = XDIArc.create("$do");
 
@@ -23,6 +25,8 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_GET_BOOLEAN = XDIAddressUtil.concatXDIAddresses(XDI_ADD_GET, XDIDictionaryConstants.XDI_ADD_BOOLEAN);
 	public static final XDIAddress XDI_ADD_GET_NUMBER = XDIAddressUtil.concatXDIAddresses(XDI_ADD_GET, XDIDictionaryConstants.XDI_ADD_NUMBER);
 	public static final XDIAddress XDI_ADD_SET = XDIAddress.fromComponent(XDI_ARC_SET);
+	public static final XDIAddress XDI_ADD_ADD = XDIAddress.fromComponent(XDI_ARC_ADD);
+	public static final XDIAddress XDI_ADD_MOD = XDIAddress.fromComponent(XDI_ARC_MOD);
 	public static final XDIAddress XDI_ADD_DEL = XDIAddress.fromComponent(XDI_ARC_DEL);
 	public static final XDIAddress XDI_ADD_DO = XDIAddress.fromComponent(XDI_ARC_DO);
 

@@ -3,10 +3,12 @@ package xdi2.messaging.target.impl;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
@@ -33,6 +35,10 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
 			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
+		else if (operation instanceof AddOperation)
+			this.executeAddOnAddress(targetAddress, (AddOperation) operation, messageResult, executionContext);
+		else if (operation instanceof ModOperation)
+			this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -46,6 +52,14 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	}
 
 	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeAddOnAddress(XDIAddress targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeModOnAddress(XDIAddress targetAddress, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -70,6 +84,10 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeGetOnStatement(targetStatement, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
 			this.executeSetOnStatement(targetStatement, (SetOperation) operation, messageResult, executionContext);
+		else if (operation instanceof AddOperation)
+			this.executeAddOnStatement(targetStatement, (AddOperation) operation, messageResult, executionContext);
+		else if (operation instanceof ModOperation)
+			this.executeModOnStatement(targetStatement, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -100,6 +118,30 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeSetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
+	}
+
+	public void executeAddOnStatement(XDIStatement targetStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeAddOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeAddOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeAddOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+		else
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
+	}
+
+	public void executeModOnStatement(XDIStatement targetStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeModOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeModOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeModOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+		else
+			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
 	public void executeDelOnStatement(XDIStatement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -148,6 +190,14 @@ public abstract class AbstractContextHandler implements ContextHandler {
 		this.executeSetOnAddress(targetAddress, operation, messageResult, executionContext);
 	}
 
+	public void executeAddOnContextNodeStatement(XDIStatement contextNodeStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeModOnContextNodeStatement(XDIStatement contextNodeStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	public void executeDelOnContextNodeStatement(XDIStatement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getContextNodeXDIAddress(), targetStatement.getContextNodeXDIArc());
@@ -178,6 +228,14 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	}
 
+	public void executeAddOnRelationStatement(XDIStatement relationStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeModOnRelationStatement(XDIStatement relationStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	public void executeDelOnRelationStatement(XDIStatement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
@@ -202,6 +260,14 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	}
 
 	public void executeSetOnLiteralStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeAddOnLiteralStatement(XDIStatement literalStatement, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeModOnLiteralStatement(XDIStatement literalStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

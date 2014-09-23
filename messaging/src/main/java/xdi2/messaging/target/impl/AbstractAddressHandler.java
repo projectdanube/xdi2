@@ -1,10 +1,12 @@
 package xdi2.messaging.target.impl;
 
 import xdi2.core.syntax.XDIAddress;
+import xdi2.messaging.AddOperation;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.ModOperation;
 import xdi2.messaging.Operation;
 import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
@@ -31,6 +33,10 @@ public class AbstractAddressHandler implements AddressHandler {
 			this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
 			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
+		else if (operation instanceof AddOperation)
+			this.executeAddOnAddress(targetAddress, (AddOperation) operation, messageResult, executionContext);
+		else if (operation instanceof ModOperation)
+			this.executeModOnAddress(targetAddress, (ModOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
 			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
@@ -44,6 +50,14 @@ public class AbstractAddressHandler implements AddressHandler {
 	}
 
 	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeAddOnAddress(XDIAddress targetAddress, AddOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeModOnAddress(XDIAddress targetAddress, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
