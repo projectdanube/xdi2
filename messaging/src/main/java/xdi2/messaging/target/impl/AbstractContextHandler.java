@@ -214,24 +214,24 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	 * Operations on context node statements
 	 */
 
-	public void executeGetOnContextNodeStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnContextNodeStatement(XDIStatement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// run a $get on the address, then filter for the statement
 
-		XDIAddress targetAddress = targetStatement.getContextNodeXDIAddress();
+		XDIAddress targetAddress = contextNodeStatement.getContextNodeXDIAddress();
 
 		MessageResult tempMessageResult = new MessageResult();
 
 		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
 
-		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnContextNodeStatement(contextNodeStatement, operation, messageResult, executionContext);
 	}
 
-	public void executeSetOnContextNodeStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnContextNodeStatement(XDIStatement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// a $set on a context node statement is the same as a $set on the address
 
-		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getContextNodeXDIAddress(), targetStatement.getContextNodeXDIArc());
+		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(contextNodeStatement.getContextNodeXDIAddress(), contextNodeStatement.getContextNodeXDIArc());
 
 		this.executeSetOnAddress(targetAddress, operation, messageResult, executionContext);
 	}
@@ -251,7 +251,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeSetOnContextNodeStatement(contextNodeStatement, setOperation, feedbackMessageResult, executionContext);
 		} else {
 
-			throw new Xdi2MessagingException("Target statement exists already: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement exists already: " + contextNodeStatement, null, executionContext);
 		}
 	}
 
@@ -263,7 +263,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		if (feedbackMessageResult.isEmpty()) {
 
-			throw new Xdi2MessagingException("Target statement does not exist: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement does not exist: " + contextNodeStatement, null, executionContext);
 		} else {
 
 			// execute a $set operation
@@ -291,20 +291,20 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	 * Operations on relation statements
 	 */
 
-	public void executeGetOnRelationStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnRelationStatement(XDIStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// run a $get on the address, then filter for the statement
 
-		XDIAddress targetAddress = targetStatement.getContextNodeXDIAddress();
+		XDIAddress targetAddress = relationStatement.getContextNodeXDIAddress();
 
 		MessageResult tempMessageResult = new MessageResult();
 
 		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
 
-		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnRelationStatement(relationStatement, operation, messageResult, executionContext);
 	}
 
-	public void executeSetOnRelationStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnRelationStatement(XDIStatement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -312,7 +312,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		// $get feedback on target statement
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, relationStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(relationStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
@@ -323,7 +323,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeSetOnRelationStatement(relationStatement, setOperation, feedbackMessageResult, executionContext);
 		} else {
 
-			throw new Xdi2MessagingException("Target statement exists already: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement exists already: " + relationStatement, null, executionContext);
 		}
 	}
 
@@ -331,11 +331,11 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		// $get feedback on target statement
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, relationStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(relationStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
-			throw new Xdi2MessagingException("Target statement does not exist: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement does not exist: " + relationStatement, null, executionContext);
 		} else {
 
 			// execute a $set operation
@@ -379,7 +379,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		// $get feedback on target statement
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, literalStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(literalStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
@@ -390,7 +390,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeSetOnLiteralStatement(literalStatement, setOperation, feedbackMessageResult, executionContext);
 		} else {
 
-			throw new Xdi2MessagingException("Target statement exists already: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement exists already: " + literalStatement, null, executionContext);
 		}
 	}
 
@@ -398,11 +398,11 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		// $get feedback on target statement
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, literalStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(literalStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
-			throw new Xdi2MessagingException("Target statement does not exist: " + operation, null, executionContext);
+			throw new Xdi2MessagingException("Target statement does not exist: " + literalStatement, null, executionContext);
 		} else {
 
 			// execute a $set operation
