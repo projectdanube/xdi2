@@ -240,7 +240,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 		// $get feedback on target statement
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, contextNodeStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(contextNodeStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
@@ -257,9 +257,9 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	public void executeModOnContextNodeStatement(XDIStatement contextNodeStatement, ModOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// $get feedback on target statement
+		// $get feedback on target address
 
-		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(null, contextNodeStatement, operation, executionContext);
+		MessageResult feedbackMessageResult = feedbackGetTargetAddressOrStatement(contextNodeStatement.getContextNodeXDIAddress(), null, operation, executionContext);
 
 		if (feedbackMessageResult.isEmpty()) {
 
