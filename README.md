@@ -52,12 +52,12 @@ Then go to:
 
 | Information | Code | Status |
 | ----------- | ---- | ------ |
-| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | merged into 0.2-SNAPSHOT
-| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | merged into 0.4-SNAPSHOT
-| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | merged into 0.5-SNAPSHOT
-| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | merged into 0.7-SNAPSHOT
-| [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | active in 0.7-SNAPSHOT
-| [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | active in 0.7-SNAPSHOT
+| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | Merged per [946b5c8](https://github.com/projectdanube/xdi2/commit/946b5c8f8d5e2eb94bfd701ce73a4969012cfa9d) on 4th Apr 2014 into 0.2-SNAPSHOT after [snapshot-0.2-pre-symbol.shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.2-pre-symbol-shift).
+| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | Merged per [1c1ae72](https://github.com/projectdanube/xdi2/commit/1c1ae72b5b1c56bd825f97b7769967208035e99b) on 30th May 2014 after [snapshot-0.4-pre-link-contract-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.4-pre-link-contract-shift).
+| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | Merged per [2224dd1](https://github.com/projectdanube/xdi2/commit/2224dd1c6b5cbfdbd0058928053ffca937fa17f9) on 5th Jul 2014 after [snapshot-0.5-pre-notation-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.5-pre-notation-shift).
+| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | Merged per [7a1194b](https://github.com/projectdanube/xdi2/commit/7a1194b2ec748d446dc6d5ca02455c02eb461223) on 24th Aug 2014 after [snapshot-0.7-pre-no-xri](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-no-xri).
+| [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | Active.
+| [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | Active.
 
 ### Community
 
