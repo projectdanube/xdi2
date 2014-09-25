@@ -2,7 +2,8 @@
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 [![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2)
 
-Latest release: [release-0.6](https://github.com/projectdanube/xdi2/releases/tag/release-0.6)
+| Latest release: [0.6](https://github.com/projectdanube/xdi2/releases/tag/release-0.6) | Current snapshot: 0.7-SNAPSHOT | 
+| ----------- | ---- |
 
 [XDI2](http://github.com/projectdanube/xdi2) is a general purpose XDI library for Java, supporting both a traditional client/server model and distributed peer-to-peer data exchange. 
 
