@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Converter</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIConverter?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIConverter?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -35,6 +35,7 @@
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
 		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
 
+		<p>
 		Convert from:
 		<select name="from">
 		<option value="AUTO" <%= from.equals("AUTO") ? "selected" : "" %>>auto-detect</option>
@@ -60,8 +61,11 @@
 		<input type="submit" name="submit" value="Go!" onclick="document.getElementById('form').removeAttribute('target')">
 		<input type="submit" name="submit" value="Html!" onclick="document.getElementById('form').setAttribute('target','_blank')">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIConverterHelp.jsp">What can I do here?</a>
+		</p>
 
 	</form>
+
+	<div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

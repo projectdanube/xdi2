@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Discoverer</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIDiscoverer?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIDiscoverer?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -81,6 +81,8 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIDiscovererHelp.jsp">What can I do here?</a>
 
 	</form>
+
+	<br><div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

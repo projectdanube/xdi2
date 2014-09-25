@@ -13,7 +13,7 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Operator</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
 
@@ -416,6 +416,8 @@
 	</form>
 
 	<% } %>
+
+	<br><div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

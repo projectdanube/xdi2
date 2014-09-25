@@ -15,8 +15,6 @@
 	<span id="appname">XDI Parser</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
-	&nbsp;&nbsp;&nbsp;&nbsp;
-	View the source ABNF <a href="https://github.com/peacekeeper/xdi2/blob/master/core/src/main/resources/">here</a>...
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>
@@ -28,22 +26,28 @@
 	<form action="XDIParser" method="post" accept-charset="UTF-8">
 
 		<table><tr>
-		<td>Parse ABNF:</td>
+		<td>Parse:</td>
 		<td>
+
+		<!--
 		<select name="rulename" style="width: 200px">
 		
 		<% for (String rule : (String[]) request.getAttribute("rules")) { %>
 			<option class="input" name="rulename" value="<%= rule %>" <%= rule.equals(request.getAttribute("rulename")) ? "selected" : "" %>><%= rule %></option>
 		<% } %>
 		</select>
+		-->
 		&nbsp;
 		<input type="text" class="input" name="input" style="width: 500px" value="<%= request.getAttribute("input") != null ? ((String) request.getAttribute("input")).replace("\"", "&quot;") : "" %>">
 		&nbsp;
+		<!--
 		<input type="radio" name="parser" value="manual" <%= "manual".equals(request.getAttribute("parser")) ? "checked" : "" %>>manual (doesn't use ABNF)
 		&nbsp;
 		<input type="radio" name="parser" value="aparse" <%= "aparse".equals(request.getAttribute("parser")) ? "checked" : "" %>>aParse
 		&nbsp;
 		<input type="radio" name="parser" value="apg" <%= "apg".equals(request.getAttribute("parser")) ? "checked" : "" %>>APG
+		-->
+		<input type="hidden" name="parser" value="manual">
 		&nbsp;
 		<input type="submit" value="Go!">
 
@@ -51,6 +55,8 @@
 		</tr></table>
 
 	</form>
+
+	<br><div class="line"></div>
 
 	<div class="tabber">
 

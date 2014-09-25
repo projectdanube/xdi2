@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Messenger</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIMessenger?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIMessenger?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -27,7 +27,7 @@
 
 	<form action="XDIMessenger" method="post" accept-charset="UTF-8">
 
-		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
@@ -35,8 +35,10 @@
 		<% String writePretty = (String) request.getAttribute("writePretty"); if (writePretty == null) writePretty = ""; %>
 		<% String endpoint = (String) request.getAttribute("endpoint"); if (endpoint == null) endpoint = ""; %>
 
+		<p>
 		Send to endpoint: 
-		<input type="text" name="endpoint" size="80" value="<%= endpoint %>"><br>
+		<input type="text" name="endpoint" size="80" value="<%= endpoint %>">
+		</p>
 
 		Result Format:
 		<select name="resultFormat">
@@ -57,6 +59,8 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIMessengerHelp.jsp">What can I do here?</a>
 
 	</form>
+
+	<br><div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

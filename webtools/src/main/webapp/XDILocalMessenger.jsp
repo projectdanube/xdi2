@@ -15,7 +15,7 @@ function updateSamples() {
 	<% for (int c=0; c<((List<String>) request.getAttribute("sampleCategories")).size(); c++) { %>
 		if (category == <%= c %>) {
 			<% for (int i=0; i<((List<List<String>>) request.getAttribute("sampleInputs")).get(c).size(); i++) { %>
-				html += '<a href="XDILocalMessenger?category=<%= c+1 %>&sample=<%= i+1 %>" title="<%= ((List<List<String>>) request.getAttribute("sampleTooltips")).get(c).get(i) %>">Sample <%= i+1 %></a>&nbsp;&nbsp;';
+				html += '<a href="XDILocalMessenger?category=<%= c+1 %>&sample=<%= i+1 %>" title="<%= ((List<List<String>>) request.getAttribute("sampleTooltips")).get(c).get(i) %>"><%= i+1 %></a>&nbsp;&nbsp;';
 			<% } %>
 		}
 	<% } %>
@@ -28,7 +28,7 @@ function updateSamples() {
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Local Messenger</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<select id="categorySelect" onchange="updateSamples();">
 	<% for (int i=0; i<((List<String>) request.getAttribute("sampleCategories")).size(); i++) { %>
 		<option value="<%= i %>" <%= (i + 1) == Integer.parseInt((String) request.getAttribute("category")) ? "selected" : "" %>><%= ((List<String>) request.getAttribute("sampleCategories")).get(i) %></option>
@@ -93,6 +93,8 @@ function updateSamples() {
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDILocalMessengerHelp.jsp">What can I do here?</a>
 
 	</form>
+
+	<br><div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Grapher</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIGrapher?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIGrapher?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -31,6 +31,7 @@
 
 		<% String type = (String) request.getAttribute("type"); if (type == null) type = ""; %>
 
+		<p>
 		<select name="type">
 		<option value="d1" <%= type.equals("d1") ? "selected" : "" %>>D3 Tree</option>
 		<option value="d2" <%= type.equals("d2") ? "selected" : "" %>>JUNG KKLayout</option>
@@ -39,8 +40,11 @@
 		</select>
 		<input type="submit" value="Draw!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIGrapherHelp.jsp">What can I do here?</a>
+		</p>
 
 	</form>
+
+	<div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

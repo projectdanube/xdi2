@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Signer</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDISigner?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDISigner?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -27,7 +27,7 @@
 
 	<form action="XDISigner" method="post" accept-charset="UTF-8">
 
-		<textarea name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
@@ -41,6 +41,7 @@
 		<% String keyLength = (String) request.getAttribute("keyLength"); if (keyLength == null) keyLength = ""; %>
 		<% String singleton = (String) request.getAttribute("singleton"); if (singleton == null) singleton = ""; %>
 
+		<p>
 		Key: 
 		<input type="text" name="key" size="30" value="<%= key %>">
 		Address: 
@@ -60,6 +61,7 @@
 		<input name="writeOrdered" type="checkbox" <%= writeOrdered.equals("on") ? "checked" : "" %>>ordered=1
 
 		<input name="writePretty" type="checkbox" <%= writePretty.equals("on") ? "checked" : "" %>>pretty=1<br>
+		</p>
 
 		Digest Alg:&nbsp;<input type="text" name="digestAlgorithm" size="5" value="<%= digestAlgorithm.trim() %>">
 		Digest Len:&nbsp;<input type="text" name="digestLength" size="5" value="<%= digestLength.trim() %>">
@@ -72,6 +74,8 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISignerHelp.jsp">What can I do here?</a>
 
 	</form>
+
+	<br><div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>

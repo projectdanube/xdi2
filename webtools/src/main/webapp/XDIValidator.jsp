@@ -12,9 +12,9 @@
 	<div id="main">
 	<div class="header">
 	<span id="appname">XDI Validator</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<% for (int i=0; i<((Integer) request.getAttribute("sampleInputs")).intValue(); i++) { %>
-		<a href="XDIValidator?sample=<%= i+1 %>">Sample <%= i+1 %></a>&nbsp;&nbsp;
+		<a href="XDIValidator?sample=<%= i+1 %>"><%= i+1 %></a>&nbsp;&nbsp;
 	<% } %>
 	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
 	</div>
@@ -32,6 +32,7 @@
 		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
+		<p>
 		Validate:
 		<select name="from">
 		<option value="AUTO" <%= from.equals("AUTO") ? "selected" : "" %>>auto-detect</option>
@@ -40,8 +41,11 @@
 		</select>
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIValidatorHelp.jsp">What can I do here?</a>
+		</p>
 
 	</form>
+
+	<div class="line"></div>
 
 	<% if (request.getAttribute("stats") != null) { %>
 		<p>
