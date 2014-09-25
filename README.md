@@ -39,6 +39,8 @@ Then go to:
 
 ### Plugins
 
+See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
+
 | Link | Type | Description |
 | ----------- | ---- | ------ |
 | [xdi2-mongodb](https://github.com/projectdanube/xdi2-mongodb) | Storage | XDI Graph Storage in MongoDB
