@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
-body { font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif; border: 30px solid #bbbbbb; margin: 0px; padding: 60px; }
+body { font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif; border: 30px solid #bbbbbb; margin: 0px; padding: 60px; background-color: #fafafa; }
 * { font-size: 12pt; }
 a { text-decoration: none; color: #540dd8; padding: 8px; }
 a:hover { background-color: white; }
