@@ -112,6 +112,9 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
 			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
+		} else {
+
+			throw new IllegalArgumentException("Unknown class for ordered member " + clazz.getName());
 		}
 
 		return true;

@@ -64,6 +64,23 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createXDIArc(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+
+		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
+
+			return XDIArc.create("" + XDIConstants.CS_MEMBER_UNORDERED + identifier);
+		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
+
+			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
+
+			return XDIArc.create("" + XDIConstants.XS_VARIABLE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_VARIABLE.charAt(1));
+		} else {
+
+			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());
+		}
+	}
+
 	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XDIarc == null) throw new NullPointerException();
@@ -100,26 +117,12 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
 			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
-		}
-
-		return true;
-	}
-
-	public static XDIArc createXDIArc(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
-
-		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.CS_MEMBER_UNORDERED + identifier);
-		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
-		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.XS_VARIABLE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_VARIABLE.charAt(1));
 		} else {
 
 			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());
 		}
+
+		return true;
 	}
 
 	public static XDIArc createUuidXDIArc(String uuid, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {

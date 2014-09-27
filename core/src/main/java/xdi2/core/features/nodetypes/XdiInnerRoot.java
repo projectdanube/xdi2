@@ -100,7 +100,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	}
 
 	/*
-	 * Methods for XDI inner root arcss
+	 * Methods for arcs
 	 */
 
 	/**
