@@ -78,6 +78,10 @@ div.line { margin-left: -150px; }
 	</tr></table>
 	</p>
 
+	<div class="line"></div>
+
+	<br>
+
 	</div>
 </body>
 </html>
