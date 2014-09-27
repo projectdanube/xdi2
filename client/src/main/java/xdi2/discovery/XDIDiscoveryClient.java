@@ -216,7 +216,10 @@ public class XDIDiscoveryClient {
 
 		// cloud number check
 
-		if (CloudNumber.isValid(query) && ! xdiDiscoveryResult.getCloudNumber().getXDIAddress().equals(query)) throw new Xdi2DiscoveryException("Queried cloud number " + query + " does not match discovered cloud number " + xdiDiscoveryResult.getCloudNumber().getXDIAddress());
+		if (CloudNumber.isValid(query) && xdiDiscoveryResult.getCloudNumber() != null) {
+
+			if (! xdiDiscoveryResult.getCloudNumber().getXDIAddress().equals(query)) throw new Xdi2DiscoveryException("Queried cloud number " + query + " does not match discovered cloud number " + xdiDiscoveryResult.getCloudNumber().getXDIAddress());
+		}
 
 		// done
 
