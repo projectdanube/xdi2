@@ -4,7 +4,7 @@
 | Latest release: [0.6](https://github.com/projectdanube/xdi2/releases) | Current snapshot: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
 | ---- | ---- |
 
-[XDI2](http://github.com/projectdanube/xdi2) ("XDI Two") is an XDI library for Java, designed to be a general-purpose, lightweight and modular implementation of XDI specifications.
+[XDI2](http://github.com/projectdanube/xdi2) (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
 A sample deployment of XDI2 is available at http://xdi2.projectdanube.org.
 
