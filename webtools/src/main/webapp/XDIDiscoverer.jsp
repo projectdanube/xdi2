@@ -45,12 +45,15 @@
 
 		<tr>
 		<td>Discover from registry service: </td>
-		<td><input type="text" name="endpoint" size="80" value="<%= endpoint %>"></td>
+		<td><input type="text" id="endpoint" name="endpoint" size="80" value="<%= endpoint %>"></td>
 		</tr>
 
 		<tr>
 		<td>&nbsp;</td>
-		<td><span style="font-size: .8em;">Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar PROD (default).<br>Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar OTE.<br>Use <span style="font-size: 1em; font-weight: bold;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar STAGE.</span></td>
+		<td><span style="font-size: .8em;">
+		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar PROD (default).<br>
+		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar OTE.<br>
+		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar STAGE.</span></td>
 		</tr>
 
 		<tr>
