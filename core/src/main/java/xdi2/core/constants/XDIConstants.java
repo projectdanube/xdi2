@@ -29,11 +29,7 @@ public class XDIConstants {
 
 	public static final XDIAddress XDI_ADD_ROOT = XDIAddress.create("");
 	public static final XDIAddress XDI_ADD_CONTEXT = XDIAddress.create("");
-	public static final XDIAddress XDI_ADD_VALUE = XDIAddress.create(XDIConstants.CS_VALUE.toString());
 	public static final XDIAddress XDI_ADD_LITERAL = XDIAddress.create(XDIConstants.CS_VALUE.toString());
-
-	public static final XDIArc XDI_ARC_VALUE = XDIArc.create(XDIConstants.CS_VALUE.toString());
-	public static final XDIArc XDI_ARC_LITERAL = XDIArc.create(XDIConstants.CS_VALUE.toString());
 
 	public static final XDIAddress XDI_ADD_TRUE = XDIAddress.create("$true");
 	public static final XDIAddress XDI_ADD_FALSE = XDIAddress.create("$false");
