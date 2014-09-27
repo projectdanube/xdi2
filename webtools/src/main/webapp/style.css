@@ -8,7 +8,7 @@ body {
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
-	font-family: "TeX Gyre Heros", "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
+	font-family: "Roboto", "TeX Gyre Heros", "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
 	font-size: 16px;
 	color: #333;
 	background-color: #fafafa;
@@ -22,7 +22,7 @@ body {
 
 #imgtop {
 	z-index: 1;
-	background-color: #bbb;
+	background-color: #888;
 	top: 0px;
 	position: fixed;
 	width: 100%;
@@ -31,7 +31,7 @@ body {
 
 #imgtopleft {
 	z-index: 1;
-	background-color: #bbb;
+	background-color: #888;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -39,7 +39,7 @@ body {
 
 #imgtopright {
 	z-index: 1;
-	background-color: #bbb;
+	background-color: #888;
 	position: fixed;
 	top: 0px;
 	right: 0px;
@@ -55,7 +55,7 @@ div.header {
 	width: 100%;
 	background-color: white;
 	margin-bottom: 30px;
-	border-bottom: 1px solid #888;
+	border-bottom: 2px solid #888;
 }
 
 #appname {
@@ -86,7 +86,7 @@ hr {
 }
 
 div.line {
-	border-bottom: 1px solid #888;
+	border-bottom: 2px solid #888;
 	height: 0px;
 	margin-left: -40px;
 	margin-right: -40px;

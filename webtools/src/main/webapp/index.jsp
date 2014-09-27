@@ -14,14 +14,14 @@
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
 	<div id="main">
 	<div class="header">
-	<span id="appname">XDI2</span>
+	<span id="appname"><img src="images/app20b.png"> XDI2</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	See <a href="http://github.com/projectdanube/xdi2">http://github.com/projectdanube/xdi2</a> for the code and documentation.
 	</div>
 	
 	<p>XDI2 ("XDI Two") is an XDI library for Java, designed to be a general-purpose, lightweight and modular implementation of XDI specifications.</p>
 
-	<p class="subheader">XDI Apps</p>
+	<p class="subheader">XDI Tools</p>
 
 	<table cellpadding="5">
 	<tr>
