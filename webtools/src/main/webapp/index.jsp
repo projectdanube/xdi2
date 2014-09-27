@@ -10,7 +10,7 @@
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
 <style type="text/css">
-#main { margin-left: 150px; }
+#main { background-color: rgba(248,248,248,0.7); margin-left: 110px; margin-right: 110px; padding-left: 40px; padding-right: 40px; }
 div.line { margin-left: -150px; }
 </style>
 </head>
@@ -77,10 +77,6 @@ div.line { margin-left: -150px; }
 	<td><a href="http://wiki.oasis-open.org/xdi/">OASIS XDI TC Wiki</a></td>
 	</tr></table>
 	</p>
-
-	<div class="line"></div>
-
-	<br>
 
 	</div>
 </body>

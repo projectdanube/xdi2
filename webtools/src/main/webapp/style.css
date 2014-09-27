@@ -2,6 +2,7 @@
 }
 
 html {
+	height: 100%;
 }
 
 body {
@@ -12,6 +13,10 @@ body {
 	font-size: 16px;
 	color: #333;
 	background-color: #f8f8f8;
+	background-image:url('images/back.jpg');
+	background-position: bottom left;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 #main {
@@ -120,7 +125,7 @@ select {
 }
 
 div.result {
-	background-color: #d6c9f1;
+	background-color: rgba(214,201,241,0.9);
 	padding-left: 20px;
 	border: 3px dashed black;
 }
