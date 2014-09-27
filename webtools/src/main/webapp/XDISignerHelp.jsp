@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="xdi2.core.properties.XDI2Properties" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,8 +13,9 @@
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
 	<div id="main">
 	<div class="header">
-	<span id="appname">XDI Signer Help</span>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISigner">&gt;&gt;&gt; Back...</a>
+	<span id="appname"><img src="images/app20b.png"> XDI Signer Help</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDISigner">&gt;&gt;&gt; Back...</a><br>
+	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 
 	<div class="tabber">

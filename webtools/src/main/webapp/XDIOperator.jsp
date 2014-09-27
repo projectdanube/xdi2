@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="xdi2.core.syntax.CloudNumber" %><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="xdi2.core.properties.XDI2Properties" %>
+<%@ page import="xdi2.core.syntax.CloudNumber" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,9 +14,10 @@
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
 	<div id="main">
 	<div class="header">
-	<span id="appname">XDI Operator</span>
+	<span id="appname"><img src="images/app20b.png"> XDI Operator</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
-	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
+	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a><br>
+	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="xdi2.core.properties.XDI2Properties" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,7 +28,7 @@ function updateSamples() {
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
 	<div id="main">
 	<div class="header">
-	<span id="appname">XDI Local Messenger</span>
+	<span id="appname"><img src="images/app20b.png"> XDI Local Messenger</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;Examples: 
 	<select id="categorySelect" onchange="updateSamples();">
 	<% for (int i=0; i<((List<String>) request.getAttribute("sampleCategories")).size(); i++) { %>
@@ -36,7 +37,8 @@ function updateSamples() {
 	</select>
 	&nbsp;&nbsp;
 	<span id="samples"></span>
-	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a>
+	<a href="index.jsp">&gt;&gt;&gt; Other Apps...</a><br>
+	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 
 	<% if (request.getAttribute("error") != null) { %>

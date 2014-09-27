@@ -22,7 +22,6 @@ body {
 
 #imgtop {
 	z-index: 1;
-	background-color: #888;
 	top: 0px;
 	position: fixed;
 	width: 100%;
@@ -31,31 +30,32 @@ body {
 
 #imgtopleft {
 	z-index: 1;
-	background-color: #888;
 	position: fixed;
 	top: 0px;
 	left: 0px;
+	border-right: 1px solid #888;
+	background-color: #888;
 }
 
 #imgtopright {
 	z-index: 1;
-	background-color: #888;
 	position: fixed;
 	top: 0px;
 	right: 0px;
+	border-left: 1px solid #888;
 }
 
 div.header {
 	position: fixed;
 	top: 0px;
 	left: 0px;
-	padding-top: 40px;
+	padding-top: 15px;
+	padding-bottom: 25px;
 	padding-left: 150px;
 	height: 41px;
 	width: 100%;
 	background-color: white;
-	margin-bottom: 30px;
-	border-bottom: 2px solid #888;
+	border-bottom: 1px solid #888;
 }
 
 #appname {
@@ -65,6 +65,7 @@ div.header {
 
 a {
 	text-decoration: none;
+	font-weight: bold;
 	color: #540dd8;
 	padding: 8px;
 }
@@ -76,6 +77,7 @@ a:hover {
 p.subheader {
 	font-size: 16pt;
 	font-weight: bold;
+	margin-bottom: 5px;
 }
 
 hr {
@@ -86,7 +88,7 @@ hr {
 }
 
 div.line {
-	border-bottom: 2px solid #888;
+	border-bottom: 1px solid #888;
 	height: 0px;
 	margin-left: -40px;
 	margin-right: -40px;

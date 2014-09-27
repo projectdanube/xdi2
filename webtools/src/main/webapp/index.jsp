@@ -9,6 +9,10 @@
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
+<style type="text/css">
+#main { margin-left: 150px; }
+div.line { margin-left: -150px; }
+</style>
 </head>
 <body>
 	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
@@ -16,10 +20,12 @@
 	<div class="header">
 	<span id="appname"><img src="images/app20b.png"> XDI2</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	See <a href="http://github.com/projectdanube/xdi2">http://github.com/projectdanube/xdi2</a> for the code and documentation.
+	<strong>See <a href="http://github.com/projectdanube/xdi2">http://github.com/projectdanube/xdi2</a> for the code and documentation.</strong><br>
+	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 	
-	<p>XDI2 ("XDI Two") is an XDI library for Java, designed to be a general-purpose, lightweight and modular implementation of XDI specifications.</p>
+	<p>XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.<br>
+	This is an example deployment of an XDI2 server and several web-based XDI tools.</p>
 
 	<p class="subheader">XDI Tools</p>
 
@@ -71,10 +77,6 @@
 	<td><a href="http://wiki.oasis-open.org/xdi/">OASIS XDI TC Wiki</a></td>
 	</tr></table>
 	</p>
-	
-	<div class="line"></div>
-
-	<p>This is version <strong><%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %></strong>, Git commit <strong><%= XDI2Properties.properties.getProperty("git.commit.id") %> <%= XDI2Properties.properties.getProperty("git.commit.time") %></strong>.</p>
 
 	</div>
 </body>
