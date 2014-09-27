@@ -36,7 +36,6 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 		if (contextNode == null) throw new NullPointerException();
 
 		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
-		if (contextNode.getContextNode() != null && XdiValue.isValid(contextNode.getContextNode())) return false;
 
 		return true;
 	}
@@ -58,22 +57,6 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	/*
 	 * Instance methods
 	 */
-
-	/**
-	 * Creates or returns an XDI value under this XDI attribute element.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI value.
-	 */
-	@Override
-	public XdiValue getXdiValue(boolean create) {
-
-		XDIArc valuearc = XdiValue.createXDIArc();
-
-		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valuearc) : this.getContextNode().getContextNode(valuearc, false);
-		if (valueContextNode == null) return null;
-
-		return new XdiValue(valueContextNode);
-	}
 
 	/*
 	 * Methods for arcs

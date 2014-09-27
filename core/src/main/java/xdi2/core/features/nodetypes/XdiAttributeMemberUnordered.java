@@ -81,22 +81,6 @@ public final class XdiAttributeMemberUnordered extends XdiAbstractMemberUnordere
 		return new XdiAttributeCollection(this.getContextNode().getContextNode());
 	}
 
-	/**
-	 * Creates or returns an XDI value under this XDI attribute member.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI value.
-	 */
-	@Override
-	public XdiValue getXdiValue(boolean create) {
-
-		XDIArc valuearc = XdiValue.createXDIArc();
-
-		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valuearc) : this.getContextNode().getContextNode(valuearc, false);
-		if (valueContextNode == null) return null;
-
-		return new XdiValue(valueContextNode);
-	}
-
 	/*
 	 * Helper classes
 	 */
