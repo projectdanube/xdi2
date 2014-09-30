@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.instantiation;
+package xdi2.messaging.target.contributor.impl.connection;
 
 import xdi2.client.agent.XDIAgent;
 import xdi2.client.agent.impl.XDIBasicAgent;
@@ -25,22 +25,22 @@ import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
- * This contributor can instantiate new link contracts.
+ * This contributor can process connection requests.
  */
 @ContributorMount(
 		contributorAddresses={"{{}}{$do}"},
 		operationAddresses={"$do{}"}
 		)
-public class InstantiationContributor extends AbstractContributor implements Prototype<InstantiationContributor> {
+public class ConnectionRequestContributor extends AbstractContributor implements Prototype<ConnectionRequestContributor> {
 
 	private Graph targetGraph;
 
-	public InstantiationContributor(Graph targetGraph) {
+	public ConnectionRequestContributor(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
 	}
 
-	public InstantiationContributor() {
+	public ConnectionRequestContributor() {
 
 		this(null);
 	}
@@ -50,11 +50,11 @@ public class InstantiationContributor extends AbstractContributor implements Pro
 	 */
 
 	@Override
-	public InstantiationContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public ConnectionRequestContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// create new contributor
 
-		InstantiationContributor contributor = new InstantiationContributor();
+		ConnectionRequestContributor contributor = new ConnectionRequestContributor();
 
 		// set the graph
 
