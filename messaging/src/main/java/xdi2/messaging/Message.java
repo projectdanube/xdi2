@@ -191,10 +191,10 @@ public final class Message implements Serializable, Comparable<Message> {
 		Relation toPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
 		if (toPeerRootXDIArcRelation == null) return null;
 
-		XDIAddress toPeerRootAddress = toPeerRootXDIArcRelation.getTargetContextNodeXDIAddress();
-		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isValidXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
+		XDIAddress toPeerRootXDIAddress = toPeerRootXDIArcRelation.getTargetContextNodeXDIAddress();
+		if (toPeerRootXDIAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isValidXDIArc(toPeerRootXDIAddress.getFirstXDIArc())) return null;
 
-		return toPeerRootAddress.getFirstXDIArc();
+		return toPeerRootXDIAddress.getFirstXDIArc();
 	}
 
 	/**
@@ -242,10 +242,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set the link contract address.
 	 */
-	public void setLinkContractXDIAddress(XDIAddress linkContractAddress) {
+	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
 
 		this.getContextNode().delRelations(XDILinkContractConstants.XDI_ADD_DO);
-		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_DO, linkContractAddress);
+		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_DO, linkContractXDIAddress);
 	}
 
 	/**
@@ -406,103 +406,103 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation address to use for the new operation.
-	 * @param targetAddress The target address to which the operation applies.
+	 * @param operationXDIAddress The operation address to use for the new operation.
+	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationAddress, XDIAddress targetAddress) {
+	public Operation createOperation(XDIAddress operationXDIAddress, XDIAddress targetXDIAddress) {
 
-		Relation relation = this.getOperationsContextNode().setRelation(operationAddress, targetAddress);
+		Relation relation = this.getOperationsContextNode().setRelation(operationXDIAddress, targetXDIAddress);
 
 		return Operation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation address to use for the new operation.
-	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @param operationXDIAddress The operation address to use for the new operation.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationAddress, Iterator<XDIStatement> targetStatementAddresses) {
+	public Operation createOperation(XDIAddress operationXDIAddress, Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), operationAddress, true);
-		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), operationXDIAddress, true);
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return Operation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation address to use for the new operation.
-	 * @param targetStatementAddress The target statement to which the operation applies.
+	 * @param operationXDIAddress The operation address to use for the new operation.
+	 * @param targetXDIStatementAddress The target statement to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationAddress, XDIStatement targetStatementAddress) {
+	public Operation createOperation(XDIAddress operationXDIAddress, XDIStatement targetXDIStatementAddress) {
 
-		return this.createOperation(operationAddress, new SingleItemIterator<XDIStatement> (targetStatementAddress));
+		return this.createOperation(operationXDIAddress, new SingleItemIterator<XDIStatement> (targetXDIStatementAddress));
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation address to use for the new operation.
+	 * @param operationXDIAddress The operation address to use for the new operation.
 	 * @param targetGraph The target graph with statements to which this operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationAddress, Graph targetGraph) {
+	public Operation createOperation(XDIAddress operationXDIAddress, Graph targetGraph) {
 
-		return this.createOperation(operationAddress, new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+		return this.createOperation(operationXDIAddress, new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
 	}
 
 	/**
 	 * Creates a new operation and adds it to this XDI message.
-	 * @param operationAddress The operation address to use for the new operation.
+	 * @param operationXDIAddress The operation address to use for the new operation.
 	 * @param target The target address or target statement to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationAddress, String target) {
+	public Operation createOperation(XDIAddress operationXDIAddress, String target) {
 
 		try {
 
-			return this.createOperation(operationAddress, XDIAddress.create(target));
+			return this.createOperation(operationXDIAddress, XDIAddress.create(target));
 		} catch (Exception ex) {
 
-			return this.createOperation(operationAddress, XDIStatement.create(target));
+			return this.createOperation(operationXDIAddress, XDIStatement.create(target));
 		}
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetAddress The target address to which the operation applies.
+	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(XDIAddress targetAddress) {
+	public GetOperation createGetOperation(XDIAddress targetXDIAddress) {
 
-		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_GET, targetXDIAddress);
 
 		return GetOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(Iterator<XDIStatement> targetStatementAddresses) {
+	public GetOperation createGetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_GET, true);
-		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return GetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetXDIStatement The target statement to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(XDIStatement targetStatement) {
+	public GetOperation createGetOperation(XDIStatement targetXDIStatement) {
 
-		return this.createGetOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+		return this.createGetOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
 	}
 
 	/**
@@ -517,37 +517,37 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $set operation and adds it to this XDI message.
-	 * @param targetAddress The target address to which the operation applies.
+	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $set operation.
 	 */
-	public SetOperation createSetOperation(XDIAddress targetAddress) {
+	public SetOperation createSetOperation(XDIAddress targetXDIAddress) {
 
-		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_SET, targetAddress);
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_SET, targetXDIAddress);
 
 		return SetOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $set operation and adds it to this XDI message.
-	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
 	 * @return The newly created $set operation.
 	 */
-	public SetOperation createSetOperation(Iterator<XDIStatement> targetStatementAddresses) {
+	public SetOperation createSetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_SET, true);
-		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return SetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new $set operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetXDIStatement The target statement to which the operation applies.
 	 * @return The newly created $set operation.
 	 */
-	public SetOperation createSetOperation(XDIStatement targetStatement) {
+	public SetOperation createSetOperation(XDIStatement targetXDIStatement) {
 
-		return this.createSetOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+		return this.createSetOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
 	}
 
 	/**
@@ -562,37 +562,37 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetAddress The target address to which the operation applies.
+	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(XDIAddress targetAddress) {
+	public DelOperation createDelOperation(XDIAddress targetXDIAddress) {
 
-		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_DEL, targetAddress);
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_DEL, targetXDIAddress);
 
 		return DelOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(Iterator<XDIStatement> targetStatementAddresses) {
+	public DelOperation createDelOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DEL, true);
-		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return DelOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetXDIStatement The target statement to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(XDIStatement targetStatement) {
+	public DelOperation createDelOperation(XDIStatement targetXDIStatement) {
 
-		return this.createDelOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+		return this.createDelOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
 	}
 
 	/**
@@ -607,37 +607,37 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetAddress The target address to which the operation applies.
+	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(XDIAddress targetAddress) {
+	public DoOperation createDoOperation(XDIAddress targetXDIAddress) {
 
-		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_DO, targetAddress);
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_DO, targetXDIAddress);
 
 		return DoOperation.fromMessageAndRelation(this, relation);
 	}
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(Iterator<XDIStatement> targetStatementAddresses) {
+	public DoOperation createDoOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DO, true);
-		if (targetStatementAddresses != null) while (targetStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetStatementAddresses.next());
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return DoOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetStatement The target statement to which the operation applies.
+	 * @param targetXDIStatement The target statement to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(XDIStatement targetStatement) {
+	public DoOperation createDoOperation(XDIStatement targetXDIStatement) {
 
-		return this.createDoOperation(new SingleItemIterator<XDIStatement> (targetStatement));
+		return this.createDoOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
 	}
 
 	/**
@@ -667,11 +667,11 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns all XDI operations with a given operation address in this XDI message.
 	 * @return An iterator over all XDI operations.
 	 */
-	public ReadOnlyIterator<Operation> getOperations(XDIAddress operationAddress) {
+	public ReadOnlyIterator<Operation> getOperations(XDIAddress operationXDIAddress) {
 
 		// get all relations that are valid XDI operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationAddress);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXDIAddress);
 
 		return new MappingRelationOperationIterator(this, relations);
 	}
