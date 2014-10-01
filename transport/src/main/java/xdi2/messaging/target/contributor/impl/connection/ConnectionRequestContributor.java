@@ -85,6 +85,16 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 	@Override
 	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
+
+		// determine requesting authority
+
+		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
+
+		// determine authorizing authority
+
+		XDIAddress authorizingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
+
 		// use agent to obtain link contract template
 
 		ContextNode contextNode;
@@ -92,7 +102,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		try {
 
 			XDIAgent xdiAgent = new XDIBasicAgent();
-			contextNode = xdiAgent.get(operation.getTargetXDIAddress(), null);
+			contextNode = xdiAgent.get(linkContractTemplateXDIaddress, null);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
@@ -103,14 +113,6 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
 		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
-
-		// determine requesting authority
-
-		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
-
-		// determine authorizing authority
-
-		XDIAddress authorizingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
 
 		// instantiate link contract
 

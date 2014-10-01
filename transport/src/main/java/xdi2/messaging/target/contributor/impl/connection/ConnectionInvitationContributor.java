@@ -1,19 +1,12 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
-import xdi2.client.agent.XDIAgent;
-import xdi2.client.agent.impl.XDIBasicAgent;
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
-import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiAbstractVariable;
-import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
 import xdi2.messaging.DoOperation;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -29,7 +22,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  */
 @ContributorMount(
 		contributorAddresses={"{{}}{$do}"},
-		operationAddresses={"$is$do{}"}
+		operationAddresses={"$do$is{}"}
 		)
 public class ConnectionInvitationContributor extends AbstractContributor implements Prototype<ConnectionInvitationContributor> {
 
@@ -85,48 +78,23 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 	@Override
 	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// use agent to obtain link contract template
-
-		ContextNode contextNode;
-
-		try {
-
-			XDIAgent xdiAgent = new XDIBasicAgent();
-			contextNode = xdiAgent.get(operation.getTargetXDIAddress(), null);
-		} catch (Exception ex) {
-
-			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
-		}
-
-		XdiVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
-		if (xdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
-
-		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
-		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
+		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
 
 		// determine requesting authority
 
-		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
+		XDIAddress requestingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
 
 		// determine authorizing authority
 
-		XDIAddress authorizingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
+		XDIAddress authorizingAuthority = operation.getSenderXDIAddress();
 
-		// instantiate link contract
+		// create connection request
 
-		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation();
-		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
-		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
-		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
-
-		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(this.getTargetGraph(), true);
-
-		// return link contract instance in result
-
-		messageResult.getGraph().setStatement(XDIStatement.fromComponents(
-				linkContractTemplate.getContextNode().getXDIAddress(),
-				XDIDictionaryConstants.XDI_ADD_TYPE, 
-				genericLinkContract.getContextNode().getXDIAddress())); 
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(requestingAuthority);
+		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(authorizingAuthority));
+		message.setLinkContractXDIAddress(linkContractTemplateXDIaddress);
+		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
 
 		// done
 
