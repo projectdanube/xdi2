@@ -17,5 +17,5 @@ public class SecretTokenCensoringCopyStrategy extends CopyStrategy {
 
 			return literal;
 		}
-	};
+	}
 }
