@@ -62,6 +62,10 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 		return publicKey;
 	}
 
+	/*
+	 * Getters and setters
+	 */
+	
 	public XDIDiscoveryClient getXdiDiscoveryClient() {
 
 		return this.xdiDiscoveryClient;
