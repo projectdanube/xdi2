@@ -1,9 +1,13 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphUtil;
+import xdi2.discovery.XDIDiscoveryClient;
+import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -19,6 +23,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * This contributor can process connection invitations.
+ * Warning: This is experimental, do not use for serious applications.
  */
 @ContributorMount(
 		contributorAddresses={"{{}}{$do}"},
@@ -26,16 +31,20 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		)
 public class ConnectionInvitationContributor extends AbstractContributor implements Prototype<ConnectionInvitationContributor> {
 
-	private Graph targetGraph;
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
 
-	public ConnectionInvitationContributor(Graph targetGraph) {
+	private Graph targetGraph;
+	private XDIDiscoveryClient xdiDiscoveryClient;
+
+	public ConnectionInvitationContributor(Graph targetGraph, XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.targetGraph = targetGraph;
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	public ConnectionInvitationContributor() {
 
-		this(null);
+		this(null, DEFAULT_DISCOVERY_CLIENT);
 	}
 
 	/*
@@ -52,6 +61,10 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		// set the graph
 
 		contributor.setTargetGraph(this.getTargetGraph());
+
+		// set the discovery client
+
+		contributor.setXdiDiscoveryClient(this.getXdiDiscoveryClient());
 
 		// done
 
@@ -88,13 +101,36 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		XDIAddress authorizingAuthority = operation.getSenderXDIAddress();
 
+		// discover authorizing authority
+
+		XDIDiscoveryResult xdiDiscoveryResult;
+
+		try {
+
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority, null);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("XDI Discovery failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);
+		}
+
+		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for authorizing authority at " + authorizingAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for authorizing authority at " + authorizingAuthority, null, executionContext);
+
 		// create connection request
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(requestingAuthority);
 		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(authorizingAuthority));
-		message.setLinkContractXDIAddress(linkContractTemplateXDIaddress);
+		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
+
+		try {
+
+			new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope, messageResult);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("Problem while sending connection request: " + ex.getMessage(), ex, executionContext);
+		}
 
 		// done
 
@@ -113,5 +149,15 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 	public void setTargetGraph(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
+	}
+
+	public XDIDiscoveryClient getXdiDiscoveryClient() {
+
+		return this.xdiDiscoveryClient;
+	}
+
+	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 }

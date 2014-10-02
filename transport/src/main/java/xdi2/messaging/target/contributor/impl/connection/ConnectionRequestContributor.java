@@ -26,6 +26,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * This contributor can process connection requests.
+ * Warning: This is experimental, do not use for serious applications.
  */
 @ContributorMount(
 		contributorAddresses={"{{}}{$do}"},
