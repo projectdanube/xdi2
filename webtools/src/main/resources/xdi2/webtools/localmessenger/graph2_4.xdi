@@ -1,6 +1,6 @@
 ([=]!:uuid:1111)/$ref/
-([=]!:uuid:1111/#trusted)$do/$all/
+([=]!:uuid:1111/#local)$do/$all/
+([=]!:uuid:1111/#local)($do$if$or/$true){$msg}<$ip>&/&/"127.0.0.1"
+([=]!:uuid:1111/#local)($do$if$or/$true){$msg}<$sig><$valid>&/&/true
 [=]!:uuid:1111<#email>&/&/"markus.sabadello@gmail.com"
-[=]!:uuid:1111/#trusted/($do$if$or/$true/({$msg}<$ip>&/&/"127.0.0.1"))
-[=]!:uuid:1111/#trusted/($do$if$or/$true/({$msg}<$sig><$valid>&/&/true))
 /$is$ref/([=]!:uuid:1111)
