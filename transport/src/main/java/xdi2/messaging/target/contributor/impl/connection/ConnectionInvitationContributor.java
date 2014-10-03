@@ -4,7 +4,10 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVariableSingletonIterator;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
@@ -123,6 +126,13 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(authorizingAuthority));
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
+
+		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
+
+		for (XdiVariable xdiVariable : xdiVariablesIterator) {
+
+			CopyUtil.copyContextNode(xdiVariable.getContextNode(), message.getContextNode(), null);
+		}
 
 		try {
 
