@@ -137,7 +137,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 			ContextNode customReplacementContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
 			XDIAddress customReplacementXDIAddress = customReplacementContextNode == null ? null : customReplacementContextNode.getXDIAddress();
 
-			if (log.isDebugEnabled()) log.debug("Custom variable replacement: " + customReplacementXDIArc + " --> " + customReplacementXDIAddress);
+			if (log.isDebugEnabled()) log.debug("Custom variable in connection request: " + customReplacementXDIArc + " --> " + customReplacementXDIAddress);
 
 			if (customReplacementXDIArc == null || customReplacementXDIAddress == null) continue;
 

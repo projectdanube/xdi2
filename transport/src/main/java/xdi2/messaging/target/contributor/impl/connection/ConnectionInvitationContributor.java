@@ -1,5 +1,8 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
@@ -33,6 +36,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		operationAddresses={"$do$is{}"}
 		)
 public class ConnectionInvitationContributor extends AbstractContributor implements Prototype<ConnectionInvitationContributor> {
+
+	private static final Logger log = LoggerFactory.getLogger(ConnectionInvitationContributor.class);
 
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
 
@@ -130,6 +135,8 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
 
 		for (XdiVariable xdiVariable : xdiVariablesIterator) {
+
+			if (log.isDebugEnabled()) log.debug("Custom variable in connection request: " + xdiVariable.getXDIArc());
 
 			CopyUtil.copyContextNode(xdiVariable.getContextNode(), message.getContextNode(), null);
 		}
