@@ -24,7 +24,7 @@ public class LinkContractInstantiation {
 	private XDIAddress authorizingAuthority;
 	private XDIAddress requestingAuthority;
 
-	public GenericLinkContract execute(Graph targetGraph, boolean create) {
+	public GenericLinkContract execute(Graph targetGraph, Map<XDIArc, XDIAddress> customReplacements, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
@@ -39,6 +39,7 @@ public class LinkContractInstantiation {
 		// set up permissions
 
 		Map<XDIArc, XDIAddress> replacements = new HashMap<XDIArc, XDIAddress> ();
+		replacements.putAll(customReplacements);
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
 

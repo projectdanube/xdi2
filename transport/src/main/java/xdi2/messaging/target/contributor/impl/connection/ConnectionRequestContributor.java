@@ -1,16 +1,25 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.client.agent.XDIAgent;
 import xdi2.client.agent.impl.XDIBasicAgent;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVariableSingletonIterator;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
 import xdi2.messaging.DoOperation;
@@ -33,6 +42,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		operationAddresses={"$do{}"}
 		)
 public class ConnectionRequestContributor extends AbstractContributor implements Prototype<ConnectionRequestContributor> {
+
+	private static final Logger log = LoggerFactory.getLogger(ConnectionRequestContributor.class);
 
 	private Graph targetGraph;
 
@@ -98,22 +109,40 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// use agent to obtain link contract template
 
-		ContextNode contextNode;
+		ContextNode linkContractTemplateContextNode;
 
 		try {
 
 			XDIAgent xdiAgent = new XDIBasicAgent();
-			contextNode = xdiAgent.get(linkContractTemplateXDIaddress, null);
+			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress, null);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		XdiVariable xdiVariable = XdiAbstractVariable.fromContextNode(contextNode);
-		if (xdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
+		XdiVariable linkContractTemplateXdiVariable = XdiAbstractVariable.fromContextNode(linkContractTemplateContextNode);
+		if (linkContractTemplateXdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template variable at address " + operation.getTargetXDIAddress(), null, executionContext);
 
-		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(xdiVariable);
+		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(linkContractTemplateXdiVariable);
 		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
+
+		// read custom replacements from message
+
+		Map<XDIArc, XDIAddress> customReplacements = new HashMap<XDIArc, XDIAddress> ();
+		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
+
+		for (XdiVariable xdiVariable : xdiVariablesIterator) {
+
+			XDIArc customReplacementXDIArc = xdiVariable.getXDIArc();
+			ContextNode customReplacementContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
+			XDIAddress customReplacementXDIAddress = customReplacementContextNode == null ? null : customReplacementContextNode.getXDIAddress();
+
+			if (log.isDebugEnabled()) log.debug("Custom variable replacement: " + customReplacementXDIArc + " --> " + customReplacementXDIAddress);
+
+			if (customReplacementXDIArc == null || customReplacementXDIAddress == null) continue;
+
+			customReplacements.put(customReplacementXDIArc, customReplacementXDIAddress);
+		}
 
 		// instantiate link contract
 
@@ -122,7 +151,10 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 
-		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(this.getTargetGraph(), true);
+		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(
+				this.getTargetGraph(), 
+				customReplacements, 
+				true);
 
 		// return link contract instance in result
 
