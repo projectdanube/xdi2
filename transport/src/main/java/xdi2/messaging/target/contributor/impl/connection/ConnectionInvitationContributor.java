@@ -136,7 +136,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		for (XdiVariable xdiVariable : xdiVariablesIterator) {
 
-			if (log.isDebugEnabled()) log.debug("Custom variable in connection request: " + xdiVariable.getXDIArc());
+			if (log.isDebugEnabled()) log.debug("Custom variable in connection invitation: " + xdiVariable.getXDIArc());
 
 			CopyUtil.copyContextNode(xdiVariable.getContextNode(), message.getContextNode(), null);
 		}
