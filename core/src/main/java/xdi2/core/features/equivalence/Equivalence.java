@@ -11,6 +11,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 
 public class Equivalence {
@@ -21,14 +22,25 @@ public class Equivalence {
 	 * Methods for identity links ($is).
 	 */
 
-	public static Iterator<Relation> getIdentityRelations(ContextNode contextNode) {
+	public static ReadOnlyIterator<Relation> getIdentityRelations(ContextNode contextNode) {
 
-		return contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS);
+		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS);
+
+		return relations;
 	}
 
-	public static Iterator<ContextNode> getIdentityContextNodes(ContextNode contextNode) {
+	public static ReadOnlyIterator<ContextNode> getIdentityContextNodes(ContextNode contextNode) {
 
-		return new MappingRelationTargetContextNodeIterator(getIdentityRelations(contextNode));
+		ReadOnlyIterator<Relation> relations = getIdentityRelations(contextNode);
+
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationTargetContextNodeIterator(relations));
+	}
+
+	public static ContextNode getIdentityContextNode(ContextNode contextNode) {
+
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS);
+
+		return relation == null ? null : relation.follow();
 	}
 
 	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
@@ -41,9 +53,9 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeXDIAddress);
 	}
 
-	public static Iterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
+	public static ReadOnlyIterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
 
-		Iterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_IS);
+		ReadOnlyIterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_IS);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(identityRelations);
@@ -51,11 +63,11 @@ public class Equivalence {
 		return new CompositeIterator<Relation> (iterators.iterator());
 	}
 
-	public static Iterator<ContextNode> getIncomingIdentityContextNodes(ContextNode contextNode) {
+	public static ReadOnlyIterator<ContextNode> getIncomingIdentityContextNodes(ContextNode contextNode) {
 
-		Iterator<Relation> incomingIdentityRelations = getIncomingIdentityRelations(contextNode);
+		ReadOnlyIterator<Relation> incomingIdentityRelations = getIncomingIdentityRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingIdentityRelations);
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingIdentityRelations));
 	}
 
 	/*
@@ -97,9 +109,9 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, referencecontextNodeXDIAddress);
 	}
 
-	public static Iterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
+	public static ReadOnlyIterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
 
-		Iterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REF);
+		ReadOnlyIterator<Relation> referenceRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REF);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(referenceRelations);
@@ -107,11 +119,11 @@ public class Equivalence {
 		return new CompositeIterator<Relation> (iterators.iterator());
 	}
 
-	public static Iterator<ContextNode> getIncomingReferenceContextNodes(ContextNode contextNode) {
+	public static ReadOnlyIterator<ContextNode> getIncomingReferenceContextNodes(ContextNode contextNode) {
 
 		Iterator<Relation> incomingReferenceRelations = getIncomingReferenceRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingReferenceRelations);
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReferenceRelations));
 	}
 
 	/*
@@ -153,9 +165,9 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementcontextNodeXDIAddress);
 	}
 
-	public static Iterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
+	public static ReadOnlyIterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
 
-		Iterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REP);
+		ReadOnlyIterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REP);
 
 		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
 		iterators.add(replacementRelations);
@@ -163,11 +175,11 @@ public class Equivalence {
 		return new CompositeIterator<Relation> (iterators.iterator());
 	}
 
-	public static Iterator<ContextNode> getIncomingReplacementContextNodes(ContextNode contextNode) {
+	public static ReadOnlyIterator<ContextNode> getIncomingReplacementContextNodes(ContextNode contextNode) {
 
 		Iterator<Relation> incomingReplacementRelations = getIncomingReplacementRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingReplacementRelations);
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReplacementRelations));
 	}
 
 	/*
