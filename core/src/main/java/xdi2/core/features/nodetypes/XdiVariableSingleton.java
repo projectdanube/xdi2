@@ -83,9 +83,9 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntitySingletonIterator extends NotNullIterator<XdiVariableSingleton> {
+	public static class MappingContextNodeXdiVariableSingletonIterator extends NotNullIterator<XdiVariableSingleton> {
 
-		public MappingContextNodeXdiEntitySingletonIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiVariableSingletonIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiVariableSingleton> (contextNodes) {
 
