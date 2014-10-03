@@ -1,14 +1,9 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.features.nodetypes.XdiVariable;
-import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVariableSingletonIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
@@ -41,8 +36,6 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		operationAddresses={"$get$is", "$set$is", "$del$is", "$do$is", "$do$is{}"}
 		)
 public class InverseOperationContributor extends AbstractContributor implements Prototype<InverseOperationContributor> {
-
-	private static final Logger log = LoggerFactory.getLogger(InverseOperationContributor.class);
 
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
 
@@ -193,19 +186,11 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
+		message.deleteOperations();
 		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(recipientXDIAddress));
-		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		if (targetXDIAddress != null) message.createOperation(inverseOperationXDIAddress, targetXDIAddress);
 		if (targetXDIStatement != null) message.createOperation(inverseOperationXDIAddress, targetXDIStatement);
-
-		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
-
-		for (XdiVariable xdiVariable : xdiVariablesIterator) {
-
-			if (log.isDebugEnabled()) log.debug("Custom variable in message with inverse operation: " + xdiVariable.getXDIArc());
-
-			CopyUtil.copyContextNode(xdiVariable.getContextNode(), message.getContextNode(), null);
-		}
 
 		try {
 
