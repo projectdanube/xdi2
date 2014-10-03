@@ -21,7 +21,6 @@ import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVa
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.GraphUtil;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -105,7 +104,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// determine authorizing authority
 
-		XDIAddress authorizingAuthority = GraphUtil.getOwnerXDIAddress(this.getTargetGraph());
+		XDIAddress authorizingAuthority = operation.getMessage().getToXDIAddress();
 
 		// use agent to obtain link contract template
 

@@ -198,6 +198,17 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Return the TO address of the message.
+	 */
+	public XDIAddress getToXDIAddress() {
+
+		XDIArc toPeerRootXDIArc = this.getToPeerRootXDIArc();
+		if (toPeerRootXDIArc == null) return null;
+
+		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc);
+	}
+
+	/**
 	 * Set the TO peer root arc of the message.
 	 */
 	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
@@ -208,6 +219,16 @@ public final class Message implements Serializable, Comparable<Message> {
 
 			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIArc));
 		}
+	}
+
+	/**
+	 * Set the TO address of the message.
+	 */
+	public void setToXDIAddress(XDIAddress toXDIAddress) {
+
+		XDIArc toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(toXDIAddress);
+
+		this.setToPeerRootXDIArc(toPeerRootXDIArc);
 	}
 
 	/**
