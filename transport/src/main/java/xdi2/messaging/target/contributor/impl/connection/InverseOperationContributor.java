@@ -13,7 +13,6 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
-import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.DelOperation;
@@ -189,7 +188,8 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		// create connection request
 
-		XDIAddress inverseOperationXDIAddress = XDIAddressUtil.parentXDIAddress(operation.getOperationXDIAddress(), 1);
+		//TODO: this is not quite right
+		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(senderXDIAddress);
