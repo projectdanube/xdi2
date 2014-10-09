@@ -3,11 +3,15 @@ package xdi2.messaging.target.contributor.impl.connection;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
+import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.DelOperation;
@@ -183,12 +187,15 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		//TODO: this is not quite right
 		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
+		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress(operation.getMessage());
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		message.getLinkContractXDIAddress();
 		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
 		message.deleteOperations();
 		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(recipientXDIAddress));
+		message.setLinkContractXDIAddress(inverseLinkContractXDIAddress);
 		if (targetXDIAddress != null) message.createOperation(inverseOperationXDIAddress, targetXDIAddress);
 		if (targetXDIStatement != null) message.createOperation(inverseOperationXDIAddress, targetXDIStatement);
 
@@ -203,6 +210,18 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		// done
 
 		return ContributorResult.SKIP_MESSAGING_TARGET;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	public static XDIAddress getInverseLinkContractXDIAddress(Message message) {
+
+		Relation inverseLinkContractRelation = message.getContextNode().getRelation(XDIAddressUtil.concatXDIAddresses(XDIDictionaryConstants.XDI_ADD_IS, XDILinkContractConstants.XDI_ADD_DO));
+		if (inverseLinkContractRelation == null) return null;
+
+		return inverseLinkContractRelation.getTargetContextNodeXDIAddress();
 	}
 
 	/*
