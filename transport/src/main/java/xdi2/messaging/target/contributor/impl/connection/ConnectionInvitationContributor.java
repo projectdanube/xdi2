@@ -39,7 +39,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectionInvitationContributor.class);
 
-	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private Graph targetGraph;
 	private XDIDiscoveryClient xdiDiscoveryClient;

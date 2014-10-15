@@ -41,7 +41,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		)
 public class InverseOperationContributor extends AbstractContributor implements Prototype<InverseOperationContributor> {
 
-	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private Graph targetGraph;
 	private XDIDiscoveryClient xdiDiscoveryClient;

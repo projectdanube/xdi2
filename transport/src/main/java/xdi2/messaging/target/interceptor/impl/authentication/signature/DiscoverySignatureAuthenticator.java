@@ -19,7 +19,7 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 
 	private static Logger log = LoggerFactory.getLogger(DiscoverySignatureAuthenticator.class.getName());
 
-	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = new XDIDiscoveryClient();
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
