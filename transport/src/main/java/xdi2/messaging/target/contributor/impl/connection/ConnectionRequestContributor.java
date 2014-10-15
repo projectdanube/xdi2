@@ -21,6 +21,7 @@ import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVa
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.DoOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
@@ -44,16 +45,20 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectionRequestContributor.class);
 
-	private Graph targetGraph;
+	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
-	public ConnectionRequestContributor(Graph targetGraph) {
+	private Graph targetGraph;
+	private XDIDiscoveryClient xdiDiscoveryClient;
+
+	public ConnectionRequestContributor(Graph targetGraph, XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.targetGraph = targetGraph;
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	public ConnectionRequestContributor() {
 
-		this(null);
+		this(null, DEFAULT_DISCOVERY_CLIENT);
 	}
 
 	/*
@@ -112,7 +117,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			XDIAgent xdiAgent = new XDIBasicAgent();
+			XDIAgent xdiAgent = new XDIBasicAgent(this.getXdiDiscoveryClient());
 			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress, null);
 		} catch (Exception ex) {
 
@@ -179,5 +184,15 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 	public void setTargetGraph(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
+	}
+
+	public XDIDiscoveryClient getXdiDiscoveryClient() {
+
+		return this.xdiDiscoveryClient;
+	}
+
+	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 }
