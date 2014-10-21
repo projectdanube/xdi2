@@ -185,6 +185,38 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
+	 * Returns the sender of the operation's message collection.
+	 * @return The sender of the operation's message collection.
+	 */
+	public ContextNode getSender() {
+
+		return this.getMessage().getMessageCollection().getSender();
+	}
+
+	/**
+	 * Returns the sender address of the operation's message collection.
+	 * @return The sender address of the operation's message collection.
+	 */
+	public XDIAddress getSenderXDIAddress() {
+
+		return this.getMessage().getMessageCollection().getSenderXDIAddress();
+	}
+
+	/**
+	 * Is this a read-only operation?
+	 */
+	public boolean isReadOnlyOperation() {
+
+		if (this instanceof GetOperation) return true;
+
+		return false;
+	}
+
+	/*
+	 * Operation parameters
+	 */
+
+	/**
 	 * Sets a parameter value of this operation.
 	 * @param parameterAddress The parameter XRI.
 	 * @param parameterValue The parameter value.
@@ -265,34 +297,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral;
-	}
-
-	/**
-	 * Returns the sender of the operation's message collection.
-	 * @return The sender of the operation's message collection.
-	 */
-	public ContextNode getSender() {
-
-		return this.getMessage().getMessageCollection().getSender();
-	}
-
-	/**
-	 * Returns the sender address of the operation's message collection.
-	 * @return The sender address of the operation's message collection.
-	 */
-	public XDIAddress getSenderXDIAddress() {
-
-		return this.getMessage().getMessageCollection().getSenderXDIAddress();
-	}
-
-	/**
-	 * Is this a read-only operation?
-	 */
-	public boolean isReadOnlyOperation() {
-
-		if (this instanceof GetOperation) return true;
-
-		return false;
 	}
 
 	/*
