@@ -50,6 +50,8 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
+	public static final XDIAddress XDI_ADD_PARAMETER_ASYNC = XDIAddress.create("<$async>");
+
 	private MessageCollection messageCollection;
 	private XdiEntity xdiEntity;
 
@@ -300,6 +302,89 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
+	/*
+	 * Message parameters
+	 */
+
+	/**
+	 * Sets a parameter value of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @param parameterValue The parameter value.
+	 */
+	public void setParameter(XDIAddress parameterAddress, Object parameterValue) {
+
+		XdiAttributeSingleton parameterXdiAttribute = this.getXdiEntity().getXdiAttributeSingleton(parameterAddress, true);
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(true);
+
+		xdiValue.getContextNode().setLiteral(parameterValue);
+	}
+
+	/**
+	 * Returns a parameter value of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public Object getParameter(XDIAddress parameterAddress) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralData();
+	}
+
+	/**
+	 * Returns a parameter value string of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value string.
+	 */
+	public String getParameterString(XDIAddress parameterAddress) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataString();
+	}
+
+	/**
+	 * Returns a parameter value number of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value number.
+	 */
+	public Number getParameterNumber(XDIAddress parameterAddress) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataNumber();
+	}
+
+	/**
+	 * Returns a parameter value boolean of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value boolean.
+	 */
+	public Boolean getParameterBoolean(XDIAddress parameterAddress) {
+
+		Literal parameterLiteral = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral.getLiteralDataBoolean();
+	}
+
+	private Literal getParameterLiteral(XDIAddress parameterAddress) {
+
+		XdiAttributeSingleton parameterXdiAttribute = this.getXdiEntity().getXdiAttributeSingleton(parameterAddress, false);
+		if (parameterXdiAttribute == null) return null;
+
+		XdiValue xdiValue = parameterXdiAttribute.getXdiValue(false);
+		if (xdiValue == null) return null;
+
+		Literal parameterLiteral = xdiValue.getContextNode().getLiteral();
+		if (parameterLiteral == null) return null;
+
+		return parameterLiteral;
 	}
 
 	/*

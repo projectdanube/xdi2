@@ -1,61 +1,43 @@
-package xdi2.messaging.target.contributor.impl;
+package xdi2.messaging.target.interceptor.impl;
 
-import java.security.GeneralSecurityException;
-import java.security.PrivateKey;
-import java.util.Date;
-
-import javax.crypto.SecretKey;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.keys.Keys;
-import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.features.signatures.KeyPairSignature;
-import xdi2.core.features.signatures.Signatures;
-import xdi2.core.features.signatures.SymmetricKeySignature;
-import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.features.signatures.Signature;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.VariableUtil;
-import xdi2.messaging.GetOperation;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
-import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
-import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.AbstractMessageInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
 
 /**
  * This contributor can add metadata to a message result, e.g. a timestamp, 
  * a TO peer root XRI, and a signature.
  */
 @ContributorMount(contributorAddresses={""})
-public class MessageResultContributor extends AbstractContributor implements Prototype<MessageResultContributor> {
+public class AsyncMessageResultInterceptor extends AbstractMessageInterceptor implements Prototype<AsyncMessageResultInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(MessageResultContributor.class);
+	private static final Logger log = LoggerFactory.getLogger(AsyncMessageResultInterceptor.class);
 
-	private Graph keyGraph;
+	private Graph privateKeyGraph;
 
-	public MessageResultContributor(Graph keyGraph) {
+	public AsyncMessageResultInterceptor(Graph privateKeyGraph) {
 
-		this.keyGraph = keyGraph;
-
-		this.getContributors().addContributor(new TimestampContributor());
-		this.getContributors().addContributor(new ToPeerRootAddressContributor());
-		this.getContributors().addContributor(new SignatureContributor());
+		this.privateKeyGraph = privateKeyGraph;
 	}
 
-	public MessageResultContributor() {
+	public AsyncMessageResultInterceptor() {
 
 		this(null);
 	}
@@ -65,15 +47,15 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	 */
 
 	@Override
-	public MessageResultContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public AsyncMessageResultInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// create new contributor
 
-		MessageResultContributor contributor = new MessageResultContributor();
+		AsyncMessageResultInterceptor contributor = new AsyncMessageResultInterceptor();
 
 		// set the private key graph
 
-		contributor.setKeyGraph(this.getKeyGraph());
+		contributor.setPrivateKeyGraph(this.getPrivateKeyGraph());
 
 		// done
 
@@ -89,15 +71,57 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 		super.init(messagingTarget);
 
-		if (this.getKeyGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setKeyGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
-		if (this.getKeyGraph() == null) throw new Xdi2MessagingException("No private key graph.", null, null);
+		if (this.getPrivateKeyGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPrivateKeyGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
+		if (this.getPrivateKeyGraph() == null) throw new Xdi2MessagingException("No private key graph.", null, null);
+	}
+
+	/*
+	 * MessageInterceptor
+	 */
+
+	@Override
+	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+		XDIAddress toXDIAddress = message.getToXDIAddress();
+
+		if (toXDIAddress == null) {
+
+			if (log.isDebugEnabled()) log.debug("No TO peer root found, cannot construct response message.");
+			return InterceptorResult.DEFAULT;
+		}
+
+		MessageEnvelope responseMessageEnvelope = new MessageEnvelope();
+		Message responseMessage = responseMessageEnvelope.createMessage(toXDIAddress);
+		responseMessage.setToXDIAddress(senderXDIAddress);
+
+		// sign response message?
+
+		Signature<?, ?> signature = null;
+
+		Iterator<Signature<?, ?>> signatures = message.getSignatures();
+		if (signatures != null && signatures.hasNext()) signature = signatures.next();
+
+		if (signature != null) {
+
+			String digestAlgorithm = signature.getDigestAlgorithm();
+			Integer digestLength = signature.getDigestLength();
+			String keyAlgorithm = signature.getKeyAlgorithm();
+			Integer keyLength = signature.getKeyLength();
+
+			Signature<?, ?> responseSignature = responseMessage.createSignature(digestAlgorithm, digestLength.intValue(), keyAlgorithm, keyLength.intValue(), true);
+		}
+
+		// done
+
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*
 	 * Sub-Contributors
 	 */
 
-	@ContributorMount(contributorAddresses={"<$t>"})
+	/*	@ContributorMount(contributorAddresses={"<$t>"})
 	private class TimestampContributor extends AbstractContributor {
 
 		@Override
@@ -195,7 +219,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
+				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(AsyncMessageResultInterceptor.this.getPrivateKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);
@@ -242,7 +266,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 				// recipient entity
 
-				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(MessageResultContributor.this.getKeyGraph()).getXdiEntity(recipientAddress, false);
+				XdiEntity recipientXdiEntity = XdiCommonRoot.findCommonRoot(AsyncMessageResultInterceptor.this.getPrivateKeyGraph()).getXdiEntity(recipientAddress, false);
 				recipientXdiEntity = recipientXdiEntity == null ? null : recipientXdiEntity.dereference();
 
 				if (log.isDebugEnabled()) log.debug("Recipient entity: " + recipientXdiEntity);
@@ -285,19 +309,19 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			return ContributorResult.SKIP_MESSAGING_TARGET;
 		}
-	}
+	}*/
 
 	/*
 	 * Getters and setters
 	 */
 
-	public Graph getKeyGraph() {
+	public Graph getPrivateKeyGraph() {
 
-		return this.keyGraph;
+		return this.privateKeyGraph;
 	}
 
-	public void setKeyGraph(Graph keyGraph) {
+	public void setPrivateKeyGraph(Graph privateKeyGraph) {
 
-		this.keyGraph = keyGraph;
+		this.privateKeyGraph = privateKeyGraph;
 	}
 }
