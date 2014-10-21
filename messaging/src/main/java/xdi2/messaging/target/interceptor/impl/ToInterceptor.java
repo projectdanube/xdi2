@@ -59,7 +59,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 		if (log.isDebugEnabled()) log.debug("ownerPeerRootXDIArc=" + ownerPeerRootXDIArc + ", toPeerRootXDIArc=" + toPeerRootXDIArc);
 
-		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
+		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root found in message.", null, null);
 
 		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootXDIArc, null, null);
 
