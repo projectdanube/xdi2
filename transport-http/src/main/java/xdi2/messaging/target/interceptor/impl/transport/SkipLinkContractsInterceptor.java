@@ -42,7 +42,7 @@ public class SkipLinkContractsInterceptor extends AbstractMessageEnvelopeInterce
 	}
 
 	/*
-	 * TransportInterceptor
+	 * MessageEnvelopeInterceptor
 	 */
 
 	@Override
