@@ -49,15 +49,15 @@
 	<%	String base = request.getRequestURL().substring(0, request.getRequestURL().lastIndexOf("/")); %>
 	
 	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/mem-graph/"><%= base %>/xdi/mem-graph/</a></p>
-	<p>This is an XDI endpoint backed by an in-memory store.</p/
+	<p>This is an XDI endpoint backed by an in-memory store.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 	
 	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/bdb-graph/"><%= base %>/xdi/bdb-graph/</a></p>
-	<p>This is an XDI endpoint backed by a Berkely DB store.</p/
+	<p>This is an XDI endpoint backed by a Berkely DB store.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 	
 	<p style="font-weight: bold"><a target="_blank" href="<%= base %>/xdi/file-graph/"><%= base %>/xdi/file-graph/</a></p>
-	<p>This is an XDI endpoint backed by an XDI/JSON text file.</p/
+	<p>This is an XDI endpoint backed by an XDI/JSON text file.<br>
 	<b>Versioning:</b> disabled. <b>Link contracts:</b> disabled.</p>
 
 	</div>

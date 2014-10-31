@@ -20,7 +20,8 @@ body {
 }
 
 #main {
-	padding-top: 100px;
+	height: 100%;
+	margin-top: 100px;
 	margin-left: 40px;
 	margin-right: 40px;
 }
@@ -61,6 +62,39 @@ div.header {
 	width: 100%;
 	background-color: white;
 	border-bottom: 1px solid #888;
+}
+
+div.footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	padding-left: 150px;
+	height: 80px;
+	width: 100%;
+	background-color: white;
+	border-top: 1px solid #888;
+}
+
+div.slide {
+	padding-top: 80px;
+	height: 100%;
+}
+
+#nav {
+	position: fixed;
+	left: 20px;
+	top: 100px;
+}
+
+#nav a {
+	text-decoration: inherit;
+	font-weight: inherit;
+	color: inherit;
+	padding: inherit;
+}
+
+#nav a:hover {
+	background-color: inherit;
 }
 
 #appname {
