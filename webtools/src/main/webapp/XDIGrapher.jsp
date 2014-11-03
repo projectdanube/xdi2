@@ -27,7 +27,7 @@
 
 	<% } %>
 
-	<p>Note: For a much more advanced XDI graphing tool, see <a href="https://github.com/neustar/xdi-grapheditor.git">here</a>.
+	<p>Note: For a much more advanced XDI graphing tool, see <a href="http://neustar.github.io/xdi-grapheditor/xdi-grapheditor/public_html/index.html">here</a>.
 
 	<form action="XDIGrapher" method="post" accept-charset="UTF-8">
 
