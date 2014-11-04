@@ -1,17 +1,17 @@
 package xdi2.core.features.nodetypes;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 
 public interface XdiAttribute extends XdiSubGraph<XdiAttribute> {
 
-	public Literal setLiteral(Object literalData);
-	public Literal setLiteralString(String literalData);
-	public Literal setLiteralNumber(Double literalData);
-	public Literal setLiteralBoolean(Boolean literalData);
+	public LiteralNode setLiteralNode(Object literalData);
+	public LiteralNode setLiteralString(String literalData);
+	public LiteralNode setLiteralNumber(Double literalData);
+	public LiteralNode setLiteralBoolean(Boolean literalData);
 
-	public Literal getLiteral();
-	public Literal getLiteral(Object literalData);
-	public Literal getLiteralString(String literalData);
-	public Literal getLiteralNumber(Double literalData);
-	public Literal getLiteralBoolean(Boolean literalData);
+	public LiteralNode getLiteralNode();
+	public LiteralNode getLiteralNode(Object literalData);
+	public LiteralNode getLiteralString(String literalData);
+	public LiteralNode getLiteralNumber(Double literalData);
+	public LiteralNode getLiteralBoolean(Boolean literalData);
 }

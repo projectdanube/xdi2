@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.Parser;
 import xdi2.core.syntax.ParserAbstract;
 import xdi2.core.syntax.XDIAddress;
@@ -191,7 +191,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 			} else {
 
 				if (pos == 0) throw new ParserException("Invalid arc: " + string + " (no context symbol or cross reference)");
-				literal = parseLiteral(string.substring(pos, len));
+				literal = parseLiteralNode(string.substring(pos, len));
 			}
 		}
 
@@ -254,7 +254,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		try {
 
-			return AbstractLiteral.stringToLiteralData(string);
+			return AbstractLiteralNode.stringToLiteralData(string);
 		} catch (Exception ex) {
 
 			throw new ParserException("Invalid literal data: " + string);
@@ -298,7 +298,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		int indexAuthorityGeneral = string.indexOf(XDIConstants.CS_AUTHORITY_GENERAL.charValue());
 		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
-		int indexValue = string.indexOf(XDIConstants.CS_VALUE.charValue());
+		int indexLiteral = string.indexOf(XDIConstants.CS_LITERAL.charValue());
 		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
 		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
 
@@ -309,7 +309,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (indexAuthorityGeneral != -1 && indexAuthorityGeneral < indexColon) return false;
 		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
 		if (indexClassReserved != -1 && indexClassReserved < indexColon) return false;
-		if (indexValue != -1 && indexValue < indexColon) return false;
+		if (indexLiteral != -1 && indexLiteral < indexColon) return false;
 		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
 		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
 
@@ -350,7 +350,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		return null;
 	}
 
-	private static String parseLiteral(String string) {
+	private static String parseLiteralNode(String string) {
 
 		try {
 

@@ -9,14 +9,14 @@ public class MemoryRelation extends AbstractRelation implements Relation {
 	private static final long serialVersionUID = -2979718490345210876L;
 
 	private XDIAddress XDIaddress;
-	private XDIAddress targetContextNodeXDIAddress;
+	private XDIAddress targetXDIAddress;
 
-	MemoryRelation(MemoryContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	MemoryRelation(MemoryContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		super(contextNode);
 
 		this.XDIaddress = XDIaddress;
-		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
+		this.targetXDIAddress = targetXDIAddress;
 	}
 
 	@Override
@@ -26,8 +26,8 @@ public class MemoryRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDIAddress getTargetContextNodeXDIAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
-		return this.targetContextNodeXDIAddress;
+		return this.targetXDIAddress;
 	}
 }

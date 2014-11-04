@@ -4,12 +4,11 @@ import java.util.Date;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -127,10 +126,7 @@ public class ErrorMessageResult extends MessageResult {
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), false);
 		if (xdiAttributeSingleton == null) return null;
 
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
-		if (xdiValue == null) return null;
-
-		Literal errorStringLiteral = xdiValue.getContextNode().getLiteral();
+		LiteralNode errorStringLiteral = xdiAttributeSingleton.getLiteralNode();
 		if (errorStringLiteral == null) return null;
 
 		return errorStringLiteral.getLiteralDataString();
@@ -139,9 +135,8 @@ public class ErrorMessageResult extends MessageResult {
 	public void setErrorString(String errorString) {
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), true);
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 
-		xdiValue.getContextNode().setLiteralString(errorString);
+		xdiAttributeSingleton.setLiteralString(errorString);
 	}
 
 	public void setErrorOperation(Operation operation) {

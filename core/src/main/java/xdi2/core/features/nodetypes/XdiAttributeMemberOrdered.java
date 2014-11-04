@@ -12,7 +12,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiAttributeMember {
+public final class XdiAttributeMemberOrdered extends XdiAbstractAttribute implements XdiMemberOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember>, XdiAttributeMember {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 

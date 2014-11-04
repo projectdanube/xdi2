@@ -85,32 +85,32 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 			if (! XDIConstants.CS_MEMBER_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isClassXs()) return false;
 			if (XDIarc.isAttributeXs()) return false;
-			if (! XDIarc.hasLiteral()) return false;
+			if (! XDIarc.hasLiteralNode()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
 			if (! XDIConstants.CS_MEMBER_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isClassXs()) return false;
 			if (! XDIarc.isAttributeXs()) return false;
-			if (! XDIarc.hasLiteral()) return false;
+			if (! XDIarc.hasLiteralNode()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
 
 			if (XDIarc.hasCs()) return false;
 			if (XDIarc.isClassXs()) return false;
 			if (XDIarc.isAttributeXs()) return false;
-			if (XDIarc.hasLiteral()) return false;
+			if (XDIarc.hasLiteralNode()) return false;
 			if (! XDIarc.hasXRef()) return false;
 			if (! XDIConstants.XS_VARIABLE.equals(XDIarc.getXRef().getXs())) return false;
 			if (! XDIarc.getXRef().hasXDIAddress()) return false;
 			if (XDIarc.getXRef().hasPartialSubjectAndPredicate()) return false;
-			if (XDIarc.getXRef().hasLiteral()) return false;
+			if (XDIarc.getXRef().hasLiteralNode()) return false;
 			if (XDIarc.getXRef().hasIri()) return false;
 			if (XDIarc.getXRef().getXDIAddress().getNumXDIArcs() != 1) return false;
 			if (! XDIConstants.CS_MEMBER_ORDERED.equals(XDIarc.getXRef().getXDIAddress().getFirstXDIArc())) return false;
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isClassXs()) return false;
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
-			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
+			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteralNode()) return false;
 			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
 		}
 

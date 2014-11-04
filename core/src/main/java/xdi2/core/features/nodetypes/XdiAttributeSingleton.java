@@ -13,7 +13,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> implements XdiAttribute {
+public final class XdiAttributeSingleton extends XdiAbstractAttribute implements XdiSingleton<XdiAttribute>, XdiAttribute {
 
 	private static final long serialVersionUID = -5769813522592588864L;
 
@@ -76,7 +76,7 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
+			if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

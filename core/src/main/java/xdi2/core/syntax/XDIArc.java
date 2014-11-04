@@ -58,7 +58,7 @@ public class XDIArc extends XDIIdentifier {
 		return this.attributeXs;
 	}
 
-	public boolean hasLiteral() {
+	public boolean hasLiteralNode() {
 
 		return this.literal != null;
 	}
@@ -73,7 +73,7 @@ public class XDIArc extends XDIIdentifier {
 		return this.cs;
 	}
 
-	public String getLiteral() {
+	public String getLiteralNode() {
 
 		return this.literal;
 	}

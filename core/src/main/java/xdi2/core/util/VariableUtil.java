@@ -31,7 +31,7 @@ public final class VariableUtil {
 
 		return variable.hasXRef() &&
 				XDIConstants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
-				( variable.getXRef().isEmpty() || variable.getXRef().hasXDIAddress() || variable.getXRef().hasLiteral() );
+				( variable.getXRef().isEmpty() || variable.getXRef().hasXDIAddress() || variable.getXRef().hasLiteralNode() );
 	}
 
 	public static boolean isVariable(XDIAddress variable) {

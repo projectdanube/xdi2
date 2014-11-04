@@ -1,7 +1,5 @@
 package xdi2.core;
 
-import java.io.Serializable;
-
 import xdi2.core.Statement.LiteralStatement;
 
 /**
@@ -9,28 +7,11 @@ import xdi2.core.Statement.LiteralStatement;
  * 
  * @author markus
  */
-public interface Literal extends Serializable, Comparable<Literal> {
+public interface LiteralNode extends Node, Comparable<LiteralNode> {
 
 	/*
 	 * General methods
 	 */
-
-	/**
-	 * Get the graph of this literal.
-	 * @return The graph of this literal.
-	 */
-	public Graph getGraph();
-	
-	/**
-	 * Every literal has a context node from which it originates.
-	 * @return The context node of this literal.
-	 */
-	public ContextNode getContextNode();
-
-	/**
-	 * Deletes this literal.
-	 */
-	public void delete();
 
 	/**
 	 * Get the literal data.

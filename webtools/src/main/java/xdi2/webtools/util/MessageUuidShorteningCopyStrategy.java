@@ -21,7 +21,7 @@ public class MessageUuidShorteningCopyStrategy extends CopyStrategy {
 					XDIArc.create("!:uuid:1234"),
 					contextNode.getContextNodes(),
 					contextNode.getRelations(),
-					contextNode.getLiteral()
+					contextNode.getLiteralNode()
 					);
 		}
 

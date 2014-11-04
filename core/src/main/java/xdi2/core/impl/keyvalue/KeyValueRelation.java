@@ -12,9 +12,9 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	private String key;
 
 	private XDIAddress XDIaddress;
-	private XDIAddress targetContextNodeXDIAddress;
+	private XDIAddress targetXDIAddress;
 
-	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	KeyValueRelation(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		super(contextNode);
 
@@ -22,7 +22,7 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 		this.key = key;
 
 		this.XDIaddress = XDIaddress;
-		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
+		this.targetXDIAddress = targetXDIAddress;
 	}
 
 	@Override
@@ -32,9 +32,9 @@ public class KeyValueRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDIAddress getTargetContextNodeXDIAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
-		return this.targetContextNodeXDIAddress;
+		return this.targetXDIAddress;
 	}
 
 	/*

@@ -72,7 +72,7 @@ public class XDIXRef extends XDIIdentifier {
 		return this.iri != null;
 	}
 
-	public boolean hasLiteral() {
+	public boolean hasLiteralNode() {
 
 		return this.literal != null;
 	}
@@ -102,7 +102,7 @@ public class XDIXRef extends XDIIdentifier {
 		return this.iri;
 	}
 
-	public String getLiteral() {
+	public String getLiteralNode() {
 
 		return this.literal;
 	}

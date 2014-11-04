@@ -1,6 +1,10 @@
 Release Notes 0.7
 =================
 
+* Literal -> LiteralNode, and implements Node
+
+* setDeepRelation, setDeepLiteral, etc removed, instead do setDeepContextNode(..).setRelation(..)
+
 * To move away from old "XRI" terminology, classes were renamed, e.g.:
 XDI3Segment -> XDIAddress
 XDI3SubSegment -> XDIArc

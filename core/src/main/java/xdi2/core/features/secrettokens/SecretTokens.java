@@ -6,12 +6,11 @@ import java.util.UUID;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.nodetypes.XdiValue;
 
 public class SecretTokens {
 
@@ -31,10 +30,7 @@ public class SecretTokens {
 		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = xdiContext.getXdiAttribute(XDIAuthenticationConstants.XDI_ADD_DIGEST_SECRET_TOKEN, false);
 		localSaltAndDigestSecretTokenXdiAttribute = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.dereference();
 
-		XdiValue localSaltAndDigestSecretTokenXdiValue = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.getXdiValue(false);
-		localSaltAndDigestSecretTokenXdiValue = localSaltAndDigestSecretTokenXdiValue == null ? null : localSaltAndDigestSecretTokenXdiValue.dereference();
-
-		Literal localSaltAndDigestSecretTokenLiteral = localSaltAndDigestSecretTokenXdiValue == null ? null : localSaltAndDigestSecretTokenXdiValue.getContextNode().getLiteral();
+		LiteralNode localSaltAndDigestSecretTokenLiteral = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.getLiteralNode();
 		String localSaltAndDigestSecretToken = localSaltAndDigestSecretTokenLiteral == null ? null : localSaltAndDigestSecretTokenLiteral.getLiteralDataString();
 
 		// done

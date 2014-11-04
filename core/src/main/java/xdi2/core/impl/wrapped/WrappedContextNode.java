@@ -3,11 +3,12 @@ package xdi2.core.impl.wrapped;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.impl.memory.MemoryContextNode;
-import xdi2.core.impl.memory.MemoryLiteral;
+import xdi2.core.impl.memory.MemoryLiteralNode;
 import xdi2.core.impl.memory.MemoryRelation;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -90,17 +91,17 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, Node targetNode) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(XDIaddress, targetContextNode);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.setRelation(XDIaddress, targetNode);
 
 		return new WrappedRelation(this, ret);
 	}
 
 	@Override
-	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
-		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(XDIaddress, targetContextNodeXDIAddress);
+		MemoryRelation ret = (MemoryRelation) this.memoryContextNode.getRelation(XDIaddress, targetXDIAddress);
 
 		return ret == null ? null : new WrappedRelation(this, ret);
 	}
@@ -122,9 +123,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
-		return this.memoryContextNode.containsRelation(XDIaddress, targetContextNodeXDIAddress);
+		return this.memoryContextNode.containsRelation(XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -140,9 +141,9 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	}
 
 	@Override
-	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
-		this.memoryContextNode.delRelation(XDIaddress, targetContextNodeXDIAddress);
+		this.memoryContextNode.delRelation(XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -162,31 +163,31 @@ public class WrappedContextNode extends AbstractContextNode implements ContextNo
 	 */
 
 	@Override
-	public synchronized Literal setLiteral(Object literalData) {
+	public synchronized LiteralNode setLiteralNode(Object literalData) {
 
-		MemoryLiteral ret = (MemoryLiteral) this.memoryContextNode.setLiteral(literalData);
+		MemoryLiteralNode ret = (MemoryLiteralNode) this.memoryContextNode.setLiteralNode(literalData);
 
-		return ret == null ? null : new WrappedLiteral(this, ret);
+		return ret == null ? null : new WrappedLiteralNode(this, ret);
 	}
 
 	@Override
-	public Literal getLiteral() {
+	public LiteralNode getLiteralNode() {
 
-		MemoryLiteral ret = (MemoryLiteral) this.memoryContextNode.getLiteral();
+		MemoryLiteralNode ret = (MemoryLiteralNode) this.memoryContextNode.getLiteralNode();
 
-		return ret == null ? null : new WrappedLiteral(this, ret);
+		return ret == null ? null : new WrappedLiteralNode(this, ret);
 	}
 
 	@Override
-	public boolean containsLiteral() {
+	public boolean containsLiteralNode() {
 
-		return this.memoryContextNode.containsLiteral();
+		return this.memoryContextNode.containsLiteralNode();
 	}
 
 	@Override
-	public synchronized void delLiteral() {
+	public synchronized void delLiteralNode() {
 
-		this.memoryContextNode.delLiteral();
+		this.memoryContextNode.delLiteralNode();
 	}
 
 	private class WrappedContextNodeMappingIterator extends MappingIterator<ContextNode, ContextNode> {

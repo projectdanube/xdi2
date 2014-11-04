@@ -7,13 +7,12 @@ import java.security.PublicKey;
 
 import org.apache.commons.codec.binary.Base64;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiValue;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -115,19 +114,16 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		byte[] bytes = signature.sign();
 
-		this.getXdiAttribute().getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralString(Base64.encodeBase64String(bytes));
 	}
 
 	@Override
 	public boolean validate(PublicKey publicKey) throws GeneralSecurityException {
 
-		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
-		if (xdiValue == null) return false;
+		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
+		if (literalNode == null) return false;
 
-		Literal literal = xdiValue.getContextNode().getLiteral();
-		if (literal == null) return false;
-
-		String literalString = literal.getLiteralDataString();
+		String literalString = literalNode.getLiteralDataString();
 		if (literalString == null) return false;
 
 		byte[] bytes = Base64.decodeBase64(literalString);

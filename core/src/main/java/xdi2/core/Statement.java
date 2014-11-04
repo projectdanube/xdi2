@@ -102,6 +102,6 @@ public interface Statement extends Serializable, Comparable<Statement> {
 		@Override
 		public Object getObject();
 
-		public Literal getLiteral();
+		public LiteralNode getLiteralNode();
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -18,12 +18,11 @@ import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
@@ -180,7 +179,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIArc) {
 
-		this.getMessageEnvelope().getGraph().setDeepRelation(XDIAddress.fromComponent(fromPeerRootXDIArc), XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
+		this.getMessageEnvelope().getGraph().setDeepContextNode(XDIAddress.fromComponent(fromPeerRootXDIArc)).setRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
 	}
 
 	/**
@@ -191,7 +190,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		Relation toPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
 		if (toPeerRootXDIArcRelation == null) return null;
 
-		XDIAddress toPeerRootAddress = toPeerRootXDIArcRelation.getTargetContextNodeXDIAddress();
+		XDIAddress toPeerRootAddress = toPeerRootXDIArcRelation.getTargetXDIAddress();
 		if (toPeerRootAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isValidXDIArc(toPeerRootAddress.getFirstXDIArc())) return null;
 
 		return toPeerRootAddress.getFirstXDIArc();
@@ -236,7 +235,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		Relation linkContractRelation = this.getContextNode().getRelation(XDILinkContractConstants.XDI_ADD_DO);
 		if (linkContractRelation == null) return null;
 
-		return linkContractRelation.getTargetContextNodeXDIAddress();
+		return linkContractRelation.getTargetXDIAddress();
 	}
 
 	/**
@@ -294,13 +293,12 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (secretToken != null) {
 
 			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN));
-			XdiValue xdiValue = xdiAttribute.getXdiValue(true);
-			xdiValue.getContextNode().setLiteral(secretToken);
+			xdiAttribute.setLiteralNode(secretToken);
 		} else {
 
 			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN, true));
-			XdiValue xdiValue = xdiAttribute == null ? null : xdiAttribute.getXdiValue(false);
-			if (xdiValue != null) xdiValue.getContextNode().delete();
+			LiteralNode literal = xdiAttribute == null ? null : xdiAttribute.getLiteralNode();
+			if (literal != null) literal.delete();
 		}
 	}
 
@@ -316,10 +314,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode);
 		if (xdiAttribute == null) return null;
 
-		XdiValue xdiValue = xdiAttribute.getXdiValue(false);
-		if (xdiValue == null) return null;
-
-		Literal literal = xdiValue.getContextNode().getLiteral();
+		LiteralNode literal = xdiAttribute.getLiteralNode();
 		if (literal == null) return null;
 
 		return literal.getLiteralDataString();
@@ -735,11 +730,11 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
 
-			XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(operation.getRelation().follow());
+			XdiInnerRoot targetInnerRoot = operation.getTargetInnerRoot();
 
-			if (innerRoot != null) {
+			if (targetInnerRoot != null) {
 
-				innerRoot.getContextNode().delete();
+				targetInnerRoot.getContextNode().delete();
 			} else {
 
 				operation.getRelation().delete();

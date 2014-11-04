@@ -13,5 +13,5 @@ public @interface ContributorMount {
 	String[] operationAddresses() default { };
 	String[] contextNodeXDIArcs() default { };
 	String[] relationAddresses() default { };
-	String[] targetContextNodeXDIAddresses() default { };
+	String[] targetXDIAddresses() default { };
 }

@@ -1,6 +1,6 @@
 package xdi2.core.features.policy.evaluation;
 
-import xdi2.core.ContextNode;
+import xdi2.core.Node;
 import xdi2.core.Statement;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -12,7 +12,7 @@ import xdi2.core.syntax.XDIStatement;
  */
 public interface PolicyEvaluationContext {
 
-	public XDIAddress resolveXDIAddress(XDIAddress contextNodeXDIAddress);
-	public ContextNode getContextNode(XDIAddress contextNodeXDIAddress);
+	public XDIAddress resolveXDIAddress(XDIAddress nodeXDIAddress);
+	public Node getNode(XDIAddress nodeXDIAddress);
 	public Statement getStatement(XDIStatement statement);
 }

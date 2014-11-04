@@ -1,22 +1,22 @@
 package xdi2.core.impl;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 
-public class BasicLiteral extends AbstractLiteral implements Literal {
+public class BasicLiteralNode extends AbstractLiteralNode implements LiteralNode {
 
 	private static final long serialVersionUID = 3101871056623742994L;
 
 	private Object literalData;
 
-	public BasicLiteral(ContextNode contextNode, Object literalData) {
+	public BasicLiteralNode(ContextNode contextNode, Object literalData) {
 
 		super(contextNode);
 
 		this.literalData = literalData;
 	}
 
-	public BasicLiteral(Object literalData) {
+	public BasicLiteralNode(Object literalData) {
 
 		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), literalData);
 	}

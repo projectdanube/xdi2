@@ -25,35 +25,35 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	 */
 
 	@Override
-	public void executeOnAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeOnAddress(XDIAddress targetXDIAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute on address
 
 		if (operation instanceof GetOperation)
-			this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
+			this.executeGetOnAddress(targetXDIAddress, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
-			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
+			this.executeSetOnAddress(targetXDIAddress, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
+			this.executeDelOnAddress(targetXDIAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
-			this.executeDoOnAddress(targetAddress, (DoOperation) operation, messageResult, executionContext);
+			this.executeDoOnAddress(targetXDIAddress, (DoOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnAddress(XDIAddress targetXDIAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnAddress(XDIAddress targetXDIAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnAddress(XDIAddress targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnAddress(XDIAddress targetXDIAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnAddress(XDIAddress targetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnAddress(XDIAddress targetXDIAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -132,27 +132,27 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	public void executeGetOnContextNodeStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetAddress = targetStatement.getContextNodeXDIAddress();
+		XDIAddress targetXDIAddress = targetStatement.getContextNodeXDIAddress();
 
 		MessageResult tempMessageResult = new MessageResult();
 
-		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
+		this.executeGetOnAddress(targetXDIAddress, operation, tempMessageResult, executionContext);
 
 		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
 	}
 
 	public void executeSetOnContextNodeStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getContextNodeXDIAddress(), targetStatement.getContextNodeXDIArc());
+		XDIAddress targetXDIAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getTargetXDIAddress());
 
-		this.executeSetOnAddress(targetAddress, operation, messageResult, executionContext);
+		this.executeSetOnAddress(targetXDIAddress, operation, messageResult, executionContext);
 	}
 
 	public void executeDelOnContextNodeStatement(XDIStatement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getContextNodeXDIAddress(), targetStatement.getContextNodeXDIArc());
+		XDIAddress targetXDIAddress = XDIAddressUtil.concatXDIAddresses(targetStatement.getContextNodeXDIAddress(), targetStatement.getContextNodeXDIArc());
 
-		this.executeDelOnAddress(targetAddress, operation, messageResult, executionContext);
+		this.executeDelOnAddress(targetXDIAddress, operation, messageResult, executionContext);
 	}
 
 	public void executeDoOnContextNodeStatement(XDIStatement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -165,11 +165,11 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	public void executeGetOnRelationStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetAddress = targetStatement.getContextNodeXDIAddress();
+		XDIAddress targetXDIAddress = targetStatement.getContextNodeXDIAddress();
 
 		MessageResult tempMessageResult = new MessageResult();
 
-		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
+		this.executeGetOnAddress(targetXDIAddress, operation, tempMessageResult, executionContext);
 
 		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
 	}
@@ -192,11 +192,11 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	public void executeGetOnLiteralStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetAddress = targetStatement.getContextNodeXDIAddress();
+		XDIAddress targetXDIAddress = targetStatement.getContextNodeXDIAddress();
 
 		MessageResult tempMessageResult = new MessageResult();
 
-		this.executeGetOnAddress(targetAddress, operation, tempMessageResult, executionContext);
+		this.executeGetOnAddress(targetXDIAddress, operation, tempMessageResult, executionContext);
 
 		new GraphContextHandler(tempMessageResult.getGraph()).executeGetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
 	}

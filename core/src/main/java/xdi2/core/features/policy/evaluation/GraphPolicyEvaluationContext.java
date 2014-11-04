@@ -1,7 +1,7 @@
 package xdi2.core.features.policy.evaluation;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Node;
 import xdi2.core.Statement;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -16,15 +16,15 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDIAddress resolveXDIAddress(XDIAddress contextNodeXri) {
+	public XDIAddress resolveXDIAddress(XDIAddress nodeXDIAddress) {
 
-		return contextNodeXri;
+		return nodeXDIAddress;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDIAddress contextNodeXri) {
+	public Node getNode(XDIAddress nodeXDIAddress) {
 
-		return this.getGraph().getDeepContextNode(contextNodeXri, false);
+		return this.getGraph().getDeepNode(nodeXDIAddress, false);
 	}
 
 	@Override

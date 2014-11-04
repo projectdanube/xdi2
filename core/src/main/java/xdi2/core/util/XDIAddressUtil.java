@@ -307,6 +307,8 @@ public final class XDIAddressUtil {
 	 */
 	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
 
+		if (XDIaddress == null) throw new NullPointerException();
+
 		try {
 
 			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
@@ -537,7 +539,7 @@ public final class XDIAddressUtil {
 			{ result = XDIAddress.fromComponents(XDIarcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("contactXDIAddresses(" + Arrays.asList(XDIaddresses) + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatXDIAddresses(" + Arrays.asList(XDIaddresses) + ") --> " + result);
 		}
 	}
 

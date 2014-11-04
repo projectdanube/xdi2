@@ -10,13 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
@@ -74,10 +73,7 @@ public class GraphSigner extends PrivateKeySigner {
 		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true));
 		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
 
-		XdiValue signaturePrivateKeyXdiValue = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getXdiValue(false);
-		signaturePrivateKeyXdiValue = signaturePrivateKeyXdiValue == null ? null : signaturePrivateKeyXdiValue.dereference();
-		
-		Literal privateKeyLiteral = signaturePrivateKeyXdiValue == null ? null : signaturePrivateKeyXdiValue.getContextNode().getLiteral();
+		LiteralNode privateKeyLiteral = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getLiteralNode();
 
 		String privateKeyString = privateKeyLiteral == null ? null : privateKeyLiteral.getLiteralDataString();
 		if (privateKeyString == null) return null;

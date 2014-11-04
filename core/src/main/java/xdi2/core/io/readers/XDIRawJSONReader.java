@@ -18,8 +18,7 @@ import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIArc;
@@ -74,8 +73,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				XDIArc XDIarc = Dictionary.nativeIdentifierToInstanceXDIArc(key);
 
 				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIarc), true);
-				XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
-				xdiValue.getContextNode().setLiteral(AbstractLiteral.jsonElementToLiteralData(jsonElement));
+				xdiAttributeSingleton.setLiteralNode(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 		}
 	}
@@ -108,8 +106,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIarc), true);
 
 				XdiAttributeMemberOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(index);
-				XdiValue xdiValue = xdiAttributeMember.getXdiValue(true);
-				xdiValue.getContextNode().setLiteral(AbstractLiteral.jsonElementToLiteralData(jsonElement));
+				xdiAttributeMember.setLiteralNode(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 
 			index++;

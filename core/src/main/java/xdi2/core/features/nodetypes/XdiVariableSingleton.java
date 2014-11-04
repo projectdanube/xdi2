@@ -72,7 +72,7 @@ public final class XdiVariableSingleton extends XdiAbstractSingleton<XdiVariable
 		if (XDIarc.hasCs()) return false;
 		if (XDIarc.isClassXs()) return false;
 		if (XDIarc.isAttributeXs()) return false;
-		if (XDIarc.hasLiteral()) return false;
+		if (XDIarc.hasLiteralNode()) return false;
 		if (! XDIarc.hasXRef()) return false;
 		if (! XDIConstants.XS_VARIABLE.equals(XDIarc.getXRef().getXs())) return false;
 

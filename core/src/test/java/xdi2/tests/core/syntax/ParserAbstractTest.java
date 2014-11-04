@@ -16,7 +16,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		Parser parser = this.getParser();
 
-		XDIStatement statement = parser.parseXDIStatement("=markus[<#email>]!1&/&/\"xxx\"");
+		XDIStatement statement = parser.parseXDIStatement("=markus[<#email>]!1/&/\"xxx\"");
 
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=markus[<#email>]!1&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
@@ -24,7 +24,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		assertEquals(statement.getContextNodeXDIAddress(), parser.parseXDIAddress("=markus[<#email>]!1&"));
 		assertNull(statement.getContextNodeXDIArc());
-		assertNull(statement.getTargetContextNodeXDIAddress());
+		assertNull(statement.getTargetXDIAddress());
 		assertEquals(statement.getLiteralData(), "xxx");
 
 		assertEquals(statement.getSubject().getNumXDIArcs(), 4);
@@ -32,25 +32,25 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertEquals(statement.getSubject().getXDIArc(3), statement.getSubject().getLastXDIArc());
 		assertEquals(statement.getSubject().getXDIArc(0), parser.parseXDIArc("=markus"));
 		assertEquals(statement.getSubject().getXDIArc(0).getCs(), XDIConstants.CS_AUTHORITY_PERSONAL);
-		assertEquals(statement.getSubject().getXDIArc(0).getLiteral(), "markus");
+		assertEquals(statement.getSubject().getXDIArc(0).getLiteralNode(), "markus");
 		assertNull(statement.getSubject().getXDIArc(0).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(1), parser.parseXDIArc("[<#email>]"));
 		assertEquals(statement.getSubject().getXDIArc(1).getCs(), XDIConstants.CS_CLASS_UNRESERVED);
 		assertTrue(statement.getSubject().getXDIArc(1).isClassXs());
 		assertTrue(statement.getSubject().getXDIArc(1).isAttributeXs());
-		assertEquals(statement.getSubject().getXDIArc(1).getLiteral(), "email");
+		assertEquals(statement.getSubject().getXDIArc(1).getLiteralNode(), "email");
 		assertNull(statement.getSubject().getXDIArc(1).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("!1"));
 		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_MEMBER_UNORDERED);
 		assertFalse(statement.getSubject().getXDIArc(2).isClassXs());
 		assertFalse(statement.getSubject().getXDIArc(2).isAttributeXs());
-		assertEquals(statement.getSubject().getXDIArc(2).getLiteral(), "1");
+		assertEquals(statement.getSubject().getXDIArc(2).getLiteralNode(), "1");
 		assertNull(statement.getSubject().getXDIArc(2).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(3), parser.parseXDIArc("&"));
-		assertEquals(statement.getSubject().getXDIArc(3).getCs(), XDIConstants.CS_VALUE);
+		assertEquals(statement.getSubject().getXDIArc(3).getCs(), XDIConstants.CS_LITERAL);
 		assertFalse(statement.getSubject().getXDIArc(3).isClassXs());
 		assertFalse(statement.getSubject().getXDIArc(3).isAttributeXs());
-		assertNull(statement.getSubject().getXDIArc(3).getLiteral());
+		assertNull(statement.getSubject().getXDIArc(3).getLiteralNode());
 		assertNull(statement.getSubject().getXDIArc(3).getXRef());
 
 		assertEquals(statement.getPredicate().getNumXDIArcs(), 1);
@@ -76,7 +76,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		XDIStatement statement;
 
-		statement = parser.parseXDIStatement("=markus<#email>&/&/\"markus.sabadello@gmail.com\"");
+		statement = parser.parseXDIStatement("=markus<#email>/&/\"markus.sabadello@gmail.com\"");
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=markus<#email>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
 		assertTrue(statement.getObject() instanceof String);
@@ -93,7 +93,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertFalse(statement.isLiteralStatement());
 		assertTrue(statement.isRelationStatement());
 
-		statement = parser.parseXDIStatement("=neustar*animesh<#email>&/&/\"animesh@gmail.com\"");
+		statement = parser.parseXDIStatement("=neustar*animesh<#email>/&/\"animesh@gmail.com\"");
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=neustar*animesh<#email>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
 		assertEquals(statement.getObject(), "animesh@gmail.com");
@@ -101,7 +101,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
 
-		statement = parser.parseXDIStatement("=neustar*animesh<#age>&/&/99");
+		statement = parser.parseXDIStatement("=neustar*animesh<#age>/&/99");
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=neustar*animesh<#age>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
 		assertEquals(statement.getObject(), Double.valueOf(99));
@@ -109,7 +109,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
 
-		statement = parser.parseXDIStatement("=neustar*animesh<#smoker>&/&/false");
+		statement = parser.parseXDIStatement("=neustar*animesh<#smoker>/&/false");
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=neustar*animesh<#smoker>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
 		assertEquals(statement.getObject(), Boolean.valueOf(false));
@@ -117,7 +117,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(statement.isLiteralStatement());
 		assertFalse(statement.isRelationStatement());
 
-		statement = parser.parseXDIStatement("=neustar*animesh<#color>&/&/null");
+		statement = parser.parseXDIStatement("=neustar*animesh<#color>/&/null");
 		assertEquals(statement.getSubject(), parser.parseXDIAddress("=neustar*animesh<#color>&"));
 		assertEquals(statement.getPredicate(), parser.parseXDIAddress("&"));
 		assertNull(statement.getObject());
@@ -127,7 +127,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		try {
 
-			statement = parser.parseXDIStatement("=neustar*animesh<#err>&/&/test");
+			statement = parser.parseXDIStatement("=neustar*animesh<#err>/&/test");
 			fail();
 		} catch (ParserException ex) {
 
@@ -166,7 +166,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		xref = parser.parseXDIXRef("(email)");
 		assertFalse(xref.isEmpty());
-		assertEquals("email", xref.getLiteral());
+		assertEquals("email", xref.getLiteralNode());
 	}
 
 	public void testLiteralXRef() {
@@ -188,8 +188,8 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().hasXRef());
 		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef(), parser.parseXDIXRef("(name)"));
 		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getXs(), XDIConstants.XS_ROOT);
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().hasLiteral());
-		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getLiteral(), "name");
+		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().hasLiteralNode());
+		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getLiteralNode(), "name");
 	}
 
 	public void testComponents() throws Exception {
@@ -216,7 +216,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertEquals(relationStatement.getPredicate(), XDIAddress.create("+friend"));
 		assertEquals(relationStatement.getObject(), XDIAddress.create("=animesh"));
 
-		XDIStatement literalStatement = XDIStatement.create("=markus<#name>&/&/\"Markus Sabadello\"");
+		XDIStatement literalStatement = XDIStatement.create("=markus<#name>/&/\"Markus Sabadello\"");
 		XDIStatement literalStatement2 = XDIStatement.fromComponents(XDIAddress.create("=markus<#name>&"), XDIConstants.XDI_ADD_LITERAL, "Markus Sabadello");
 		XDIStatement literalStatement3 = XDIStatement.fromLiteralComponents(XDIAddress.create("=markus<#name>&"), "Markus Sabadello");
 

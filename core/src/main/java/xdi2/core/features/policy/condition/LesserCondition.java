@@ -1,9 +1,10 @@
 package xdi2.core.features.policy.condition;
 
-import xdi2.core.ContextNode;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 
@@ -63,19 +64,21 @@ public class LesserCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
+		Node subject = policyEvaluationContext.getNode(this.getStatementXri().getSubject());
+		Node object = policyEvaluationContext.getNode((XDIAddress) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 
-		if (subject.containsLiteral()) {
+		if (subject instanceof LiteralNode) {
 
-			if (! object.containsLiteral()) return Boolean.FALSE;
+			if (! (object instanceof LiteralNode)) return Boolean.FALSE;
 
-			Object subjectLiteralData = subject.getLiteral().getLiteralData();
-			Object objectLiteralData = object.getLiteral().getLiteralData();
+			Object subjectLiteralData = ((LiteralNode) subject).getLiteralData();
+			Object objectLiteralData = ((LiteralNode) object).getLiteralData();
 
-			return Boolean.valueOf(AbstractLiteral.LITERALDATACOMPARATOR.compare(subjectLiteralData, objectLiteralData) < 0);
+			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
+
+			return Boolean.valueOf(AbstractLiteralNode.LITERALDATACOMPARATOR.compare(subjectLiteralData, objectLiteralData) < 0);
 		}
 
 		return Boolean.FALSE;

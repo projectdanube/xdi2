@@ -1,5 +1,6 @@
 package xdi2.core.features.policy.operator;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -26,7 +27,9 @@ public abstract class ConditionOperator extends Operator {
 	 */
 	public IterableIterator<Condition> getConditions() {
 
-		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(this.getRelation().follow());
+		ContextNode contextNode = this.getRelation().followContextNode();
+
+		XdiInnerRoot innerRoot = contextNode == null ? null : XdiInnerRoot.fromContextNode(contextNode);
 		if (innerRoot == null) throw new Xdi2RuntimeException("Missing condition in operator: " + this.getRelation());
 
 		return new MappingIterator<XDIStatement, Condition> (

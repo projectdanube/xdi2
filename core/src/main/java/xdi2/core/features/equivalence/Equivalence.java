@@ -11,6 +11,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingRelationContextNodeIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 
 public class Equivalence {
@@ -28,7 +29,7 @@ public class Equivalence {
 
 	public static Iterator<ContextNode> getIdentityContextNodes(ContextNode contextNode) {
 
-		return new MappingRelationTargetContextNodeIterator(getIdentityRelations(contextNode));
+		return new NotNullIterator<ContextNode> (new MappingRelationTargetContextNodeIterator(getIdentityRelations(contextNode)));
 	}
 
 	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
@@ -55,7 +56,7 @@ public class Equivalence {
 
 		Iterator<Relation> incomingIdentityRelations = getIncomingIdentityRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingIdentityRelations);
+		return new NotNullIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingIdentityRelations));
 	}
 
 	/*
@@ -72,7 +73,7 @@ public class Equivalence {
 		Relation relation = getReferenceRelation(contextNode);
 		if (relation == null) return null;
 
-		return relation.follow();
+		return relation.followContextNode();
 	}
 
 	public static void setReferenceContextNode(ContextNode contextNode, ContextNode referenceContextNode) {
@@ -111,7 +112,7 @@ public class Equivalence {
 
 		Iterator<Relation> incomingReferenceRelations = getIncomingReferenceRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingReferenceRelations);
+		return new NotNullIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReferenceRelations));
 	}
 
 	/*
@@ -128,7 +129,7 @@ public class Equivalence {
 		Relation relation = getReplacementRelation(contextNode);
 		if (relation == null) return null;
 
-		return relation.follow();
+		return relation.followContextNode();
 	}
 
 	public static void setReplacementContextNode(ContextNode contextNode, ContextNode replacementContextNode) {
@@ -167,7 +168,7 @@ public class Equivalence {
 
 		Iterator<Relation> incomingReplacementRelations = getIncomingReplacementRelations(contextNode);
 
-		return new MappingRelationContextNodeIterator(incomingReplacementRelations);
+		return new NotNullIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReplacementRelations));
 	}
 
 	/*

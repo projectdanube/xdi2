@@ -83,7 +83,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		StringBuilder buffer = new StringBuilder();
 
 		if (XDIarc.hasCs()) buffer.append(XDIarc.getCs());
-		if (XDIarc.hasLiteral()) buffer.append(XDIarc.getLiteral());
+		if (XDIarc.hasLiteralNode()) buffer.append(XDIarc.getLiteralNode());
 		if (XDIarc.hasXRef()) buffer.append(XDIarc.getXRef());
 
 		return XDIArc.create(buffer.toString());
@@ -211,7 +211,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntityCollection getXdiEntityCollection(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode entityCollectionContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+
+		ContextNode entityCollectionContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (entityCollectionContextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(entityCollectionContextNode);
@@ -229,7 +231,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeCollection getXdiAttributeCollection(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode attributeCollectionContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+
+		ContextNode attributeCollectionContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (attributeCollectionContextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(attributeCollectionContextNode);
@@ -247,7 +251,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntitySingleton getXdiEntitySingleton(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode entitySingletonContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+
+		ContextNode entitySingletonContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (entitySingletonContextNode == null) return null;
 
 		return XdiEntitySingleton.fromContextNode(entitySingletonContextNode);
@@ -265,7 +271,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttributeSingleton getXdiAttributeSingleton(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode attributeSingletonContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+
+		ContextNode attributeSingletonContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (attributeSingletonContextNode == null) return null;
 
 		return XdiAttributeSingleton.fromContextNode(attributeSingletonContextNode);
@@ -283,7 +291,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiEntity getXdiEntity(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode entityContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+		
+		ContextNode entityContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (entityContextNode == null) return null;
 
 		return XdiAbstractEntity.fromContextNode(entityContextNode);
@@ -301,7 +311,9 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@Override
 	public XdiAttribute getXdiAttribute(XDIAddress XDIaddress, boolean create) {
 
-		ContextNode attributeContextNode = create ? this.getContextNode().setDeepContextNode(XDIaddress) : this.getContextNode().getDeepContextNode(XDIaddress, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
+
+		ContextNode attributeContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);

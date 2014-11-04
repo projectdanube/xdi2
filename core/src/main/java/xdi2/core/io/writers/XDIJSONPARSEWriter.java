@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -26,7 +26,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
-import xdi2.core.util.iterators.MappingLiteralStatementIterator;
+import xdi2.core.util.iterators.MappingLiteralNodeStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 
@@ -89,7 +89,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllContextNodes()));
 			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode(true).getAllRelations()));
-			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
+			list.add(new MappingLiteralNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {
@@ -147,7 +147,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		else if (statement.getObject() instanceof XDIArc)
 			gom.add(makeGom((XDIArc) statement.getObject()));
 		else
-			gom.add(AbstractLiteral.literalDataToJsonElement(statement.getObject()));
+			gom.add(AbstractLiteralNode.literalDataToJsonElement(statement.getObject()));
 
 		return gom;
 	}
@@ -180,9 +180,9 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			gom = gom2;
 		}
 
-		if (XDIarc.hasLiteral()) {
+		if (XDIarc.hasLiteralNode()) {
 
-			gom = new JsonPrimitive(XDIarc.getLiteral());
+			gom = new JsonPrimitive(XDIarc.getLiteralNode());
 		}
 
 		if (XDIarc.hasCs()) {

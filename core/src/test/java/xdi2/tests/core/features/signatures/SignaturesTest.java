@@ -48,7 +48,7 @@ public class SignaturesTest extends TestCase {
 		PrivateKey privateKey = keyPair.getPrivate();
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus.sabadello@gmail.com\""));
 		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
@@ -83,7 +83,7 @@ public class SignaturesTest extends TestCase {
 		SecretKey secretKey = secretKeyGen.generateKey(); 
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus.sabadello@gmail.com\""));
 		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
@@ -114,7 +114,7 @@ public class SignaturesTest extends TestCase {
 	public void testNormalizedSerialization() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus.sabadello@gmail.com\""));
 		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));

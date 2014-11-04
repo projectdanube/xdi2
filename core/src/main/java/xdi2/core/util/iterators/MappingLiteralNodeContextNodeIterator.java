@@ -3,22 +3,22 @@ package xdi2.core.util.iterators;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 
 /**
  * A MappingIterator that maps XDI literals to their context nodes.
  * 
  * @author markus
  */
-public class MappingLiteralContextNodeIterator extends MappingIterator<Literal, ContextNode> {
+public class MappingLiteralNodeContextNodeIterator extends MappingIterator<LiteralNode, ContextNode> {
 
-	public MappingLiteralContextNodeIterator(Iterator<Literal> literals) {
+	public MappingLiteralNodeContextNodeIterator(Iterator<LiteralNode> literals) {
 
 		super(literals);
 	}
 
 	@Override
-	public ContextNode map(Literal literal) {
+	public ContextNode map(LiteralNode literal) {
 
 		return literal.getContextNode();
 	}

@@ -253,7 +253,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));
 			} else if ("Plain XDI set".equals(submit)) {
 
-				message.createSetOperation(XDIStatement.fromLiteralComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>"), XDIConstants.XDI_ADD_VALUE), "test@email.com"));
+				message.createSetOperation(XDIStatement.fromLiteralComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")), "test@email.com"));
 			} else if ("Plain XDI del".equals(submit)) {
 
 				message.createDelOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));

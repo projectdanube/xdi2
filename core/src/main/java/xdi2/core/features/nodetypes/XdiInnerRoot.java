@@ -135,12 +135,12 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	public static ContextNode getSubjectContextNode(ContextNode contextNode) {
 
 		XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootXDIArc(contextNode.getXDIArc());
-		if (subject == null) return null;
+		if (subject == null || subject.isLiteralNodeXDIAddress()) return null;
 
 		ContextNode parentContextNode = contextNode.getContextNode();
 		if (parentContextNode == null) return null;
 
-		ContextNode subjectContextNode = parentContextNode.getDeepContextNode(subject, false);
+		ContextNode subjectContextNode = (ContextNode) parentContextNode.getDeepNode(subject, false);
 		if (subjectContextNode == null) return null;
 
 		return subjectContextNode;
@@ -154,7 +154,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	public static Relation getPredicateRelation(ContextNode contextNode) {
 
 		XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootXDIArc(contextNode.getXDIArc());
-		if (predicate == null) return null;
+		if (predicate == null || predicate.isLiteralNodeXDIAddress()) return null;
 
 		ContextNode subjectContextNode = getSubjectContextNode(contextNode);
 		if (subjectContextNode == null) return null;
@@ -216,8 +216,11 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (getSubjectOfInnerRootXDIArc(XDIarc) == null) return false;
-		if (getPredicateOfInnerRootXDIArc(XDIarc) == null) return false;
+		XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc);
+		XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc);
+
+		if (subject == null || subject.isLiteralNodeXDIAddress()) return false;
+		if (predicate == null || predicate.isLiteralNodeXDIAddress()) return false;
 
 		return true;
 	}

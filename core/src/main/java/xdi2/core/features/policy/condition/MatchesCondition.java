@@ -2,7 +2,8 @@ package xdi2.core.features.policy.condition;
 
 import java.util.regex.Pattern;
 
-import xdi2.core.ContextNode;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.syntax.XDIAddress;
@@ -64,17 +65,17 @@ public class MatchesCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
+		Node subject = policyEvaluationContext.getNode(this.getStatementXri().getSubject());
+		Node object = policyEvaluationContext.getNode((XDIAddress) this.getStatementXri().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 
-		if (subject.containsLiteral()) {
+		if (subject instanceof LiteralNode) {
 
-			if (! object.containsLiteral()) return Boolean.FALSE;
+			if (! (object instanceof LiteralNode)) return Boolean.FALSE;
 
-			String subjectLiteralData = subject.getLiteral().getLiteralDataString();
-			String objectLiteralData = object.getLiteral().getLiteralDataString();
+			String subjectLiteralData = ((LiteralNode) subject).getLiteralDataString();
+			String objectLiteralData = ((LiteralNode) object).getLiteralDataString();
 
 			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
 

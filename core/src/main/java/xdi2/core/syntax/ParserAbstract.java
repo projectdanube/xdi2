@@ -18,7 +18,7 @@ public abstract class ParserAbstract implements Parser {
 
 		return new XDIStatement(string, subject, predicate, object);
 	}
-	
+
 	protected XDIAddress newXDIAddress(String string, List<XDIArc> arcs) {
 
 		return new XDIAddress(string, arcs);

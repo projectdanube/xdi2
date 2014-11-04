@@ -48,7 +48,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> im
 		XDIAddress contextNodeXDIAddress;
 
 		if (targetStatement.isContextNodeStatement()) 
-			contextNodeXDIAddress = targetStatement.getTargetContextNodeXDIAddress();
+			contextNodeXDIAddress = targetStatement.getTargetXDIAddress();
 		else
 			contextNodeXDIAddress = targetStatement.getContextNodeXDIAddress();
 

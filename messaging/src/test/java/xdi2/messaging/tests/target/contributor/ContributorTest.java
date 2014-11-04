@@ -21,9 +21,9 @@ public class ContributorTest extends TestCase {
 
 	static String referenceGraphStatements = 
 			"" +
-					"(#con)=a<#b>&/&/\"val\"" + "\n" + 
+					"(#con)=a<#b>/&/\"val\"" + "\n" + 
 					"(#con)=x*y/#c/(#con)=d*e" + "\n" + 
-					"(#con)<#email>&/&/\"val\"" + "\n" + 
+					"(#con)<#email>/&/\"val\"" + "\n" + 
 					"(#test)=markus/#friend/(#test)=animesh" + "\n";
 
 	static String[] targetStrings = new String[] {

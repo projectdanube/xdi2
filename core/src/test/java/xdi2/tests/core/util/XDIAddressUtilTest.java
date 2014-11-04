@@ -12,7 +12,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiMemberUnordered;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
@@ -199,7 +198,6 @@ public class XDIAddressUtilTest extends TestCase {
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111"), XDIAddressUtil.findXDIAddress(XDIaddress, XdiMemberUnordered.class));
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.findXDIAddress(XDIaddress, XdiAttribute.class));
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.findXDIAddress(XDIaddress, XdiAttributeSingleton.class));
-		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.findXDIAddress(XDIaddress, XdiValue.class));
 	}
 
 	public void testRemoveStartXDIAddress() throws Exception {

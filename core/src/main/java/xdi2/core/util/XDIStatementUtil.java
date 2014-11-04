@@ -19,7 +19,7 @@ public final class XDIStatementUtil {
 
 	/**
 	 * Removes a start address from a statement.
-	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
+	 * E.g. for =a*b*c*d/&/... and =a*b, this returns *c*d/&/...
 	 */
 	public static XDIStatement removeStartXDIStatement(final XDIStatement statement, final XDIAddress start, final boolean variablesInAddress, boolean variablesInStart) {
 
@@ -56,7 +56,7 @@ public final class XDIStatementUtil {
 
 	/**
 	 * Removes a start address from a statement.
-	 * E.g. for =a*b*c*d&/&/... and =a*b, this returns *c*d&/&/...
+	 * E.g. for =a*b*c*d/&/... and =a*b, this returns *c*d/&/...
 	 */
 	public static XDIStatement removeStartXDIStatement(final XDIStatement statement, final XDIAddress start) {
 
@@ -65,7 +65,7 @@ public final class XDIStatementUtil {
 
 	/**
 	 * Concats an address and a statement into a new statement.
-	 * E.g. for *c*d&/&/... and =a*b, this returns =a*b*c*d&/&/...
+	 * E.g. for *c*d/&/... and =a*b, this returns =a*b*c*d/&/...
 	 */
 	public static XDIStatement concatXDIStatement(final XDIAddress XDIaddress, final XDIStatement statement) {
 

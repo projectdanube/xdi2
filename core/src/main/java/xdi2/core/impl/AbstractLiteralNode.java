@@ -5,11 +5,13 @@ import java.util.Comparator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,19 +21,15 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public abstract class AbstractLiteral implements Literal {
+public abstract class AbstractLiteralNode extends AbstractNode implements LiteralNode {
 
 	private static final long serialVersionUID = -3376866498591508078L;
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
-	private ContextNode contextNode;
+	public AbstractLiteralNode(ContextNode contextNode) {
 
-	public AbstractLiteral(ContextNode contextNode) {
-
-		if (contextNode == null) throw new NullPointerException();
-
-		this.contextNode = contextNode;
+		super(contextNode);
 	}
 
 	@Override
@@ -41,15 +39,15 @@ public abstract class AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public ContextNode getContextNode() {
+	public void delete() {
 
-		return this.contextNode;
+		this.getContextNode().delLiteralNode();
 	}
 
 	@Override
-	public void delete() {
+	public XDIArc getXDIArc() {
 
-		this.getContextNode().delLiteral();
+		return XDIConstants.XDI_ARC_LITERAL;
 	}
 
 	@Override
@@ -120,16 +118,16 @@ public abstract class AbstractLiteral implements Literal {
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof Literal)) return false;
+		if (object == null || ! (object instanceof LiteralNode)) return false;
 		if (object == this) return true;
 
-		Literal other = (Literal) object;
+		LiteralNode other = (LiteralNode) object;
 
 		// two literals are equal if their context nodes and their data are equal
 
 		return
 				this.getContextNode().equals(other.getContextNode()) &&
-				AbstractLiteral.isLiteralDataEqual(this.getLiteralData(), other.getLiteralData());
+				AbstractLiteralNode.isLiteralDataEqual(this.getLiteralData(), other.getLiteralData());
 	}
 
 	@Override
@@ -144,7 +142,7 @@ public abstract class AbstractLiteral implements Literal {
 	}
 
 	@Override
-	public int compareTo(Literal other) {
+	public int compareTo(LiteralNode other) {
 
 		if (other == null || other == this) return 0;
 
@@ -267,31 +265,31 @@ public abstract class AbstractLiteral implements Literal {
 		@Override
 		public XDIAddress getSubject() {
 
-			return AbstractLiteral.this.getContextNode().getXDIAddress();
+			return AbstractLiteralNode.this.getContextNode().getXDIAddress();
 		}
 
 		@Override
 		public Object getObject() {
 
-			return AbstractLiteral.this.getLiteralData();
+			return AbstractLiteralNode.this.getLiteralData();
 		}
 
 		@Override
 		public Graph getGraph() {
 
-			return AbstractLiteral.this.getGraph();
+			return AbstractLiteralNode.this.getGraph();
 		}
 
 		@Override
 		public void delete() {
 
-			AbstractLiteral.this.delete();
+			AbstractLiteralNode.this.delete();
 		}
 
 		@Override
-		public Literal getLiteral() {
+		public LiteralNode getLiteralNode() {
 
-			return AbstractLiteral.this;
+			return AbstractLiteralNode.this;
 		}
 	};
 }

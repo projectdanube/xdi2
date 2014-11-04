@@ -2,7 +2,7 @@ package xdi2.core.impl;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
@@ -37,7 +37,10 @@ public abstract class AbstractStatement implements Statement {
 			Relation relation = ((RelationStatement) this).getRelation();
 			if (relation == null) return false;
 
-			XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(relation.follow());
+			ContextNode targetContextNode = relation.followContextNode();
+			if (targetContextNode == null) return false;
+
+			XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(targetContextNode);
 			if (innerRoot != null && relation.equals(innerRoot.getPredicateRelation()) && ! innerRoot.getContextNode().isEmpty()) return true;
 		}
 
@@ -173,7 +176,7 @@ public abstract class AbstractStatement implements Statement {
 		}
 
 		@Override
-		public Literal getLiteral() {
+		public LiteralNode getLiteralNode() {
 
 			return null;
 		}

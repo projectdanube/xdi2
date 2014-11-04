@@ -1,7 +1,7 @@
 package xdi2.core.syntax;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.core.util.XDIAddressUtil;
 
@@ -27,6 +27,8 @@ public class XDIStatement extends XDIIdentifier {
 
 		super(string);
 
+		if (subject.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + subject + " as subject of a statement: " + string);
+
 		this.subject = subject;
 		this.predicate = predicate;
 		this.object = object;
@@ -35,7 +37,7 @@ public class XDIStatement extends XDIIdentifier {
 	/*
 	 * Factory methods
 	 */
-	
+
 	public static XDIStatement create(String string) {
 
 		return ParserRegistry.getInstance().getParser().parseXDIStatement(string);
@@ -62,16 +64,16 @@ public class XDIStatement extends XDIIdentifier {
 		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeXDIArc);
 	}
 
-	public static XDIStatement fromRelationComponents(XDIAddress contextNodeXDIAddress, XDIAddress relationAddress, XDIAddress targetContextNodeXDIAddress) {
+	public static XDIStatement fromRelationComponents(XDIAddress contextNodeXDIAddress, XDIAddress relationAddress, XDIAddress targetXDIAddress) {
 
-		String string = contextNodeXDIAddress.toString() + "/" + relationAddress.toString() + "/" + targetContextNodeXDIAddress.toString();
+		String string = contextNodeXDIAddress.toString() + "/" + relationAddress.toString() + "/" + targetXDIAddress.toString();
 
-		return new XDIStatement(string, contextNodeXDIAddress, relationAddress, targetContextNodeXDIAddress);
+		return new XDIStatement(string, contextNodeXDIAddress, relationAddress, targetXDIAddress);
 	}
 
 	public static XDIStatement fromLiteralComponents(XDIAddress contextNodeXDIAddress, Object literalData) {
 
-		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_LITERAL.toString() + "/" + AbstractLiteral.literalDataToString(literalData);
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_LITERAL.toString() + "/" + AbstractLiteralNode.literalDataToString(literalData);
 
 		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_LITERAL, literalData);
 	}
@@ -79,7 +81,7 @@ public class XDIStatement extends XDIIdentifier {
 	/*
 	 * Instance methods
 	 */
-	
+
 	public XDIAddress getSubject() {
 
 		return this.subject;
@@ -107,7 +109,7 @@ public class XDIStatement extends XDIIdentifier {
 
 	public boolean isLiteralStatement() {
 
-		return XDIConstants.XDI_ADD_LITERAL.equals(this.getPredicate()) && AbstractLiteral.isValidLiteralData(this.getObject());
+		return XDIConstants.XDI_ADD_LITERAL.equals(this.getPredicate()) && AbstractLiteralNode.isValidLiteralData(this.getObject());
 	}
 
 	public XDIAddress getContextNodeXDIAddress() {
@@ -135,7 +137,7 @@ public class XDIStatement extends XDIIdentifier {
 		return null;
 	}
 
-	public XDIAddress getTargetContextNodeXDIAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
 		if (this.isContextNodeStatement()) {
 

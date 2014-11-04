@@ -26,14 +26,14 @@ public class XDIStatementUtilTest extends TestCase {
 		};
 
 		String literalStatements[] = new String[] {
-				"=markus<#name>&/&/\"Markus Sabadello\"",
-				"[=]!1111<#tel>&/&/\"+1-206-555-1212\"",
-				"[=]!1111<#tel>[1]&/&/\"+1.206.555.1111\""
+				"=markus<#name>/&/\"Markus Sabadello\"",
+				"[=]!1111<#tel>/&/\"+1-206-555-1212\"",
+				"[=]!1111<#tel>[1]/&/\"+1.206.555.1111\""
 		};
 
 		String invalidStatements[] = new String[] {
-				"=markus&/&/=markus",
-				"=markus&/&/{}"
+				"=markus/&/=markus",
+				"=markus/&/{}"
 		};
 
 		for (String contextNodeStatement : contextNodeStatements) {
@@ -89,16 +89,16 @@ public class XDIStatementUtilTest extends TestCase {
 
 		assertEquals(XDIStatementUtil.removeStartXDIStatement(reducedContextStatement, XDIAddress.create("{}"), false, true), XDIStatement.create("//<#name>"));
 
-		XDIStatement literalStatement = XDIStatement.create("=markus<#name>&/&/\"Markus Sabadello\"");
+		XDIStatement literalStatement = XDIStatement.create("=markus<#name>/&/\"Markus Sabadello\"");
 
 		XDIStatement reducedLiteralStatement = XDIStatementUtil.removeStartXDIStatement(literalStatement, XDIAddress.create("=markus"));
 
-		assertEquals(reducedLiteralStatement, XDIStatement.create("<#name>&/&/\"Markus Sabadello\""));
+		assertEquals(reducedLiteralStatement, XDIStatement.create("<#name>/&/\"Markus Sabadello\""));
 		assertEquals(reducedLiteralStatement.getSubject(), XDIAddress.create("<#name>&"));
 		assertEquals(reducedLiteralStatement.getPredicate(), XDIAddress.create("&"));
 		assertEquals(reducedLiteralStatement.getObject(), "Markus Sabadello");
 
-		assertEquals(XDIStatementUtil.removeStartXDIStatement(reducedLiteralStatement, XDIAddress.create("{}"), false, true), XDIStatement.create("&/&/\"Markus Sabadello\""));
+		assertEquals(XDIStatementUtil.removeStartXDIStatement(reducedLiteralStatement, XDIAddress.create("{}"), false, true), XDIStatement.create("/&/\"Markus Sabadello\""));
 		assertEquals(XDIStatementUtil.removeStartXDIStatement(reducedLiteralStatement, XDIAddress.create("{}{}"), false, true), XDIStatement.create("/&/\"Markus Sabadello\""));
 
 		XDIStatement relationStatement = XDIStatement.create("=markus<#name>/$ref/=markus<#full><#name>");

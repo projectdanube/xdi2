@@ -72,7 +72,7 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
+			if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

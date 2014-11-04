@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -17,16 +18,16 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	private XDIArc XDIarc;
 	private Iterable<ContextNode> contextNodes;
 	private Iterable<Relation> relations;
-	private Literal literal;
+	private LiteralNode literalNode;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc XDIarc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc XDIarc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, LiteralNode literalNode) {
 
 		super(graph, contextNode);
 
 		this.XDIarc = XDIarc;
 		this.contextNodes = contextNodes == null ? Arrays.asList(new ContextNode[0]) : contextNodes;
 		this.relations = relations == null ? Arrays.asList(new Relation[0]) : relations;
-		this.literal = literal;
+		this.literalNode = literalNode;
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
+	public Relation setRelation(XDIAddress XDIaddress, Node targetNode) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -72,7 +73,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -90,19 +91,19 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	}
 
 	@Override
-	public Literal setLiteral(Object literalData) {
+	public LiteralNode setLiteralNode(Object literalData) {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
 
 	@Override
-	public Literal getLiteral() {
+	public LiteralNode getLiteralNode() {
 
-		return this.literal;
+		return this.literalNode;
 	}
 
 	@Override
-	public void delLiteral() {
+	public void delLiteralNode() {
 
 		throw new UnsupportedOperationException("Not supported.");
 	}
