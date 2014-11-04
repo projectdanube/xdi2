@@ -85,6 +85,12 @@ window.location.hash = target;
 		<ul>
 		<li><a href="https://cloud-manager.projectdanube.org/">https://cloud-manager.projectdanube.org/</a></li>
 		</ul>
+		
+		<p>XDI Tutorials:</p>
+		
+		<ul>
+		<li><a href="http://tutorial.xdi.org/">http://tutorial.xdi.org/</a></li>
+		</ul>
 
 	</div><div class="slide" id="slide4">
 
