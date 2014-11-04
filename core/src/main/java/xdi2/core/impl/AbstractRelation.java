@@ -1,5 +1,8 @@
 package xdi2.core.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
@@ -11,12 +14,14 @@ public abstract class AbstractRelation implements Relation {
 
 	private static final long serialVersionUID = -9055773010138710261L;
 
+	private static final Logger log = LoggerFactory.getLogger(AbstractRelation.class);
+
 	private ContextNode contextNode;
 
 	public AbstractRelation(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
-		
+
 		this.contextNode = contextNode;
 	}
 
@@ -41,7 +46,14 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public ContextNode follow() {
 
-		return this.getGraph().getDeepContextNode(this.getTargetContextNodeXDIAddress(), false);
+		ContextNode targetContextNode = this.getGraph().getDeepContextNode(this.getTargetContextNodeXDIAddress(), false);
+
+		if (targetContextNode == null) {
+
+			if (log.isWarnEnabled()) log.warn("Relation points to non-existent target context node " + this.getTargetContextNodeXDIAddress());
+		}
+
+		return targetContextNode;
 	}
 
 	/*
