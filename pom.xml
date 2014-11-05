@@ -7,6 +7,24 @@
 	<packaging>pom</packaging>
 	<version>0.7-SNAPSHOT</version>
 	<name>xdi2</name>
+	<description>XDI2 (XDI Two) is a general-purpose, lightweight and modular Java implementation of XDI specifications.</description>
+	<url>https://xdi2.projectdanube.org</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Markus Sabadello</name>
+			<email>markus@projectdanube.org</email>
+			<organization>Project Danube</organization>
+			<organizationUrl>http://www.projectdanube.org/</organizationUrl>
+		</developer>
+	</developers>
 
 	<modules>
 		<module>core</module>
