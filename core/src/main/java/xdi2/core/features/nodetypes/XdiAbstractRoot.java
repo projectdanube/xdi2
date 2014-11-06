@@ -105,13 +105,13 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 			if (XdiPeerRoot.isValidXDIArc(XDIarc)) {
 
 				ContextNode peerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
-				if (peerRootContextNode == null) break;
+				if (peerRootContextNode == null) return null;
 
 				nextRoot = new XdiPeerRoot(peerRootContextNode);
 			} else if (XdiInnerRoot.isValidXDIArc(XDIarc)) {
 
 				ContextNode innerRootContextNode = create ? root.getContextNode().setContextNode(XDIarc) : root.getContextNode().getContextNode(XDIarc, false);
-				if (innerRootContextNode == null) break;
+				if (innerRootContextNode == null) return null;
 
 				nextRoot = new XdiInnerRoot(innerRootContextNode);
 			} else {

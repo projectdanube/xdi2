@@ -193,6 +193,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create) {
 
 		XdiRoot xdiRoot = this.findRoot();
+		if (xdiRoot == null) return null;
 
 		XDIAddress innerRootSubjectAddress = xdiRoot.absoluteToRelativeXDIAddress(this.getContextNode().getXDIAddress());
 
