@@ -54,8 +54,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		ContextNode markus = graph0.getRootContextNode().setContextNode(XDIArc.create("=markus"));
 		ContextNode email = markus.setContextNode(XDIArc.create("<#email>"));
-		ContextNode value = email.setContextNode(XDIArc.create("&"));
-		value.setLiteralNode("abc@gmail.com");
+		email.setLiteralNode("abc@gmail.com");
 		markus.setRelation(XDIAddress.create("#friend"), XDIAddress.create("=drummond"));
 
 		markus = graph0.getRootContextNode().getContextNode(XDIArc.create("=markus"));
@@ -65,16 +64,17 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(markus.isLeafContextNode());
 		assertTrue(markus.containsRelations());
 		assertFalse(markus.containsLiteralNode());
-		assertTrue(value.isLeafContextNode());
-		assertTrue(value.containsLiteralNode());
+		assertTrue(email.isLeafContextNode());
+		assertTrue(email.containsLiteralNode());
 
 		ContextNode drummond = graph0.getRootContextNode().getContextNode(XDIArc.create("=drummond"));
 		assertNotNull(drummond);
 		assertTrue(drummond.isEmpty());
 		assertTrue(drummond.isLeafContextNode());
 
-		value.setLiteralNode("xyz@gmail.com");
+		email.setLiteralNode("xyz@gmail.com");
 		assertEquals(graph0.getDeepLiteralNode(XDIAddress.create("=markus<#email>&")).getLiteralData(), "xyz@gmail.com");
+		assertEquals(graph0.getDeepContextNode(XDIAddress.create("=markus<#email>")).getLiteralNode().getLiteralData(), "xyz@gmail.com");
 
 		graph0.close();
 	}
@@ -265,7 +265,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertFalse(root.getAllLiterals().hasNext());
 
 		root.setRelation(XDIAddress.create("*arc"), XDIAddress.create("=target"));
-		root.setContextNode(XDIArc.create("<#test>")).setContextNode(XDIArc.create("&")).setLiteralNode("test");
+		root.setContextNode(XDIArc.create("<#test>")).setLiteralNode("test");
 
 		assertFalse(root.isEmpty());
 		assertTrue(root.containsContextNodes());
@@ -281,8 +281,8 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(root.getAllRelations().hasNext());
 		assertTrue(root.getAllLiterals().hasNext());
 
-		root.setContextNode(XDIArc.create("+name"));
-		root.setContextNode(XDIArc.create("+email"));
+		root.setContextNode(XDIArc.create("#name"));
+		root.setContextNode(XDIArc.create("#email"));
 
 		assertFalse(root.isEmpty());
 		assertTrue(root.containsContextNodes());

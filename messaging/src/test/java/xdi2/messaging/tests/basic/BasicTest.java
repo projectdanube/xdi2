@@ -24,10 +24,10 @@ public class BasicTest extends TestCase {
 	private static final XDIStatement TARGET_STATEMENT = XDIStatement.create("=markus/+friend/=giovanni");
 
 	private static final XDIAddress contextNodeXDIAddressS[] = new XDIAddress[] {
-		XDIAddress.create("=markus+email"),
+		XDIAddress.create("=markus#email"),
 		XDIAddress.create("=markus"),
 		XDIAddress.create("=markus+friends"),
-		XDIAddress.create("=markus+name+last")
+		XDIAddress.create("=markus#name#last")
 	};
 
 	public void testMessagingOverview() throws Exception {
