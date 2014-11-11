@@ -2,7 +2,7 @@ package xdi2.client.events;
 
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.request.RequestMessageEnvelope;
 
 public class XDIDiscoverFromRegistryEvent extends XDIDiscoverEvent {
 
@@ -10,7 +10,7 @@ public class XDIDiscoverFromRegistryEvent extends XDIDiscoverEvent {
 
 	private XDIAddress query;
 
-	public XDIDiscoverFromRegistryEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, XDIAddress query) {
+	public XDIDiscoverFromRegistryEvent(Object source, RequestMessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, XDIAddress query) {
 
 		super(source, messageEnvelope, discoveryResult);
 

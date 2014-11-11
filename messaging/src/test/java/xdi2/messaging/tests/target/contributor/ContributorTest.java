@@ -10,9 +10,8 @@ import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public class ContributorTest extends TestCase {
@@ -69,12 +68,11 @@ public class ContributorTest extends TestCase {
 
 			log.info("Doing $get: " + targetString);
 
-			MessageEnvelope envelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
-			MessageResult result = new MessageResult();
+			RequestMessageEnvelope envelope = RequestMessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
 
-			messagingTarget.execute(envelope, result, null);
+			Graph resultGraph = messagingTarget.execute(envelope);
 
-			log.info("Result: " + result.getGraph().toString());
+			log.info("Result: " + resultGraph);
 
 			// validate result
 
@@ -82,7 +80,7 @@ public class ContributorTest extends TestCase {
 			ContextNode referenceContextNode = referenceGraph.getDeepContextNode(target);
 			CopyUtil.copyContextNode(referenceContextNode, tempGraph, null);
 
-			assertEquals(result.getGraph(), tempGraph);
+			assertEquals(resultGraph, tempGraph);
 
 			tempGraph.close();
 		}

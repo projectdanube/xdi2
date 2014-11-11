@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
@@ -16,18 +17,17 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.VariableUtil;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
-import xdi2.messaging.target.interceptor.MessageResultInterceptor;
+import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -35,7 +35,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author markus
  */
-public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, TargetInterceptor, MessageResultInterceptor, Prototype<VariablesInterceptor> {
+public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, TargetInterceptor, ResultGraphInterceptor, Prototype<VariablesInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(VariablesInterceptor.class);
 
@@ -56,7 +56,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetVariables(executionContext);
 
@@ -64,13 +64,13 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Exception ex) {
 
 	}
 
@@ -79,7 +79,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof SetOperation)) return targetStatement;
 
@@ -93,7 +93,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	}
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (! (operation instanceof SetOperation)) return targetAddress;
 
@@ -101,11 +101,11 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	}
 
 	/*
-	 * MessageResultInterceptor
+	 * ResultGraphInterceptor
 	 */
 
 	@Override
-	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void finish(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// add $is statements for all the substituted variables
 
@@ -117,7 +117,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			XDIStatement statement = XDIStatement.fromComponents(subject, predicate, object);
 
-			messageResult.getGraph().setStatement(statement);
+			resultGraph.setStatement(statement);
 		}
 	}
 

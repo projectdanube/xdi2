@@ -32,8 +32,8 @@ import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -61,7 +61,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private boolean bootstrapPublicLinkContract;
 	private boolean bootstrapTimestamp;
 	private Graph bootstrapGraph;
-	private MessageEnvelope bootstrapMessageEnvelope;
+	private RequestMessageEnvelope bootstrapMessageEnvelope;
 
 	public BootstrapInterceptor() {
 
@@ -253,7 +253,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
 
-			MessageEnvelope bootstrapMessageEnvelope = new MessageEnvelope();
+			RequestMessageEnvelope bootstrapMessageEnvelope = new RequestMessageEnvelope();
 			CopyUtil.copyGraph(this.getBootstrapMessageEnvelope().getGraph(), bootstrapMessageEnvelope.getGraph(), copyStrategy);
 
 			if (log.isDebugEnabled()) log.debug("Executing bootstrap message envelope: " + bootstrapMessageEnvelope.getGraph().toString());
@@ -267,7 +267,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			LinkContractInterceptor linkContractInterceptor = graphMessagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(bootstrapMessageEnvelope);
 
-			graphMessagingTarget.execute(bootstrapMessageEnvelope, null, null);
+			graphMessagingTarget.execute(bootstrapMessageEnvelope);
 		}
 	}
 
@@ -347,12 +347,12 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		this.bootstrapGraph = bootstrapGraph;
 	}
 
-	public MessageEnvelope getBootstrapMessageEnvelope() {
+	public RequestMessageEnvelope getBootstrapMessageEnvelope() {
 
 		return this.bootstrapMessageEnvelope;
 	}
 
-	public void setBootstrapMessageEnvelope(MessageEnvelope bootstrapMessageEnvelope) {
+	public void setBootstrapMessageEnvelope(RequestMessageEnvelope bootstrapMessageEnvelope) {
 
 		this.bootstrapMessageEnvelope = bootstrapMessageEnvelope;
 	}

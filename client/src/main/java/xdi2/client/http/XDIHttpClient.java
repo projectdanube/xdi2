@@ -18,15 +18,18 @@ import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.ssl.XDI2X509TrustManager;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
+import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.response.AbstractMessagingResponse;
+import xdi2.messaging.response.ErrorMessagingResponse;
+import xdi2.messaging.response.MessagingResponse;
 
 /**
  * An XDI client that can send XDI messages over HTTP and receive results.
@@ -141,7 +144,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
+	public MessagingResponse send(MessagingRequest messagingRequest) throws Xdi2ClientException {
 
 		if (this.xdiEndpointUrl == null) throw new Xdi2ClientException("No URI set.");
 
@@ -218,9 +221,9 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex);
 		}
 
-		// send the message envelope
+		// send the messaging request
 
-		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(null, null));
+		if (log.isDebugEnabled()) log.debug("MessagingRequest: " + messagingRequest);
 
 		int responseCode;
 		String responseMessage;
@@ -228,7 +231,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		try {
 
 			OutputStream outputStream = http.getOutputStream();
-			writer.write(messageEnvelope.getGraph(), outputStream);
+			writer.write(messagingRequest.getGraph(), outputStream);
 			outputStream.flush();
 			outputStream.close();
 
@@ -268,44 +271,47 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			reader = XDIReaderRegistry.getAuto();
 		}
 
-		// read the message result and close connection
+		// read the messaging response and close connection
 
-		if (messageResult == null) messageResult = new MessageResult();
+		Graph messagingResponseGraph = MemoryGraphFactory.getInstance().openGraph();
 
 		try {
 
 			InputStream inputStream = http.getInputStream();
-			reader.read(messageResult.getGraph(), inputStream);
+			reader.read(messagingResponseGraph, inputStream);
 			inputStream.close();
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex);
+		} finally {
+
+			http.disconnect();
 		}
 
-		http.disconnect();
+		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
 
-		if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
+		if (log.isDebugEnabled()) log.debug("MessagingResponse: " + messagingResponse);
 
 		// timestamp
 
 		Date endTimestamp = new Date();
 
-		// see if it is an error message result
+		// see if it is an error result graph
 
-		if (ErrorMessageResult.isValid(messageResult.getGraph())) {
+		if (messagingResponse instanceof ErrorMessagingResponse) {
 
-			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromGraph(messageResult.getGraph());
+			ErrorMessagingResponse errorMessagingResponse = (ErrorMessagingResponse) messagingResponse;
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendErrorEvent(this, messagingRequest, errorMessagingResponse, beginTimestamp, endTimestamp));
 
-			throw new Xdi2ClientException("Error message result (check server logs!): " + errorMessageResult.getErrorString(), null, errorMessageResult);
+			throw new Xdi2ClientException("Error message result (check server logs!): " + errorMessagingResponse.getErrorString(), null, errorMessagingResponse);
 		}
 
 		// done
 
-		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messageResult, beginTimestamp, endTimestamp));
+		this.fireSendEvent(new XDISendSuccessEvent(this, messagingRequest, messagingResponse, beginTimestamp, endTimestamp));
 
-		return messageResult;
+		return messagingResponse;
 	}
 
 	@Override

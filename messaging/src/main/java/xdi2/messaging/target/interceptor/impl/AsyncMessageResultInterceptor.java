@@ -6,14 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.features.keys.Keys;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.response.ResponseMessage;
+import xdi2.messaging.response.ResponseMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.ContributorMount;
@@ -80,7 +79,7 @@ public class AsyncMessageResultInterceptor extends AbstractMessageInterceptor im
 	 */
 
 	@Override
-	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		XDIAddress toXDIAddress = message.getToXDIAddress();
@@ -91,8 +90,8 @@ public class AsyncMessageResultInterceptor extends AbstractMessageInterceptor im
 			return InterceptorResult.DEFAULT;
 		}
 
-		MessageEnvelope responseMessageEnvelope = new MessageEnvelope();
-		Message responseMessage = responseMessageEnvelope.createMessage(toXDIAddress);
+		ResponseMessageEnvelope responseMessageEnvelope = new ResponseMessageEnvelope();
+		ResponseMessage responseMessage = responseMessageEnvelope.createMessage(toXDIAddress);
 		responseMessage.setToXDIAddress(senderXDIAddress);
 
 		// sign response message?

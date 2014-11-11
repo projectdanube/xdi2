@@ -3,19 +3,19 @@ package xdi2.messaging.target.interceptor.impl.encryption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.messaging.DoOperation;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.MessageResultInterceptor;
+import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -23,7 +23,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, MessageResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, ResultGraphInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
@@ -74,7 +74,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	 */
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof DoOperation) return targetStatement;
 
@@ -106,7 +106,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof DoOperation) return targetAddress;
 
@@ -116,13 +116,13 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	/*
-	 * MessageResultInterceptor
+	 * ResultGraphInterceptor
 	 */
 
 	@Override
-	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void finish(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Literal literal : messageResult.getGraph().getRootContextNode(true).getAllLiterals()) {
+		for (Literal literal : resultGraph.getRootContextNode(true).getAllLiterals()) {
 
 			String encryptedLiteralDataString = literal.getLiteralDataString();
 			if (encryptedLiteralDataString == null) continue;

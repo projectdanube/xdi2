@@ -1,4 +1,4 @@
-package xdi2.messaging;
+package xdi2.messaging.operations;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -15,6 +15,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageCollection;
+import xdi2.messaging.MessageEnvelope;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -25,10 +28,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private static final long serialVersionUID = 8816045435464636862L;
 
-	protected Message message;
+	protected Message<?, ?, ?> message;
 	protected Relation relation;
 
-	protected Operation(Message message, Relation relation) {
+	protected Operation(Message<?, ?, ?> message, Relation relation) {
 
 		if (message == null || relation == null) throw new NullPointerException();
 
@@ -60,7 +63,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * @param relation The relation that is an XDI operation.
 	 * @return The XDI operation.
 	 */
-	public static Operation fromMessageAndRelation(Message message, Relation relation) {
+	public static Operation fromMessageAndRelation(Message<?, ?, ?> message, Relation relation) {
 
 		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
 		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
@@ -90,7 +93,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the XDI message to which this XDI operation belongs.
 	 * @return An XDI message.
 	 */
-	public Message getMessage() {
+	public Message<?, ?, ?> getMessage() {
 
 		return this.message;
 	}
@@ -99,7 +102,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the XDI message collection to which this XDI operation belongs.
 	 * @return An XDI message collection.
 	 */
-	public MessageCollection getMessageCollection() {
+	public MessageCollection<?, ?, ?> getMessageCollection() {
 
 		return this.getMessage().getMessageCollection();
 	}
@@ -108,7 +111,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the XDI message envelope to which this XDI operation belongs.
 	 * @return An XDI message envelope.
 	 */
-	public MessageEnvelope getMessageEnvelope() {
+	public MessageEnvelope<?, ?, ?> getMessageEnvelope() {
 
 		return this.getMessageCollection().getMessageEnvelope();
 	}

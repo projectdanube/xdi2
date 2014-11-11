@@ -1,6 +1,7 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.security.Key;
 import java.util.Date;
 import java.util.Iterator;
@@ -18,10 +19,10 @@ import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.policy.PolicyRoot;
@@ -40,22 +41,27 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
 
 /**
  * An XDI message, represented as a context node.
  * 
  * @author markus
  */
-public final class Message implements Serializable, Comparable<Message> {
+public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> implements Serializable, Comparable<Message<?, ?, ?>> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	public static final XDIAddress XDI_ADD_PARAMETER_ASYNC = XDIAddress.create("<$async>");
 
-	private MessageCollection messageCollection;
+	private MC messageCollection;
 	private XdiEntity xdiEntity;
 
-	protected Message(MessageCollection messageCollection, XdiEntity xdiEntity) {
+	protected Message(MC messageCollection, XdiEntity xdiEntity) {
 
 		if (messageCollection == null || xdiEntity == null) throw new NullPointerException();
 
@@ -83,11 +89,17 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param xdiEntity The XDI entity that is an XDI message.
 	 * @return The XDI message.
 	 */
-	public static Message fromMessageCollectionAndXdiEntity(MessageCollection messageCollection, XdiEntity xdiEntity) {
+	@SuppressWarnings("unchecked")
+	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> M fromMessageCollectionAndXdiEntity(MessageCollection<ME, MC, M> messageCollection, XdiEntity xdiEntity) {
 
-		if (! isValid(xdiEntity)) return null;
+		try {
 
-		return new Message(messageCollection, xdiEntity);
+			Method method = messageCollection.getMessageEnvelope().getM().getMethod("fromMessageCollectionAndXdiEntity", messageCollection.getMessageEnvelope().getMC(), XdiEntity.class);
+			return (M) method.invoke(null, messageCollection, xdiEntity);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	/*
@@ -98,7 +110,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the XDI message collection to which this XDI message belongs.
 	 * @return An XDI message collection.
 	 */
-	public MessageCollection getMessageCollection() {
+	public MC getMessageCollection() {
 
 		return this.messageCollection;
 	}
@@ -107,7 +119,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the message envelope to which this message belongs.
 	 * @return A message envelope.
 	 */
-	public MessageEnvelope getMessageEnvelope() {
+	public ME getMessageEnvelope() {
 
 		return this.getMessageCollection().getMessageEnvelope();
 	}
@@ -879,7 +891,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (object == null || ! (object instanceof Message)) return false;
 		if (object == this) return true;
 
-		Message other = (Message) object;
+		Message<?, ?, ?> other = (Message<?, ?, ?>) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -895,7 +907,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	@Override
-	public int compareTo(Message other) {
+	public int compareTo(Message<?, ?, ?> other) {
 
 		if (other == this || other == null) return 0;
 
@@ -908,7 +920,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationOperationIterator extends NotNullIterator<Operation> {
 
-		public MappingRelationOperationIterator(final Message message, Iterator<Relation> relations) {
+		public MappingRelationOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, Operation> (relations) {
 
@@ -923,7 +935,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationGetOperationIterator extends NotNullIterator<GetOperation> {
 
-		public MappingRelationGetOperationIterator(final Message message, Iterator<Relation> relations) {
+		public MappingRelationGetOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, GetOperation> (relations) {
 
@@ -938,7 +950,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationSetOperationIterator extends NotNullIterator<SetOperation> {
 
-		public MappingRelationSetOperationIterator(final Message message, Iterator<Relation> relations) {
+		public MappingRelationSetOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, SetOperation> (relations) {
 
@@ -953,7 +965,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationDelOperationIterator extends NotNullIterator<DelOperation> {
 
-		public MappingRelationDelOperationIterator(final Message message, Iterator<Relation> relations) {
+		public MappingRelationDelOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, DelOperation> (relations) {
 
@@ -968,7 +980,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public static class MappingRelationDoOperationIterator extends NotNullIterator<DoOperation> {
 
-		public MappingRelationDoOperationIterator(final Message message, Iterator<Relation> relations) {
+		public MappingRelationDoOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, DoOperation> (relations) {
 

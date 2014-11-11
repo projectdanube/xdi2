@@ -11,8 +11,8 @@ import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -50,7 +50,7 @@ public class GraphSignatureAuthenticator extends PublicKeySignatureAuthenticator
 	}
 
 	@Override
-	public PublicKey getPublicKey(Message message) {
+	public PublicKey getPublicKey(RequestMessage message) {
 
 		// sender
 

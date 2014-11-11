@@ -5,19 +5,19 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.core.Graph;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractMessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.transport.Request;
+import xdi2.transport.TransportRequest;
 import xdi2.transport.impl.AbstractTransport;
-import xdi2.transport.impl.http.HttpRequest;
+import xdi2.transport.impl.http.HttpTransportRequest;
 
 /**
  * This interceptor will skip the link contract interceptor,
@@ -42,18 +42,18 @@ public class SkipLinkContractsInterceptor extends AbstractMessageEnvelopeInterce
 	}
 
 	/*
-	 * TransportInterceptor
+	 * MessageEnvelopeInterceptor
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
-		Request request = AbstractTransport.getRequest(executionContext);
-		if (! (request instanceof HttpRequest)) return InterceptorResult.DEFAULT;
+		TransportRequest request = AbstractTransport.getRequest(executionContext);
+		if (! (request instanceof HttpTransportRequest)) return InterceptorResult.DEFAULT;
 
-		HttpRequest httpRequest = (HttpRequest) request;
+		HttpTransportRequest httpRequest = (HttpTransportRequest) request;
 
 		String remoteAddr = httpRequest.getHeader("X-Forwarded-Remote-Addr"); 
 		if (remoteAddr == null) remoteAddr = httpRequest.getRemoteAddr();

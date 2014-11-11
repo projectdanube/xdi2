@@ -1,11 +1,11 @@
 package xdi2.messaging.tests.target.contributor;
 
+import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
@@ -28,14 +28,14 @@ public class TestContributor1 extends AbstractContributor {
 			XDIAddress contributorsAddress,
 			XDIAddress relativeTargetAddress,
 			GetOperation operation,
-			MessageResult messageResult,
+			Graph resultGraph,
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		messageResult.getGraph().setStatement(XDIStatement.fromLiteralComponents(
+		resultGraph.setStatement(XDIStatement.fromLiteralComponents(
 				XDIAddress.create("" + contributorsAddress + "=a<#b>&"),
 				this.value));
 
-		messageResult.getGraph().setStatement(XDIStatement.fromRelationComponents(
+		resultGraph.setStatement(XDIStatement.fromRelationComponents(
 				XDIAddress.create("" + contributorsAddress + "=x*y"),
 				XDIAddress.create("" + "#c"),
 				XDIAddress.create("" + contributorsAddress + "=d*e")));

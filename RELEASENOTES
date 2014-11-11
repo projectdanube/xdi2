@@ -1,6 +1,17 @@
 Release Notes 0.7
 =================
 
+* discovery:
+XDIDiscoveryResult.getMessageResult() -> XDIDiscoveryResult.getResultGraph()
+
+* for the request:
+MessageEnvelope -> RequestMessageEnvelope
+MessageCollection -> RequestMessageCollection
+Message -> RequestMessage
+
+* for the response:
+	Graph resultGraph = xdiClient.send(messageEnvelope).getResultGraph();
+
 * To move away from old "XRI" terminology, classes were renamed, e.g.:
 XDI3Segment -> XDIAddress
 XDI3SubSegment -> XDIArc

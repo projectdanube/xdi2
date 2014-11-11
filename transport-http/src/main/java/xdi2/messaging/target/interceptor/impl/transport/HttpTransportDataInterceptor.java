@@ -3,23 +3,23 @@ package xdi2.messaging.target.interceptor.impl.transport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.transport.Request;
+import xdi2.transport.TransportRequest;
 import xdi2.transport.impl.AbstractTransport;
-import xdi2.transport.impl.http.HttpRequest;
+import xdi2.transport.impl.http.HttpTransportRequest;
 
 /**
  * This interceptor looks for certain features associated with the HTTP transport,
@@ -48,14 +48,14 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
-		Request request = AbstractTransport.getRequest(executionContext);
-		if (! (request instanceof HttpRequest)) return InterceptorResult.DEFAULT;
+		TransportRequest request = AbstractTransport.getRequest(executionContext);
+		if (! (request instanceof HttpTransportRequest)) return InterceptorResult.DEFAULT;
 
-		HttpRequest httpRequest = (HttpRequest) request;
+		HttpTransportRequest httpRequest = (HttpTransportRequest) request;
 
 		// add <$ip>
 
@@ -73,7 +73,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	@Override
-	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

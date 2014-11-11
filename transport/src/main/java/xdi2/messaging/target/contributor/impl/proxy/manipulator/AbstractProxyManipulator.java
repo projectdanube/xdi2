@@ -1,11 +1,11 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator;
 
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
+import xdi2.core.Graph;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 
 public abstract class AbstractProxyManipulator implements ProxyManipulator {
@@ -21,15 +21,15 @@ public abstract class AbstractProxyManipulator implements ProxyManipulator {
 	}
 
 	@Override
-	public void manipulate(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(RequestMessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Message message : messageEnvelope.getMessages()) {
+		for (RequestMessage message : messageEnvelope.getMessages()) {
 
 			this.manipulate(message, executionContext);
 		}
 	}
 
-	public void manipulate(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(RequestMessage message, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Operation operation : message.getOperations()) {
 
@@ -42,7 +42,7 @@ public abstract class AbstractProxyManipulator implements ProxyManipulator {
 	}
 
 	@Override
-	public void manipulate(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }

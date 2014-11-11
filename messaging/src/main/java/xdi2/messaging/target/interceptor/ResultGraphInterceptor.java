@@ -1,6 +1,6 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.messaging.MessageResult;
+import xdi2.core.Graph;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
@@ -10,12 +10,12 @@ import xdi2.messaging.target.MessagingTarget;
  * 
  * @author markus
  */
-public interface MessageResultInterceptor extends Interceptor<MessagingTarget> {
+public interface ResultGraphInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
 	 * Run on the message result after it is complete for final adjustments.
 	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
 	 */
-	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public void finish(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

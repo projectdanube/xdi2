@@ -9,15 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.XDIStatementUtil;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.response.GraphMessagingResponse;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
 import xdi2.messaging.target.contributor.ContributorMap.ContributorFound;
@@ -36,7 +38,7 @@ public class ContributorExecutor {
 	 * Methods for executing contributors
 	 */
 
-	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorChainXDIAddresses, XDIAddress relativeTargetXDIAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorChainXDIAddresses, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContributorResult contributorResultXDIAddress = ContributorResult.DEFAULT;
 
@@ -96,7 +98,7 @@ public class ContributorExecutor {
 
 				if (! contributor.getContributors().isEmpty()) {
 
-					ContributorResult contributorResult = executeContributorsAddress(contributor.getContributors(), nextContributorChainXDIAddresses, nextRelativeTargetXDIAddress, operation, operationMessageResult, executionContext);
+					ContributorResult contributorResult = executeContributorsAddress(contributor.getContributors(), nextContributorChainXDIAddresses, nextRelativeTargetXDIAddress, operation, operationResultGraph, executionContext);
 					contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
 					if (contributorResult.isSkipParentContributors()) {
@@ -108,15 +110,15 @@ public class ContributorExecutor {
 
 				// execute contributor (address)
 
-				MessageResult tempMessageResult = new MessageResult();
+				Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIAddress, operation, tempMessageResult, executionContext);
+				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIAddress, operation, tempResultGraph, executionContext);
 				contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
 				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
+				ContextNode tempContextNode = tempResultGraph.getDeepContextNode(tempContextNodeXDIAddress, true);
 
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
+				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationResultGraph, null);
 
 				if (contributorResult.isSkipSiblingContributors()) {
 
@@ -137,7 +139,7 @@ public class ContributorExecutor {
 		return contributorResultXDIAddress;
 	}
 
-	public static ContributorResult executeContributorsStatement(ContributorMap contributorMap, XDIAddress contributorChainXDIAddresses[], XDIStatement relativeTargetXDIStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static ContributorResult executeContributorsStatement(ContributorMap contributorMap, XDIAddress contributorChainXDIAddresses[], XDIStatement relativeTargetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContributorResult contributorResultXDIStatement = ContributorResult.DEFAULT;
 
@@ -230,7 +232,7 @@ public class ContributorExecutor {
 
 				if (! contributor.getContributors().isEmpty()) {
 
-					ContributorResult contributorResult = executeContributorsStatement(contributor.getContributors(), nextContributorChainXDIAddresses, nextRelativeTargetXDIStatement, operation, operationMessageResult, executionContext);
+					ContributorResult contributorResult = executeContributorsStatement(contributor.getContributors(), nextContributorChainXDIAddresses, nextRelativeTargetXDIStatement, operation, operationResultGraph, executionContext);
 					contributorResultXDIStatement = contributorResultXDIStatement.or(contributorResult);
 
 					if (contributorResult.isSkipParentContributors()) {
@@ -242,15 +244,15 @@ public class ContributorExecutor {
 
 				// execute contributor (statement)
 
-				MessageResult tempMessageResult = new MessageResult();
+				GraphMessagingResponse tempMessageResult = new GraphMessagingResponse();
 
-				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIStatement, operation, operationMessageResult, executionContext);
+				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIStatement, operation, operationResultGraph, executionContext);
 				contributorResultXDIStatement = contributorResultXDIStatement.or(contributorResult);
 
 				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
 				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
 
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
+				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationResultGraph, null);
 
 				if (contributorResult.isSkipSiblingContributors()) {
 

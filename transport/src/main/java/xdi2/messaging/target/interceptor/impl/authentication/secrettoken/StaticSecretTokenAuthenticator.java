@@ -3,7 +3,7 @@ package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 import java.util.Map;
 
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a
@@ -26,7 +26,7 @@ public class StaticSecretTokenAuthenticator extends DigestSecretTokenAuthenticat
 	}
 
 	@Override
-	public String getLocalSaltAndDigestSecretToken(Message message) {
+	public String getLocalSaltAndDigestSecretToken(RequestMessage message) {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;

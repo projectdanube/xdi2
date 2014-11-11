@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
@@ -31,9 +32,8 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -191,7 +191,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			String signatureKeyAlgorithm = signatureKeyAlgorithmString;
 			int signatureKeyLength = signatureKeyLengthString == null ? -1 :Integer.parseInt(signatureKeyLengthString);
 
-			Message message = new MessageEnvelope().createMessage(sender);
+			RequestMessage message = new RequestMessageEnvelope().createMessage(sender);
 
 			message.setFromPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(sender));
 			message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(recipient));
@@ -264,8 +264,8 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
-		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		RequestMessageEnvelope messageEnvelope = null;
+		Graph resultGraph = null;
 
 		long start = System.currentTimeMillis();
 
@@ -273,7 +273,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			// parse the message envelope
 
-			messageEnvelope = new MessageEnvelope();
+			messageEnvelope = new RequestMessageEnvelope();
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input));
 
@@ -281,32 +281,32 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			XDIClient client = new XDIHttpClient(endpoint);
 
-			messageResult = client.send(messageEnvelope, null);
+			resultGraph = client.send(messageEnvelope).getResultGraph();
 
 			// output the message result
 
 			StringWriter writer = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer);
+			xdiResultWriter.write(resultGraph, writer);
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
 			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, messageResult.getGraph());
+			OutputCache.put(outputId, resultGraph);
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getErrorGraph();
 
-				// output the message result
+				// output the error graph
 
-				if (messageResult != null) {
+				if (errorGraph != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					xdiResultWriter.write(errorGraph, writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, errorGraph);
 				}
 			}
 
@@ -321,7 +321,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
+		if (resultGraph != null) stats += Long.toString(resultGraph.getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

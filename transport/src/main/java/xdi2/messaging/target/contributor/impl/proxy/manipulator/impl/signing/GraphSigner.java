@@ -18,8 +18,8 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -57,7 +57,7 @@ public class GraphSigner extends PrivateKeySigner {
 	}
 
 	@Override
-	public PrivateKey getPrivateKey(Message message) {
+	public PrivateKey getPrivateKey(RequestMessage message) {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;

@@ -1,14 +1,14 @@
 package xdi2.messaging.target.impl;
 
+import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.DoOperation;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.target.AddressHandler;
 
 /**
@@ -25,33 +25,33 @@ public class AbstractAddressHandler implements AddressHandler {
 	 */
 
 	@Override
-	public final void executeOnAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public final void executeOnAddress(XDIAddress targetAddress, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
+			this.executeGetOnAddress(targetAddress, (GetOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof SetOperation)
-			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
+			this.executeSetOnAddress(targetAddress, (SetOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof DelOperation)
-			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
+			this.executeDelOnAddress(targetAddress, (DelOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof DoOperation)
-			this.executeDoOnAddress(targetAddress, (DoOperation) operation, messageResult, executionContext);
+			this.executeDoOnAddress(targetAddress, (DoOperation) operation, resultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnAddress(XDIAddress targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnAddress(XDIAddress targetAddress, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnAddress(XDIAddress targetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnAddress(XDIAddress targetAddress, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }

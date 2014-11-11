@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.local.XDILocalClient;
 import xdi2.core.Graph;
@@ -29,8 +30,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.FromInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
@@ -202,8 +202,8 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiInputWriter;
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
-		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		RequestMessageEnvelope messageEnvelope = null;
+		Graph resultGraph = null;
 		Graph graphInput = graphFactory.openGraph();
 
 		long start = System.currentTimeMillis();
@@ -217,7 +217,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// parse the message envelope
 
-			messageEnvelope = new MessageEnvelope();
+			messageEnvelope = new RequestMessageEnvelope();
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message));
 
@@ -275,9 +275,9 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// send the message envelope and read result
 
-			XDILocalClient client = new XDILocalClient(messagingTarget);
+			XDIClient client = new XDILocalClient(messagingTarget);
 
-			messageResult = client.send(messageEnvelope, null);
+			resultGraph = client.send(messageEnvelope).getResultGraph();
 
 			// output the modified input graph
 
@@ -290,27 +290,27 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			// output the message result
 
 			StringWriter writer2 = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer2);
+			xdiResultWriter.write(resultGraph, writer2);
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, messageResult.getGraph());
+			OutputCache.put(outputId, resultGraph);
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getErrorGraph();
 
-				// output the message result
+				// output the error graph
 
-				if (messageResult != null) {
+				if (errorGraph != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					xdiResultWriter.write(errorGraph, writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, errorGraph);
 				}
 			}
 
@@ -328,7 +328,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
+		if (resultGraph != null) stats += Long.toString(resultGraph.getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

@@ -3,12 +3,12 @@ package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.util.iterators.ReadOnlyIterator;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.AbstractProxyManipulator;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
@@ -44,7 +44,7 @@ public class SigningProxyManipulator extends AbstractProxyManipulator implements
 	 */
 
 	@Override
-	public void manipulate(Message message, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(RequestMessage message, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// check if the message already has a signature
 
@@ -72,7 +72,7 @@ public class SigningProxyManipulator extends AbstractProxyManipulator implements
 	}
 
 	@Override
-	public void manipulate(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void manipulate(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 

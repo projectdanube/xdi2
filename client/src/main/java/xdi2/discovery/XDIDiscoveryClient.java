@@ -20,6 +20,7 @@ import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.client.http.XDIHttpClient;
+import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -29,9 +30,8 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 
 /**
  * Given a Cloud Name or discovery key, useful information such a Cloud Number, 
@@ -160,17 +160,17 @@ public class XDIDiscoveryClient {
 
 		// check registry cache
 
-		MessageResult registryMessageResult = null;
+		Graph registryResultGraph = null;
 
 		DiscoveryCacheKey registryDiscoveryCacheKey = DiscoveryCacheKey.build(query, this.getRegistryXdiClient(), null);
 		Element registryMessageResultElement = null;
 
 		if (this.getRegistryCache() != null) registryMessageResultElement = this.getRegistryCache().get(registryDiscoveryCacheKey);
-		if (registryMessageResultElement != null) registryMessageResult = (MessageResult) registryMessageResultElement.getObjectValue();
+		if (registryMessageResultElement != null) registryResultGraph = (Graph) registryMessageResultElement.getObjectValue();
 
-		MessageEnvelope registryMessageEnvelope = null;
+		RequestMessageEnvelope registryMessageEnvelope = null;
 
-		if (registryMessageResult != null) {
+		if (registryResultGraph != null) {
 
 			if (log.isDebugEnabled()) log.debug("Registry cache HIT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
 		} else {
@@ -179,15 +179,15 @@ public class XDIDiscoveryClient {
 
 			// send the registry message
 
-			registryMessageEnvelope = new MessageEnvelope();
-			Message registryMessage = registryMessageEnvelope.createMessage(null);
+			registryMessageEnvelope = new RequestMessageEnvelope();
+			RequestMessage registryMessage = registryMessageEnvelope.createMessage(null);
 			registryMessage.createGetOperation(XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(query)));
 
 			try {
 
 				XDIHttpClient registryXdiHttpClient = this.getRegistryXdiClient();
 
-				registryMessageResult = registryXdiHttpClient.send(registryMessageEnvelope, null);
+				registryResultGraph = registryXdiHttpClient.send(registryMessageEnvelope).getResultGraph();
 			} catch (Xdi2ClientException ex) {
 
 				xdiDiscoveryResult.initFromException(ex);
@@ -202,7 +202,7 @@ public class XDIDiscoveryClient {
 			if (this.getRegistryCache() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
-				this.getRegistryCache().put(new Element(registryDiscoveryCacheKey, registryMessageResult));
+				this.getRegistryCache().put(new Element(registryDiscoveryCacheKey, registryResultGraph));
 			}
 
 			// fire event
@@ -212,7 +212,7 @@ public class XDIDiscoveryClient {
 
 		// init the registry message result
 
-		xdiDiscoveryResult.initFromRegistryMessageResult(registryMessageEnvelope, registryMessageResult, query, endpointUriTypes);
+		xdiDiscoveryResult.initFromRegistryResultGraph(registryMessageEnvelope, registryResultGraph, query, endpointUriTypes);
 
 		// cloud number check
 
@@ -234,17 +234,17 @@ public class XDIDiscoveryClient {
 
 		// check authority cache
 
-		MessageResult authorityMessageResult = null;
+		Graph authorityResultGraph = null;
 
 		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUrl, endpointUriTypes);
-		Element authorityMessageResultElement = null;
+		Element authorityResultGraphElement = null;
 
-		if (this.getAuthorityCache() != null) authorityMessageResultElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
-		if (authorityMessageResultElement != null) authorityMessageResult = (MessageResult) authorityMessageResultElement.getObjectValue();
+		if (this.getAuthorityCache() != null) authorityResultGraphElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
+		if (authorityResultGraphElement != null) authorityResultGraph = (Graph) authorityResultGraphElement.getObjectValue();
 
-		MessageEnvelope authorityMessageEnvelope = null;
+		RequestMessageEnvelope authorityMessageEnvelope = null;
 
-		if (authorityMessageResult != null) {
+		if (authorityResultGraph != null) {
 
 			if (log.isDebugEnabled()) log.debug("Authority cache HIT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
 		} else {
@@ -253,8 +253,8 @@ public class XDIDiscoveryClient {
 
 			// send the authority message
 
-			authorityMessageEnvelope = new MessageEnvelope();
-			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
+			authorityMessageEnvelope = new RequestMessageEnvelope();
+			RequestMessage authorityMessage = authorityMessageEnvelope.createMessage(null);
 			authorityMessage.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			authorityMessage.setLinkContract(PublicLinkContract.class);
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
@@ -274,7 +274,7 @@ public class XDIDiscoveryClient {
 
 				XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUrl);
 
-				authorityMessageResult = authorityXdiHttpClient.send(authorityMessageEnvelope, null);
+				authorityResultGraph = authorityXdiHttpClient.send(authorityMessageEnvelope).getResultGraph();
 			} catch (Xdi2ClientException ex) {
 
 				xdiDiscoveryResult.initFromException(ex);
@@ -289,7 +289,7 @@ public class XDIDiscoveryClient {
 			if (this.getAuthorityCache() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
-				this.getAuthorityCache().put(new Element(authorityDiscoveryCacheKey, authorityMessageResult));
+				this.getAuthorityCache().put(new Element(authorityDiscoveryCacheKey, authorityResultGraph));
 			}
 
 			// fire event
@@ -299,7 +299,7 @@ public class XDIDiscoveryClient {
 
 		// init the authority message result
 
-		xdiDiscoveryResult.initFromAuthorityMessageResult(authorityMessageEnvelope, authorityMessageResult, endpointUriTypes);
+		xdiDiscoveryResult.initFromAuthorityResultGraph(authorityMessageEnvelope, authorityResultGraph, endpointUriTypes);
 
 		// cloud number check
 

@@ -1,14 +1,14 @@
 package xdi2.messaging.target.impl;
 
+import xdi2.core.Graph;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.DoOperation;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.target.StatementHandler;
 
 /**
@@ -25,64 +25,64 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	 */
 
 	@Override
-	public final void executeOnStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public final void executeOnStatement(XDIStatement targetStatement, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			this.executeGetOnStatement(targetStatement, (GetOperation) operation, messageResult, executionContext);
+			this.executeGetOnStatement(targetStatement, (GetOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof SetOperation)
-			this.executeSetOnStatement(targetStatement, (SetOperation) operation, messageResult, executionContext);
+			this.executeSetOnStatement(targetStatement, (SetOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof DelOperation)
-			this.executeDelOnStatement(targetStatement, (DelOperation) operation, messageResult, executionContext);
+			this.executeDelOnStatement(targetStatement, (DelOperation) operation, resultGraph, executionContext);
 		else if (operation instanceof DoOperation)
-			this.executeDoOnStatement(targetStatement, (DoOperation) operation, messageResult, executionContext);
+			this.executeDoOnStatement(targetStatement, (DoOperation) operation, resultGraph, executionContext);
 		else 
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public void executeGetOnStatement(XDIStatement targetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnStatement(XDIStatement targetStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement.isContextNodeStatement())
-			this.executeGetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeGetOnContextNodeStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isRelationStatement())
-			this.executeGetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeGetOnRelationStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isLiteralStatement())
-			this.executeGetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeGetOnLiteralStatement(targetStatement, operation, resultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
-	public void executeSetOnStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnStatement(XDIStatement targetStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement.isContextNodeStatement())
-			this.executeSetOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeSetOnContextNodeStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isRelationStatement())
-			this.executeSetOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeSetOnRelationStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isLiteralStatement())
-			this.executeSetOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeSetOnLiteralStatement(targetStatement, operation, resultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
-	public void executeDelOnStatement(XDIStatement targetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnStatement(XDIStatement targetStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement.isContextNodeStatement())
-			this.executeDelOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDelOnContextNodeStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isRelationStatement())
-			this.executeDelOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDelOnRelationStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isLiteralStatement())
-			this.executeDelOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDelOnLiteralStatement(targetStatement, operation, resultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
 
-	public void executeDoOnStatement(XDIStatement targetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnStatement(XDIStatement targetStatement, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement.isContextNodeStatement())
-			this.executeDoOnContextNodeStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDoOnContextNodeStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isRelationStatement())
-			this.executeDoOnRelationStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDoOnRelationStatement(targetStatement, operation, resultGraph, executionContext);
 		else if (targetStatement.isLiteralStatement())
-			this.executeDoOnLiteralStatement(targetStatement, operation, messageResult, executionContext);
+			this.executeDoOnLiteralStatement(targetStatement, operation, resultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown statement type: " + targetStatement.getClass().getCanonicalName(), null, executionContext);
 	}
@@ -91,19 +91,19 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	 * Operations on context node statements
 	 */
 
-	public void executeGetOnContextNodeStatement(XDIStatement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnContextNodeStatement(XDIStatement contextNodeStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnContextNodeStatement(XDIStatement contextNodeStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnContextNodeStatement(XDIStatement contextNodeStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnContextNodeStatement(XDIStatement contextNodeStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnContextNodeStatement(XDIStatement contextNodeStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnContextNodeStatement(XDIStatement contextNodeStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnContextNodeStatement(XDIStatement contextNodeStatement, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -111,19 +111,19 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	 * Operations on relation statements
 	 */
 
-	public void executeGetOnRelationStatement(XDIStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnRelationStatement(XDIStatement relationStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnRelationStatement(XDIStatement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnRelationStatement(XDIStatement relationStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnRelationStatement(XDIStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnRelationStatement(XDIStatement relationStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnRelationStatement(XDIStatement relationStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnRelationStatement(XDIStatement relationStatement, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -131,19 +131,19 @@ public abstract class AbstractStatementHandler implements StatementHandler {
 	 * Operations on literal statements
 	 */
 
-	public void executeGetOnLiteralStatement(XDIStatement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnLiteralStatement(XDIStatement literalStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnLiteralStatement(XDIStatement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnLiteralStatement(XDIStatement literalStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnLiteralStatement(XDIStatement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnLiteralStatement(XDIStatement literalStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnLiteralStatement(XDIStatement literalStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnLiteralStatement(XDIStatement literalStatement, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }

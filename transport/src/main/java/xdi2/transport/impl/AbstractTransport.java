@@ -1,6 +1,5 @@
 package xdi2.transport.impl;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,23 +9,27 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.Graph;
 import xdi2.core.properties.XDI2Properties;
+import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.error.ErrorMessageResult;
+import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.response.ErrorMessagingResponse;
+import xdi2.messaging.response.GraphMessagingResponse;
+import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.ResponseMessageEnvelope;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
-import xdi2.transport.Request;
-import xdi2.transport.Response;
 import xdi2.transport.Transport;
+import xdi2.transport.TransportRequest;
+import xdi2.transport.TransportResponse;
 import xdi2.transport.exceptions.Xdi2TransportException;
 
-public abstract class AbstractTransport <REQUEST extends Request, RESPONSE extends Response> implements Transport<REQUEST, RESPONSE> {
+public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPONSE extends TransportResponse> implements Transport<REQUEST, RESPONSE> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractTransport.class);
 
@@ -119,51 +122,50 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		log.info("Shutting down complete.");
 	}
 
-	protected MessageResult execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException, IOException {
+	protected MessagingResponse execute(MessagingRequest messagingRequest, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
 		// create an execution context
 
 		ExecutionContext executionContext = this.createExecutionContext(request, response);
 
-		// create a message result
-
-		MessageResult messageResult = new MessageResult();
-
 		// go
+
+		MessagingResponse messagingResponse;
 
 		try {
 
 			// execute interceptors (before)
 
-			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messageResult, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messagingRequest, executionContext);
 
 			// execute the message envelope against the messaging target
 
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
-			if (log.isInfoEnabled()) log.info("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
-			messagingTarget.execute(messageEnvelope, messageResult, executionContext);
-			if (log.isInfoEnabled()) log.info("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
+			if (log.isDebugEnabled()) log.debug("MessagingRequest: " + messagingRequest);
+			Graph resultGraph = messagingTarget.execute(messagingRequest, executionContext);
+			if (log.isDebugEnabled()) log.debug("ResultGraph: " + resultGraph);
 
-			// execute interceptors (after)
+			// make messaging response
 
-			InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messageResult, executionContext);
-		} catch (Exception ex) {
+			messagingResponse = this.makeGraphMessagingResponse(resultGraph);
+		} catch (Xdi2MessagingException ex) {
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
-			ErrorMessageResult errorMessageResult = this.handleException(request, response, ex);
 
-			// execute interceptors (exception)
+			// make messaging response
 
-			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex);
-
-			return null;
+			messagingResponse = this.makeErrorMessagingResponse(ex);
 		}
+
+		// execute interceptors (after)
+
+		InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messagingRequest, messagingResponse, executionContext);
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Message(s) successfully executed (" + messageResult.getGraph().getRootContextNode(true).getAllStatementCount() + " results).");
+		if (log.isDebugEnabled()) log.debug(messagingResponse.getClass().getSimpleName() + ": " + messagingResponse + " --- " + new IteratorCounter(messagingResponse.getResultGraphs()).count() + " results.");
 
-		return messageResult;
+		return messagingResponse;
 	}
 
 	@Override
@@ -178,20 +180,30 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		return executionContext;
 	}
 
-	protected final ErrorMessageResult handleException(REQUEST request, RESPONSE response, Exception ex) throws IOException {
+	protected final GraphMessagingResponse makeGraphMessagingResponse(Graph resultGraph) {
+
+		GraphMessagingResponse graphMessagingResponse = GraphMessagingResponse.fromGraph(resultGraph);
+
+		return graphMessagingResponse;
+	}
+
+	protected final ResponseMessageEnvelope makeResponseMessageEnvelope(Graph resultGraph) {
+
+		ResponseMessageEnvelope responseMessageEnvelope = ResponseMessageEnvelope.fromGraph(resultGraph);
+
+		// TODO: create full response message envelope
+
+		return responseMessageEnvelope;
+	}
+
+	protected final ErrorMessagingResponse makeErrorMessagingResponse(Exception ex) {
 
 		// send error result
 
-		ErrorMessageResult errorMessageResult = ErrorMessageResult.fromException(ex);
+		ErrorMessagingResponse errorMessagingResponse = ErrorMessagingResponse.fromException(ex);
 
-		if (log.isDebugEnabled()) log.debug("ErrorMessageResult: " + errorMessageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
-
-		this.handleException(request, response, errorMessageResult);
-
-		return errorMessageResult;
+		return errorMessagingResponse;
 	}
-
-	protected abstract void handleException(REQUEST request, RESPONSE response, ErrorMessageResult errorMessageResult) throws IOException;
 
 	public Date getCurrent() {
 
@@ -255,22 +267,22 @@ public abstract class AbstractTransport <REQUEST extends Request, RESPONSE exten
 		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_TRANSPORT, transport);
 	}
 
-	public static Request getRequest(ExecutionContext executionContext) {
+	public static TransportRequest getRequest(ExecutionContext executionContext) {
 
-		return (Request) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_REQUEST);
+		return (TransportRequest) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_REQUEST);
 	}
 
-	public static void putRequest(ExecutionContext executionContext, Request request) {
+	public static void putRequest(ExecutionContext executionContext, TransportRequest request) {
 
 		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_REQUEST, request);
 	}
 
-	public static Response getResponse(ExecutionContext executionContext) {
+	public static TransportResponse getResponse(ExecutionContext executionContext) {
 
-		return (Response) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_RESPONSE);
+		return (TransportResponse) executionContext.getExecutionContextAttribute(EXECUTIONCONTEXT_KEY_RESPONSE);
 	}
 
-	public static void putResponse(ExecutionContext executionContext, Response response) {
+	public static void putResponse(ExecutionContext executionContext, TransportResponse response) {
 
 		executionContext.putExecutionContextAttribute(EXECUTIONCONTEXT_KEY_RESPONSE, response);
 	}

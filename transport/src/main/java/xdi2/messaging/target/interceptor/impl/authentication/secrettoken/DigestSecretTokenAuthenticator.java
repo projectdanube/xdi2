@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A SecretTokenAuthenticator that can authenticate a secret token against
@@ -28,7 +28,7 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 	}
 
 	@Override
-	public final boolean authenticate(Message message, String secretToken) {
+	public final boolean authenticate(RequestMessage message, String secretToken) {
 
 		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretToken(message);
 
@@ -69,7 +69,7 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 		return authenticated;
 	}
 
-	protected abstract String getLocalSaltAndDigestSecretToken(Message message);
+	protected abstract String getLocalSaltAndDigestSecretToken(RequestMessage message);
 
 	/*
 	 * Getters and setters

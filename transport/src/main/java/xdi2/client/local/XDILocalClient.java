@@ -11,13 +11,14 @@ import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.Graph;
-import xdi2.core.io.XDIWriterRegistry;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.error.ErrorMessageResult;
+import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.response.ErrorMessagingResponse;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.transport.impl.local.LocalTransport;
+import xdi2.transport.impl.local.LocalTransportRequest;
+import xdi2.transport.impl.local.LocalTransportResponse;
 
 /**
  * An XDI client that can apply XDI messages locally on messaging targets.
@@ -65,25 +66,22 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException {
-
-		if (messageResult == null) messageResult = new MessageResult();
+	public MessagingResponse send(MessagingRequest messagingRequest) throws Xdi2ClientException {
 
 		// timestamp
 
 		Date beginTimestamp = new Date();
 
-		// create an execution context
-
-		ExecutionContext executionContext = new ExecutionContext();
-
-		// send the message envelope
+		// send the messaging request and retrieve the messaging response
 
 		try {
 
-			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
-			this.messagingTarget.execute(messageEnvelope, messageResult, executionContext);
-			if (log.isDebugEnabled()) log.debug("MessageResult: " + messageResult.getGraph().toString(XDIWriterRegistry.getDefault().getFormat(), null));
+			LocalTransportRequest request = new LocalTransportRequest(messagingRequest);
+			LocalTransportResponse response = new LocalTransportResponse();
+
+			new LocalTransport(this.getMessagingTarget()).execute(request, response);
+
+			MessagingResponse messagingResponse = response.getMessagingResponse();
 
 			// timestamp
 
@@ -91,9 +89,9 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 			// done
 
-			this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messageResult, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendSuccessEvent(this, messagingRequest, messagingResponse, beginTimestamp, endTimestamp));
 
-			return messageResult;
+			return messagingResponse;
 		} catch (Exception ex) {
 
 			// timestamp
@@ -102,11 +100,11 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 			// done
 
-			ErrorMessageResult errorMessageResult = ErrorMessageResult.fromException(ex);
+			ErrorMessagingResponse errorMessageResult = ErrorMessagingResponse.fromException(ex);
 
 			log.warn("Error message result: " + errorMessageResult.getErrorString());
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendErrorEvent(this, messagingRequest, errorMessageResult, beginTimestamp, endTimestamp));
 
 			throw new Xdi2ClientException("Error message result: " + errorMessageResult.getErrorString(), ex, errorMessageResult);
 		}

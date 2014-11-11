@@ -15,9 +15,8 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 
 public class XDIClientUtil {
 
@@ -25,14 +24,14 @@ public class XDIClientUtil {
 
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUrl);
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
+		RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 
-		xdiHttpClient.send(messageEnvelope, null);
+		xdiHttpClient.send(messageEnvelope);
 	}
 
 	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, URL xdiEndpointUrl, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
@@ -53,20 +52,18 @@ public class XDIClientUtil {
 
 		XDIAddress privateKeyAddress = XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), privateKeyRelativeAddress);
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
+		RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(privateKeyAddress);
 
-		MessageResult authorityMessageResult = xdiHttpClient.send(messageEnvelope, null);
-
-		Graph authorityMessageResultGraph = authorityMessageResult.getGraph();
+		Graph authorityResultGraph = xdiHttpClient.send(messageEnvelope).getResultGraph();
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(cloudNumber.getXDIAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityResultGraph).getXdiEntity(cloudNumber.getXDIAddress(), false);
 		if (authorityXdiEntity == null) return null;
 
 		// find private key

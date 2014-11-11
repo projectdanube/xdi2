@@ -1,9 +1,9 @@
 package xdi2.messaging.target.interceptor;
 
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.core.Graph;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 
 /**
@@ -21,7 +21,7 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param executionContext The current execution context.
 	 * @return True, if the message envelope has been fully handled and the server should stop processing it.
 	 */
-	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Run after a message envelope is executed.
@@ -30,10 +30,10 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param executionContext The current execution context.
 	 * @return True, if the message envelope has been fully handled and the server should stop processing it.
 	 */
-	public InterceptorResult after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Run if an exception occurs while a message envelope is executed.
 	 */
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex);
+	public void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Exception ex);
 }

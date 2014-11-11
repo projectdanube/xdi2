@@ -1,8 +1,9 @@
-package xdi2.messaging;
+package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -14,7 +15,7 @@ public class SetOperation extends Operation {
 
 	private static final long serialVersionUID = -9053418535565359957L;
 
-	protected SetOperation(Message message, Relation relation) {
+	protected SetOperation(Message<?, ?, ?> message, Relation relation) {
 
 		super(message, relation);
 	}
@@ -41,7 +42,7 @@ public class SetOperation extends Operation {
 	 * @param relation The relation that is an XDI $set operation.
 	 * @return The XDI $set operation.
 	 */
-	public static SetOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static SetOperation fromMessageAndRelation(Message<?, ?, ?> message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 

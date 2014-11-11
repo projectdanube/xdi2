@@ -12,10 +12,9 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
@@ -56,11 +55,11 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	}
 
 	@Override
-	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.readGraph();
 
-		super.execute(messageEnvelope, messageResult, executionContext);
+		super.execute(messageEnvelope, resultGraph, executionContext);
 
 		this.writeGraph();
 	}

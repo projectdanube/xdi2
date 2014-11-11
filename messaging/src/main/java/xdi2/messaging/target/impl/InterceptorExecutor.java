@@ -5,20 +5,20 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.MessageResultInterceptor;
+import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
@@ -34,7 +34,7 @@ public class InterceptorExecutor {
 	 * Methods for executing interceptors
 	 */
 
-	public static InterceptorResult executeMessageEnvelopeInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageEnvelopeInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
@@ -54,7 +54,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: before");
 
-				InterceptorResult interceptorResult = messageEnvelopeInterceptor.before(messageEnvelope, messageResult, executionContext);
+				InterceptorResult interceptorResult = messageEnvelopeInterceptor.before(messageEnvelope, resultGraph, executionContext);
 				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -74,7 +74,7 @@ public class InterceptorExecutor {
 		return interceptorResultBefore;
 	}
 
-	public static InterceptorResult executeMessageEnvelopeInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageEnvelopeInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
@@ -94,7 +94,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: after");
 
-				InterceptorResult interceptorResult = messageEnvelopeInterceptor.after(messageEnvelope, messageResult, executionContext);
+				InterceptorResult interceptorResult = messageEnvelopeInterceptor.after(messageEnvelope, resultGraph, executionContext);
 				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -114,7 +114,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static void executeMessageEnvelopeInterceptorsException(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	public static void executeMessageEnvelopeInterceptorsException(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 		for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = findMessageEnvelopeInterceptors(interceptorList); messageEnvelopeInterceptors.hasNext(); ) {
 
@@ -132,7 +132,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(messageEnvelopeInterceptor, "MessageEnvelopeInterceptor: exception");
 
-				messageEnvelopeInterceptor.exception(messageEnvelope, messageResult, executionContext, ex);
+				messageEnvelopeInterceptor.exception(messageEnvelope, resultGraph, executionContext, ex);
 			} catch (Exception ex2) {
 
 				throw executionContext.processException(ex2);
@@ -143,7 +143,7 @@ public class InterceptorExecutor {
 		}
 	}
 
-	public static InterceptorResult executeMessageInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
@@ -163,7 +163,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: before");
 
-				InterceptorResult interceptorResult = messageInterceptor.before(message, messageResult, executionContext);
+				InterceptorResult interceptorResult = messageInterceptor.before(message, resultGraph, executionContext);
 				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -183,7 +183,7 @@ public class InterceptorExecutor {
 		return interceptorResultBefore;
 	}
 
-	public static InterceptorResult executeMessageInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
@@ -203,7 +203,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(messageInterceptor, "MessageInterceptor: after");
 
-				InterceptorResult interceptorResult = messageInterceptor.after(message, messageResult, executionContext);
+				InterceptorResult interceptorResult = messageInterceptor.after(message, resultGraph, executionContext);
 				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -223,7 +223,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static InterceptorResult executeOperationInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeOperationInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
@@ -243,7 +243,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: before");
 
-				InterceptorResult interceptorResult = operationInterceptor.before(operation, operationMessageResult, executionContext);
+				InterceptorResult interceptorResult = operationInterceptor.before(operation, operationResultGraph, executionContext);
 				interceptorResultBefore = interceptorResultBefore.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -263,7 +263,7 @@ public class InterceptorExecutor {
 		return interceptorResultBefore;
 	}
 
-	public static InterceptorResult executeOperationInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeOperationInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
@@ -283,7 +283,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(operationInterceptor, "OperationInterceptor: after");
 
-				InterceptorResult interceptorResult = operationInterceptor.after(operation, operationMessageResult, executionContext);
+				InterceptorResult interceptorResult = operationInterceptor.after(operation, operationResultGraph, executionContext);
 				interceptorResultAfter = interceptorResultAfter.or(interceptorResult);
 
 				if (interceptorResult.isSkipSiblingInterceptors()) {
@@ -303,7 +303,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static XDIAddress executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIAddress executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -321,7 +321,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: address: " + targetAddress);
 
-				targetAddress = targetInterceptor.targetAddress(targetAddress, operation, messageResult, executionContext);
+				targetAddress = targetInterceptor.targetAddress(targetAddress, operation, operationResultGraph, executionContext);
 
 				if (targetAddress == null) {
 
@@ -342,7 +342,7 @@ public class InterceptorExecutor {
 		return targetAddress;
 	}
 
-	public static XDIStatement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIStatement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDIStatement targetStatement, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -360,7 +360,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(targetInterceptor, "TargetInterceptor: statement: " + targetStatement);
 
-				targetStatement = targetInterceptor.targetStatement(targetStatement, operation, messageResult, executionContext);
+				targetStatement = targetInterceptor.targetStatement(targetStatement, operation, resultGraph, executionContext);
 
 				if (targetStatement == null) {
 
@@ -381,11 +381,11 @@ public class InterceptorExecutor {
 		return targetStatement;
 	}
 
-	public static void executeResultInterceptorsFinish(InterceptorList<MessagingTarget> interceptorList, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static void executeResultInterceptorsFinish(InterceptorList<MessagingTarget> interceptorList, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Iterator<MessageResultInterceptor> resultInterceptors = findResultInterceptors(interceptorList); resultInterceptors.hasNext(); ) {
+		for (Iterator<ResultGraphInterceptor> resultInterceptors = findResultInterceptors(interceptorList); resultInterceptors.hasNext(); ) {
 
-			MessageResultInterceptor resultInterceptor = resultInterceptors.next();
+			ResultGraphInterceptor resultInterceptor = resultInterceptors.next();
 
 			if (resultInterceptor.skip(executionContext)) {
 
@@ -399,7 +399,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(resultInterceptor, "MessageResultInterceptor: finish");
 
-				resultInterceptor.finish(messageResult, executionContext);
+				resultInterceptor.finish(resultGraph, executionContext);
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);
@@ -434,8 +434,8 @@ public class InterceptorExecutor {
 		return interceptorList.findInterceptors(TargetInterceptor.class);
 	}
 
-	public static Iterator<MessageResultInterceptor> findResultInterceptors(InterceptorList<MessagingTarget> interceptorList) {
+	public static Iterator<ResultGraphInterceptor> findResultInterceptors(InterceptorList<MessagingTarget> interceptorList) {
 
-		return interceptorList.findInterceptors(MessageResultInterceptor.class);
+		return interceptorList.findInterceptors(ResultGraphInterceptor.class);
 	}
 }

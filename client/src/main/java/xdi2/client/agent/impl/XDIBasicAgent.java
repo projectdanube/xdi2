@@ -23,11 +23,10 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 
 public class XDIBasicAgent implements XDIAgent {
 
@@ -150,8 +149,8 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// message construction step
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = this.createMessage(messageEnvelope);
+		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
+		RequestMessage message = this.createMessage(messageEnvelope);
 		message.setToPeerRootXDIArc(targetPeerRootXDIArc);
 		this.setMessageLinkContract(message);
 		Operation operation = message.createGetOperation(targetXDIAddress);
@@ -163,11 +162,11 @@ public class XDIBasicAgent implements XDIAgent {
 		if (xdiClient == null) xdiClient = this.constructXdiClient(xdiEndpointUrl);
 		if (xdiClient == null) throw new Xdi2AgentException("Unable to obtain an XDI client for address " + XDIaddress);
 
-		MessageResult messageResult = xdiClient.send(messageEnvelope, null);
+		Graph resultGraph = xdiClient.send(messageEnvelope).getResultGraph();
 
-		// let's look for our target address in the message result
+		// let's look for our target address in the result graph
 
-		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(targetXDIAddress);
+		ContextNode contextNode = resultGraph.getDeepContextNode(targetXDIAddress);
 
 		if (contextNode != null) {
 
@@ -200,12 +199,12 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClient;
 	}
 
-	protected Message createMessage(MessageEnvelope messageEnvelope) {
+	protected RequestMessage createMessage(RequestMessageEnvelope messageEnvelope) {
 
 		return messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 	}
 
-	protected void setMessageLinkContract(Message message) {
+	protected void setMessageLinkContract(RequestMessage message) {
 
 		if (this.getLinkContractXDIAddress() != null) {
 

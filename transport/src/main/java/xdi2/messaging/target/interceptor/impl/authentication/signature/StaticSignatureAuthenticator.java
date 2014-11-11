@@ -4,7 +4,7 @@ import java.security.PublicKey;
 import java.util.Map;
 
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A SignatureAuthenticator that can authenticate an XDI message using a
@@ -27,7 +27,7 @@ public class StaticSignatureAuthenticator extends PublicKeySignatureAuthenticato
 	}
 
 	@Override
-	protected PublicKey getPublicKey(Message message) {
+	protected PublicKey getPublicKey(RequestMessage message) {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;

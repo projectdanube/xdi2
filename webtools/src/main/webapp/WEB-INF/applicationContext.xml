@@ -61,7 +61,6 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -125,7 +124,6 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -150,7 +148,6 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -220,7 +217,6 @@
 				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">
 					<property name="xdiDiscoveryClient" value="https://xdidiscoveryservice.xdi.net/" />
 				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>

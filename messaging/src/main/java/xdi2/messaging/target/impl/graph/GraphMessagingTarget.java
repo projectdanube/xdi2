@@ -8,10 +8,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -71,25 +70,25 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public void before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		super.before(messageEnvelope, messageResult, executionContext);
+		super.before(messageEnvelope, resultGraph, executionContext);
 
 		this.graph.beginTransaction();
 	}
 
 	@Override
-	public void after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		super.after(messageEnvelope, messageResult, executionContext);
+		super.after(messageEnvelope, resultGraph, executionContext);
 
 		this.graph.commitTransaction();
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	public void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
-		super.exception(messageEnvelope, messageResult, executionContext, ex);
+		super.exception(messageEnvelope, resultGraph, executionContext, ex);
 
 		this.graph.rollbackTransaction();
 	}

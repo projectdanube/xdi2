@@ -7,20 +7,19 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.target.impl.AbstractContextHandler;
 
 public class GraphContextHandler extends AbstractContextHandler {
@@ -44,7 +43,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeSetOnStatement(XDIStatement targetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnStatement(XDIStatement targetStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.getGraph().setStatement(targetStatement);
 	}
@@ -54,29 +53,29 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(targetAddress, true);
 		if (contextNode == null) return;
 
-		CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+		CopyUtil.copyContextNode(contextNode, resultGraph, null);
 
-		for (XdiInnerRoot xdiInnerRoot : XdiCommonRoot.findCommonRoot(messageResult.getGraph()).getInnerRoots()) {
+		for (XdiInnerRoot xdiInnerRoot : XdiCommonRoot.findCommonRoot(resultGraph).getInnerRoots()) {
 
 			contextNode = this.getGraph().getDeepContextNode(xdiInnerRoot.getContextNode().getXDIAddress(), true);
 
-			CopyUtil.copyContextNode(contextNode, messageResult.getGraph(), null);
+			CopyUtil.copyContextNode(contextNode, resultGraph, null);
 		}
 	}
 
 	@Override
-	public void executeSetOnAddress(XDIAddress contextNodeXDIAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnAddress(XDIAddress contextNodeXDIAddress, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.getGraph().setDeepContextNode(contextNodeXDIAddress);
 	}
 
 	@Override
-	public void executeDelOnAddress(XDIAddress contextNodeXDIAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnAddress(XDIAddress contextNodeXDIAddress, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIAddress)) {
 
@@ -101,14 +100,14 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeGetOnContextNodeStatement(XDIStatement contextNodeStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnContextNodeStatement(XDIStatement contextNodeStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetContextNodeXDIAddress = contextNodeStatement.getTargetContextNodeXDIAddress();
 
 		ContextNode contextNode = this.getGraph().getDeepContextNode(targetContextNodeXDIAddress, false);
 		if (contextNode == null) return;
 
-		CopyUtil.copyStatement(contextNode.getStatement(), messageResult.getGraph(), null);
+		CopyUtil.copyStatement(contextNode.getStatement(), resultGraph, null);
 	}
 
 	/*
@@ -116,7 +115,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeGetOnRelationStatement(XDIStatement relationStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnRelationStatement(XDIStatement relationStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = relationStatement.getContextNodeXDIAddress();
 		XDIAddress XDIaddress = relationStatement.getRelationXDIAddress();
@@ -134,18 +133,18 @@ public class GraphContextHandler extends AbstractContextHandler {
 				relations = this.getGraph().getDeepRelations(contextNodeXDIAddress, XDIaddress);
 			}
 
-			while (relations.hasNext()) CopyUtil.copyStatement(relations.next().getStatement(), messageResult.getGraph(), null);
+			while (relations.hasNext()) CopyUtil.copyStatement(relations.next().getStatement(), resultGraph, null);
 		} else {
 
 			Relation relation = this.getGraph().getDeepRelation(contextNodeXDIAddress, XDIaddress, targetContextNodeXDIAddress);
 			if (relation == null) return;
 
-			CopyUtil.copyStatement(relation.getStatement(), messageResult.getGraph(), null);
+			CopyUtil.copyStatement(relation.getStatement(), resultGraph, null);
 		}
 	}
 
 	@Override
-	public void executeSetOnRelationStatement(XDIStatement relationStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnRelationStatement(XDIStatement relationStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = relationStatement.getContextNodeXDIAddress();
 		XDIAddress XDIaddress = relationStatement.getRelationXDIAddress();
@@ -155,7 +154,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
-	public void executeDelOnRelationStatement(XDIStatement relationStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnRelationStatement(XDIStatement relationStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = relationStatement.getContextNodeXDIAddress();
 		XDIAddress XDIaddress = relationStatement.getRelationXDIAddress();
@@ -184,7 +183,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	 */
 
 	@Override
-	public void executeGetOnLiteralStatement(XDIStatement literalStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnLiteralStatement(XDIStatement literalStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = literalStatement.getContextNodeXDIAddress();
 		Object literalData = literalStatement.getLiteralData();
@@ -192,11 +191,11 @@ public class GraphContextHandler extends AbstractContextHandler {
 		Literal literal = this.getGraph().getDeepLiteral(contextNodeXDIAddress, literalData);
 		if (literal == null) return;
 
-		CopyUtil.copyStatement(literal.getStatement(), messageResult.getGraph(), null);
+		CopyUtil.copyStatement(literal.getStatement(), resultGraph, null);
 	}
 
 	@Override
-	public void executeSetOnLiteralStatement(XDIStatement literalStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnLiteralStatement(XDIStatement literalStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = literalStatement.getContextNodeXDIAddress();
 		Object literalData = literalStatement.getLiteralData();
@@ -205,7 +204,7 @@ public class GraphContextHandler extends AbstractContextHandler {
 	}
 
 	@Override
-	public void executeDelOnLiteralStatement(XDIStatement literalStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnLiteralStatement(XDIStatement literalStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress contextNodeXDIAddress = literalStatement.getContextNodeXDIAddress();
 		Object literalData = literalStatement.getLiteralData();

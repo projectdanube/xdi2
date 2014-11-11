@@ -9,7 +9,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A SignatureAuthenticator that can authenticate an XDI message by obtaining
@@ -36,7 +36,7 @@ public class DiscoverySignatureAuthenticator extends PublicKeySignatureAuthentic
 	}
 
 	@Override
-	public PublicKey getPublicKey(Message message) {
+	public PublicKey getPublicKey(RequestMessage message) {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;

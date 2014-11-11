@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
+import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
@@ -14,16 +15,16 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.DoOperation;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
@@ -99,66 +100,66 @@ public class InverseOperationContributor extends AbstractContributor implements 
 	 */
 
 	@Override
-	public ContributorResult executeGetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
 
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, targetXDIAddress, null, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeSetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
 
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, targetXDIAddress, null, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDelOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
 
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, targetXDIAddress, null, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
 
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, targetXDIAddress, null, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeGetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeGetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return super.executeGetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeSetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeSetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return super.executeSetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDelOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeDelOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return super.executeDelOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, resultGraph, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDoOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeDoOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return super.executeDoOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, resultGraph, executionContext);
 	}
 
 	/*
 	 * Helper methods
 	 */
 
-	private ContributorResult sendInverseMessage(Operation operation, XDIAddress targetXDIAddress, XDIStatement targetXDIStatement, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private ContributorResult sendInverseMessage(Operation operation, XDIAddress targetXDIAddress, XDIStatement targetXDIStatement, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// determine sender for the outgoing message
 
@@ -187,10 +188,10 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		//TODO: this is not quite right
 		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
-		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress(operation.getMessage());
+		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress((RequestMessage) operation.getMessage());
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
+		RequestMessage message = messageEnvelope.createMessage(senderXDIAddress);
 		message.getLinkContractXDIAddress();
 		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
 		message.deleteOperations();
@@ -199,9 +200,14 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		if (targetXDIAddress != null) message.createOperation(inverseOperationXDIAddress, targetXDIAddress);
 		if (targetXDIStatement != null) message.createOperation(inverseOperationXDIAddress, targetXDIStatement);
 
+		// send it
+
+		XDIClient xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl());
+
 		try {
 
-			new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope, messageResult);
+			MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
+			CopyUtil.copyGraph(messagingResponse.getResultGraph(), resultGraph, null);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending message with inverse operation: " + ex.getMessage(), ex, executionContext);
@@ -216,7 +222,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 	 * Helper methods
 	 */
 
-	public static XDIAddress getInverseLinkContractXDIAddress(Message message) {
+	public static XDIAddress getInverseLinkContractXDIAddress(RequestMessage message) {
 
 		Relation inverseLinkContractRelation = message.getContextNode().getRelation(XDIAddressUtil.concatXDIAddresses(XDIDictionaryConstants.XDI_ADD_IS, XDILinkContractConstants.XDI_ADD_DO));
 		if (inverseLinkContractRelation == null) return null;

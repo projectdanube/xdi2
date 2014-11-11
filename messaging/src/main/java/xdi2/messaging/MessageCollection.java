@@ -1,6 +1,8 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
@@ -16,20 +18,21 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.Operation;
 
 /**
  * An XDI message collection, represented as a context node.
  * 
  * @author markus
  */
-public final class MessageCollection implements Serializable, Comparable<MessageCollection> {
+public class MessageCollection <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> implements Serializable, Comparable<MessageCollection<?, ?, ?>> {
 
 	private static final long serialVersionUID = -7493408194946194153L;
 
-	private MessageEnvelope messageEnvelope;
+	private ME messageEnvelope;
 	private XdiEntityCollection xdiEntityCollection;
 
-	protected MessageCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
+	protected MessageCollection(ME messageEnvelope, XdiEntityCollection xdiEntityCollection) {
 
 		if (messageEnvelope == null || xdiEntityCollection == null) throw new NullPointerException();
 
@@ -52,16 +55,22 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Factory method that creates an XDI message collection bound to a given XDI entity class.
+	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
 	 * @param messageEnvelope The XDI message envelope to which this XDI message collection belongs.
-	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
+	 * @param xdiEntityCollection The XDI entity collection that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiEntityClass(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
+	@SuppressWarnings("unchecked")
+	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> MC fromMessageEnvelopeAndXdiEntityCollection(MessageEnvelope<ME, MC, M> messageEnvelope, XdiEntityCollection xdiEntityCollection) {
 
-		if (! isValid(xdiEntityCollection)) return null;
+		try {
 
-		return new MessageCollection(messageEnvelope, xdiEntityCollection);
+			Method method = messageEnvelope.getMC().getMethod("fromMessageEnvelopeAndXdiEntityCollection", messageEnvelope.getME(), XdiEntityCollection.class);
+			return (MC) method.invoke(null, messageEnvelope, xdiEntityCollection);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	/*
@@ -72,7 +81,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Returns the XDI message envelope to which this XDI message collection belongs.
 	 * @return An XDI message envelope.
 	 */
-	public MessageEnvelope getMessageEnvelope() {
+	public ME getMessageEnvelope() {
 
 		return this.messageEnvelope;
 	}
@@ -117,12 +126,20 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Creates a new XDI message in this XDI message collection.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage() {
+	@SuppressWarnings("unchecked")
+	public M createMessage() {
 
 		XdiEntityMemberUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(null);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
-		return new Message(this, xdiEntityMember);
+		try {
+
+			Method method = this.getMessageEnvelope().getM().getMethod("fromMessageCollectionAndXdiEntity", this.getMessageEnvelope().getMC(), XdiEntity.class);
+			return (M) method.invoke(null, this, xdiEntityMember);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
@@ -130,21 +147,28 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * @param index Index in an ordered collection.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage(long index) {
+	public M createMessage(long index) {
 
 		XdiEntityMemberOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(index);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
-		return new Message(this, xdiEntityMember);
+		try {
+
+			Constructor<M> constructor = this.getMessageEnvelope().getM().getConstructor(this.getMessageEnvelope().getMC(), XdiEntity.class);
+			return constructor.newInstance(this, xdiEntityMember);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * Returns all messages in this message collection.
 	 * @return All messages contained in the collection.
 	 */
-	public ReadOnlyIterator<Message> getMessages() {
+	public ReadOnlyIterator<M> getMessages() {
 
-		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityCollection().getXdiMembersDeref());
+		return new MappingXdiEntityMessageIterator<ME, MC, M> (this, this.getXdiEntityCollection().getXdiMembersDeref());
 	}
 
 	/**
@@ -152,7 +176,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public void deleteMessages() {
 
-		for (Message message : new IteratorListMaker<Message> (this.getMessages()).list()) {
+		for (M message : new IteratorListMaker<M> (this.getMessages()).list()) {
 
 			message.getContextNode().delete();
 		}
@@ -164,10 +188,10 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ReadOnlyIterator<Operation> getOperations() {
 
-		return new DescendingIterator<Message, Operation> (this.getMessages()) {
+		return new DescendingIterator<M, Operation> (this.getMessages()) {
 
 			@Override
-			public Iterator<Operation> descend(Message message) {
+			public Iterator<Operation> descend(M message) {
 
 				return message.getOperations();
 			}
@@ -206,7 +230,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 		if (object == null || ! (object instanceof MessageCollection)) return false;
 		if (object == this) return true;
 
-		MessageCollection other = (MessageCollection) object;
+		MessageCollection<?, ?, ?> other = (MessageCollection<?, ?, ?>) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -222,7 +246,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	@Override
-	public int compareTo(MessageCollection other) {
+	public int compareTo(MessageCollection<?, ?, ?> other) {
 
 		if (other == this || other == null) return(0);
 
@@ -233,14 +257,14 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 * Helper classes
 	 */
 
-	public static class MappingXdiEntityMessageIterator extends NotNullIterator<Message> {
+	public static class MappingXdiEntityMessageIterator <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> extends NotNullIterator<M> {
 
-		public MappingXdiEntityMessageIterator(final MessageCollection messageCollection, Iterator<? extends XdiEntity> xdiEntities) {
+		public MappingXdiEntityMessageIterator(final MessageCollection<ME, MC, M> messageCollection, Iterator<? extends XdiEntity> xdiEntities) {
 
-			super(new MappingIterator<XdiEntity, Message> (xdiEntities) {
+			super(new MappingIterator<XdiEntity, M> (xdiEntities) {
 
 				@Override
-				public Message map(XdiEntity xdiEntity) {
+				public M map(XdiEntity xdiEntity) {
 
 					return Message.fromMessageCollectionAndXdiEntity(messageCollection, xdiEntity);
 				}

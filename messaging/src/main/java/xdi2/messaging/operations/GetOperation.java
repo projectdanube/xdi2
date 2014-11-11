@@ -1,9 +1,10 @@
-package xdi2.messaging;
+package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -18,7 +19,7 @@ public class GetOperation extends Operation {
 	public static final XDIAddress XDI_ADD_PARAMETER_DEREF = XDIAddress.create("<$deref>");
 	public static final XDIAddress XDI_ADD_PARAMETER_PROXY = XDIAddress.create("<$proxy>");
 
-	protected GetOperation(Message message, Relation relation) {
+	protected GetOperation(Message<?, ?, ?> message, Relation relation) {
 
 		super(message, relation);
 	}
@@ -45,7 +46,7 @@ public class GetOperation extends Operation {
 	 * @param relation The relation that is an XDI $get operation.
 	 * @return The XDI $get operation.
 	 */
-	public static GetOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static GetOperation fromMessageAndRelation(Message<?, ?, ?> message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 

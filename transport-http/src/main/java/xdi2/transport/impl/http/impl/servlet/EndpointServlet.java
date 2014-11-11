@@ -17,8 +17,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import xdi2.transport.impl.http.HttpRequest;
-import xdi2.transport.impl.http.HttpResponse;
+import xdi2.transport.impl.http.HttpTransportRequest;
+import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 
@@ -68,56 +68,17 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+	protected void service(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
 		httpServletRequest.setCharacterEncoding("UTF-8");
 		httpServletResponse.setCharacterEncoding("UTF-8");
 
-		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
+		HttpTransportRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
+		HttpTransportResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
 
-		this.httpTransport.doGet(request, response);
+		this.httpTransport.execute(request, response);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-		httpServletRequest.setCharacterEncoding("UTF-8");
-		httpServletResponse.setCharacterEncoding("UTF-8");
-
-		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
-
-		this.httpTransport.doPost(request, response);
-	}
-
-	@Override
-	protected void doPut(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
-
-		this.httpTransport.doPut(request, response);
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
-
-		this.httpTransport.doDelete(request, response);
-	}
-
-	@Override
-	protected void doOptions(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-		HttpRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
-
-		this.httpTransport.doOptions(request, response);
-	}
-	
 	/*
 	 * Getters and setters
 	 */

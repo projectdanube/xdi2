@@ -26,8 +26,8 @@ import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXDIAddressIterator;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.HttpRequest;
-import xdi2.transport.impl.http.HttpResponse;
+import xdi2.transport.impl.http.HttpTransportRequest;
+import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
 
@@ -55,7 +55,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().startsWith(this.getResolvePath())) return false;
 
@@ -130,7 +130,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 	 * Helper methods
 	 */
 
-	private static XDIArc parseQuery(HttpRequest request) {
+	private static XDIArc parseQuery(HttpTransportRequest request) {
 
 		String query = request.getRequestPath();
 		if (query.endsWith("/")) query = query.substring(0, query.length() - 1);
@@ -141,7 +141,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 		return XDIArc.create(query);
 	}
 
-	private static String constructUri(HttpRequest request, String targetPath, XDIAddress canonicalid) {
+	private static String constructUri(HttpTransportRequest request, String targetPath, XDIAddress canonicalid) {
 
 		String uri = request.getBaseUri() + targetPath + "/" + canonicalid.toString();
 
@@ -166,7 +166,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 		return selfSynonyms;
 	}
 
-	private void sendNotFoundXrd(HttpTransport httpTransport, HttpRequest request, XDIArc query, HttpResponse response) throws IOException {
+	private void sendNotFoundXrd(HttpTransport httpTransport, HttpTransportRequest request, XDIArc query, HttpTransportResponse response) throws IOException {
 
 		// prepare velocity
 

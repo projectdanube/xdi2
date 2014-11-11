@@ -1,26 +1,34 @@
-package xdi2.messaging.error;
+package xdi2.messaging.response;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
 
-public class ErrorMessageResult extends MessageResult {
+/**
+ * An error as an XDI messaging response.
+ * 
+ * @author markus
+ */
+public class ErrorMessagingResponse implements MessagingResponse, Serializable, Comparable<ErrorMessagingResponse> {
 
 	private static final long serialVersionUID = 8816468280233966339L;
 
@@ -31,14 +39,23 @@ public class ErrorMessageResult extends MessageResult {
 
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";
 
-	protected ErrorMessageResult(Graph graph) {
+	private Graph graph;
+	private Exception ex;
 
-		super(graph);
+	protected ErrorMessagingResponse(Graph graph, Exception ex) {
+
+		this.graph = graph;
+		this.ex = ex;
 	}
 
-	public ErrorMessageResult() {
+	protected ErrorMessagingResponse(Graph graph) {
 
-		super();
+		this(graph, null);
+	}
+
+	protected ErrorMessagingResponse(Exception ex) {
+
+		this(MemoryGraphFactory.getInstance().openGraph(), ex);
 	}
 
 	/*
@@ -52,7 +69,7 @@ public class ErrorMessageResult extends MessageResult {
 	 */
 	public static boolean isValid(Graph graph) {
 
-		if (! MessageResult.isValid(graph)) return false;
+		if (! GraphMessagingResponse.isValid(graph)) return false;
 
 		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), false) == null) return false;
 
@@ -64,11 +81,11 @@ public class ErrorMessageResult extends MessageResult {
 	 * @param graph The graph that is an XDI error message result.
 	 * @return The XDI error message result.
 	 */
-	public static ErrorMessageResult fromGraph(Graph graph) {
+	public static ErrorMessagingResponse fromGraph(Graph graph) {
 
 		if (! isValid(graph)) return(null);
 
-		return new ErrorMessageResult(graph);
+		return new ErrorMessagingResponse(graph, null);
 	}
 
 	/**
@@ -76,7 +93,7 @@ public class ErrorMessageResult extends MessageResult {
 	 * @param ex The exception.
 	 * @return The XDI error message result.
 	 */
-	public static ErrorMessageResult fromException(Exception ex) {
+	public static ErrorMessagingResponse fromException(Exception ex) {
 
 		// determine error string
 
@@ -85,7 +102,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		// build an error result
 
-		ErrorMessageResult errorMessageResult = new ErrorMessageResult();
+		ErrorMessagingResponse errorMessageResult = new ErrorMessagingResponse(ex);
 		if (errorString != null) errorMessageResult.setErrorString(errorString);
 
 		// information specific to certain exceptions
@@ -106,6 +123,37 @@ public class ErrorMessageResult extends MessageResult {
 	/*
 	 * Instance methods
 	 */
+
+	/**
+	 * Returns the underlying graph to which this error messaging response is bound.
+	 * @return The underlying graph.
+	 */
+	public Graph getGraph() {
+
+		return this.graph;
+	}
+
+	public Exception getException() {
+
+		return this.ex;
+	}
+
+	@Override
+	public Iterator<Graph> getResultGraphs() {
+
+		return new EmptyIterator<Graph> ();
+	}
+
+	@Override
+	public Graph getResultGraph() {
+
+		return null;
+	}
+
+	public Graph getErrorGraph() {
+
+		return this.graph;
+	}
 
 	public ContextNode getErrorContextNode() {
 
@@ -157,5 +205,44 @@ public class ErrorMessageResult extends MessageResult {
 		}
 
 		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
+	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getGraph().toString();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object == null || ! (object instanceof GraphMessagingResponse)) return false;
+		if (object == this) return true;
+
+		GraphMessagingResponse other = (GraphMessagingResponse) object;
+
+		return this.getGraph().equals(other.getGraph());
+	}
+
+	@Override
+	public int hashCode() {
+
+		int hashCode = 1;
+
+		hashCode = (hashCode * 31) + this.getGraph().hashCode();
+
+		return hashCode;
+	}
+
+	@Override
+	public int compareTo(ErrorMessagingResponse other) {
+
+		if (other == this || other == null) return(0);
+
+		return this.getGraph().compareTo(other.getGraph());
 	}
 }

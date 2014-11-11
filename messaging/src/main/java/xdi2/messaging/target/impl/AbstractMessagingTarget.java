@@ -8,17 +8,19 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
@@ -115,18 +117,47 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	}
 
 	/**
-	 * Executes a message envelope by executing all its messages.
-	 * @param messageEnvelope The XDI message envelope containing XDI messages to be executed.
-	 * @param messageResult The message result.
+	 * Executes a messaging request against this messaging target.
+	 * @param request The XDI messaging request to be executed.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
+	 * @return resultGraph The result produced by executing the messaging request.
 	 */
 	@Override
-	public void execute(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public Graph execute(MessagingRequest messagingRequest, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (messagingRequest == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
+
+		Graph resultGraph = MemoryGraphFactory.getInstance().openGraph();
+
+		if (messagingRequest instanceof RequestMessageEnvelope) {
+
+			this.execute((RequestMessageEnvelope) messagingRequest, resultGraph, executionContext);
+		} else {
+
+			throw new Xdi2MessagingException("Invalid messaging request: " + messagingRequest.getClass().getCanonicalName(), null, executionContext);
+		}
+
+		return resultGraph;
+	}
+
+	/**
+	 * Executes a messaging request against this messaging target.
+	 * @param request The XDI messaging request to be executed.
+	 * @return resultGraph The result produced by executing the messaging request.
+	 */
+	@Override
+	public Graph execute(MessagingRequest messagingRequest) throws Xdi2MessagingException {
+
+		return this.execute(messagingRequest, new ExecutionContext());
+	}
+
+	public void execute(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
-		if (messageResult == null) messageResult = new MessageResult();
-		if (executionContext == null) executionContext = new ExecutionContext();
+		if (resultGraph == null) throw new NullPointerException();
+		if (executionContext == null) throw new NullPointerException();
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
 
@@ -142,11 +173,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before message envelope
 
-			this.before(messageEnvelope, messageResult, executionContext);
+			this.before(messageEnvelope, resultGraph, executionContext);
 
 			// execute message envelope interceptors (before)
 
-			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageEnvelopeInterceptorsBefore(this.getInterceptors(), messageEnvelope, messageResult, executionContext);
+			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageEnvelopeInterceptorsBefore(this.getInterceptors(), messageEnvelope, resultGraph, executionContext);
 
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
@@ -156,18 +187,18 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute the messages in the message envelope
 
-			Iterator<Message> messages = messageEnvelope.getMessages();
+			Iterator<RequestMessage> messages = messageEnvelope.getMessages();
 
 			while (messages.hasNext()) {
 
-				Message message = messages.next();
+				RequestMessage message = messages.next();
 
-				this.execute(message, messageResult, executionContext);
+				this.execute(message, resultGraph, executionContext);
 			}
 
 			// execute message envelope interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageEnvelopeInterceptorsAfter(this.getInterceptors(), messageEnvelope, messageResult, executionContext);
+			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageEnvelopeInterceptorsAfter(this.getInterceptors(), messageEnvelope, resultGraph, executionContext);
 
 			if (interceptorResultAfter.isSkipMessagingTarget()) {
 
@@ -177,11 +208,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// after message envelope
 
-			this.after(messageEnvelope, messageResult, executionContext);
+			this.after(messageEnvelope, resultGraph, executionContext);
 
 			// execute result interceptors (finish)
 
-			InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), messageResult, executionContext);
+			InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), resultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception
@@ -192,7 +223,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			try {
 
-				InterceptorExecutor.executeMessageEnvelopeInterceptorsException(this.getInterceptors(), messageEnvelope, messageResult, executionContext, (Xdi2MessagingException) ex);
+				InterceptorExecutor.executeMessageEnvelopeInterceptorsException(this.getInterceptors(), messageEnvelope, resultGraph, executionContext, (Xdi2MessagingException) ex);
 			} catch (Exception ex2) {
 
 				log.warn("Error while messaging envelope interceptor tried to handle exception: " + ex2.getMessage(), ex2);
@@ -202,7 +233,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			try {
 
-				this.exception(messageEnvelope, messageResult, executionContext, (Xdi2MessagingException) ex);
+				this.exception(messageEnvelope, resultGraph, executionContext, (Xdi2MessagingException) ex);
 			} catch (Exception ex2) {
 
 				log.warn("Error while messaging envelope target tried to handle exception: " + ex2.getMessage(), ex2);
@@ -239,14 +270,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	/**
 	 * Executes a message by executing all its operations.
 	 * @param message The XDI message containing XDI operations to be executed.
-	 * @param messageResult The message result.
+	 * @param messageResult The result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (message == null) throw new NullPointerException();
-		if (messageResult == null) throw new NullPointerException();
+		if (resultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getContextNode().getXDIAddress().toString() + ") (" + message.getOperationCount() + " operations).");
@@ -261,11 +292,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before message
 
-			this.before(message, messageResult, executionContext);
+			this.before(message, resultGraph, executionContext);
 
 			// execute message interceptors (before)
 
-			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageInterceptorsBefore(this.getInterceptors(), message, messageResult, executionContext);
+			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageInterceptorsBefore(this.getInterceptors(), message, resultGraph, executionContext);
 
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
@@ -282,16 +313,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				Operation operation = operations.next();
 				operation = Operation.castOperation(operation);
 
-				MessageResult operationMessageResult = new MessageResult();
+				Graph operationResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-				this.execute(operation, operationMessageResult, executionContext);
+				this.execute(operation, operationResultGraph, executionContext);
 
-				CopyUtil.copyGraph(operationMessageResult.getGraph(), messageResult.getGraph(), null);
+				CopyUtil.copyGraph(operationResultGraph, resultGraph, null);
 			}
 
 			// execute message interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageInterceptorsAfter(this.getInterceptors(), message, messageResult, executionContext);
+			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageInterceptorsAfter(this.getInterceptors(), message, resultGraph, executionContext);
 
 			if (interceptorResultAfter.isSkipMessagingTarget()) {
 
@@ -301,7 +332,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// after message
 
-			this.after(message, messageResult, executionContext);
+			this.after(message, resultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -325,14 +356,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	/**
 	 * Executes an operation.
 	 * @param operation The XDI operation.
-	 * @param operationMessageResult The operation's message result.
+	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation == null) throw new NullPointerException();
-		if (operationMessageResult == null) throw new NullPointerException();
+		if (operationResultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation (" + operation.getOperationXDIAddress() + ").");
@@ -347,11 +378,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before operation
 
-			this.before(operation, operationMessageResult, executionContext);
+			this.before(operation, operationResultGraph, executionContext);
 
 			// execute operation interceptors (before)
 
-			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeOperationInterceptorsBefore(this.getInterceptors(), operation, operationMessageResult, executionContext);
+			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeOperationInterceptorsBefore(this.getInterceptors(), operation, operationResultGraph, executionContext);
 
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
@@ -366,20 +397,20 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (targetAddress != null) {
 
-				this.execute(targetAddress, operation, operationMessageResult, executionContext);
+				this.execute(targetAddress, operation, operationResultGraph, executionContext);
 			} else if (targetStatementAddresses != null) {
 
 				while (targetStatementAddresses.hasNext()) {
 
 					XDIStatement targetStatementAddress = targetStatementAddresses.next();
 
-					this.execute(targetStatementAddress, operation, operationMessageResult, executionContext);
+					this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
 				}
 			}
 
 			// execute operation interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeOperationInterceptorsAfter(this.getInterceptors(), operation, operationMessageResult, executionContext);
+			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeOperationInterceptorsAfter(this.getInterceptors(), operation, operationResultGraph, executionContext);
 
 			if (interceptorResultAfter.isSkipMessagingTarget()) {
 
@@ -389,7 +420,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// after operation
 
-			this.after(operation, operationMessageResult, executionContext);
+			this.after(operation, operationResultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -414,15 +445,15 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * Executes a target address.
 	 * @param targetAddress The target address.
 	 * @param operation The XDI operation.
-	 * @param operationMessageResult The operation's message result.
+	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIAddress targetAddress, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetAddress == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
-		if (operationMessageResult == null) throw new NullPointerException();
+		if (operationResultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
@@ -431,14 +462,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute target interceptors (address)
 
-			if ((targetAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetAddress, operation, operationMessageResult, executionContext)) == null) {
+			if ((targetAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetAddress, operation, operationResultGraph, executionContext)) == null) {
 
 				return;
 			}
 
 			// execute contributors (address)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], targetAddress, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], targetAddress, operation, operationResultGraph, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -458,7 +489,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
 
-			addressHandler.executeOnAddress(targetAddress, operation, operationMessageResult, executionContext);
+			addressHandler.executeOnAddress(targetAddress, operation, operationResultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -480,15 +511,15 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * Executes a target statement.
 	 * @param targetStatement The target statement.
 	 * @param operation The XDI operation.
-	 * @param operationMessageResult The operation's message result.
+	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIStatement targetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (targetStatement == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
-		if (operationMessageResult == null) throw new NullPointerException();
+		if (operationResultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
@@ -497,14 +528,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute target interceptors (statement)
 
-			if ((targetStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetStatement, operation, operationMessageResult, executionContext)) == null) {
+			if ((targetStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetStatement, operation, operationResultGraph, executionContext)) == null) {
 
 				return;
 			}
 
 			// execute contributors (statement)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], targetStatement, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], targetStatement, operation, operationResultGraph, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -524,7 +555,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
-			statementHandler.executeOnStatement(targetStatement, operation, operationMessageResult, executionContext);
+			statementHandler.executeOnStatement(targetStatement, operation, operationResultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -546,40 +577,40 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * These are for being overridden by subclasses
 	 */
 
-	public void before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	protected void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 	}
 
-	public AddressHandler getAddressHandler(XDIAddress targetAddress) throws Xdi2MessagingException {
+	protected AddressHandler getAddressHandler(XDIAddress targetAddress) throws Xdi2MessagingException {
 
 		return null;
 	}
 
-	public StatementHandler getStatementHandler(XDIStatement targetStatement) throws Xdi2MessagingException {
+	protected StatementHandler getStatementHandler(XDIStatement targetStatement) throws Xdi2MessagingException {
 
 		return null;
 	}

@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A Signer that can authenticate a signature against
@@ -26,7 +26,7 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 	}
 
 	@Override
-	public Signature<?, ?> sign(Message message) {
+	public Signature<?, ?> sign(RequestMessage message) {
 
 		// obtain private key
 
@@ -63,21 +63,21 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 	}
 
 	public String getPrivateKeyAlgorithm(PrivateKey privateKey) {
-		
+
 		return privateKey.getAlgorithm().toLowerCase();
 	}
-	
+
 	public int getPrivateKeyLength(PrivateKey privateKey) {
-		
+
 		if (privateKey instanceof RSAKey) {
-			
+
 			return ((RSAKey) privateKey).getModulus().bitLength();
 		}
 
 		throw new RuntimeException("Cannot determine key length for private key.");
 	}
-	
-	protected abstract PrivateKey getPrivateKey(Message message);
+
+	protected abstract PrivateKey getPrivateKey(RequestMessage message);
 
 	/*
 	 * Getters and setters

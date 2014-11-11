@@ -1,8 +1,9 @@
-package xdi2.messaging;
+package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -14,7 +15,7 @@ public class DelOperation extends Operation {
 
 	private static final long serialVersionUID = 5732150427365911411L;
 
-	protected DelOperation(Message message, Relation relation) {
+	protected DelOperation(Message<?, ?, ?> message, Relation relation) {
 
 		super(message, relation);
 	}
@@ -41,7 +42,7 @@ public class DelOperation extends Operation {
 	 * @param relation The relation that is an XDI $del operation.
 	 * @return The XDI $del operation.
 	 */
-	public static DelOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static DelOperation fromMessageAndRelation(Message<?, ?, ?> message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 

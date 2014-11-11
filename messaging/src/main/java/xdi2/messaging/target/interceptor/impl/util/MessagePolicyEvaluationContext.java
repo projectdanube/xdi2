@@ -14,7 +14,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
@@ -26,10 +26,10 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	public static final XDIArc XDI_ARC_FROM_VARIABLE = XDIArc.create("{$from}");
 	public static final XDIArc XDI_ARC_MSG_VARIABLE = XDIArc.create("{$msg}");
 
-	private Message message;
+	private RequestMessage message;
 	private Graph targetGraph;
 
-	public MessagePolicyEvaluationContext(Message message, Graph targetGraph) {
+	public MessagePolicyEvaluationContext(RequestMessage message, Graph targetGraph) {
 
 		this.message = message;
 		this.targetGraph = targetGraph;
@@ -144,7 +144,7 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	 * Getters and setters
 	 */
 
-	public Message getMessage() {
+	public RequestMessage getMessage() {
 
 		return this.message;
 	}

@@ -9,9 +9,8 @@ import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.readers.XDIDisplayReader;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 
@@ -60,12 +59,11 @@ public class LinkContractInterceptorTest extends TestCase {
 				graphMessagingTarget.setGraph(graph);
 				graphMessagingTarget.getInterceptors().addInterceptor(linkContractsInterceptor);
 
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(authorized);
-				MessageResult messageResult = new MessageResult();
+				RequestMessageEnvelope messageEnvelope = RequestMessageEnvelope.fromGraph(authorized);
 
 				try {
 
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					graphMessagingTarget.execute(messageEnvelope);
 					continue;
 				} catch (Xdi2NotAuthorizedException ex) {
 
@@ -95,12 +93,11 @@ public class LinkContractInterceptorTest extends TestCase {
 				graphMessagingTarget.setGraph(graph);
 				graphMessagingTarget.getInterceptors().addInterceptor(linkContractsInterceptor);
 
-				MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(notauthorized);
-				MessageResult messageResult = new MessageResult();
+				RequestMessageEnvelope messageEnvelope = RequestMessageEnvelope.fromGraph(notauthorized);
 
 				try {
 
-					graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+					graphMessagingTarget.execute(messageEnvelope);
 					fail();
 				} catch (Xdi2NotAuthorizedException ex) {
 

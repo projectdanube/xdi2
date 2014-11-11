@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
-import xdi2.messaging.Message;
+import xdi2.messaging.request.RequestMessage;
 
 /**
  * A SignatureAuthenticator that can authenticate a signature against
@@ -23,7 +23,7 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 	}
 
 	@Override
-	public boolean authenticate(Message message, Signature<?, ?> signature) {
+	public boolean authenticate(RequestMessage message, Signature<?, ?> signature) {
 
 		// check signature type
 
@@ -59,5 +59,5 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 		return authenticated;
 	}
 
-	protected abstract PublicKey getPublicKey(Message message);
+	protected abstract PublicKey getPublicKey(RequestMessage message);
 }

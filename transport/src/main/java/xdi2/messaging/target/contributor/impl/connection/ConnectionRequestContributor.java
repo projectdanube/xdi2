@@ -22,10 +22,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.discovery.XDIDiscoveryClient;
-import xdi2.messaging.DoOperation;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
@@ -99,7 +98,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 	 */
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
 
@@ -162,7 +161,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// return link contract instance in result
 
-		messageResult.getGraph().setStatement(XDIStatement.fromComponents(
+		resultGraph.setStatement(XDIStatement.fromComponents(
 				linkContractTemplate.getContextNode().getXDIAddress(),
 				XDIDictionaryConstants.XDI_ADD_TYPE, 
 				genericLinkContract.getContextNode().getXDIAddress())); 

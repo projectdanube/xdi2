@@ -24,13 +24,12 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.messaging.GetOperation;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
@@ -79,7 +78,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetRefRepRelationsPerMessageEnvelope(executionContext);
 		resetCompletedAddresses(executionContext);
@@ -88,13 +87,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Exception ex) {
 
 	}
 
@@ -103,7 +102,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public InterceptorResult before(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetRefRepRelationsPerOperation(executionContext);
 
@@ -111,13 +110,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public InterceptorResult after(Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look through the message result to process result $ref/$rep relations
 
 		if (operation instanceof GetOperation && operation.getTargetXDIAddress() != null) {
 
-			List<Relation> refRepRelations = new IteratorListMaker<Relation> (Equivalence.getAllReferenceAndReplacementRelations(operationMessageResult.getGraph().getRootContextNode(true))).list();
+			List<Relation> refRepRelations = new IteratorListMaker<Relation> (Equivalence.getAllReferenceAndReplacementRelations(operationResultGraph.getRootContextNode(true))).list();
 
 			for (Relation refRepRelation : refRepRelations) {
 
@@ -162,15 +161,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				// $get feedback on the source of the $ref/$rep relation
 
-				MessageResult feedbackMessageResult = feedbackGetSourceOfRefRepRelation(refRepContextNode, operation, executionContext);
+				Graph feedbackResultGraph = feedbackGetSourceOfRefRepRelation(refRepContextNode, operation, executionContext);
 
 				// merge the message result
 
-				CopyUtil.copyGraph(feedbackMessageResult.getGraph(), operationMessageResult.getGraph(), null);
+				CopyUtil.copyGraph(feedbackResultGraph, operationResultGraph, null);
 
 				// done with this $ref/$rep relation
 
-				if (log.isDebugEnabled()) log.debug("In message result: After $get feedback on $ref/$rep relation " + refRepRelation + " we now have: " + operationMessageResult);
+				if (log.isDebugEnabled()) log.debug("In message result: After $get feedback on $ref/$rep relation " + refRepRelation + " we now have: " + operationResultGraph);
 			}
 		}
 
@@ -193,9 +192,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doReplaceRefRepRelations) {
 
-				ContextNode refRepTargetContextNode = operationMessageResult.getGraph().getDeepContextNode(targetContextNodeXDIAddress, true);
+				ContextNode refRepTargetContextNode = operationResultGraph.getDeepContextNode(targetContextNodeXDIAddress, true);
 
-				if (refRepTargetContextNode != null && ! operationMessageResult.getGraph().isEmpty()) {
+				if (refRepTargetContextNode != null && ! operationResultGraph.isEmpty()) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Replacing $ref/$rep relation: " + refRepRelation);
 
@@ -206,7 +205,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 					refRepTargetContextNode.clear();
 					deleteWhileEmptyAndNoIncomingRelations(refRepTargetContextNode);
 
-					CopyUtil.copyGraph(tempGraph, operationMessageResult.getGraph(), null);
+					CopyUtil.copyGraph(tempGraph, operationResultGraph, null);
 
 					tempGraph.close();
 				} else {
@@ -219,20 +218,20 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (doIncludeRefRelations) {
 
-				if (operationMessageResult.getGraph().containsStatement(refRepRelation.getStatement().getXDIStatement())) {
+				if (operationResultGraph.containsStatement(refRepRelation.getStatement().getXDIStatement())) {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Not including duplicate $ref relation: " + refRepRelation);
 				} else {
 
 					if (log.isDebugEnabled()) log.debug("In message result: Including $ref relation: " + refRepRelation);
 
-					CopyUtil.copyStatement(refRepRelation.getStatement(), operationMessageResult.getGraph(), null);
+					CopyUtil.copyStatement(refRepRelation.getStatement(), operationResultGraph, null);
 				}
 			}
 
 			// done with this $ref/$rep relation
 
-			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationMessageResult);
+			if (log.isDebugEnabled()) log.debug("In message result: We now have: " + operationResultGraph);
 		}
 
 		// done
@@ -245,7 +244,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// remember that we completed this target
 
@@ -271,7 +270,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// remember that we completed this target
 
@@ -362,11 +361,11 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			if (refRepRelation == null) {
 
-				MessageResult feedbackMessageResult = feedbackFindRefRepRelationsInContext(contextNodeXDIAddress, operation, executionContext);
+				Graph feedbackResultGraph = feedbackFindRefRepRelationsInContext(contextNodeXDIAddress, operation, executionContext);
 
 				// check for $ref/$rep relations in this context
 
-				ContextNode contextNode = feedbackMessageResult.getGraph().getDeepContextNode(contextNodeXDIAddress, false);
+				ContextNode contextNode = feedbackResultGraph.getDeepContextNode(contextNodeXDIAddress, false);
 				refRelation = contextNode == null ? null : Equivalence.getReferenceRelation(contextNode);
 				repRelation = contextNode == null ? null : Equivalence.getReplacementRelation(contextNode);
 
@@ -421,7 +420,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 * Feedback methods
 	 */
 
-	private static MessageResult feedbackGetSourceOfRefRepRelation(ContextNode refRepContextNode, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static Graph feedbackGetSourceOfRefRepRelation(ContextNode refRepContextNode, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get source of $ref/$rep relation: " + refRepContextNode);
 
@@ -429,13 +428,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
-		// prepare feedback message result
+		// prepare feedback result graph
 
-		MessageResult feedbackMessageResult = new MessageResult();
+		Graph feedbackResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 		// prepare feedback message
 
-		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		RequestMessage feedbackMessage = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
@@ -458,7 +457,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// execute feedback messages
 
-			messagingTarget.execute(feedbackMessage, feedbackMessageResult, executionContext);
+			messagingTarget.execute(feedbackMessage, feedbackResultGraph, executionContext);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
@@ -469,12 +468,12 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", message result: " + feedbackMessageResult);
+		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", message result: " + feedbackResultGraph);
 
-		return feedbackMessageResult;
+		return feedbackResultGraph;
 	}
 
-	private static MessageResult feedbackFindRefRepRelationsInContext(XDIAddress contextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static Graph feedbackFindRefRepRelationsInContext(XDIAddress contextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress);
 
@@ -482,14 +481,14 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
-		// prepare feedback message result
+		// prepare feedback result graph
 
-		MessageResult feedbackMessageResult = new MessageResult();
+		Graph feedbackResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 		// prepare feedback messages
 
-		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
-		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		RequestMessage feedbackMessageRef = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		RequestMessage feedbackMessageRep = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
@@ -522,8 +521,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// execute feedback messages
 
-			messagingTarget.execute(feedbackMessageRef, feedbackMessageResult, executionContext);
-			messagingTarget.execute(feedbackMessageRep, feedbackMessageResult, executionContext);
+			messagingTarget.execute(feedbackMessageRef, feedbackResultGraph, executionContext);
+			messagingTarget.execute(feedbackMessageRep, feedbackResultGraph, executionContext);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
@@ -534,9 +533,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress + ", message result: " + feedbackMessageResult);
+		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress + ", result graph: " + feedbackResultGraph);
 
-		return feedbackMessageResult;
+		return feedbackResultGraph;
 	}
 
 	/*

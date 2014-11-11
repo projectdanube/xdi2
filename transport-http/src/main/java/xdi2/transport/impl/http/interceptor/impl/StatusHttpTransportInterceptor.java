@@ -3,8 +3,8 @@ package xdi2.transport.impl.http.interceptor.impl;
 import java.io.IOException;
 
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.HttpRequest;
-import xdi2.transport.impl.http.HttpResponse;
+import xdi2.transport.impl.http.HttpTransportRequest;
+import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
@@ -33,7 +33,7 @@ public class StatusHttpTransportInterceptor extends AbstractHttpTransportInterce
 	 */
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
