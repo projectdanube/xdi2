@@ -10,18 +10,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.properties.XDI2Properties;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
+import xdi2.messaging.context.ExecutionResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.request.MessagingRequest;
 import xdi2.messaging.response.ErrorMessagingResponse;
-import xdi2.messaging.response.GraphMessagingResponse;
+import xdi2.messaging.response.MessageEnvelopeMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.response.ResponseMessageEnvelope;
+import xdi2.messaging.response.ResultGraphMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.GraphSigner;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.Transport;
@@ -122,7 +129,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		log.info("Shutting down complete.");
 	}
 
-	protected MessagingResponse execute(MessagingRequest messagingRequest, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
+	protected MessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
 		// create an execution context
 
@@ -136,18 +143,20 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			// execute interceptors (before)
 
-			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messagingRequest, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, executionContext);
 
 			// execute the message envelope against the messaging target
 
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
-			if (log.isDebugEnabled()) log.debug("MessagingRequest: " + messagingRequest);
-			Graph resultGraph = messagingTarget.execute(messagingRequest, executionContext);
-			if (log.isDebugEnabled()) log.debug("ResultGraph: " + resultGraph);
+			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
+			ExecutionResult executionResult = messagingTarget.execute(messageEnvelope, executionContext);
+			if (log.isDebugEnabled()) log.debug("ResultGraph: " + executionResult);
 
 			// make messaging response
 
-			messagingResponse = this.makeGraphMessagingResponse(resultGraph);
+			messagingResponse = this.makeResultGraphMessagingResponse(executionResult);
+
+			messagingResponse = this.makeMessageEnvelopeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
 		} catch (Xdi2MessagingException ex) {
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
@@ -159,7 +168,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// execute interceptors (after)
 
-		InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messagingRequest, messagingResponse, executionContext);
+		InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext);
 
 		// done
 
@@ -180,27 +189,56 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		return executionContext;
 	}
 
-	protected final GraphMessagingResponse makeGraphMessagingResponse(Graph resultGraph) {
+	protected final ResultGraphMessagingResponse makeResultGraphMessagingResponse(ExecutionResult executionResult) {
 
-		GraphMessagingResponse graphMessagingResponse = GraphMessagingResponse.fromGraph(resultGraph);
+		// create messaging response
 
-		return graphMessagingResponse;
+		Graph resultGraph = executionResult.getResultGraph();
+
+		ResultGraphMessagingResponse resultGraphMessagingResponse = ResultGraphMessagingResponse.fromResultGraph(resultGraph);
+
+		// done
+
+		return resultGraphMessagingResponse;
 	}
 
-	protected final ResponseMessageEnvelope makeResponseMessageEnvelope(Graph resultGraph) {
+	protected final MessageEnvelopeMessagingResponse makeMessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) {
 
-		ResponseMessageEnvelope responseMessageEnvelope = ResponseMessageEnvelope.fromGraph(resultGraph);
+		// create messaging response
 
-		// TODO: create full response message envelope
+		Graph resultGraph = executionResult.getResultGraph();
 
-		return responseMessageEnvelope;
+		Message message = messageEnvelope.getMessages().next();
+
+		XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+		XDIAddress toXDIAddress = message.getSenderXDIAddress();
+
+		MessageEnvelope responseMessageEnvelope = MessageEnvelope.fromGraph(resultGraph);
+		Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
+		responseMessage.setToXDIAddress(toXDIAddress);
+		responseMessage.setTimestamp(new Date());
+
+		responseMessage.createGetOperation(resultGraph);
+
+		GraphSigner signer = new GraphSigner(((GraphMessagingTarget) messagingTarget).getGraph());
+		signer.setDigestAlgorithm(KeyPairSignature.DIGEST_ALGORITHM_SHA);
+		signer.setDigestLength(256);
+		signer.sign(responseMessage);
+
+		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = MessageEnvelopeMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);
+
+		// done
+
+		return messageEnvelopeMessagingResponse;
 	}
 
 	protected final ErrorMessagingResponse makeErrorMessagingResponse(Exception ex) {
 
-		// send error result
+		// create messaging response
 
 		ErrorMessagingResponse errorMessagingResponse = ErrorMessagingResponse.fromException(ex);
+
+		// done
 
 		return errorMessagingResponse;
 	}

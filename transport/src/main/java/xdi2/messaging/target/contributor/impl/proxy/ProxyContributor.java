@@ -19,11 +19,11 @@ import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.XDIStatementUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -109,7 +109,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// if there is a static forwarding target, we use it
 
@@ -208,7 +208,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -230,12 +230,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// prepare the forwarding message envelope
 
-		RequestMessage message = (RequestMessage) operation.getMessage();
+		Message message = (Message) operation.getMessage();
 		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding: " + message);
 
 		XDIAddress targetAddress = XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeTargetAddress);
 
-		RequestMessage forwardingMessage = MessagingCloneUtil.cloneMessage(message);
+		Message forwardingMessage = MessagingCloneUtil.cloneMessage(message);
 
 		forwardingMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 		forwardingMessage.setLinkContractXDIAddress(linkContractAddress);
@@ -244,7 +244,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (log.isDebugEnabled()) log.debug("Prepared message for forwarding: " + forwardingMessage);
 
-		RequestMessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
+		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
 
 		// manipulate the forwarding message envelope
 
@@ -302,19 +302,19 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		// prepare the forwarding message envelope
 
-		RequestMessage message = (RequestMessage) operation.getMessage();
+		Message message = (Message) operation.getMessage();
 		if (log.isDebugEnabled()) log.debug("Message as a basis for forwarding: " + message);
 
 		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
 
-		RequestMessage forwardingMessage = new RequestMessageEnvelope().createMessage(message.getSenderXDIAddress());
+		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderXDIAddress());
 
 		forwardingMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 		forwardingMessage.setLinkContractXDIAddress(linkContractAddress);
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXDIAddress(), targetStatement);
 
-		RequestMessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
+		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
 
 		if (log.isDebugEnabled()) log.debug("Message envelope for forwarding: " + forwardingMessageEnvelope);
 

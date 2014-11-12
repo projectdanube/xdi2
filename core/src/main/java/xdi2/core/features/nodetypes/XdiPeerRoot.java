@@ -68,7 +68,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 	 */
 	public boolean isSelfPeerRoot() {
 
-		XdiPeerRoot selfPeerRoot = this.findLocalRoot().getSelfPeerRoot();
+		XdiPeerRoot selfPeerRoot = this.findCommonRoot().getSelfPeerRoot();
 		if (this.equals(selfPeerRoot)) return true;
 
 		ContextNode refContextNode = Equivalence.getReferenceContextNode(this.getContextNode());

@@ -10,8 +10,8 @@ import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public class ContributorTest extends TestCase {
@@ -68,7 +68,7 @@ public class ContributorTest extends TestCase {
 
 			log.info("Doing $get: " + targetString);
 
-			RequestMessageEnvelope envelope = RequestMessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
+			MessageEnvelope envelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
 
 			Graph resultGraph = messagingTarget.execute(envelope);
 

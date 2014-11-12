@@ -33,8 +33,8 @@ import xdi2.tests.core.syntax.CloudNameTest;
 import xdi2.tests.core.syntax.CloudNumberTest;
 import xdi2.tests.core.syntax.ParserImplTest;
 import xdi2.tests.core.util.CopyUtilTest;
-import xdi2.tests.core.util.XDIStatementUtilTest;
 import xdi2.tests.core.util.XDIAddressUtilTest;
+import xdi2.tests.core.util.XDIStatementUtilTest;
 import xdi2.tests.core.util.XRI2UtilTest;
 import xdi2.tests.core.util.iterators.IteratorTest;
 

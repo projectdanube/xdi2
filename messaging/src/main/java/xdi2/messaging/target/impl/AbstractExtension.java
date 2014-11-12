@@ -6,12 +6,11 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.Extension;
-
 
 public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 
@@ -23,8 +22,8 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	private int initPriority;
 	private int shutdownPriority;
 	private boolean disabled;
-	private Set<RequestMessageEnvelope> disabledForMessageEnvelope;
-	private Set<RequestMessage> disabledForMessage;
+	private Set<MessageEnvelope> disabledForMessageEnvelope;
+	private Set<Message> disabledForMessage;
 	private Set<Operation> disabledForOperation;
 
 	public AbstractExtension(int initPriority, int shutdownPriority) {
@@ -32,8 +31,8 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 		this.initPriority = initPriority;
 		this.shutdownPriority = shutdownPriority;
 		this.disabled = false;
-		this.disabledForMessageEnvelope = new HashSet<RequestMessageEnvelope> ();
-		this.disabledForMessage = new HashSet<RequestMessage> ();
+		this.disabledForMessageEnvelope = new HashSet<MessageEnvelope> ();
+		this.disabledForMessage = new HashSet<Message> ();
 		this.disabledForOperation = new HashSet<Operation> ();
 	}
 
@@ -83,8 +82,8 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 			boolean disabledForMessage = false;
 			boolean disabledForOperation = false;
 
-			for (RequestMessageEnvelope currentMessageEnvelope : executionContext.getCurrentMessageEnvelopes()) disabledForMessageEnvelope |= this.disabledForMessageEnvelope.contains(currentMessageEnvelope);
-			for (RequestMessage currentMessage : executionContext.getCurrentMessages()) disabledForMessage |= this.disabledForMessage.contains(currentMessage);
+			for (MessageEnvelope currentMessageEnvelope : executionContext.getCurrentMessageEnvelopes()) disabledForMessageEnvelope |= this.disabledForMessageEnvelope.contains(currentMessageEnvelope);
+			for (Message currentMessage : executionContext.getCurrentMessages()) disabledForMessage |= this.disabledForMessage.contains(currentMessage);
 			for (Operation currentOperation : executionContext.getCurrentOperations()) disabledForOperation |= this.disabledForOperation.contains(currentOperation);
 
 			if (log.isDebugEnabled() && disabledForMessageEnvelope) log.debug("Disabled " + this + " on message envelope ? " + disabledForMessageEnvelope);
@@ -112,7 +111,7 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	}
 
 	@Override
-	public void setDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope) {
+	public void setDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		if (log.isDebugEnabled()) log.debug("Set disabled " + this + " on message envelope " + messageEnvelope);
 
@@ -120,7 +119,7 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	}
 
 	@Override
-	public void clearDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope) {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		if (! this.disabledForMessageEnvelope.contains(messageEnvelope)) return;
 		
@@ -130,7 +129,7 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	}
 
 	@Override
-	public void setDisabledForMessage(RequestMessage message) {
+	public void setDisabledForMessage(Message message) {
 
 		if (log.isDebugEnabled()) log.debug("Set disabled " + this + " on message " + message);
 
@@ -138,7 +137,7 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	}
 
 	@Override
-	public void clearDisabledForMessage(RequestMessage message) {
+	public void clearDisabledForMessage(Message message) {
 
 		if (! this.disabledForMessage.contains(message)) return;
 

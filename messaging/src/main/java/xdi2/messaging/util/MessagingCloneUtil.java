@@ -29,11 +29,11 @@ public final class MessagingCloneUtil {
 	 * @param messageEnvelope The message envelope to clone.
 	 * @return The cloned message envelope.
 	 */
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> ME cloneMessageEnvelope(ME messageEnvelope) {
+	public static MessageEnvelope cloneMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		Graph clonedGraph = CloneUtil.cloneGraph(messageEnvelope.getGraph());
 
-		ME clonedMessageEnvelope = MessageEnvelope.fromGraph(clonedGraph, messageEnvelope.getME(), messageEnvelope.getMC(), messageEnvelope.getM());
+		MessageEnvelope clonedMessageEnvelope = MessageEnvelope.fromGraph(clonedGraph);
 		if (log.isTraceEnabled()) log.trace("Cloned message envelope: " + clonedMessageEnvelope);
 
 		return clonedMessageEnvelope;
@@ -44,14 +44,14 @@ public final class MessagingCloneUtil {
 	 * @param messageCollection The message collection to clone.
 	 * @return The cloned message collection.
 	 */
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> MC cloneMessageCollection(MC messageCollection) {
+	public static MessageCollection cloneMessageCollection(MessageCollection messageCollection) {
 
-		ME clonedMessageEnvelope = cloneMessageEnvelope(messageCollection.getMessageEnvelope());
+		MessageEnvelope clonedMessageEnvelope = cloneMessageEnvelope(messageCollection.getMessageEnvelope());
 		clonedMessageEnvelope.deleteMessageCollections();
 
 		CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
 
-		MC clonedMessageCollection = clonedMessageEnvelope.getMessageCollections().next();
+		MessageCollection clonedMessageCollection = clonedMessageEnvelope.getMessageCollections().next();
 		if (log.isTraceEnabled()) log.trace("Cloned message collection: " + clonedMessageCollection.getMessageEnvelope());
 
 		return clonedMessageCollection;
@@ -62,9 +62,9 @@ public final class MessagingCloneUtil {
 	 * @param message The message to clone.
 	 * @return The cloned message.
 	 */
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> M cloneMessage(M message) {
+	public static Message cloneMessage(Message message) {
 
-		MessageCollection<ME, MC, M> clonedMessageCollection = cloneMessageCollection(message.getMessageCollection());
+		MessageCollection clonedMessageCollection = cloneMessageCollection(message.getMessageCollection());
 		clonedMessageCollection.deleteMessages();
 
 		XdiEntity xdiEntity = message.getXdiEntity();
@@ -82,7 +82,7 @@ public final class MessagingCloneUtil {
 			throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
 		}
 
-		M clonedMessage = clonedMessageCollection.getMessages().next();
+		Message clonedMessage = clonedMessageCollection.getMessages().next();
 		if (log.isTraceEnabled()) log.trace("Cloned message: " + clonedMessage.getMessageEnvelope());
 
 		return clonedMessage;
@@ -93,10 +93,9 @@ public final class MessagingCloneUtil {
 	 * @param operation The operation to clone.
 	 * @return The cloned operation.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> Operation cloneOperation(Operation operation) {
+	public static Operation cloneOperation(Operation operation) {
 
-		M clonedMessage = cloneMessage((M) operation.getMessage());
+		Message clonedMessage = cloneMessage(operation.getMessage());
 		clonedMessage.deleteOperations();
 
 		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);

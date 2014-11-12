@@ -1,7 +1,6 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.security.Key;
 import java.util.Date;
 import java.util.Iterator;
@@ -52,16 +51,16 @@ import xdi2.messaging.operations.SetOperation;
  * 
  * @author markus
  */
-public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> implements Serializable, Comparable<Message<?, ?, ?>> {
+public class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	public static final XDIAddress XDI_ADD_PARAMETER_ASYNC = XDIAddress.create("<$async>");
 
-	private MC messageCollection;
+	private MessageCollection messageCollection;
 	private XdiEntity xdiEntity;
 
-	protected Message(MC messageCollection, XdiEntity xdiEntity) {
+	protected Message(MessageCollection messageCollection, XdiEntity xdiEntity) {
 
 		if (messageCollection == null || xdiEntity == null) throw new NullPointerException();
 
@@ -89,17 +88,11 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 	 * @param xdiEntity The XDI entity that is an XDI message.
 	 * @return The XDI message.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> M fromMessageCollectionAndXdiEntity(MessageCollection<ME, MC, M> messageCollection, XdiEntity xdiEntity) {
+	public static Message fromMessageCollectionAndXdiEntity(MessageCollection messageCollection, XdiEntity xdiEntity) {
 
-		try {
+		if (! isValid(xdiEntity)) return null;
 
-			Method method = messageCollection.getMessageEnvelope().getM().getMethod("fromMessageCollectionAndXdiEntity", messageCollection.getMessageEnvelope().getMC(), XdiEntity.class);
-			return (M) method.invoke(null, messageCollection, xdiEntity);
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
+		return new Message(messageCollection, xdiEntity);
 	}
 
 	/*
@@ -110,7 +103,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 	 * Returns the XDI message collection to which this XDI message belongs.
 	 * @return An XDI message collection.
 	 */
-	public MC getMessageCollection() {
+	public MessageCollection getMessageCollection() {
 
 		return this.messageCollection;
 	}
@@ -119,7 +112,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 	 * Returns the message envelope to which this message belongs.
 	 * @return A message envelope.
 	 */
-	public ME getMessageEnvelope() {
+	public MessageEnvelope getMessageEnvelope() {
 
 		return this.getMessageCollection().getMessageEnvelope();
 	}
@@ -538,13 +531,13 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 	/**
 	 * Creates a new operation and adds it to this XDI message.
 	 * @param operationXDIAddress The operation address to use for the new operation.
-	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The newly created, empty operation, or null if the operation address is not valid.
 	 */
-	public Operation createOperation(XDIAddress operationXDIAddress, Iterator<XDIStatement> targetXDIStatementAddresses) {
+	public Operation createOperation(XDIAddress operationXDIAddress, Iterator<XDIStatement> targetXDIStatements) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), operationXDIAddress, true);
-		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+		if (targetXDIStatements != null) while (targetXDIStatements.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatements.next());
 
 		return Operation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
@@ -602,13 +595,13 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	/**
 	 * Creates a new $get operation and adds it to this XDI message.
-	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The newly created $get operation.
 	 */
-	public GetOperation createGetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+	public GetOperation createGetOperation(Iterator<XDIStatement> targetXDIStatements) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_GET, true);
-		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+		if (targetXDIStatements != null) while (targetXDIStatements.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatements.next());
 
 		return GetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
@@ -647,13 +640,13 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	/**
 	 * Creates a new $set operation and adds it to this XDI message.
-	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The newly created $set operation.
 	 */
-	public SetOperation createSetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+	public SetOperation createSetOperation(Iterator<XDIStatement> targetXDIStatements) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_SET, true);
-		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+		if (targetXDIStatements != null) while (targetXDIStatements.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatements.next());
 
 		return SetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
@@ -692,13 +685,13 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	/**
 	 * Creates a new $del operation and adds it to this XDI message.
-	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The newly created $del operation.
 	 */
-	public DelOperation createDelOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+	public DelOperation createDelOperation(Iterator<XDIStatement> targetXDIStatements) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DEL, true);
-		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+		if (targetXDIStatements != null) while (targetXDIStatements.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatements.next());
 
 		return DelOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
@@ -737,13 +730,13 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	/**
 	 * Creates a new $do operation and adds it to this XDI message.
-	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The newly created $do operation.
 	 */
-	public DoOperation createDoOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+	public DoOperation createDoOperation(Iterator<XDIStatement> targetXDIStatements) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DO, true);
-		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+		if (targetXDIStatements != null) while (targetXDIStatements.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatements.next());
 
 		return DoOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
 	}
@@ -891,7 +884,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 		if (object == null || ! (object instanceof Message)) return false;
 		if (object == this) return true;
 
-		Message<?, ?, ?> other = (Message<?, ?, ?>) object;
+		Message other = (Message) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -907,7 +900,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 	}
 
 	@Override
-	public int compareTo(Message<?, ?, ?> other) {
+	public int compareTo(Message other) {
 
 		if (other == this || other == null) return 0;
 
@@ -920,7 +913,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	public static class MappingRelationOperationIterator extends NotNullIterator<Operation> {
 
-		public MappingRelationOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
+		public MappingRelationOperationIterator(final Message message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, Operation> (relations) {
 
@@ -935,7 +928,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	public static class MappingRelationGetOperationIterator extends NotNullIterator<GetOperation> {
 
-		public MappingRelationGetOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
+		public MappingRelationGetOperationIterator(final Message message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, GetOperation> (relations) {
 
@@ -950,7 +943,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	public static class MappingRelationSetOperationIterator extends NotNullIterator<SetOperation> {
 
-		public MappingRelationSetOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
+		public MappingRelationSetOperationIterator(final Message message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, SetOperation> (relations) {
 
@@ -965,7 +958,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	public static class MappingRelationDelOperationIterator extends NotNullIterator<DelOperation> {
 
-		public MappingRelationDelOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
+		public MappingRelationDelOperationIterator(final Message message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, DelOperation> (relations) {
 
@@ -980,7 +973,7 @@ public abstract class Message <ME extends MessageEnvelope<ME, MC, M>, MC extends
 
 	public static class MappingRelationDoOperationIterator extends NotNullIterator<DoOperation> {
 
-		public MappingRelationDoOperationIterator(final Message<?, ?, ?> message, Iterator<Relation> relations) {
+		public MappingRelationDoOperationIterator(final Message message, Iterator<Relation> relations) {
 
 			super(new MappingIterator<Relation, DoOperation> (relations) {
 

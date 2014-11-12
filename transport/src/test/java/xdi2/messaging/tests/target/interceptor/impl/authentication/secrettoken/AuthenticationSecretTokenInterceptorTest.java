@@ -4,8 +4,8 @@ import java.util.Collections;
 
 import junit.framework.TestCase;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator;
 
 public class AuthenticationSecretTokenInterceptorTest extends TestCase {
@@ -28,7 +28,7 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 		staticSecretTokenAuthenticator.setGlobalSalt(GLOBAL_SALT);
 		staticSecretTokenAuthenticator.setLocalSaltAndDigestSecretTokens(Collections.singletonMap(SENDER_XRI, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN));
 
-		RequestMessage message = new RequestMessageEnvelope().createMessage(SENDER_XRI);
+		Message message = new MessageEnvelope().createMessage(SENDER_XRI);
 		message.setSecretToken(SECRET_TOKEN);
 
 		assertTrue(staticSecretTokenAuthenticator.authenticate(message, message.getSecretToken()));

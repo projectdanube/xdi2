@@ -2,8 +2,8 @@ package xdi2.core.impl.keyvalue;
 
 import java.util.Iterator;
 
-import xdi2.core.util.iterators.IteratorFirstItem;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.core.util.iterators.IteratorFirstItem;
 
 /**
  * This abstract base class relieves subclasses from certain tasks 

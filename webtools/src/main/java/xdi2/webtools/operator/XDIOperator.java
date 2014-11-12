@@ -43,8 +43,8 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor;
 import xdi2.webtools.util.OutputCache;
 import xdi2.webtools.util.SecretTokenInsertingCopyStrategy;
@@ -241,8 +241,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -287,8 +287,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -336,8 +336,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -395,8 +395,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -453,8 +453,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -510,8 +510,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// build
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 			message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
@@ -568,7 +568,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
-		RequestMessageEnvelope messageEnvelope = null;
+		MessageEnvelope messageEnvelope = null;
 		Graph resultGraph = null;
 
 		long start = System.currentTimeMillis();
@@ -581,7 +581,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 			xdiReader.read(tempGraph, new StringReader(message));
 
-			messageEnvelope = new RequestMessageEnvelope();
+			messageEnvelope = new MessageEnvelope();
 
 			CopyUtil.copyGraph(tempGraph, messageEnvelope.getGraph(), new SecretTokenInsertingCopyStrategy(secretToken));
 

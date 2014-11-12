@@ -2,10 +2,10 @@ package xdi2.messaging.target;
 
 import java.util.Comparator;
 
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 
 public interface Extension <CONTAINER> {
 
@@ -26,10 +26,10 @@ public interface Extension <CONTAINER> {
 	public boolean skip(ExecutionContext executionContext);
 	public void setDisabled();
 	public void clearDisabled();
-	public void setDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope);
-	public void clearDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope);
-	public void setDisabledForMessage(RequestMessage message);
-	public void clearDisabledForMessage(RequestMessage message);
+	public void setDisabledForMessageEnvelope(MessageEnvelope messageEnvelope);
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope);
+	public void setDisabledForMessage(Message message);
+	public void clearDisabledForMessage(Message message);
 	public void setDisabledForOperation(Operation operation);
 	public void clearDisabledForOperation(Operation operation);
 

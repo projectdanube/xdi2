@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,10 +17,10 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.Prototype;
 
 public class ContributorMap  implements Iterable<Contributor>, Prototype<ContributorMap>, Serializable {
@@ -156,7 +157,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		}
 	}
 
-	public void clearDisabledForMessage(RequestMessage message) {
+	public void clearDisabledForMessage(Message message) {
 
 		for (Contributor contributor : this.iterator()) {
 
@@ -164,7 +165,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 		}
 	}
 
-	public void clearDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope) {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		for (Contributor contributor : this.iterator()) {
 

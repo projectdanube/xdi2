@@ -1,7 +1,7 @@
 package xdi2.transport.impl.local;
 
 import xdi2.core.Graph;
-import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -50,11 +50,11 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 
 		// read request
 
-		MessagingRequest messagingRequest = request.getMessagingRequest();
+		MessageEnvelope messageEnvelope = request.getMessageEnvelope();
 
 		// execute the messaging request
 
-		MessagingResponse messagingResponse = this.execute(messagingRequest, this.getMessagingTarget(), request, response);
+		MessagingResponse messagingResponse = this.execute(messageEnvelope, this.getMessagingTarget(), request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// write response

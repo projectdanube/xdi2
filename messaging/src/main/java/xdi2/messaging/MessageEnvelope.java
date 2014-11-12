@@ -1,16 +1,17 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -18,6 +19,7 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 
@@ -26,30 +28,22 @@ import xdi2.messaging.operations.Operation;
  * 
  * @author markus
  */
-public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> implements Serializable, Comparable<MessageEnvelope<?, ?, ?>> {
+public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope> {
 
 	private static final long serialVersionUID = -7335038610687761197L;
 
 	protected static final MemoryGraphFactory graphFactory = MemoryGraphFactory.getInstance();
 
-	private Class<ME> me;
-	private Class<MC> mc;
-	private Class<M> m;
+	private Graph graph;
 
-	protected Graph graph;
-
-	protected MessageEnvelope(Graph graph, Class<ME> me, Class<MC> mc, Class<M> m) {
+	protected MessageEnvelope(Graph graph) {
 
 		this.graph = graph;
-
-		this.me = me;
-		this.mc = mc;
-		this.m = m;
 	}
 
-	public MessageEnvelope(Class<ME> me, Class<MC> mc, Class<M> m) {
+	public MessageEnvelope() {
 
-		this(graphFactory.openGraph(), me, mc, m);
+		this(graphFactory.openGraph());
 	}
 
 	/*
@@ -71,16 +65,65 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * @param graph The graph that is an XDI message envelope.
 	 * @return The XDI message envelope.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> ME fromGraph(Graph graph, Class<ME> me, Class<MC> mc, Class<M> m) {
+	public static MessageEnvelope fromGraph(Graph graph) {
+
+		if (! isValid(graph)) return null;
+
+		return new MessageEnvelope(graph);
+	}
+
+	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param targetXDIAddress The target address to which the operation applies.
+	 * @return The XDI message envelope.
+	 */
+	public static MessageEnvelope fromOperationXDIAddressAndTargetXDIAddress(XDIAddress operationXDIAddress, XDIAddress targetXDIAddress) {
+
+		if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_CONTEXT;
+
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		message.createOperation(operationXDIAddress, targetXDIAddress);
+
+		return messageEnvelope;
+	}
+
+	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param targetXDIStatements The target statements to which the operation applies.
+	 * @return The XDI message envelope.
+	 */
+	public static MessageEnvelope fromOperationXDIAddressAndTargetXDIStatements(XDIAddress operationXDIAddress, Iterator<XDIStatement> targetXDIStatements) {
+
+		if (targetXDIStatements == null) throw new NullPointerException();
+
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		message.createOperation(operationXDIAddress, targetXDIStatements);
+
+		return messageEnvelope;
+	}
+
+	/**
+	 * Factory method that creates an XDI message envelope bound to a given graph.
+	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param targetXDIAddressOrTargetStatement The target address or target statement to which the operation applies.
+	 * @return The XDI message envelope.
+	 */
+	public static final MessageEnvelope fromOperationXDIAddressAndTargetXDIAddressOrTargetXDIStatement(XDIAddress operationXDIAddress, String targetXDIAddressOrTargetStatement) {
 
 		try {
 
-			Method method = me.getMethod("fromGraph", Graph.class, Class.class, Class.class, Class.class);
-			return (ME) method.invoke(null, graph, me, mc, m);
+			if (targetXDIAddressOrTargetStatement == null) targetXDIAddressOrTargetStatement = "";
+
+			XDIAddress targetXDIAddress = XDIAddress.create(targetXDIAddressOrTargetStatement);
+			return fromOperationXDIAddressAndTargetXDIAddress(operationXDIAddress, targetXDIAddress);
 		} catch (Exception ex) {
 
-			throw new RuntimeException(ex.getMessage(), ex);
+			XDIStatement targetXDIStatement = XDIStatement.create(targetXDIAddressOrTargetStatement);
+			return fromOperationXDIAddressAndTargetXDIStatements(operationXDIAddress, new SingleItemIterator<XDIStatement> (targetXDIStatement));
 		}
 	}
 
@@ -103,8 +146,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * @param create Whether to create an XDI message collection if it does not exist.
 	 * @return The existing or newly created XDI message collection.
 	 */
-	@SuppressWarnings("unchecked")
-	public MC getMessageCollection(XDIAddress senderXDIAddress, boolean create) {
+	public MessageCollection getMessageCollection(XDIAddress senderXDIAddress, boolean create) {
 
 		if (senderXDIAddress == null) senderXDIAddress = XDIAuthenticationConstants.XDI_ADD_ANONYMOUS;
 
@@ -115,27 +157,20 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 
 		XdiEntityCollection xdiEntityCollection = XdiEntityCollection.fromContextNode(contextNode);
 
-		try {
-
-			Method method = this.getMC().getMethod("fromMessageEnvelopeAndXdiEntityCollection", this.getME(), XdiEntityCollection.class);
-			return (MC) method.invoke(null, this, xdiEntityCollection);
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
+		return new MessageCollection(this, xdiEntityCollection);
 	}
 
 	/**
 	 * Returns all message collections in this message envelope.
 	 * @return All message collections in the envelope.
 	 */
-	public ReadOnlyIterator<MC> getMessageCollections() {
+	public ReadOnlyIterator<MessageCollection> getMessageCollections() {
 
 		// get all context nodes that are valid XDI message collections
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode(true).getAllContextNodes();
 
-		return new MappingXdiEntityCollectionMessageCollectionIterator<ME, MC, M> (this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
+		return new MappingXdiEntityCollectionMessageCollectionIterator (this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
 	}
 
 	/**
@@ -143,7 +178,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 */
 	public void deleteMessageCollections() {
 
-		for (MC messageCollection : new IteratorListMaker<MC> (this.getMessageCollections()).list()) {
+		for (MessageCollection messageCollection : new IteratorListMaker<MessageCollection> (this.getMessageCollections()).list()) {
 
 			messageCollection.getContextNode().delete();
 		}
@@ -153,12 +188,12 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * Returns all messages in this message envelope.
 	 * @return All messages contained in the envelope.
 	 */
-	public ReadOnlyIterator<M> getMessages() {
+	public ReadOnlyIterator<Message> getMessages() {
 
-		return new DescendingIterator<MC, M> (this.getMessageCollections()) {
+		return new DescendingIterator<MessageCollection, Message> (this.getMessageCollections()) {
 
 			@Override
-			public Iterator<M> descend(MC messageCollection) {
+			public Iterator<Message> descend(MessageCollection messageCollection) {
 
 				return messageCollection.getMessages();
 			}
@@ -170,10 +205,10 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * @param senderXDIAddress The sender to look for.
 	 * @return The messages.
 	 */
-	public ReadOnlyIterator<M> getMessages(XDIAddress senderXDIAddress) {
+	public ReadOnlyIterator<Message> getMessages(XDIAddress senderXDIAddress) {
 
-		MC messageCollection = this.getMessageCollection(senderXDIAddress, false);
-		if (messageCollection == null) return new EmptyIterator<M> ();
+		MessageCollection messageCollection = this.getMessageCollection(senderXDIAddress, false);
+		if (messageCollection == null) return new EmptyIterator<Message> ();
 
 		return messageCollection.getMessages();
 	}
@@ -184,10 +219,10 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 */
 	public ReadOnlyIterator<Operation> getOperations() {
 
-		return new DescendingIterator<M, Operation>(this.getMessages()) {
+		return new DescendingIterator<Message, Operation>(this.getMessages()) {
 
 			@Override
-			public Iterator<Operation> descend(M item) {
+			public Iterator<Operation> descend(Message item) {
 
 				return item.getOperations();
 			}
@@ -199,7 +234,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 */
 	public long getMessageCollectionCount() {
 
-		Iterator<MC> iterator = this.getMessageCollections();
+		Iterator<MessageCollection> iterator = this.getMessageCollections();
 
 		return new IteratorCounter(iterator).count();
 	}
@@ -209,7 +244,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 */
 	public long getMessageCount() {
 
-		Iterator<M> iterator = this.getMessages();
+		Iterator<Message> iterator = this.getMessages();
 
 		return new IteratorCounter(iterator).count();
 	}
@@ -233,7 +268,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * @param senderXDIAddress The sender.
 	 * @return The newly created XDI message.
 	 */
-	public M createMessage(XDIAddress senderXDIAddress) {
+	public Message createMessage(XDIAddress senderXDIAddress) {
 
 		return this.getMessageCollection(senderXDIAddress, true).createMessage();
 	}
@@ -244,24 +279,9 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * @param index Index in an ordered collection.
 	 * @return The newly created XDI message.
 	 */
-	public M createMessage(XDIAddress senderXDIAddress, long index) {
+	public Message createMessage(XDIAddress senderXDIAddress, long index) {
 
 		return this.getMessageCollection(senderXDIAddress, true).createMessage(index);
-	}
-
-	public Class<ME> getME() {
-
-		return this.me;
-	}
-
-	public Class<MC> getMC() {
-
-		return this.mc;
-	}
-
-	public Class<M> getM() {
-
-		return this.m;
 	}
 
 	/*
@@ -280,7 +300,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 		if (object == null || ! (object instanceof MessageEnvelope)) return false;
 		if (object == this) return true;
 
-		MessageEnvelope<?, ?, ?> other = (MessageEnvelope<?, ?, ?>) object;
+		MessageEnvelope other = (MessageEnvelope) object;
 
 		return this.getGraph().equals(other.getGraph());
 	}
@@ -296,7 +316,7 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	}
 
 	@Override
-	public int compareTo(MessageEnvelope<?, ?, ?> other) {
+	public int compareTo(MessageEnvelope other) {
 
 		if (other == this || other == null) return 0;
 
@@ -307,16 +327,16 @@ public abstract class MessageEnvelope <ME extends MessageEnvelope<ME, MC, M>, MC
 	 * Helper classes
 	 */
 
-	public static class MappingXdiEntityCollectionMessageCollectionIterator <ME extends MessageEnvelope<ME, MC, M>, MC extends MessageCollection<ME, MC, M>, M extends Message<ME, MC, M>> extends NotNullIterator<MC> {
+	public static class MappingXdiEntityCollectionMessageCollectionIterator extends NotNullIterator<MessageCollection> {
 
-		public MappingXdiEntityCollectionMessageCollectionIterator(final MessageEnvelope<ME, MC, M> messageEnvelope, Iterator<XdiEntityCollection> xdiEntityCollections) {
+		public MappingXdiEntityCollectionMessageCollectionIterator(final MessageEnvelope messageEnvelope, Iterator<XdiEntityCollection> xdiEntityCollections) {
 
-			super(new MappingIterator<XdiEntityCollection, MC> (xdiEntityCollections) {
+			super(new MappingIterator<XdiEntityCollection, MessageCollection> (xdiEntityCollections) {
 
 				@Override
-				public MC map(XdiEntityCollection xdiEntityCollection) {
+				public MessageCollection map(XdiEntityCollection xdiEntityCollection) {
 
-					return (MC) MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
+					return MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
 				}
 			});
 		}

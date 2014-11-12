@@ -2,7 +2,13 @@ package xdi2.messaging.response;
 
 import xdi2.core.Graph;
 
-public class AbstractMessagingResponse {
+public abstract class AbstractMessagingResponse implements MessagingResponse {
+	
+	private static final long serialVersionUID = -6307483543411797001L;
+
+	/*
+	 * Static methods
+	 */
 
 	/**
 	 * Checks if a graph is a valid messaging response.
@@ -14,8 +20,8 @@ public class AbstractMessagingResponse {
 		if (graph == null) throw new NullPointerException();
 
 		if (ErrorMessagingResponse.isValid(graph)) return true; 
-		if (ResponseMessageEnvelope.isValid(graph)) return true;
-		if (GraphMessagingResponse.isValid(graph)) return true;
+		if (MessageEnvelopeMessagingResponse.isValid(graph)) return true;
+		if (ResultGraphMessagingResponse.isValid(graph)) return true;
 
 		return false;
 	}
@@ -32,9 +38,48 @@ public class AbstractMessagingResponse {
 		MessagingResponse messagingResponse = null;
 
 		if ((messagingResponse = ErrorMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
-		if ((messagingResponse = ResponseMessageEnvelope.fromGraph(graph)) != null) return messagingResponse;
-		if ((messagingResponse = GraphMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
+		if ((messagingResponse = MessageEnvelopeMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
+		if ((messagingResponse = ResultGraphMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
 
 		return null;
+	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getGraph().toString();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object == null || ! (object instanceof MessageEnvelopeMessagingResponse)) return false;
+		if (object == this) return true;
+
+		MessageEnvelopeMessagingResponse other = (MessageEnvelopeMessagingResponse) object;
+
+		return this.getGraph().equals(other.getGraph());
+	}
+
+	@Override
+	public int hashCode() {
+
+		int hashCode = 1;
+
+		hashCode = (hashCode * 31) + this.getGraph().hashCode();
+
+		return hashCode;
+	}
+
+	@Override
+	public int compareTo(MessagingResponse other) {
+
+		if (other == this || other == null) return(0);
+
+		return this.getGraph().compareTo(other.getGraph());
 	}
 }

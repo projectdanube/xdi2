@@ -15,12 +15,12 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
+import xdi2.messaging.context.ExecutionResult;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.MessagingRequest;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
@@ -124,22 +124,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @return resultGraph The result produced by executing the messaging request.
 	 */
 	@Override
-	public Graph execute(MessagingRequest messagingRequest, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ExecutionResult execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (messagingRequest == null) throw new NullPointerException();
+		if (messageEnvelope == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		Graph resultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		if (messagingRequest instanceof RequestMessageEnvelope) {
+		this.execute(messageEnvelope, resultGraph, executionContext);
 
-			this.execute((RequestMessageEnvelope) messagingRequest, resultGraph, executionContext);
-		} else {
-
-			throw new Xdi2MessagingException("Invalid messaging request: " + messagingRequest.getClass().getCanonicalName(), null, executionContext);
-		}
-
-		return resultGraph;
+		return new ExecutionResult(resultGraph);
 	}
 
 	/**
@@ -148,12 +142,12 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @return resultGraph The result produced by executing the messaging request.
 	 */
 	@Override
-	public Graph execute(MessagingRequest messagingRequest) throws Xdi2MessagingException {
+	public ExecutionResult execute(MessageEnvelope messageEnvelope) throws Xdi2MessagingException {
 
-		return this.execute(messagingRequest, new ExecutionContext());
+		return this.execute(messageEnvelope, new ExecutionContext());
 	}
 
-	public void execute(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (messageEnvelope == null) throw new NullPointerException();
 		if (resultGraph == null) throw new NullPointerException();
@@ -187,11 +181,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute the messages in the message envelope
 
-			Iterator<RequestMessage> messages = messageEnvelope.getMessages();
+			Iterator<Message> messages = messageEnvelope.getMessages();
 
 			while (messages.hasNext()) {
 
-				RequestMessage message = messages.next();
+				Message message = messages.next();
 
 				this.execute(message, resultGraph, executionContext);
 			}
@@ -274,7 +268,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (message == null) throw new NullPointerException();
 		if (resultGraph == null) throw new NullPointerException();
@@ -577,11 +571,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * These are for being overridden by subclasses
 	 */
 
-	protected void before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void before(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	protected void before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -589,11 +583,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	protected void after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	protected void after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -601,7 +595,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	}
 
-	protected void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	protected void exception(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 	}
 

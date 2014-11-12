@@ -8,18 +8,18 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
+import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 public class InterceptorExecutor {
@@ -34,7 +34,7 @@ public class InterceptorExecutor {
 	 * Methods for executing interceptors
 	 */
 
-	public static InterceptorResult executeMessageEnvelopeInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageEnvelopeInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
@@ -74,7 +74,7 @@ public class InterceptorExecutor {
 		return interceptorResultBefore;
 	}
 
-	public static InterceptorResult executeMessageEnvelopeInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageEnvelopeInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 
@@ -114,7 +114,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static void executeMessageEnvelopeInterceptorsException(InterceptorList<MessagingTarget> interceptorList, RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	public static void executeMessageEnvelopeInterceptorsException(InterceptorList<MessagingTarget> interceptorList, MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 		for (Iterator<MessageEnvelopeInterceptor> messageEnvelopeInterceptors = findMessageEnvelopeInterceptors(interceptorList); messageEnvelopeInterceptors.hasNext(); ) {
 
@@ -143,7 +143,7 @@ public class InterceptorExecutor {
 		}
 	}
 
-	public static InterceptorResult executeMessageInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageInterceptorsBefore(InterceptorList<MessagingTarget> interceptorList, Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultBefore = InterceptorResult.DEFAULT;
 
@@ -183,7 +183,7 @@ public class InterceptorExecutor {
 		return interceptorResultBefore;
 	}
 
-	public static InterceptorResult executeMessageInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static InterceptorResult executeMessageInterceptorsAfter(InterceptorList<MessagingTarget> interceptorList, Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		InterceptorResult interceptorResultAfter = InterceptorResult.DEFAULT;
 

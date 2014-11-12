@@ -24,12 +24,12 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
@@ -78,7 +78,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		resetRefRepRelationsPerMessageEnvelope(executionContext);
 		resetCompletedAddresses(executionContext);
@@ -87,13 +87,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext, Exception ex) {
 
 	}
 
@@ -434,7 +434,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// prepare feedback message
 
-		RequestMessage feedbackMessage = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
@@ -487,8 +487,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// prepare feedback messages
 
-		RequestMessage feedbackMessageRef = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
-		RequestMessage feedbackMessageRep = new RequestMessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 

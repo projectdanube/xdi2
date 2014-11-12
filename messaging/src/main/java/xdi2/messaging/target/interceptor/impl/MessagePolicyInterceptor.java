@@ -3,10 +3,10 @@ package xdi2.messaging.target.interceptor.impl;
 import xdi2.core.Graph;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
+import xdi2.messaging.Message;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
-import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -72,7 +72,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// evaluate the XDI policy of this message
 
@@ -92,7 +92,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// done
 

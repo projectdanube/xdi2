@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.SymmetricKeySignature;
-import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.Message;
 
 /**
  * A SignatureAuthenticator that can authenticate a signature against
@@ -23,7 +23,7 @@ public abstract class SecretKeySignatureAuthenticator extends AbstractSignatureA
 	}
 
 	@Override
-	public boolean authenticate(RequestMessage message, Signature<?, ?> signature) {
+	public boolean authenticate(Message message, Signature<?, ?> signature) {
 
 		// check signature type
 
@@ -59,5 +59,5 @@ public abstract class SecretKeySignatureAuthenticator extends AbstractSignatureA
 		return authenticated;
 	}
 
-	protected abstract SecretKey getSecretKey(RequestMessage message);
+	protected abstract SecretKey getSecretKey(Message message);
 }

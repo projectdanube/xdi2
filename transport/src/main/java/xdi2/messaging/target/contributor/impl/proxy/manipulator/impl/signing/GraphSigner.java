@@ -1,25 +1,13 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 
 import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
 import java.security.PrivateKey;
-import java.security.spec.X509EncodedKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.Literal;
-import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.messaging.Message;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -28,8 +16,6 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * which contains sender addresses and private keys.
  */
 public class GraphSigner extends PrivateKeySigner {
-
-	private static Logger log = LoggerFactory.getLogger(GraphSigner.class.getName());
 
 	private Graph privateKeyGraph;
 
@@ -57,45 +43,14 @@ public class GraphSigner extends PrivateKeySigner {
 	}
 
 	@Override
-	public PrivateKey getPrivateKey(RequestMessage message) {
+	public PrivateKey getPrivateKey(Message message) throws GeneralSecurityException {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;
 
-		// sender peer root
+		// find private key
 
-		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getPeerRoot(senderXDIAddress, false);
-		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
-
-		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
-
-		// look for private key in the graph
-
-		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true));
-		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
-
-		XdiValue signaturePrivateKeyXdiValue = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getXdiValue(false);
-		signaturePrivateKeyXdiValue = signaturePrivateKeyXdiValue == null ? null : signaturePrivateKeyXdiValue.dereference();
-		
-		Literal privateKeyLiteral = signaturePrivateKeyXdiValue == null ? null : signaturePrivateKeyXdiValue.getContextNode().getLiteral();
-
-		String privateKeyString = privateKeyLiteral == null ? null : privateKeyLiteral.getLiteralDataString();
-		if (privateKeyString == null) return null;
-
-		PrivateKey privateKey;
-
-		try {
-
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(privateKeyString));
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-			privateKey = keyFactory.generatePrivate(keySpec);
-		} catch (GeneralSecurityException ex) {
-
-			if (log.isWarnEnabled()) log.warn("Invalid RSA private key " + privateKeyString + ": " + ex.getMessage(), ex);
-
-			return null;
-		}
+		PrivateKey privateKey = Keys.getSignaturePrivateKey(this.getPrivateKeyGraph(), senderXDIAddress);
 
 		// done
 

@@ -20,12 +20,12 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -99,7 +99,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find the XDI link contract referenced by the message
 
@@ -156,7 +156,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// done
 

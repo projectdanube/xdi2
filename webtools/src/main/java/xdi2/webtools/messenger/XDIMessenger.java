@@ -32,8 +32,8 @@ import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -191,7 +191,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			String signatureKeyAlgorithm = signatureKeyAlgorithmString;
 			int signatureKeyLength = signatureKeyLengthString == null ? -1 :Integer.parseInt(signatureKeyLengthString);
 
-			RequestMessage message = new RequestMessageEnvelope().createMessage(sender);
+			Message message = new MessageEnvelope().createMessage(sender);
 
 			message.setFromPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(sender));
 			message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(recipient));
@@ -264,7 +264,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
-		RequestMessageEnvelope messageEnvelope = null;
+		MessageEnvelope messageEnvelope = null;
 		Graph resultGraph = null;
 
 		long start = System.currentTimeMillis();
@@ -273,7 +273,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			// parse the message envelope
 
-			messageEnvelope = new RequestMessageEnvelope();
+			messageEnvelope = new MessageEnvelope();
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(input));
 

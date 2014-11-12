@@ -30,8 +30,8 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 
 /**
  * Given a Cloud Name or discovery key, useful information such a Cloud Number, 
@@ -168,7 +168,7 @@ public class XDIDiscoveryClient {
 		if (this.getRegistryCache() != null) registryMessageResultElement = this.getRegistryCache().get(registryDiscoveryCacheKey);
 		if (registryMessageResultElement != null) registryResultGraph = (Graph) registryMessageResultElement.getObjectValue();
 
-		RequestMessageEnvelope registryMessageEnvelope = null;
+		MessageEnvelope registryMessageEnvelope = null;
 
 		if (registryResultGraph != null) {
 
@@ -179,8 +179,8 @@ public class XDIDiscoveryClient {
 
 			// send the registry message
 
-			registryMessageEnvelope = new RequestMessageEnvelope();
-			RequestMessage registryMessage = registryMessageEnvelope.createMessage(null);
+			registryMessageEnvelope = new MessageEnvelope();
+			Message registryMessage = registryMessageEnvelope.createMessage(null);
 			registryMessage.createGetOperation(XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(query)));
 
 			try {
@@ -242,7 +242,7 @@ public class XDIDiscoveryClient {
 		if (this.getAuthorityCache() != null) authorityResultGraphElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
 		if (authorityResultGraphElement != null) authorityResultGraph = (Graph) authorityResultGraphElement.getObjectValue();
 
-		RequestMessageEnvelope authorityMessageEnvelope = null;
+		MessageEnvelope authorityMessageEnvelope = null;
 
 		if (authorityResultGraph != null) {
 
@@ -253,8 +253,8 @@ public class XDIDiscoveryClient {
 
 			// send the authority message
 
-			authorityMessageEnvelope = new RequestMessageEnvelope();
-			RequestMessage authorityMessage = authorityMessageEnvelope.createMessage(null);
+			authorityMessageEnvelope = new MessageEnvelope();
+			Message authorityMessage = authorityMessageEnvelope.createMessage(null);
 			authorityMessage.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 			authorityMessage.setLinkContract(PublicLinkContract.class);
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));

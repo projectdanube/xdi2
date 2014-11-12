@@ -18,6 +18,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
+import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
@@ -32,10 +33,9 @@ import xdi2.core.plugins.PluginsLoader;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.parser.ParserRegistry;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.request.MessagingRequest;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -85,7 +85,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean before(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessagingRequest messagingRequest, ExecutionContext executionContext) throws Xdi2TransportException {
+	public boolean before(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2TransportException {
 
 		Date start = new Date();
 		putStart(executionContext, start);
@@ -94,7 +94,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean after(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessagingRequest messagingRequest, MessagingResponse messagingResponse, ExecutionContext executionContext) throws Xdi2TransportException {
+	public boolean after(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext) throws Xdi2TransportException {
 
 		Date start = getStart(executionContext);
 		long stop = System.currentTimeMillis();
@@ -102,7 +102,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		Exception ex = (messagingResponse instanceof ErrorMessagingResponse) ? ((ErrorMessagingResponse) messagingResponse).getException() : null;
 
-		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messagingRequest, messagingResponse, executionContext, ex));
+		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
@@ -227,8 +227,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			XDIArc ownerPeerRootXDIArc = cmdMessagingTarget.getOwnerPeerRootXDIArc();
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			RequestMessage message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 			if (ownerPeerRootXDIArc != null) message.setToPeerRootXDIArc(ownerPeerRootXDIArc);
 			message.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
@@ -324,8 +324,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// parse and execute message envelope
 
-			RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-			Graph resultGraph;
+			MessageEnvelope messageEnvelope = new MessageEnvelope();
+			Graph messagingResponseGraph;
 
 			XDIReader xdiReader = XDIReaderRegistry.getAuto();
 
@@ -342,12 +342,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 					if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(messageEnvelope);
 				}
 
-				resultGraph = cmdMessagingTarget.execute(messageEnvelope, null);
+				messagingResponseGraph = new XDILocalClient(cmdMessagingTarget).send(messageEnvelope).getGraph();
 			} catch (Xdi2Exception ex) {
 
 				error = ex.getMessage();
 
-				resultGraph = null;
+				messagingResponseGraph = null;
 			}
 
 			// prepare format and parameters
@@ -370,7 +370,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 			StringWriter stringWriter = new StringWriter();
-			xdiWriter.write(resultGraph, stringWriter);
+			xdiWriter.write(messagingResponseGraph, stringWriter);
 			resultstring = stringWriter.getBuffer().toString();
 
 			// prepare velocity
@@ -531,19 +531,19 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		private TransportRequest request;
 		private TransportResponse response;
 		private MessagingTarget messagingTarget;
-		private MessagingRequest messagingRequest;
+		private MessageEnvelope messageEnvelope;
 		private MessagingResponse messagingResponse;
 		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(Date start, long duration, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessagingRequest messagingRequest, MessagingResponse messagingResponse, ExecutionContext executionContext, Exception ex) {
+		public LogEntry(Date start, long duration, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext, Exception ex) {
 
 			this.start = start;
 			this.duration = duration;
 			this.request = request;
 			this.response = response;
 			this.messagingTarget = messagingTarget;
-			this.messagingRequest = messagingRequest;
+			this.messageEnvelope = messageEnvelope;
 			this.messagingResponse = messagingResponse;
 			this.executionContext = executionContext;
 			this.ex = ex;
@@ -599,14 +599,14 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			this.messagingTarget = messagingTarget;
 		}
 
-		public MessagingRequest getMessagingRequest() {
+		public MessageEnvelope getMessageEnvelope() {
 
-			return this.messagingRequest;
+			return this.messageEnvelope;
 		}
 
-		public void setMessagingRequest(MessagingRequest messagingRequest) {
+		public void setMessageEnvelope(MessageEnvelope messageEnvelope) {
 
-			this.messagingRequest = messagingRequest;
+			this.messageEnvelope = messageEnvelope;
 		}
 
 		public MessagingResponse getMessagingResponse() {

@@ -2,8 +2,8 @@ package xdi2.core.features.policy.operator;
 
 import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiContext.MappingAbsoluteToRelativeXDIStatementIterator;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
 import xdi2.core.features.policy.condition.Condition;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.IterableIterator;

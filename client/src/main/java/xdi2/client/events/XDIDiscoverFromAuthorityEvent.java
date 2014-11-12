@@ -3,7 +3,7 @@ package xdi2.client.events;
 import java.net.URL;
 
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.MessageEnvelope;
 
 public class XDIDiscoverFromAuthorityEvent extends XDIDiscoverEvent {
 
@@ -11,7 +11,7 @@ public class XDIDiscoverFromAuthorityEvent extends XDIDiscoverEvent {
 
 	private URL xdiEndpointUri;
 
-	public XDIDiscoverFromAuthorityEvent(Object source, RequestMessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, URL xdiEndpointUri) {
+	public XDIDiscoverFromAuthorityEvent(Object source, MessageEnvelope messageEnvelope, XDIDiscoveryResult discoveryResult, URL xdiEndpointUri) {
 
 		super(source, messageEnvelope, discoveryResult);
 

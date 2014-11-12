@@ -23,10 +23,10 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 
 public class XDIBasicAgent implements XDIAgent {
 
@@ -149,8 +149,8 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// message construction step
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-		RequestMessage message = this.createMessage(messageEnvelope);
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = this.createMessage(messageEnvelope);
 		message.setToPeerRootXDIArc(targetPeerRootXDIArc);
 		this.setMessageLinkContract(message);
 		Operation operation = message.createGetOperation(targetXDIAddress);
@@ -199,12 +199,12 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClient;
 	}
 
-	protected RequestMessage createMessage(RequestMessageEnvelope messageEnvelope) {
+	protected Message createMessage(MessageEnvelope messageEnvelope) {
 
 		return messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
 	}
 
-	protected void setMessageLinkContract(RequestMessage message) {
+	protected void setMessageLinkContract(Message message) {
 
 		if (this.getLinkContractXDIAddress() != null) {
 

@@ -2,16 +2,16 @@ package xdi2.client.events;
 
 import java.util.Date;
 
-import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.ErrorMessagingResponse;
 
 public class XDISendErrorEvent extends XDISendEvent {
 
 	private static final long serialVersionUID = -547735780296539623L;
 
-	public XDISendErrorEvent(Object source, MessagingRequest messagingRequest, ErrorMessagingResponse messageResult, Date beginTimestamp, Date endTimestamp) {
+	public XDISendErrorEvent(Object source, MessageEnvelope messageEnvelope, ErrorMessagingResponse messageResult, Date beginTimestamp, Date endTimestamp) {
 
-		super(source, messagingRequest, messageResult, beginTimestamp, endTimestamp);
+		super(source, messageEnvelope, messageResult, beginTimestamp, endTimestamp);
 	}
 
 	@Override

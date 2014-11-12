@@ -2,8 +2,8 @@ package xdi2.messaging.tests.http;
 
 import junit.framework.TestCase;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.readers.XDIDisplayReader;
+import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.messaging.http.AcceptHeader;
 
 public class AcceptHeaderTest extends TestCase {

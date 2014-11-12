@@ -19,7 +19,6 @@ import xdi2.core.util.XDIStatementUtil;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.response.GraphMessagingResponse;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
 import xdi2.messaging.target.contributor.ContributorMap.ContributorFound;
@@ -244,13 +243,13 @@ public class ContributorExecutor {
 
 				// execute contributor (statement)
 
-				GraphMessagingResponse tempMessageResult = new GraphMessagingResponse();
+				Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorChainXDIAddresses, nextContributorChainXDIAddress, nextRelativeTargetXDIStatement, operation, operationResultGraph, executionContext);
 				contributorResultXDIStatement = contributorResultXDIStatement.or(contributorResult);
 
 				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorChainXDIAddress, nextRelativecontextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
+				ContextNode tempContextNode = tempResultGraph.getDeepContextNode(tempContextNodeXDIAddress, true);
 
 				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationResultGraph, null);
 

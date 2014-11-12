@@ -15,8 +15,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.interceptor.Interceptor;
@@ -239,12 +237,12 @@ public final class ExecutionContext implements Serializable {
 		this.pushExecutionPosition(messagingTarget, comment);
 	}
 
-	public void pushMessageEnvelope(RequestMessageEnvelope messageEnvelope, String comment) {
+	public void pushMessageEnvelope(MessageEnvelope messageEnvelope, String comment) {
 
 		this.pushExecutionPosition(messageEnvelope, comment);
 	}
 
-	public void pushMessage(RequestMessage message, String comment) {
+	public void pushMessage(Message message, String comment) {
 
 		this.pushExecutionPosition(message, comment);
 	}
@@ -331,36 +329,36 @@ public final class ExecutionContext implements Serializable {
 		return messagingTargets;
 	}
 
-	public RequestMessageEnvelope getCurrentMessageEnvelope() {
+	public MessageEnvelope getCurrentMessageEnvelope() {
 
-		ExecutionPosition<RequestMessageEnvelope> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, RequestMessageEnvelope.class);
+		ExecutionPosition<MessageEnvelope> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, MessageEnvelope.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
-	public List<RequestMessageEnvelope> getCurrentMessageEnvelopes() {
+	public List<MessageEnvelope> getCurrentMessageEnvelopes() {
 
-		List<ExecutionPosition<RequestMessageEnvelope>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, RequestMessageEnvelope.class);
+		List<ExecutionPosition<MessageEnvelope>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, MessageEnvelope.class);
 
-		List<RequestMessageEnvelope> messageEnvelopes = new ArrayList<RequestMessageEnvelope> ();
-		for (ExecutionPosition<RequestMessageEnvelope> executionPosition : executionPositions) messageEnvelopes.add(executionPosition.executionObject);
+		List<MessageEnvelope> messageEnvelopes = new ArrayList<MessageEnvelope> ();
+		for (ExecutionPosition<MessageEnvelope> executionPosition : executionPositions) messageEnvelopes.add(executionPosition.executionObject);
 
 		return messageEnvelopes;
 	}
 
-	public RequestMessage getCurrentMessage() {
+	public Message getCurrentMessage() {
 
-		ExecutionPosition<RequestMessage> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, RequestMessage.class);
+		ExecutionPosition<Message> executionPosition = this.findExecutionPosition(this.currentExecutionPosition, Message.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
-	public List<RequestMessage> getCurrentMessages() {
+	public List<Message> getCurrentMessages() {
 
-		List<ExecutionPosition<RequestMessage>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, RequestMessage.class);
+		List<ExecutionPosition<Message>> executionPositions = this.findExecutionPositions(this.currentExecutionPosition, Message.class);
 
-		List<RequestMessage> messages = new ArrayList<RequestMessage> ();
-		for (ExecutionPosition<RequestMessage> executionPosition : executionPositions) messages.add(executionPosition.executionObject);
+		List<Message> messages = new ArrayList<Message> ();
+		for (ExecutionPosition<Message> executionPosition : executionPositions) messages.add(executionPosition.executionObject);
 
 		return messages;
 	}
@@ -418,16 +416,16 @@ public final class ExecutionContext implements Serializable {
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
-	public RequestMessageEnvelope getExceptionMessageEnvelope() {
+	public MessageEnvelope getExceptionMessageEnvelope() {
 
-		ExecutionPosition<RequestMessageEnvelope> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, RequestMessageEnvelope.class);
+		ExecutionPosition<MessageEnvelope> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, MessageEnvelope.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}
 
-	public RequestMessage getExceptionMessage() {
+	public Message getExceptionMessage() {
 
-		ExecutionPosition<RequestMessage> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, RequestMessage.class);
+		ExecutionPosition<Message> executionPosition = this.findExecutionPosition(this.exceptionExecutionPosition, Message.class);
 
 		return executionPosition == null ? null : executionPosition.executionObject;
 	}

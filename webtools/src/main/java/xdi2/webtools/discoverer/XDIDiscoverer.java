@@ -299,7 +299,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (ex instanceof Xdi2ClientException) {
 
-				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getGraph();
+				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getErrorGraph();
 
 				// output the error graph
 

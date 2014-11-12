@@ -3,11 +3,11 @@ package xdi2.tests.core.impl.keyvalue;
 import java.io.File;
 import java.io.IOException;
 
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.EnvironmentConfig;
-
 import xdi2.core.impl.keyvalue.KeyValueStore;
 import xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore;
+
+import com.sleepycat.je.DatabaseConfig;
+import com.sleepycat.je.EnvironmentConfig;
 
 public class BDBKeyValueTest extends AbstractKeyValueTest {
 

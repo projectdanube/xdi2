@@ -1,15 +1,11 @@
 package xdi2.core.features.nodetypes;
 
-import java.util.Iterator;
-
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.iterators.MappingIterator;
 
 public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	/*
-	 * Finding roots related to this root
+	 * Gettings roots under this root
 	 */
 
 	/**
@@ -36,92 +32,4 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @return The XDI root.
 	 */
 	public XdiRoot getRoot(XDIAddress XDIaddress, boolean create);
-
-	/*
-	 * Addresses and statements relative to this root
-	 */
-
-	public XDIAddress absoluteToRelativeXDIAddress(XDIAddress XDIaddress);
-
-	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress XDIaddress);
-
-	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement XDIstatement);
-
-	public XDIStatement relativeToAbsoluteXDIStatement(XDIStatement XDIstatement);
-
-	/*
-	 * Helper classes
-	 */
-
-	public static class MappingAbsoluteToRelativeXDIAddressIterator extends MappingIterator<XDIAddress, XDIAddress> {
-
-		private XdiRoot xdiRoot;
-
-		public MappingAbsoluteToRelativeXDIAddressIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
-
-			super(iterator);
-
-			this.xdiRoot = xdiRoot;
-		}
-
-		@Override
-		public XDIAddress map(XDIAddress XDIaddress) {
-
-			return this.xdiRoot.absoluteToRelativeXDIAddress(XDIaddress);
-		}
-	}
-
-	public static class MappingRelativeToAbsoluteXDIAddressIterator extends MappingIterator<XDIAddress, XDIAddress> {
-
-		private XdiRoot xdiRoot;
-
-		public MappingRelativeToAbsoluteXDIAddressIterator(XdiRoot xdiRoot, Iterator<? extends XDIAddress> iterator) {
-
-			super(iterator);
-
-			this.xdiRoot = xdiRoot;
-		}
-
-		@Override
-		public XDIAddress map(XDIAddress XDIaddress) {
-
-			return this.xdiRoot.relativeToAbsoluteXDIAddress(XDIaddress);
-		}
-	}
-
-	public static class MappingAbsoluteToRelativeXDIStatementIterator extends MappingIterator<XDIStatement, XDIStatement> {
-
-		private XdiRoot xdiRoot;
-
-		public MappingAbsoluteToRelativeXDIStatementIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
-
-			super(iterator);
-
-			this.xdiRoot = xdiRoot;
-		}
-
-		@Override
-		public XDIStatement map(XDIStatement statement) {
-
-			return this.xdiRoot.absoluteToRelativeXDIStatement(statement);
-		}
-	}
-
-	public static class MappingRelativeToAbsoluteXDIStatementIterator extends MappingIterator<XDIStatement, XDIStatement> {
-
-		private XdiRoot xdiRoot;
-
-		public MappingRelativeToAbsoluteXDIStatementIterator(XdiRoot xdiRoot, Iterator<? extends XDIStatement> iterator) {
-
-			super(iterator);
-
-			this.xdiRoot = xdiRoot;
-		}
-
-		@Override
-		public XDIStatement map(XDIStatement statement) {
-
-			return this.xdiRoot.relativeToAbsoluteXDIStatement(statement);
-		}
-	}
 }

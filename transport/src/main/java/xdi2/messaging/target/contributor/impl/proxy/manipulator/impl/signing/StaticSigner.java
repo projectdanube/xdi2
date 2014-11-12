@@ -4,7 +4,7 @@ import java.security.PrivateKey;
 import java.util.Map;
 
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.Message;
 
 /**
  * A Signer that can create signatures on an XDI message using a
@@ -27,7 +27,7 @@ public class StaticSigner extends PrivateKeySigner {
 	}
 
 	@Override
-	protected PrivateKey getPrivateKey(RequestMessage message) {
+	protected PrivateKey getPrivateKey(Message message) {
 
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;

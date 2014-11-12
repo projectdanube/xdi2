@@ -1,6 +1,6 @@
 package xdi2.messaging.target.interceptor.impl.authentication.secrettoken;
 
-import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
 
 /**
@@ -19,5 +19,5 @@ public interface SecretTokenAuthenticator {
 	/**
 	 * Authenticates an XDI message given a secret token.
 	 */
-	public boolean authenticate(RequestMessage message, String secretToken);
+	public boolean authenticate(Message message, String secretToken);
 }

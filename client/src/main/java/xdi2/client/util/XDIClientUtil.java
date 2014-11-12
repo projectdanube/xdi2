@@ -10,13 +10,11 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 
 public class XDIClientUtil {
 
@@ -24,8 +22,8 @@ public class XDIClientUtil {
 
 		XDIHttpClient xdiHttpClient = new XDIHttpClient(xdiEndpointUrl);
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-		RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
@@ -52,8 +50,8 @@ public class XDIClientUtil {
 
 		XDIAddress privateKeyAddress = XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), privateKeyRelativeAddress);
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-		RequestMessage message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
 		message.setLinkContract(RootLinkContract.class);
 		message.setSecretToken(secretToken);
@@ -61,14 +59,9 @@ public class XDIClientUtil {
 
 		Graph authorityResultGraph = xdiHttpClient.send(messageEnvelope).getResultGraph();
 
-		// find authority
-
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityResultGraph).getXdiEntity(cloudNumber.getXDIAddress(), false);
-		if (authorityXdiEntity == null) return null;
-
 		// find private key
 
-		PrivateKey privateKey = Keys.getPrivateKey(authorityXdiEntity, privateKeyRelativeAddress);
+		PrivateKey privateKey = Keys.getPrivateKey(authorityResultGraph, cloudNumber.getXDIAddress(), privateKeyRelativeAddress);
 
 		// done
 

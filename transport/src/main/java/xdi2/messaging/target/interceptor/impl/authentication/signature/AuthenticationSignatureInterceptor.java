@@ -11,10 +11,10 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.messaging.Message;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2AuthenticationException;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
@@ -76,7 +76,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for signature on the message
 
@@ -107,7 +107,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

@@ -1,10 +1,11 @@
 package xdi2.messaging.response;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.Graph;
 
-public interface MessagingResponse {
+public interface MessagingResponse extends Serializable, Comparable<MessagingResponse> {
 
 	/**
 	 * Returns the underlying graph of this messaging response.

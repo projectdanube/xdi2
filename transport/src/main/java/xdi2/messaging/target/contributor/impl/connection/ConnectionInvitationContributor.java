@@ -15,11 +15,11 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.DoOperation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -127,8 +127,8 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		// create connection request
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-		RequestMessage message = messageEnvelope.createMessage(requestingAuthority);
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(requestingAuthority);
 		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(authorizingAuthority));
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);

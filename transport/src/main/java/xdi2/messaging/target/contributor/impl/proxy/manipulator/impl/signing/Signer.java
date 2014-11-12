@@ -1,7 +1,7 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 
 import xdi2.core.features.signatures.Signature;
-import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
 
 /**
@@ -20,5 +20,5 @@ public interface Signer {
 	/**
 	 * Sign an XDI message.
 	 */
-	public Signature<?, ?> sign(RequestMessage message);
+	public Signature<?, ?> sign(Message message);
 }

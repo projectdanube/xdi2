@@ -15,9 +15,6 @@ import xdi2.messaging.operations.DelOperation;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.SetOperation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageCollection;
-import xdi2.messaging.request.RequestMessageEnvelope;
 
 public class BasicTest extends TestCase {
 
@@ -37,7 +34,7 @@ public class BasicTest extends TestCase {
 
 		// create a message envelope
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
 
 		assertTrue(MessageEnvelope.isValid(messageEnvelope.getGraph()));
 
@@ -50,7 +47,7 @@ public class BasicTest extends TestCase {
 
 		// create a message collection
 
-		RequestMessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(SENDER, true);
 
 		assertTrue(MessageCollection.isValid(messageCollection.getXdiEntityCollection()));
 
@@ -66,7 +63,7 @@ public class BasicTest extends TestCase {
 
 		// create a message
 
-		RequestMessage message = messageCollection.createMessage();
+		Message message = messageCollection.createMessage();
 
 		assertTrue(Message.isValid(message.getXdiEntity()));
 
@@ -115,9 +112,9 @@ public class BasicTest extends TestCase {
 
 	public void testMessagingFromOperationAddressAndTargetAddress() throws Exception {
 
-		RequestMessageEnvelope messageEnvelope = RequestMessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_SET, TARGET_ADDRESS);
-		RequestMessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
-		RequestMessage message = messageCollection.getMessages().next();
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_SET, TARGET_ADDRESS);
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
+		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
@@ -135,9 +132,9 @@ public class BasicTest extends TestCase {
 
 	public void testMessagingFromOperationAddressAndTargetStatement() throws Exception {
 
-		RequestMessageEnvelope messageEnvelope = RequestMessageEnvelope.fromOperationXDIAddressAndTargetXDIStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (TARGET_STATEMENT));
-		RequestMessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
-		RequestMessage message = messageCollection.getMessages().next();
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (TARGET_STATEMENT));
+		MessageCollection messageCollection = messageEnvelope.getMessageCollection(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS, false);
+		Message message = messageCollection.getMessages().next();
 		Operation operation = message.getSetOperations().next();
 
 		assertEquals(messageEnvelope.getMessageCount(), 1);
@@ -155,8 +152,8 @@ public class BasicTest extends TestCase {
 
 	public void testSenderAndRecipientAddress() throws Exception {
 
-		RequestMessageEnvelope messageEnvelope = new RequestMessageEnvelope();
-		RequestMessage message = messageEnvelope.createMessage(XDIAddress.create("=sender"));
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(XDIAddress.create("=sender"));
 		message.setFromPeerRootXDIArc(XDIArc.create("([=]!1111)"));
 		message.setToPeerRootXDIArc(XDIArc.create("([=]!2222)"));
 		assertEquals(message.getFromPeerRootXDIArc(), XDIAddress.create("([=]!1111)"));

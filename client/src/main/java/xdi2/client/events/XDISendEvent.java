@@ -3,23 +3,23 @@ package xdi2.client.events;
 import java.util.Date;
 
 import xdi2.client.XDIClient;
-import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 
 public class XDISendEvent extends XDIEvent {
 
 	private static final long serialVersionUID = 5301716219045375638L;
 
-	private MessagingRequest messagingRequest;
+	private MessageEnvelope messageEnvelope;
 	private MessagingResponse messagingResponse;
 	private Date beginTimestamp;
 	private Date endTimestamp;
 
-	public XDISendEvent(Object source, MessagingRequest messagingRequest, MessagingResponse messagingResponse, Date beginTimestamp, Date endTimestamp) {
+	public XDISendEvent(Object source, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, Date beginTimestamp, Date endTimestamp) {
 
 		super(source);
 
-		this.messagingRequest = messagingRequest;
+		this.messageEnvelope = messageEnvelope;
 		this.messagingResponse = messagingResponse;
 		this.beginTimestamp = beginTimestamp;
 		this.endTimestamp = endTimestamp;
@@ -31,9 +31,9 @@ public class XDISendEvent extends XDIEvent {
 		return (XDIClient) super.getSource();
 	}
 
-	public MessagingRequest getMessagingRequest() {
+	public MessageEnvelope getMessageEnvelope() {
 
-		return this.messagingRequest;
+		return this.messageEnvelope;
 	}
 
 	public MessagingResponse getMessagingResponse() {

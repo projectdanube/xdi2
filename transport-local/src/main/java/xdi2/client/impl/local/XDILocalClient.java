@@ -11,7 +11,7 @@ import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.Graph;
-import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -66,7 +66,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public MessagingResponse send(MessagingRequest messagingRequest) throws Xdi2ClientException {
+	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// timestamp
 
@@ -76,7 +76,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			LocalTransportRequest request = new LocalTransportRequest(messagingRequest);
+			LocalTransportRequest request = new LocalTransportRequest(messageEnvelope);
 			LocalTransportResponse response = new LocalTransportResponse();
 
 			new LocalTransport(this.getMessagingTarget()).execute(request, response);
@@ -89,7 +89,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 			// done
 
-			this.fireSendEvent(new XDISendSuccessEvent(this, messagingRequest, messagingResponse, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 
 			return messagingResponse;
 		} catch (Exception ex) {
@@ -104,7 +104,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 			log.warn("Error message result: " + errorMessageResult.getErrorString());
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messagingRequest, errorMessageResult, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
 
 			throw new Xdi2ClientException("Error message result: " + errorMessageResult.getErrorString(), ex, errorMessageResult);
 		}

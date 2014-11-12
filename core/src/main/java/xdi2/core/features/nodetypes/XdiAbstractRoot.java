@@ -6,9 +6,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
-import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.XDIAddressUtil;
-import xdi2.core.util.XDIStatementUtil;
 
 public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implements XdiRoot {
 
@@ -60,7 +57,7 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	/*
-	 * Roots related to this root
+	 * Getting roots under this root
 	 */
 
 	@Override
@@ -123,50 +120,6 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		}
 
 		return root;
-	}
-
-	/*
-	 * Addresses and statements relative to this root
-	 */
-
-	@Override
-	public XDIAddress absoluteToRelativeXDIAddress(XDIAddress absoluteAddress) {
-
-		XDIAddress relativeAddress = XDIAddressUtil.removeStartXDIAddress(absoluteAddress, this.getContextNode().getXDIAddress());
-
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeAddress(" + absoluteAddress + " --> " + relativeAddress + ")");
-
-		return relativeAddress;
-	}
-
-	@Override
-	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress relativeAddress) {
-
-		XDIAddress absoluteAddress = XDIAddressUtil.concatXDIAddresses(this.getContextNode().getXDIAddress(), relativeAddress);
-
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteAddress(" + relativeAddress + " --> " + absoluteAddress + ")");
-
-		return absoluteAddress;
-	}
-
-	@Override
-	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement absoluteStatementAddress) {
-
-		XDIStatement relativeStatementAddress = XDIStatementUtil.removeStartXDIStatement(absoluteStatementAddress, this.getContextNode().getXDIAddress());
-
-		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementAddress(" + absoluteStatementAddress + " --> " + relativeStatementAddress + ")");
-
-		return relativeStatementAddress;
-	}
-
-	@Override
-	public XDIStatement relativeToAbsoluteXDIStatement(XDIStatement relativeStatementAddress) {
-
-		XDIStatement absoluteStatementAddress = XDIStatementUtil.concatXDIStatement(this.getContextNode().getXDIAddress(), relativeStatementAddress);
-
-		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementAddress(" + relativeStatementAddress + " --> " + absoluteStatementAddress + ")");
-
-		return absoluteStatementAddress;
 	}
 
 	/*

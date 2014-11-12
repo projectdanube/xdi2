@@ -2,9 +2,9 @@ package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.messaging.Message;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.request.RequestMessage;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
@@ -35,13 +35,13 @@ public class FromInterceptor extends AbstractInterceptor<MessagingTarget> implem
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		throw new Xdi2RuntimeException("Not implemented.");
 	}
 
 	@Override
-	public InterceptorResult after(RequestMessage message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

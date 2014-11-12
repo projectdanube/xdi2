@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 
+import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAKey;
 
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
-import xdi2.messaging.request.RequestMessage;
+import xdi2.messaging.Message;
 
 /**
  * A Signer that can authenticate a signature against
@@ -26,11 +27,21 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 	}
 
 	@Override
-	public Signature<?, ?> sign(RequestMessage message) {
+	public Signature<?, ?> sign(Message message) {
 
 		// obtain private key
 
-		PrivateKey privateKey = this.getPrivateKey(message);
+		PrivateKey privateKey;
+
+		try {
+
+			privateKey = this.getPrivateKey(message);
+		} catch (Exception ex) {
+
+			if (log.isWarnEnabled()) log.warn("Cannot obtain private key: " + ex.getMessage(), ex);
+
+			return null;
+		}
 
 		if (privateKey == null) {
 
@@ -77,7 +88,7 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 		throw new RuntimeException("Cannot determine key length for private key.");
 	}
 
-	protected abstract PrivateKey getPrivateKey(RequestMessage message);
+	protected abstract PrivateKey getPrivateKey(Message message) throws GeneralSecurityException;
 
 	/*
 	 * Getters and setters

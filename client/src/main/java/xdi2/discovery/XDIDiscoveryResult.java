@@ -25,7 +25,7 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.request.RequestMessageEnvelope;
+import xdi2.messaging.MessageEnvelope;
 
 public class XDIDiscoveryResult implements Serializable {
 
@@ -37,7 +37,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private Map<XDIAddress, URI> endpointUris;
 	private URL xdiEndpointUrl;
 
-	private RequestMessageEnvelope messageEnvelope;
+	private MessageEnvelope messageEnvelope;
 	private Graph resultGraph;
 
 	public XDIDiscoveryResult() {
@@ -58,7 +58,7 @@ public class XDIDiscoveryResult implements Serializable {
 		this.initFromAuthorityResultGraph(xdiDiscoveryResultAuthority.getMessageEnvelope(), xdiDiscoveryResultAuthority.getResultGraph(), endpointUriTypes);
 	}
 
-	void initFromRegistryResultGraph(RequestMessageEnvelope registryMessageEnvelope, Graph registryResultGraph, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromRegistryResultGraph(MessageEnvelope registryMessageEnvelope, Graph registryResultGraph, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = registryMessageEnvelope;
 		this.resultGraph = registryResultGraph;
@@ -89,7 +89,7 @@ public class XDIDiscoveryResult implements Serializable {
 		initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
-	void initFromAuthorityResultGraph(RequestMessageEnvelope authorityMessageEnvelope, Graph authorityResultGraph, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromAuthorityResultGraph(MessageEnvelope authorityMessageEnvelope, Graph authorityResultGraph, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = authorityMessageEnvelope;
 		this.resultGraph = authorityResultGraph;
@@ -186,7 +186,7 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.getEndpointUris().get(null);
 	}
 
-	public RequestMessageEnvelope getMessageEnvelope() {
+	public MessageEnvelope getMessageEnvelope() {
 
 		return this.messageEnvelope;
 	}

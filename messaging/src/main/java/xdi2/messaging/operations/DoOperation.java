@@ -15,7 +15,7 @@ public class DoOperation extends Operation {
 
 	private static final long serialVersionUID = -6418198887044741153L;
 
-	protected DoOperation(Message<?, ?, ?> message, Relation relation) {
+	protected DoOperation(Message message, Relation relation) {
 
 		super(message, relation);
 	}
@@ -42,7 +42,7 @@ public class DoOperation extends Operation {
 	 * @param relation The relation that is an XDI $do operation.
 	 * @return The XDI $do operation.
 	 */
-	public static DoOperation fromMessageAndRelation(Message<?, ?, ?> message, Relation relation) {
+	public static DoOperation fromMessageAndRelation(Message message, Relation relation) {
 
 		if (! isValid(relation)) return null;
 

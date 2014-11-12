@@ -25,8 +25,8 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.request.MessagingRequest;
 import xdi2.messaging.response.AbstractMessagingResponse;
 import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
@@ -144,7 +144,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public MessagingResponse send(MessagingRequest messagingRequest) throws Xdi2ClientException {
+	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		if (this.xdiEndpointUrl == null) throw new Xdi2ClientException("No URI set.");
 
@@ -223,7 +223,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		// send the messaging request
 
-		if (log.isDebugEnabled()) log.debug("MessagingRequest: " + messagingRequest);
+		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
 
 		int responseCode;
 		String responseMessage;
@@ -231,7 +231,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		try {
 
 			OutputStream outputStream = http.getOutputStream();
-			writer.write(messagingRequest.getGraph(), outputStream);
+			writer.write(messageEnvelope.getGraph(), outputStream);
 			outputStream.flush();
 			outputStream.close();
 
@@ -302,14 +302,14 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			ErrorMessagingResponse errorMessagingResponse = (ErrorMessagingResponse) messagingResponse;
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messagingRequest, errorMessagingResponse, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessagingResponse, beginTimestamp, endTimestamp));
 
 			throw new Xdi2ClientException("Error message result (check server logs!): " + errorMessagingResponse.getErrorString(), null, errorMessagingResponse);
 		}
 
 		// done
 
-		this.fireSendEvent(new XDISendSuccessEvent(this, messagingRequest, messagingResponse, beginTimestamp, endTimestamp));
+		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 
 		return messagingResponse;
 	}

@@ -1,29 +1,29 @@
 package xdi2.transport.impl.local;
 
-import xdi2.messaging.request.MessagingRequest;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.transport.impl.AbstractTransportRequest;
 
 public class LocalTransportRequest extends AbstractTransportRequest {
 
-	private MessagingRequest messagingRequest;
+	private MessageEnvelope messageEnvelope;
 
 	public LocalTransportRequest() {
 
-		this.messagingRequest = null;
+		this.messageEnvelope = null;
 	}
 
-	public LocalTransportRequest(MessagingRequest messagingRequest) {
+	public LocalTransportRequest(MessageEnvelope messageEnvelope) {
 
-		this.messagingRequest = messagingRequest;
+		this.messageEnvelope = messageEnvelope;
 	}
 
-	public MessagingRequest getMessagingRequest() {
+	public MessageEnvelope getMessageEnvelope() {
 
-		return this.messagingRequest;
+		return this.messageEnvelope;
 	}
 
-	public void setMessagingRequest(MessagingRequest messagingRequest) {
+	public void setMessageEnvelope(MessageEnvelope messageEnvelope) {
 
-		this.messagingRequest = messagingRequest;
+		this.messageEnvelope = messageEnvelope;
 	}
 }

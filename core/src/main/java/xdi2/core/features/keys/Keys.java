@@ -12,11 +12,13 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiContext;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -27,74 +29,108 @@ public class Keys {
 
 	/**
 	 * Given a context, get the signature public key.
-	 * @param graph The graph.
-	 * @return The signature public key.
 	 */
-	public static PublicKey getSignaturePublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static PublicKey getSignaturePublicKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the signature public key.
+	 */
+	public static PublicKey getSignaturePublicKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getPublicKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
 	 * Given a context, get the encryption public key.
-	 * @param graph The graph.
-	 * @return The encryption public key.
 	 */
-	public static PublicKey getEncryptionPublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static PublicKey getEncryptionPublicKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the encryption public key.
+	 */
+	public static PublicKey getEncryptionPublicKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getPublicKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
 	 * Given a context, get the signature private key.
-	 * @param graph The graph.
-	 * @return The signature private key.
 	 */
-	public static PrivateKey getSignaturePrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static PrivateKey getSignaturePrivateKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the signature private key.
+	 */
+	public static PrivateKey getSignaturePrivateKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getPrivateKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
 	 * Given a context, get the encryption private key.
-	 * @param graph The graph.
-	 * @return The encryption private key.
 	 */
-	public static PrivateKey getEncryptionPrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static PrivateKey getEncryptionPrivateKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the encryption private key.
+	 */
+	public static PrivateKey getEncryptionPrivateKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getPrivateKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
 	 * Given a context, get the signature secret key.
-	 * @param graph The graph.
-	 * @return The signature secret key.
 	 */
-	public static SecretKey getSignatureSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static SecretKey getSignatureSecretKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the signature secret key.
+	 */
+	public static SecretKey getSignatureSecretKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getSecretKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
 	 * Given a context, get the encryption secret key.
-	 * @param graph The graph.
-	 * @return The encryption secret key.
 	 */
-	public static SecretKey getEncryptionSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
+	public static SecretKey getEncryptionSecretKey(XdiEntity xdiEntity) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiEntity, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+	}
+
+	/**
+	 * Given a graph and XDI address, get the encryption secret key.
+	 */
+	public static SecretKey getEncryptionSecretKey(Graph graph, XDIAddress XDIaddress) throws GeneralSecurityException {
+
+		return getSecretKey(graph, XDIaddress, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
 	 * Given a context, get a public key.
-	 * @param graph The graph.
-	 * @return A public key.
 	 */
-	public static PublicKey getPublicKey(XdiContext<?> xdiContext, XDIAddress publicKeyRelativeAddress) throws GeneralSecurityException {
+	public static PublicKey getPublicKey(XdiEntity xdiEntity, XDIAddress publicKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find public key
 
-		XdiAttribute publicKeyXdiAttribute = xdiContext.getXdiAttribute(publicKeyRelativeAddress, false);
+		XdiAttribute publicKeyXdiAttribute = xdiEntity.getXdiAttribute(publicKeyRelativeAddress, false);
 		publicKeyXdiAttribute = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.dereference();
 
 		XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
@@ -109,15 +145,24 @@ public class Keys {
 	}
 
 	/**
-	 * Given a context, get a private key.
-	 * @param graph The graph.
-	 * @return A private key.
+	 * Given a graph and XDI address, get a public key.
 	 */
-	public static PrivateKey getPrivateKey(XdiContext<?> xdiContext, XDIAddress privateKeyRelativeAddress) throws GeneralSecurityException {
+	public static PublicKey getPublicKey(Graph graph, XDIAddress XDIaddress, XDIAddress publicKeyRelativeAddress) throws GeneralSecurityException {
+
+		XdiEntity xdiEntity = XdiCommonRoot.findCommonRoot(graph).getXdiEntity(XDIaddress, false);
+		if (xdiEntity == null) return null;
+
+		return getPublicKey(xdiEntity, publicKeyRelativeAddress);
+	}
+
+	/**
+	 * Given a context, get a private key.
+	 */
+	public static PrivateKey getPrivateKey(XdiEntity xdiEntity, XDIAddress privateKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find private key
 
-		XdiAttribute privateKeyXdiAttribute = xdiContext.getXdiAttribute(privateKeyRelativeAddress, false);
+		XdiAttribute privateKeyXdiAttribute = xdiEntity.getXdiAttribute(privateKeyRelativeAddress, false);
 		privateKeyXdiAttribute = privateKeyXdiAttribute == null ? null : privateKeyXdiAttribute.dereference();
 
 		XdiValue privateKeyXdiValue = privateKeyXdiAttribute == null ? null : privateKeyXdiAttribute.getXdiValue(false);
@@ -132,15 +177,24 @@ public class Keys {
 	}
 
 	/**
-	 * Given a context, get a secret key.
-	 * @param graph The graph.
-	 * @return A secret key.
+	 * Given a graph and XDI address, get a private key.
 	 */
-	public static SecretKey getSecretKey(XdiContext<?> xdiContext, XDIAddress secretKeyRelativeAddress) throws GeneralSecurityException {
+	public static PrivateKey getPrivateKey(Graph graph, XDIAddress XDIaddress, XDIAddress privateKeyRelativeAddress) throws GeneralSecurityException {
+
+		XdiEntity xdiEntity = XdiCommonRoot.findCommonRoot(graph).getXdiEntity(XDIaddress, false);
+		if (xdiEntity == null) return null;
+
+		return getPrivateKey(xdiEntity, privateKeyRelativeAddress);
+	}
+
+	/**
+	 * Given a context, get a secret key.
+	 */
+	public static SecretKey getSecretKey(XdiEntity xdiEntity, XDIAddress secretKeyRelativeAddress) throws GeneralSecurityException {
 
 		// find secret key
 
-		XdiAttribute secretKeyXdiAttribute = xdiContext.getXdiAttribute(secretKeyRelativeAddress, false);
+		XdiAttribute secretKeyXdiAttribute = xdiEntity.getXdiAttribute(secretKeyRelativeAddress, false);
 		secretKeyXdiAttribute = secretKeyXdiAttribute == null ? null : secretKeyXdiAttribute.dereference();
 
 		XdiValue secretKeyXdiValue = secretKeyXdiAttribute == null ? null : secretKeyXdiAttribute.getXdiValue(false);
@@ -152,6 +206,17 @@ public class Keys {
 		// done
 
 		return secretKey;
+	}
+
+	/**
+	 * Given a graph and XDI address, get a secret key.
+	 */
+	public static SecretKey getSecretKey(Graph graph, XDIAddress XDIaddress, XDIAddress secretKeyRelativeAddress) throws GeneralSecurityException {
+
+		XdiEntity xdiEntity = XdiCommonRoot.findCommonRoot(graph).getXdiEntity(XDIaddress, false);
+		if (xdiEntity == null) return null;
+
+		return getSecretKey(xdiEntity, secretKeyRelativeAddress);
 	}
 
 	/*

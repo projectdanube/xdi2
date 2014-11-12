@@ -3,16 +3,25 @@ package xdi2.core.features.nodetypes;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
+import xdi2.core.util.XDIStatementUtil;
 import xdi2.core.util.iterators.MappingIterator;
 
 public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements XdiContext<EQ> {
 
 	private static final long serialVersionUID = -8756059289169602694L;
+
+	private static final Logger log = LoggerFactory.getLogger(XdiAbstractContext.class);
 
 	private ContextNode contextNode;
 
@@ -90,7 +99,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	/*
-	 * Instance methods
+	 * General methods
 	 */
 
 	@Override
@@ -106,6 +115,14 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	public Graph toGraph() {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+
+		return graph;
+	}
+
+	@Override
 	public XDIAddress getXDIAddress() {
 
 		return this.getContextNode().getXDIAddress();
@@ -117,15 +134,15 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		return this.getContextNode().getXDIArc();
 	}
 
-	/**
-	 * Returns the "base" arc, without context node type syntax.
-	 * @return The "base" arc.
-	 */
 	@Override
 	public XDIArc getBaseXDIArc() {
 
 		return getBaseXDIArc(this.getXDIArc());
 	}
+
+	/*
+	 * Equivalence relations
+	 */
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -177,6 +194,10 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		};
 	}
 
+	/*
+	 * Finding roots
+	 */
+
 	@Override
 	public XdiRoot findRoot() {
 
@@ -184,10 +205,14 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XdiCommonRoot findLocalRoot() {
+	public XdiCommonRoot findCommonRoot() {
 
 		return new XdiCommonRoot(this.getContextNode().getGraph().getRootContextNode(false));
 	}
+
+	/*
+	 * Getting contexts under this context
+	 */
 
 	@Override
 	public XdiInnerRoot getXdiInnerRoot(XDIAddress innerRootPredicateAddress, boolean create) {
@@ -305,6 +330,50 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		if (attributeContextNode == null) return null;
 
 		return XdiAbstractAttribute.fromContextNode(attributeContextNode);
+	}
+
+	/*
+	 * Addresses and statements relative to this context
+	 */
+
+	@Override
+	public XDIAddress absoluteToRelativeXDIAddress(XDIAddress absoluteAddress) {
+
+		XDIAddress relativeAddress = XDIAddressUtil.removeStartXDIAddress(absoluteAddress, this.getContextNode().getXDIAddress());
+
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeAddress(" + absoluteAddress + " --> " + relativeAddress + ")");
+
+		return relativeAddress;
+	}
+
+	@Override
+	public XDIAddress relativeToAbsoluteXDIAddress(XDIAddress relativeAddress) {
+
+		XDIAddress absoluteAddress = XDIAddressUtil.concatXDIAddresses(this.getContextNode().getXDIAddress(), relativeAddress);
+
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteAddress(" + relativeAddress + " --> " + absoluteAddress + ")");
+
+		return absoluteAddress;
+	}
+
+	@Override
+	public XDIStatement absoluteToRelativeXDIStatement(XDIStatement absoluteStatementAddress) {
+
+		XDIStatement relativeStatementAddress = XDIStatementUtil.removeStartXDIStatement(absoluteStatementAddress, this.getContextNode().getXDIAddress());
+
+		if (log.isTraceEnabled()) log.trace("absoluteToRelativeStatementAddress(" + absoluteStatementAddress + " --> " + relativeStatementAddress + ")");
+
+		return relativeStatementAddress;
+	}
+
+	@Override
+	public XDIStatement relativeToAbsoluteXDIStatement(XDIStatement relativeStatementAddress) {
+
+		XDIStatement absoluteStatementAddress = XDIStatementUtil.concatXDIStatement(this.getContextNode().getXDIAddress(), relativeStatementAddress);
+
+		if (log.isTraceEnabled()) log.trace("relativeToAbsoluteStatementAddress(" + relativeStatementAddress + " --> " + absoluteStatementAddress + ")");
+
+		return absoluteStatementAddress;
 	}
 
 	/*

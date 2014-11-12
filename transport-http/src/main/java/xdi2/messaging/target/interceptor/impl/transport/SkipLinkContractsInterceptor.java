@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractMessageEnvelopeInterceptor;
@@ -46,7 +46,7 @@ public class SkipLinkContractsInterceptor extends AbstractMessageEnvelopeInterce
 	 */
 
 	@Override
-	public InterceptorResult before(RequestMessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 

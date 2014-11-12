@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,10 +9,10 @@ import java.util.List;
 
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingClassIterator;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.request.RequestMessage;
-import xdi2.messaging.request.RequestMessageEnvelope;
 import xdi2.messaging.target.Prototype;
 
 public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAINER>>, Prototype<InterceptorList<CONTAINER>>, Serializable {
@@ -98,7 +99,7 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 		}
 	}
 
-	public void clearDisabledForMessage(RequestMessage message) {
+	public void clearDisabledForMessage(Message message) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
 
@@ -106,7 +107,7 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 		}
 	}
 
-	public void clearDisabledForMessageEnvelope(RequestMessageEnvelope messageEnvelope) {
+	public void clearDisabledForMessageEnvelope(MessageEnvelope messageEnvelope) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
 
