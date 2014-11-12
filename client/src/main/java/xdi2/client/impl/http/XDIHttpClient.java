@@ -6,17 +6,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIAbstractClient;
 import xdi2.client.XDIClient;
-import xdi2.client.events.XDISendErrorEvent;
-import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -28,7 +25,6 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.response.AbstractMessagingResponse;
-import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 
 /**
@@ -144,13 +140,9 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		if (this.xdiEndpointUrl == null) throw new Xdi2ClientException("No URI set.");
-
-		// timestamp
-
-		Date beginTimestamp = new Date();
 
 		// find out which XDIWriter we want to use
 
@@ -221,9 +213,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex);
 		}
 
-		// send the messaging request
-
-		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
+		// send the message envelope
 
 		int responseCode;
 		String responseMessage;
@@ -262,12 +252,12 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			if (reader == null) {
 
-				log.info("Don't know how to read message result with Content-Type " + contentType + ". Trying to auto-detect format.");
+				if (log.isInfoEnabled()) log.info("Don't know how to read message result with Content-Type " + contentType + ". Trying to auto-detect format.");
 				reader = XDIReaderRegistry.getAuto();
 			}
 		} else {
 
-			log.info("No Content-Type received. Trying to auto-detect format.");
+			if (log.isInfoEnabled()) log.info("No Content-Type received. Trying to auto-detect format.");
 			reader = XDIReaderRegistry.getAuto();
 		}
 
@@ -290,26 +280,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
 
-		if (log.isDebugEnabled()) log.debug("MessagingResponse: " + messagingResponse);
-
-		// timestamp
-
-		Date endTimestamp = new Date();
-
-		// see if it is an error result graph
-
-		if (messagingResponse instanceof ErrorMessagingResponse) {
-
-			ErrorMessagingResponse errorMessagingResponse = (ErrorMessagingResponse) messagingResponse;
-
-			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessagingResponse, beginTimestamp, endTimestamp));
-
-			throw new Xdi2ClientException("Error message result (check server logs!): " + errorMessagingResponse.getErrorString(), null, errorMessagingResponse);
-		}
-
 		// done
-
-		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 
 		return messagingResponse;
 	}

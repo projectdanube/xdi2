@@ -1,12 +1,7 @@
 package xdi2.messaging.response;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.operations.Operation;
 
 /**
  * A message envelope as an XDI messaging response.
@@ -19,7 +14,7 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 
 	private MessageEnvelope messageEnvelope;
 
-	protected MessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope) {
+	private MessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope) {
 
 		this.messageEnvelope = messageEnvelope;
 	}
@@ -27,6 +22,13 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 	/*
 	 * Static methods
 	 */
+
+	public static MessageEnvelopeMessagingResponse create(MessageEnvelope messageEnvelope) {
+
+		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = new MessageEnvelopeMessagingResponse(messageEnvelope);
+
+		return messageEnvelopeMessagingResponse;
+	}
 
 	public static boolean isValid(Graph graph) {
 
@@ -40,17 +42,22 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 		return new MessageEnvelopeMessagingResponse(MessageEnvelope.fromGraph(graph));
 	}
 
-	public static MessageEnvelopeMessagingResponse fromMessageEnvelope(MessageEnvelope responseMessageEnvelope) {
+	/*
+	 * Overrides
+	 */
 
-		// new messaging response
+	@Override
+	public Graph getGraph() {
 
-		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = new MessageEnvelopeMessagingResponse(responseMessageEnvelope);
-
-		// done
-
-		return messageEnvelopeMessagingResponse;
+		return this.getMessageEnvelope().getGraph();
 	}
-	
+
+	@Override
+	public Graph getResultGraph() {
+
+		return this.getMessageEnvelope().getGraph();
+	}
+
 	/*
 	 * Instance methods
 	 */
@@ -58,30 +65,5 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 	public MessageEnvelope getMessageEnvelope() {
 
 		return this.messageEnvelope;
-	}
-
-	@Override
-	public Graph getGraph() {
-
-		return this.getGraph();
-	}
-
-	@Override
-	public Iterator<Graph> getResultGraphs() {
-
-		List<Graph> resultGraphs = new ArrayList<Graph> ();
-
-		for (Operation operation : this.getMessageEnvelope().getOperations()) {
-
-			resultGraphs.add(operation.getTargetInnerRoot().toGraph());
-		}
-
-		return resultGraphs.iterator();
-	}
-
-	@Override
-	public Graph getResultGraph() {
-
-		return null;
 	}
 }

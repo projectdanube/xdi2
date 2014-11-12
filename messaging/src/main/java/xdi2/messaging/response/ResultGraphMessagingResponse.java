@@ -1,9 +1,6 @@
 package xdi2.messaging.response;
 
-import java.util.Iterator;
-
 import xdi2.core.Graph;
-import xdi2.core.util.iterators.SingleItemIterator;
 
 /**
  * A graph as an XDI messaging response.
@@ -16,7 +13,7 @@ public class ResultGraphMessagingResponse extends AbstractMessagingResponse impl
 
 	private Graph resultGraph;
 
-	protected ResultGraphMessagingResponse(Graph resultGraph) {
+	private ResultGraphMessagingResponse(Graph resultGraph) {
 
 		this.resultGraph = resultGraph;
 	}
@@ -25,16 +22,23 @@ public class ResultGraphMessagingResponse extends AbstractMessagingResponse impl
 	 * Static methods
 	 */
 
-	public static boolean isValid(Graph graph) {
+	public static ResultGraphMessagingResponse create(Graph resultGraph) {
+
+		ResultGraphMessagingResponse resultGraphMessagingResponse = new ResultGraphMessagingResponse(resultGraph);
+
+		return resultGraphMessagingResponse;
+	}
+
+	public static boolean isValid(Graph resultGraph) {
 
 		return true;
 	}
 
-	public static ResultGraphMessagingResponse fromResultGraph(Graph resultGraph) {
+	public static ResultGraphMessagingResponse fromGraph(Graph graph) {
 
-		if (! isValid(resultGraph)) return(null);
+		if (! isValid(graph)) return(null);
 
-		return new ResultGraphMessagingResponse(resultGraph);
+		return new ResultGraphMessagingResponse(graph);
 	}
 
 	/*
@@ -44,12 +48,6 @@ public class ResultGraphMessagingResponse extends AbstractMessagingResponse impl
 	public Graph getGraph() {
 
 		return this.resultGraph;
-	}
-
-	@Override
-	public Iterator<Graph> getResultGraphs() {
-
-		return new SingleItemIterator<Graph> (this.resultGraph);
 	}
 
 	@Override

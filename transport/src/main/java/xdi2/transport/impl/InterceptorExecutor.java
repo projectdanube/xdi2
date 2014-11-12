@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;

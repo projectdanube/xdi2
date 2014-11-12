@@ -6,24 +6,19 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.security.Key;
-import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.RSAKey;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +35,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.keys.Keys;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
@@ -202,14 +198,12 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				if (signature instanceof KeyPairSignature) {
 
-					PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
-					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-					k = keyFactory.generatePrivate(keySpec);
+					k = Keys.privateKeyFromPrivateKeyString(key);
 
 					((KeyPairSignature) signature).sign((PrivateKey) k);
 				} else if (signature instanceof SymmetricKeySignature) {
 
-					k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+					k = Keys.secretKeyFromSecretKeyString(key);
 
 					((SymmetricKeySignature) signature).sign((SecretKey) k);
 				}
@@ -222,14 +216,12 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 					if (signature instanceof KeyPairSignature) {
 
-						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
-						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-						k = keyFactory.generatePublic(keySpec);
+						k = Keys.publicKeyFromPublicKeyString(key);
 
 						valid.add(Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k)));
 					} else if (signature instanceof SymmetricKeySignature) {
 
-						k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+						k = Keys.secretKeyFromSecretKeyString(key);
 
 						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
 					}

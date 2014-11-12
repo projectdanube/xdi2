@@ -299,18 +299,18 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (ex instanceof Xdi2ClientException) {
 
-				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getErrorGraph();
+				Graph graph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getGraph();
 
 				// output the error graph
 
-				if (errorGraph != null) {
+				if (graph != null) {
 
 					StringWriter writer = new StringWriter();
-					xdiResultWriter.write(errorGraph, writer);
+					xdiResultWriter.write(graph, writer);
 					output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, errorGraph);
+					OutputCache.put(outputId, graph);
 				}
 			}
 

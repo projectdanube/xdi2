@@ -23,7 +23,6 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -149,7 +148,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
-			this.sendOk(request, response, ErrorMessagingResponse.fromException(ex));
+			this.sendOk(request, response, this.makeErrorMessagingResponse(ex));
 			return;
 		}
 
@@ -195,7 +194,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
-			this.sendOk(request, response, ErrorMessagingResponse.fromException(ex));
+			this.sendOk(request, response, this.makeErrorMessagingResponse(ex));
 			return;
 		}
 
@@ -241,7 +240,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
-			this.sendOk(request, response, ErrorMessagingResponse.fromException(ex));
+			this.sendOk(request, response, this.makeErrorMessagingResponse(ex));
 			return;
 		}
 
@@ -287,7 +286,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
-			this.sendOk(request, response, ErrorMessagingResponse.fromException(ex));
+			this.sendOk(request, response, this.makeErrorMessagingResponse(ex));
 			return;
 		}
 

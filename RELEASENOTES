@@ -1,6 +1,14 @@
 Release Notes 0.7
 =================
 
+* xdi2.messaging.context -> xdi2.messaging.execution
+
+* introduced key "sources", must change server xml configuration
+
+* xdi2.core.features.keys -> xdi2.core.keys
+
+* introduction of ExecutionResult class during message execution
+
 * client:
 xdi2.client.http -> xdi2.client.impl.http
 xdi2.client.local -> xdi2.client.impl.local (in separate transport-local component)

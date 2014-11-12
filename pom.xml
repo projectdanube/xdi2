@@ -12,6 +12,7 @@
 		<module>core</module>
 		<module>messaging</module>
 		<module>client</module>
+		<module>messaging-target</module>
 		<module>transport</module>
 		<module>transport-local</module>
 		<module>transport-http</module>

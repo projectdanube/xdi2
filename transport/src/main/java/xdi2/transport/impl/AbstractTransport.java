@@ -14,13 +14,10 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.context.ExecutionResult;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessageEnvelopeMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
@@ -28,6 +25,9 @@ import xdi2.messaging.response.ResultGraphMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.GraphSigner;
+import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
@@ -150,13 +150,17 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
 			ExecutionResult executionResult = messagingTarget.execute(messageEnvelope, executionContext);
-			if (log.isDebugEnabled()) log.debug("ResultGraph: " + executionResult);
+			if (log.isDebugEnabled()) log.debug("ExecutionResult: " + executionResult);
 
 			// make messaging response
 
-			messagingResponse = this.makeResultGraphMessagingResponse(executionResult);
+			if (isAsync(messageEnvelope)) {
 
-			messagingResponse = this.makeMessageEnvelopeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+				messagingResponse = this.makeMessageEnvelopeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+			} else {
+
+				messagingResponse = this.makeResultGraphMessagingResponse(executionResult);
+			}
 		} catch (Xdi2MessagingException ex) {
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
@@ -172,7 +176,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug(messagingResponse.getClass().getSimpleName() + ": " + messagingResponse + " --- " + new IteratorCounter(messagingResponse.getResultGraphs()).count() + " results.");
+		if (log.isDebugEnabled()) log.debug(messagingResponse.getClass().getSimpleName() + ": " + messagingResponse);
 
 		return messagingResponse;
 	}
@@ -193,39 +197,44 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// create messaging response
 
-		Graph resultGraph = executionResult.getResultGraph();
-
-		ResultGraphMessagingResponse resultGraphMessagingResponse = ResultGraphMessagingResponse.fromResultGraph(resultGraph);
+		ResultGraphMessagingResponse resultGraphMessagingResponse = ResultGraphMessagingResponse.create(executionResult.getResultGraph());
 
 		// done
 
 		return resultGraphMessagingResponse;
 	}
 
-	protected final MessageEnvelopeMessagingResponse makeMessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) {
+	protected final MessageEnvelopeMessagingResponse makeMessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
 
 		// create messaging response
 
-		Graph resultGraph = executionResult.getResultGraph();
+		MessageEnvelope responseMessageEnvelope = new MessageEnvelope();
 
-		Message message = messageEnvelope.getMessages().next();
+		for (Message message : messageEnvelope.getMessages()) {
 
-		XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
-		XDIAddress toXDIAddress = message.getSenderXDIAddress();
+			XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+			XDIAddress toXDIAddress = message.getSenderXDIAddress();
 
-		MessageEnvelope responseMessageEnvelope = MessageEnvelope.fromGraph(resultGraph);
-		Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
-		responseMessage.setToXDIAddress(toXDIAddress);
-		responseMessage.setTimestamp(new Date());
+			Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
+			responseMessage.setToXDIAddress(toXDIAddress);
+			responseMessage.setTimestamp(new Date());
+			responseMessage.setCorrelationXDIAddress(message.getXDIAddress());
 
-		responseMessage.createGetOperation(resultGraph);
+			for (Operation operation : message.getOperations()) {
 
-		GraphSigner signer = new GraphSigner(((GraphMessagingTarget) messagingTarget).getGraph());
-		signer.setDigestAlgorithm(KeyPairSignature.DIGEST_ALGORITHM_SHA);
-		signer.setDigestLength(256);
-		signer.sign(responseMessage);
+				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+				if (operationResultGraph == null) throw new Xdi2TransportException("No operation result graph for operation " + operation);
 
-		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = MessageEnvelopeMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);
+				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);
+			}
+
+			GraphSigner signer = new GraphSigner(((GraphMessagingTarget) messagingTarget).getGraph());
+			signer.setDigestAlgorithm(KeyPairSignature.DIGEST_ALGORITHM_SHA);
+			signer.setDigestLength(256);
+			signer.sign(responseMessage);
+		}
+
+		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = MessageEnvelopeMessagingResponse.create(responseMessageEnvelope);
 
 		// done
 
@@ -234,9 +243,22 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 	protected final ErrorMessagingResponse makeErrorMessagingResponse(Exception ex) {
 
-		// create messaging response
+		// set error string
 
-		ErrorMessagingResponse errorMessagingResponse = ErrorMessagingResponse.fromException(ex);
+		String errorString = ex.getMessage();
+		if (errorString == null) errorString = ex.getClass().getName();
+
+		// information specific to certain exceptions
+
+		Operation errorOperation = null;
+
+		if (ex instanceof Xdi2MessagingException) {
+
+			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
+			errorOperation = executionContext == null ? null : executionContext.getExceptionOperation();
+		}
+
+		ErrorMessagingResponse errorMessagingResponse = ErrorMessagingResponse.create(errorString, errorOperation);
 
 		// done
 
@@ -285,6 +307,21 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 	public void setInterceptors(InterceptorList<Transport<?, ?>> interceptors) {
 
 		this.interceptors = interceptors;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	public static boolean isAsync(MessageEnvelope messageEnvelope) {
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			Boolean async = message.getParameterBoolean(Message.XDI_ADD_PARAMETER_ASYNC);
+			if (Boolean.TRUE.equals(async)) return true;
+		}
+
+		return false;
 	}
 
 	/*

@@ -299,18 +299,18 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			if (ex instanceof Xdi2ClientException) {
 
-				Graph errorGraph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getErrorGraph();
+				Graph graph = ((Xdi2ClientException) ex).getErrorMessagingResponse().getGraph();
 
 				// output the error graph
 
-				if (errorGraph != null) {
+				if (graph != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(errorGraph, writer2);
+					xdiResultWriter.write(graph, writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, errorGraph);
+					OutputCache.put(outputId, graph);
 				}
 			}
 

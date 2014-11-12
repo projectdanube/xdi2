@@ -136,8 +136,17 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the ID of the message.
-	 * @return The ID of the message.
+	 * Returns the message's XDI address.
+	 * @return The message's XDI address.
+	 */
+	public XDIAddress getXDIAddress() {
+
+		return this.getContextNode().getXDIAddress();
+	}
+
+	/**
+	 * Returns the message's ID.
+	 * @return The message's ID.
 	 */
 	public XDIArc getID() {
 
@@ -307,6 +316,25 @@ public class Message implements Serializable, Comparable<Message> {
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
+	/**
+	 * Set this message's correlation to another message.
+	 */
+	public void setCorrelationXDIAddress(XDIAddress correlationXDIAddress) {
+
+		this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_CORRELATION, correlationXDIAddress);
+	}
+
+	/**
+	 * Get this message's correlation to another message.
+	 */
+	public XDIAddress getCorrelationXDIAddress() {
+
+		Relation relation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_CORRELATION);
+		if (relation == null) return null;
+
+		return relation.getTargetContextNodeXDIAddress();
 	}
 
 	/*

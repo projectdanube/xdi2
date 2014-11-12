@@ -35,10 +35,9 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.response.ErrorMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
@@ -100,7 +99,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		long stop = System.currentTimeMillis();
 		long duration = start == null ? -1 : stop - start.getTime();
 
-		Exception ex = (messagingResponse instanceof ErrorMessagingResponse) ? ((ErrorMessagingResponse) messagingResponse).getException() : null;
+		Exception ex = executionContext.getException();
 
 		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();

@@ -1,7 +1,6 @@
 package xdi2.messaging.response;
 
 import java.util.Date;
-import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -16,10 +15,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
-import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.operations.Operation;
 
 /**
@@ -39,21 +35,28 @@ public class ErrorMessagingResponse extends AbstractMessagingResponse implements
 	public static final String DEFAULT_ERRORSTRING = "XDI error.";
 
 	private Graph graph;
-	private Exception ex;
 
-	protected ErrorMessagingResponse(Graph graph, Exception ex) {
+	private ErrorMessagingResponse(Graph graph) {
 
 		this.graph = graph;
-		this.ex = ex;
 	}
 
 	/*
 	 * Static methods
 	 */
 
-	public static boolean isValid(Graph graph) {
+	public static ErrorMessagingResponse create(String errorString, Operation errorOperation) {
 
-		if (! ResultGraphMessagingResponse.isValid(graph)) return false;
+		ErrorMessagingResponse errorMessagingResponse = new ErrorMessagingResponse(MemoryGraphFactory.getInstance().openGraph());
+
+		errorMessagingResponse.setErrorTimestamp(new Date());
+		if (errorString != null) errorMessagingResponse.setErrorString(errorString);
+		if (errorOperation != null) errorMessagingResponse.setErrorOperation(errorOperation);
+
+		return errorMessagingResponse;
+	}
+
+	public static boolean isValid(Graph graph) {
 
 		if (XdiAbstractContext.fromContextNode(graph.getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), false) == null) return false;
 
@@ -64,54 +67,16 @@ public class ErrorMessagingResponse extends AbstractMessagingResponse implements
 
 		if (! isValid(graph)) return(null);
 
-		return new ErrorMessagingResponse(graph, null);
-	}
-
-	public static ErrorMessagingResponse fromException(Exception ex) {
-
-		// new messaging response
-
-		ErrorMessagingResponse errorMessagingResponse = new ErrorMessagingResponse(MemoryGraphFactory.getInstance().openGraph(), ex);
-
-		// set error string
-
-		String errorString = ex.getMessage();
-		if (errorString == null) errorString = ex.getClass().getName();
-		if (errorString != null) errorMessagingResponse.setErrorString(errorString);
-
-		// information specific to certain exceptions
-
-		if (ex instanceof Xdi2MessagingException) {
-
-			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
-			Operation operation = executionContext == null ? null : executionContext.getExceptionOperation();
-
-			if (operation != null) errorMessagingResponse.setErrorOperation(operation);
-		}
-
-		// done
-
-		return errorMessagingResponse;
+		return new ErrorMessagingResponse(graph);
 	}
 
 	/*
-	 * Instance methods
+	 * Overrides
 	 */
 
 	public Graph getGraph() {
 
 		return this.graph;
-	}
-
-	public Exception getException() {
-
-		return this.ex;
-	}
-
-	@Override
-	public Iterator<Graph> getResultGraphs() {
-
-		return new EmptyIterator<Graph> ();
 	}
 
 	@Override
@@ -120,24 +85,13 @@ public class ErrorMessagingResponse extends AbstractMessagingResponse implements
 		return null;
 	}
 
-	public Graph getErrorGraph() {
-
-		return this.graph;
-	}
-
-	public ContextNode getErrorContextNode() {
-
-		return this.getGraph().setDeepContextNode(XDI_ADD_FALSE);
-	}
+	/*
+	 * Instance methods
+	 */
 
 	public Date getErrorTimestamp() {
 
 		return Timestamps.getContextNodeTimestamp(this.getErrorContextNode());
-	}
-
-	public void setErrorTimestamp(Date timestamp) {
-
-		Timestamps.setContextNodeTimestamp(this.getErrorContextNode(), timestamp);
 	}
 
 	public String getErrorString() {
@@ -154,7 +108,21 @@ public class ErrorMessagingResponse extends AbstractMessagingResponse implements
 		return errorStringLiteral.getLiteralDataString();
 	}
 
-	public void setErrorString(String errorString) {
+	/*
+	 * Helper methods
+	 */
+
+	private ContextNode getErrorContextNode() {
+
+		return this.getGraph().setDeepContextNode(XDI_ADD_FALSE);
+	}
+
+	private void setErrorTimestamp(Date errorTimestamp) {
+
+		Timestamps.setContextNodeTimestamp(this.getErrorContextNode(), errorTimestamp);
+	}
+
+	private void setErrorString(String errorString) {
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
@@ -162,18 +130,14 @@ public class ErrorMessagingResponse extends AbstractMessagingResponse implements
 		xdiValue.getContextNode().setLiteralString(errorString);
 	}
 
-	public void setErrorOperation(Operation operation) {
+	private void setErrorOperation(Operation errorOperation) {
 
 		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getGraph()).getInnerRoot(XDI_ADD_FALSE, XDI_ADD_ERROR, true);
 		xdiInnerRoot.getContextNode().clear();
 
-		//		Relation relation = ((RelationStatement) innerRoot.createRelativeStatement(operation.getRelation().getStatement().getAddress())).getRelation();
-
-		for (XDIStatement XDIstatement : new MappingXDIStatementIterator(operation.getMessage().getContextNode().getAllStatements())) {
+		for (XDIStatement XDIstatement : new MappingXDIStatementIterator(errorOperation.getMessage().getContextNode().getAllStatements())) {
 
 			xdiInnerRoot.getContextNode().setStatement(XDIstatement);
 		}
-
-		//		CopyUtil.copyContextNodeContents(operation.getRelation().follow(), relation.follow(), null);
 	}
 }
