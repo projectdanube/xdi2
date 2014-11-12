@@ -5,7 +5,7 @@ import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.keys.Keys;

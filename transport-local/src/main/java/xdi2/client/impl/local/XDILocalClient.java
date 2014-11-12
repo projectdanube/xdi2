@@ -1,4 +1,4 @@
-package xdi2.client.local;
+package xdi2.client.impl.local;
 
 import java.util.Date;
 

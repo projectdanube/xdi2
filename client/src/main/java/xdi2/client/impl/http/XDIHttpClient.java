@@ -1,4 +1,4 @@
-package xdi2.client.http;
+package xdi2.client.impl.http;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,7 +17,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.events.XDISendErrorEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.ssl.XDI2X509TrustManager;
+import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;

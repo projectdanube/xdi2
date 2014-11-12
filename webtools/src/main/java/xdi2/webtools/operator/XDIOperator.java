@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;

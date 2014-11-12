@@ -1,6 +1,10 @@
 Release Notes 0.7
 =================
 
+* client:
+xdi2.client.http -> xdi2.client.impl.http
+xdi2.client.local -> xdi2.client.impl.local (in separate transport-local component)
+
 * discovery:
 XDIDiscoveryResult.getMessageResult() -> XDIDiscoveryResult.getResultGraph()
 

@@ -1,4 +1,4 @@
-package xdi2.client.http.ssl;
+package xdi2.client.impl.http.ssl;
 
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
