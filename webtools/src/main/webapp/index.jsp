@@ -60,8 +60,8 @@ div.line { margin-left: -150px; }
 	<p class="subheader">Community</p>
 	<p>
 	<table cellpadding="5"><tr>
-	<td><a href="http://github.com/projectdanube/xdi2">Github</a></td>
-	<td><a href="http://groups.google.com/group/xdi2">Google Group</a></td>
+	<td><a href="https://github.com/projectdanube/xdi2">Github</a></td>
+	<td><a href="https://groups.google.com/group/xdi2">Google Group</a></td>
 	<td><a href="https://github.com/projectdanube/xdi2/wiki/XDI2-Weekly-Call">Weekly Call</a></td>
 	<td><a href="irc://irc.freenode.net:6667/xdi">IRC</a></td>
 	</tr></table>
