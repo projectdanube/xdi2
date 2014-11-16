@@ -1,4 +1,4 @@
-package xdi2.core.keys;
+package xdi2.core.features.keys;
 
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;

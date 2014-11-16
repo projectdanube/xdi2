@@ -4,7 +4,7 @@ import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 
 import xdi2.core.Graph;
-import xdi2.core.keys.Keys;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
@@ -12,7 +12,7 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
- * A Signer that can authenticate an XDI message using a "private key graph",
+ * A Signer that can create signatures on an XDI message using a "private key graph",
  * which contains sender addresses and private keys.
  */
 public class GraphSigner extends PrivateKeySigner {

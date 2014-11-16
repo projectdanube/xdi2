@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
@@ -35,7 +36,6 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.writers.XDIDisplayWriter;
-import xdi2.core.keys.Keys;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
