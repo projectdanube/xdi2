@@ -24,7 +24,7 @@
 
 	<h2>Information</h2>
 
-	<p>Here you can apply XDI messages to a local XDI document and view results.</p>
+	<p>Here you can apply XDI messages to a local XDI graph and view results.</p>
 
 	<ul>
 	<li>Messages can be entered in any format.</li>
