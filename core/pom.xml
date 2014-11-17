@@ -14,8 +14,8 @@
  
 	<repositories>
 		<repository>
-			<id>external</id>
-			<url>file://${project.basedir}/external</url>
+			<id>external-apg</id>
+			<url>file://${project.basedir}/external-apg</url>
 		</repository>
 	</repositories>
  
