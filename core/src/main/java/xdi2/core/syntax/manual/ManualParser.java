@@ -1,4 +1,4 @@
-package xdi2.core.syntax.parser;
+package xdi2.core.syntax.manual;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -14,8 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteralNode;
+import xdi2.core.syntax.AbstractParser;
 import xdi2.core.syntax.Parser;
-import xdi2.core.syntax.ParserAbstract;
+import xdi2.core.syntax.ParserException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -25,9 +26,9 @@ import xdi2.core.syntax.XDIXRef;
  * An XDI parser implemented manually in pure Java.
  * This parser does not use an ABNF.
  */
-public class ParserImpl extends ParserAbstract implements Parser {
+public class ManualParser extends AbstractParser implements Parser {
 
-	private static final Logger log = LoggerFactory.getLogger(ParserImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ManualParser.class);
 
 	@Override
 	public XDIStatement parseXDIStatement(String string) {
@@ -46,20 +47,22 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		String objectString = string.substring(split0 + split1 + 2);
 
 		XDIAddress subject = this.parseXDIAddress(subjectString);
-		XDIAddress predicate = this.parseXDIAddress(predicateString);
 
-		if (XDIConstants.XDI_ADD_LITERAL.equals(predicateString)) {
+		if (XDIConstants.XDI_ARC_LITERAL.toString().equals(predicateString)) {
 
+			XDIArc predicate = XDIConstants.XDI_ARC_LITERAL;
 			Object object = this.parseLiteralData(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);
-		} else if (XDIConstants.XDI_ADD_CONTEXT.equals(predicateString)) {
+		} else if (XDIConstants.STRING_CONTEXT.equals(predicateString)) {
 
+			String predicate = XDIConstants.STRING_CONTEXT;
 			XDIArc object = this.parseXDIArc(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);
 		} else {
 
+			XDIAddress predicate = this.parseXDIAddress(predicateString);
 			XDIAddress object = this.parseXDIAddress(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);

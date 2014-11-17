@@ -86,7 +86,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		// set the context node
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.STRING_CONTEXT, new JsonPrimitive(XDIarc.toString()));
 
 		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIarc);
 
@@ -113,7 +113,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (jsonObject == null) return null;
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
@@ -138,7 +138,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentcontextNodeXDIAddress.toString());
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
@@ -170,7 +170,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXDIAddress().toString());
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return new EmptyIterator<ContextNode> ();
 		if (jsonArrayContexts.size() < 1) return new EmptyIterator<ContextNode> ();
 
@@ -203,7 +203,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		// delete this context node
 
 		((JSONGraph) this.getGraph()).jsonDelete(contextNode.getXDIAddress().toString());
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.STRING_CONTEXT, new JsonPrimitive(XDIarc.toString()));
 	}
 
 	@Override
@@ -242,8 +242,8 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 				if (entry.getKey().startsWith("/")) return null;
 
 				final XDIAddress XDIaddress = XDIAddress.create(entry.getKey());
-				if (XDIConstants.XDI_ADD_CONTEXT.equals(XDIaddress)) return null;
-				if (XDIConstants.XDI_ADD_LITERAL.equals(XDIaddress)) return null;
+				if (XDIConstants.STRING_CONTEXT.toString().equals(XDIaddress.toString())) return null;
+				if (XDIConstants.XDI_ARC_LITERAL.toString().equals(XDIaddress.toString())) return null;
 
 				JsonArray jsonArrayRelations = (JsonArray) entry.getValue();
 
@@ -328,7 +328,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		// set the literal
 
-		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_LITERAL.toString(), AbstractLiteralNode.literalDataToJsonElement(literalData));
+		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString(), AbstractLiteralNode.literalDataToJsonElement(literalData));
 
 		JSONLiteralNode literalNode = new JSONLiteralNode(this);
 
@@ -342,7 +342,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXDIAddress().toString());
 
-		if (! jsonObject.has(XDIConstants.XDI_ADD_LITERAL.toString())) return null;
+		if (! jsonObject.has(XDIConstants.XDI_ARC_LITERAL.toString())) return null;
 
 		return new JSONLiteralNode(this);
 	}
@@ -350,6 +350,6 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	@Override
 	public void delLiteralNode() {
 
-		((JSONGraph) this.getGraph()).jsonDeleteFromObject(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_LITERAL.toString());
+		((JSONGraph) this.getGraph()).jsonDeleteFromObject(this.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString());
 	}
 }

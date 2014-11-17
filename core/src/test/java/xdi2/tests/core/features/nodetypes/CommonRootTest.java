@@ -6,14 +6,14 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 
-public class LocalRootsTest extends TestCase {
+public class CommonRootTest extends TestCase {
 
-	public void testLocalRoots() throws Exception {
+	public void testCommonRoots() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		assertEquals(XdiCommonRoot.findCommonRoot(graph).getContextNode(), graph.getRootContextNode());
-		assertEquals(XdiCommonRoot.findCommonRoot(graph).getContextNode().getXDIAddress(), XDIConstants.XDI_ADD_CONTEXT);
+		assertEquals(XdiCommonRoot.findCommonRoot(graph).getContextNode().getXDIAddress(), XDIConstants.XDI_ADD_ROOT);
 
 		graph.close();
 	}

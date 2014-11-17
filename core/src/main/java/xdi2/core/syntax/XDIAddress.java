@@ -3,8 +3,6 @@ package xdi2.core.syntax;
 import java.util.Collections;
 import java.util.List;
 
-import xdi2.core.constants.XDIConstants;
-import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.core.util.XDIAddressUtil;
 
 public final class XDIAddress extends XDIIdentifier {
@@ -83,6 +81,6 @@ public final class XDIAddress extends XDIIdentifier {
 		XDIArc XDIarc = this.getLastXDIArc();
 		if (XDIarc == null) return false;
 
-		return XDIarc.equals(XDIConstants.XDI_ARC_LITERAL);
+		return XDIarc.isLiteralNodeXDIArc();
 	}
 }

@@ -28,7 +28,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 	 * Gets the predicate of this statement.
 	 * @return A predicate.
 	 */
-	public XDIAddress getPredicate();
+	public Object getPredicate();
 
 	/**
 	 * Gets the object of this statement.
@@ -69,7 +69,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 		public XDIAddress getSubject();
 
 		@Override
-		public XDIAddress getPredicate();
+		public String getPredicate();
 
 		@Override
 		public XDIArc getObject();
@@ -97,7 +97,7 @@ public interface Statement extends Serializable, Comparable<Statement> {
 		public XDIAddress getSubject();
 
 		@Override
-		public XDIAddress getPredicate();
+		public XDIArc getPredicate();
 
 		@Override
 		public Object getObject();

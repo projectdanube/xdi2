@@ -231,4 +231,13 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());
 		}
 	}
+
+	private static JsonElement makeGom(Object object) {
+
+		JsonElement gom = null;
+
+		gom = new JsonPrimitive(object.toString());
+
+		return gom;
+	}
 }

@@ -1,11 +1,10 @@
-package xdi2.core.syntax.parser;
+package xdi2.core.syntax;
 
-import xdi2.core.syntax.Parser;
-
+import xdi2.core.syntax.manual.ManualParser;
 
 public class ParserRegistry {
 
-	private static ParserRegistry instance = new ParserRegistry(new ParserImpl());
+	private static ParserRegistry instance = new ParserRegistry(new ManualParser());
 
 	private Parser parser;
 

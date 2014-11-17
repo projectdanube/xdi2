@@ -724,7 +724,7 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XDIConstants.XDI_ADD_CONTEXT.equals(XDIarc)) throw new Xdi2GraphException("Invalid context node arc: " + XDIarc);
+		if (XDIConstants.XDI_ADD_ROOT.toString().equals(XDIarc.toString())) throw new Xdi2GraphException("Invalid context node arc: " + XDIarc);
 
 		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REF)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REF + " relation.");
 		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REP + " relation.");
@@ -742,8 +742,8 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 		if (XDIaddress == null) throw new NullPointerException();
 		if (targetXDIAddress == null) throw new NullPointerException();
 
-		if (XDIConstants.XDI_ADD_CONTEXT.equals(XDIaddress)) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
-		if (XDIConstants.XDI_ADD_LITERAL.equals(XDIaddress)) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
+		if (XDIConstants.STRING_CONTEXT.equals(XDIaddress.toString())) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
+		if (XDIConstants.XDI_ARC_LITERAL.equals(XDIaddress.toString())) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
 
 		if (! this.isEmpty()) {
 

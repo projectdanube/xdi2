@@ -79,7 +79,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public static MessageEnvelope fromOperationXDIAddressAndTargetXDIAddress(XDIAddress operationXDIAddress, XDIAddress targetXDIAddress) {
 
-		if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_CONTEXT;
+		if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);

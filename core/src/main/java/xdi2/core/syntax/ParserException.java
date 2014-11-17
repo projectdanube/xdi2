@@ -1,4 +1,4 @@
-package xdi2.core.syntax.parser;
+package xdi2.core.syntax;
 
 public class ParserException extends RuntimeException {
 

@@ -147,7 +147,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		this.writeContextNodeXDIAddress(bufferedWriter, XDIstatement.getSubject());
 		this.writeSeparator(bufferedWriter);
-		this.writePredicateAddress(bufferedWriter, XDIstatement.getPredicate());
+		this.writePredicate(bufferedWriter, XDIstatement.getPredicate());
 		this.writeSeparator(bufferedWriter);
 
 		if (XDIstatement.isContextNodeStatement()) {
@@ -231,9 +231,9 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	}
 
 	@SuppressWarnings("static-method")
-	private void writePredicateAddress(BufferedWriter bufferedWriter, XDIAddress predicateAddress) throws IOException {
+	private void writePredicate(BufferedWriter bufferedWriter, Object predicate) throws IOException {
 
-		bufferedWriter.write(predicateAddress.toString());
+		bufferedWriter.write(predicate.toString());
 	}
 
 	@SuppressWarnings("static-method")

@@ -1,6 +1,5 @@
 package xdi2.core.syntax;
 
-import xdi2.core.syntax.parser.ParserRegistry;
 
 
 public class XDIXRef extends XDIIdentifier {

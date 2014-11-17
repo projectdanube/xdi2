@@ -7,7 +7,7 @@ import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.equivalence.EquivalenceTest;
 import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
 import xdi2.tests.core.features.nodetypes.InnerRootsTest;
-import xdi2.tests.core.features.nodetypes.LocalRootsTest;
+import xdi2.tests.core.features.nodetypes.CommonRootTest;
 import xdi2.tests.core.features.nodetypes.NodeTypesTest;
 import xdi2.tests.core.features.nodetypes.PeerRootsTest;
 import xdi2.tests.core.features.nodetypes.RootsTest;
@@ -31,7 +31,7 @@ import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
 import xdi2.tests.core.syntax.CloudNameTest;
 import xdi2.tests.core.syntax.CloudNumberTest;
-import xdi2.tests.core.syntax.ParserImplTest;
+import xdi2.tests.core.syntax.ManualParserTest;
 import xdi2.tests.core.util.CopyUtilTest;
 import xdi2.tests.core.util.XDIStatementUtilTest;
 import xdi2.tests.core.util.XDIAddressUtilTest;
@@ -43,7 +43,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-		suite.addTestSuite(ParserImplTest.class);
+		suite.addTestSuite(ManualParserTest.class);
 		suite.addTestSuite(MemoryGraphTest.class);
 		suite.addTestSuite(MapKeyValueGraphTest.class);
 		suite.addTestSuite(PropertiesKeyValueGraphTest.class);
@@ -64,7 +64,7 @@ public class AllTests {
 		suite.addTestSuite(SignaturesTest.class);
 		suite.addTestSuite(SecretTokensTest.class);
 		suite.addTestSuite(RootsTest.class);
-		suite.addTestSuite(LocalRootsTest.class);
+		suite.addTestSuite(CommonRootTest.class);
 		suite.addTestSuite(PeerRootsTest.class);
 		suite.addTestSuite(InnerRootsTest.class);
 		suite.addTestSuite(TimestampsTest.class);

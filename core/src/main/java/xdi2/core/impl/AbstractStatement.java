@@ -7,7 +7,7 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 
 public abstract class AbstractStatement implements Statement {
@@ -122,7 +122,7 @@ public abstract class AbstractStatement implements Statement {
 
 		// compare predicate
 
-		c = this.getPredicate().compareTo(other.getPredicate());
+		c = this.getPredicate().toString().compareTo(other.getPredicate().toString());
 		if (c != 0) return c;
 
 		// compare objects
@@ -142,9 +142,9 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7006808512493295364L;
 
 		@Override
-		public final XDIAddress getPredicate() {
+		public final String getPredicate() {
 
-			return XDIConstants.XDI_ADD_CONTEXT;
+			return XDIConstants.STRING_CONTEXT;
 		}
 
 		@Override
@@ -170,9 +170,9 @@ public abstract class AbstractStatement implements Statement {
 		private static final long serialVersionUID = -7876412291137305476L;
 
 		@Override
-		public final XDIAddress getPredicate() {
+		public final XDIArc getPredicate() {
 
-			return XDIConstants.XDI_ADD_LITERAL;
+			return XDIConstants.XDI_ARC_LITERAL;
 		}
 
 		@Override

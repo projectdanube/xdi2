@@ -22,10 +22,10 @@ import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
+import xdi2.core.syntax.ParserException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.syntax.parser.ParserException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -63,7 +63,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String key = entry.getKey();
 			JsonElement jsonEntryElement = entry.getValue();
 
-			if (key.endsWith("/" + XDIConstants.XDI_ADD_CONTEXT.toString())) {
+			if (key.endsWith("/" + XDIConstants.STRING_CONTEXT)) {
 
 				XDIStatement XDIstatement = makeStatement(key + "/", state);
 
@@ -73,8 +73,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -89,7 +89,7 @@ public class XDIJSONReader extends AbstractXDIReader {
 					ContextNode contextNode = baseContextNode.setContextNode(XDIarc);
 					if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set context node " + contextNode.getXDIArc() + " --> " + contextNode.getXDIAddress());
 				}
-			} else if (key.endsWith("/" + XDIConstants.XDI_ADD_LITERAL.toString())) {
+			} else if (key.endsWith("/" + XDIConstants.XDI_ARC_LITERAL.toString())) {
 
 				XDIStatement XDIstatement = makeStatement(key + "/\"\"", state);
 
@@ -97,8 +97,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -112,13 +112,13 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
-				XDIAddress XDIaddress = XDIstatement.getPredicate();
+				XDIAddress XDIaddress = XDIstatement.getRelationXDIAddress();
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 

@@ -31,7 +31,7 @@ public final class XDIStatementUtil {
 		try {
 
 			XDIAddress subject;
-			XDIAddress predicate;
+			Object predicate;
 			Object object;
 
 			// subject
@@ -76,7 +76,7 @@ public final class XDIStatementUtil {
 		try {
 
 			XDIAddress subject;
-			XDIAddress predicate;
+			Object predicate;
 			Object object;
 
 			// subject

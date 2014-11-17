@@ -1,11 +1,11 @@
 package xdi2.tests.core.syntax;
 
 import xdi2.core.syntax.Parser;
-import xdi2.core.syntax.parser.ParserImpl;
+import xdi2.core.syntax.apg.APGParser;
 
-public class ParserImplTest extends ParserAbstractTest {
+public class APGParserTest extends AbstractParserTest {
 
-	private Parser parser = new ParserImpl();
+	private Parser parser = new APGParser();
 
 	@Override
 	public Parser getParser() {

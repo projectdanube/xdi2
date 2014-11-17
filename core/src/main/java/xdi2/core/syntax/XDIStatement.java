@@ -2,7 +2,6 @@ package xdi2.core.syntax;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteralNode;
-import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.core.util.XDIAddressUtil;
 
 public class XDIStatement extends XDIIdentifier {
@@ -10,24 +9,12 @@ public class XDIStatement extends XDIIdentifier {
 	private static final long serialVersionUID = -1416735368366011077L;
 
 	private XDIAddress subject;
-	private XDIAddress predicate;
+	private Object predicate;
 	private Object object;
 
-	XDIStatement(String string, XDIAddress subject, XDIAddress predicate, XDIArc object) {
-
-		this(string, subject, predicate, (Object) object);
-	}
-
-	XDIStatement(String string, XDIAddress subject, XDIAddress predicate, XDIAddress object) {
-
-		this(string, subject, predicate, (Object) object);
-	}
-
-	XDIStatement(String string, XDIAddress subject, XDIAddress predicate, Object object) {
+	XDIStatement(String string, XDIAddress subject, Object predicate, Object object) {
 
 		super(string);
-
-		if (subject.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + subject + " as subject of a statement: " + string);
 
 		this.subject = subject;
 		this.predicate = predicate;
@@ -43,39 +30,50 @@ public class XDIStatement extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIStatement(string);
 	}
 
-	public static XDIStatement fromComponents(XDIAddress subject, XDIAddress predicate, Object object) {
+	public static XDIStatement fromComponents(XDIAddress subject, Object predicate, Object object) {
 
-		if (XDIConstants.XDI_ADD_CONTEXT.equals(predicate)) {
+		if (predicate instanceof String && XDIConstants.STRING_CONTEXT.equals(predicate) && object instanceof XDIArc && ! XDIConstants.XDI_ADD_ROOT.equals(object.toString())) {
 
 			return fromContextNodeComponents(subject, (XDIArc) object);
-		} else if (XDIConstants.XDI_ADD_LITERAL.equals(predicate)) {
+		} else if (predicate instanceof XDIAddress && ! XDIConstants.STRING_CONTEXT.equals(predicate.toString()) && ! XDIConstants.XDI_ARC_LITERAL.toString().equals(predicate.toString()) && object instanceof XDIAddress) {
+
+			return fromRelationComponents(subject, (XDIAddress) predicate, (XDIAddress) object);
+		} else if (predicate instanceof XDIArc && XDIConstants.XDI_ARC_LITERAL.equals(predicate) && AbstractLiteralNode.isValidLiteralData(object)) {
 
 			return fromLiteralComponents(subject, object);
 		} else {
 
-			return fromRelationComponents(subject, predicate, (XDIAddress) object);
+			throw new IllegalArgumentException("Invalid statement components: " + subject + "/" + predicate + "/" + object);
 		}
 	}
 
 	public static XDIStatement fromContextNodeComponents(XDIAddress contextNodeXDIAddress, XDIArc contextNodeXDIArc) {
 
-		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_CONTEXT.toString() + "/" + contextNodeXDIArc.toString();
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.STRING_CONTEXT + "/" + contextNodeXDIArc.toString();
 
-		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_CONTEXT, contextNodeXDIArc);
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a contextual statement: " + string);
+		if (contextNodeXDIArc.isLiteralNodeXDIArc()) throw new IllegalArgumentException("Cannot have literal node arc " + contextNodeXDIArc + " as object of a contextual statement: " + string);
+
+		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.STRING_CONTEXT, contextNodeXDIArc);
 	}
 
 	public static XDIStatement fromRelationComponents(XDIAddress contextNodeXDIAddress, XDIAddress relationAddress, XDIAddress targetXDIAddress) {
 
 		String string = contextNodeXDIAddress.toString() + "/" + relationAddress.toString() + "/" + targetXDIAddress.toString();
 
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a relational statement: " + string);
+		if (relationAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + relationAddress + " as predicate of a relational statement: " + string);
+
 		return new XDIStatement(string, contextNodeXDIAddress, relationAddress, targetXDIAddress);
 	}
 
 	public static XDIStatement fromLiteralComponents(XDIAddress contextNodeXDIAddress, Object literalData) {
 
-		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ADD_LITERAL.toString() + "/" + AbstractLiteralNode.literalDataToString(literalData);
+		String string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ARC_LITERAL + "/" + AbstractLiteralNode.literalDataToString(literalData);
 
-		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ADD_LITERAL, literalData);
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a literal statement: " + string);
+
+		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ARC_LITERAL, literalData);
 	}
 
 	/*
@@ -87,7 +85,7 @@ public class XDIStatement extends XDIIdentifier {
 		return this.subject;
 	}
 
-	public XDIAddress getPredicate() {
+	public Object getPredicate() {
 
 		return this.predicate;
 	}
@@ -99,17 +97,31 @@ public class XDIStatement extends XDIIdentifier {
 
 	public boolean isContextNodeStatement() {
 
-		return XDIConstants.XDI_ADD_CONTEXT.equals(this.getPredicate()) && (this.getObject() instanceof XDIArc);
+		if (! (this.getPredicate() instanceof String)) return false;
+		if (! XDIConstants.STRING_CONTEXT.equals(this.getPredicate())) return false;
+		if (! (this.getObject() instanceof XDIArc)) return false;
+		if (XDIConstants.XDI_ADD_ROOT.toString().equals(this.getObject().toString())) return false;
+
+		return true;
 	}
 
 	public boolean isRelationStatement() {
 
-		return (! XDIConstants.XDI_ADD_CONTEXT.equals(this.getPredicate())) && (! XDIConstants.XDI_ADD_LITERAL.equals(this.getPredicate())) && (this.getObject() instanceof XDIAddress);
+		if (! (this.getPredicate() instanceof XDIAddress)) return false;
+		if (XDIConstants.STRING_CONTEXT.equals(this.getPredicate().toString())) return false;
+		if (XDIConstants.XDI_ARC_LITERAL.toString().equals(this.getPredicate().toString())) return false;
+		if (! (this.getObject() instanceof XDIAddress)) return false;
+
+		return true;
 	}
 
 	public boolean isLiteralStatement() {
 
-		return XDIConstants.XDI_ADD_LITERAL.equals(this.getPredicate()) && AbstractLiteralNode.isValidLiteralData(this.getObject());
+		if (! (this.getPredicate() instanceof XDIArc)) return false;
+		if (! XDIConstants.XDI_ARC_LITERAL.equals(this.getPredicate())) return false;
+		if (! AbstractLiteralNode.isValidLiteralData(this.getObject())) return false;
+
+		return true;
 	}
 
 	public XDIAddress getContextNodeXDIAddress() {
@@ -131,7 +143,7 @@ public class XDIStatement extends XDIIdentifier {
 
 		if (this.isRelationStatement()) {
 
-			return this.getPredicate();
+			return (XDIAddress) this.getPredicate();
 		}
 
 		return null;

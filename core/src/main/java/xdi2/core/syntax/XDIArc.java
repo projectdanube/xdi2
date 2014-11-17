@@ -1,7 +1,6 @@
 package xdi2.core.syntax;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.syntax.parser.ParserRegistry;
 
 public class XDIArc extends XDIIdentifier {
 
@@ -81,5 +80,10 @@ public class XDIArc extends XDIIdentifier {
 	public XDIXRef getXRef() {
 
 		return this.xref;
+	}
+
+	public boolean isLiteralNodeXDIArc() {
+
+		return this.equals(XDIConstants.XDI_ARC_LITERAL);
 	}
 }
