@@ -12,9 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteralNode;
-import xdi2.core.syntax.AbstractParser;
-import xdi2.core.syntax.Parser;
-import xdi2.core.syntax.ParserException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIIdentifier;
@@ -31,7 +28,7 @@ import com.coasttocoastresearch.apg.Parser.Result;
  * An XDI parser generated automatically by the APG parser generator based on an ABNF.
  * @see http://www.coasttocoastresearch.com/
  */
-public class APGParser extends AbstractParser implements Parser {
+public class APGParser extends xdi2.core.syntax.AbstractParser implements xdi2.core.syntax.Parser {
 
 	private static final Logger log = LoggerFactory.getLogger(APGParser.class);
 
@@ -167,7 +164,7 @@ public class APGParser extends AbstractParser implements Parser {
 			}
 		} catch (Exception ex) {
 
-			throw new ParserException(ex.getMessage(), ex);
+			throw new xdi2.core.syntax.ParserException(ex.getMessage(), ex);
 		}
 
 		Result result;
@@ -178,12 +175,12 @@ public class APGParser extends AbstractParser implements Parser {
 			if (log.isTraceEnabled()) log.trace("Result: " + result);
 		} catch (Exception ex) {
 
-			throw new ParserException(ex.getMessage(), ex);
+			throw new xdi2.core.syntax.ParserException(ex.getMessage(), ex);
 		}
 
 		if (! result.success()) {
 
-			throw new ParserException("Parser error for 'rule' " + parseRuleName.ruleName() + " (match: " + result.getMatchedPhraseLength() + ", max: " + result.getMaxMatchedPhraseLength() + ")");
+			throw new xdi2.core.syntax.ParserException("Parser error for 'rule' " + parseRuleName.ruleName() + " (match: " + result.getMatchedPhraseLength() + ", max: " + result.getMaxMatchedPhraseLength() + ")");
 		}
 
 		ast.translateAst();
