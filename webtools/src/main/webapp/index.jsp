@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDI2</title>
+<title>XDI2 web tools</title>
 <script type="text/javascript" src="tabber.js"></script>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
