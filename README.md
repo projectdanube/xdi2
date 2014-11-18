@@ -53,15 +53,6 @@ Then go to:
 
 See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
 
-| Link | Type | Description |
-| ----------- | ---- | ------ |
-| [xdi2-mongodb](https://github.com/projectdanube/xdi2-mongodb) | Storage | XDI Graph Storage in MongoDB
-| [xdi2-redis](https://github.com/projectdanube/xdi2-redis) | Storage | XDI Graph Storage in Redis
-| [xdi2-connector-facebook](https://github.com/projectdanube/xdi2-connector-facebook) | Connector | Facebook -> XDI Connector
-| [xdi2-connector-personal](https://github.com/projectdanube/xdi2-connector-personal) | Connector | Personal.com -> XDI Connector
-| [xdi2-connector-allfiled](https://github.com/projectdanube/xdi2-connector-allfiled) | Connector | Allfiled -> XDI Connector
-| [xdi2-connector-google-calendar](https://github.com/projectdanube/xdi2-connector-google-calendar) | Connector | Google Calendar -> XDI Connector
-
 ### Community
 
 Google Group: http://groups.google.com/group/xdi2
@@ -70,7 +61,7 @@ Weekly Call: [Thursdays at 2pm US Eastern Time](https://github.com/projectdanube
 
 IRC: [irc://irc.freenode.net:6667/xdi](irc://irc.freenode.net:6667/xdi)
 
-Javadoc: http://projectdanube.github.com/xdi2/apidocs
+Javadoc: http://projectdanube.github.io/xdi2/apidocs/
 
 ### Related Projects
 
