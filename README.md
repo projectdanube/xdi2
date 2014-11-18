@@ -6,7 +6,9 @@
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
-See https://xdi2.org/ for more information.
+Information: https://xdi2.org/
+
+Sample deployment: https://js.xdi2.org/
 
 ### Components
 
