@@ -99,59 +99,51 @@ public class InverseOperationContributor extends AbstractContributor implements 
 	 */
 
 	@Override
-	public ContributorResult executeGetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetXDIAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
-
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, relativeTargetXDIAddress, null, messageResult, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeSetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetXDIAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
-
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, relativeTargetXDIAddress, null, messageResult, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDelOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetXDIAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
-
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, relativeTargetXDIAddress, null, messageResult, executionContext);
 	}
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetXDIAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
-
-		return this.sendInverseMessage(operation, targetXDIAddress, null, messageResult, executionContext);
+		return this.sendInverseMessage(operation, relativeTargetXDIAddress, null, messageResult, executionContext);
 	}
 
 	@Override
 	public ContributorResult executeGetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeGetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return this.sendInverseMessage(operation, null, relativeTargetStatement, messageResult, executionContext);
 	}
 
 	@Override
 	public ContributorResult executeSetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeSetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return this.sendInverseMessage(operation, null, relativeTargetStatement, messageResult, executionContext);
 	}
 
 	@Override
 	public ContributorResult executeDelOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeDelOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return this.sendInverseMessage(operation, null, relativeTargetStatement, messageResult, executionContext);
 	}
 
 	@Override
 	public ContributorResult executeDoOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		return super.executeDoOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, messageResult, executionContext);
+		return this.sendInverseMessage(operation, null, relativeTargetStatement, messageResult, executionContext);
 	}
 
 	/*
