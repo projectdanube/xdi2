@@ -7,11 +7,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -129,7 +126,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 			PrintStream stream7 = new PrintStream(buffer7);
 			PrintStream stream8 = new PrintStream(buffer8);
 
-			if ("aparse".equals(parser)) {
+			/*if ("aparse".equals(parser)) {
 
 				List<Deque<String>> stackDeques;
 				Set<Entry<String, Integer>> countEntrySet;
