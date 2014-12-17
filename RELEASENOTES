@@ -1,5 +1,5 @@
-Release Notes 0.7
-=================
+release 0.7 ("Belgrade")
+========================
 
 * To move away from old "XRI" terminology, classes were renamed, e.g.:
 XDI3Segment -> XDIAddress
@@ -28,18 +28,3 @@ Xdi2DiscoveryException, Xdi2ClientException, Xdi2AgentException
 * The XdiMetaClass class is removed. 
 This represented the XDI context nodes [#] and [$], which are not valid anymore.
 If you have these context nodes in a graph, you should remove them before upgrading the code.
-
-Notation Shift Migration
-========================
-
-https://github.com/projectdanube/xdi2-tools/wiki/Notation-Shift
-
-Link Contract Shift Migration
-=============================
-
-https://github.com/projectdanube/xdi2-tools/wiki/Link-Contract-Shift
-
-Great Symbol Shift Migration
-============================
-
-https://github.com/projectdanube/xdi2-tools/wiki/Great-Symbol-Shift
