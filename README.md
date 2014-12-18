@@ -6,7 +6,7 @@
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
-Homepage: https://xdi2.org/, sample deployment: https://server.xdi2.org/
+Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
 
 ### Components
 
@@ -49,11 +49,9 @@ Then go to:
 | [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | Active.
 | [async-messages](https://github.com/projectdanube/xdi2/wiki/async-messages) | [async-messages](https://github.com/projectdanube/xdi2/tree/async-messages) | Active.
 
-### Plugins
-
-See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
-
 ### Community
+
+Website: https://xdi2.org/
 
 Google Group: http://groups.google.com/group/xdi2
 
@@ -69,6 +67,10 @@ Javadoc: http://projectdanube.github.io/xdi2/apidocs/
 * REST Wrapper for XDI2 signature creation and validation: https://github.com/Meeco/rest-xdi
 * XDI authentication for spring-security: https://github.com/andre-pt/xdi-springsecurity
 
+### Plugins
+
+See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
+
 ### Tests
 
-See [Testing](https://github.com/projectdanube/xdi2/wiki/Testing) for a description of unit tests, etc.
+See [here](https://github.com/projectdanube/xdi2/wiki/Testing) for a description of unit tests.
