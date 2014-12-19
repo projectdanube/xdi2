@@ -16,14 +16,14 @@ public class VariablesTest extends TestCase {
 				XDIArc.create("{1}"),
 				XDIArc.create("{$msg}"),
 				XDIArc.create("{(=)}"),
-				XDIArc.create("{{(=@)}}"),
+				XDIArc.create("{{(=+)}}"),
 				XDIArc.create("{=}"),
-				XDIArc.create("{!*}"),
-				XDIArc.create("{{[+]}}"),
+				XDIArc.create("{!@}"),
+				XDIArc.create("{{[#]}}"),
 				XDIArc.create("{{<$>}}"),
-				XDIArc.create("{{[+]<$>}}"),
-				XDIArc.create("{[<+>][<$>]}"),
-				XDIArc.create("{+}")
+				XDIArc.create("{{[#]<$>}}"),
+				XDIArc.create("{[<#>][<$>]}"),
+				XDIArc.create("{#}")
 		};
 
 		XDIArc variablesArcs[][] = new XDIArc[][] {
@@ -32,14 +32,14 @@ public class VariablesTest extends TestCase {
 				new XDIArc[] { },
 				new XDIArc[] { XDIArc.create("$msg") },
 				new XDIArc[] { XDIArc.create("=") },
-				new XDIArc[] { XDIArc.create("="), XDIArc.create("@") },
+				new XDIArc[] { XDIArc.create("="), XDIArc.create("+") },
 				new XDIArc[] { XDIArc.create("=") },
-				new XDIArc[] { XDIArc.create("!"), XDIArc.create("*") },
-				new XDIArc[] { XDIArc.create("[+]") },
+				new XDIArc[] { XDIArc.create("!"), XDIArc.create("@") },
+				new XDIArc[] { XDIArc.create("[#]") },
 				new XDIArc[] { XDIArc.create("<$>") },
-				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("<$>") },
-				new XDIArc[] { XDIArc.create("[<+>]"), XDIArc.create("[<$>]") },
-				new XDIArc[] { XDIArc.create("+") }
+				new XDIArc[] { XDIArc.create("[#]"), XDIArc.create("<$>") },
+				new XDIArc[] { XDIArc.create("[<#>]"), XDIArc.create("[<$>]") },
+				new XDIArc[] { XDIArc.create("#") }
 		};
 
 		String variablesXs[] = new String[] {
@@ -80,14 +80,14 @@ public class VariablesTest extends TestCase {
 				new XDIArc[] { },
 				new XDIArc[] { },
 				new XDIArc[] { XDIArc.create("(=)"), XDIArc.create("(=markus)") },
-				new XDIArc[] { XDIArc.create("(=)"), XDIArc.create("(=markus)"), XDIArc.create("(@)"), XDIArc.create("(@org)") },
+				new XDIArc[] { XDIArc.create("(=)"), XDIArc.create("(=markus)"), XDIArc.create("(+)"), XDIArc.create("(+org)") },
 				new XDIArc[] { XDIArc.create("="), XDIArc.create("=markus") },
-				new XDIArc[] { XDIArc.create("!"), XDIArc.create("*"), XDIArc.create("!1234"), XDIArc.create("*work") },
-				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("[+address]"), XDIArc.create("[<+email>]") },
+				new XDIArc[] { XDIArc.create("!"), XDIArc.create("@"), XDIArc.create("!:uuid:1234"), XDIArc.create("@4") },
+				new XDIArc[] { XDIArc.create("[#]"), XDIArc.create("[#address]"), XDIArc.create("[<#email>]") },
 				new XDIArc[] { XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
-				new XDIArc[] { XDIArc.create("[+]"), XDIArc.create("[+address]"), XDIArc.create("[<+email>]"), XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
-				new XDIArc[] { XDIArc.create("[<+email>]"), XDIArc.create("[<$uri>]") },
-				new XDIArc[] { XDIArc.create("[<+(email)>]"), XDIArc.create("<+(email)>"), XDIArc.create("[<+email>]"), XDIArc.create("<+email>") }
+				new XDIArc[] { XDIArc.create("[#]"), XDIArc.create("[#address]"), XDIArc.create("[<#email>]"), XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("[<#email>]"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("[<#(email)>]"), XDIArc.create("<#(email)>"), XDIArc.create("[<#email>]"), XDIArc.create("<#email>") }
 		};
 
 		XDIArc variablesMatchesFalse[][] = new XDIArc[][] {
@@ -95,15 +95,15 @@ public class VariablesTest extends TestCase {
 				new XDIArc[] { },
 				new XDIArc[] { },
 				new XDIArc[] { },
-				new XDIArc[] { XDIArc.create("(@)"), XDIArc.create("(@org)"), XDIArc.create("@org"), XDIArc.create("=markus") },
-				new XDIArc[] { XDIArc.create("=markus"), XDIArc.create("@org") },
-				new XDIArc[] { XDIArc.create("@"), XDIArc.create("@org"), XDIArc.create("(@org)"), XDIArc.create("(=markus)") },
-				new XDIArc[] { XDIArc.create("@org"), XDIArc.create("=markus") },
-				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("[$v]"), XDIArc.create("[<$uri>]") },
-				new XDIArc[] { XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<+email>"), XDIArc.create("[<+email>]") },
-				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("[$v]"), XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<+email>") },
-				new XDIArc[] { XDIArc.create("+"), XDIArc.create("<+>"), XDIArc.create("+address"), XDIArc.create("<+email>"), XDIArc.create("<+email>"), XDIArc.create("$"), XDIArc.create("<$>"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<$uri>") },
-				new XDIArc[] { XDIArc.create("(+name)") }
+				new XDIArc[] { XDIArc.create("(+)"), XDIArc.create("(+org)"), XDIArc.create("+org"), XDIArc.create("=markus") },
+				new XDIArc[] { XDIArc.create("=markus"), XDIArc.create("+org") },
+				new XDIArc[] { XDIArc.create("+"), XDIArc.create("+org"), XDIArc.create("(+org)"), XDIArc.create("(=markus)") },
+				new XDIArc[] { XDIArc.create("+org"), XDIArc.create("=markus") },
+				new XDIArc[] { XDIArc.create("#"), XDIArc.create("<#>"), XDIArc.create("#address"), XDIArc.create("<#email>"), XDIArc.create("[$v]"), XDIArc.create("[<$uri>]") },
+				new XDIArc[] { XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<#email>"), XDIArc.create("[<#email>]") },
+				new XDIArc[] { XDIArc.create("#"), XDIArc.create("<#>"), XDIArc.create("#address"), XDIArc.create("<#email>"), XDIArc.create("[$v]"), XDIArc.create("$"), XDIArc.create("[$]"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<#email>") },
+				new XDIArc[] { XDIArc.create("#"), XDIArc.create("<#>"), XDIArc.create("#address"), XDIArc.create("<#email>"), XDIArc.create("<#email>"), XDIArc.create("$"), XDIArc.create("<$>"), XDIArc.create("$uri"), XDIArc.create("[$uri]"), XDIArc.create("<$uri>") },
+				new XDIArc[] { XDIArc.create("(#name)") }
 		};
 		
 		for (XDIArc variable : variables) assertTrue(VariableUtil.isVariable(variable));
