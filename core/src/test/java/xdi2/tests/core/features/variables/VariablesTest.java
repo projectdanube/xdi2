@@ -87,7 +87,7 @@ public class VariablesTest extends TestCase {
 				new XDIArc[] { XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
 				new XDIArc[] { XDIArc.create("[#]"), XDIArc.create("[#address]"), XDIArc.create("[<#email>]"), XDIArc.create("<$>"), XDIArc.create("<$uri>"), XDIArc.create("[<$uri>]") },
 				new XDIArc[] { XDIArc.create("[<#email>]"), XDIArc.create("[<$uri>]") },
-				new XDIArc[] { XDIArc.create("[<#(email)>]"), XDIArc.create("<#(email)>"), XDIArc.create("[<#email>]"), XDIArc.create("<#email>") }
+				new XDIArc[] { XDIArc.create("#email"), XDIArc.create("[<#(email)>]"), XDIArc.create("<#(email)>"), XDIArc.create("[<#email>]"), XDIArc.create("<#email>") }
 		};
 
 		XDIArc variablesMatchesFalse[][] = new XDIArc[][] {
