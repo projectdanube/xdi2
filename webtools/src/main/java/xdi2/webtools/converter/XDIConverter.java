@@ -25,7 +25,6 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
-import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.io.writers.XDIRDFJSONLDWriter;
 import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.webtools.util.OutputCache;
