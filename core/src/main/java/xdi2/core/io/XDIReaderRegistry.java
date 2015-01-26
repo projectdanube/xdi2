@@ -33,16 +33,16 @@ public final class XDIReaderRegistry {
 
 	private static List<Class<XDIReader>> readerClasses;
 
-	private static Map<String, Class<XDIReader>> readerClassesByFormat;
-	private static Map<String, Class<XDIReader>> readerClassesByFileExtension;
-	private static Map<MimeType, Class<XDIReader>> readerClassesByMimeType;
+	private static Map<String, Class<? extends XDIReader>> readerClassesByFormat;
+	private static Map<String, Class<? extends XDIReader>> readerClassesByFileExtension;
+	private static Map<MimeType, Class<? extends XDIReader>> readerClassesByMimeType;
 
 	static {
 
 		readerClasses = new ArrayList<Class<XDIReader>>();
-		readerClassesByFormat = new HashMap<String, Class<XDIReader>>();
-		readerClassesByFileExtension = new HashMap<String, Class<XDIReader>>();
-		readerClassesByMimeType = new HashMap<MimeType, Class<XDIReader>>();
+		readerClassesByFormat = new HashMap<String, Class<? extends XDIReader>>();
+		readerClassesByFileExtension = new HashMap<String, Class<? extends XDIReader>>();
+		readerClassesByMimeType = new HashMap<MimeType, Class<? extends XDIReader>>();
 
 		for (String readerClassName : readerClassNames) {
 
@@ -61,25 +61,30 @@ public final class XDIReaderRegistry {
 
 		for (Class<XDIReader> readerClass : readerClasses) {
 
-			XDIReader reader;
-
-			try {
-
-				Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
-				reader = constructor.newInstance((Properties) null);
-			} catch (Exception ex) {
-
-				throw new RuntimeException(ex);
-			}
-
-			String format = reader.getFormat();
-			String fileExtension = reader.getFileExtension();
-			MimeType mimeType = reader.getMimeType();
-
-			if (format != null) readerClassesByFormat.put(format, readerClass);
-			if (fileExtension != null) readerClassesByFileExtension.put(fileExtension, readerClass);
-			if (mimeType != null) readerClassesByMimeType.put(mimeType, readerClass);
+			addReader(readerClass);
 		}
+	}
+
+	public static void addReader(Class<? extends XDIReader> readerClass) {
+
+		XDIReader reader;
+
+		try {
+
+			Constructor<? extends XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			reader = constructor.newInstance((Properties) null);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex);
+		}
+
+		String format = reader.getFormat();
+		String fileExtension = reader.getFileExtension();
+		MimeType mimeType = reader.getMimeType();
+
+		if (format != null) readerClassesByFormat.put(format, readerClass);
+		if (fileExtension != null) readerClassesByFileExtension.put(fileExtension, readerClass);
+		if (mimeType != null) readerClassesByMimeType.put(mimeType, readerClass);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -104,12 +109,12 @@ public final class XDIReaderRegistry {
 
 		if (AutoReader.FORMAT_NAME.equalsIgnoreCase(format)) return getAuto();
 
-		Class<XDIReader> readerClass = readerClassesByFormat.get(format);
+		Class<? extends XDIReader> readerClass = readerClassesByFormat.get(format);
 		if (readerClass == null) return null;
 
 		try {
 
-			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIReader> constructor = readerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
@@ -132,12 +137,12 @@ public final class XDIReaderRegistry {
 
 		if (fileExtension == null) return XDIReaderRegistry.getDefault();
 
-		Class<XDIReader> readerClass = readerClassesByFileExtension.get(fileExtension);
+		Class<? extends XDIReader> readerClass = readerClassesByFileExtension.get(fileExtension);
 		if (readerClass == null) return null;
 
 		try {
 
-			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIReader> constructor = readerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
@@ -158,12 +163,12 @@ public final class XDIReaderRegistry {
 
 		if (mimeType == null) return XDIReaderRegistry.getDefault();
 
-		Class<XDIReader> readerClass = readerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
+		Class<? extends XDIReader> readerClass = readerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
 		if (readerClass == null) return null;
 
 		try {
 
-			Constructor<XDIReader> constructor = readerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIReader> constructor = readerClass.getConstructor(Properties.class);
 			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 

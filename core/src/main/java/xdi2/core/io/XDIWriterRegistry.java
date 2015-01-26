@@ -50,16 +50,16 @@ public final class XDIWriterRegistry {
 
 	private static Class<XDIWriter> defaultWriterClass;
 
-	private static Map<String, Class<XDIWriter>> writerClassesByFormat;
-	private static Map<String, Class<XDIWriter>> writerClassesByFileExtension;
-	private static Map<MimeType, Class<XDIWriter>> writerClassesByMimeType;
+	private static Map<String, Class<? extends XDIWriter>> writerClassesByFormat;
+	private static Map<String, Class<? extends XDIWriter>> writerClassesByFileExtension;
+	private static Map<MimeType, Class<? extends XDIWriter>> writerClassesByMimeType;
 
 	static {
 
 		writerClasses = new ArrayList<Class<XDIWriter>>();
-		writerClassesByFormat = new HashMap<String, Class<XDIWriter>>();
-		writerClassesByFileExtension = new HashMap<String, Class<XDIWriter>>();
-		writerClassesByMimeType = new HashMap<MimeType, Class<XDIWriter>>();
+		writerClassesByFormat = new HashMap<String, Class<? extends XDIWriter>>();
+		writerClassesByFileExtension = new HashMap<String, Class<? extends XDIWriter>>();
+		writerClassesByMimeType = new HashMap<MimeType, Class<? extends XDIWriter>>();
 
 		for (String writerClassName : writerClassNames) {
 
@@ -78,27 +78,32 @@ public final class XDIWriterRegistry {
 
 		for (Class<XDIWriter> writerClass : writerClasses) {
 
-			XDIWriter writer;
-
-			try {
-
-				Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
-				writer = constructor.newInstance((Properties) null);
-			} catch (Exception ex) {
-
-				throw new RuntimeException(ex);
-			}
-
-			String format = writer.getFormat();
-			String fileExtension = writer.getFileExtension();
-			MimeType mimeType = writer.getMimeType();
-
-			if (format != null) writerClassesByFormat.put(format, writerClass);
-			if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
-			if (mimeType != null) writerClassesByMimeType.put(mimeType, writerClass);
+			addWriter(writerClass);
 		}
 
 		defaultWriterClass = writerClasses.get(0);
+	}
+
+	public static void addWriter(Class<? extends XDIWriter> writerClass) {
+
+		XDIWriter writer;
+
+		try {
+
+			Constructor<? extends XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			writer = constructor.newInstance((Properties) null);
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex);
+		}
+
+		String format = writer.getFormat();
+		String fileExtension = writer.getFileExtension();
+		MimeType mimeType = writer.getMimeType();
+
+		if (format != null) writerClassesByFormat.put(format, writerClass);
+		if (fileExtension != null) writerClassesByFileExtension.put(fileExtension, writerClass);
+		if (mimeType != null) writerClassesByMimeType.put(mimeType, writerClass);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,12 +127,12 @@ public final class XDIWriterRegistry {
 
 		if (format == null) return XDIWriterRegistry.getDefault();
 
-		Class<XDIWriter> writerClass = writerClassesByFormat.get(format);
+		Class<? extends XDIWriter> writerClass = writerClassesByFormat.get(format);
 		if (writerClass == null) return null;
 
 		try {
 
-			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIWriter> constructor = writerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
@@ -148,12 +153,12 @@ public final class XDIWriterRegistry {
 
 		if (fileExtension == null) return XDIWriterRegistry.getDefault();
 
-		Class<XDIWriter> writerClass = writerClassesByFileExtension.get(fileExtension);
+		Class<? extends XDIWriter> writerClass = writerClassesByFileExtension.get(fileExtension);
 		if (writerClass == null) return null;
 
 		try {
 
-			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIWriter> constructor = writerClass.getConstructor(Properties.class);
 			return constructor.newInstance(parameters);
 		} catch (Exception ex) {
 
@@ -174,12 +179,12 @@ public final class XDIWriterRegistry {
 
 		if (mimeType == null) return XDIWriterRegistry.getDefault();
 
-		Class<XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
+		Class<? extends XDIWriter> writerClass = writerClassesByMimeType.get(mimeType.mimeTypeWithoutParameters());
 		if (writerClass == null) return null;
 
 		try {
 
-			Constructor<XDIWriter> constructor = writerClass.getConstructor(Properties.class);
+			Constructor<? extends XDIWriter> constructor = writerClass.getConstructor(Properties.class);
 			return constructor.newInstance(mimeType.getParameters());
 		} catch (Exception ex) {
 
