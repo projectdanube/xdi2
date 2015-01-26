@@ -25,7 +25,9 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
-import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.io.writers.XDIRDFTriGWriter;
+import xdi2.core.io.writers.XDIRDFJSONLDWriter;
+import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -40,6 +42,12 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 
 	private static MemoryGraphFactory graphFactory;
 	private static List<String> sampleInputs;
+
+	static {
+
+		XDIWriterRegistry.addWriter(XDIRDFTriGWriter.class);
+		XDIWriterRegistry.addWriter(XDIRDFJSONLDWriter.class);
+	}
 
 	static {
 
@@ -88,7 +96,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);

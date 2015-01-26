@@ -27,7 +27,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
-import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
@@ -150,7 +150,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		request.setAttribute("sampleTooltips", sampleTooltips);
 		request.setAttribute("category", category);
 		request.setAttribute("sample", sample);
-		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);

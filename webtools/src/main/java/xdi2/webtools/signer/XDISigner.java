@@ -39,7 +39,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.io.writers.XDIDisplayWriter;
+import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
@@ -124,7 +124,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		if (sample == null) sample = "1";
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
