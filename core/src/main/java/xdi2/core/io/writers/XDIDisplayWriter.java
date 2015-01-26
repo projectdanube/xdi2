@@ -145,7 +145,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// write the statement
 
-		this.writecontextNodeXDIAddress(bufferedWriter, XDIstatement.getSubject());
+		this.writeContextNodeXDIAddress(bufferedWriter, XDIstatement.getSubject());
 		this.writeSeparator(bufferedWriter);
 		this.writePredicateAddress(bufferedWriter, XDIstatement.getPredicate());
 		this.writeSeparator(bufferedWriter);
@@ -155,7 +155,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			this.writecontextNodeXDIArc(bufferedWriter, XDIstatement.getSubject(), (XDIArc) XDIstatement.getObject());
 		} else if (XDIstatement.isRelationStatement()) {
 
-			this.writecontextNodeXDIAddress(bufferedWriter, (XDIAddress) XDIstatement.getObject());
+			this.writeContextNodeXDIAddress(bufferedWriter, (XDIAddress) XDIstatement.getObject());
 		} else if (XDIstatement.isLiteralStatement()) {
 
 			this.writeLiteralData(bufferedWriter, XDIstatement.getObject());
@@ -176,7 +176,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void writecontextNodeXDIAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress) throws IOException {
+	private void writeContextNodeXDIAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress) throws IOException {
 
 		if (this.writeHtml) {
 
