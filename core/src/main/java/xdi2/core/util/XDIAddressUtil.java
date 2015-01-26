@@ -1,5 +1,6 @@
 package xdi2.core.util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -305,7 +306,7 @@ public final class XDIAddressUtil {
 	/**
 	 * Finds a part of an XDI address that matches a certain node type.
 	 */
-	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
+	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes) {
 
 		try {
 
@@ -315,7 +316,13 @@ public final class XDIAddressUtil {
 			while (contextNode != null) {
 
 				xdiContext = XdiAbstractContext.fromContextNode(contextNode);
-				if (clazz.isAssignableFrom(xdiContext.getClass())) return contextNode.getXDIAddress();
+
+				boolean found = false;
+
+				for (Class<? extends XdiContext<?>> clazz : clazzes)
+					if (clazz.isAssignableFrom(xdiContext.getClass())) found = true;
+
+				if (found) return contextNode.getXDIAddress();
 
 				contextNode = contextNode.getContextNode();
 			}
@@ -325,6 +332,55 @@ public final class XDIAddressUtil {
 
 			throw new Xdi2RuntimeException("Unexpected reflect error: " + ex.getMessage(), ex);
 		}
+	}
+
+	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
+
+		@SuppressWarnings("unchecked")
+		Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
+		clazzes[0] = clazz;
+
+		return findXDIAddress(XDIaddress, clazzes);
+	}
+
+	/**
+	 * Finds a part of an XDI address that does not match a certain node type.
+	 */
+	public static XDIAddress findNotXDIAddress(XDIAddress XDIaddress, Class<? extends XdiContext<?>>[] clazzes) {
+
+		try {
+
+			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
+			XdiContext<?> xdiContext = null;
+
+			while (contextNode != null) {
+
+				xdiContext = XdiAbstractContext.fromContextNode(contextNode);
+
+				boolean found = false;
+
+				for (Class<? extends XdiContext<?>> clazz : clazzes)
+					if (clazz.isAssignableFrom(xdiContext.getClass())) found = true;
+
+				if (! found) return contextNode.getXDIAddress();
+
+				contextNode = contextNode.getContextNode();
+			}
+
+			return null;
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException("Unexpected reflect error: " + ex.getMessage(), ex);
+		}
+	}
+
+	public static <X extends XdiContext<?>> XDIAddress findNotXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
+
+		@SuppressWarnings("unchecked")
+		Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
+		clazzes[0] = clazz;
+
+		return findNotXDIAddress(XDIaddress, clazzes);
 	}
 
 	/**
