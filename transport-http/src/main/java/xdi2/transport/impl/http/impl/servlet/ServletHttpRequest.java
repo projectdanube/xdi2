@@ -22,17 +22,15 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 	private String baseUri;
 	private String requestPath;
 
-	private ServletHttpRequest(HttpServletRequest httpServletRequest, String method, String uri, String requestPath) { 
+	private ServletHttpRequest(HttpServletRequest httpServletRequest, String method, String baseUri, String requestPath) { 
 
-		this.method = method;
 		this.httpServletRequest = httpServletRequest;
-		this.baseUri = uri;
+		this.method = method;
+		this.baseUri = baseUri;
 		this.requestPath = requestPath;
 	}
 
 	public static ServletHttpRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
-
-		String method = httpServletRequest.getMethod();
 
 		String requestUri = httpServletRequest.getRequestURI();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
@@ -53,6 +51,8 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
+
+		String method = httpServletRequest.getMethod();
 
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
