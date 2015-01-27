@@ -18,6 +18,7 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.factory.MessagingTargetFactory;
+import xdi2.transport.impl.websocket.WebSocketTransport;
 
 /**
  * Registry to mount and unmount messaging targets.
@@ -32,6 +33,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	private Map<String, MessagingTargetFactoryMount> messagingTargetFactoryMounts;
 
 	private ApplicationContext applicationContext;
+
+	private WebSocketTransport webSocketTransport;
 
 	public HttpMessagingTargetRegistry() {
 
@@ -158,6 +161,12 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		this.messagingTargetMounts.put(messagingTargetPath, messagingTargetMount);
 
+		// install websocket endpoint
+
+		/*		WebSocketEndpoint.install(servletContext, webSocketTransport, messagingTargetMount);
+
+		((WebApplicationContext) this.applicationContext)
+		 */	
 		// done
 
 		log.info("Messaging target " + messagingTarget.getClass().getCanonicalName() + " mounted at path " + messagingTargetPath + ".");
@@ -455,4 +464,19 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		return this.messagingTargetFactoryMounts.keySet().toArray(new String[this.messagingTargetFactoryMounts.size()]);
 	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public WebSocketTransport getWebSocketTransport() {
+
+		return this.webSocketTransport;
+	}
+
+	public void setWebSocketTransport(WebSocketTransport webSocketTransport) {
+
+		this.webSocketTransport = webSocketTransport;
+	}
 }
+

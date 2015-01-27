@@ -29,14 +29,8 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
 
-	public WebSocketTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
-
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
-	}
-
 	public WebSocketTransport() {
 
-		this(null);
 	}
 
 	@Override
@@ -51,7 +45,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		super.shutdown();
 	}
 
-	public void doMessage(WebSocketRequest request, WebSocketResponse response) throws IOException {
+	public void doMessage(WebSocketRequest request, WebSocketResponse response) {
 
 		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getSubprotocol() + ". Subprotocol: " + request.getSubprotocol());
 
@@ -82,7 +76,8 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		if (messagingTarget == null) {
 
-			log.warn("No XDI messaging target configured at " + request.getRequestPath() + ".");
+			// TODO: what to do here?
+			log.warn("No XDI messaging target configured. TODO: what to do here?");
 
 			return;
 		}
@@ -174,8 +169,9 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void handleInternalException(WebSocketRequest request, WebSocketResponse response, Exception ex) throws IOException {
+	private static void handleInternalException(WebSocketRequest request, WebSocketResponse response, Exception ex) {
 
+		// TODO: what to do here?
 		log.error("Unexpected exception: " + ex.getMessage(), ex);
 	}
 

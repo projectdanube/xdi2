@@ -2,7 +2,6 @@ package xdi2.transport.impl.websocket;
 
 import javax.websocket.RemoteEndpoint.Async;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpointConfig;
 
 import xdi2.transport.Response;
 
@@ -26,7 +25,7 @@ public class WebSocketResponse implements Response {
 		this(null);
 	}
 
-	public static WebSocketResponse create(ServerEndpointConfig serverEndpointConfig, Session session) {
+	public static WebSocketResponse create(Session session) {
 
 		WebSocketResponse webSocketResponse = new WebSocketResponse();
 		webSocketResponse.setAsync(session.getAsyncRemote());

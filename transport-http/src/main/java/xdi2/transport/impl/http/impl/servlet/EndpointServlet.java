@@ -22,6 +22,7 @@ import xdi2.transport.impl.http.HttpRequest;
 import xdi2.transport.impl.http.HttpResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.impl.websocket.WebSocketTransport;
 import xdi2.transport.impl.websocket.endpoint.WebSocketEndpoint;
 
 /**
@@ -38,6 +39,7 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
 	private HttpTransport httpTransport;
+	private WebSocketTransport webSocketTransport;
 
 	public EndpointServlet() {
 
@@ -51,10 +53,13 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
-		// find bean
+		// find beans
 
 		this.httpTransport = (HttpTransport) applicationContext.getBean("HttpTransport");
 		if (this.httpTransport == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpTransport' not found.");
+
+		this.webSocketTransport = (WebSocketTransport) applicationContext.getBean("WebSocketTransport");
+		if (this.webSocketTransport == null) throw new NoSuchBeanDefinitionException("Required bean 'WebSocketTransport' not found.");
 	}
 
 	@Override
@@ -67,14 +72,14 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
 		if (applicationContext != null) this.setApplicationContext(applicationContext);
 
-		// install websocket endpoint
+		// install websocket
 
 		try {
 
-			WebSocketEndpoint.install(servletConfig.getServletContext(), "/");
+			WebSocketEndpoint.install(servletConfig.getServletContext(), this.getWebSocketTransport());
 		} catch (DeploymentException ex) {
 
-			throw new ServletException("Cannot install websocket endpoint: " + ex.getMessage(), ex);
+			throw new ServletException("Problem while deploying websocket endpoint: " + ex.getMessage(), ex);
 		}
 	}
 
@@ -141,5 +146,15 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	public void setHttpTransport(HttpTransport httpTransport) {
 
 		this.httpTransport = httpTransport;
+	}
+
+	public WebSocketTransport getWebSocketTransport() {
+
+		return this.webSocketTransport;
+	}
+
+	public void setWebSocketTransport(WebSocketTransport webSocketTransport) {
+
+		this.webSocketTransport = webSocketTransport;
 	}
 }

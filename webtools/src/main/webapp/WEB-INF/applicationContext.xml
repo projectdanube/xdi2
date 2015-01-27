@@ -17,6 +17,10 @@
 		</property>
 	</bean>
 
+	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
+		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+	</bean>
+
 	<!-- SPRING -->
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
