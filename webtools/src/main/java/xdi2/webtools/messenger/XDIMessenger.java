@@ -27,7 +27,6 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
@@ -97,7 +96,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		response.setCharacterEncoding("UTF-8");
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);

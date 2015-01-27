@@ -95,7 +95,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);

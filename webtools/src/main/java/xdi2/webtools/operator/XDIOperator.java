@@ -34,7 +34,6 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -85,7 +84,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
@@ -136,7 +135,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			else if ("buildKeyPairs".equals(request.getParameter("cmd"))) 
 				buildKeyPairs(request, response);
 
-			request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
+			request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
 			request.setAttribute("writeImplied", null);
 			request.setAttribute("writeOrdered", "on");
 			request.setAttribute("writePretty", null);

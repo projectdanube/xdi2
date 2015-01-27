@@ -22,7 +22,6 @@ import xdi2.client.http.ssl.XDI2X509TrustManager;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
@@ -67,7 +66,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		response.setCharacterEncoding("UTF-8");
 
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
-		request.setAttribute("resultFormat", XDIRDFTriGWriter.FORMAT_NAME);
+		request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
