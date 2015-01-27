@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.DeploymentException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import xdi2.transport.impl.http.HttpRequest;
 import xdi2.transport.impl.http.HttpResponse;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.impl.websocket.endpoint.WebSocketEndpoint;
 
 /**
  * The XDI endpoint servlet.
@@ -35,15 +37,13 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
-	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
 	private HttpTransport httpTransport;
 
 	public EndpointServlet() {
 
 		super();
 
-		this.httpMessagingTargetRegistry = new HttpMessagingTargetRegistry();
-		this.httpTransport = new HttpTransport(this.httpMessagingTargetRegistry);
+		this.httpTransport = new HttpTransport(new HttpMessagingTargetRegistry());
 	}
 
 	@Override
@@ -51,8 +51,7 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
-		this.httpMessagingTargetRegistry = (HttpMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
-		if (this.httpMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpMessagingTargetRegistry' not found.");
+		// find bean
 
 		this.httpTransport = (HttpTransport) applicationContext.getBean("HttpTransport");
 		if (this.httpTransport == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpTransport' not found.");
@@ -63,8 +62,20 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		super.init(servletConfig);
 
+		// find application context
+
 		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
 		if (applicationContext != null) this.setApplicationContext(applicationContext);
+
+		// install websocket endpoint
+
+		try {
+
+			WebSocketEndpoint.install(servletConfig.getServletContext(), "/");
+		} catch (DeploymentException ex) {
+
+			throw new ServletException("Cannot install websocket endpoint: " + ex.getMessage(), ex);
+		}
 	}
 
 	@Override
@@ -117,20 +128,10 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		this.httpTransport.doOptions(request, response);
 	}
-	
+
 	/*
 	 * Getters and setters
 	 */
-
-	public HttpMessagingTargetRegistry getHttpMessagingTargetRegistry() {
-
-		return this.httpMessagingTargetRegistry;
-	}
-
-	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
-
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
-	}
 
 	public HttpTransport getHttpTransport() {
 

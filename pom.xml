@@ -36,6 +36,7 @@
 		<module>transport-http-standalone</module>
 		<module>transport-http-war</module>
 		<module>webtools</module>
+		<module>rdf</module>
 	</modules>
 
 	<issueManagement>
