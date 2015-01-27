@@ -408,17 +408,17 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		// try to find an appropriate reader for the provided mime type
 
-		XDIReader reader = null;
+		XDIReader xdiReader = null;
 
 		String contentType = request.getContentType();
 		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
-		reader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
+		xdiReader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
 
-		if (reader == null) reader = XDIReaderRegistry.getDefault();
+		if (xdiReader == null) xdiReader = XDIReaderRegistry.getDefault();
 
 		// read everything into an in-memory XDI graph (a message envelope)
 
-		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + reader.getClass().getSimpleName() + ".");
+		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		MessageEnvelope messageEnvelope;
@@ -428,7 +428,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			reader.read(graph, inputStream);
+			xdiReader.read(graph, inputStream);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
 		} catch (Exception ex) {
