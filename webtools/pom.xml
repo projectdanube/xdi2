@@ -42,9 +42,9 @@
 				<version>2.4</version>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.0.RC5</version>
+				<version>9.3.0.M1</version>
 				<configuration>
 					<jettyConfig>
 						${basedir}/src/test/resources/jetty.xml
@@ -141,6 +141,12 @@
 			<version>0.7-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+	    <dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-server</artifactId>
+			<version>9.3.0.M1</version>
+			<scope>compile</scope>
+	    </dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-http</artifactId>
