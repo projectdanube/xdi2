@@ -39,7 +39,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java</artifactId>
+			<artifactId>jsonld-java-sesame</artifactId>
 			<version>0.5.1</version>
 			<scope>compile</scope>
 		</dependency>
