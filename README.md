@@ -48,6 +48,7 @@ Then go to:
 | [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | Active.
 | [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | Active.
 | [async-messages](https://github.com/projectdanube/xdi2/wiki/async-messages) | [async-messages](https://github.com/projectdanube/xdi2/tree/async-messages) | Active.
+| [websockets](https://github.com/projectdanube/xdi2/wiki/websockets) | [websockets](https://github.com/projectdanube/xdi2/tree/websockets) | Active.
 
 ### Community
 
