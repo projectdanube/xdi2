@@ -51,6 +51,8 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		serverEndpointConfig.getUserProperties().put("webSocketTransport", webSocketTransport);
 
 		serverContainer.addEndpoint(serverEndpointConfig);
+
+		log.info("Installed WebSocket endpoint: " + serverEndpointConfig);
 	}
 
 	@Override
