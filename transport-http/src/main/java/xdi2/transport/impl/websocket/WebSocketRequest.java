@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.transport.Request;
+import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
 
 /**
  * This class represents a WebSocket request to the server.
@@ -21,23 +22,26 @@ public class WebSocketRequest implements Request {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketRequest.class);
 
+	private WebSocketMessageHandler webSocketMessageHandler;
 	private String requestPath;
 	private String subprotocol;
 	private Reader reader;
 
-	private WebSocketRequest(String requestPath, String subprotocol, Reader reader) {
+	private WebSocketRequest(WebSocketMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
 
+		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.requestPath = requestPath;
 		this.subprotocol = subprotocol;
 		this.reader = reader;
 	}
 
-	public static WebSocketRequest create(Session session, Reader reader) {
+	public static WebSocketRequest create(WebSocketMessageHandler webSocketMessageHandler, Session session, String contextPath, String endpointPath, Reader reader) {
 
-		String requestUri = session.getRequestURI().toString();
+		String requestUri = session.getRequestURI().getPath();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
 
-		String requestPath = requestUri;
+		String requestPath = requestUri.substring(contextPath.length() + endpointPath.length());
+		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
 		try {
 
@@ -49,12 +53,17 @@ public class WebSocketRequest implements Request {
 
 		String subprotocol = session.getNegotiatedSubprotocol();
 
-		return new WebSocketRequest(requestPath, subprotocol, reader);
+		return new WebSocketRequest(webSocketMessageHandler, requestPath, subprotocol, reader);
 	}
 
 	/*
 	 * Getters and setters
 	 */
+
+	public WebSocketMessageHandler getWebSocketMessageHandler() {
+
+		return this.webSocketMessageHandler;
+	}
 
 	public String getRequestPath() {
 
