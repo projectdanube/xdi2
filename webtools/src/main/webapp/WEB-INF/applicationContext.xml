@@ -19,6 +19,7 @@
 
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
 		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="endpointPath" value="/xdi/" />
 	</bean>
 
 	<!-- SPRING -->
@@ -148,6 +149,7 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">

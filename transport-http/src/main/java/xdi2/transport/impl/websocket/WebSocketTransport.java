@@ -3,21 +3,27 @@ package xdi2.transport.impl.websocket;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
+import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;
+import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor.WriteListener;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
@@ -28,9 +34,17 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransport.class);
 
 	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
+	private String endpointPath;
+
+	public WebSocketTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
+
+		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.endpointPath = endpointPath;
+	}
 
 	public WebSocketTransport() {
 
+		this(null, null);
 	}
 
 	@Override
@@ -47,7 +61,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 	public void doMessage(WebSocketRequest request, WebSocketResponse response) {
 
-		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getSubprotocol() + ". Subprotocol: " + request.getSubprotocol());
+		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getSubprotocol());
 
 		try {
 
@@ -66,7 +80,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 	protected void processMessage(WebSocketRequest request, WebSocketResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 
 		// execute interceptors
 
@@ -91,6 +105,19 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messageResult == null || messageResult.getGraph() == null) return;
+
+		// EXPERIMENTAL: install a write listener
+
+		WriteListenerInterceptor writeListenerInterceptor = ((AbstractMessagingTarget) messagingTarget).getInterceptors().findInterceptor(WriteListenerInterceptor.class);
+		WebSocketWriteListener webSocketWriteListener = request.getWebSocketMessageHandler().getWebSocketWriteListener();
+
+		if (writeListenerInterceptor != null && webSocketWriteListener == null) {
+
+			webSocketWriteListener = new WebSocketWriteListener(messageEnvelope, messagingTarget, request, response);
+			request.getWebSocketMessageHandler().setWebSocketWriteListener(webSocketWriteListener);
+
+			writeListenerInterceptor.addWriteListener(XDIConstants.XDI_ADD_ROOT, webSocketWriteListener);
+		}
 
 		// send out result
 
@@ -184,6 +211,47 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	}
 
 	/*
+	 * Helper classes
+	 */
+
+	public class WebSocketWriteListener implements WriteListener {
+
+		private MessageEnvelope messageEnvelope;
+		private MessagingTarget messagingTarget;
+		private WebSocketRequest request;
+		private WebSocketResponse response;
+
+		private WebSocketWriteListener(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, WebSocketRequest request, WebSocketResponse response) {
+
+			this.messageEnvelope = messageEnvelope;
+			this.messagingTarget = messagingTarget;
+			this.request = request;
+			this.response = response;
+		}
+
+		@Override
+		public void onWrite(List<XDIAddress> writeXDIAddresses) {
+
+			try {
+
+				// execute the message envelope against our message target, save result
+
+				MessageResult messageResult = WebSocketTransport.this.execute(this.messageEnvelope, this.messagingTarget, this.request, this.response);
+				if (messageResult == null || messageResult.getGraph() == null) return;
+
+				// send out result
+
+				sendMessageResult(messageResult, this.request, this.response);
+			} catch (Exception ex) {
+
+				log.error("Unexpected exception: " + ex.getMessage(), ex);
+				handleInternalException(this.request, this.response, ex);
+				return;
+			}
+		}
+	}
+
+	/*
 	 * Getters and setters
 	 */
 
@@ -195,5 +263,15 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+	}
+
+	public String getEndpointPath() {
+
+		return this.endpointPath;
+	}
+
+	public void setEndpointPath(String endpointPath) {
+
+		this.endpointPath = endpointPath;
 	}
 }

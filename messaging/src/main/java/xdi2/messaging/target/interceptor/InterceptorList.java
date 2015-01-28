@@ -90,6 +90,14 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 		return new SelectingClassIterator<Interceptor<CONTAINER>, T> (this.iterator(), clazz);
 	}
 
+	public <T> T findInterceptor(Class<T> clazz) {
+
+		Iterator<T> interceptors = findInterceptors(clazz);
+		if (! interceptors.hasNext()) return null;
+
+		return interceptors.next();
+	}
+
 	public void clearDisabledForOperation(Operation operation) {
 
 		for (Interceptor<CONTAINER> interceptor : this.iterator()) {
