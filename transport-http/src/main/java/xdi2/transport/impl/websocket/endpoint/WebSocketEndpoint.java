@@ -66,7 +66,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 
 		};
 
-		String path = contextPath + endpointPath + requestPath;
+		String path = endpointPath + requestPath;
 		
 		ServerEndpointConfig.Builder serverEndpointConfigBuilder = ServerEndpointConfig.Builder.create(
 				WebSocketEndpoint.class, 
