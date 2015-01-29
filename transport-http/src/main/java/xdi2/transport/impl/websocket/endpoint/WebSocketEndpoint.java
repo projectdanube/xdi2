@@ -38,24 +38,34 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		if (endpointPath.endsWith("/")) endpointPath = endpointPath.substring(0, endpointPath.length() - 1);
 		if (log.isDebugEnabled()) log.debug("Endpoint Path: " + endpointPath);
 
+		// find server container
+		
+		ServerContainer serverContainer = (ServerContainer) servletContext.getAttribute("javax.websocket.server.ServerContainer");
+		if (serverContainer == null) throw new DeploymentException("Cannot find ServerContainer");
+
+		// set timeout
+
+		long oldDefaultMaxSessionIdleTimeout = serverContainer.getDefaultMaxSessionIdleTimeout();
+		long newDefaultMaxSessionIdleTimeout = 0;
+		serverContainer.setDefaultMaxSessionIdleTimeout(newDefaultMaxSessionIdleTimeout);
+
+		log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
+		
 		// figure out paths
 
-		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}");
+		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
 // TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
 
 		for (MessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
-			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
+			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
 // TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
 		}
 	}
 
-	public static void install(ServletContext servletContext, WebSocketTransport webSocketTransport, String contextPath, String endpointPath, String requestPath) throws DeploymentException {
+	private static void install(ServerContainer serverContainer, WebSocketTransport webSocketTransport, String contextPath, String endpointPath, String requestPath) throws DeploymentException {
 
-		// init websocket endpoints
-
-		ServerContainer serverContainer = (ServerContainer) servletContext.getAttribute("javax.websocket.server.ServerContainer");
-		if (serverContainer == null) throw new DeploymentException("Cannot find ServerContainer");
+		// init websocket endpoint
 
 		List<String> subprotocols = Arrays.asList(new String[] { "xdi" });
 		List<Extension> extensions = null;
@@ -67,7 +77,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		};
 
 		String path = endpointPath + requestPath;
-		
+
 		ServerEndpointConfig.Builder serverEndpointConfigBuilder = ServerEndpointConfig.Builder.create(
 				WebSocketEndpoint.class, 
 				path);
@@ -84,6 +94,8 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		serverEndpointConfig.getUserProperties().put("endpointPath", endpointPath);
 
 		serverContainer.addEndpoint(serverEndpointConfig);
+
+		// done
 
 		log.info("Installed WebSocket endpoint at " + path + " with subprotocols " + subprotocols);
 	}
