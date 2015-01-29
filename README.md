@@ -48,7 +48,7 @@ Then go to:
 | [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | Active.
 | [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | Active.
 | [async-messages](https://github.com/projectdanube/xdi2/wiki/async-messages) | [async-messages](https://github.com/projectdanube/xdi2/tree/async-messages) | Active.
-| [websocket](https://github.com/projectdanube/xdi2/wiki/websocket) | [websocket](https://github.com/projectdanube/xdi2/tree/websocket) | Active.
+| [websocket](https://github.com/projectdanube/xdi2/wiki/websocket) | [websocket](https://github.com/projectdanube/xdi2/tree/websocket) | Merged per [ead477a](https://github.com/projectdanube/xdi2/commit/ead477a430537214acb427616a1a4361b7bc3015) on 29th Jan 2015 after [snapshot-0.7-pre-websocket](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-websocket).
 
 ### Community
 
