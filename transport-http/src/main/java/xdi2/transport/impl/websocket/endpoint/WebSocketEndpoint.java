@@ -41,12 +41,12 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		// figure out paths
 
 		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}");
-		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
+// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
 
 		for (MessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
-			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
+// TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
 		}
 	}
 
