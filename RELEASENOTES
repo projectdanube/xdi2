@@ -1,6 +1,8 @@
 release 0.7 ("Belgrade")
 ========================
 
+* Remove XDIAddressUtil.findXDIAddress(), introduced XDIAddressUtil.extractXDIAddress()
+
 * To move away from old "XRI" terminology, classes were renamed, e.g.:
 XDI3Segment -> XDIAddress
 XDI3SubSegment -> XDIArc

@@ -11,9 +11,12 @@ import org.openrdf.model.impl.ValueFactoryImpl;
 
 import xdi2.core.Graph;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttribute;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 
@@ -41,24 +44,50 @@ public class XDI2RDF {
 				org.openrdf.model.Resource subject;
 				org.openrdf.model.URI predicate;
 				org.openrdf.model.Value object;
+				org.openrdf.model.Resource context = null;
+
+				XDIAddress rootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIstatement.getContextNodeXDIAddress(), XdiPeerRoot.class, false, false);
+
+				if (rootXDIAddress != null) {
+
+					context = valueFactory.createURI(NAMESPACE, URLEncoder.encode(rootXDIAddress.toString(), "UTF-8"));
+				}
 
 				if (XDIstatement.isContextNodeStatement()) {
 
-					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(XDIstatement.getSubject().toString(), "UTF-8"));
+					XDIAddress subjectXDIAddress = XDIstatement.getContextNodeXDIAddress();
+					if (rootXDIAddress != null) subjectXDIAddress = XDIAddressUtil.localXDIAddress(subjectXDIAddress, - rootXDIAddress.getNumXDIArcs());
+					if (subjectXDIAddress == null) subjectXDIAddress = XDIConstants.XDI_ADD_ROOT;
+
+					XDIArc objectXDIArc = XDIstatement.getContextNodeXDIArc();
+
+					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(subjectXDIAddress.toString(), "UTF-8"));
 					predicate = URI_CONTEXT;
-					object = valueFactory.createURI(NAMESPACE, URLEncoder.encode(XDIstatement.getContextNodeXDIArc().toString(), "UTF-8"));
+					object = valueFactory.createURI(NAMESPACE, URLEncoder.encode(objectXDIArc.toString(), "UTF-8"));
 				} else if (XDIstatement.isRelationStatement()) {
 
-					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(XDIstatement.getSubject().toString(), "UTF-8"));
-					predicate = valueFactory.createURI(NAMESPACE, URLEncoder.encode(XDIstatement.getPredicate().toString(), "UTF-8"));
-					object = valueFactory.createURI(NAMESPACE, URLEncoder.encode(XDIstatement.getTargetContextNodeXDIAddress().toString(), "UTF-8"));
+					XDIAddress subjectXDIAddress = XDIstatement.getContextNodeXDIAddress();
+					if (rootXDIAddress != null) subjectXDIAddress = XDIAddressUtil.localXDIAddress(subjectXDIAddress, - rootXDIAddress.getNumXDIArcs());
+					if (subjectXDIAddress == null) subjectXDIAddress = XDIConstants.XDI_ADD_ROOT;
+
+					XDIAddress predicateXDIAddress = XDIstatement.getPredicate();
+					XDIAddress objectXDIAddress = XDIstatement.getTargetContextNodeXDIAddress();
+
+					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(subjectXDIAddress.toString(), "UTF-8"));
+					predicate = valueFactory.createURI(NAMESPACE, URLEncoder.encode(predicateXDIAddress.toString(), "UTF-8"));
+					object = valueFactory.createURI(NAMESPACE, URLEncoder.encode(objectXDIAddress.toString(), "UTF-8"));
 				} else if (XDIstatement.isLiteralStatement()) {
 
-					XDIAddress subjectAddress = XDIAddressUtil.findNotXDIAddress(XDIAddressUtil.parentXDIAddress(XDIstatement.getSubject(), -1), XdiAttribute.class);
-					XDIAddress predicateAddress = XDIAddressUtil.localXDIAddress(XDIstatement.getSubject(), - subjectAddress.getNumXDIArcs());
+					XDIAddress subjectXDIAddress = XDIstatement.getContextNodeXDIAddress();
+					if (rootXDIAddress != null) subjectXDIAddress = XDIAddressUtil.localXDIAddress(subjectXDIAddress, - rootXDIAddress.getNumXDIArcs());
+					if (subjectXDIAddress == null) subjectXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
-					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(subjectAddress.toString(), "UTF-8"));
-					predicate = valueFactory.createURI(NAMESPACE, URLEncoder.encode(predicateAddress.toString(), "UTF-8"));
+					XDIAddress predicateXDIAddress = XDIAddressUtil.extractXDIAddress(subjectXDIAddress, XdiAttribute.class, false, true);
+
+					subjectXDIAddress = XDIAddressUtil.parentXDIAddress(subjectXDIAddress, - predicateXDIAddress.getNumXDIArcs());
+
+					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(subjectXDIAddress.toString(), "UTF-8"));
+					predicate = valueFactory.createURI(NAMESPACE, URLEncoder.encode(predicateXDIAddress.toString(), "UTF-8"));
 
 					Object literalData = XDIstatement.getLiteralData();
 
@@ -71,7 +100,15 @@ public class XDI2RDF {
 					throw new Xdi2RuntimeException("Invalid statment: " + XDIstatement.toString() + " (" + XDIstatement.getClass().getName() + ")");
 				}
 
-				org.openrdf.model.Statement RDFstatement = valueFactory.createStatement(subject, predicate, object);
+				org.openrdf.model.Statement RDFstatement;
+
+				if (context != null) {
+
+					RDFstatement = valueFactory.createStatement(subject, predicate, object, context);
+				} else {
+
+					RDFstatement = valueFactory.createStatement(subject, predicate, object);
+				}
 
 				model.add(RDFstatement);
 			}

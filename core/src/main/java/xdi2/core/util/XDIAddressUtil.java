@@ -306,12 +306,16 @@ public final class XDIAddressUtil {
 	/**
 	 * Finds a part of an XDI address that matches a certain node type.
 	 */
-	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes, boolean keepParent, boolean keepLocal) {
 
 		try {
 
 			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
 			XdiContext<?> xdiContext = null;
+
+			List<XDIArc> XDIarcs = null;
+			List<XDIArc> XDIparentArcs = new ArrayList<XDIArc> ();
+			List<XDIArc> XDIlocalArcs = new ArrayList<XDIArc> ();
 
 			while (contextNode != null) {
 
@@ -322,31 +326,56 @@ public final class XDIAddressUtil {
 				for (Class<? extends XdiContext<?>> clazz : clazzes)
 					if (clazz.isAssignableFrom(xdiContext.getClass())) found = true;
 
-				if (found) return contextNode.getXDIAddress();
+				if (found) {
+
+					if (XDIarcs == null) XDIarcs = new ArrayList<XDIArc> ();
+
+					if (! contextNode.isRootContextNode()) {
+
+						XDIarcs.add(0, contextNode.getXDIArc());
+					}
+				} else {
+
+					if (! contextNode.isRootContextNode()) {
+
+						if (XDIarcs == null) {
+
+							XDIlocalArcs.add(0, contextNode.getXDIArc());
+						} else {
+
+							XDIparentArcs.add(0, contextNode.getXDIArc());
+						}
+					}
+				}
 
 				contextNode = contextNode.getContextNode();
 			}
 
-			return null;
+			if (XDIarcs == null) return null;
+
+			if (keepParent) XDIarcs.addAll(0, XDIparentArcs);
+			if (keepLocal) XDIarcs.addAll(XDIlocalArcs);
+
+			return XDIAddress.fromComponents(XDIarcs);
 		} catch (Exception ex) {
 
 			throw new Xdi2RuntimeException("Unexpected reflect error: " + ex.getMessage(), ex);
 		}
 	}
 
-	public static <X extends XdiContext<?>> XDIAddress findXDIAddress(XDIAddress XDIaddress, Class<X> clazz) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<X> clazz, boolean keepParent, boolean keepLocal) {
 
 		@SuppressWarnings("unchecked")
 		Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
 		clazzes[0] = clazz;
 
-		return findXDIAddress(XDIaddress, clazzes);
+		return extractXDIAddress(XDIaddress, clazzes, keepParent, keepLocal);
 	}
 
 	/**
 	 * Finds a part of an XDI address that does not match a certain node type.
 	 */
-	public static XDIAddress findNotXDIAddress(XDIAddress XDIaddress, Class<? extends XdiContext<?>>[] clazzes) {
+	/*	public static XDIAddress findNotXDIAddress(XDIAddress XDIaddress, Class<? extends XdiContext<?>>[] clazzes) {
 
 		try {
 
@@ -381,7 +410,7 @@ public final class XDIAddressUtil {
 		clazzes[0] = clazz;
 
 		return findNotXDIAddress(XDIaddress, clazzes);
-	}
+	}*/
 
 	/**
 	 * Get the index of an arc inside an address.
