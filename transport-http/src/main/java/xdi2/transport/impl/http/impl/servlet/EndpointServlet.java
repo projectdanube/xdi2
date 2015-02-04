@@ -117,4 +117,18 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		this.httpTransport.doOptions(request, response);
 	}
+	
+	/*
+	 * Getters and setters
+	 */
+
+	public HttpTransport getHttpTransport() {
+
+		return this.httpTransport;
+	}
+
+	public void setHttpTransport(HttpTransport httpTransport) {
+
+		this.httpTransport = httpTransport;
+	}
 }
