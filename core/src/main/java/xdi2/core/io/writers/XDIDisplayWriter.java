@@ -8,9 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
@@ -24,7 +21,6 @@ import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -40,8 +36,6 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -1653073796384849940L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIDisplayWriter.class);
-
 	public static final String FORMAT_NAME = "XDI DISPLAY";
 	public static final String FILE_EXTENSION = "xdi";
 	public static final MimeType MIME_TYPE = new MimeType("text/xdi");
@@ -50,34 +44,16 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	private static final String HTML_COLOR_ENTITY = "#7fff7f";
 	private static final String HTML_COLOR_ATTRIBUTE = "#7f7fff";
 
-	private boolean writeImplied;
-	private boolean writeOrdered;
-	private boolean writePretty;
-	private boolean writeHtml;
-
 	public XDIDisplayWriter(Properties parameters) {
 
 		super(parameters);
-	}
-
-	@Override
-	protected void init() {
-
-		// check parameters
-
-		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
-		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
-
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
 
 		// write html?
 
-		if (this.writeHtml) {
+		if (this.isWriteHtml()) {
 
 			bufferedWriter.write("<html><head><title>XDI Graph</title></head>\n");
 			bufferedWriter.write("<body style=\"font-family:monospace;font-size:14pt;font-weight:bold;\">\n");
@@ -89,7 +65,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		Graph orderedGraph = null;
 		IterableIterator<Statement> statements;
 
-		if (this.writeOrdered) {
+		if (this.isWriteOrdered()) {
 
 			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
@@ -109,7 +85,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		// ignore implied statements
 
-		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator(statements);
+		if (! this.isWriteImplied()) statements = new SelectingNotImpliedStatementIterator(statements);
 
 		// write the statements
 
@@ -119,7 +95,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			// HTML output
 
-			if (this.writeHtml) {
+			if (this.isWriteHtml()) {
 
 				bufferedWriter.write("<br>\n");
 			} else {
@@ -128,7 +104,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			}
 		}
 
-		if (this.writeHtml) {
+		if (this.isWriteHtml()) {
 
 			bufferedWriter.write("</pre>\n");
 			bufferedWriter.write("</body></html>\n");
@@ -164,10 +140,10 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private void writeSeparator(BufferedWriter bufferedWriter) throws IOException {
 
-		if (this.writePretty && this.writeHtml) {
+		if (this.isWritePretty() && this.isWriteHtml()) {
 
 			bufferedWriter.write("&#9;/&#9;");
-		} else if (this.writePretty) {
+		} else if (this.isWritePretty()) {
 
 			bufferedWriter.write("\t/\t");
 		} else {
@@ -178,7 +154,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 	private void writeContextNodeXDIAddress(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress) throws IOException {
 
-		if (this.writeHtml) {
+		if (this.isWriteHtml()) {
 
 			ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
@@ -218,7 +194,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		String htmlColorString = null;
 
-		if (this.writeHtml) {
+		if (this.isWriteHtml()) {
 
 			if (XdiAbstractRoot.isValid(contextNode)) htmlColorString = HTML_COLOR_ROOT;
 			if (XdiEntityCollection.isValid(contextNode) || XdiAbstractEntity.isValid(contextNode)) htmlColorString = HTML_COLOR_ENTITY;

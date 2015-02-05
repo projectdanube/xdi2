@@ -7,6 +7,9 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -21,9 +24,16 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final long serialVersionUID = -4120729667091454408L;
 
+	private static final Logger log = LoggerFactory.getLogger(AbstractXDIWriter.class);
+
 	public static final String DEFAULT_CHARSET_NAME = "UTF-8";
 
 	protected Properties parameters;
+
+	private boolean writeImplied;
+	private boolean writeOrdered;
+	private boolean writePretty;
+	private boolean writeHtml;
 
 	public AbstractXDIWriter(Properties parameters) {
 
@@ -32,7 +42,17 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 		this.init();
 	}
 
-	protected abstract void init();
+	protected void init() {
+
+		// check parameters
+
+		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
+		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
+		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
+		this.writeHtml = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_HTML, XDIWriterRegistry.DEFAULT_HTML));
+
+		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty + ", writeHtml=" + this.writeHtml);
+	}
 
 	@Override
 	public OutputStream write(Graph graph, OutputStream stream) throws IOException {
@@ -45,19 +65,19 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	@Override
 	public OutputStream write(ContextNode contextNode, OutputStream stream) throws IOException {
-		
+
 		Graph subGraph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyContextNode(contextNode, subGraph, null);
-		
+
 		return this.write(subGraph, stream);
 	}
 
 	@Override
 	public Writer write(ContextNode contextNode, Writer writer) throws IOException {
-		
+
 		Graph subGraph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyContextNode(contextNode, subGraph, null);
-		
+
 		return this.write(subGraph, writer);
 	}
 
@@ -115,5 +135,25 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 	public boolean supportsMimeType(MimeType mimeType) {
 
 		return this.getMimeType().equals(mimeType.mimeTypeWithoutParameters());
+	}
+
+	public boolean isWriteImplied() {
+
+		return this.writeImplied;
+	}
+
+	public boolean isWriteOrdered() {
+
+		return this.writeOrdered;
+	}
+
+	public boolean isWritePretty() {
+
+		return this.writePretty;
+	}
+
+	public boolean isWriteHtml() {
+
+		return this.writeHtml;
 	}
 }

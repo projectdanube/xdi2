@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
@@ -17,7 +14,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.XDIWriterRegistry;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,17 +26,11 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -7518609157052712790L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIJSONTREEWriter.class);
-
 	public static final String FORMAT_NAME = "XDI/JSON/TREE";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
-
-	private boolean writeImplied;
-	private boolean writeOrdered;
-	private boolean writePretty;
 
 	public XDIJSONTREEWriter(Properties parameters) {
 
@@ -48,26 +38,14 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 	}
 
 	@Override
-	protected void init() {
-
-		// check parameters
-
-		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
-		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
-	}
-
-	@Override
 	public Writer write(Graph graph, Writer writer) throws IOException {
 
 		// write the statements
 
-		JsonObject json = makeJson(graph.getRootContextNode(true), this.writeImplied);
+		JsonObject json = makeJson(graph.getRootContextNode(true), this.isWriteImplied());
 
 		JsonWriter jsonWriter = new JsonWriter(writer);
-		if (this.writePretty) jsonWriter.setIndent("  ");
+		if (this.isWritePretty()) jsonWriter.setIndent("  ");
 		gson.toJson(json, jsonWriter);
 		jsonWriter.flush();
 		jsonWriter.close();

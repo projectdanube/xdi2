@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import xdi2.core.Graph;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.MimeType;
 
 public class XDIDisplayNVNShiftWriter extends XDIDisplayWriter {
@@ -24,6 +25,17 @@ public class XDIDisplayNVNShiftWriter extends XDIDisplayWriter {
 	public XDIDisplayNVNShiftWriter(Properties parameters) {
 
 		super(parameters);
+	}
+
+	@Override
+	protected void init() {
+
+		super.init();
+
+		// check parameters
+
+		if (this.isWriteImplied()) throw new Xdi2RuntimeException("implied=1 not support with this format");
+		if (this.isWritePretty()) throw new Xdi2RuntimeException("pretty=1 not support with this format");
 	}
 
 	@Override

@@ -7,9 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
@@ -17,7 +14,6 @@ import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -42,33 +38,15 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -5510592554616900152L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIJSONPARSEWriter.class);
-
 	public static final String FORMAT_NAME = "XDI/JSON/PARSE";
 	public static final String FILE_EXTENSION = null;
 	public static final MimeType MIME_TYPE = null;
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
-	private boolean writeImplied;
-	private boolean writeOrdered;
-	private boolean writePretty;
-
 	public XDIJSONPARSEWriter(Properties parameters) {
 
 		super(parameters);
-	}
-
-	@Override
-	protected void init() {
-
-		// check parameters
-
-		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
-		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
 	}
 
 	@Override
@@ -79,7 +57,7 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 		Graph orderedGraph = null;
 		IterableIterator<Statement> statements;
 
-		if (this.writeOrdered) {
+		if (this.isWriteOrdered()) {
 
 			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
@@ -99,14 +77,14 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 
 		// ignore implied statements
 
-		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator(statements);
+		if (! this.isWriteImplied()) statements = new SelectingNotImpliedStatementIterator(statements);
 
 		// write the statements
 
 		JsonArray gom = makeGom(statements);
 
 		JsonWriter jsonWriter = new JsonWriter(writer);
-		if (this.writePretty) jsonWriter.setIndent("  ");
+		if (this.isWritePretty()) jsonWriter.setIndent("  ");
 		gson.toJson(gom, jsonWriter);
 		jsonWriter.flush();
 		jsonWriter.close();
