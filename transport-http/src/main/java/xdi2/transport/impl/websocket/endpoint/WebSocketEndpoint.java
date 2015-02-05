@@ -39,17 +39,17 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		if (log.isDebugEnabled()) log.debug("Endpoint Path: " + endpointPath);
 
 		// find server container
-		
+
 		ServerContainer serverContainer = (ServerContainer) servletContext.getAttribute("javax.websocket.server.ServerContainer");
 		if (serverContainer == null) throw new DeploymentException("Cannot find ServerContainer");
 
-		// set timeout
+		// set default timeout
 
 		long oldDefaultMaxSessionIdleTimeout = serverContainer.getDefaultMaxSessionIdleTimeout();
 		long newDefaultMaxSessionIdleTimeout = 0;
 		serverContainer.setDefaultMaxSessionIdleTimeout(newDefaultMaxSessionIdleTimeout);
 
-		log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
+		if (log.isDebugEnabled()) log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
 		
 		// figure out paths
 
@@ -102,6 +102,14 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
+
+		// set timeout
+
+		long oldMaxIdleTimeout = session.getMaxIdleTimeout();
+		long newMaxIdleTimeout = 0;
+		session.setMaxIdleTimeout(newMaxIdleTimeout);
+
+		if (log.isDebugEnabled()) log.debug("Changed max idle timeout of session " + session.getId() + " from " + oldMaxIdleTimeout + " to " + newMaxIdleTimeout);
 
 		// init message handler
 
