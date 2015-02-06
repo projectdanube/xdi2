@@ -12,15 +12,14 @@ import org.openrdf.model.Model;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.Rio;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.openrdf.rio.WriterConfig;
+import org.openrdf.rio.helpers.BasicWriterSettings;
 
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -34,31 +33,13 @@ public class XDIRDFTriGWriter extends AbstractXDIWriter {
 
 	private static final long serialVersionUID = -7401855287387482242L;
 
-	private static final Logger log = LoggerFactory.getLogger(XDIRDFTriGWriter.class);
-
 	public static final String FORMAT_NAME = "XDI/RDF/TriG";
 	public static final String FILE_EXTENSION = "trig";
 	public static final MimeType MIME_TYPE = new MimeType("application/x-trig");
 
-	private boolean writeImplied;
-	private boolean writeOrdered;
-	private boolean writePretty;
-
 	public XDIRDFTriGWriter(Properties parameters) {
 
 		super(parameters);
-	}
-
-	@Override
-	protected void init() {
-
-		// check parameters
-
-		this.writeImplied = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_IMPLIED, XDIWriterRegistry.DEFAULT_IMPLIED));
-		this.writeOrdered = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_ORDERED, XDIWriterRegistry.DEFAULT_ORDERED));
-		this.writePretty = "1".equals(this.parameters.getProperty(XDIWriterRegistry.PARAMETER_PRETTY, XDIWriterRegistry.DEFAULT_PRETTY));
-
-		if (log.isTraceEnabled()) log.trace("Parameters: writeImplied=" + this.writeImplied + ", writeOrdered=" + this.writeOrdered + ", writePretty=" + this.writePretty);
 	}
 
 	public void write(Graph graph, BufferedWriter bufferedWriter) throws IOException {
@@ -68,7 +49,7 @@ public class XDIRDFTriGWriter extends AbstractXDIWriter {
 		Graph orderedGraph = null;
 		IterableIterator<Statement> statements;
 
-		if (this.writeOrdered) {
+		if (this.isWriteOrdered()) {
 
 			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
 			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
@@ -88,15 +69,18 @@ public class XDIRDFTriGWriter extends AbstractXDIWriter {
 
 		// ignore implied statements
 
-		if (! this.writeImplied) statements = new SelectingNotImpliedStatementIterator(statements);
+		if (! this.isWriteImplied()) statements = new SelectingNotImpliedStatementIterator(statements);
 
 		// write the statements
 
 		Model model = XDI2RDF.graphToModel(statements);
-		
+
+		WriterConfig writerConfig = new WriterConfig();
+		writerConfig.set(BasicWriterSettings.PRETTY_PRINT, Boolean.valueOf(this.isWritePretty()));
+
 		try {
-		
-			Rio.write(model, bufferedWriter, RDFFormat.TRIG);
+
+			Rio.write(model, bufferedWriter, RDFFormat.TRIG, writerConfig);
 		} catch (RDFHandlerException ex) {
 
 			throw new IOException("Problem writing RDF: " + ex.getMessage(), ex);
