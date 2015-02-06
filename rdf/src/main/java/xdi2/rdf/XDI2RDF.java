@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.LinkedHashModel;
+import org.openrdf.model.impl.TreeModel;
 import org.openrdf.model.impl.ValueFactoryImpl;
 
 import xdi2.core.Graph;
@@ -29,7 +29,7 @@ public class XDI2RDF {
 
 	public static Model graphToModel(Iterable<Statement> statements) {
 
-		Model model = new LinkedHashModel();
+		Model model = new TreeModel();
 
 		model.setNamespace(PREFIX, NAMESPACE);
 
