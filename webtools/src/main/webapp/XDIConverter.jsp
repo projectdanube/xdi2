@@ -52,6 +52,7 @@
 		<option value="XDI DISPLAY NVNSHIFT" <%= resultFormat.equals("XDI DISPLAY NVNSHIFT") ? "selected" : "" %>>XDI DISPLAY NVNSHIFT</option>
 		<option value="XDI/JSON/TREE" <%= resultFormat.equals("XDI/JSON/TREE") ? "selected" : "" %>>XDI/JSON/TREE</option>
 		<option value="XDI/JSON/PARSE" <%= resultFormat.equals("XDI/JSON/PARSE") ? "selected" : "" %>>XDI/JSON/PARSE</option>
+		<option value="XDI/JSON/QUAD" <%= resultFormat.equals("XDI/JSON/QUAD") ? "selected" : "" %>>XDI/JSON/QUAD</option>
 		<option value="KEYVALUE" <%= resultFormat.equals("KEYVALUE") ? "selected" : "" %>>KEYVALUE</option>
 		<option value="XDI/RDF/TriG" <%= resultFormat.equals("XDI/RDF/TriG") ? "selected" : "" %>>XDI/RDF/TriG</option>
 		<option value="XDI/RDF/JSON-LD" <%= resultFormat.equals("XDI/RDF/JSON-LD") ? "selected" : "" %>>XDI/RDF/JSON-LD</option>

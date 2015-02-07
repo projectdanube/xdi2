@@ -14,6 +14,7 @@ import xdi2.core.io.writers.XDIDisplayNVNShiftWriter;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.io.writers.XDIHTMLWriter;
 import xdi2.core.io.writers.XDIJSONPARSEWriter;
+import xdi2.core.io.writers.XDIJSONQuadWriter;
 import xdi2.core.io.writers.XDIJSONTREEWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
@@ -44,6 +45,7 @@ public final class XDIWriterRegistry {
 		XDIDisplayNVNShiftWriter.class.getName(),
 		XDIJSONTREEWriter.class.getName(),
 		XDIJSONPARSEWriter.class.getName(),
+		XDIJSONQuadWriter.class.getName(),
 		XDIKeyValueWriter.class.getName(),
 		XDIHTMLWriter.class.getName()
 	};
