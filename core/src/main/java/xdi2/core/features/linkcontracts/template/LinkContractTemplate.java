@@ -8,8 +8,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.features.nodetypes.XdiAbstractVariable;
-import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
@@ -22,15 +21,15 @@ import xdi2.core.util.XDIAddressUtil;
  * 
  * @author markus
  */
-public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
+public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Variable> {
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
-	private XdiVariable xdiVariable;
+	private XdiEntitySingleton.Variable xdiEntitySingletonVariable;
 
-	protected LinkContractTemplate(XdiVariable xdiVariable) {
+	protected LinkContractTemplate(XdiEntitySingleton.Variable xdiEntitySingletonVariable) {
 
-		this.xdiVariable = xdiVariable;
+		this.xdiEntitySingletonVariable = xdiEntitySingletonVariable;
 	}
 
 	/*
@@ -42,7 +41,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
 	 * @param xdiVariable The XDI variable to check.
 	 * @return True if the XDI variable is a valid XDI link contract template.
 	 */
-	public static boolean isValid(XdiVariable xdiVariable) {
+	public static boolean isValid(XdiEntitySingleton.Variable xdiVariable) {
 
 		if (! xdiVariable.getXDIArc().equals(XDILinkContractConstants.XDI_ARC_V_DO)) return false;
 
@@ -56,7 +55,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
 	 * @param xdiVariable The XDI variable that is an XDI link contract template.
 	 * @return The XDI link contract template.
 	 */
-	public static LinkContractTemplate fromXdiVariable(XdiVariable xdiVariable) {
+	public static LinkContractTemplate fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable xdiVariable) {
 
 		if (! isValid(xdiVariable)) return null;
 
@@ -87,7 +86,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
 		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXDIAddress) : graph.getDeepContextNode(linkContractTemplateXDIAddress, true);
 		if (linkContractTemplateContextNode == null) return null;
 
-		return new LinkContractTemplate(XdiAbstractVariable.fromContextNode(linkContractTemplateContextNode));
+		return new LinkContractTemplate(XdiEntitySingleton.Variable.fromContextNode(linkContractTemplateContextNode));
 	}
 
 	/*
@@ -108,17 +107,17 @@ public class LinkContractTemplate extends LinkContractBase<XdiVariable> {
 
 	/**
 	 * Returns the underlying XDI variable to which this XDI link contract template is bound.
-	 * @return An XDI entity that represents the XDI link contract template.
+	 * @return An XDI variable that represents the XDI link contract template.
 	 */
-	public XdiVariable getXdiVariable() {
+	public XdiEntitySingleton.Variable getXdiVariable() {
 
-		return this.xdiVariable;
+		return this.xdiEntitySingletonVariable;
 	}
 
 	@Override
-	public XdiVariable getXdiSubGraph() {
+	public XdiEntitySingleton.Variable getXdiSubGraph() {
 
-		return this.xdiVariable;
+		return this.xdiEntitySingletonVariable;
 	}
 
 	public GenericLinkContract instantiate() {

@@ -55,7 +55,6 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if (XdiEntityCollection.isValid(contextNode)) return true; 
 		if (XdiAttributeCollection.isValid(contextNode)) return true;
-		if (XdiVariableCollection.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -73,7 +72,6 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if ((xdiCollection = XdiEntityCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 		if ((xdiCollection = XdiAttributeCollection.fromContextNode(contextNode)) != null) return xdiCollection;
-		if ((xdiCollection = XdiVariableCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 
 		return xdiCollection;
 	}
@@ -239,7 +237,6 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		
 		if (XdiEntityCollection.isValidXDIArc(XDIarc)) return true; 
 		if (XdiAttributeCollection.isValidXDIArc(XDIarc)) return true;
-		if (XdiVariableCollection.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

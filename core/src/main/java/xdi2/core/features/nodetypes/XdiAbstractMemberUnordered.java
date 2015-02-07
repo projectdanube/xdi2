@@ -37,7 +37,6 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		if (XdiEntityMemberUnordered.isValid(contextNode)) return true;
 		if (XdiAttributeMemberUnordered.isValid(contextNode)) return true;
-		if (XdiVariableMemberUnordered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -55,7 +54,6 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		if ((xdiMember = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
-		if ((xdiMember = XdiVariableMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
 	}
@@ -72,9 +70,6 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
 			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
-		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.XS_VARIABLE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_VARIABLE.charAt(1));
 		} else {
 
 			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());
@@ -88,35 +83,17 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
 			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
-			if (XDIarc.isClassXs()) return false;
-			if (XDIarc.isAttributeXs()) return false;
+			if (XDIarc.isCollection()) return false;
+			if (XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
 			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
-			if (XDIarc.isClassXs()) return false;
-			if (! XDIarc.isAttributeXs()) return false;
+			if (XDIarc.isCollection()) return false;
+			if (! XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
-		} else if (XdiVariableCollection.class.isAssignableFrom(clazz)) {
-
-			if (XDIarc.hasCs()) return false;
-			if (XDIarc.isClassXs()) return false;
-			if (XDIarc.isAttributeXs()) return false;
-			if (XDIarc.hasLiteral()) return false;
-			if (! XDIarc.hasXRef()) return false;
-			if (! XDIConstants.XS_VARIABLE.equals(XDIarc.getXRef().getXs())) return false;
-			if (! XDIarc.getXRef().hasXDIAddress()) return false;
-			if (XDIarc.getXRef().hasPartialSubjectAndPredicate()) return false;
-			if (XDIarc.getXRef().hasLiteral()) return false;
-			if (XDIarc.getXRef().hasIri()) return false;
-			if (XDIarc.getXRef().getXDIAddress().getNumXDIArcs() != 1) return false;
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getXRef().getXDIAddress().getFirstXDIArc())) return false;
-			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isClassXs()) return false;
-			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs()) return false;
-			if (! XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasLiteral()) return false;
-			if (XDIarc.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
 		} else {
 
 			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());

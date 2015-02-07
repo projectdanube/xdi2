@@ -176,17 +176,17 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			}
 		}
 
-		if (XDIarc.isAttributeXs()) {
+		if (XDIarc.isAttribute()) {
 
 			JsonObject gom2 = new JsonObject();
 			gom2.add(XDIConstants.XS_ATTRIBUTE.substring(0, 1), gom);
 			gom = gom2;
 		}
 
-		if (XDIarc.isClassXs()) {
+		if (XDIarc.isCollection()) {
 
 			JsonObject gom2 = new JsonObject();
-			gom2.add(XDIConstants.XS_CLASS.substring(0, 1), gom);
+			gom2.add(XDIConstants.XS_COLLECTION.substring(0, 1), gom);
 			gom = gom2;
 		}
 

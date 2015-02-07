@@ -16,7 +16,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiPeerRoot extends XdiAbstractRoot {
+public class XdiPeerRoot extends XdiAbstractRoot {
 
 	private static final long serialVersionUID = -4689596452249483618L;
 
@@ -55,7 +55,7 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiPeerRoot(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiPeerRoot(contextNode);
 	}
 
 	/*
@@ -111,8 +111,8 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		if (XDIarc == null) return null;
 
 		if (XDIarc.hasCs()) return null;
-		if (XDIarc.isClassXs()) return null;
-		if (XDIarc.isAttributeXs()) return null;
+		if (XDIarc.isCollection()) return null;
+		if (XDIarc.isAttribute()) return null;
 		if (! XDIarc.hasXRef()) return null;
 
 		XDIXRef xref = XDIarc.getXRef();
@@ -132,8 +132,8 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		if (XDIarc == null) return null;
 
 		if (XDIarc.hasCs()) return null;
-		if (XDIarc.isClassXs()) return null;
-		if (XDIarc.isAttributeXs()) return null;
+		if (XDIarc.isCollection()) return null;
+		if (XDIarc.isAttribute()) return null;
 		if (! XDIarc.hasXRef()) return null;
 
 		XDIXRef xref = XDIarc.getXRef();
@@ -153,8 +153,8 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		if (XDIarc == null) return null;
 
 		if (XDIarc.hasCs()) return null;
-		if (XDIarc.isClassXs()) return null;
-		if (XDIarc.isAttributeXs()) return null;
+		if (XDIarc.isCollection()) return null;
+		if (XDIarc.isAttribute()) return null;
 		if (! XDIarc.hasXRef()) return null;
 
 		XDIXRef xref = XDIarc.getXRef();
@@ -178,6 +178,34 @@ public final class XdiPeerRoot extends XdiAbstractRoot {
 		if (getLiteralOfPeerRootXDIArc(XDIarc) != null) return true;
 
 		return false;
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiPeerRoot implements XdiVariable<XdiRoot> {
+
+		private static final long serialVersionUID = -63522763715584615L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiPeerRoot.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

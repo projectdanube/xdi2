@@ -37,13 +37,13 @@ public class CloudNumber {
 				XDIArc XDIarc0 = XDIaddress.getXDIArc(i);
 				XDIArc XDIarc1 = XDIaddress.getXDIArc(i + 1);
 
-				if (XDIarc0.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIarc0.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc0.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIarc0.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc0.hasXRef() || XDIarc0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 
-				if (XDIarc1.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc1.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
@@ -62,7 +62,7 @@ public class CloudNumber {
 
 	public static CloudNumber createRandom(Character cs) {
 
-		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, null, null));
+		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, false, null, null));
 		XDIArc XDIarc2 = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
 
 		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(XDIarc1, XDIarc2);

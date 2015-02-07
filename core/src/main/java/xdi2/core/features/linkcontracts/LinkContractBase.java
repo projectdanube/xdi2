@@ -25,7 +25,7 @@ import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
  * 
  * @author markus
  */
-public abstract class LinkContractBase <N extends XdiSubGraph<N>> implements Serializable, Comparable<LinkContractBase<N>> {
+public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implements Serializable, Comparable<LinkContractBase<N>> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
 

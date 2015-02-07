@@ -27,7 +27,6 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 
 		if (XdiEntitySingleton.isValid(contextNode)) return true; 
 		if (XdiAttributeSingleton.isValid(contextNode)) return true;
-		if (XdiVariableSingleton.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -45,7 +44,6 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 
 		if ((xdiSingleton = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
-		if ((xdiSingleton = XdiVariableSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 
 		return null;
 	}
@@ -60,7 +58,6 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 
 		if (XdiEntitySingleton.isValidXDIArc(XDIarc)) return true; 
 		if (XdiAttributeSingleton.isValidXDIArc(XDIarc)) return true;
-		if (XdiVariableSingleton.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

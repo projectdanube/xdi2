@@ -15,9 +15,9 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiAbstractVariable;
+import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiVariable;
-import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVariableSingletonIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -124,18 +124,18 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		XdiVariable linkContractTemplateXdiVariable = XdiAbstractVariable.fromContextNode(linkContractTemplateContextNode);
+		XdiEntitySingleton.Variable linkContractTemplateXdiVariable = XdiEntitySingleton.Variable.fromContextNode(linkContractTemplateContextNode);
 		if (linkContractTemplateXdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template variable at address " + operation.getTargetXDIAddress(), null, executionContext);
 
-		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiVariable(linkContractTemplateXdiVariable);
+		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiEntitySingletonVariable(linkContractTemplateXdiVariable);
 		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
 
 		// read custom replacements from message
 
 		Map<XDIArc, XDIAddress> customReplacements = new HashMap<XDIArc, XDIAddress> ();
-		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
+		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(operation.getMessage().getContextNode().getContextNodes());
 
-		for (XdiVariable xdiVariable : xdiVariablesIterator) {
+		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
 
 			XDIArc customReplacementXDIArc = xdiVariable.getXDIArc();
 			ContextNode customReplacementContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());

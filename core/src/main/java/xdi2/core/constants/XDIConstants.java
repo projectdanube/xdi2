@@ -19,10 +19,10 @@ public class XDIConstants {
 	public static final Character CS_MEMBER_UNORDERED = new Character('!'); 
 	public static final Character CS_MEMBER_ORDERED = new Character('@');
 
-	public static final String XS_ROOT = "()";
-	public static final String XS_VARIABLE = "{}";
 	public static final String XS_DEFINITION = "||";
-	public static final String XS_CLASS = "[]";
+	public static final String XS_VARIABLE = "{}";
+	public static final String XS_ROOT = "()";
+	public static final String XS_COLLECTION = "[]";
 	public static final String XS_ATTRIBUTE = "<>";
 
 	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_AUTHORITY_GENERAL, CS_CLASS_UNRESERVED, CS_CLASS_RESERVED, CS_VALUE, CS_MEMBER_UNORDERED, CS_MEMBER_ORDERED };

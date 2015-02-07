@@ -12,7 +12,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiAttributeMember {
+public class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiAttributeMember {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 
@@ -51,7 +51,7 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiAttributeMemberOrdered(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiAttributeMemberOrdered(contextNode);
 	}
 
 	/*
@@ -95,6 +95,34 @@ public final class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<Xd
 		if (valueContextNode == null) return null;
 
 		return new XdiValue(valueContextNode);
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiAttributeMemberOrdered implements XdiVariable<XdiAttribute> {
+
+		private static final long serialVersionUID = -2496768691000252392L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiAttributeMemberOrdered.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

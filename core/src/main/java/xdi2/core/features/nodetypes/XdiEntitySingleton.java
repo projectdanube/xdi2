@@ -13,11 +13,11 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> implements XdiEntity {
+public class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> implements XdiEntity {
 
 	private static final long serialVersionUID = 7600443284706530972L;
 
-	protected XdiEntitySingleton(ContextNode contextNode) {
+	private XdiEntitySingleton(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -53,24 +53,34 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiEntitySingleton(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiEntitySingleton(contextNode);
 	}
 
 	/*
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createEntitySingletonXDIArc(XDIArc XDIarc, boolean variable) {
+
+		StringBuffer buffer = new StringBuffer();
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+		buffer.append(XDIarc.toString());
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(1));
+
+		return XDIArc.create(buffer.toString());
+	}
+
 	public static XDIArc createEntitySingletonXDIArc(XDIArc XDIarc) {
 
-		return XDIarc;
+		return createEntitySingletonXDIArc(XDIarc, false);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XDIarc.isAttributeXs()) return false;
-		if (XDIarc.isClassXs()) return false;
+		if (XDIarc.isAttribute()) return false;
+		if (XDIarc.isCollection()) return false;
 
 		if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
 
@@ -84,6 +94,34 @@ public final class XdiEntitySingleton extends XdiAbstractSingleton<XdiEntity> im
 		}
 
 		return true;
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiEntitySingleton implements XdiVariable<XdiEntity> {
+
+		private static final long serialVersionUID = -8329704361890032696L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiEntitySingleton.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

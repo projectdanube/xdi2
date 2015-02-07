@@ -1,6 +1,8 @@
 release 0.7 ("Belgrade")
 ========================
 
+* Updated variable support in parser and class hierarchy; variables are now nested classes.
+
 * Remove XDIAddressUtil.findXDIAddress(), introduced XDIAddressUtil.extractXDIAddress()
 
 * To move away from old "XRI" terminology, classes were renamed, e.g.:

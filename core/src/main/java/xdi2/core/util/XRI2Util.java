@@ -75,7 +75,7 @@ public final class XRI2Util {
 
 		if (XDIaddress.getNumXDIArcs() != 2) return null;
 
-		if (! XDIaddress.getFirstXDIArc().isClassXs()) return null;
+		if (! XDIaddress.getFirstXDIArc().isCollection()) return null;
 		if (XDIaddress.getFirstXDIArc().hasLiteral()) return null;
 		if (XDIaddress.getFirstXDIArc().hasXRef()) return null;
 

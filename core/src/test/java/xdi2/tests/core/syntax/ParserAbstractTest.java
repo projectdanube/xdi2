@@ -36,20 +36,20 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertNull(statement.getSubject().getXDIArc(0).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(1), parser.parseXDIArc("[<#email>]"));
 		assertEquals(statement.getSubject().getXDIArc(1).getCs(), XDIConstants.CS_CLASS_UNRESERVED);
-		assertTrue(statement.getSubject().getXDIArc(1).isClassXs());
-		assertTrue(statement.getSubject().getXDIArc(1).isAttributeXs());
+		assertTrue(statement.getSubject().getXDIArc(1).isCollection());
+		assertTrue(statement.getSubject().getXDIArc(1).isAttribute());
 		assertEquals(statement.getSubject().getXDIArc(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getXDIArc(1).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("!1"));
 		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_MEMBER_UNORDERED);
-		assertFalse(statement.getSubject().getXDIArc(2).isClassXs());
-		assertFalse(statement.getSubject().getXDIArc(2).isAttributeXs());
+		assertFalse(statement.getSubject().getXDIArc(2).isCollection());
+		assertFalse(statement.getSubject().getXDIArc(2).isAttribute());
 		assertEquals(statement.getSubject().getXDIArc(2).getLiteral(), "1");
 		assertNull(statement.getSubject().getXDIArc(2).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(3), parser.parseXDIArc("&"));
 		assertEquals(statement.getSubject().getXDIArc(3).getCs(), XDIConstants.CS_VALUE);
-		assertFalse(statement.getSubject().getXDIArc(3).isClassXs());
-		assertFalse(statement.getSubject().getXDIArc(3).isAttributeXs());
+		assertFalse(statement.getSubject().getXDIArc(3).isCollection());
+		assertFalse(statement.getSubject().getXDIArc(3).isAttribute());
 		assertNull(statement.getSubject().getXDIArc(3).getLiteral());
 		assertNull(statement.getSubject().getXDIArc(3).getXRef());
 
@@ -183,8 +183,8 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertEquals(s.getXRef().getXDIAddress(), parser.parseXDIAddress("[<#(name)>]"));
 		assertEquals(s.getXRef().getXDIAddress().getNumXDIArcs(), 1);
 		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc(), parser.parseXDIArc("[<#(name)>]"));
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isClassXs());
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isAttributeXs());
+		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isCollection());
+		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isAttribute());
 		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().hasXRef());
 		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef(), parser.parseXDIXRef("(name)"));
 		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getXs(), XDIConstants.XS_ROOT);

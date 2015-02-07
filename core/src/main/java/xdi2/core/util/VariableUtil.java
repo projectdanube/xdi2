@@ -159,8 +159,8 @@ public final class VariableUtil {
 				continue;
 			}
 
-			if (variableArc.isClassXs() && ! XDIarc.isClassXs()) continue;
-			if (variableArc.isAttributeXs() && ! XDIarc.isAttributeXs()) continue;
+			if (variableArc.isCollection() && ! XDIarc.isCollection()) continue;
+			if (variableArc.isAttribute() && ! XDIarc.isAttribute()) continue;
 
 			if (variableArc.getCs().equals(XDIarc.getCs())) {
 

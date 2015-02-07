@@ -7,9 +7,9 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstractVariable> {
+public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends XdiAbstractContext<EQ> implements XdiVariable<EQ> {
 
-	private static final long serialVersionUID = -5443590668167159237L;
+	private static final long serialVersionUID = 3293452777739432663L;
 
 	protected XdiAbstractVariable(ContextNode contextNode) {
 
@@ -29,9 +29,16 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (XdiVariableSingleton.isValid(contextNode)) return true; 
-		if (XdiVariableMemberUnordered.isValid(contextNode)) return true;
-		if (XdiVariableMemberOrdered.isValid(contextNode)) return true;
+		if (XdiPeerRoot.Variable.isValid(contextNode)) return true; 
+		if (XdiInnerRoot.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityCollection.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeCollection.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityMemberOrdered.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityMemberUnordered.Variable.isValid(contextNode)) return true; 
+		if (XdiEntitySingleton.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeMemberOrdered.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeMemberUnordered.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeSingleton.Variable.isValid(contextNode)) return true; 
 
 		return false;
 	}
@@ -41,15 +48,22 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 * @param contextNode The context node that is an XDI variable.
 	 * @return The XDI variable.
 	 */
-	public static XdiVariable fromContextNode(ContextNode contextNode) {
+	public static XdiVariable<? extends XdiContext<?>> fromContextNode(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
 
-		XdiVariable xdiVariable = null;
+		XdiVariable<? extends XdiContext<?>> xdiVariable = null;
 
-		if ((xdiVariable = XdiVariableSingleton.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiVariableMemberUnordered.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiVariableMemberOrdered.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiPeerRoot.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiInnerRoot.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityCollection.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeCollection.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityMemberOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityMemberUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntitySingleton.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeMemberOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeMemberUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeSingleton.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 
 		return null;
 	}
@@ -61,10 +75,17 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
-
-		if (XdiVariableSingleton.isValidXDIArc(XDIarc)) return true;
-		if (XdiVariableMemberUnordered.isValidXDIArc(XDIarc)) return true;
-		if (XdiVariableMemberOrdered.isValidXDIArc(XDIarc)) return true;
+		
+		if (XdiPeerRoot.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiInnerRoot.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiEntityCollection.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeCollection.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiEntityMemberOrdered.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiEntityMemberUnordered.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiEntitySingleton.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeMemberOrdered.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeMemberUnordered.Variable.isValidXDIArc(XDIarc)) return true; 
+		if (XdiAttributeSingleton.Variable.isValidXDIArc(XDIarc)) return true; 
 
 		return false;
 	}
@@ -73,14 +94,14 @@ public abstract class XdiAbstractVariable extends XdiAbstractSubGraph<XdiAbstrac
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiVariableIterator extends NotNullIterator<XdiVariable> {
+	public static class MappingContextNodeXdiVariableIterator extends NotNullIterator<XdiVariable<? extends XdiContext<?>>> {
 
 		public MappingContextNodeXdiVariableIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiVariable> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiVariable<? extends XdiContext<?>>> (contextNodes) {
 
 				@Override
-				public XdiVariable map(ContextNode contextNode) {
+				public XdiVariable<? extends XdiContext<?>> map(ContextNode contextNode) {
 
 					return XdiAbstractVariable.fromContextNode(contextNode);
 				}

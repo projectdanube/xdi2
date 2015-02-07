@@ -36,8 +36,8 @@ public class CloudName {
 
 				XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
-				if (XDIarc.isAttributeXs()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc.isClassXs()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc.hasXRef() || ! XDIarc.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_GENERAL.equals(XDIarc.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}

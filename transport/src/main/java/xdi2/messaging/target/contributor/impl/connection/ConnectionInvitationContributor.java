@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiVariable;
-import xdi2.core.features.nodetypes.XdiVariableSingleton.MappingContextNodeXdiVariableSingletonIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
@@ -132,9 +132,9 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
 
-		MappingContextNodeXdiVariableSingletonIterator xdiVariablesIterator = new MappingContextNodeXdiVariableSingletonIterator(operation.getMessage().getContextNode().getContextNodes());
+		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(operation.getMessage().getContextNode().getContextNodes());
 
-		for (XdiVariable xdiVariable : xdiVariablesIterator) {
+		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
 
 			if (log.isDebugEnabled()) log.debug("Custom variable in connection invitation: " + xdiVariable.getXDIArc());
 

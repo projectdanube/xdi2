@@ -129,14 +129,21 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public EQ dereference() {
+	public EQ dereference(boolean reference, boolean replacement, boolean identity) {
 
 		EQ xdiContext;
 
-		if ((xdiContext = this.getReferenceXdiContext()) != null) return xdiContext;
-		if ((xdiContext = this.getReplacementXdiContext()) != null) return xdiContext;
+		if (reference && ((xdiContext = this.getReferenceXdiContext()) != null)) return xdiContext;
+		if (replacement && ((xdiContext = this.getReplacementXdiContext()) != null)) return xdiContext;
+		if (identity && ((xdiContext = this.getIdentityXdiContext()) != null)) return xdiContext;
 
 		return (EQ) this;
+	}
+
+	@Override
+	public EQ dereference() {
+
+		return this.dereference(true, true, false);
 	}
 
 	@Override
@@ -175,6 +182,16 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 				return xdiContext;
 			}
 		};
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public EQ getIdentityXdiContext() {
+
+		ContextNode identityContextNode = Equivalence.getIdentityContextNode(this.getContextNode());
+		EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
+
+		return xdiContext;
 	}
 
 	@Override

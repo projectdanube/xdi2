@@ -117,8 +117,8 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 
 		if (XDIarc == null) return false;
 
-		if (XDIarc.isClassXs()) return false;
-		if (XDIarc.isAttributeXs()) return false;
+		if (XDIarc.isCollection()) return false;
+		if (XDIarc.isAttribute()) return false;
 		if (XDIarc.hasLiteral()) return false;
 		if (XDIarc.hasXRef()) return false;
 

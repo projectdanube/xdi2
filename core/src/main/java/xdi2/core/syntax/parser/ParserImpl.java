@@ -80,10 +80,11 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 			// parse beginning of arc
 
-			if (pos < string.length() && (pair = cla(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
-			if (pos < string.length() && (pair = att(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = xsvariable(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = xscollection(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = xsattribute(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && cs(string.charAt(pos)) != null) pos++;
-			if (pos < string.length() && (pair = xs(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = xsxref(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 
 			// parse to the end of the arc
 
@@ -95,10 +96,11 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 					// reached beginning of the next arc
 
-					if (cla(string.charAt(pos)) != null) break;
-					if (att(string.charAt(pos)) != null) break;
+					if (xsvariable(string.charAt(pos)) != null) break;
+					if (xscollection(string.charAt(pos)) != null) break;
+					if (xsattribute(string.charAt(pos)) != null) break;
 					if (cs(string.charAt(pos)) != null) break;
-					if (xs(string.charAt(pos)) != null) break;
+					if (xsxref(string.charAt(pos)) != null) break;
 				}
 
 				// at least one pair still open?
@@ -107,9 +109,10 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 					// new pair being opened?
 
-					pair = cla(string.charAt(pos));
-					if (pair == null) pair = att(string.charAt(pos));
-					if (pair == null) pair = xs(string.charAt(pos));
+					pair = xsvariable(string.charAt(pos));
+					if (pair == null) pair = xscollection(string.charAt(pos));
+					if (pair == null) pair = xsattribute(string.charAt(pos));
+					if (pair == null) pair = xsxref(string.charAt(pos));
 
 					if (pair != null) { 
 
@@ -149,27 +152,37 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (log.isTraceEnabled()) log.trace("Parsing arc: " + string);
 
 		Character cs = null;
-		String cla = null;
-		String att = null;
+		String variable = null;
+		String collection = null;
+		String attribute = null;
 		String literal = null;
 		XDIXRef xref = null;
 
 		int pos = 0, len = string.length();
 
-		// extract class pair
+		// extract variable pair
 
-		if (pos < len && (cla = cla(string.charAt(pos))) != null) {
+		if (pos < len && (variable = xsvariable(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != cla.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + cla.charAt(1) + "' character for class at position " + pos + ")");
+			if (string.charAt(len - 1) != variable.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + variable.charAt(1) + "' character for variable at position " + pos + ")");
+
+			pos++; len--;
+		}
+
+		// extract collection pair
+
+		if (pos < len && (collection = xscollection(string.charAt(pos))) != null) {
+
+			if (string.charAt(len - 1) != collection.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + collection.charAt(1) + "' character for collection at position " + pos + ")");
 
 			pos++; len--;
 		}
 
 		// extract attribute pair
 
-		if (pos < len && (att = att(string.charAt(pos))) != null) {
+		if (pos < len && (attribute = xsattribute(string.charAt(pos))) != null) {
 
-			if (string.charAt(len - 1) != att.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + att.charAt(1) + "' character for attribute at position " + pos + ")");
+			if (string.charAt(len - 1) != attribute.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + attribute.charAt(1) + "' character for attribute at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -185,7 +198,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		if (pos < len) {
 
-			if (xs(string.charAt(pos)) != null) {
+			if (xsxref(string.charAt(pos)) != null) {
 
 				xref = this.parseXDIXRef(string.substring(pos, len));
 			} else {
@@ -197,7 +210,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIArc(string, cs, cla != null, att != null, literal, xref);
+		return this.newXDIArc(string, cs, variable != null, collection != null, attribute != null, literal, xref);
 	}
 
 	@Override
@@ -205,7 +218,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		if (log.isTraceEnabled()) log.trace("Parsing xref: " + string);
 
-		String xs = xs(string.charAt(0));
+		String xs = xsxref(string.charAt(0));
 		if (xs == null) throw new ParserException("Invalid cross reference: " + string + " (no opening delimiter)");
 		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid cross reference: " + string + " (invalid closing '" + xs.charAt(1) + "' delimiter)");
 		if (string.length() == 2) return this.newXDIXRef(string, xs, null, null, null, null, null);
@@ -234,7 +247,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 				partialSubject = this.parseXDIAddress(value.substring(0, split0));
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
-			} else if (cs(value.charAt(0)) != null || cla(value.charAt(0)) != null || att(value.charAt(0)) != null || xs(value.charAt(0)) != null) {
+			} else if (cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
 
 				XDIaddress = this.parseXDIAddress(value);
 			} else {
@@ -327,24 +340,30 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		return null;
 	}
 
-	private static String cla(char c) {
+	private static String xsvariable(char c) {
 
-		if (XDIConstants.XS_CLASS.charAt(0) == c) return XDIConstants.XS_CLASS;
+		if (XDIConstants.XS_VARIABLE.charAt(0) == c) return XDIConstants.XS_VARIABLE;
 
 		return null;
 	}
 
-	private static String att(char c) {
+	private static String xscollection(char c) {
+
+		if (XDIConstants.XS_COLLECTION.charAt(0) == c) return XDIConstants.XS_COLLECTION;
+
+		return null;
+	}
+
+	private static String xsattribute(char c) {
 
 		if (XDIConstants.XS_ATTRIBUTE.charAt(0) == c) return XDIConstants.XS_ATTRIBUTE;
 
 		return null;
 	}
 
-	private static String xs(char c) {
+	private static String xsxref(char c) {
 
 		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
-		if (XDIConstants.XS_VARIABLE.charAt(0) == c) return XDIConstants.XS_VARIABLE;
 		if (XDIConstants.XS_DEFINITION.charAt(0) == c) return XDIConstants.XS_DEFINITION;
 
 		return null;

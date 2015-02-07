@@ -11,7 +11,7 @@ import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.nodetypes.XdiAbstractVariable;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphUtil;
@@ -135,7 +135,7 @@ public class LinkContractsTest extends TestCase {
 		assertNotNull(l1);
 		assertEquals(l1.getTemplateAuthorityAndId(), XDIAddress.create("=markus#registration"));
 
-		LinkContractTemplate l2 = LinkContractTemplate.fromXdiVariable(XdiAbstractVariable.fromContextNode(contextNode));
+		LinkContractTemplate l2 = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(contextNode));
 		assertNotNull(l2);
 		assertEquals(l2.getTemplateAuthorityAndId(), XDIAddress.create("=markus#registration"));
 

@@ -13,7 +13,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> {
+public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
@@ -52,24 +52,38 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiAttributeCollection(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiAttributeCollection(contextNode);
 	}
 
 	/*
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createAttributeCollectionXDIArc(XDIArc XDIarc, boolean variable) {
+
+		StringBuffer buffer = new StringBuffer();
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+		buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
+		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
+		buffer.append(XDIarc.toString());
+		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
+		buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(1));
+
+		return XDIArc.create(buffer.toString());
+	}
+
 	public static XDIArc createAttributeCollectionXDIArc(XDIArc XDIarc) {
 
-		return XDIArc.create("" + XDIConstants.XS_CLASS.charAt(0) + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIarc + XDIConstants.XS_ATTRIBUTE.charAt(1) + XDIConstants.XS_CLASS.charAt(1));
+		return createAttributeCollectionXDIArc(XDIarc, false);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XDIarc.isClassXs()) return false;
-		if (! XDIarc.isAttributeXs()) return false;
+		if (! XDIarc.isCollection()) return false;
+		if (! XDIarc.isAttribute()) return false;
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
@@ -80,6 +94,34 @@ public final class XdiAttributeCollection extends XdiAbstractCollection<XdiAttri
 		}
 
 		return true;
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiAttributeCollection implements XdiVariable<XdiAttributeCollection> {
+
+		private static final long serialVersionUID = -6940805769637927276L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiAttributeCollection.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

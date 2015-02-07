@@ -13,7 +13,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> implements XdiAttribute {
+public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> implements XdiAttribute {
 
 	private static final long serialVersionUID = -5769813522592588864L;
 
@@ -52,7 +52,7 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiAttributeSingleton(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiAttributeSingleton(contextNode);
 	}
 
 	/*
@@ -79,17 +79,29 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createAttributeSingletonXDIArc(XDIArc XDIarc, boolean variable) {
+
+		StringBuffer buffer = new StringBuffer();
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
+		buffer.append(XDIarc.toString());
+		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
+		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(1));
+
+		return XDIArc.create(buffer.toString());
+	}
+
 	public static XDIArc createAttributeSingletonXDIArc(XDIArc XDIarc) {
 
-		return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIarc + XDIConstants.XS_ATTRIBUTE.charAt(1));
+		return createAttributeSingletonXDIArc(XDIarc, false);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XDIarc.isClassXs()) return false;
-		if (! XDIarc.isAttributeXs()) return false;
+		if (XDIarc.isCollection()) return false;
+		if (! XDIarc.isAttribute()) return false;
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
@@ -100,6 +112,34 @@ public final class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribu
 		}
 
 		return true;
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiAttributeSingleton implements XdiVariable<XdiAttribute> {
+
+		private static final long serialVersionUID = 7411198118077832135L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiAttributeSingleton.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

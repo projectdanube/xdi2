@@ -56,7 +56,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 
 		if (! isValid(contextNode)) return null;
 
-		return new XdiInnerRoot(contextNode);
+		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiInnerRoot(contextNode);
 	}
 
 	/*
@@ -117,6 +117,7 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 				null, 
 				false, 
 				false, 
+				false, 
 				null, 
 				XDIXRef.fromComponents(
 						XDIConstants.XS_ROOT, 
@@ -175,8 +176,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		if (XDIarc == null) return null;
 
 		if (XDIarc.hasCs()) return null;
-		if (XDIarc.isClassXs()) return null;
-		if (XDIarc.isAttributeXs()) return null;
+		if (XDIarc.isCollection()) return null;
+		if (XDIarc.isAttribute()) return null;
 		if (! XDIarc.hasXRef()) return null;
 
 		XDIXRef xref = XDIarc.getXRef();
@@ -196,8 +197,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		if (XDIarc == null) return null;
 
 		if (XDIarc.hasCs()) return null;
-		if (XDIarc.isClassXs()) return null;
-		if (XDIarc.isAttributeXs()) return null;
+		if (XDIarc.isCollection()) return null;
+		if (XDIarc.isAttribute()) return null;
 		if (! XDIarc.hasXRef()) return null;
 
 		XDIXRef xref = XDIarc.getXRef();
@@ -220,6 +221,34 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		if (getPredicateOfInnerRootXDIArc(XDIarc) == null) return false;
 
 		return true;
+	}
+
+	/*
+	 * Variable class
+	 */
+
+	public static class Variable extends XdiInnerRoot implements XdiVariable<XdiRoot> {
+
+		private static final long serialVersionUID = 4142156711534430280L;
+
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiInnerRoot.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 
 	/*

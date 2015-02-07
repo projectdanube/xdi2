@@ -7,7 +7,6 @@ import java.util.Properties;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
@@ -19,6 +18,8 @@ import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.XDIAddressUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,7 +48,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		// start with the common root node
 
-		putRootIntoJsonObject(graph.getRootContextNode(), jsonObject);
+		this.putRootIntoJsonObject(graph.getRootContextNode(), jsonObject);
 	}
 
 	@SuppressWarnings("resource")
@@ -69,25 +70,28 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
-	private static void putRootIntoJsonObject(ContextNode rootContextNode, JsonObject outerJsonObject) throws IOException {
+	private void putRootIntoJsonObject(ContextNode rootContextNode, JsonObject outerJsonObject) throws IOException {
 
-		JsonObject graphJsonObject;
-		JsonObject entityJsonObject;
+		JsonObject rootJsonObject;
+
+		// set up root
 
 		if (XdiCommonRoot.isValid(rootContextNode)) {
 
-			graphJsonObject = outerJsonObject;
+			rootJsonObject = outerJsonObject;
 		} else if (XdiAbstractRoot.isValid(rootContextNode)) {
 
-			graphJsonObject = new JsonObject();
-			outerJsonObject.add(rootContextNode.getXDIAddress().toString(), graphJsonObject);
+			rootJsonObject = new JsonObject();
+			outerJsonObject.add(rootContextNode.getXDIAddress().toString(), rootJsonObject);
 		} else {
 
 			throw new Xdi2RuntimeException("Unexpected root context node: " + rootContextNode);
 		}
 
-		entityJsonObject = new JsonObject();
-		graphJsonObject.add("", entityJsonObject);
+		// set up root entity
+
+		JsonObject rootEntityJsonObject = new JsonObject();
+		rootJsonObject.add("", rootEntityJsonObject);
 
 		// context nodes
 
@@ -95,19 +99,19 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			if (XdiAbstractRoot.isValid(contextNode)) {
 
-				putRootIntoJsonObject(contextNode, outerJsonObject);
+				this.putRootIntoJsonObject(contextNode, outerJsonObject);
 				continue;
 			}
 
 			if (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) {
 
-				putEntityIntoGraphJsonObject(contextNode, graphJsonObject);
+				this.putEntityIntoRootJsonObject(contextNode, rootJsonObject, rootContextNode.getXDIAddress());
 				continue;
 			}
 
 			if (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) {
 
-				putAttributeIntoEntityJsonObject(contextNode, entityJsonObject);
+				this.putAttributeIntoEntityJsonObject(contextNode, rootEntityJsonObject, rootContextNode.getXDIAddress());
 				continue;
 			}
 
@@ -118,7 +122,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (Relation relation : rootContextNode.getRelations()) {
 
-			putRelationIntoEntityJsonObject(relation, entityJsonObject);
+			this.putRelationIntoJsonObject(relation, rootEntityJsonObject);
 		}
 
 		// literal
@@ -127,12 +131,34 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			throw new Xdi2RuntimeException("Unexpected literal on root context node: " + rootContextNode);
 		}
+
+		// finish root
+
+		if (rootJsonObject != outerJsonObject) {
+
+			if (rootJsonObject.entrySet().isEmpty() && ! rootContextNode.isEmpty()) {
+
+				if (! this.isWriteImplied()) outerJsonObject.remove(rootContextNode.getXDIAddress().toString());
+			}
+		}
+
+		// finish root entity
+
+		if (rootEntityJsonObject.entrySet().isEmpty()) {
+
+			if (! this.isWriteImplied()) rootJsonObject.remove("");
+		}
 	}
 
-	private static void putEntityIntoGraphJsonObject(ContextNode entityContextNode, JsonObject graphJsonObject) throws IOException {
+	private void putEntityIntoRootJsonObject(ContextNode entityContextNode, JsonObject rootJsonObject, XDIAddress parentXDIAddress) throws IOException {
+
+		XDIAddress XDIaddress = entityContextNode.getXDIAddress();
+		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, - parentXDIAddress.getNumXDIArcs());
+
+		// set up entity
 
 		JsonObject entityJsonObject = new JsonObject();
-		graphJsonObject.add(entityContextNode.getXDIAddress().toString(), entityJsonObject);
+		rootJsonObject.add(localXDIAddress.toString(), entityJsonObject);
 
 		// context nodes
 
@@ -140,13 +166,13 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			if (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) {
 
-				putEntityIntoGraphJsonObject(contextNode, graphJsonObject);
+				this.putEntityIntoRootJsonObject(contextNode, rootJsonObject, parentXDIAddress);
 				continue;
 			}
 
 			if (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) {
 
-				putAttributeIntoEntityJsonObject(contextNode, entityJsonObject);
+				this.putAttributeIntoEntityJsonObject(contextNode, entityJsonObject, XDIaddress);
 				continue;
 			}
 
@@ -157,7 +183,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (Relation relation : entityContextNode.getRelations()) {
 
-			putRelationIntoEntityJsonObject(relation, entityJsonObject);
+			this.putRelationIntoJsonObject(relation, entityJsonObject);
 		}
 
 		// literal
@@ -166,12 +192,24 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			throw new Xdi2RuntimeException("Unexpected literal on entity context node: " + entityContextNode);
 		}
+
+		// finish entity
+
+		if (entityJsonObject.entrySet().isEmpty() && ! entityContextNode.isEmpty()) {
+
+			if (! this.isWriteImplied()) rootJsonObject.remove(localXDIAddress.toString());
+		}
 	}
 
-	private static void putAttributeIntoEntityJsonObject(ContextNode attributeContextNode, JsonObject entityJsonObject) throws IOException {
+	private void putAttributeIntoEntityJsonObject(ContextNode attributeContextNode, JsonObject entityJsonObject, XDIAddress parentXDIAddress) throws IOException {
+
+		XDIAddress XDIaddress = attributeContextNode.getXDIAddress();
+		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, - parentXDIAddress.getNumXDIArcs());
+
+		// set up attribute
 
 		JsonObject attributeJsonObject = new JsonObject();
-		attributeJsonObject.add(attributeContextNode.getXDIAddress().toString(), attributeJsonObject);
+		entityJsonObject.add(localXDIAddress.toString(), attributeJsonObject);
 
 		// context nodes
 
@@ -179,13 +217,13 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			if (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) {
 
-				putAttributeIntoEntityJsonObject(contextNode, attributeJsonObject);
+				this.putAttributeIntoEntityJsonObject(contextNode, entityJsonObject, parentXDIAddress);
 				continue;
 			}
 
 			if (XdiValue.isValid(contextNode)) {
 
-				putValueIntoAttributeJsonObject(contextNode, attributeJsonObject);
+				this.putValueIntoAttributeJsonObject(contextNode, attributeJsonObject, XDIaddress);
 				continue;
 			}
 
@@ -196,7 +234,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (Relation relation : attributeContextNode.getRelations()) {
 
-			putRelationIntoAttributeJsonObject(relation, attributeJsonObject);
+			this.putRelationIntoJsonObject(relation, attributeJsonObject);
 		}
 
 		// literal
@@ -205,43 +243,37 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			throw new Xdi2RuntimeException("Unexpected literal on attribute context node: " + attributeContextNode);
 		}
+
+		// finish attribute
+
+		if (attributeJsonObject.entrySet().isEmpty() && ! attributeContextNode.isEmpty()) {
+
+			if (! this.isWriteImplied()) entityJsonObject.remove(localXDIAddress.toString());
+		}
 	}
 
-	private static void putValueIntoAttributeJsonObject(ContextNode valueContextNode, JsonObject attributeJsonObject) {
+	private void putValueIntoAttributeJsonObject(ContextNode valueContextNode, JsonObject attributeJsonObject, XDIAddress parentXDIAddress) {
 
-		JsonElement literalJsonElement;
+		XDIAddress XDIaddress = valueContextNode.getXDIAddress();
+		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, - parentXDIAddress.getNumXDIArcs());
 
 		if (! valueContextNode.containsLiteral()) {
 
 			throw new Xdi2RuntimeException("No literal on value context node: " + valueContextNode);
 		}
 
-		literalJsonElement = AbstractLiteral.literalDataToJsonElement(valueContextNode.getLiteral().getLiteralData());
-
-		attributeJsonObject.add(XDIConstants.XDI_ARC_VALUE.toString(), literalJsonElement);
+		JsonElement literalJsonElement = AbstractLiteral.literalDataToJsonElement(valueContextNode.getLiteral().getLiteralData());
+		attributeJsonObject.add(localXDIAddress.toString(), literalJsonElement);
 	}
 
-	private static void putRelationIntoEntityJsonObject(Relation relation, JsonObject entityJsonObject) {
+	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject) {
 
-		JsonArray relationJsonArray = entityJsonObject.getAsJsonArray(relation.getXDIAddress().toString());
+		JsonArray relationJsonArray = jsonObject.getAsJsonArray(relation.getXDIAddress().toString());
 
 		if (relationJsonArray == null) {
 
 			relationJsonArray = new JsonArray();
-			entityJsonObject.add(relation.getXDIAddress().toString(), relationJsonArray);
-		}
-
-		relationJsonArray.add(new JsonPrimitive(relation.getTargetContextNodeXDIAddress().toString()));
-	}
-
-	private static void putRelationIntoAttributeJsonObject(Relation relation, JsonObject attributeJsonObject) {
-
-		JsonArray relationJsonArray = attributeJsonObject.getAsJsonArray(relation.getXDIAddress().toString());
-
-		if (relationJsonArray == null) {
-
-			relationJsonArray = new JsonArray();
-			attributeJsonObject.add(relation.getXDIAddress().toString(), relationJsonArray);
+			jsonObject.add(relation.getXDIAddress().toString(), relationJsonArray);
 		}
 
 		relationJsonArray.add(new JsonPrimitive(relation.getTargetContextNodeXDIAddress().toString()));
