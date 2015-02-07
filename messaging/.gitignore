@@ -1,2 +1,4 @@
+.classpath
+.settings
+.project
 /target
-/xdi2-bdb

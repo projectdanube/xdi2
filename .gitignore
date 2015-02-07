@@ -1,3 +1,5 @@
-/xdi2-bdb
+.classpath
+.settings
+.project
 /target
 /tmp
