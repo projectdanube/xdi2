@@ -20,8 +20,8 @@ public class XDIConstants {
 	public static final Character CS_MEMBER_ORDERED = new Character('@');
 
 	public static final String XS_DEFINITION = "||";
-	public static final String XS_VARIABLE = "{}";
 	public static final String XS_ROOT = "()";
+	public static final String XS_VARIABLE = "{}";
 	public static final String XS_COLLECTION = "[]";
 	public static final String XS_ATTRIBUTE = "<>";
 

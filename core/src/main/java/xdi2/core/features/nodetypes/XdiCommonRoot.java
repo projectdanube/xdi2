@@ -4,10 +4,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.nodetypes.XdiInnerRoot.MappingContextNodeInnerRootIterator;
-import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 
 /**
  * An XDI common root, represented as a context node.
@@ -100,13 +97,31 @@ public class XdiCommonRoot extends XdiAbstractRoot {
 		return XdiPeerRoot.fromContextNode(relation.follow());
 	}
 
-	public ReadOnlyIterator<XdiPeerRoot> getPeerRoots() {
+	/*
+	 * Variable class
+	 */
 
-		return new MappingContextNodePeerRootIterator(this.getContextNode().getContextNodes());
-	}
+	public static class Variable extends XdiCommonRoot implements XdiVariable<XdiRoot> {
 
-	public ReadOnlyIterator<XdiInnerRoot> getInnerRoots() {
+		private static final long serialVersionUID = 6816533299541990392L;
 
-		return new MappingContextNodeInnerRootIterator(this.getContextNode().getContextNodes());
+		private Variable(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return contextNode.getXDIArc().isVariable() && XdiCommonRoot.isValid(contextNode);
+		}
+
+		public static Variable fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Variable(contextNode);
+		}
 	}
 }

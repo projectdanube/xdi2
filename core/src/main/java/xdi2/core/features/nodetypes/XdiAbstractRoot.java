@@ -4,11 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.nodetypes.XdiInnerRoot.MappingContextNodeInnerRootIterator;
+import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.XDIStatementUtil;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implements XdiRoot {
 
@@ -62,6 +65,18 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	/*
 	 * Roots related to this root
 	 */
+
+	@Override
+	public ReadOnlyIterator<XdiPeerRoot> getPeerRoots() {
+
+		return new MappingContextNodePeerRootIterator(this.getContextNode().getContextNodes());
+	}
+
+	@Override
+	public ReadOnlyIterator<XdiInnerRoot> getInnerRoots() {
+
+		return new MappingContextNodeInnerRootIterator(this.getContextNode().getContextNodes());
+	}
 
 	@Override
 	public XdiPeerRoot getPeerRoot(XDIAddress XDIaddress, boolean create) {

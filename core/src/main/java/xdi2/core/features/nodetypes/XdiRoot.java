@@ -5,12 +5,25 @@ import java.util.Iterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.MappingIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public interface XdiRoot extends XdiContext<XdiRoot> {
 
 	/*
 	 * Finding roots related to this root
 	 */
+
+	/**
+	 * Returns the XDI peer roots under this XDI root
+	 * @return The XDI peer roots.
+	 */
+	public ReadOnlyIterator<XdiPeerRoot> getPeerRoots();
+
+	/**
+	 * Returns the XDI inner roots under this XDI root
+	 * @return The XDI inner roots.
+	 */
+	public ReadOnlyIterator<XdiInnerRoot> getInnerRoots();
 
 	/**
 	 * Returns an XDI peer root under this XDI root.

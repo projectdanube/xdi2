@@ -221,7 +221,6 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		String xs = xsxref(string.charAt(0));
 		if (xs == null) throw new ParserException("Invalid cross reference: " + string + " (no opening delimiter)");
 		if (string.charAt(string.length() - 1) != xs.charAt(1)) throw new ParserException("Invalid cross reference: " + string + " (invalid closing '" + xs.charAt(1) + "' delimiter)");
-		if (string.length() == 2) return this.newXDIXRef(string, xs, null, null, null, null, null);
 
 		String value = string.substring(1, string.length() - 1);
 
@@ -242,12 +241,13 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 			if (addresses == 2) {
 
+				temp = " " + temp + " ";
 				String[] parts = temp.split("/");
-				int split0 = parts[0].length();
+				int split0 = parts[0].length() - 1;
 
 				partialSubject = this.parseXDIAddress(value.substring(0, split0));
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
-			} else if (cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
+			} else if (value.isEmpty() || cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
 
 				XDIaddress = this.parseXDIAddress(value);
 			} else {
@@ -276,8 +276,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 	private static String stripXs(String string) {
 
+		string = stripPattern(string, Pattern.compile(".*(\\|[^\\|]*\\|).*"));
 		string = stripPattern(string, Pattern.compile(".*(\\([^\\(\\)]*\\)).*"));
-		string = stripPattern(string, Pattern.compile(".*(\\{[^\\{\\}]*\\}).*"));
 		string = stripPattern(string, Pattern.compile(".*(\"[^\"]*\").*"));
 
 		return string;
@@ -363,8 +363,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 	private static String xsxref(char c) {
 
-		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
 		if (XDIConstants.XS_DEFINITION.charAt(0) == c) return XDIConstants.XS_DEFINITION;
+		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
 
 		return null;
 	}
