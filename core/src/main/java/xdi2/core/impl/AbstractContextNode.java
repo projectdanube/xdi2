@@ -142,7 +142,7 @@ public abstract class AbstractContextNode implements ContextNode {
 	public ContextNode setDeepContextNode(XDIAddress relativeContextNodeXDIAddress) {
 
 		if (relativeContextNodeXDIAddress == null) return this;
-		if (XDIConstants.XDI_ADD_ROOT.equals(relativeContextNodeXDIAddress)) return this;
+		if (relativeContextNodeXDIAddress.getNumXDIArcs() < 1) return this;
 
 		ContextNode contextNode = this;
 
@@ -888,9 +888,15 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void setContextNodeSetInnerRoot(XDIArc XDIarc, ContextNode contextNode) {
 
-		if (XdiInnerRoot.isValidXDIArc(XDIarc) && ! XDIarc.isVariable()) {
+		if (XdiInnerRoot.isValidXDIArc(XDIarc)) {
 
-			this.setDeepContextNode(XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc)).setRelation(XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc), contextNode);
+			XDIAddress subjectXDIAddress = XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc);
+			XDIAddress predicateXDIAddress = XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc);
+
+			ContextNode subjectContextNode = this.setDeepContextNode(subjectXDIAddress);
+
+			if (predicateXDIAddress.getNumXDIArcs() < 1) return;
+			subjectContextNode.setRelation(predicateXDIAddress, contextNode);
 		}
 	}
 
@@ -936,14 +942,16 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void delRelationDelInnerRoot(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(this);
+		
+
+/*		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(this);
 		XdiInnerRoot xdiInnerRoot = xdiContext.getXdiInnerRoot(XDIaddress, false);
 		if (xdiInnerRoot == null) return;
 
 		if (xdiInnerRoot.getXDIAddress().equals(targetContextNodeXDIAddress)) {
 
 			this.getGraph().getDeepContextNode(targetContextNodeXDIAddress, false).delete();
-		}
+		}*/
 	}
 
 	/*
