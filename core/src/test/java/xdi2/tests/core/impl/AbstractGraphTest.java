@@ -1062,6 +1062,71 @@ public abstract class AbstractGraphTest extends TestCase {
 		graph31.close();
 	}
 
+	public void testSetContextNodeSetInnerRoot() throws Exception {
+
+		Graph graph32 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-32");
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("(=a/#b)"));
+		assertEquals(graph32.getAllStatementCount(), 3);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//(=a/#b)")));
+		assertTrue(graph32.containsStatement(XDIStatement.create("//=a")));
+		assertTrue(graph32.containsStatement(XDIStatement.create("=a/#b/(=a/#b)")));
+		graph32.clear();
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("(=a/)"));
+		assertEquals(graph32.getAllStatementCount(), 2);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//(=a/)")));
+		assertTrue(graph32.containsStatement(XDIStatement.create("//=a")));
+		graph32.clear();
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("(/#b)"));
+		assertEquals(graph32.getAllStatementCount(), 2);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//(/#b)")));
+		assertTrue(graph32.containsStatement(XDIStatement.create("/#b/(/#b)")));
+		graph32.clear();
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("(/)"));
+		assertEquals(graph32.getAllStatementCount(), 1);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//(/)")));
+		graph32.clear();
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("(=a)"));
+		assertEquals(graph32.getAllStatementCount(), 1);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//(=a)")));
+		graph32.clear();
+
+		graph32.getRootContextNode().setContextNode(XDIArc.create("()"));
+		assertEquals(graph32.getAllStatementCount(), 1);
+		assertTrue(graph32.containsStatement(XDIStatement.create("//()")));
+		graph32.clear();
+
+		graph32.close();
+	}
+
+	public void testDelRelationDelInnerRoot() throws Exception {
+
+		Graph graph33 = this.getGraphFactory().openGraph(this.getClass().getName() + "-graph-33");
+
+		graph33.getRootContextNode().setContextNode(XDIArc.create("(=a/#b)"));
+		assertEquals(graph33.getAllStatementCount(), 3);
+		graph33.getRootContextNode().getContextNode(XDIArc.create("=a")).delRelations(XDIAddress.create("#b"));
+		assertEquals(graph33.getAllStatementCount(), 1);
+		assertFalse(graph33.containsStatement(XDIStatement.create("//(=a/#b)")));
+		assertTrue(graph33.containsStatement(XDIStatement.create("//=a")));
+		assertFalse(graph33.containsStatement(XDIStatement.create("=a/#b/(=a/#b)")));
+		graph33.clear();
+
+		graph33.getRootContextNode().setContextNode(XDIArc.create("(/#b)"));
+		assertEquals(graph33.getAllStatementCount(), 2);
+		graph33.getRootContextNode().delRelations(XDIAddress.create("#b"));
+		assertEquals(graph33.getAllStatementCount(), 0);
+		assertFalse(graph33.containsStatement(XDIStatement.create("//(/#b)")));
+		assertFalse(graph33.containsStatement(XDIStatement.create("/#b/(/#b)")));
+		graph33.clear();
+
+		graph33.close();
+	}
+
 	/*
 	 * Helper methods
 	 */

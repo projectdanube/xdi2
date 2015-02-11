@@ -942,16 +942,14 @@ public abstract class AbstractContextNode implements ContextNode {
 	 */
 	protected void delRelationDelInnerRoot(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
 
-		
-
-/*		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(this);
+		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(this);
 		XdiInnerRoot xdiInnerRoot = xdiContext.getXdiInnerRoot(XDIaddress, false);
 		if (xdiInnerRoot == null) return;
 
 		if (xdiInnerRoot.getXDIAddress().equals(targetContextNodeXDIAddress)) {
 
 			this.getGraph().getDeepContextNode(targetContextNodeXDIAddress, false).delete();
-		}*/
+		}
 	}
 
 	/*
