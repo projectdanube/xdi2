@@ -36,8 +36,9 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 /**
  * This contributor can generate key pairs and symmetric keys in a target graph.
  */
+//TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{{}}$keypair", "$keypair", "{{}}<$key>", "<$key>"},
+		contributorAddresses={"{}$keypair", "$keypair", "{}<$key>", "<$key>"},
 		operationAddresses={"$do$keypair", "$do<$key>"},
 		relationAddresses={"$is#"}
 )

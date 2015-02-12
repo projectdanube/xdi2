@@ -9,17 +9,19 @@ public class XDIArc extends XDIIdentifier {
 
 	private Character cs;
 	private boolean variable;
+	private boolean definition;
 	private boolean collection;
 	private boolean attribute;
 	private String literal;
 	private XDIXRef xref;
 
-	XDIArc(String string, Character cs, boolean variable, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	XDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
 
 		super(string);
 
 		this.cs = cs;
 		this.variable = variable;
+		this.definition = definition;
 		this.collection = collection;
 		this.attribute = attribute;
 		this.literal = literal;
@@ -31,10 +33,11 @@ public class XDIArc extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIArc(string);
 	}
 
-	public static XDIArc fromComponents(Character cs, boolean variable, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	public static XDIArc fromComponents(Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
 
 		StringBuffer buffer = new StringBuffer();
 		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+		if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(0));
 		if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
 		if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
 		if (cs != null) buffer.append(cs);
@@ -42,9 +45,10 @@ public class XDIArc extends XDIIdentifier {
 		if (xref != null) buffer.append(xref.toString());
 		if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
 		if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
+		if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(1));
 		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
 
-		return new XDIArc(buffer.toString(), cs, variable, collection, attribute, literal, xref);
+		return new XDIArc(buffer.toString(), cs, variable, definition, collection, attribute, literal, xref);
 	}
 
 	public boolean hasCs() {
@@ -55,6 +59,11 @@ public class XDIArc extends XDIIdentifier {
 	public boolean isVariable() {
 
 		return this.variable;
+	}
+
+	public boolean isDefinition() {
+
+		return this.definition;
 	}
 
 	public boolean isCollection() {

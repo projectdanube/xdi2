@@ -81,6 +81,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 			// parse beginning of arc
 
 			if (pos < string.length() && (pair = xsvariable(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
+			if (pos < string.length() && (pair = xsdefinition(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && (pair = xscollection(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && (pair = xsattribute(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && cs(string.charAt(pos)) != null) pos++;
@@ -97,6 +98,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 					// reached beginning of the next arc
 
 					if (xsvariable(string.charAt(pos)) != null) break;
+					if (xsdefinition(string.charAt(pos)) != null) break;
 					if (xscollection(string.charAt(pos)) != null) break;
 					if (xsattribute(string.charAt(pos)) != null) break;
 					if (cs(string.charAt(pos)) != null) break;
@@ -107,9 +109,19 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 				if (! pairs.isEmpty()) {
 
+					// pair being closed?
+
+					if (string.charAt(pos) == pairs.peek().charAt(1)) {
+
+						pairs.pop();
+						pos++;
+						continue;
+					}
+
 					// new pair being opened?
 
 					pair = xsvariable(string.charAt(pos));
+					if (pair == null) pair = xsdefinition(string.charAt(pos));
 					if (pair == null) pair = xscollection(string.charAt(pos));
 					if (pair == null) pair = xsattribute(string.charAt(pos));
 					if (pair == null) pair = xsxref(string.charAt(pos));
@@ -118,15 +130,6 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 						pairs.push(pair); 
 						pos++; 
-						continue;
-					}
-
-					// pair being closed?
-
-					if (string.charAt(pos) == pairs.peek().charAt(1)) {
-
-						pairs.pop();
-						pos++;
 						continue;
 					}
 				}
@@ -153,6 +156,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		Character cs = null;
 		String variable = null;
+		String definition = null;
 		String collection = null;
 		String attribute = null;
 		String literal = null;
@@ -165,6 +169,15 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (pos < len && (variable = xsvariable(string.charAt(pos))) != null) {
 
 			if (string.charAt(len - 1) != variable.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + variable.charAt(1) + "' character for variable at position " + pos + ")");
+
+			pos++; len--;
+		}
+
+		// extract definition pair
+
+		if (pos < len && (definition = xsdefinition(string.charAt(pos))) != null) {
+
+			if (string.charAt(len - 1) != definition.charAt(1)) throw new ParserException("Invalid arc: " + string + " (invalid closing '" + definition.charAt(1) + "' character for definition at position " + pos + ")");
 
 			pos++; len--;
 		}
@@ -210,7 +223,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIArc(string, cs, variable != null, collection != null, attribute != null, literal, xref);
+		return this.newXDIArc(string, cs, variable != null, definition != null, collection != null, attribute != null, literal, xref);
 	}
 
 	@Override
@@ -247,7 +260,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 				partialSubject = this.parseXDIAddress(value.substring(0, split0));
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
-			} else if (value.isEmpty() || cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
+			} else if (value.isEmpty() || cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xsdefinition(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
 
 				XDIaddress = this.parseXDIAddress(value);
 			} else {
@@ -347,6 +360,13 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		return null;
 	}
 
+	private static String xsdefinition(char c) {
+
+		if (XDIConstants.XS_DEFINITION.charAt(0) == c) return XDIConstants.XS_DEFINITION;
+
+		return null;
+	}
+
 	private static String xscollection(char c) {
 
 		if (XDIConstants.XS_COLLECTION.charAt(0) == c) return XDIConstants.XS_COLLECTION;
@@ -363,7 +383,6 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 	private static String xsxref(char c) {
 
-		if (XDIConstants.XS_DEFINITION.charAt(0) == c) return XDIConstants.XS_DEFINITION;
 		if (XDIConstants.XS_ROOT.charAt(0) == c) return XDIConstants.XS_ROOT;
 
 		return null;

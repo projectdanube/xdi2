@@ -24,8 +24,9 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 /**
  * This contributor can generate secret tokens in digest form in a target graph.
  */
+// TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{{=@+*!}}<$digest><$secret><$token>", "{{(=@+*!)}}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
+		contributorAddresses={"{}<$digest><$secret><$token>", "{}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
 		operationAddresses={"$do<$digest><$secret><$token>"}
 )
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {

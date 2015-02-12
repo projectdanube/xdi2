@@ -29,9 +29,7 @@ public final class VariableUtil {
 	 */
 	public static boolean isVariable(XDIArc variable) {
 
-		return variable.hasXRef() &&
-				XDIConstants.XS_VARIABLE.equals(variable.getXRef().getXs()) &&
-				( variable.getXRef().isEmpty() || variable.getXRef().hasXDIAddress() || variable.getXRef().hasLiteral() );
+		return variable.isVariable();
 	}
 
 	public static boolean isVariable(XDIAddress variable) {
@@ -41,9 +39,11 @@ public final class VariableUtil {
 		return isVariable(variable.getFirstXDIArc());
 	}
 
+	@Deprecated
 	public static List<XDIArc> getArcs(XDIArc variable) {
 
 		if (! isVariable(variable)) return new ArrayList<XDIArc> ();
+		if (! variable.hasXRef()) return new ArrayList<XDIArc> ();
 		if (! variable.getXRef().hasXDIAddress()) return new ArrayList<XDIArc> ();
 
 		XDIAddress XDIaddress = variable.getXRef().getXDIAddress();
@@ -57,9 +57,11 @@ public final class VariableUtil {
 		return XDIaddress.getXDIArcs();
 	}
 
+	@Deprecated
 	public static String getXs(XDIArc variable) {
 
 		if (! isVariable(variable)) return null;
+		if (! variable.hasXRef()) return null;
 		if (! variable.getXRef().hasXDIAddress()) return null;
 
 		XDIXRef xref = variable.getXRef().getXDIAddress().getFirstXDIArc().getXRef();
@@ -81,9 +83,11 @@ public final class VariableUtil {
 	 * @param variable The variable.
 	 * @return True, if the variable matches multiple arcs.
 	 */
+	@Deprecated
 	public static boolean isMultiple(XDIArc variable) {
 
 		if (! isVariable(variable)) return false;
+		if (! variable.hasXRef()) return false;
 		if (! variable.getXRef().hasXDIAddress()) return false;
 
 		if (! variable.getXRef().getXDIAddress().getFirstXDIArc().hasXRef()) return false;
@@ -98,6 +102,7 @@ public final class VariableUtil {
 	 * @param arc The arc to match the variable against.
 	 * @return True, if the variable matches the arc.
 	 */
+	@Deprecated
 	public static boolean matches(XDIArc variable, XDIArc XDIarc) {
 
 		List<XDIArc> variableArcs = getArcs(variable);

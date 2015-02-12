@@ -8,6 +8,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 
 public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements XdiContext<EQ> {
@@ -71,6 +72,16 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
+	}
+
+	public static XdiContext<?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
+	}
+
+	public static <T extends XdiContext<?>> T fromXDIAddress(XDIAddress XDIaddress, Class<T> t) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress), t);
 	}
 
 	/**

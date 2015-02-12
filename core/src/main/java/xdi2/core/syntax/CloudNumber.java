@@ -62,7 +62,7 @@ public class CloudNumber {
 
 	public static CloudNumber createRandom(Character cs) {
 
-		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, false, null, null));
+		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, false, false, null, null));
 		XDIArc XDIarc2 = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
 
 		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(XDIarc1, XDIarc2);

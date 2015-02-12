@@ -76,7 +76,8 @@ public class XDIStatementUtilTest extends TestCase {
 		} 
 	}
 
-	public void testremoveStartAddressStatement() throws Exception {
+	// TODO: DISABLED
+	public void DISABLEDtestRemoveStartAddressStatement() throws Exception {
 
 		XDIStatement contextStatement = XDIStatement.create("=markus<#full>//<#name>");
 

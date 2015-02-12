@@ -570,7 +570,7 @@ public final class XDIAddressUtil {
 
 					xRefAddress = replaceXDIAddress(xRefAddress, oldXDIArc, newXDIAddress);
 
-					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isCollection(), XDIarc.isAttribute(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), xRefAddress, null, null, null, null)));
+					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), xRefAddress, null, null, null, null)));
 
 					continue;
 				}
@@ -583,7 +583,7 @@ public final class XDIAddressUtil {
 					xRefPartialSubject = replaceXDIAddress(xRefPartialSubject, oldXDIArc, newXDIAddress);
 					xRefPartialPredicate = replaceXDIAddress(xRefPartialPredicate, oldXDIArc, newXDIAddress);
 
-					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isCollection(), XDIarc.isAttribute(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
 
 					continue;
 				}

@@ -175,10 +175,10 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		XDIArc s;
 
-		s = parser.parseXDIArc("{[<#(name)>]}");
+		s = parser.parseXDIArc("([<#(name)>])");
 		assertTrue(s.hasXRef());
-		assertEquals(s.getXRef(), parser.parseXDIXRef("{[<#(name)>]}"));
-		assertEquals(s.getXRef().getXs(), XDIConstants.XS_VARIABLE);
+		assertEquals(s.getXRef(), parser.parseXDIXRef("([<#(name)>])"));
+		assertEquals(s.getXRef().getXs(), XDIConstants.XS_ROOT);
 		assertTrue(s.getXRef().hasXDIAddress());
 		assertEquals(s.getXRef().getXDIAddress(), parser.parseXDIAddress("[<#(name)>]"));
 		assertEquals(s.getXRef().getXDIAddress().getNumXDIArcs(), 1);

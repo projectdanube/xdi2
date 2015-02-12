@@ -55,7 +55,10 @@ public class XdiPeerRoot extends XdiAbstractRoot {
 
 		if (! isValid(contextNode)) return null;
 
-		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiPeerRoot(contextNode);
+		if (contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Definition.Variable(contextNode);
+		if (contextNode.getXDIArc().isDefinition() && ! contextNode.getXDIArc().isVariable()) return new Definition(contextNode);
+		if (! contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Variable(contextNode);
+		return new XdiPeerRoot(contextNode);
 	}
 
 	/*
@@ -181,12 +184,64 @@ public class XdiPeerRoot extends XdiAbstractRoot {
 	}
 
 	/*
-	 * Variable class
+	 * Definition and Variable classes
 	 */
+
+	public static class Definition extends XdiPeerRoot implements XdiDefinition<XdiRoot> {
+
+		private static final long serialVersionUID = -7421993257285271303L;
+
+		private Definition(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return XdiPeerRoot.isValid(contextNode) &&
+					contextNode.getXDIArc().isDefinition() &&
+					! contextNode.getXDIArc().isVariable();
+		}
+
+		public static Definition fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Definition(contextNode);
+		}
+
+		public static class Variable extends Definition implements XdiVariable<XdiRoot> {
+
+			private static final long serialVersionUID = -4287720287904718749L;
+
+			private Variable(ContextNode contextNode) {
+
+				super(contextNode);
+			}
+
+			public static boolean isValid(ContextNode contextNode) {
+
+				return XdiPeerRoot.isValid(contextNode) &&
+						contextNode.getXDIArc().isDefinition() &&
+						contextNode.getXDIArc().isVariable();
+			}
+
+			public static Definition fromContextNode(ContextNode contextNode) {
+
+				if (contextNode == null) throw new NullPointerException();
+
+				if (! isValid(contextNode)) return null;
+
+				return new Definition(contextNode);
+			}
+		}
+	}
 
 	public static class Variable extends XdiPeerRoot implements XdiVariable<XdiRoot> {
 
-		private static final long serialVersionUID = -63522763715584615L;
+		private static final long serialVersionUID = -2044945343736353559L;
 
 		private Variable(ContextNode contextNode) {
 
@@ -195,7 +250,9 @@ public class XdiPeerRoot extends XdiAbstractRoot {
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return contextNode.getXDIArc().isVariable() && XdiPeerRoot.isValid(contextNode);
+			return XdiPeerRoot.isValid(contextNode) &&
+					! contextNode.getXDIArc().isDefinition() &&
+					contextNode.getXDIArc().isVariable();
 		}
 
 		public static Variable fromContextNode(ContextNode contextNode) {

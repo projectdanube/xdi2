@@ -31,8 +31,9 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can process connection invitations.
  * Warning: This is experimental, do not use for serious applications.
  */
+//TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{{}}{$do}"},
+		contributorAddresses={"{}{$do}"},
 		operationAddresses={"$do$is{}"}
 		)
 public class ConnectionInvitationContributor extends AbstractContributor implements Prototype<ConnectionInvitationContributor> {

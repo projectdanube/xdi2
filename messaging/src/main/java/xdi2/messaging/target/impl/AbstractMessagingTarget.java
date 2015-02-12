@@ -60,13 +60,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		this.contributors = new ContributorMap();
 	}
 
-	public AbstractMessagingTarget(AbstractMessagingTarget abstractMessagingTarget) {
-
-		this.ownerPeerRootXDIArc = abstractMessagingTarget.ownerPeerRootXDIArc;
-		this.interceptors = new InterceptorList<MessagingTarget> (abstractMessagingTarget.interceptors);
-		this.contributors = new ContributorMap(abstractMessagingTarget.contributors);
-	}
-
 	public AbstractMessagingTarget() {
 
 		this((XDIArc) null);

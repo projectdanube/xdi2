@@ -11,12 +11,12 @@ public final class XDILinkContractConstants {
 	public static final XDIAddress XDI_ADD_DO = XDIAddress.create("$do");
 	public static final XDIAddress XDI_ADD_EC_DO = XDIAddress.create("[$do]");
 	public static final XDIAddress XDI_ADD_V_DO = XDIAddress.create("{$do}");
-	public static final XDIAddress XDI_ADD_VC_DO = XDIAddress.create("[{$do}]");
+	public static final XDIAddress XDI_ADD_VC_DO = XDIAddress.create("{[$do]}");
 
 	public static final XDIArc XDI_ARC_DO = XDIArc.create("$do");
 	public static final XDIArc XDI_ARC_EC_DO = XDIArc.create("[$do]");
 	public static final XDIArc XDI_ARC_V_DO = XDIArc.create("{$do}");
-	public static final XDIArc XDI_ARC_VC_DO = XDIArc.create("[{$do}]");
+	public static final XDIArc XDI_ARC_VC_DO = XDIArc.create("{[$do]}");
 
 	public static final XDIAddress XDI_ADD_PUBLIC = XDIAddress.create("$public");
 

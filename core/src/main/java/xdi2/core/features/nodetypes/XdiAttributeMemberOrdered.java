@@ -51,7 +51,10 @@ public class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttri
 
 		if (! isValid(contextNode)) return null;
 
-		return contextNode.getXDIArc().isVariable() ? new Variable(contextNode) : new XdiAttributeMemberOrdered(contextNode);
+		if (contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Definition.Variable(contextNode);
+		if (contextNode.getXDIArc().isDefinition() && ! contextNode.getXDIArc().isVariable()) return new Definition(contextNode);
+		if (! contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Variable(contextNode);
+		return new XdiAttributeMemberOrdered(contextNode);
 	}
 
 	/*
@@ -98,12 +101,64 @@ public class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttri
 	}
 
 	/*
-	 * Variable class
+	 * Definition and Variable classes
 	 */
+
+	public static class Definition extends XdiAttributeMemberOrdered implements XdiDefinition<XdiAttribute> {
+
+		private static final long serialVersionUID = 9076766650130455708L;
+
+		private Definition(ContextNode contextNode) {
+
+			super(contextNode);
+		}
+
+		public static boolean isValid(ContextNode contextNode) {
+
+			return XdiAttributeMemberOrdered.isValid(contextNode) &&
+					contextNode.getXDIArc().isDefinition() &&
+					! contextNode.getXDIArc().isVariable();
+		}
+
+		public static Definition fromContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) throw new NullPointerException();
+
+			if (! isValid(contextNode)) return null;
+
+			return new Definition(contextNode);
+		}
+
+		public static class Variable extends Definition implements XdiVariable<XdiAttribute> {
+
+			private static final long serialVersionUID = 8232065600537713537L;
+
+			private Variable(ContextNode contextNode) {
+
+				super(contextNode);
+			}
+
+			public static boolean isValid(ContextNode contextNode) {
+
+				return XdiAttributeMemberOrdered.isValid(contextNode) &&
+						contextNode.getXDIArc().isDefinition() &&
+						contextNode.getXDIArc().isVariable();
+			}
+
+			public static Definition fromContextNode(ContextNode contextNode) {
+
+				if (contextNode == null) throw new NullPointerException();
+
+				if (! isValid(contextNode)) return null;
+
+				return new Definition(contextNode);
+			}
+		}
+	}
 
 	public static class Variable extends XdiAttributeMemberOrdered implements XdiVariable<XdiAttribute> {
 
-		private static final long serialVersionUID = -2496768691000252392L;
+		private static final long serialVersionUID = -3150796131750366380L;
 
 		private Variable(ContextNode contextNode) {
 
@@ -112,7 +167,9 @@ public class XdiAttributeMemberOrdered extends XdiAbstractMemberOrdered<XdiAttri
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return contextNode.getXDIArc().isVariable() && XdiAttributeMemberOrdered.isValid(contextNode);
+			return XdiAttributeMemberOrdered.isValid(contextNode) &&
+					! contextNode.getXDIArc().isDefinition() &&
+					contextNode.getXDIArc().isVariable();
 		}
 
 		public static Variable fromContextNode(ContextNode contextNode) {
