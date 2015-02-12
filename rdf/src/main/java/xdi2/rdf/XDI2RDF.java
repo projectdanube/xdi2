@@ -97,7 +97,7 @@ public class XDI2RDF {
 					else object = valueFactory.createLiteral(literalData.toString());
 				} else {
 
-					throw new Xdi2RuntimeException("Invalid statment: " + XDIstatement.toString() + " (" + XDIstatement.getClass().getName() + ")");
+					throw new Xdi2RuntimeException("Invalid statement: " + XDIstatement.toString() + " (" + XDIstatement.getClass().getName() + ")");
 				}
 
 				org.openrdf.model.Statement RDFstatement;
