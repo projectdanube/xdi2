@@ -70,7 +70,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
-	private void putRootIntoJsonObject(ContextNode rootContextNode, JsonObject outerJsonObject) throws IOException {
+	private void putRootIntoJsonObject(ContextNode rootContextNode, JsonObject jsonObject) throws IOException {
 
 		JsonObject rootJsonObject;
 
@@ -78,14 +78,21 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		if (XdiCommonRoot.isValid(rootContextNode)) {
 
-			rootJsonObject = outerJsonObject;
+			rootJsonObject = jsonObject;
 		} else if (XdiAbstractRoot.isValid(rootContextNode)) {
 
 			rootJsonObject = new JsonObject();
-			outerJsonObject.add(rootContextNode.getXDIAddress().toString(), rootJsonObject);
+			jsonObject.add(rootContextNode.getXDIAddress().toString(), rootJsonObject);
 		} else {
 
 			throw new Xdi2RuntimeException("Unexpected root context node: " + rootContextNode);
+		}
+
+		// implied statement
+
+		if (this.isWriteImplied() && rootJsonObject != jsonObject) {
+
+			this.putContextNodeIntoJsonObject(rootContextNode, jsonObject);
 		}
 
 		// context nodes
@@ -94,7 +101,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			if (XdiAbstractRoot.isValid(contextNode)) {
 
-				this.putRootIntoJsonObject(contextNode, outerJsonObject);
+				this.putRootIntoJsonObject(contextNode, jsonObject);
 				continue;
 			}
 
@@ -129,11 +136,11 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		// finish root
 
-		if (rootJsonObject != outerJsonObject) {
+		if (rootJsonObject != jsonObject) {
 
 			if (rootJsonObject.entrySet().isEmpty() && ! rootContextNode.isEmpty()) {
 
-				if (! this.isWriteImplied()) outerJsonObject.remove(rootContextNode.getXDIAddress().toString());
+				if (! this.isWriteImplied()) jsonObject.remove(rootContextNode.getXDIAddress().toString());
 			}
 		}
 	}
@@ -147,6 +154,13 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		JsonObject entityJsonObject = new JsonObject();
 		jsonObject.add(localXDIAddress.toString(), entityJsonObject);
+
+		// implied statement
+
+		if (this.isWriteImplied()) {
+
+			this.putContextNodeIntoJsonObject(entityContextNode, jsonObject);
+		}
 
 		// context nodes
 
@@ -198,6 +212,13 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		JsonObject attributeJsonObject = new JsonObject();
 		jsonObject.add(localXDIAddress.toString(), attributeJsonObject);
+
+		// implied statement
+
+		if (this.isWriteImplied()) {
+
+			this.putContextNodeIntoJsonObject(attributeContextNode, jsonObject);
+		}
 
 		// context nodes
 
@@ -254,9 +275,22 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		attributeJsonObject.add(localXDIAddress.toString(), literalJsonElement);
 	}
 
+	private void putContextNodeIntoJsonObject(ContextNode contextNode, JsonObject jsonObject) {
+
+		JsonArray contextNodeJsonArray = jsonObject.getAsJsonArray("//");
+
+		if (contextNodeJsonArray == null) {
+
+			contextNodeJsonArray = new JsonArray();
+			jsonObject.add("//", contextNodeJsonArray);
+		}
+
+		contextNodeJsonArray.add(new JsonPrimitive(contextNode.getXDIArc().toString()));
+	}
+
 	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject) {
 
-		JsonArray relationJsonArray = jsonObject.getAsJsonArray(relation.getXDIAddress().toString());
+		JsonArray relationJsonArray = jsonObject.getAsJsonArray("/" + relation.getXDIAddress().toString());
 
 		if (relationJsonArray == null) {
 
