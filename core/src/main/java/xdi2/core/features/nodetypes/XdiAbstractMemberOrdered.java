@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -51,6 +53,11 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 		if ((xdiElement = XdiAttributeMemberOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 
 		return null;
+	}
+
+	public static XdiMemberOrdered<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

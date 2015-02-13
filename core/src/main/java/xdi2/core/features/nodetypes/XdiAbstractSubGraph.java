@@ -1,6 +1,8 @@
 package xdi2.core.features.nodetypes;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.GraphUtil;
 
 public abstract class XdiAbstractSubGraph<EQ extends XdiSubGraph<EQ>> extends XdiAbstractContext<EQ> implements XdiSubGraph<EQ> {
 
@@ -49,5 +51,10 @@ public abstract class XdiAbstractSubGraph<EQ extends XdiSubGraph<EQ>> extends Xd
 		if ((xdiSubGraph = XdiValue.fromContextNode(contextNode)) != null) return xdiSubGraph;
 
 		return null;
+	}
+
+	public static XdiSubGraph<?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 }

@@ -7,13 +7,12 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.DelOperation;
 import xdi2.messaging.GetOperation;
@@ -122,11 +121,11 @@ public class GraphContextHandler extends AbstractContextHandler {
 		XDIAddress XDIaddress = relationStatement.getRelationXDIAddress();
 		XDIAddress targetContextNodeXDIAddress = relationStatement.getTargetContextNodeXDIAddress();
 
-		if (VariableUtil.isVariable(targetContextNodeXDIAddress)) {
+		if (XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetContextNodeXDIAddress)) {
 
 			Iterator<Relation> relations;
 
-			if (VariableUtil.isVariable(XDIaddress)) {
+			if (XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(XDIaddress)) {
 
 				relations = this.getGraph().getDeepRelations(contextNodeXDIAddress);
 			} else {
@@ -164,9 +163,9 @@ public class GraphContextHandler extends AbstractContextHandler {
 		ContextNode contextNode = this.getGraph().getDeepContextNode(contextNodeXDIAddress, false);
 		if (contextNode == null) return;
 
-		if (VariableUtil.isVariable(targetContextNodeXDIAddress)) {
+		if (XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetContextNodeXDIAddress)) {
 
-			if (VariableUtil.isVariable(XDIaddress)) {
+			if (XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(XDIaddress)) {
 
 				contextNode.delRelations();
 			} else {

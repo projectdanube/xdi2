@@ -1,7 +1,9 @@
 package xdi2.core.features.nodetypes;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 
 public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends XdiAbstractSubGraph<EQ> implements XdiSingleton<EQ> {
 
@@ -46,6 +48,11 @@ public abstract class XdiAbstractSingleton<EQ extends XdiSubGraph<EQ>> extends X
 		if ((xdiSingleton = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiSingleton;
 
 		return null;
+	}
+
+	public static XdiSingleton<?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

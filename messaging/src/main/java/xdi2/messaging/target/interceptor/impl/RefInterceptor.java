@@ -21,7 +21,6 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.VariableUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.GetOperation;
@@ -310,7 +309,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		if (XDIDictionaryConstants.XDI_ADD_IS_REF.equals(targetStatement.getRelationXDIAddress())) doFollowTargetObject = false;
 		if (XDIDictionaryConstants.XDI_ADD_IS_REP.equals(targetStatement.getRelationXDIAddress())) doFollowTargetObject = false;
 		if (! targetStatement.isRelationStatement()) doFollowTargetObject = false;
-		if (targetStatement.isRelationStatement() && VariableUtil.isVariable(targetStatement.getTargetContextNodeXDIAddress())) doFollowTargetObject = false;
+		if (targetStatement.isRelationStatement() && XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetStatement.getTargetContextNodeXDIAddress())) doFollowTargetObject = false;
 
 		XDIAddress followedTargetSubject = doFollowTargetSubject ? followAllRefRepRelations(targetStatement.getSubject(), operation, executionContext) : targetStatement.getSubject();
 		Object followedTargetObject = doFollowTargetObject ? followAllRefRepRelations((XDIAddress) targetStatement.getObject(), operation, executionContext) : targetStatement.getObject();
@@ -493,8 +492,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
-		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_VARIABLE));
-		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_VARIABLE));
+		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
+		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_COMMON_VARIABLE));
 
 		// feedback
 

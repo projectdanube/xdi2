@@ -10,7 +10,7 @@ import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 
-@ContributorMount(contributorAddresses={"(#test)"})
+@ContributorMount(contributorXDIAddresses={"(#test)"})
 public class TestContributor3 extends AbstractContributor {
 
 	@Override

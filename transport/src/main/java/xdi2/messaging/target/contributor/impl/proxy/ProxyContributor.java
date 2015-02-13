@@ -38,7 +38,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * This contributor can answer requests by forwarding them to another XDI endpoint.
  */
 @ContributorMount(
-		contributorAddresses={""}
+		contributorXDIAddresses={""}
 		)
 public class ProxyContributor extends AbstractContributor implements MessageInterceptor, Prototype<ProxyContributor> {
 

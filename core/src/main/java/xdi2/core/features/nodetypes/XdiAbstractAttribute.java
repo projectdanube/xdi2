@@ -3,7 +3,9 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -52,6 +54,11 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 		if ((xdiAttribute = XdiAttributeMemberOrdered.fromContextNode(contextNode)) != null) return xdiAttribute;
 
 		return null;
+	}
+
+	public static XdiAttribute fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

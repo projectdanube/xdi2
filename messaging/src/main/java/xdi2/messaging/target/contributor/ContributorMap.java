@@ -62,7 +62,7 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 	public void addContributor(Contributor contributor) {
 
-		String[] contributorXDIAddresses = contributor.getContributorMount().contributorAddresses();
+		String[] contributorXDIAddresses = contributor.getContributorMount().contributorXDIAddresses();
 
 		for (String contributorXDIAddress : contributorXDIAddresses) {
 

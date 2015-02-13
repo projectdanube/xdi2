@@ -9,7 +9,9 @@ import org.apache.commons.codec.binary.Hex;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -56,6 +58,11 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
+	}
+
+	public static XdiMemberUnordered<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

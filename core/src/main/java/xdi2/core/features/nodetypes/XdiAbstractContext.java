@@ -37,6 +37,8 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 		if (contextNode == null) throw new NullPointerException();
 
+		if (XdiCommonVariable.isValid(contextNode)) return true; 
+		if (XdiCommonDefinition.isValid(contextNode)) return true; 
 		if (XdiAbstractRoot.isValid(contextNode)) return true; 
 		if (XdiAbstractSubGraph.isValid(contextNode)) return true;
 
@@ -54,6 +56,8 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 		XdiContext<?> xdiContext = null;
 
+		if ((xdiContext = XdiCommonVariable.fromContextNode(contextNode)) != null) return xdiContext;
+		if ((xdiContext = XdiCommonDefinition.fromContextNode(contextNode)) != null) return xdiContext;
 		if ((xdiContext = XdiAbstractRoot.fromContextNode(contextNode)) != null) return xdiContext;
 		if ((xdiContext = XdiAbstractSubGraph.fromContextNode(contextNode)) != null) return xdiContext;
 

@@ -5,7 +5,9 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -54,6 +56,11 @@ public final class XdiValue extends XdiAbstractSubGraph<XdiValue> {
 		if (! isValid(contextNode)) return null;
 
 		return new XdiValue(contextNode);
+	}
+
+	public static XdiValue fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

@@ -29,19 +29,21 @@ public class XDIConstants {
 
 	public static final XDIAddress XDI_ADD_ROOT = XDIAddress.create("");
 	public static final XDIAddress XDI_ADD_CONTEXT = XDIAddress.create("");
-	public static final XDIAddress XDI_ADD_VALUE = XDIAddress.create(XDIConstants.CS_VALUE.toString());
-	public static final XDIAddress XDI_ADD_LITERAL = XDIAddress.create(XDIConstants.CS_VALUE.toString());
 
 	public static final XDIArc XDI_ARC_VALUE = XDIArc.create(XDIConstants.CS_VALUE.toString());
 	public static final XDIArc XDI_ARC_LITERAL = XDIArc.create(XDIConstants.CS_VALUE.toString());
+	public static final XDIAddress XDI_ADD_VALUE = XDIAddress.fromComponent(XDI_ARC_VALUE);
+	public static final XDIAddress XDI_ADD_LITERAL = XDIAddress.fromComponent(XDI_ARC_LITERAL);
 
-	public static final XDIAddress XDI_ADD_TRUE = XDIAddress.create("$true");
-	public static final XDIAddress XDI_ADD_FALSE = XDIAddress.create("$false");
+	public static final XDIArc XDI_ARC_COMMON_VARIABLE = XDIArc.create(XDIConstants.XS_VARIABLE);
+	public static final XDIArc XDI_ARC_COMMON_DEFINITION = XDIArc.create(XDIConstants.XS_DEFINITION);
+	public static final XDIAddress XDI_ADD_COMMON_VARIABLE = XDIAddress.fromComponent(XDI_ARC_COMMON_VARIABLE);
+	public static final XDIAddress XDI_ADD_COMMON_DEFINITION = XDIAddress.fromComponent(XDI_ARC_COMMON_DEFINITION);
 
 	public static final XDIArc XDI_ARC_TRUE = XDIArc.create("$true");
 	public static final XDIArc XDI_ARC_FALSE = XDIArc.create("$false");
-
-	public static final XDIAddress XDI_ADD_VARIABLE = XDIAddress.create(XDIConstants.XS_VARIABLE);
+	public static final XDIAddress XDI_ADD_TRUE = XDIAddress.fromComponent(XDI_ARC_TRUE);
+	public static final XDIAddress XDI_ADD_FALSE = XDIAddress.fromComponent(XDI_ARC_FALSE);
 
 	private XDIConstants() { }
 }

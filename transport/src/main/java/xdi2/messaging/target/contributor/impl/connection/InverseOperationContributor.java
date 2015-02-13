@@ -36,8 +36,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * Warning: This is experimental, do not use for serious applications.
  */
 @ContributorMount(
-		contributorAddresses={""},
-		operationAddresses={"$get$is", "$set$is", "$del$is", "$do$is", "$do$is{}"}
+		contributorXDIAddresses={""},
+		operationXDIAddresses={"$get$is", "$set$is", "$del$is", "$do$is", "$do$is{}"}
 		)
 public class InverseOperationContributor extends AbstractContributor implements Prototype<InverseOperationContributor> {
 

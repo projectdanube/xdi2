@@ -228,7 +228,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 					stream8.print("<b>" + contextNode.getXDIArc() + "</b>" + ": ");
 
-					stream8.print(clazz.getSimpleName() + " ");
+					stream8.print(clazz.getCanonicalName() + " ");
 
 					List<Class<?>> interfazes = interfazes(clazz);
 					Collections.reverse(interfazes);

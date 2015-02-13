@@ -208,10 +208,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			XDIAddress publicAddress = XDIAddressUtil.concatXDIAddresses(this.getBootstrapOwner(), XDILinkContractConstants.XDI_ADD_PUBLIC);
 			bootstrapPublicLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, publicAddress);
 
-			XDIStatement selfPeerRootRefStatement = XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE);
+			XDIStatement selfPeerRootRefStatement = XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE);
 			bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, selfPeerRootRefStatement);
 
-			XDIStatement bootstrapOwnerSynonymsIsRefStatement = XDIStatement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE);
+			XDIStatement bootstrapOwnerSynonymsIsRefStatement = XDIStatement.fromRelationComponents(this.getBootstrapOwner(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE);
 			bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, bootstrapOwnerSynonymsIsRefStatement);
 
 			if (this.getBootstrapOwnerSynonyms() != null) {

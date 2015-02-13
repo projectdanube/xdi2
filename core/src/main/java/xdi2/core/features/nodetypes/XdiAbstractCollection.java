@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered.MappingContextNodeXdiMemberUnorderedIterator;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -74,6 +76,11 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		if ((xdiCollection = XdiAttributeCollection.fromContextNode(contextNode)) != null) return xdiCollection;
 
 		return xdiCollection;
+	}
+
+	public static XdiCollection<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

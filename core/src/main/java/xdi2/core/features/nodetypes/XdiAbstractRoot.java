@@ -9,6 +9,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterat
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.XDIStatementUtil;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -60,6 +61,11 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		if ((xdiRoot = XdiInnerRoot.fromContextNode(contextNode)) != null) return xdiRoot;
 
 		return null;
+	}
+
+	public static XdiRoot fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

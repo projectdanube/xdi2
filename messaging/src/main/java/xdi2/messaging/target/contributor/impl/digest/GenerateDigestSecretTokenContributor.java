@@ -26,8 +26,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  */
 // TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{}<$digest><$secret><$token>", "{}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
-		operationAddresses={"$do<$digest><$secret><$token>"}
+		contributorXDIAddresses={"{}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
+		operationXDIAddresses={"$do<$digest><$secret><$token>"}
 )
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
@@ -84,6 +84,8 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		if (this.getTargetGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setTargetGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
 		if (this.getTargetGraph() == null) throw new Xdi2MessagingException("No target graph.", null, null);
+
+		if (this.getGlobalSalt() == null) throw new Xdi2MessagingException("No global salt.", null, null);
 	}
 
 	/*

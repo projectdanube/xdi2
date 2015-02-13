@@ -38,9 +38,9 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  */
 //TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{}$keypair", "$keypair", "{}<$key>", "<$key>"},
-		operationAddresses={"$do$keypair", "$do<$key>"},
-		relationAddresses={"$is#"}
+		contributorXDIAddresses={"{}$keypair", "$keypair", "{}<$key>", "<$key>"},
+		operationXDIAddresses={"$do$keypair", "$do<$key>"},
+		relationXDIAddresses={"$is#"}
 )
 public class GenerateKeyContributor extends AbstractContributor implements Prototype<GenerateKeyContributor> {
 

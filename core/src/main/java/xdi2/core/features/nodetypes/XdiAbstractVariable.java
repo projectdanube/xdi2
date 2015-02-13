@@ -3,7 +3,8 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -29,6 +30,8 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 
 		if (contextNode == null) throw new NullPointerException();
 
+		if (XdiCommonVariable.isValid(contextNode)) return true; 
+
 		if (XdiPeerRoot.Variable.isValid(contextNode)) return true; 
 		if (XdiInnerRoot.Variable.isValid(contextNode)) return true; 
 		if (XdiEntityCollection.Variable.isValid(contextNode)) return true; 
@@ -39,6 +42,17 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 		if (XdiAttributeMemberOrdered.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeMemberUnordered.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeSingleton.Variable.isValid(contextNode)) return true; 
+
+		if (XdiPeerRoot.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiInnerRoot.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityCollection.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeCollection.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityMemberOrdered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityMemberUnordered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntitySingleton.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeMemberOrdered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeMemberUnordered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeSingleton.Definition.Variable.isValid(contextNode)) return true; 
 
 		return false;
 	}
@@ -54,6 +68,8 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 
 		XdiVariable<? extends XdiContext<?>> xdiVariable = null;
 
+		if ((xdiVariable = XdiCommonVariable.fromContextNode(contextNode)) != null) return xdiVariable;
+
 		if ((xdiVariable = XdiPeerRoot.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiInnerRoot.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiEntityCollection.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
@@ -65,29 +81,23 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 		if ((xdiVariable = XdiAttributeMemberUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiAttributeSingleton.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 
+		if ((xdiVariable = XdiPeerRoot.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiInnerRoot.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityCollection.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeCollection.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityMemberOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityMemberUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntitySingleton.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeMemberOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeMemberUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeSingleton.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+
 		return null;
 	}
 
-	/*
-	 * Methods for arcs
-	 */
+	public static XdiVariable<?> fromXDIAddress(XDIAddress XDIaddress) {
 
-	public static boolean isValidXDIArc(XDIArc XDIarc) {
-
-		if (XDIarc == null) throw new NullPointerException();
-		
-		if (XdiPeerRoot.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiInnerRoot.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiEntityCollection.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiAttributeCollection.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiEntityMemberOrdered.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiEntityMemberUnordered.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiEntitySingleton.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiAttributeMemberOrdered.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiAttributeMemberUnordered.Variable.isValidXDIArc(XDIarc)) return true; 
-		if (XdiAttributeSingleton.Variable.isValidXDIArc(XDIarc)) return true; 
-
-		return false;
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*

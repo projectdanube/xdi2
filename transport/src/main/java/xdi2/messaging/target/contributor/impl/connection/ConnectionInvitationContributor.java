@@ -33,8 +33,8 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  */
 //TODO: fix variable syntax
 @ContributorMount(
-		contributorAddresses={"{}{$do}"},
-		operationAddresses={"$do$is{}"}
+		contributorXDIAddresses={"{}{$do}"},
+		operationXDIAddresses={"$do$is{}"}
 		)
 public class ConnectionInvitationContributor extends AbstractContributor implements Prototype<ConnectionInvitationContributor> {
 

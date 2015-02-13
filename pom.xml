@@ -10,13 +10,6 @@
 	<description>XDI2 (XDI Two) is a general-purpose, lightweight and modular Java implementation of XDI specifications.</description>
 	<url>https://xdi2.projectdanube.org</url>
 
-	<licenses>
-		<license>
-			<name>MIT License</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-		</license>
-	</licenses>
-
 	<developers>
 		<developer>
 			<name>Markus Sabadello</name>

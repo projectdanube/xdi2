@@ -60,7 +60,7 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
-			if (contributorMount.operationAddresses().length > 0 && ! Arrays.asList(contributorMount.operationAddresses()).contains(operation.getOperationXDIAddress())) {
+			if (contributorMount.operationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target address " + relativeTargetXDIAddress + ".");
 				continue;
@@ -160,7 +160,7 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
-			if (contributorMount.operationAddresses().length > 0 && ! Arrays.asList(contributorMount.operationAddresses()).contains(operation.getOperationXDIAddress())) {
+			if (contributorMount.operationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 				continue;
@@ -183,7 +183,7 @@ public class ContributorExecutor {
 
 			if (relativeTargetXDIStatement.isRelationStatement()) {
 
-				if (contributorMount.relationAddresses().length > 0 && ! Arrays.asList(contributorMount.relationAddresses()).contains(relativeTargetXDIStatement.getRelationXDIAddress())) {
+				if (contributorMount.relationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.relationXDIAddresses()).contains(relativeTargetXDIStatement.getRelationXDIAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation arc " + relativeTargetXDIStatement.getRelationXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;

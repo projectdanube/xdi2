@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -56,6 +58,11 @@ public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> im
 		if (contextNode.getXDIArc().isDefinition() && ! contextNode.getXDIArc().isVariable()) return new Definition(contextNode);
 		if (! contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Variable(contextNode);
 		return new XdiAttributeSingleton(contextNode);
+	}
+
+	public static XdiAttributeSingleton fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*
@@ -162,13 +169,13 @@ public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> im
 						contextNode.getXDIArc().isVariable();
 			}
 
-			public static Definition fromContextNode(ContextNode contextNode) {
+			public static Variable fromContextNode(ContextNode contextNode) {
 
 				if (contextNode == null) throw new NullPointerException();
 
 				if (! isValid(contextNode)) return null;
 
-				return new Definition(contextNode);
+				return new Variable(contextNode);
 			}
 		}
 	}

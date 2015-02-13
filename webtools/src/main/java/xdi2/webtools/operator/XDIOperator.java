@@ -295,7 +295,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			if ("Get cloud names".equals(submit)) {
 
-				message.createGetOperation(XDIStatement.fromComponents(cloudNumber.getXDIAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_VARIABLE));
+				message.createGetOperation(XDIStatement.fromComponents(cloudNumber.getXDIAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
 			} else if ("Set cloud name".equals(submit)) {
 
 				if (cloudName == null || cloudName.trim().isEmpty()) throw new RuntimeException("Please enter a cloud name.");

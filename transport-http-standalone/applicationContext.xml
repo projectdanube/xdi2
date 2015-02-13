@@ -17,6 +17,11 @@
 		</property>
 	</bean>
 
+	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
+		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="endpointPath" value="/xdi/" />
+	</bean>
+
 	<!-- SPRING -->
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -59,7 +64,9 @@
 		</property>
 		<property name="contributors">
 			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor">
+					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
@@ -123,7 +130,9 @@
 		</property>
 		<property name="contributors">
 			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor">
+					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
@@ -144,11 +153,14 @@
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
 			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor">
+					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
@@ -209,12 +221,14 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+<!--				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" /> -->
 			</util:list>
 		</property>
 		<property name="contributors">
 			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor">
+					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
+				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">

@@ -10,11 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.keys.Keys;
-import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.features.signatures.Signatures;
@@ -22,7 +23,6 @@ import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.VariableUtil;
 import xdi2.messaging.GetOperation;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -39,7 +39,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
  * This contributor can add metadata to a message result, e.g. a timestamp, 
  * a TO peer root XRI, and a signature.
  */
-@ContributorMount(contributorAddresses={""})
+@ContributorMount(contributorXDIAddresses={""})
 public class MessageResultContributor extends AbstractContributor implements Prototype<MessageResultContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(MessageResultContributor.class);
@@ -97,7 +97,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 	 * Sub-Contributors
 	 */
 
-	@ContributorMount(contributorAddresses={"<$t>"})
+	@ContributorMount(contributorXDIAddresses={"<$t>"})
 	private class TimestampContributor extends AbstractContributor {
 
 		@Override
@@ -119,7 +119,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		}
 	}
 
-	@ContributorMount(contributorAddresses={""})
+	@ContributorMount(contributorXDIAddresses={""})
 	private class ToPeerRootAddressContributor extends AbstractContributor {
 
 		@Override
@@ -130,8 +130,8 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			// check if applicable
 
-			if (! XDIaddress.equals(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC)) return ContributorResult.DEFAULT;
-			if (! VariableUtil.isVariable(targetContextNodeXDIAddress)) return ContributorResult.DEFAULT;
+			if (! XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC.equals(XDIaddress)) return ContributorResult.DEFAULT;
+			if (! XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetContextNodeXDIAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
 
@@ -147,7 +147,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		}
 	}
 
-	@ContributorMount(contributorAddresses={"<$sig>"})
+	@ContributorMount(contributorXDIAddresses={"<$sig>"})
 	private class SignatureContributor extends AbstractContributor {
 
 		@Override

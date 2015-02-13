@@ -9,13 +9,13 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.VariableUtil;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
@@ -172,7 +172,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 	private static XDIArc substituteXDIArc(XDIArc XDIarc, ExecutionContext executionContext) {
 
-		if (! VariableUtil.isVariable(XDIarc)) return null;
+		if (! XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(XDIarc)) return null;
 		if (! XDIarc.getXRef().isEmpty()) return null;
 
 		// substitute the arc

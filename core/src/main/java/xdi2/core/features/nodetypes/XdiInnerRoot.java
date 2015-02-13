@@ -9,6 +9,7 @@ import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIXRef;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
@@ -60,6 +61,11 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		if (contextNode.getXDIArc().isDefinition() && ! contextNode.getXDIArc().isVariable()) return new Definition(contextNode);
 		if (! contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Variable(contextNode);
 		return new XdiInnerRoot(contextNode);
+	}
+
+	public static XdiInnerRoot fromXDIAddress(XDIAddress XDIaddress) {
+
+		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
 
 	/*
@@ -272,13 +278,13 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 						contextNode.getXDIArc().isVariable();
 			}
 
-			public static Definition fromContextNode(ContextNode contextNode) {
+			public static Variable fromContextNode(ContextNode contextNode) {
 
 				if (contextNode == null) throw new NullPointerException();
 
 				if (! isValid(contextNode)) return null;
 
-				return new Definition(contextNode);
+				return new Variable(contextNode);
 			}
 		}
 	}
