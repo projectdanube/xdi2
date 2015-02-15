@@ -91,6 +91,8 @@
 	<bean name="/users/*" class="xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
 		<property name="registryGraph" ref="registryGraph" />
+		<property name="defaultDisabled" value="false" />
+		<property name="disabledError" value="This graph is temporarily disabled" />
 	</bean>
 
 	<!-- REGISTRY MESSAGING TARGET -->

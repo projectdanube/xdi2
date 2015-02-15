@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.SelectingMappingIterator;
@@ -28,7 +30,26 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
 
+	public static final XDIAddress XDI_ADD_ENABLED = XDIAddress.create("<#enabled>");
+	public static final XDIAddress XDI_ADD_DISABLED = XDIAddress.create("<#disabled>");
+
 	private Graph registryGraph;
+	private boolean defaultDisabled;
+	private String disabledError;
+
+	public RegistryGraphMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError) {
+
+		super();
+
+		this.registryGraph = registryGraph;
+		this.defaultDisabled = defaultDisabled;
+		this.disabledError = disabledError;
+	}
+
+	public RegistryGraphMessagingTargetFactory() {
+
+		this(null, false, null);
+	}
 
 	@Override
 	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
@@ -47,7 +68,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		if (ownerPeerRoot == null) {
 
-			log.warn("Peer root for " + ownerPeerRoot + " not found in the registry graph. Ignoring.");
+			log.warn("Peer root " + ownerPeerRoot + " not found in the registry graph. Ignoring.");
 			return null;
 		}
 
@@ -56,7 +77,16 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		if (ownerPeerRoot.isSelfPeerRoot()) {
 
-			log.warn("Peer root for " + ownerPeerRoot + " is the owner of the registry graph. Ignoring.");
+			log.warn("Peer root " + ownerPeerRoot + " is the owner of the registry graph. Ignoring.");
+			return null;
+		}
+
+		// enabled or disabled?
+
+		if (! this.checkEnabled(ownerPeerRoot)) {
+
+			log.warn("Peer root " + ownerPeerRoot + " is disabled. Ignoring.");
+			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
 			return null;
 		}
 
@@ -94,17 +124,30 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 
 		if (ownerPeerRoot == null) {
 
-			log.warn("Peer root for " + ownerXDIAddress + " no longer found in the registry graph. Going to unmount messaging target.");
+			log.warn("Peer root " + ownerPeerRoot + " no longer found in the registry graph. Going to unmount messaging target.");
 
 			// unmount the messaging target
 
 			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
-
 			return null;
-		} else {
-
-			return messagingTarget;
 		}
+
+		// enabled or disabled?
+
+		if (! this.checkEnabled(ownerPeerRoot)) {
+
+			log.warn("Peer root " + ownerPeerRoot + " is disabled. Going to unmount messaging target.");
+
+			// unmount the messaging target
+
+			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
+			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
+			return null;
+		}
+
+		// done
+
+		return messagingTarget;
 	}
 
 	@Override
@@ -146,6 +189,29 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		return requestPath;
 	}
 
+	private boolean checkEnabled(XdiPeerRoot ownerPeerRoot) throws Xdi2TransportException {
+
+		// enabled or disabled?
+
+		XdiAttribute enabledXdiAttribute = ownerPeerRoot.getXdiAttribute(XDI_ADD_ENABLED, false);
+		XdiAttribute disabledXdiAttribute = ownerPeerRoot.getXdiAttribute(XDI_ADD_DISABLED, false);
+		XdiValue enabledXdiValue = enabledXdiAttribute == null ? null : enabledXdiAttribute.getXdiValue(false);
+		XdiValue disabledXdiValue = disabledXdiAttribute == null ? null : disabledXdiAttribute.getXdiValue(false);
+
+		boolean enabled = enabledXdiValue == null ? false : enabledXdiValue.getLiteral().getLiteralDataBoolean().booleanValue();
+		boolean disabled = disabledXdiValue == null ? false : disabledXdiValue.getLiteral().getLiteralDataBoolean().booleanValue();
+
+		if (enabled) {
+
+			return true;
+		} else if (! disabled && ! this.isDefaultDisabled()) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	/*
 	 * Getters and setters
 	 */
@@ -158,5 +224,25 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	public void setRegistryGraph(Graph registryGraph) {
 
 		this.registryGraph = registryGraph;
+	}
+
+	public boolean isDefaultDisabled() {
+
+		return this.defaultDisabled;
+	}
+
+	public void setDefaultDisabled(boolean defaultDisabled) {
+
+		this.defaultDisabled = defaultDisabled;
+	}
+
+	public String getDisabledError() {
+
+		return this.disabledError;
+	}
+
+	public void setDisabledError(String disabledError) {
+
+		this.disabledError = disabledError;
 	}
 }
