@@ -31,7 +31,6 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private static final Logger log = LoggerFactory.getLogger(RegistryGraphMessagingTargetFactory.class);
 
 	public static final XDIAddress XDI_ADD_ENABLED = XDIAddress.create("<#enabled>");
-	public static final XDIAddress XDI_ADD_DISABLED = XDIAddress.create("<#disabled>");
 
 	private Graph registryGraph;
 	private boolean defaultDisabled;
@@ -194,17 +193,14 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		// enabled or disabled?
 
 		XdiAttribute enabledXdiAttribute = ownerPeerRoot.getXdiAttribute(XDI_ADD_ENABLED, false);
-		XdiAttribute disabledXdiAttribute = ownerPeerRoot.getXdiAttribute(XDI_ADD_DISABLED, false);
 		XdiValue enabledXdiValue = enabledXdiAttribute == null ? null : enabledXdiAttribute.getXdiValue(false);
-		XdiValue disabledXdiValue = disabledXdiAttribute == null ? null : disabledXdiAttribute.getXdiValue(false);
 
-		boolean enabled = enabledXdiValue == null ? false : enabledXdiValue.getLiteral().getLiteralDataBoolean().booleanValue();
-		boolean disabled = disabledXdiValue == null ? false : disabledXdiValue.getLiteral().getLiteralDataBoolean().booleanValue();
+		Boolean enabled = enabledXdiValue == null ? null : enabledXdiValue.getLiteral().getLiteralDataBoolean();
 
-		if (enabled) {
+		if (Boolean.TRUE.equals(enabled)) {
 
 			return true;
-		} else if (! disabled && ! this.isDefaultDisabled()) {
+		} else if (enabled == null && ! this.isDefaultDisabled()) {
 
 			return true;
 		}
