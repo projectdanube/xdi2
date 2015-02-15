@@ -228,7 +228,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapTimestamp()) {
 
-			Timestamps.setContextNodeTimestamp(graph.getRootContextNode(), XDITimestampsConstants.XDI_ADD_AS_CREATED, new Date());
+			Timestamps.setTimestamp(XdiCommonRoot.findCommonRoot(graph), XDITimestampsConstants.XDI_ADD_AS_CREATION, new Date());
 		}
 
 		// create bootstrap graph

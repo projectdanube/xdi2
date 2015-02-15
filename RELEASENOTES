@@ -1,6 +1,8 @@
 release 0.7 ("Belgrade")
 ========================
 
+* Timestamps.setContextNodeTimestamp() -> Timestamps.setTimestamp()
+
 * XDIConstants.XDI_ADD_VARIABLE -> XDIConstants.XDI_ADD_COMMON_VARIABLE
 
 * Updated variable support in parser and class hierarchy; variables are now nested classes.

@@ -50,7 +50,7 @@ public class MemoryGraphFactory extends AbstractGraphFactory implements GraphFac
 
 		MemoryGraph graph = this.graphs.get(identifier);
 
-		if (graph == null) {
+		if (graph == null || graph.getRootContextNode() == null) {
 
 			graph = new MemoryGraph(this, identifier, this.sortmode);
 

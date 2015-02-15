@@ -1,10 +1,7 @@
 package xdi2.tests.core.features.variables;
 
-import java.util.Arrays;
-
 import junit.framework.TestCase;
 import xdi2.core.syntax.XDIArc;
-import xdi2.core.util.VariableUtil;
 
 public class VariablesTest extends TestCase {
 

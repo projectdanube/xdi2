@@ -2,6 +2,9 @@ package xdi2.messaging.target.impl.graph;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -24,6 +27,8 @@ import xdi2.messaging.target.impl.AbstractMessagingTarget;
  * @author markus
  */
 public class GraphMessagingTarget extends AbstractMessagingTarget implements Prototype<GraphMessagingTarget> {
+
+	private static final Logger log = LoggerFactory.getLogger(GraphMessagingTarget.class);
 
 	private Graph graph;
 	private GraphContextHandler graphContextHandler;
@@ -112,8 +117,9 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 		try {
 
 			String identifier = XdiPeerRoot.createPeerRootXDIArc(prototypingContext.getOwnerXDIAddress()).toString();
-
 			graph = this.getGraph().getGraphFactory().openGraph(identifier);
+
+			if (log.isDebugEnabled()) log.debug("Opened graph " + graph.getClass().getCanonicalName() + " for " + identifier);
 		} catch (IOException ex) {
 
 			throw new Xdi2MessagingException("Cannot open graph: " + ex.getMessage(), ex, null);

@@ -6,12 +6,11 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.TimeZone;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -60,11 +59,11 @@ public class Timestamps {
 	/**
 	 * Get the timestamp associated with a context node.
 	 */
-	public static Date getContextNodeTimestamp(ContextNode contextNode, XDIAddress modifier) {
+	public static Date getTimestamp(XdiContext<?> xdiContext, XDIAddress modifier) {
 
-		XDIAddress timestampAddress = modifier == null ? XDITimestampsConstants.XDI_ADD_AS_T : XDIAddressUtil.concatXDIAddresses(modifier, XDITimestampsConstants.XDI_ARC_AS_T);
+		XDIAddress timestampXDIAddress = modifier == null ? XDITimestampsConstants.XDI_ADD_AS_T : XDIAddressUtil.concatXDIAddresses(modifier, XDITimestampsConstants.XDI_ARC_AS_T);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampAddress, false);
+		XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(timestampXDIAddress, false);
 		if (xdiAttributeSingleton == null) return null;
 
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
@@ -77,27 +76,27 @@ public class Timestamps {
 		return timestamp;
 	}
 
-	public static Date getContextNodeTimestamp(ContextNode contextNode) {
+	public static Date getTimestamp(XdiContext<?> xdiContext) {
 
-		return getContextNodeTimestamp(contextNode, null);
+		return getTimestamp(xdiContext, null);
 	}
 
 	/**
 	 * Set the timestamp associated with a context node.
 	 */
-	public static void setContextNodeTimestamp(ContextNode contextNode, XDIAddress modifierAddress, Date timestamp) {
+	public static void setTimestamp(XdiContext<?> xdiContext, XDIAddress modifierAddress, Date timestamp) {
 
-		XDIAddress timestampAddress = modifierAddress == null ? XDITimestampsConstants.XDI_ADD_AS_T : XDIAddressUtil.concatXDIAddresses(modifierAddress, XDITimestampsConstants.XDI_ARC_AS_T);
+		XDIAddress timestampXDIAddress = modifierAddress == null ? XDITimestampsConstants.XDI_ADD_AS_T : XDIAddressUtil.concatXDIAddresses(modifierAddress, XDITimestampsConstants.XDI_ARC_AS_T);
 
 		String literalData = timestampToString(timestamp);
 
-		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(timestampAddress, true);
+		XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(timestampXDIAddress, true);
 		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
 		xdiValue.getContextNode().setLiteralString(literalData);
 	}
 
-	public static void setContextNodeTimestamp(ContextNode contextNode, Date timestamp) {
+	public static void setTimestamp(XdiContext<?> xdiContext, Date timestamp) {
 
-		setContextNodeTimestamp(contextNode, null, timestamp);
+		setTimestamp(xdiContext, null, timestamp);
 	}
 }

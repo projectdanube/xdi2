@@ -17,11 +17,12 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.policy.PolicyRoot;
@@ -237,7 +238,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Date getTimestamp() {
 
-		return Timestamps.getContextNodeTimestamp(this.getContextNode());
+		return Timestamps.getTimestamp(XdiAbstractContext.fromContextNode(this.getContextNode()));
 	}
 
 	/**
@@ -245,7 +246,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setTimestamp(Date timestamp) {
 
-		Timestamps.setContextNodeTimestamp(this.getContextNode(), timestamp);
+		Timestamps.setTimestamp(XdiAbstractContext.fromContextNode(this.getContextNode()), timestamp);
 	}
 
 	/**

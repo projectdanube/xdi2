@@ -185,9 +185,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultRegistry.getMessageEnvelope() != null) 
 					xdiResultWriter.write(discoveryResultRegistry.getMessageEnvelope().getGraph(), writer);
 				else
-					writer.write("(null)\n");
+					writer.write("(null)");
 
-				writer.write("\n");
+				writer.write("\n\n");
 
 				writer.write("Message result from registry:\n\n");
 
@@ -262,16 +262,16 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				if (discoveryResultAuthority.getMessageEnvelope() != null) 
 					xdiResultWriter.write(discoveryResultAuthority.getMessageEnvelope().getGraph(), writer2);
 				else
-					writer2.write("(null)\n");
+					writer2.write("(null)");
 
-				writer2.write("\n");
+				writer2.write("\n\n");
 
 				writer2.write("Message result from authority:\n\n");
 
 				if (discoveryResultAuthority.getMessageResult() != null)
 					xdiResultWriter.write(discoveryResultAuthority.getMessageResult().getGraph(), writer2);
 				else
-					writer2.write("(null)\n");
+					writer2.write("(null)");
 			} else if (exceptionAuthority != null) {
 
 				writer2.write("Exception from authority: " + exceptionAuthority.getMessage() + "\n");

@@ -13,13 +13,13 @@ import xdi2.core.syntax.XDIArc;
  */
 public final class XDITimestampsConstants {
 
-	public static final XDIAddress XDI_ADD_AS_CREATED = XDIAddress.create("<#created>");
-	public static final XDIAddress XDI_ADD_AS_EXPIRES = XDIAddress.create("<#expires>");
-	public static final XDIAddress XDI_ADD_AS_T = XDIAddress.create("<$t>");
-
-	public static final XDIArc XDI_ARC_AS_CREATED = XDIArc.create("<#created>");
-	public static final XDIArc XDI_ARC_AS_EXPIRES = XDIArc.create("<#expires>");
+	public static final XDIArc XDI_ARC_AS_CREATION = XDIArc.create("<#creation>");
+	public static final XDIArc XDI_ARC_AS_EXPIRATION = XDIArc.create("<#expiration>");
 	public static final XDIArc XDI_ARC_AS_T = XDIArc.create("<$t>");
+
+	public static final XDIAddress XDI_ADD_AS_CREATION = XDIAddress.fromComponent(XDI_ARC_AS_CREATION);
+	public static final XDIAddress XDI_ADD_AS_EXPIRATION = XDIAddress.fromComponent(XDI_ARC_AS_EXPIRATION);
+	public static final XDIAddress XDI_ADD_AS_T = XDIAddress.fromComponent(XDI_ARC_AS_T);
 
 	public static final DateFormat[] FORMATS_TIMESTAMP = new SimpleDateFormat[] {
 

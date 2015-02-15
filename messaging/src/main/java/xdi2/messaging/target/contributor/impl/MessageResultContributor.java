@@ -14,6 +14,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.keys.Keys;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -111,7 +112,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			// add it to the message result
 
-			Timestamps.setContextNodeTimestamp(messageResult.getGraph().getRootContextNode(), timestamp);
+			Timestamps.setTimestamp(XdiAbstractContext.fromContextNode(messageResult.getGraph().getRootContextNode()), timestamp);
 
 			// done
 

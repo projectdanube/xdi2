@@ -7,8 +7,8 @@ import xdi2.core.Graph;
 import xdi2.core.Literal;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
@@ -114,12 +114,12 @@ public class ErrorMessageResult extends MessageResult {
 
 	public Date getErrorTimestamp() {
 
-		return Timestamps.getContextNodeTimestamp(this.getErrorContextNode());
+		return Timestamps.getTimestamp(XdiAbstractContext.fromContextNode(this.getErrorContextNode()));
 	}
 
 	public void setErrorTimestamp(Date timestamp) {
 
-		Timestamps.setContextNodeTimestamp(this.getErrorContextNode(), timestamp);
+		Timestamps.setTimestamp(XdiAbstractContext.fromContextNode(this.getErrorContextNode()), timestamp);
 	}
 
 	public String getErrorString() {

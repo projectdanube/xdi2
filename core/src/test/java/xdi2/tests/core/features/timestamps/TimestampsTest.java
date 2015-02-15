@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIArc;
@@ -36,9 +37,9 @@ public class TimestampsTest extends TestCase {
 		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Date timestamp = calendar.getTime();
 
-		Timestamps.setContextNodeTimestamp(contextNode, timestamp);
-		assertEquals(timestamp, Timestamps.getContextNodeTimestamp(contextNode));
-		
+		Timestamps.setTimestamp(XdiAbstractContext.fromContextNode(contextNode), timestamp);
+		assertEquals(timestamp, Timestamps.getTimestamp(XdiAbstractContext.fromContextNode(contextNode)));
+
 		graph.close();
 	}
 }
