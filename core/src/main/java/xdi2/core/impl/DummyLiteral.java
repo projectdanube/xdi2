@@ -3,22 +3,22 @@ package xdi2.core.impl;
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
 
-public class BasicLiteral extends AbstractLiteral implements Literal {
+public class DummyLiteral extends AbstractLiteral implements Literal {
 
 	private static final long serialVersionUID = 3101871056623742994L;
 
 	private Object literalData;
 
-	public BasicLiteral(ContextNode contextNode, Object literalData) {
+	public DummyLiteral(ContextNode contextNode, Object literalData) {
 
 		super(contextNode);
 
 		this.literalData = literalData;
 	}
 
-	public BasicLiteral(Object literalData) {
+	public DummyLiteral(Object literalData) {
 
-		this(new BasicContextNode(new BasicGraph(null, null), null, null, null, null, null), literalData);
+		this(new DummyContextNode(new DummyGraph(null, null), null, null, null, null, null), literalData);
 	}
 
 	@Override

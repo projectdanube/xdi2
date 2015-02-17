@@ -10,7 +10,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
-public class BasicContextNode extends AbstractContextNode implements ContextNode {
+public class DummyContextNode extends AbstractContextNode implements ContextNode {
 
 	private static final long serialVersionUID = -3684616841641336596L;
 
@@ -19,7 +19,7 @@ public class BasicContextNode extends AbstractContextNode implements ContextNode
 	private Iterable<Relation> relations;
 	private Literal literal;
 
-	public BasicContextNode(Graph graph, ContextNode contextNode, XDIArc XDIarc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
+	public DummyContextNode(Graph graph, ContextNode contextNode, XDIArc XDIarc, Iterable<ContextNode> contextNodes, Iterable<Relation> relations, Literal literal) {
 
 		super(graph, contextNode);
 

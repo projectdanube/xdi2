@@ -51,6 +51,7 @@ public abstract class AbstractRelation implements Relation {
 		if (targetContextNode == null) {
 
 			if (log.isWarnEnabled()) log.warn("Relation points to non-existent target context node " + this.getTargetContextNodeXDIAddress());
+			targetContextNode = this.getGraph().setDeepContextNode(this.getTargetContextNodeXDIAddress());
 		}
 
 		return targetContextNode;

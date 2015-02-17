@@ -4,9 +4,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
 
-public class BasicGraph extends AbstractGraph implements Graph {
+public class DummyGraph extends AbstractGraph implements Graph {
 
-	protected BasicGraph(GraphFactory graphFactory, String identifier) {
+	protected DummyGraph(GraphFactory graphFactory, String identifier) {
 
 		super(graphFactory, identifier);
 	}
@@ -16,7 +16,7 @@ public class BasicGraph extends AbstractGraph implements Graph {
 	@Override
 	public ContextNode getRootContextNode(boolean subgraph) {
 
-		return new BasicContextNode(this, null, null, null, null, null);
+		return new DummyContextNode(this, null, null, null, null, null);
 	}
 
 	@Override

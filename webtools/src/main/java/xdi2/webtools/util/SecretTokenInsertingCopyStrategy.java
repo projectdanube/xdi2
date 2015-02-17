@@ -2,7 +2,7 @@ package xdi2.webtools.util;
 
 import xdi2.core.Literal;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.impl.BasicLiteral;
+import xdi2.core.impl.DummyLiteral;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 
 public class SecretTokenInsertingCopyStrategy extends CopyStrategy {
@@ -19,7 +19,7 @@ public class SecretTokenInsertingCopyStrategy extends CopyStrategy {
 
 		if (literal.getContextNode().getXDIAddress().toString().contains(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN.toString()) && "********".equals(literal.getLiteralData())) {
 
-			return new BasicLiteral(this.secretToken);
+			return new DummyLiteral(this.secretToken);
 		} else {
 
 			return literal;
