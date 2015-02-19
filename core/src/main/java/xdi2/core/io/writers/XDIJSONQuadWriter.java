@@ -131,13 +131,13 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		// finish root
 
-		if (rootJsonObject != jsonObject) {
+/*		if (rootJsonObject != jsonObject) {
 
 			if (! this.isWriteImplied() && rootContextNode.getStatement().isImplied() && rootJsonObject.entrySet().isEmpty()) {
 
 				jsonObject.remove(rootContextNode.getXDIAddress().toString());
 			}
-		}
+		}*/
 	}
 
 	private void putEntityIntoJsonObject(ContextNode entityContextNode, JsonObject jsonObject, XDIAddress parentXDIAddress) throws IOException {
@@ -187,10 +187,10 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		// finish entity
 
-		if (! this.isWriteImplied() && entityContextNode.getStatement().isImplied() && entityJsonObject.entrySet().isEmpty()) {
+/*		if (! this.isWriteImplied() && entityContextNode.getStatement().isImplied() && entityJsonObject.entrySet().isEmpty()) {
 
 			jsonObject.remove(localXDIAddress.toString());
-		}
+		}*/
 	}
 
 	private void putAttributeIntoJsonObject(ContextNode attributeContextNode, JsonObject jsonObject, XDIAddress parentXDIAddress) throws IOException {
@@ -240,10 +240,10 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		// finish attribute
 
-		if (! this.isWriteImplied() && attributeContextNode.getStatement().isImplied() && attributeJsonObject.entrySet().isEmpty()) {
+/*		if (! this.isWriteImplied() && attributeContextNode.getStatement().isImplied() && attributeJsonObject.entrySet().isEmpty()) {
 
 			jsonObject.remove(localXDIAddress.toString());
-		}
+		}*/
 	}
 
 	private void putValueIntoAttributeJsonObject(ContextNode valueContextNode, JsonObject attributeJsonObject, XDIAddress parentXDIAddress) {
