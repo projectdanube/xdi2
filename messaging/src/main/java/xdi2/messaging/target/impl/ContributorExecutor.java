@@ -60,7 +60,9 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
-			if (contributorMount.operationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
+			if (contributorMount != null &&
+					contributorMount.operationXDIAddresses().length > 0 && 
+					! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target address " + relativeTargetXDIAddress + ".");
 				continue;
@@ -160,7 +162,9 @@ public class ContributorExecutor {
 
 			ContributorMount contributorMount = contributorFound.getContributor().getContributorMount();
 
-			if (contributorMount.operationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
+			if (contributorMount != null &&
+					contributorMount.operationXDIAddresses().length > 0 && 
+					! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 				continue;
@@ -168,13 +172,17 @@ public class ContributorExecutor {
 
 			if (relativeTargetXDIStatement.isContextNodeStatement()) {
 
-				if (contributorMount.contextNodeXDIArcs().length > 0 && ! Arrays.asList(contributorMount.contextNodeXDIArcs()).contains(relativeTargetXDIStatement.getContextNodeXDIArc())) {
+				if (contributorMount != null &&
+						contributorMount.contextNodeXDIArcs().length > 0 && 
+						! Arrays.asList(contributorMount.contextNodeXDIArcs()).contains(relativeTargetXDIStatement.getContextNodeXDIArc())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like context node arc " + relativeTargetXDIStatement.getContextNodeXDIArc() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;
 				}
 
-				if (contributorMount.targetContextNodeXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
+				if (contributorMount != null &&
+						contributorMount.targetContextNodeXDIAddresses().length > 0 && 
+						! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetContextNodeXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;
@@ -183,13 +191,17 @@ public class ContributorExecutor {
 
 			if (relativeTargetXDIStatement.isRelationStatement()) {
 
-				if (contributorMount.relationXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.relationXDIAddresses()).contains(relativeTargetXDIStatement.getRelationXDIAddress())) {
+				if (contributorMount != null &&
+						contributorMount.relationXDIAddresses().length > 0 && 
+						! Arrays.asList(contributorMount.relationXDIAddresses()).contains(relativeTargetXDIStatement.getRelationXDIAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like relation arc " + relativeTargetXDIStatement.getRelationXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;
 				}
 
-				if (contributorMount.targetContextNodeXDIAddresses().length > 0 && ! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
+				if (contributorMount != null &&
+						contributorMount.targetContextNodeXDIAddresses().length > 0 && 
+						! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
 
 					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetContextNodeXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;

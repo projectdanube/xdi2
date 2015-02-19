@@ -255,7 +255,7 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	public ContributorMount getContributorMount() {
 
 		ContributorMount contributorMount = this.getClass().getAnnotation(ContributorMount.class);
-		if (contributorMount == null) throw new NullPointerException("No ContributorMount annotation on contributor " + this.getClass().getSimpleName());
+		if (contributorMount == null) return null;
 
 		return contributorMount;
 	}
