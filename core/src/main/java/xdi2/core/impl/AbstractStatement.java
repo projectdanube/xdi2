@@ -29,7 +29,7 @@ public abstract class AbstractStatement implements Statement {
 			if (contextNode == null) return false;
 
 			if (! contextNode.isEmpty()) return true;
-			if (contextNode.getIncomingRelations().hasNext()) return true;
+			if (contextNode.containsIncomingRelations()) return true;
 		}
 
 		if (this instanceof RelationStatement) {
