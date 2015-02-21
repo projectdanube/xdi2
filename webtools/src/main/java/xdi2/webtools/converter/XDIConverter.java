@@ -160,6 +160,7 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		stats += Long.toString(graph.getRootContextNode(true).getAllRelationCount()) + " relations. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllLiteralCount()) + " literals. ";
 		stats += Long.toString(graph.getRootContextNode(true).getAllStatementCount()) + " statements. ";
+		stats += Integer.toString(output.length()) + " characters. ";
 		if (xdiReader != null) stats += "Input format: " + xdiReader.getFormat() + ((xdiReader instanceof AutoReader && ((AutoReader) xdiReader).getLastSuccessfulReader() != null) ? " (" + ((AutoReader) xdiReader).getLastSuccessfulReader().getFormat() + ")": "")+ ". ";
 
 		// display results

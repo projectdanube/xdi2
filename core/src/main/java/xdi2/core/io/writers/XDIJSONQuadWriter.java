@@ -37,10 +37,8 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 	public static final String FILE_EXTENSION = "json";
 	public static final MimeType MIME_TYPE = null;
 
-	private static final boolean CONTEXT_STATEMENTS = false;
-	
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
-	
+
 	public XDIJSONQuadWriter(Properties parameters) {
 
 		super(parameters);
@@ -94,7 +92,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (ContextNode contextNode : rootContextNode.getContextNodes()) {
 
-			if (CONTEXT_STATEMENTS) this.putContextNodeIntoJsonObject(contextNode, rootJsonObject);
+			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, rootJsonObject);
 
 			if (XdiAbstractRoot.isValid(contextNode)) {
 
@@ -136,7 +134,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		if (rootJsonObject != jsonObject) {
 
 			if (! this.isWriteImplied() && rootContextNode.getStatement().isImplied() && rootJsonObject.entrySet().isEmpty()) {
-//			if (rootJsonObject.entrySet().isEmpty() && ! rootContextNode.isEmpty()) {
+				//			if (rootJsonObject.entrySet().isEmpty() && ! rootContextNode.isEmpty()) {
 
 				jsonObject.remove(rootContextNode.getXDIAddress().toString());
 			}
@@ -157,7 +155,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (ContextNode contextNode : entityContextNode.getContextNodes()) {
 
-			if (CONTEXT_STATEMENTS) this.putContextNodeIntoJsonObject(contextNode, entityJsonObject);
+			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, entityJsonObject);
 
 			if (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) {
 
@@ -191,7 +189,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		// finish entity
 
 		if (! this.isWriteImplied() && entityContextNode.getStatement().isImplied() && entityJsonObject.entrySet().isEmpty()) {
-//		if (entityJsonObject.entrySet().isEmpty() && ! entityContextNode.isEmpty()) {
+			//		if (entityJsonObject.entrySet().isEmpty() && ! entityContextNode.isEmpty()) {
 
 			jsonObject.remove(localXDIAddress.toString());
 		}
@@ -211,7 +209,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 		for (ContextNode contextNode : attributeContextNode.getContextNodes()) {
 
-			if (CONTEXT_STATEMENTS) this.putContextNodeIntoJsonObject(contextNode, attributeJsonObject);
+			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, attributeJsonObject);
 
 			if (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) {
 
@@ -245,7 +243,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		// finish attribute
 
 		if (! this.isWriteImplied() && attributeContextNode.getStatement().isImplied() && attributeJsonObject.entrySet().isEmpty()) {
-//		if (attributeJsonObject.entrySet().isEmpty() && ! attributeContextNode.isEmpty()) {
+			//		if (attributeJsonObject.entrySet().isEmpty() && ! attributeContextNode.isEmpty()) {
 
 			jsonObject.remove(localXDIAddress.toString());
 		}
@@ -279,6 +277,8 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 	}
 
 	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject) {
+
+		if (! this.isWriteImplied() && relation.getStatement().isImplied()) return;
 
 		JsonArray relationJsonArray = jsonObject.getAsJsonArray("/" + relation.getXDIAddress().toString());
 
