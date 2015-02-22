@@ -4,12 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
+import xdi2.core.features.nodetypes.XdiAttributeMemberOrdered;
+import xdi2.core.features.nodetypes.XdiAttributeMemberUnordered;
+import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCommonVariable;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
+import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiVariable;
@@ -57,12 +61,19 @@ public final class VariableUtil {
 
 		if (XdiCommonVariable.class.isAssignableFrom(xdiVariable.getClass())) return true;
 
-		if (XdiPeerRoot.class.isAssignableFrom(xdiVariable.getClass()) && XdiPeerRoot.class.isAssignableFrom(xdiContext.getClass())) return true;
-		if (XdiInnerRoot.class.isAssignableFrom(xdiVariable.getClass()) && XdiInnerRoot.class.isAssignableFrom(xdiContext.getClass())) return true;
-		if (XdiEntityCollection.class.isAssignableFrom(xdiVariable.getClass()) && XdiEntityCollection.class.isAssignableFrom(xdiContext.getClass())) return true;
-		if (XdiAttributeCollection.class.isAssignableFrom(xdiVariable.getClass()) && XdiAttributeCollection.class.isAssignableFrom(xdiContext.getClass())) return true;
-		if (XdiEntity.class.isAssignableFrom(xdiVariable.getClass()) && XdiEntity.class.isAssignableFrom(xdiContext.getClass())) return true;
-		if (XdiAttribute.class.isAssignableFrom(xdiVariable.getClass()) && XdiAttribute.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiPeerRoot.Variable.class.equals(xdiVariable.getClass()) && XdiPeerRoot.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiInnerRoot.Variable.class.equals(xdiVariable.getClass()) && XdiInnerRoot.class.isAssignableFrom(xdiContext.getClass())) return true;
+
+		if (XdiEntityCollection.Variable.class.equals(xdiVariable.getClass()) && XdiEntityCollection.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiAttributeCollection.Variable.class.equals(xdiVariable.getClass()) && XdiAttributeCollection.class.isAssignableFrom(xdiContext.getClass())) return true;
+
+		if (XdiEntityMemberOrdered.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiEntityMemberOrdered.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiEntityMemberUnordered.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiEntityMemberUnordered.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiAttributeMemberOrdered.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiAttributeMemberOrdered.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiAttributeMemberUnordered.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiAttributeMemberUnordered.class.isAssignableFrom(xdiContext.getClass())) return true;
+
+		if (XdiEntitySingleton.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiEntitySingleton.class.isAssignableFrom(xdiContext.getClass())) return true;
+		if (XdiAttributeSingleton.Variable.class.isAssignableFrom(xdiVariable.getClass()) && XdiAttributeSingleton.class.isAssignableFrom(xdiContext.getClass())) return true;
 
 		return false;
 	}

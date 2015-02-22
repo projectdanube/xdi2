@@ -5,6 +5,7 @@ import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -137,7 +138,10 @@ public class GenericLinkContract extends LinkContract {
 		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_DO);
 		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createEntityCollectionXDIArc(XDILinkContractConstants.XDI_ARC_DO));
 
-		return XDIAddressUtil.subXDIAddress(XDIaddress, 1, index);
+		XDIAddress templateAuthorityAndId = XDIAddressUtil.subXDIAddress(XDIaddress, 1, index);
+		if (XDIConstants.XDI_ADD_ROOT.equals(templateAuthorityAndId)) return null;
+
+		return templateAuthorityAndId;
 	}
 
 	/*

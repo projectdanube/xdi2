@@ -305,6 +305,8 @@ public class ContributorExecutor {
 
 				startXDIAddress = XDIAddressUtil.localXDIAddress(startXDIAddress, - contributorsAddress.getNumXDIArcs());
 
+				nextContributorAddress = startXDIAddress;
+
 				List<Contributor> contributors = contributorEntry.getValue();
 				for (Contributor contributor : contributors) higherContributors.add(new ContributorFound(nextContributorAddress, contributor));
 			}

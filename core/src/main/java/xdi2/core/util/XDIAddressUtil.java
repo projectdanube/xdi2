@@ -72,6 +72,7 @@ public final class XDIAddressUtil {
 							while (true) {
 
 								if (startPosition.done()) break;
+								xdiContext = startPosition.toContext();
 								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
 								if (startPosition.matchesNext(addressPosition)) break;
 
@@ -99,6 +100,7 @@ public final class XDIAddressUtil {
 							while (true) {
 
 								if (addressPosition.done()) break;
+								xdiContext = addressPosition.toContext();
 								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
 								if (addressPosition.matchesNext(startPosition)) break;
 
@@ -173,6 +175,7 @@ public final class XDIAddressUtil {
 							while (true) {
 
 								if (endPosition.done()) break;
+								xdiContext = endPosition.toContext();
 								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
 								if (endPosition.matchesNext(addressPosition)) break;
 
@@ -181,7 +184,6 @@ public final class XDIAddressUtil {
 						}
 
 						addressPosition.next();
-
 						continue;
 					} else {
 
@@ -192,6 +194,7 @@ public final class XDIAddressUtil {
 				// try to match variable in end
 
 				if (variablesInEnd && (xdiVariable = endPosition.toVariable()) != null) {
+
 					xdiContext = addressPosition.toContext();
 
 					if (VariableUtil.matches(xdiVariable, xdiContext)) {
@@ -203,6 +206,7 @@ public final class XDIAddressUtil {
 							while (true) {
 
 								if (addressPosition.done()) break;
+								xdiContext = addressPosition.toContext();
 								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
 								if (addressPosition.matchesNext(endPosition)) break;
 
@@ -211,7 +215,6 @@ public final class XDIAddressUtil {
 						}
 
 						endPosition.next();
-
 						continue;
 					} else {
 
@@ -713,24 +716,24 @@ public final class XDIAddressUtil {
 		}
 
 		private boolean matchesCurrent(MatchPosition other) {
-			
+
 			XDIArc myXDIArc = this.XDIaddress.getXDIArc(this.position);
 			XDIArc otherXDIArc = other.XDIaddress.getXDIArc(other.position);
-			
+
 			return myXDIArc.equals(otherXDIArc);
 		}
-		
+
 		private boolean matchesNext(MatchPosition other) {
-			
+
 			if (other.forward && other.position + 1 >= other.XDIaddress.getNumXDIArcs()) return false;
 			if (! other.forward && other.position -1 < 0) return false;
-			
+
 			XDIArc myXDIArc = this.XDIaddress.getXDIArc(this.position);
 			XDIArc otherXDIArc = other.XDIaddress.getXDIArc(other.forward ? other.position + 1 : other.position - 1);
-			
+
 			return myXDIArc.equals(otherXDIArc);
 		}
-		
+
 		private XDIAddress result() {
 
 			return this.forward ?
@@ -750,6 +753,13 @@ public final class XDIAddressUtil {
 			if (this.positionXDIAddress == null) this.positionXDIAddress = XDIAddressUtil.parentXDIAddress(this.XDIaddress, this.position + 1); 
 			if (this.positionXdiVariable == null) this.positionXdiVariable = XdiAbstractVariable.fromXDIAddress(this.positionXDIAddress);
 			return this.positionXdiVariable;
+		}
+
+		@Override
+		public String toString() {
+
+			if (this.positionXDIAddress == null) this.positionXDIAddress = XDIAddressUtil.parentXDIAddress(this.XDIaddress, this.position + 1); 
+			return this.positionXDIAddress.toString();
 		}
 	}
 
