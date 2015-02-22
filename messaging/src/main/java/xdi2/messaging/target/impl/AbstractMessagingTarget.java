@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -431,7 +432,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (address)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], targetAddress, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetAddress, operation, operationMessageResult, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -497,7 +498,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (statement)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], targetStatement, operation, operationMessageResult, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetStatement, operation, operationMessageResult, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 

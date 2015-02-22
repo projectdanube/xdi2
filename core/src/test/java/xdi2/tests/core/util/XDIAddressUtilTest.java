@@ -1,6 +1,7 @@
 package xdi2.tests.core.util;
 
 import junit.framework.TestCase;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCollection;
@@ -31,12 +32,14 @@ public class XDIAddressUtilTest extends TestCase {
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 3), XDIAddress.create("=a*b*c"));
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -3), XDIAddress.create("=a"));
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, 4), XDIAddress.create("=a*b*c*d"));
-		assertNull(XDIAddressUtil.parentXDIAddress(XDIaddress, -4));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -4), XDIConstants.XDI_ADD_ROOT);
+		assertNull(XDIAddressUtil.parentXDIAddress(XDIaddress, -5));
 
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), XDIAddress.create("=a*b*c"));
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), XDIAddress.create("=a*b"));
 		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), XDIAddress.create("=a"));
-		assertNull(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), -1));
+		assertEquals(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), -1), XDIConstants.XDI_ADD_ROOT);
+		assertNull(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIAddressUtil.parentXDIAddress(XDIaddress, -1), -1), -1), -1), -1));
 	}
 
 	public void testLocalXDIAddress() throws Exception {
@@ -51,12 +54,14 @@ public class XDIAddressUtilTest extends TestCase {
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 3), XDIAddress.create("*b*c*d"));
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -3), XDIAddress.create("*d"));
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, 4), XDIAddress.create("=a*b*c*d"));
-		assertNull(XDIAddressUtil.localXDIAddress(XDIaddress, -4));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -4), XDIConstants.XDI_ADD_ROOT);
+		assertNull(XDIAddressUtil.localXDIAddress(XDIaddress, -5));
 
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIaddress, -1), XDIAddress.create("*b*c*d"));
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), XDIAddress.create("*c*d"));
 		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), XDIAddress.create("*d"));
-		assertNull(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), -1));
+		assertEquals(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), -1), XDIConstants.XDI_ADD_ROOT);
+		assertNull(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIAddressUtil.localXDIAddress(XDIaddress, -1), -1), -1), -1), -1));
 	}
 
 	// TODO: DISABLED

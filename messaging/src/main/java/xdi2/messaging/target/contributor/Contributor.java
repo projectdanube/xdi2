@@ -42,13 +42,13 @@ public interface Contributor extends Extension<MessagingTarget> {
 
 	/**
 	 * Executes an XDI operation on a statement.
-	 * @param contributorChainAddresses The individual XRIs in the contributor chain.
-	 * @param contributorChainAddress The complete XRI of the contributor chain.
+	 * @param contributorAddresses The individual XRIs in the contributor chain.
+	 * @param contributorsAddress The complete XRI of the contributor chain.
 	 * @param relativeTargetStatement The relative target statement.
 	 * @param operation The operation that is being executed.
 	 * @param operationMessageResult The operation's message result.
 	 * @param executionContext An "execution context" object for the entire XDI message envelope.
 	 * @return True, if the operation has been fully handled and the server should stop processing it.
 	 */
-	public ContributorResult executeOnStatement(XDIAddress[] contributorChainAddresses, XDIAddress contributorChainAddress, XDIStatement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public ContributorResult executeOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, Operation operation, MessageResult operationMessageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 }
