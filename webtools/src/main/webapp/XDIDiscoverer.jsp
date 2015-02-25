@@ -54,6 +54,7 @@
 		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar PROD (default).<br>
 		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar OTE.<br>
 		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Neustar STAGE.</span></td>
+		Use <span onclick="document.getElementById('endpoint').value='<%= xdi2.discovery.XDIDiscoveryClient.LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %>'" style="font-size: 1em; font-weight: bold; cursor: pointer;"><%= xdi2.discovery.XDIDiscoveryClient.LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT.getXdiEndpointUrl() %></span> for Leola Group NYMBLEs.</span></td>
 		</tr>
 
 		<tr>
