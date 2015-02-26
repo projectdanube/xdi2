@@ -24,7 +24,7 @@ div.line { margin-left: -150px; }
 	<div class="header">
 	<span id="appname"><img src="images/app20b.png"> XDI2</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<strong>See <a href="http://github.com/projectdanube/xdi2">https://xdi2.org/</a> for more information.</strong><br>
+	<strong>See <a href="https://xdi2.org/">https://xdi2.org/</a> for more information.</strong><br>
 	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 	
