@@ -262,6 +262,6 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 #end
 <hr noshade>
-<p>See <a href="http://xdi2.projectdanube.org/">http://xdi2.projectdanube.org/</a> for more information.</p>
+<p>See <a href="https://xdi2.org/">https://xdi2.org/</a> for more information.</p>
 </body>
 </html>
