@@ -72,6 +72,8 @@ public abstract class AbstractGraph implements Graph {
 		if (format == null) format = XDIWriterRegistry.getDefault().getFormat();
 
 		XDIWriter writer = XDIWriterRegistry.forFormat(format, parameters);
+		if (writer == null) throw new Xdi2RuntimeException("Unknown format for XDI serialization: " + format);
+
 		StringWriter buffer = new StringWriter();
 
 		try {
