@@ -70,7 +70,7 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 			defaultX509TrustManager.checkClientTrusted(certs, authType);
 		} catch (Exception ex) {
 
-			this.printWriter.println("!!! SSL ERROR: " + ex.getMessage());
+			this.printWriter.println("!!! TLS ERROR: " + ex.getMessage());
 		}
 	}
 
@@ -82,7 +82,7 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 			defaultX509TrustManager.checkServerTrusted(certs, authType);
 		} catch (Exception ex) {
 
-			this.printWriter.println("!!! SSL ERROR: " + ex.getMessage());
+			this.printWriter.println("!!! TLS ERROR: " + ex.getMessage());
 		}
 	}
 
@@ -91,7 +91,7 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 
 		if (! defaultHostnameVerifier.verify(hostname, session)) {
 
-			this.printWriter.println("!!! SSL ERROR: Unable to verify: " + hostname);
+			this.printWriter.println("!!! TLS ERROR: Unable to verify: " + hostname);
 		}
 
 		return true;
