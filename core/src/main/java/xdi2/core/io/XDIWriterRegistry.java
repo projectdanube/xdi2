@@ -35,9 +35,13 @@ public final class XDIWriterRegistry {
 	public static final String PARAMETER_HTML = "html";
 	public static final String DEFAULT_IMPLIED = "0";
 	public static final String DEFAULT_ORDERED = "0";
-	public static final String DEFAULT_INNER = "1";
 	public static final String DEFAULT_PRETTY = "0";
 	public static final String DEFAULT_HTML = "0";
+
+	public static final Properties PROPERTIES_IMPLIED;
+	public static final Properties PROPERTIES_ORDERED;
+	public static final Properties PROPERTIES_PRETTY;
+	public static final Properties PROPERTIES_HTML;
 
 	private static String writerClassNames[] = {
 
@@ -61,6 +65,11 @@ public final class XDIWriterRegistry {
 	private static Map<MimeType, Class<? extends XDIWriter>> writerClassesByMimeType;
 
 	static {
+
+		PROPERTIES_IMPLIED = new Properties(); PROPERTIES_IMPLIED.setProperty(PARAMETER_IMPLIED, "1");
+		PROPERTIES_ORDERED = new Properties(); PROPERTIES_ORDERED.setProperty(PARAMETER_ORDERED, "1");
+		PROPERTIES_PRETTY = new Properties(); PROPERTIES_PRETTY.setProperty(PARAMETER_PRETTY, "1");
+		PROPERTIES_HTML = new Properties(); PROPERTIES_HTML.setProperty(PARAMETER_HTML, "1");
 
 		writerClasses = new ArrayList<Class<XDIWriter>>();
 		writerClassesByFormat = new HashMap<String, Class<? extends XDIWriter>>();
