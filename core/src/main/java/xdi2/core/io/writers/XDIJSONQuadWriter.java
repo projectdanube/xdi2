@@ -12,7 +12,9 @@ import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAbstractRoot;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
+import xdi2.core.features.nodetypes.XdiCommonDefinition;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiCommonVariable;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.impl.AbstractLiteral;
@@ -79,13 +81,10 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		if (XdiCommonRoot.isValid(rootContextNode)) {
 
 			rootJsonObject = jsonObject;
-		} else if (XdiAbstractRoot.isValid(rootContextNode)) {
+		} else {
 
 			rootJsonObject = new JsonObject();
 			jsonObject.add(rootContextNode.getXDIAddress().toString(), rootJsonObject);
-		} else {
-
-			throw new Xdi2RuntimeException("Unexpected root context node: " + rootContextNode);
 		}
 
 		// context nodes
@@ -93,6 +92,12 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		for (ContextNode contextNode : rootContextNode.getContextNodes()) {
 
 			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, rootJsonObject);
+
+			if (XdiCommonVariable.isValid(contextNode) || XdiCommonDefinition.isValid(contextNode)) {
+
+				this.putRootIntoJsonObject(contextNode, rootJsonObject);
+				continue;
+			}
 
 			if (XdiAbstractRoot.isValid(contextNode)) {
 
@@ -157,6 +162,12 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, entityJsonObject);
 
+			if (XdiCommonVariable.isValid(contextNode) || XdiCommonDefinition.isValid(contextNode)) {
+
+				this.putEntityIntoJsonObject(contextNode, jsonObject, parentXDIAddress);
+				continue;
+			}
+
 			if (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) {
 
 				this.putEntityIntoJsonObject(contextNode, jsonObject, parentXDIAddress);
@@ -210,6 +221,12 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 		for (ContextNode contextNode : attributeContextNode.getContextNodes()) {
 
 			if (this.isWriteImplied()) this.putContextNodeIntoJsonObject(contextNode, attributeJsonObject);
+
+			if (XdiCommonVariable.isValid(contextNode) || XdiCommonDefinition.isValid(contextNode)) {
+
+				this.putAttributeIntoJsonObject(contextNode, jsonObject, parentXDIAddress);
+				continue;
+			}
 
 			if (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) {
 
