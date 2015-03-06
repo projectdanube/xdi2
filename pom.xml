@@ -8,7 +8,7 @@
 	<version>0.7-SNAPSHOT</version>
 	<name>xdi2</name>
 	<description>XDI2 (XDI Two) is a general-purpose, lightweight and modular Java implementation of XDI specifications.</description>
-	<url>https://xdi2.projectdanube.org</url>
+	<url>https://xdi2.org</url>
 
 	<developers>
 		<developer>
