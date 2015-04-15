@@ -3,11 +3,12 @@
 
 | Current snapshot: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) | Stable release: [0.6](https://github.com/projectdanube/xdi2/wiki/release-0.6) | Next release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) |
 | ---- | ---- | ---- |
-| [Release and Branch History](https://github.com/projectdanube/xdi2/wiki/Release-and-Branch-History) |
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
 Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
+
+[Release and Branch Information](https://github.com/projectdanube/xdi2/wiki/Release-and-Branch-Information)
 
 ### Components
 
