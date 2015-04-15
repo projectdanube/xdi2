@@ -3,6 +3,7 @@
 
 | Current snapshot: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) | Stable release: [0.6](https://github.com/projectdanube/xdi2/wiki/release-0.6) | Next release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) |
 | ---- | ---- | ---- |
+| [Release and Branch History](https://github.com/projectdanube/xdi2/wiki/Release-and-Branch-History) |
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
@@ -36,19 +37,6 @@ To build all components.
 Then go to:
 
     http://localhost:8080/
-
-### Branches
-
-| Information | Code | Status |
-| ----------- | ---- | ------ |
-| [great-symbol-shift](https://github.com/projectdanube/xdi2/wiki/great-symbol-shift) | [great-symbol-shift](https://github.com/projectdanube/xdi2/tree/great-symbol-shift) | Merged per [946b5c8](https://github.com/projectdanube/xdi2/commit/946b5c8f8d5e2eb94bfd701ce73a4969012cfa9d) on 4th Apr 2014 after [snapshot-0.2-pre-symbol-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.2-pre-symbol-shift).
-| [link-contract-shift](https://github.com/projectdanube/xdi2/wiki/link-contract-shift) | [link-contract-shift](https://github.com/projectdanube/xdi2/tree/link-contract-shift) | Merged per [1c1ae72](https://github.com/projectdanube/xdi2/commit/1c1ae72b5b1c56bd825f97b7769967208035e99b) on 30th May 2014 after [snapshot-0.4-pre-link-contract-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.4-pre-link-contract-shift).
-| [notation-shift](https://github.com/projectdanube/xdi2/wiki/notation-shift) | [notation-shift](https://github.com/projectdanube/xdi2/tree/notation-shift) | Merged per [2224dd1](https://github.com/projectdanube/xdi2/commit/2224dd1c6b5cbfdbd0058928053ffca937fa17f9) on 5th Jul 2014 after [snapshot-0.5-pre-notation-shift](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.5-pre-notation-shift).
-| [no-xri](https://github.com/projectdanube/xdi2/wiki/no-xri) | [no-xri](https://github.com/projectdanube/xdi2/tree/no-xri) | Merged per [7a1194b](https://github.com/projectdanube/xdi2/commit/7a1194b2ec748d446dc6d5ca02455c02eb461223) on 24th Aug 2014 after [snapshot-0.7-pre-no-xri](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-no-xri).
-| [add-mod](https://github.com/projectdanube/xdi2/wiki/add-mod) | [add-mod](https://github.com/projectdanube/xdi2/tree/add-mod) | Active.
-| [no-value-node](https://github.com/projectdanube/xdi2/wiki/no-value-node) | [no-value-node](https://github.com/projectdanube/xdi2/tree/no-value-node) | Active.
-| [async-messages](https://github.com/projectdanube/xdi2/wiki/async-messages) | [async-messages](https://github.com/projectdanube/xdi2/tree/async-messages) | Active.
-| [websocket](https://github.com/projectdanube/xdi2/wiki/websocket) | [websocket](https://github.com/projectdanube/xdi2/tree/websocket) | Merged per [ead477a](https://github.com/projectdanube/xdi2/commit/ead477a430537214acb427616a1a4361b7bc3015) on 29th Jan 2015 after [snapshot-0.7-pre-websocket](https://github.com/projectdanube/xdi2/releases/tag/snapshot-0.7-pre-websocket).
 
 ### Community
 
