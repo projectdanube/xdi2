@@ -1,6 +1,8 @@
 release 0.7 ("Belgrade")
 ========================
 
+* XDIAuthenticationConstants.XDI_ADD_ANONYMOUS -> XDIMessagingConstants.XDI_ADD_ANONYMOUS
+
 * Timestamps.setContextNodeTimestamp() -> Timestamps.setTimestamp()
 
 * XDIConstants.XDI_ADD_VARIABLE -> XDIConstants.XDI_ADD_COMMON_VARIABLE

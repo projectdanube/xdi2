@@ -12,7 +12,6 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.http.XDIHttpClient;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudName;
@@ -28,6 +27,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
 import xdi2.messaging.Operation;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 public class XDIBasicAgent implements XDIAgent {
 
@@ -202,7 +202,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 	protected Message createMessage(MessageEnvelope messageEnvelope) {
 
-		return messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		return messageEnvelope.createMessage(XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 	}
 
 	protected void setMessageLinkContract(Message message) {

@@ -19,7 +19,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.exceptions.Xdi2ParseException;
@@ -35,6 +34,7 @@ import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.MessageResult;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.context.ExecutionContext;
 import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.target.MessagingTarget;
@@ -236,7 +236,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			XDIArc ownerPeerRootXDIArc = cmdMessagingTarget.getOwnerPeerRootXDIArc();
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
-			Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+			Message message = messageEnvelope.createMessage(XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 			if (ownerPeerRootXDIArc != null) message.setToPeerRootXDIArc(ownerPeerRootXDIArc);
 			message.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 

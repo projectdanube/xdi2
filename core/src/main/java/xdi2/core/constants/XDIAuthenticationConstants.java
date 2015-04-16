@@ -11,9 +11,8 @@ import xdi2.core.util.XDIAddressUtil;
  */
 public final class XDIAuthenticationConstants {
 
-	public static final XDIAddress XDI_ADD_ANONYMOUS = XDIAddress.create("$anon");
-
 	public static final XDIArc XDI_ARC_SIGNATURE = XDIArc.create("$sig");
+	public static final XDIArc XDI_ARC_ENCRYPTION = XDIArc.create("$encrypt");
 
 	public static final XDIAddress XDI_ADD_SECRET_TOKEN = XDIAddress.create("<$secret><$token>");
 	public static final XDIAddress XDI_ADD_OAUTH_TOKEN = XDIAddress.create("<$oauth><$token>");

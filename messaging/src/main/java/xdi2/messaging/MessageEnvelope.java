@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
@@ -82,7 +81,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_CONTEXT;
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		message.createOperation(operationXDIAddress, targetXDIAddress);
 
 		return messageEnvelope;
@@ -99,7 +98,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (targetXDIStatements == null) throw new NullPointerException();
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(XDIAuthenticationConstants.XDI_ADD_ANONYMOUS);
+		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		message.createOperation(operationXDIAddress, targetXDIStatements);
 
 		return messageEnvelope;
@@ -147,7 +146,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 */
 	public MessageCollection getMessageCollection(XDIAddress senderXDIAddress, boolean create) {
 
-		if (senderXDIAddress == null) senderXDIAddress = XDIAuthenticationConstants.XDI_ADD_ANONYMOUS;
+		if (senderXDIAddress == null) senderXDIAddress = XDIMessagingConstants.XDI_ADD_ANONYMOUS;
 
 		XDIAddress messageCollectionXDIAddress = XDIAddress.create(senderXDIAddress.toString() + XdiEntityCollection.createEntityCollectionXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
 		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXDIAddress) : this.getGraph().getDeepContextNode(messageCollectionXDIAddress, true);

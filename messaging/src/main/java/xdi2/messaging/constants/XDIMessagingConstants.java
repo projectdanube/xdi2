@@ -12,6 +12,8 @@ import xdi2.core.util.XDIAddressUtil;
  */
 public final class XDIMessagingConstants {
 
+	public static final XDIAddress XDI_ADD_ANONYMOUS = XDIAddress.create("$anon");
+
 	public static final XDIArc XDI_ARC_MSG = XDIArc.create("$msg");
 	public static final XDIArc XDI_ARC_GET = XDIArc.create("$get");
 	public static final XDIArc XDI_ARC_SET = XDIArc.create("$set");
