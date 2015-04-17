@@ -6,11 +6,9 @@ import java.security.Key;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Literal;
-import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
 import xdi2.core.features.nodetypes.XdiValue;
-import xdi2.core.util.CopyUtil.CopyStrategy;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -186,24 +184,5 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 		if (other == this || other == null) return 0;
 
 		return this.getContextNode().compareTo(other.getContextNode());
-	}
-
-	/*
-	 * Helper classes
-	 */
-
-	public static class NoSignaturesCopyStrategy extends CopyStrategy {
-
-		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
-
-			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			if (xdiAttribute == null) return contextNode;
-
-			Signature<?, ?> signature = Signature.fromXdiAttribute(xdiAttribute);
-			if (signature == null) return contextNode;
-
-			return null;
-		}
 	}
 }

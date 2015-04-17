@@ -1,35 +1,25 @@
 package xdi2.core.features.signatures;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.datatypes.DataTypes;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.signatures.Signature.NoSignaturesCopyStrategy;
-import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
-import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -37,8 +27,6 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 
 public class Signatures {
-
-	private static Logger log = LoggerFactory.getLogger(Signatures.class.getName());
 
 	private Signatures() { }
 
@@ -102,45 +90,6 @@ public class Signatures {
 	/*
 	 * Helper methods
 	 */
-
-	/**
-	 * Returns the normalized serialization string of a context node, to be used
-	 * for creating and validating signatures.
-	 */
-	public static String getNormalizedSerialization(ContextNode contextNode) {
-
-		Graph graph;
-
-		graph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNode(contextNode, graph, new NoSignaturesCopyStrategy());
-
-		Properties parameters = new Properties();
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_IMPLIED, "1");
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_ORDERED, "1");
-		parameters.setProperty(XDIWriterRegistry.PARAMETER_PRETTY, "0");
-
-		XDIJSONWriter writer = new XDIJSONWriter(parameters);
-		StringWriter buffer = new StringWriter();
-		String string;
-
-		try {
-
-			writer.write(graph, buffer);
-			string = buffer.toString();
-		} catch (IOException ex) {
-
-			throw new Xdi2RuntimeException("Cannot serialize graph: " + ex.getMessage(), ex);
-		} finally {
-
-			try { buffer.close(); } catch (Exception ex) { }
-
-			graph.close();
-		}
-
-		if (log.isDebugEnabled()) log.debug("Normalized context node " + contextNode.getXDIAddress() + ": " + string);
-
-		return string;
-	}
 
 	public static String getDigestAlgorithm(XdiAttribute xdiAttribute) {
 
@@ -233,6 +182,21 @@ public class Signatures {
 	/*
 	 * Helper classes
 	 */
+
+	public static class NoSignaturesCopyStrategy extends CopyStrategy {
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
+			if (xdiAttribute == null) return contextNode;
+
+			Signature<?, ?> signature = Signature.fromXdiAttribute(xdiAttribute);
+			if (signature == null) return contextNode;
+
+			return null;
+		}
+	}
 
 	public static class MappingXdiAttributeSignatureIterator extends NotNullIterator<Signature<? extends Key, ? extends Key>> {
 

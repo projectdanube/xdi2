@@ -45,6 +45,8 @@ div.line { margin-left: -150px; }
 	</tr><tr>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIDiscoverer">XDI Discoverer</a></td>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIEncrypter">XDI Encrypter</a></td>
+	</tr><tr>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
 	</tr>
 	</table>

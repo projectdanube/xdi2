@@ -1,6 +1,10 @@
 release 0.7 ("Belgrade")
 ========================
 
+* Support for encryption and signatures:
+xdi2.core.features.encryption
+xdi2.core.features.signatures
+
 * XDIAuthenticationConstants.XDI_ADD_ANONYMOUS -> XDIMessagingConstants.XDI_ADD_ANONYMOUS
 
 * Timestamps.setContextNodeTimestamp() -> Timestamps.setTimestamp()

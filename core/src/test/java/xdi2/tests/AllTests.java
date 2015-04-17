@@ -28,6 +28,7 @@ import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueGraphTest;
 import xdi2.tests.core.impl.keyvalue.PropertiesKeyValueTest;
 import xdi2.tests.core.impl.memory.MemoryGraphTest;
 import xdi2.tests.core.impl.wrapped.FileWrapperGraphTest;
+import xdi2.tests.core.io.NormalizationTest;
 import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
 import xdi2.tests.core.syntax.CloudNameTest;
@@ -73,6 +74,7 @@ public class AllTests {
 		suite.addTestSuite(VariablesTest.class);
 		suite.addTestSuite(ReaderWriterRegistryTest.class);
 		suite.addTestSuite(ReaderWriterTest.class);
+		suite.addTestSuite(NormalizationTest.class);
 		suite.addTestSuite(XRI2UtilTest.class);
 		suite.addTestSuite(XDIAddressUtilTest.class);
 		suite.addTestSuite(CloudNameTest.class);

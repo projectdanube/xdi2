@@ -110,19 +110,4 @@ public class SignaturesTest extends TestCase {
 
 		graph.close();
 	}
-
-	public void testNormalizedSerialization() throws Exception {
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
-		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
-
-		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
-
-		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus<#email>/\":[\"&\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>&/&\":\"markus.sabadello@gmail.com\"}";
-
-		assertEquals(Signatures.getNormalizedSerialization(contextNode), normalizedSerialization);
-
-		graph.close();
-	}
 }

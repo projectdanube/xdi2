@@ -1,6 +1,5 @@
 package xdi2.core.features.signatures;
 
-import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -14,6 +13,8 @@ import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiValue;
+import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
+import xdi2.core.io.Normalization;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -67,7 +68,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 	/**
 	 * Factory method that creates an XDI signature bound to a given XDI attribute.
-	 * @param xdiAttribute The XDI signature that is an XDI signature.
+	 * @param xdiAttribute The XDI attribute that is an XDI signature.
 	 * @return The XDI signature.
 	 */
 	public static KeyPairSignature fromXdiAttribute(XdiAttribute xdiAttribute) {
@@ -101,8 +102,8 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		try {
 
-			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
-		} catch (UnsupportedEncodingException ex) {
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes("UTF-8");
+		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
@@ -122,13 +123,13 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 	public boolean validate(PublicKey publicKey) throws GeneralSecurityException {
 
 		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
-		if (xdiValue == null) return false;
+		if (xdiValue == null) throw new GeneralSecurityException("No signature value.");
 
 		Literal literal = xdiValue.getContextNode().getLiteral();
-		if (literal == null) return false;
+		if (literal == null) throw new GeneralSecurityException("No signature literal.");
 
 		String literalString = literal.getLiteralDataString();
-		if (literalString == null) return false;
+		if (literalString == null) throw new GeneralSecurityException("No signature literal string.");
 
 		byte[] bytes = Base64.decodeBase64(literalString);
 
@@ -136,8 +137,8 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		try {
 
-			normalizedSerialization = Signatures.getNormalizedSerialization(this.getBaseContextNode()).getBytes("UTF-8");
-		} catch (UnsupportedEncodingException ex) {
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes("UTF-8");
+		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
@@ -148,8 +149,6 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 		signature.initVerify(publicKey);
 		signature.update(normalizedSerialization);
 
-		boolean verify = signature.verify(bytes);
-
-		return verify;
+		return signature.verify(bytes);
 	}
 }

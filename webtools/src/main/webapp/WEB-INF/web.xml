@@ -80,6 +80,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDIEncrypter</display-name>
+		<servlet-name>XDIEncrypter</servlet-name>
+		<servlet-class>xdi2.webtools.encrypter.XDIEncrypter</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIEncrypter</servlet-name>
+		<url-pattern>/XDIEncrypter</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIDiscoverer</display-name>
 		<servlet-name>XDIDiscoverer</servlet-name>
 		<servlet-class>xdi2.webtools.discoverer.XDIDiscoverer</servlet-class>

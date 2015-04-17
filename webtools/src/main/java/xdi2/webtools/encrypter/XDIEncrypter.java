@@ -1,4 +1,4 @@
-package xdi2.webtools.signer;
+package xdi2.webtools.encrypter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,11 +30,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.signatures.KeyPairSignature;
-import xdi2.core.features.signatures.Signature;
-import xdi2.core.features.signatures.Signatures;
-import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
-import xdi2.core.features.signatures.SymmetricKeySignature;
+import xdi2.core.features.encryption.Encryption;
+import xdi2.core.features.encryption.Encryptions;
+import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
+import xdi2.core.features.encryption.KeyPairEncryption;
+import xdi2.core.features.encryption.SymmetricKeyEncryption;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.Normalization;
 import xdi2.core.io.XDIReader;
@@ -46,17 +46,15 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
 
 /**
- * Servlet implementation class for Servlet: XDISigner
+ * Servlet implementation class for Servlet: XDIEncrypter
  *
  */
-public class XDISigner extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+public class XDIEncrypter extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
-	private static final long serialVersionUID = 572272568648798655L;
+	private static final long serialVersionUID = 717572297333319206L;
 
-	private static Logger log = LoggerFactory.getLogger(XDISigner.class);
+	private static Logger log = LoggerFactory.getLogger(XDIEncrypter.class);
 
-	public static String DEFAULT_DIGEST_ALGORITHM = "sha";
-	public static String DEFAULT_DIGEST_LENGTH = "256";
 	public static String DEFAULT_KEY_ALGORITHM = "rsa";
 	public static String DEFAULT_KEY_LENGTH = "2048";
 
@@ -64,7 +62,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 	private static List<String> sampleInputs;
 	private static List<String> sampleKeys;
 	private static List<String> sampleAddresses;
-	private static List<String> sampleDigestAndKeySettings;
+	private static List<String> sampleKeySettings;
 
 	static {
 
@@ -74,14 +72,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		sampleInputs = new ArrayList<String> ();
 		sampleKeys = new ArrayList<String> ();
 		sampleAddresses = new ArrayList<String> ();
-		sampleDigestAndKeySettings = new ArrayList<String> ();
+		sampleKeySettings = new ArrayList<String> ();
 
 		while (true) {
 
-			InputStream inputStream1 = XDISigner.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
-			InputStream inputStream2 = XDISigner.class.getResourceAsStream("key" + (sampleKeys.size() + 1));
-			InputStream inputStream3 = XDISigner.class.getResourceAsStream("address" + (sampleAddresses.size() + 1));
-			InputStream inputStream4 = XDISigner.class.getResourceAsStream("digestandkeysettings" + (sampleAddresses.size() + 1));
+			InputStream inputStream1 = XDIEncrypter.class.getResourceAsStream("graph" + (sampleInputs.size() + 1) + ".xdi");
+			InputStream inputStream2 = XDIEncrypter.class.getResourceAsStream("key" + (sampleKeys.size() + 1));
+			InputStream inputStream3 = XDIEncrypter.class.getResourceAsStream("address" + (sampleAddresses.size() + 1));
+			InputStream inputStream4 = XDIEncrypter.class.getResourceAsStream("keysettings" + (sampleAddresses.size() + 1));
 			ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 			ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
 			ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
@@ -97,7 +95,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 				sampleInputs.add(new String(outputStream1.toByteArray()));
 				sampleKeys.add(new String(outputStream2.toByteArray()));
 				sampleAddresses.add(new String(outputStream3.toByteArray()));
-				sampleDigestAndKeySettings.add(new String(outputStream4.toByteArray()));
+				sampleKeySettings.add(new String(outputStream4.toByteArray()));
 			} catch (Exception ex) {
 
 				break;
@@ -132,13 +130,11 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("key", sampleKeys.get(Integer.parseInt(sample) - 1));
 		request.setAttribute("address", sampleAddresses.get(Integer.parseInt(sample) - 1));
-		request.setAttribute("digestAlgorithm", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[0]);
-		request.setAttribute("digestLength", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[1]);
-		request.setAttribute("keyAlgorithm", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[2]);
-		request.setAttribute("keyLength", sampleDigestAndKeySettings.get(Integer.parseInt(sample) - 1).split("/")[3]);
+		request.setAttribute("keyAlgorithm", sampleKeySettings.get(Integer.parseInt(sample) - 1).split("/")[0]);
+		request.setAttribute("keyLength", sampleKeySettings.get(Integer.parseInt(sample) - 1).split("/")[1]);
 		request.setAttribute("singleton", "on");
 
-		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
+		request.getRequestDispatcher("/XDIEncrypter.jsp").forward(request, response);
 	}
 
 	@Override
@@ -154,8 +150,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		String input = request.getParameter("input");
 		String key = request.getParameter("key");
 		String address = request.getParameter("address");
-		String digestAlgorithm = request.getParameter("digestAlgorithm");
-		String digestLength = request.getParameter("digestLength");
 		String keyAlgorithm = request.getParameter("keyAlgorithm");
 		String keyLength = request.getParameter("keyLength");
 		String singleton = request.getParameter("singleton");
@@ -178,7 +172,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		Graph graph = null;
 		ContextNode contextNode;
 		Key k = null;
-		List<Boolean> valid = new ArrayList<Boolean> ();
 
 		long start = System.currentTimeMillis();
 
@@ -195,66 +188,64 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 			contextNode = graph.getDeepContextNode(XDIAddress.create(address), true);
 			if (contextNode == null) throw new RuntimeException("No context node found at address " + address);
 
-			// sign or validate
+			// encrypt or decrypt
 
-			if ("Sign!".equals(submit)) {
+			if ("Encrypt!".equals(submit)) {
 
-				Signature<?, ?> signature = Signatures.createSignature(contextNode, digestAlgorithm, Integer.parseInt(digestLength), keyAlgorithm, Integer.parseInt(keyLength), "on".equals(singleton));
+				Encryption<?, ?> encryption = Encryptions.createEncryption(contextNode, keyAlgorithm, Integer.parseInt(keyLength), "on".equals(singleton));
 
-				if (signature instanceof KeyPairSignature) {
+				if (encryption instanceof KeyPairEncryption) {
 
-					PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
+					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
 					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-					k = keyFactory.generatePrivate(keySpec);
+					k = keyFactory.generatePublic(keySpec);
 
-					((KeyPairSignature) signature).sign((PrivateKey) k);
-				} else if (signature instanceof SymmetricKeySignature) {
+					((KeyPairEncryption) encryption).encrypt((PublicKey) k);
+				} else if (encryption instanceof SymmetricKeyEncryption) {
 
 					k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-					((SymmetricKeySignature) signature).sign((SecretKey) k);
+					((SymmetricKeyEncryption) encryption).encrypt((SecretKey) k);
 				}
-			} else if ("Validate!".equals(submit)) {
 
-				ReadOnlyIterator<Signature<?, ?>> signatures = Signatures.getSignatures(contextNode);
-				if (! signatures.hasNext()) throw new RuntimeException("No signature found at address " + address);
+				encryption.clearAfterEncrypt();
+			} else if ("Decrypt!".equals(submit)) {
 
-				for (Signature<?, ?> signature : signatures) {
+				ReadOnlyIterator<Encryption<?, ?>> encryptions = Encryptions.getEncryptions(contextNode);
+				if (! encryptions.hasNext()) throw new RuntimeException("No encryption found at address " + address);
 
-					if (signature instanceof KeyPairSignature) {
+				for (Encryption<?, ?> encryption : encryptions) {
 
-						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
+					if (encryption instanceof KeyPairEncryption) {
+
+						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
 						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-						k = keyFactory.generatePublic(keySpec);
+						k = keyFactory.generatePrivate(keySpec);
 
-						valid.add(Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k)));
-					} else if (signature instanceof SymmetricKeySignature) {
+						((KeyPairEncryption) encryption).decrypt((PrivateKey) k);
+					} else if (encryption instanceof SymmetricKeyEncryption) {
 
 						k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
 
-						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
+						((SymmetricKeyEncryption) encryption).decrypt((SecretKey) k);
 					}
+
+					encryption.clearAfterDecrypt();
 				}
 			}
 
-			// output the graph or result
+			// output the graph
 
-			if (valid.isEmpty()) {
+			StringWriter writer = new StringWriter();
+			xdiResultWriter.write(graph, writer);
+			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
-				StringWriter writer = new StringWriter();
-				xdiResultWriter.write(graph, writer);
-				output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
-
-				outputId = UUID.randomUUID().toString();
-				OutputCache.put(outputId, graph);
-			} else {
-
-				output = "Valid: " + valid.toString();
-			}
+			outputId = UUID.randomUUID().toString();
+			OutputCache.put(outputId, graph);
 
 			// output the normalized serialization
 
-			output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
+			output2 = Normalization.serialize(contextNode, new NoEncryptionsCopyStrategy());
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
@@ -282,8 +273,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("input", input);
 		request.setAttribute("key", key);
 		request.setAttribute("address", address);
-		request.setAttribute("digestAlgorithm", digestAlgorithm);
-		request.setAttribute("digestLength", digestLength);
 		request.setAttribute("keyAlgorithm", keyAlgorithm);
 		request.setAttribute("keyLength", keyLength);
 		request.setAttribute("singleton", singleton);
@@ -293,6 +282,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 		request.setAttribute("stats", stats);
 		request.setAttribute("error", error);
 
-		request.getRequestDispatcher("/XDISigner.jsp").forward(request, response);
+		request.getRequestDispatcher("/XDIEncrypter.jsp").forward(request, response);
 	}
 }
