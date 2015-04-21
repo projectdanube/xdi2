@@ -4,4 +4,4 @@
 ([=]!:uuid:1111/#trusted)([$do]!:uuid:1234$if$or/$true){$msg}<$ip>/&/"127.0.0.1"
 ([=]!:uuid:1111/#trusted)([$do]!:uuid:1234$if$or/$true){$msg}<$sig><$valid>/&/true
 [=]!:uuid:1111<#email>/&/"markus@projectdanube.org"
-$secret<$token>/&/"s3cr3t"
+<$secret><$token>/&/"s3cr3t"
