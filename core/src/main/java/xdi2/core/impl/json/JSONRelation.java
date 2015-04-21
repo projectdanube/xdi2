@@ -10,14 +10,14 @@ public class JSONRelation extends AbstractRelation implements Relation {
 	private static final long serialVersionUID = 60162590532295669L;
 
 	private XDIAddress XDIaddress;
-	private XDIAddress targetContextNodeXDIAddress;
+	private XDIAddress targetXDIAddress;
 
-	public JSONRelation(ContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public JSONRelation(ContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		super(contextNode);
 
 		this.XDIaddress = XDIaddress;
-		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
+		this.targetXDIAddress = targetXDIAddress;
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class JSONRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDIAddress getTargetContextNodeXDIAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
-		return this.targetContextNodeXDIAddress;
+		return this.targetXDIAddress;
 	}
 }

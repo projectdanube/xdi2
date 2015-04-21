@@ -4,33 +4,23 @@ import java.util.List;
 
 public abstract class ParserAbstract implements Parser {
 
-	protected XDIStatement newXDIStatement(String string, XDIAddress subject, XDIAddress predicate, XDIArc object) {
+	protected XDIStatement newXDIStatement(String string, XDIAddress subject, Object predicate, Object object) {
 
-		return new XDIStatement(string, subject, predicate, object);
+		return XDIStatement.fromComponents(string, subject, predicate, object);
 	}
 
-	protected XDIStatement newXDIStatement(String string, XDIAddress subject, XDIAddress predicate, XDIAddress object) {
-
-		return new XDIStatement(string, subject, predicate, object);
-	}
-
-	protected XDIStatement newXDIStatement(String string, XDIAddress subject, XDIAddress predicate, Object object) {
-
-		return new XDIStatement(string, subject, predicate, object);
-	}
-	
 	protected XDIAddress newXDIAddress(String string, List<XDIArc> arcs) {
 
-		return new XDIAddress(string, arcs);
+		return XDIAddress.fromComponents(string, arcs);
 	}
 
 	protected XDIArc newXDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
 
-		return new XDIArc(string, cs, variable, definition, collection, attribute, literal, xref);
+		return XDIArc.fromComponents(string, cs, variable, definition, collection, attribute, literal, xref);
 	}
 
 	protected XDIXRef newXDIXRef(String string, String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
 
-		return new XDIXRef(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
+		return XDIXRef.fromComponents(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
 	}
 }

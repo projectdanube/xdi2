@@ -174,15 +174,15 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 			ContextNode innerContextNode = innerContextNodes.next();
 			addContextNodeToBuffer(buffer, innerContextNode);
-			if (innerContextNodes.hasNext() || contextNode.containsLiteral()) buffer.append(",");
+			if (innerContextNodes.hasNext() || contextNode.containsLiteralNode()) buffer.append(",");
 			buffer.append("\n");
 		}
 
-		if (contextNode.containsLiteral()) {
+		if (contextNode.containsLiteralNode()) {
 
 			buffer.append("{\n");
 			buffer.append("type: \"literal\",\n");
-			buffer.append("name: \"\\\"" + contextNode.getLiteral().getLiteralData() + "\\\"\",\n");
+			buffer.append("name: \"\\\"" + contextNode.getLiteralNode().getLiteralData() + "\\\"\",\n");
 			buffer.append("arc: \"&\"\n");
 			buffer.append("}\n");
 		}
@@ -197,7 +197,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 			buffer.append("{\n");
 			buffer.append("type: \"relation\",\n");
 			buffer.append("arc: \"" + relation.getXDIAddress() + "\",\n");
-			buffer.append("target: \"" + relation.getTargetContextNodeXDIAddress() + "\"\n");
+			buffer.append("target: \"" + relation.getTargetXDIAddress() + "\"\n");
 			buffer.append("}");
 			if (relations.hasNext()) buffer.append(",");
 			buffer.append("\n");
@@ -219,7 +219,7 @@ public class XDIGrapher extends javax.servlet.http.HttpServlet implements javax.
 
 			buffer.append("arc: \"" + relation.getXDIAddress() + "\",\n");
 			buffer.append("source: \"" + relation.getContextNode().getXDIAddress() + "\",\n");
-			buffer.append("target: \"" + relation.getTargetContextNodeXDIAddress() + "\"\n");
+			buffer.append("target: \"" + relation.getTargetXDIAddress() + "\"\n");
 
 			if (relations.hasNext()) buffer.append("},\n"); else buffer.append("}\n"); 
 		}

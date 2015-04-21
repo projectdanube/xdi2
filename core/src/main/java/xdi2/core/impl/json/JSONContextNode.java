@@ -10,11 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractContextNode;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
@@ -85,7 +86,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		// set the context node
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIConstants.STRING_CONTEXT, new JsonPrimitive(XDIarc.toString()));
 
 		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(this.getXDIAddress(), XDIarc);
 
@@ -112,7 +113,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		if (jsonObject == null) return null;
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
@@ -137,7 +138,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(parentcontextNodeXDIAddress.toString());
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return null;
 		if (jsonArrayContexts.size() < 1) return null;
 
@@ -169,7 +170,7 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXDIAddress().toString());
 
-		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.XDI_ADD_CONTEXT.toString());
+		final JsonArray jsonArrayContexts = jsonObject.getAsJsonArray(XDIConstants.STRING_CONTEXT);
 		if (jsonArrayContexts == null) return new EmptyIterator<ContextNode> ();
 		if (jsonArrayContexts.size() < 1) return new EmptyIterator<ContextNode> ();
 
@@ -202,24 +203,24 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 		// delete this context node
 
 		((JSONGraph) this.getGraph()).jsonDelete(contextNode.getXDIAddress().toString());
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.XDI_ADD_CONTEXT.toString(), new JsonPrimitive(XDIarc.toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIConstants.STRING_CONTEXT, new JsonPrimitive(XDIarc.toString()));
 	}
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, Node targetNode) {
 
-		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
+		XDIAddress targetXDIAddress = targetNode.getXDIAddress();
 
 		// check validity
 
-		this.setRelationCheckValid(XDIaddress, targetContextNodeXDIAddress);
+		this.setRelationCheckValid(XDIaddress, targetXDIAddress);
 
 		// set the relation
 
-		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetContextNodeXDIAddress.toString()));
-		((JSONGraph) this.getGraph()).jsonSaveToArray(targetContextNodeXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetXDIAddress.toString()));
+		((JSONGraph) this.getGraph()).jsonSaveToArray(targetXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
 
-		JSONRelation relation = new JSONRelation(this, XDIaddress, targetContextNodeXDIAddress);
+		JSONRelation relation = new JSONRelation(this, XDIaddress, targetXDIAddress);
 
 		// done
 
@@ -241,8 +242,8 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 				if (entry.getKey().startsWith("/")) return null;
 
 				final XDIAddress XDIaddress = XDIAddress.create(entry.getKey());
-				if (XDIConstants.XDI_ADD_CONTEXT.equals(XDIaddress)) return null;
-				if (XDIConstants.XDI_ADD_LITERAL.equals(XDIaddress)) return null;
+				if (XDIConstants.STRING_CONTEXT.toString().equals(XDIaddress.toString())) return null;
+				if (XDIConstants.XDI_ARC_LITERAL.toString().equals(XDIaddress.toString())) return null;
 
 				JsonArray jsonArrayRelations = (JsonArray) entry.getValue();
 
@@ -253,9 +254,9 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 					@Override
 					public Relation map(JsonElement jsonElement) {
 
-						XDIAddress targetContextNodeXDIAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
+						XDIAddress targetXDIAddress = XDIAddress.create(((JsonPrimitive) jsonElement).getAsString());
 
-						return new JSONRelation(JSONContextNode.this, XDIaddress, targetContextNodeXDIAddress);
+						return new JSONRelation(JSONContextNode.this, XDIaddress, targetXDIAddress);
 					}
 				});
 			}
@@ -306,20 +307,20 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 	}
 
 	@Override
-	public void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		// delete the relation
 
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetContextNodeXDIAddress.toString()));
-		((JSONGraph) this.getGraph()).jsonDeleteFromArray(targetContextNodeXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(this.getXDIAddress().toString(), XDIaddress.toString(), new JsonPrimitive(targetXDIAddress.toString()));
+		((JSONGraph) this.getGraph()).jsonDeleteFromArray(targetXDIAddress.toString(), "/" + XDIaddress.toString(), new JsonPrimitive(this.getXDIAddress().toString()));
 
 		// delete inner root
 
-		this.delRelationDelInnerRoot(XDIaddress, targetContextNodeXDIAddress);
+		this.delRelationDelInnerRoot(XDIaddress, targetXDIAddress);
 	}
 
 	@Override
-	public Literal setLiteral(Object literalData) {
+	public LiteralNode setLiteralNode(Object literalData) {
 
 		// check validity
 
@@ -327,27 +328,27 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 
 		// set the literal
 
-		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
+		((JSONGraph) this.getGraph()).jsonSaveToObject(this.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString(), AbstractLiteralNode.literalDataToJsonElement(literalData));
 
-		JSONLiteral literal = new JSONLiteral(this);
+		JSONLiteralNode literalNode = new JSONLiteralNode(this);
 
 		// done
 
-		return literal;
+		return literalNode;
 	}
 
 	@Override
-	public Literal getLiteral() {
+	public LiteralNode getLiteralNode() {
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(this.getXDIAddress().toString());
 
 		if (! jsonObject.has(XDIConstants.XDI_ARC_LITERAL.toString())) return null;
 
-		return new JSONLiteral(this);
+		return new JSONLiteralNode(this);
 	}
 
 	@Override
-	public void delLiteral() {
+	public void delLiteralNode() {
 
 		((JSONGraph) this.getGraph()).jsonDeleteFromObject(this.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString());
 	}

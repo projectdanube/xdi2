@@ -9,7 +9,8 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractContextNode;
 import xdi2.core.syntax.XDIAddress;
@@ -25,7 +26,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 	private Map<XDIArc, MemoryContextNode> contextNodes;
 	private Map<XDIAddress, Map<XDIAddress, MemoryRelation>> relations;
-	private MemoryLiteral literal;
+	private MemoryLiteralNode literalNode;
 
 	MemoryContextNode(MemoryGraph graph, MemoryContextNode contextNode, XDIArc XDIarc) {
 
@@ -37,17 +38,17 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 			this.contextNodes = new TreeMap<XDIArc, MemoryContextNode> ();
 			this.relations = new TreeMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
-			this.literal = null;
+			this.literalNode = null;
 		} else if (graph.getSortMode() == MemoryGraphFactory.SORTMODE_ORDER) {
 
 			this.contextNodes = new LinkedHashMap<XDIArc, MemoryContextNode> ();
 			this.relations = new LinkedHashMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
-			this.literal = null;
+			this.literalNode = null;
 		} else {
 
 			this.contextNodes = new HashMap<XDIArc, MemoryContextNode> ();
 			this.relations = new HashMap<XDIAddress, Map<XDIAddress, MemoryRelation>> ();
-			this.literal = null;
+			this.literalNode = null;
 		}
 	}
 
@@ -73,7 +74,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 		ContextNode contextNode = this.contextNodes.get(XDIarc);
 
 		if (contextNode != null) {
-			
+
 			return contextNode;
 		}
 
@@ -153,17 +154,17 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, Node targetNode) {
 
-		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
-		
+		XDIAddress targetXDIAddress = targetNode.getXDIAddress();
+
 		// check validity
 
-		this.setRelationCheckValid(XDIaddress, targetContextNodeXDIAddress);
+		this.setRelationCheckValid(XDIaddress, targetXDIAddress);
 
 		// set the relation
 
-		Relation relation = this.getRelation(XDIaddress, targetContextNodeXDIAddress);
+		Relation relation = this.getRelation(XDIaddress, targetXDIAddress);
 		if (relation != null) return relation;
 
 		Map<XDIAddress, MemoryRelation> relations = this.relations.get(XDIaddress);
@@ -182,10 +183,10 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 			this.relations.put(XDIaddress, relations);
 		}
-		
-		relation = new MemoryRelation(this, XDIaddress, targetContextNodeXDIAddress);
-		
-		relations.put(targetContextNodeXDIAddress, (MemoryRelation) relation);
+
+		relation = new MemoryRelation(this, XDIaddress, targetXDIAddress);
+
+		relations.put(targetXDIAddress, (MemoryRelation) relation);
 
 		// done
 
@@ -193,12 +194,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		Map<XDIAddress, MemoryRelation> relations = this.relations.get(XDIaddress);
 		if (relations == null) return null;
 
-		return relations.get(targetContextNodeXDIAddress);
+		return relations.get(targetXDIAddress);
 	}
 
 	@Override
@@ -226,12 +227,12 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		Map<XDIAddress, MemoryRelation> relations = this.relations.get(XDIaddress);
 		if (relations == null) return false;
 
-		return relations.containsKey(targetContextNodeXDIAddress);
+		return relations.containsKey(targetXDIAddress);
 	}
 
 	@Override
@@ -247,14 +248,14 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	}
 
 	@Override
-	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		// delete the relation
 
 		Map<XDIAddress, MemoryRelation> relations = this.relations.get(XDIaddress);
 		if (relations == null) return;
 
-		MemoryRelation relation = relations.remove(targetContextNodeXDIAddress);
+		MemoryRelation relation = relations.remove(targetXDIAddress);
 		if (relation == null) return;
 
 		if (relations.isEmpty()) {
@@ -264,7 +265,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		// delete inner root
 
-		this.delRelationDelInnerRoot(XDIaddress, targetContextNodeXDIAddress);
+		this.delRelationDelInnerRoot(XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -280,7 +281,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetXDIAddress());
 		}
 	}
 
@@ -297,7 +298,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetXDIAddress());
 		}
 	}
 
@@ -306,7 +307,7 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 	 */
 
 	@Override
-	public synchronized Literal setLiteral(Object literalData) {
+	public synchronized LiteralNode setLiteralNode(Object literalData) {
 
 		// check validity
 
@@ -314,28 +315,28 @@ public class MemoryContextNode extends AbstractContextNode implements ContextNod
 
 		// set the literal
 
-		this.literal = new MemoryLiteral(this, literalData);
+		this.literalNode = new MemoryLiteralNode(this, literalData);
 
 		// done
 
-		return this.literal;
+		return this.literalNode;
 	}
 
 	@Override
-	public Literal getLiteral() {
+	public LiteralNode getLiteralNode() {
 
-		return this.literal;
+		return this.literalNode;
 	}
 
 	@Override
-	public boolean containsLiteral() {
+	public boolean containsLiteralNode() {
 
-		return this.literal != null;
+		return this.literalNode != null;
 	}
 
 	@Override
-	public synchronized void delLiteral() {
+	public synchronized void delLiteralNode() {
 
-		this.literal = null;
+		this.literalNode = null;
 	}
 }

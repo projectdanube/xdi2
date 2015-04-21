@@ -1,15 +1,15 @@
 package xdi2.core.impl.memory;
 
-import xdi2.core.Literal;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.LiteralNode;
+import xdi2.core.impl.AbstractLiteralNode;
 
-public class MemoryLiteral extends AbstractLiteral implements Literal {
+public class MemoryLiteralNode extends AbstractLiteralNode implements LiteralNode {
 
 	private static final long serialVersionUID = -7857969624385707741L;
 
 	private Object literalData;
 
-	MemoryLiteral(MemoryContextNode contextNode, Object literalData) {
+	MemoryLiteralNode(MemoryContextNode contextNode, Object literalData) {
 
 		super(contextNode);
 

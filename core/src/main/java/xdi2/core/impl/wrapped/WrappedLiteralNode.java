@@ -1,16 +1,16 @@
 package xdi2.core.impl.wrapped;
 
-import xdi2.core.Literal;
-import xdi2.core.impl.AbstractLiteral;
-import xdi2.core.impl.memory.MemoryLiteral;
+import xdi2.core.LiteralNode;
+import xdi2.core.impl.AbstractLiteralNode;
+import xdi2.core.impl.memory.MemoryLiteralNode;
 
-public class WrappedLiteral extends AbstractLiteral implements Literal {
+public class WrappedLiteralNode extends AbstractLiteralNode implements LiteralNode {
 
 	private static final long serialVersionUID = 1602689543198362042L;
 
-	private MemoryLiteral memoryLiteral;
+	private MemoryLiteralNode memoryLiteral;
 
-	WrappedLiteral(WrappedContextNode contextNode, MemoryLiteral memoryLiteral) {
+	WrappedLiteralNode(WrappedContextNode contextNode, MemoryLiteralNode memoryLiteral) {
 
 		super(contextNode);
 

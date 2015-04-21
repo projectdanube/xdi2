@@ -12,12 +12,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 
@@ -97,10 +96,7 @@ public class Keys {
 		XdiAttribute publicKeyXdiAttribute = xdiContext.getXdiAttribute(publicKeyRelativeAddress, false);
 		publicKeyXdiAttribute = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.dereference();
 
-		XdiValue publicKeyXdiValue = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getXdiValue(false);
-		publicKeyXdiValue = publicKeyXdiValue == null ? null : publicKeyXdiValue.dereference();
-
-		Literal publicKeyLiteral = publicKeyXdiValue == null ? null : publicKeyXdiValue.getContextNode().getLiteral();
+		LiteralNode publicKeyLiteral = publicKeyXdiAttribute == null ? null : publicKeyXdiAttribute.getLiteralNode();
 		PublicKey publicKey = publicKeyLiteral == null ? null : publicKeyFromPublicKeyString(publicKeyLiteral.getLiteralDataString());
 
 		// done
@@ -120,10 +116,7 @@ public class Keys {
 		XdiAttribute privateKeyXdiAttribute = xdiContext.getXdiAttribute(privateKeyRelativeAddress, false);
 		privateKeyXdiAttribute = privateKeyXdiAttribute == null ? null : privateKeyXdiAttribute.dereference();
 
-		XdiValue privateKeyXdiValue = privateKeyXdiAttribute == null ? null : privateKeyXdiAttribute.getXdiValue(false);
-		privateKeyXdiValue = privateKeyXdiValue == null ? null : privateKeyXdiValue.dereference();
-
-		Literal privateKeyLiteral = privateKeyXdiValue == null ? null : privateKeyXdiValue.getContextNode().getLiteral();
+		LiteralNode privateKeyLiteral = privateKeyXdiAttribute == null ? null : privateKeyXdiAttribute.getLiteralNode();
 		PrivateKey privateKey = privateKeyLiteral == null ? null : privateKeyFromPrivateKeyString(privateKeyLiteral.getLiteralDataString());
 
 		// done
@@ -143,10 +136,7 @@ public class Keys {
 		XdiAttribute secretKeyXdiAttribute = xdiContext.getXdiAttribute(secretKeyRelativeAddress, false);
 		secretKeyXdiAttribute = secretKeyXdiAttribute == null ? null : secretKeyXdiAttribute.dereference();
 
-		XdiValue secretKeyXdiValue = secretKeyXdiAttribute == null ? null : secretKeyXdiAttribute.getXdiValue(false);
-		secretKeyXdiValue = secretKeyXdiValue == null ? null : secretKeyXdiValue.dereference();
-
-		Literal secretKeyLiteral = secretKeyXdiValue == null ? null : secretKeyXdiValue.getContextNode().getLiteral();
+		LiteralNode secretKeyLiteral = secretKeyXdiAttribute == null ? null : secretKeyXdiAttribute.getLiteralNode();
 		SecretKey secretKey = secretKeyLiteral == null ? null : secretKeyFromSecretKeyString(secretKeyLiteral.getLiteralDataString());
 
 		// done
@@ -194,9 +184,9 @@ public class Keys {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
 		if (keyAlgorithmAddress.hasXRef()) return null;
-		if (! keyAlgorithmAddress.hasLiteral()) return null;
+		if (! keyAlgorithmAddress.hasLiteralNode()) return null;
 
-		return keyAlgorithmAddress.getLiteral();
+		return keyAlgorithmAddress.getLiteralNode();
 	}
 
 	public static Integer getKeyLength(XDIAddress dataTypeXDIAddress) {
@@ -206,8 +196,8 @@ public class Keys {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
 		if (keyLengthAddress.hasXRef()) return null;
-		if (! keyLengthAddress.hasLiteral()) return null;
+		if (! keyLengthAddress.hasLiteralNode()) return null;
 
-		return Integer.valueOf(keyLengthAddress.getLiteral());
+		return Integer.valueOf(keyLengthAddress.getLiteralNode());
 	}
 }

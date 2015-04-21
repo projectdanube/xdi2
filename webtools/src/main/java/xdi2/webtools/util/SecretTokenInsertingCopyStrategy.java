@@ -1,8 +1,8 @@
 package xdi2.webtools.util;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.impl.DummyLiteral;
+import xdi2.core.impl.DummyLiteralNode;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 
 public class SecretTokenInsertingCopyStrategy extends CopyStrategy {
@@ -15,11 +15,11 @@ public class SecretTokenInsertingCopyStrategy extends CopyStrategy {
 	}
 
 	@Override
-	public Literal replaceLiteral(Literal literal) {
+	public LiteralNode replaceLiteralNode(LiteralNode literal) {
 
 		if (literal.getContextNode().getXDIAddress().toString().contains(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN.toString()) && "********".equals(literal.getLiteralData())) {
 
-			return new DummyLiteral(this.secretToken);
+			return new DummyLiteralNode(this.secretToken);
 		} else {
 
 			return literal;

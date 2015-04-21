@@ -13,7 +13,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiMemberUnordered;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
@@ -194,7 +193,7 @@ public class XDIAddressUtilTest extends TestCase {
 
 	public void testExtractXDIAddress() throws Exception {
 
-		XDIAddress XDIaddress = XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&");
+		XDIAddress XDIaddress = XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>");
 
 		assertEquals(XDIAddress.create(""), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCommonRoot.class, false, false));
 		assertEquals(XDIAddress.create("(=a)(=b)"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false));
@@ -207,7 +206,6 @@ public class XDIAddressUtilTest extends TestCase {
 		assertEquals(XDIAddress.create("!:uuid:1111"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiMemberUnordered.class, false, false));
 		assertEquals(XDIAddress.create("<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttribute.class, false, false));
 		assertEquals(XDIAddress.create("<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttributeSingleton.class, false, false));
-		assertEquals(XDIAddress.create("&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiValue.class, false, false));
 
 		assertEquals(XDIAddress.create(""), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCommonRoot.class, true, false));
 		assertEquals(XDIAddress.create("(=a)(=b)"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, true, false));
@@ -220,20 +218,18 @@ public class XDIAddressUtilTest extends TestCase {
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiMemberUnordered.class, true, false));
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttribute.class, true, false));
 		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttributeSingleton.class, true, false));
-		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiValue.class, true, false));
 
-		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCommonRoot.class, false, true));
-		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, true));
-		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiRoot.class, false, true));
-		assertEquals(XDIAddress.create("(=c/+d)[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true));
-		assertEquals(XDIAddress.create("[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCollection.class, false, true));
-		assertEquals(XDIAddress.create("[=]!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntityCollection.class, false, true));
-		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntity.class, false, true));
-		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntityMember.class, false, true));
-		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiMemberUnordered.class, false, true));
-		assertEquals(XDIAddress.create("<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttribute.class, false, true));
-		assertEquals(XDIAddress.create("<#first><#name>&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttributeSingleton.class, false, true));
-		assertEquals(XDIAddress.create("&"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiValue.class, false, true));
+		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCommonRoot.class, false, true));
+		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, true));
+		assertEquals(XDIAddress.create("(=a)(=b)(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiRoot.class, false, true));
+		assertEquals(XDIAddress.create("(=c/+d)[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true));
+		assertEquals(XDIAddress.create("[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiCollection.class, false, true));
+		assertEquals(XDIAddress.create("[=]!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntityCollection.class, false, true));
+		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntity.class, false, true));
+		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiEntityMember.class, false, true));
+		assertEquals(XDIAddress.create("!:uuid:1111<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiMemberUnordered.class, false, true));
+		assertEquals(XDIAddress.create("<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttribute.class, false, true));
+		assertEquals(XDIAddress.create("<#first><#name>"), XDIAddressUtil.extractXDIAddress(XDIaddress, XdiAttributeSingleton.class, false, true));
 	}
 
 	public void testRemoveStartXDIAddress() throws Exception {

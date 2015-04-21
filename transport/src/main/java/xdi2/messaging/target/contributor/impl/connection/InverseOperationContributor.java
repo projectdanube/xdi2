@@ -213,7 +213,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		Relation inverseLinkContractRelation = message.getContextNode().getRelation(XDIAddressUtil.concatXDIAddresses(XDIDictionaryConstants.XDI_ADD_IS, XDILinkContractConstants.XDI_ADD_DO));
 		if (inverseLinkContractRelation == null) return null;
 
-		return inverseLinkContractRelation.getTargetContextNodeXDIAddress();
+		return inverseLinkContractRelation.getTargetXDIAddress();
 	}
 
 	/*

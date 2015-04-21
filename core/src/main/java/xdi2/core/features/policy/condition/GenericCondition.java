@@ -13,9 +13,9 @@ public class GenericCondition extends Condition {
 
 	private static final long serialVersionUID = 3812888725775095575L;
 
-	protected GenericCondition(XDIStatement statementXri) {
+	protected GenericCondition(XDIStatement XDIstatement) {
 
-		super(statementXri);
+		super(XDIstatement);
 	}
 
 	/*
@@ -24,24 +24,24 @@ public class GenericCondition extends Condition {
 
 	/**
 	 * Checks if a statement is a valid XDI generic condition.
-	 * @param statement The statement to check.
+	 * @param XDIstatement The statement to check.
 	 * @return True if the statement is a valid XDI generic condition.
 	 */
-	public static boolean isValid(XDIStatement statement) {
+	public static boolean isValid(XDIStatement XDIstatement) {
 
 		return true;
 	}
 
 	/**
 	 * Factory method that creates an XDI generic condition bound to a given statement.
-	 * @param statement The statement that is an XDI generic condition.
+	 * @param XDIstatement The statement that is an XDI generic condition.
 	 * @return The XDI generic condition.
 	 */
-	public static GenericCondition fromStatement(XDIStatement statement) {
+	public static GenericCondition fromStatement(XDIStatement XDIstatement) {
 
-		if (! isValid(statement)) return null;
+		if (! isValid(XDIstatement)) return null;
 
-		return new GenericCondition(statement);
+		return new GenericCondition(XDIstatement);
 	}
 
 	/*
@@ -51,7 +51,7 @@ public class GenericCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		Statement statement = policyEvaluationContext.getStatement(this.getStatementXri());
+		Statement statement = policyEvaluationContext.getStatement(this.getXDIStatement());
 
 		return Boolean.valueOf(statement != null);
 	}

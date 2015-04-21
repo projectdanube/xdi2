@@ -34,7 +34,7 @@ public final class PolicyUtil {
 	public static Operator createSecretTokenValidOperator(Policy policy) {
 
 		Condition condition = GenericCondition.fromStatement(XDIStatement.fromLiteralComponents(
-				XDIAddress.create("{$msg}" + XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN_VALID + "&"), 
+				XDIAddress.create("{$msg}" + XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN_VALID), 
 				Boolean.TRUE));
 
 		return TrueOperator.createTrueOperator(policy, condition);
@@ -43,7 +43,7 @@ public final class PolicyUtil {
 	public static Operator createSignatureValidOperator(Policy policy) {
 
 		Condition condition = GenericCondition.fromStatement(XDIStatement.fromLiteralComponents(
-				XDIAddress.create("{$msg}" + XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID + "&"), 
+				XDIAddress.create("{$msg}" + XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID), 
 				Boolean.TRUE));
 
 		return TrueOperator.createTrueOperator(policy, condition);

@@ -32,7 +32,7 @@ public class TestContributor1 extends AbstractContributor {
 			ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		messageResult.getGraph().setStatement(XDIStatement.fromLiteralComponents(
-				XDIAddress.create("" + contributorsAddress + "=a<#b>&"),
+				XDIAddress.create("" + contributorsAddress + "=a<#b>"),
 				this.value));
 
 		messageResult.getGraph().setStatement(XDIStatement.fromRelationComponents(

@@ -96,10 +96,10 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
+			if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
 		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(XDIarc.getCs())) {
 
-			if (XDIarc.hasLiteral() || XDIarc.hasXRef()) return false;
+			if (XDIarc.hasLiteralNode() || XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

@@ -4,10 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.impl.AbstractContextNode;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.DescendingIterator;
@@ -187,13 +188,13 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Relation setRelation(XDIAddress XDIaddress, ContextNode targetContextNode) {
+	public synchronized Relation setRelation(XDIAddress XDIaddress, Node targetNode) {
 
-		XDIAddress targetContextNodeXDIAddress = targetContextNode.getXDIAddress();
+		XDIAddress targetXDIAddress = targetNode.getXDIAddress();
 
 		// check validity
 
-		this.setRelationCheckValid(XDIaddress, targetContextNodeXDIAddress);
+		this.setRelationCheckValid(XDIaddress, targetXDIAddress);
 
 		// set the relation
 
@@ -201,9 +202,9 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 		String relationKey = this.getRelationKey(XDIaddress);
 
 		this.keyValueStore.set(relationsKey, XDIaddress.toString());
-		this.keyValueStore.set(relationKey, targetContextNodeXDIAddress.toString());
+		this.keyValueStore.set(relationKey, targetXDIAddress.toString());
 
-		KeyValueRelation relation = new KeyValueRelation(this, this.keyValueStore, relationKey, XDIaddress, targetContextNodeXDIAddress);
+		KeyValueRelation relation = new KeyValueRelation(this, this.keyValueStore, relationKey, XDIaddress, targetXDIAddress);
 
 		// done
 
@@ -211,15 +212,15 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(XDIaddress);
 
 		if (! this.keyValueStore.contains(relationsKey, XDIaddress.toString())) return null;
-		if (! this.keyValueStore.contains(relationKey, targetContextNodeXDIAddress.toString())) return null;
+		if (! this.keyValueStore.contains(relationKey, targetXDIAddress.toString())) return null;
 
-		return new KeyValueRelation(this, this.keyValueStore, relationKey, XDIaddress, targetContextNodeXDIAddress);
+		return new KeyValueRelation(this, this.keyValueStore, relationKey, XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -287,12 +288,12 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(XDIaddress);
 
-		return this.keyValueStore.contains(relationsKey, XDIaddress.toString()) && this.keyValueStore.contains(relationKey, targetContextNodeXDIAddress.toString());
+		return this.keyValueStore.contains(relationsKey, XDIaddress.toString()) && this.keyValueStore.contains(relationKey, targetXDIAddress.toString());
 	}
 
 	@Override
@@ -313,14 +314,14 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public synchronized void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		// delete the relation
 
 		String relationsKey = this.getRelationsKey();
 		String relationKey = this.getRelationKey(XDIaddress);
 
-		this.keyValueStore.delete(relationKey, targetContextNodeXDIAddress.toString());
+		this.keyValueStore.delete(relationKey, targetXDIAddress.toString());
 
 		if (! this.keyValueStore.contains(relationKey)) {
 
@@ -329,7 +330,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		// delete inner root
 
-		this.delRelationDelInnerRoot(XDIaddress, targetContextNodeXDIAddress);
+		this.delRelationDelInnerRoot(XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -347,7 +348,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetXDIAddress());
 		}
 	}
 
@@ -366,7 +367,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		for (Relation relation : relations) {
 
-			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetContextNodeXDIAddress());
+			this.delRelationDelInnerRoot(relation.getXDIAddress(), relation.getTargetXDIAddress());
 		}
 	}
 
@@ -409,7 +410,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	 */
 
 	@Override
-	public synchronized Literal setLiteral(Object literalData) {
+	public synchronized LiteralNode setLiteralNode(Object literalData) {
 
 		// check validity
 
@@ -419,27 +420,27 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 
 		String literalKey = this.getLiteralKey();
 
-		this.keyValueStore.replace(literalKey, AbstractLiteral.literalDataToString(literalData));
+		this.keyValueStore.replace(literalKey, AbstractLiteralNode.literalDataToString(literalData));
 
-		KeyValueLiteral literal = new KeyValueLiteral(this, this.keyValueStore, literalKey, literalData);
+		KeyValueLiteralNode literalNode = new KeyValueLiteralNode(this, this.keyValueStore, literalKey, literalData);
 
 		// done
 
-		return literal;
+		return literalNode;
 	}
 
 	@Override
-	public Literal getLiteral() {
+	public LiteralNode getLiteralNode() {
 
-		if (! this.containsLiteral()) return null;
+		if (! this.containsLiteralNode()) return null;
 
 		String literalKey = this.getLiteralKey();
 
-		return new KeyValueLiteral(this, this.keyValueStore, literalKey, null);
+		return new KeyValueLiteralNode(this, this.keyValueStore, literalKey, null);
 	}
 
 	@Override
-	public boolean containsLiteral() {
+	public boolean containsLiteralNode() {
 
 		String literalKey = this.getLiteralKey();
 
@@ -447,7 +448,7 @@ public class KeyValueContextNode extends AbstractContextNode implements ContextN
 	}
 
 	@Override
-	public synchronized void delLiteral() {
+	public synchronized void delLiteralNode() {
 
 		String literalKey = this.getLiteralKey();
 

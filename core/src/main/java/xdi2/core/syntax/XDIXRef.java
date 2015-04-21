@@ -2,7 +2,6 @@ package xdi2.core.syntax;
 
 import xdi2.core.syntax.parser.ParserRegistry;
 
-
 public class XDIXRef extends XDIIdentifier {
 
 	private static final long serialVersionUID = 4875921569202236777L;
@@ -14,7 +13,7 @@ public class XDIXRef extends XDIIdentifier {
 	private String iri;
 	private String literal;
 
-	XDIXRef(String string, String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
+	private XDIXRef(String string, String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
 
 		super(string);
 
@@ -31,7 +30,7 @@ public class XDIXRef extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIXRef(string);
 	}
 
-	public static XDIXRef fromComponents(String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
+	static XDIXRef fromComponents(String string, String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
 
 		if (xs == null) throw new IllegalArgumentException();
 		if (XDIaddress == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
@@ -41,6 +40,8 @@ public class XDIXRef extends XDIIdentifier {
 		if (iri != null && (XDIaddress != null || partialSubject != null || partialPredicate != null || literal != null)) throw new IllegalArgumentException();
 		if (literal != null && (XDIaddress != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
 
+		if (string == null) {
+		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(xs.charAt(0));
 		if (XDIaddress != null) buffer.append(XDIaddress.toString());
@@ -48,8 +49,16 @@ public class XDIXRef extends XDIIdentifier {
 		if (iri != null) buffer.append(iri);
 		if (literal != null) buffer.append(literal);
 		buffer.append(xs.charAt(1));
+		
+		string = buffer.toString();
+		}
 
-		return new XDIXRef(buffer.toString(), xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
+		return new XDIXRef(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
+	}
+
+	public static XDIXRef fromComponents(String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
+		
+		return fromComponents(null, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public boolean isEmpty() {
@@ -72,7 +81,7 @@ public class XDIXRef extends XDIIdentifier {
 		return this.iri != null;
 	}
 
-	public boolean hasLiteral() {
+	public boolean hasLiteralNode() {
 
 		return this.literal != null;
 	}
@@ -102,7 +111,7 @@ public class XDIXRef extends XDIIdentifier {
 		return this.iri;
 	}
 
-	public String getLiteral() {
+	public String getLiteralNode() {
 
 		return this.literal;
 	}

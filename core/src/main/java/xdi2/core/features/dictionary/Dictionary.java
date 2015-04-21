@@ -54,7 +54,7 @@ public class Dictionary {
 
 	public static XDIAddress getContextNodeType(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE).getTargetContextNodeXDIAddress();
+		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE).getTargetXDIAddress();
 	}
 
 	public static boolean isContextNodeType(ContextNode contextNode, XDIAddress type) {

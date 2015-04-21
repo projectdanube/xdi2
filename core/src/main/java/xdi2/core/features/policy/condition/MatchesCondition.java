@@ -17,9 +17,9 @@ public class MatchesCondition extends Condition {
 
 	private static final long serialVersionUID = -3144452704386786096L;
 
-	protected MatchesCondition(XDIStatement statement) {
+	protected MatchesCondition(XDIStatement XDIstatement) {
 
-		super(statement);
+		super(XDIstatement);
 	}
 
 	/*
@@ -28,28 +28,28 @@ public class MatchesCondition extends Condition {
 
 	/**
 	 * Checks if a statement is a valid XDI $matches condition.
-	 * @param statement The statement to check.
+	 * @param XDIstatement The statement to check.
 	 * @return True if the statement is a valid XDI $matches condition.
 	 */
-	public static boolean isValid(XDIStatement statement) {
+	public static boolean isValid(XDIStatement XDIstatement) {
 
-		if (! statement.isRelationStatement()) return false;
+		if (! XDIstatement.isRelationStatement()) return false;
 
-		if (! XDIPolicyConstants.XDI_ADD_MATCHES.equals(statement.getRelationXDIAddress())) return false;
+		if (! XDIPolicyConstants.XDI_ADD_MATCHES.equals(XDIstatement.getRelationXDIAddress())) return false;
 
 		return true;
 	}
 
 	/**
 	 * Factory method that creates an XDI $matches condition bound to a given statement.
-	 * @param statement The statement that is an XDI $matches condition.
+	 * @param XDIstatement The statement that is an XDI $matches condition.
 	 * @return The XDI $matches condition.
 	 */
-	public static MatchesCondition fromStatement(XDIStatement statement) {
+	public static MatchesCondition fromStatement(XDIStatement XDIstatement) {
 
-		if (! isValid(statement)) return null;
+		if (! isValid(XDIstatement)) return null;
 
-		return new MatchesCondition(statement);
+		return new MatchesCondition(XDIstatement);
 	}
 
 	public static MatchesCondition fromSubjectAndObject(XDIAddress subject, XDIAddress object) {
@@ -64,17 +64,17 @@ public class MatchesCondition extends Condition {
 	@Override
 	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
-		ContextNode subject = policyEvaluationContext.getContextNode(this.getStatementXri().getSubject());
-		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getStatementXri().getObject());
+		ContextNode subject = policyEvaluationContext.getContextNode(this.getXDIStatement().getSubject());
+		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getXDIStatement().getObject());
 
 		if (subject == null || object == null) return Boolean.FALSE;
 
-		if (subject.containsLiteral()) {
+		if (subject.containsLiteralNode()) {
 
-			if (! object.containsLiteral()) return Boolean.FALSE;
+			if (! (object.containsLiteralNode())) return Boolean.FALSE;
 
-			String subjectLiteralData = subject.getLiteral().getLiteralDataString();
-			String objectLiteralData = object.getLiteral().getLiteralDataString();
+			String subjectLiteralData = subject.getLiteralNode().getLiteralDataString();
+			String objectLiteralData = object.getLiteralNode().getLiteralDataString();
 
 			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
 

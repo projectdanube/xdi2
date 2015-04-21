@@ -15,7 +15,7 @@ public class XDIArc extends XDIIdentifier {
 	private String literal;
 	private XDIXRef xref;
 
-	XDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	private XDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
 
 		super(string);
 
@@ -33,22 +33,32 @@ public class XDIArc extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIArc(string);
 	}
 
+	static XDIArc fromComponents(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+
+		if (string == null) {
+
+			StringBuffer buffer = new StringBuffer();
+			if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+			if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(0));
+			if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
+			if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
+			if (cs != null) buffer.append(cs);
+			if (literal != null) buffer.append(literal);
+			if (xref != null) buffer.append(xref.toString());
+			if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
+			if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
+			if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(1));
+			if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+
+			string = buffer.toString();
+		}
+
+		return new XDIArc(string, cs, variable, definition, collection, attribute, literal, xref);
+	}
+
 	public static XDIArc fromComponents(Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
 
-		StringBuffer buffer = new StringBuffer();
-		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
-		if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(0));
-		if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
-		if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
-		if (cs != null) buffer.append(cs);
-		if (literal != null) buffer.append(literal);
-		if (xref != null) buffer.append(xref.toString());
-		if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
-		if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
-		if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(1));
-		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
-
-		return new XDIArc(buffer.toString(), cs, variable, definition, collection, attribute, literal, xref);
+		return fromComponents(null, cs, variable, definition, collection, attribute, literal, xref);
 	}
 
 	public boolean hasCs() {
@@ -76,7 +86,7 @@ public class XDIArc extends XDIIdentifier {
 		return this.attribute;
 	}
 
-	public boolean hasLiteral() {
+	public boolean hasLiteralNode() {
 
 		return this.literal != null;
 	}
@@ -91,7 +101,7 @@ public class XDIArc extends XDIIdentifier {
 		return this.cs;
 	}
 
-	public String getLiteral() {
+	public String getLiteralNode() {
 
 		return this.literal;
 	}
@@ -99,5 +109,10 @@ public class XDIArc extends XDIIdentifier {
 	public XDIXRef getXRef() {
 
 		return this.xref;
+	}
+
+	public boolean isLiteralNodeXDIArc() {
+
+		return this.equals(XDIConstants.XDI_ARC_LITERAL);
 	}
 }

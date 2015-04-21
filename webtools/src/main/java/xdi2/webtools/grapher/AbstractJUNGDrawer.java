@@ -13,7 +13,7 @@ import java.util.Iterator;
 import org.apache.commons.collections15.Transformer;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.Statement.LiteralStatement;
@@ -21,7 +21,7 @@ import xdi2.core.Statement.RelationStatement;
 import xdi2.core.features.policy.Policy;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.operator.Operator;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -79,7 +79,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 		public Paint transform(Object object) {
 
 			if (object instanceof ContextNode) return Color.GREEN;
-			if (object instanceof Literal) return Color.BLUE;
+			if (object instanceof LiteralNode) return Color.BLUE;
 
 			return null;
 		}
@@ -108,7 +108,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 		public String transform(Object object) {
 
 			if (object instanceof ContextNode) return ((ContextNode) object).getXDIAddress().getLastXDIArc().toString();
-			if (object instanceof Literal) return AbstractLiteral.literalDataToString(((Literal) object).getLiteralData());
+			if (object instanceof LiteralNode) return AbstractLiteralNode.literalDataToString(((LiteralNode) object).getLiteralData());
 
 			return null;
 		}
@@ -156,7 +156,7 @@ public abstract class AbstractJUNGDrawer implements Drawer {
 
 			if (statement instanceof LiteralStatement) {
 
-				directedGraph.addEdge(statement, ((LiteralStatement) statement).getLiteral().getContextNode(), ((LiteralStatement) statement).getLiteral(), EdgeType.DIRECTED);
+				directedGraph.addEdge(statement, ((LiteralStatement) statement).getLiteralNode().getContextNode(), ((LiteralStatement) statement).getLiteralNode(), EdgeType.DIRECTED);
 			}
 		}
 

@@ -40,7 +40,7 @@ public class Equivalence {
 
 		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS);
 
-		return relation == null ? null : relation.follow();
+		return relation == null ? null : relation.followContextNode();
 	}
 
 	public static void setIdentityContextNode(ContextNode contextNode, ContextNode identityContextNode) {
@@ -84,7 +84,7 @@ public class Equivalence {
 		Relation relation = getReferenceRelation(contextNode);
 		if (relation == null) return null;
 
-		return relation.follow();
+		return relation.followContextNode();
 	}
 
 	public static void setReferenceContextNode(ContextNode contextNode, ContextNode referenceContextNode) {
@@ -140,7 +140,7 @@ public class Equivalence {
 		Relation relation = getReplacementRelation(contextNode);
 		if (relation == null) return null;
 
-		return relation.follow();
+		return relation.followContextNode();
 	}
 
 	public static void setReplacementContextNode(ContextNode contextNode, ContextNode replacementContextNode) {

@@ -20,6 +20,6 @@ public class MappingRelationTargetContextNodeIterator extends MappingIterator<Re
 	@Override
 	public ContextNode map(Relation relation) {
 
-		return relation.follow();
+		return relation.followContextNode();
 	}
 }

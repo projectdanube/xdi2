@@ -1,9 +1,9 @@
 package xdi2.core.impl.keyvalue;
 
-import xdi2.core.Literal;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.LiteralNode;
+import xdi2.core.impl.AbstractLiteralNode;
 
-public class KeyValueLiteral extends AbstractLiteral implements Literal {
+public class KeyValueLiteralNode extends AbstractLiteralNode implements LiteralNode {
 
 	private static final long serialVersionUID = 5391652119780088907L;
 
@@ -12,7 +12,7 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 	private Object literalData;
 
-	KeyValueLiteral(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, Object literalData) {
+	KeyValueLiteralNode(KeyValueContextNode contextNode, KeyValueStore keyValueStore, String key, Object literalData) {
 
 		super(contextNode);
 
@@ -27,7 +27,7 @@ public class KeyValueLiteral extends AbstractLiteral implements Literal {
 
 		if (this.literalData == null) {
 
-			this.literalData = AbstractLiteral.stringToLiteralData(this.keyValueStore.getOne(this.key));
+			this.literalData = AbstractLiteralNode.stringToLiteralData(this.keyValueStore.getOne(this.key));
 		}
 
 		return this.literalData;

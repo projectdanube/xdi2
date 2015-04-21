@@ -1,7 +1,7 @@
 /$is$ref/([=]!1111)
 ([=]!1111)/$ref/
 =markus/#friend/=drummond
-=markus<$sig>/$is#/$sha$384$aes$2048
-=markus<#email>&/&/"markus.sabadello@gmail.com"
-=markus<#name>&/&/"Markus Sabadello"
-=markus<$sig>&/&/"N2HaC6UdzPPaq0DXveJ6tr8lVuVJArS51IksFmLSU5mq1n86oT0NbUHuznAjU9LD"
+=markus<$sig>/$is#/$sha$384$aes$128
+=markus<#email>/&/"markus@projectdanube.org"
+=markus<#name>/&/"Markus Sabadello"
+=markus<$sig>/&/"h2+wepBLx1reL+j3mtR4oTIGuDMC8oHWEWwDHkHClfBxJrCXEHrLgi1l2lUhZ31G"

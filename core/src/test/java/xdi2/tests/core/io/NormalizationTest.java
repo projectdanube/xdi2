@@ -13,12 +13,12 @@ public class NormalizationTest extends TestCase {
 	public void testNormalizedSerialization() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus@projectdanube.org\""));
 		graph.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
-		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus<#email>/\":[\"&\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>&/&\":\"markus.sabadello@gmail.com\"}";
+		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>/&\":\"markus@projectdanube.org\"}";
 
 		assertEquals(Normalization.serialize(contextNode, null), normalizedSerialization);
 

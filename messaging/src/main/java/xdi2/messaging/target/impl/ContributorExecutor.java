@@ -8,7 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
+import xdi2.core.Node;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
@@ -42,11 +42,11 @@ public class ContributorExecutor {
 
 		// find an address with contributors
 
-		XDIAddress relativeContextNodeXDIAddress = relativeTargetXDIAddress;
+		XDIAddress relativeNodeXDIAddress = relativeTargetXDIAddress;
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(findHigherContributors(contributorMap, contributorsAddress, relativeContextNodeXDIAddress));
-		contributorFounds.addAll(findLowerContributors(contributorMap, contributorsAddress, relativeContextNodeXDIAddress));
+		contributorFounds.addAll(findHigherContributors(contributorMap, contributorsAddress, relativeNodeXDIAddress));
+		contributorFounds.addAll(findLowerContributors(contributorMap, contributorsAddress, relativeNodeXDIAddress));
 		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target address: " + relativeTargetXDIAddress + " found contributors: " + contributorFounds);
@@ -79,7 +79,7 @@ public class ContributorExecutor {
 			// calculate next addresses
 
 			XDIAddress nextRelativeTargetXDIAddress = relativeTargetXDIAddress == null ? null : XDIAddressUtil.removeStartXDIAddress(relativeTargetXDIAddress, contributorAddress);
-			XDIAddress nextRelativeContextNodeXDIAddress = nextRelativeTargetXDIAddress;
+			XDIAddress nextRelativeNodeXDIAddress = nextRelativeTargetXDIAddress;
 
 			XDIAddress[] nextContributorAddresses = Arrays.copyOf(contributorAddresses, contributorAddresses.length + 1);
 			nextContributorAddresses[nextContributorAddresses.length - 1] = contributorAddress;
@@ -115,10 +115,10 @@ public class ContributorExecutor {
 				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorAddresses, nextContributorsAddress, nextRelativeTargetXDIAddress, operation, tempMessageResult, executionContext);
 				contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
-				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsAddress, nextRelativeContextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
+				XDIAddress tempNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsAddress, nextRelativeNodeXDIAddress);
+				Node tempNode = tempMessageResult.getGraph().getDeepNode(tempNodeXDIAddress, true);
 
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
+				if (tempNode != null) CopyUtil.copyNode(tempNode, operationMessageResult.getGraph(), null);
 
 				if (contributorResult.isSkipSiblingContributors()) {
 
@@ -145,10 +145,10 @@ public class ContributorExecutor {
 
 		// find an address with contributors
 
-		XDIAddress relativeContextNodeXDIAddress = relativeTargetXDIStatement == null ? null : relativeTargetXDIStatement.getContextNodeXDIAddress();
+		XDIAddress relativeNodeXDIAddress = relativeTargetXDIStatement == null ? null : relativeTargetXDIStatement.getContextNodeXDIAddress();
 
 		List<ContributorFound> contributorFounds = new ArrayList<ContributorFound> ();
-		contributorFounds.addAll(findHigherContributors(contributorMap, contributorsAddress, relativeContextNodeXDIAddress));
+		contributorFounds.addAll(findHigherContributors(contributorMap, contributorsAddress, relativeNodeXDIAddress));
 		if (contributorFounds.size() == 0) return ContributorResult.DEFAULT;
 
 		if (log.isDebugEnabled()) log.debug("For relative target statement: " + relativeTargetXDIStatement + " found contributors: " + contributorFounds);
@@ -181,10 +181,10 @@ public class ContributorExecutor {
 				}
 
 				if (contributorMount != null &&
-						contributorMount.targetContextNodeXDIAddresses().length > 0 && 
-						! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
+						contributorMount.targetXDIAddresses().length > 0 && 
+						! Arrays.asList(contributorMount.targetXDIAddresses()).contains(relativeTargetXDIStatement.getTargetXDIAddress())) {
 
-					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetContextNodeXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;
 				}
 			}
@@ -200,10 +200,10 @@ public class ContributorExecutor {
 				}
 
 				if (contributorMount != null &&
-						contributorMount.targetContextNodeXDIAddresses().length > 0 && 
-						! Arrays.asList(contributorMount.targetContextNodeXDIAddresses()).contains(relativeTargetXDIStatement.getTargetContextNodeXDIAddress())) {
+						contributorMount.targetXDIAddresses().length > 0 && 
+						! Arrays.asList(contributorMount.targetXDIAddresses()).contains(relativeTargetXDIStatement.getTargetXDIAddress())) {
 
-					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetContextNodeXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
+					if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like target context node address " + relativeTargetXDIStatement.getTargetXDIAddress() + ") " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target statement " + relativeTargetXDIStatement + ".");
 					continue;
 				}
 			}
@@ -223,7 +223,7 @@ public class ContributorExecutor {
 			// calculate next addresses
 
 			XDIStatement nextRelativeTargetXDIStatement = relativeTargetXDIStatement == null ? null : XDIStatementUtil.removeStartXDIStatement(relativeTargetXDIStatement, contributorAddress);
-			XDIAddress nextRelativecontextNodeXDIAddress = nextRelativeTargetXDIStatement == null ? null : nextRelativeTargetXDIStatement.getContextNodeXDIAddress();
+			XDIAddress nextRelativeNodeXDIAddress = nextRelativeTargetXDIStatement == null ? null : nextRelativeTargetXDIStatement.getContextNodeXDIAddress();
 
 			XDIAddress[] nextContributorAddresses = Arrays.copyOf(contributorAddresses, contributorAddresses.length + 1);
 			nextContributorAddresses[nextContributorAddresses.length - 1] = contributorAddress;
@@ -259,10 +259,10 @@ public class ContributorExecutor {
 				ContributorResult contributorResult = contributor.executeOnStatement(nextContributorAddresses, nextContributorsAddress, nextRelativeTargetXDIStatement, operation, operationMessageResult, executionContext);
 				contributorResultXDIStatement = contributorResultXDIStatement.or(contributorResult);
 
-				XDIAddress tempContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsAddress, nextRelativecontextNodeXDIAddress);
-				ContextNode tempContextNode = tempMessageResult.getGraph().getDeepContextNode(tempContextNodeXDIAddress, true);
+				XDIAddress tempNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsAddress, nextRelativeNodeXDIAddress);
+				Node tempNode = tempMessageResult.getGraph().getDeepNode(tempNodeXDIAddress, true);
 
-				if (tempContextNode != null) CopyUtil.copyContextNode(tempContextNode, operationMessageResult.getGraph(), null);
+				if (tempNode != null) CopyUtil.copyNode(tempNode, operationMessageResult.getGraph(), null);
 
 				if (contributorResult.isSkipSiblingContributors()) {
 
@@ -287,20 +287,20 @@ public class ContributorExecutor {
 	 * Methods for finding contributors
 	 */
 
-	public static List<ContributorFound> findHigherContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeContextNodeXDIAddress) {
+	public static List<ContributorFound> findHigherContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeNodeXDIAddress) {
 
 		if (contributorMap.isEmpty()) return new ArrayList<ContributorFound> ();
 
 		List<ContributorFound> higherContributors = new ArrayList<ContributorFound> ();
 
-		if (relativeContextNodeXDIAddress == null) {
+		if (relativeNodeXDIAddress == null) {
 
 		} else {
 
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
 				XDIAddress nextContributorAddress = contributorEntry.getKey();
-				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeContextNodeXDIAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), false, true);
+				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeNodeXDIAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), false, true);
 				if (startXDIAddress == null) continue;
 
 				startXDIAddress = XDIAddressUtil.localXDIAddress(startXDIAddress, - contributorsAddress.getNumXDIArcs());
@@ -314,22 +314,22 @@ public class ContributorExecutor {
 
 		if (higherContributors.isEmpty()) {
 
-			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + relativeContextNodeXDIAddress + ": No matches.");
+			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + relativeNodeXDIAddress + ": No matches.");
 		} else {
 
-			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + relativeContextNodeXDIAddress + ": Matches at " + higherContributors);
+			if (log.isDebugEnabled()) log.debug("Finding higher contributors for " + relativeNodeXDIAddress + ": Matches at " + higherContributors);
 		}
 
 		return higherContributors;
 	}
 
-	public static List<ContributorFound> findLowerContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeContextNodeXDIAddress) {
+	public static List<ContributorFound> findLowerContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeNodeXDIAddress) {
 
 		if (contributorMap.isEmpty()) return new ArrayList<ContributorFound> ();
 
 		List<ContributorFound> lowerContributors = new ArrayList<ContributorFound> ();
 
-		if (relativeContextNodeXDIAddress == null) {
+		if (relativeNodeXDIAddress == null) {
 
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
@@ -343,7 +343,7 @@ public class ContributorExecutor {
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
 				XDIAddress nextContributorAddress = contributorEntry.getKey();
-				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeContextNodeXDIAddress), false, true);
+				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeNodeXDIAddress), false, true);
 				if (startXDIAddress == null) continue;
 
 				startXDIAddress = XDIAddressUtil.localXDIAddress(startXDIAddress, - contributorsAddress.getNumXDIArcs());
@@ -357,10 +357,10 @@ public class ContributorExecutor {
 
 		if (lowerContributors.isEmpty()) {
 
-			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + relativeContextNodeXDIAddress + ": No matches.");
+			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + relativeNodeXDIAddress + ": No matches.");
 		} else {
 
-			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + relativeContextNodeXDIAddress + ": Matches at " + lowerContributors);
+			if (log.isDebugEnabled()) log.debug("Finding lower contributors for " + relativeNodeXDIAddress + ": Matches at " + lowerContributors);
 		}
 
 		return lowerContributors;

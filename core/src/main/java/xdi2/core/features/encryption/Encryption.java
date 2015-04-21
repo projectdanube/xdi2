@@ -5,11 +5,10 @@ import java.security.GeneralSecurityException;
 import java.security.Key;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
-import xdi2.core.features.nodetypes.XdiValue;
 
 /**
  * An XDI encryption, represented as an XDI attribute.
@@ -75,7 +74,7 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 		}
 
 		this.getBaseContextNode().delRelations();
-		this.getBaseContextNode().delLiteral();
+		this.getBaseContextNode().delLiteralNode();
 	}
 
 	public void clearAfterDecrypt() {
@@ -136,9 +135,8 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 	 */
 	public String getValue() {
 
-		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
-		Literal literal = xdiValue == null ? null : xdiValue.getContextNode().getLiteral();
-		String value = literal == null ? null : literal.getLiteralDataString();
+		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
+		String value = literalNode == null ? null : literalNode.getLiteralDataString();
 
 		return value;
 	}
@@ -148,9 +146,7 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 	 */
 	public void setValue(String value) {
 
-		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(true);
-
-		xdiValue.getContextNode().setLiteralString(value);
+		this.getXdiAttribute().setLiteralString(value);
 	}
 
 	/**

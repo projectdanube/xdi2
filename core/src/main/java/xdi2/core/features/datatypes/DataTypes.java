@@ -10,7 +10,7 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeXDIAddressIterator;
+import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
 /**
@@ -72,7 +72,7 @@ public class DataTypes {
 
 		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
 
-		return new IteratorListMaker<XDIAddress> (new MappingRelationTargetContextNodeXDIAddressIterator(relations)).list();
+		return new IteratorListMaker<XDIAddress> (new MappingRelationTargetXDIAddressIterator(relations)).list();
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class DataTypes {
 
 		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
 
-		return relation == null ? null : relation.getTargetContextNodeXDIAddress();
+		return relation == null ? null : relation.getTargetXDIAddress();
 	}
 
 	/*
@@ -129,7 +129,7 @@ public class DataTypes {
 
 		if (XDIAddressUtil.startsWithXDIAddress(dataTypeXDIAddress, XDI_ADD_DATATYPE_XSD) == null) throw new Xdi2RuntimeException("Invalid XSD data type address: " + dataTypeXDIAddress);
 
-		XDIAddress xsdTypeXDIAddress = XDIAddressUtil.localXDIAddress(dataTypeXDIAddress, - XDI_ADD_DATATYPE_XSD.getNumXDIArcs());
+		XDIAddress xsdTypeXDIAddress = dataTypeXDIAddress;
 
 		return xsdTypeXDIAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), ":");
 	}
@@ -152,7 +152,7 @@ public class DataTypes {
 	public static String mimeTypeFromDataTypeXDIAddress(XDIAddress dataTypeXDIAddress) {
 
 		if (XDIAddressUtil.startsWithXDIAddress(dataTypeXDIAddress, XDI_ADD_DATATYPE_MIME) == null) throw new Xdi2RuntimeException("Invalid MIME data type address: " + dataTypeXDIAddress);
-		
+
 		XDIAddress mimeTypeXDIAddress = XDIAddressUtil.localXDIAddress(dataTypeXDIAddress, - XDI_ADD_DATATYPE_MIME.getNumXDIArcs());
 
 		return mimeTypeXDIAddress.toString().substring(1).replace(XDIConstants.CS_CLASS_RESERVED.toString(), "/");

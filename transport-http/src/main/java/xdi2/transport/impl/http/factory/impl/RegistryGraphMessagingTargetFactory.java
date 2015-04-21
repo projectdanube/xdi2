@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -194,10 +194,10 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private boolean checkExpired(XdiPeerRoot ownerPeerRoot) throws Xdi2TransportException {
 
 		// expired?
-		
+
 		Date expirationDate = Timestamps.getTimestamp(ownerPeerRoot, XDITimestampsConstants.XDI_ADD_AS_EXPIRATION);
 		if (expirationDate == null) return false;
-		
+
 		return expirationDate.before(new Date());
 	}
 
@@ -206,9 +206,9 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		// enabled or disabled?
 
 		XdiAttribute enabledXdiAttribute = ownerPeerRoot.getXdiAttribute(XDI_ADD_ENABLED, false);
-		XdiValue enabledXdiValue = enabledXdiAttribute == null ? null : enabledXdiAttribute.getXdiValue(false);
+		LiteralNode enabledLiteralNode = enabledXdiAttribute == null ? null : enabledXdiAttribute.getLiteralNode();
 
-		Boolean enabled = enabledXdiValue == null ? null : enabledXdiValue.getLiteral().getLiteralDataBoolean();
+		Boolean enabled = enabledLiteralNode == null ? null : enabledLiteralNode.getLiteralDataBoolean();
 
 		if (Boolean.TRUE.equals(enabled)) {
 

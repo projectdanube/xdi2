@@ -81,6 +81,10 @@ public class GenericLinkContract extends LinkContract {
 		if (authorizingAuthority == null) throw new NullPointerException();
 		if (requestingAuthority == null) throw new NullPointerException();
 
+		if (authorizingAuthority.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address of authorizing authority " + authorizingAuthority);
+		if (requestingAuthority.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address requesting authority " + requestingAuthority);
+		if (templateAuthorityAndId != null && templateAuthorityAndId.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address of template authority and ID " + templateAuthorityAndId);
+
 		List<XDIArc> genericLinkContractXDIArcs = new ArrayList<XDIArc> ();
 
 		XDIArc linkContractInnerRootXDIArc = XdiInnerRoot.createInnerRootXDIArc(
@@ -107,7 +111,7 @@ public class GenericLinkContract extends LinkContract {
 
 		XDIAddress genericLinkContractXDIArc = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
 
-		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXDIArc) : graph.getDeepContextNode(genericLinkContractXDIArc, true);
+		ContextNode genericLinkContractContextNode = create ? (ContextNode) graph.setDeepNode(genericLinkContractXDIArc) : (ContextNode) graph.getDeepNode(genericLinkContractXDIArc, true);
 		if (genericLinkContractContextNode == null) return null;
 
 		return new GenericLinkContract(XdiAbstractEntity.fromContextNode(genericLinkContractContextNode));

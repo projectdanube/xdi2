@@ -105,9 +105,9 @@ public class Encryptions {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
 		if (keyAlgorithmAddress.hasXRef()) return null;
-		if (! keyAlgorithmAddress.hasLiteral()) return null;
+		if (! keyAlgorithmAddress.hasLiteralNode()) return null;
 
-		return keyAlgorithmAddress.getLiteral();
+		return keyAlgorithmAddress.getLiteralNode();
 	}
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
@@ -124,9 +124,9 @@ public class Encryptions {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
 		if (keyLengthAddress.hasXRef()) return null;
-		if (! keyLengthAddress.hasLiteral()) return null;
+		if (! keyLengthAddress.hasLiteralNode()) return null;
 
-		return Integer.valueOf(keyLengthAddress.getLiteral());
+		return Integer.valueOf(keyLengthAddress.getLiteralNode());
 	}
 
 	public static XDIAddress getDataTypeXDIAddress(String keyAlgorithm, int keyLength) {

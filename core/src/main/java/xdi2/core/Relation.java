@@ -43,13 +43,25 @@ public interface Relation extends Serializable, Comparable<Relation> {
 	 * Get the target context node address.
 	 * @return The target context node address of the relation.
 	 */
-	public XDIAddress getTargetContextNodeXDIAddress();
+	public XDIAddress getTargetXDIAddress();
+
+	/**
+	 * Follows the relation to the target node.
+	 * @return The target node of the relation.
+	 */
+	public Node follow();
 
 	/**
 	 * Follows the relation to the target context node.
-	 * @return The target context node of the relation.
+	 * @return The target context node of the relation, or null.
 	 */
-	public ContextNode follow();
+	public ContextNode followContextNode();
+
+	/**
+	 * Follows the relation to the target literal node.
+	 * @return The target literal node of the relation, or null.
+	 */
+	public LiteralNode followLiteralNode();
 
 	/*
 	 * Methods related to statements

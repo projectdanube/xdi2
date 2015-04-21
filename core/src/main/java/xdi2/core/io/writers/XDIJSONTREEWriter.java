@@ -11,7 +11,7 @@ import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 
@@ -79,9 +79,9 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 
 			if (json.get(innerContextNode.getXDIArc().toString()) == null) {
 
-				if (innerContextNode.getXDIArc().equals(XDIConstants.CS_VALUE.toString()) && innerContextNode.containsLiteral()) {
+				if (innerContextNode.getXDIArc().equals(XDIConstants.CS_LITERAL.toString()) && innerContextNode.containsLiteralNode()) {
 
-					json.add(XDIConstants.CS_VALUE.toString(), AbstractLiteral.literalDataToJsonElement(innerContextNode.getLiteral().getLiteralData()));
+					json.add(XDIConstants.CS_LITERAL.toString(), AbstractLiteralNode.literalDataToJsonElement(innerContextNode.getLiteralNode().getLiteralData()));
 				} else {
 
 					json.add(innerContextNode.getXDIArc().toString(), makeJson(innerContextNode, writeImplied));
@@ -101,7 +101,7 @@ public class XDIJSONTREEWriter extends AbstractXDIWriter {
 			JsonArray relationJson = relationsJson.getAsJsonArray(relation.getXDIAddress().toString());
 			if (relationJson == null) { relationJson = new JsonArray(); relationsJson.add(relation.getXDIAddress().toString(), relationJson); }
 
-			relationJson.add(new JsonPrimitive(relation.getTargetContextNodeXDIAddress().toString()));
+			relationJson.add(new JsonPrimitive(relation.getTargetXDIAddress().toString()));
 		}
 
 		// done

@@ -2,22 +2,22 @@ package xdi2.core.util.iterators;
 
 import java.util.Iterator;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 
 /**
  * A MappingIterator that maps XDI literals to their literal datas.
  * 
  * @author markus
  */
-public class MappingLiteralDataNumberIterator extends MappingIterator<Literal, Number> {
+public class MappingLiteralDataNumberIterator extends MappingIterator<LiteralNode, Number> {
 
-	public MappingLiteralDataNumberIterator(Iterator<Literal> literals) {
+	public MappingLiteralDataNumberIterator(Iterator<LiteralNode> literals) {
 
 		super(literals);
 	}
 
 	@Override
-	public Number map(Literal literal) {
+	public Number map(LiteralNode literal) {
 
 		return literal.getLiteralDataNumber();
 	}

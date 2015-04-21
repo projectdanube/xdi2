@@ -2,7 +2,6 @@ package xdi2.core.syntax.parser;
 
 import xdi2.core.syntax.Parser;
 
-
 public class ParserRegistry {
 
 	private static ParserRegistry instance = new ParserRegistry(new ParserImpl());

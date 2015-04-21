@@ -3,8 +3,8 @@ package xdi2.messaging.target.interceptor.impl.encryption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Literal;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.LiteralNode;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.DoOperation;
@@ -85,7 +85,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 			XDIAddress contextNodeXDIAddress = targetStatement.getContextNodeXDIAddress();
 			Object literalData = targetStatement.getLiteralData();
 
-			String literalDataString = AbstractLiteral.literalDataToString(literalData);
+			String literalDataString = AbstractLiteralNode.literalDataToString(literalData);
 
 			String encryptedLiteralDataString;
 
@@ -122,7 +122,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	@Override
 	public void finish(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (Literal literal : messageResult.getGraph().getRootContextNode(true).getAllLiterals()) {
+		for (LiteralNode literal : messageResult.getGraph().getRootContextNode(true).getAllLiterals()) {
 
 			String encryptedLiteralDataString = literal.getLiteralDataString();
 			if (encryptedLiteralDataString == null) continue;
@@ -139,7 +139,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 				continue;
 			}
 
-			Object literalData = AbstractLiteral.stringToLiteralData(literalDataString);
+			Object literalData = AbstractLiteralNode.stringToLiteralData(literalDataString);
 
 			literal.setLiteralData(literalData);
 		}

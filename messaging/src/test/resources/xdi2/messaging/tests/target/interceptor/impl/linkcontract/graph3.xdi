@@ -2,6 +2,6 @@
 /$is$ref/([=]!:uuid:1111)
 ([=]!:uuid:1111/#friend)$do/$get/[=]!:uuid:1111
 ([=]!:uuid:1111/#friend)($do$if/$true)[=]!:uuid:1111/#friend/{$from}
-[=]!:uuid:1111<#email>&/&/"markus.sabadello@gmail.com"
+[=]!:uuid:1111<#email>/&/"markus@projectdanube.org"
 [=]!:uuid:1111/#friend/[=]!1111
 [=]!:uuid:1111/#friend/[=]!2222

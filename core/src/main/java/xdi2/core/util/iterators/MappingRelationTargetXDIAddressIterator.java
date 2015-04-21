@@ -10,9 +10,9 @@ import xdi2.core.syntax.XDIAddress;
  * 
  * @author markus
  */
-public class MappingRelationTargetContextNodeXDIAddressIterator extends MappingIterator<Relation, XDIAddress> {
+public class MappingRelationTargetXDIAddressIterator extends MappingIterator<Relation, XDIAddress> {
 
-	public MappingRelationTargetContextNodeXDIAddressIterator(Iterator<Relation> relations) {
+	public MappingRelationTargetXDIAddressIterator(Iterator<Relation> relations) {
 
 		super(relations);
 	}
@@ -20,6 +20,6 @@ public class MappingRelationTargetContextNodeXDIAddressIterator extends MappingI
 	@Override
 	public XDIAddress map(Relation relation) {
 
-		return relation.getTargetContextNodeXDIAddress();
+		return relation.getTargetXDIAddress();
 	}
 }

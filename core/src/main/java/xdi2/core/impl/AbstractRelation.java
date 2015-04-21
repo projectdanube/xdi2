@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.LiteralNode;
+import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.Statement.RelationStatement;
 import xdi2.core.impl.AbstractStatement.AbstractRelationStatement;
@@ -40,21 +42,45 @@ public abstract class AbstractRelation implements Relation {
 	@Override
 	public synchronized void delete() {
 
-		this.getContextNode().delRelation(this.getXDIAddress(), this.getTargetContextNodeXDIAddress());
+		this.getContextNode().delRelation(this.getXDIAddress(), this.getTargetXDIAddress());
 	}
 
 	@Override
-	public ContextNode follow() {
+	public Node follow() {
 
-		ContextNode targetContextNode = this.getGraph().getDeepContextNode(this.getTargetContextNodeXDIAddress(), false);
+		XDIAddress targetXDIAddress = this.getTargetXDIAddress();
+
+		ContextNode targetContextNode = (ContextNode) this.getGraph().getDeepNode(targetXDIAddress.getContextNodeXDIAddress(), false);
 
 		if (targetContextNode == null) {
 
-			if (log.isWarnEnabled()) log.warn("Relation points to non-existent target context node " + this.getTargetContextNodeXDIAddress());
-			targetContextNode = this.getGraph().setDeepContextNode(this.getTargetContextNodeXDIAddress());
+			if (log.isWarnEnabled()) log.warn("Relation points to non-existent target node " + targetXDIAddress);
+			return null;
 		}
 
-		return targetContextNode;
+		if (targetXDIAddress.isLiteralNodeXDIAddress()) {
+
+			return targetContextNode.getLiteralNode();
+		} else {
+
+			return targetContextNode;
+		}
+	}
+
+	@Override
+	public ContextNode followContextNode() {
+
+		Node targetNode = this.follow();
+
+		return targetNode instanceof ContextNode ? (ContextNode) targetNode : null;
+	}
+
+	@Override
+	public LiteralNode followLiteralNode() {
+
+		Node targetNode = this.follow();
+
+		return targetNode instanceof LiteralNode ? (LiteralNode) targetNode : null;
 	}
 
 	/*
@@ -90,7 +116,7 @@ public abstract class AbstractRelation implements Relation {
 		return 
 				this.getContextNode().equals(other.getContextNode()) &&
 				this.getXDIAddress().equals(other.getXDIAddress()) && 
-				this.getTargetContextNodeXDIAddress().equals(other.getTargetContextNodeXDIAddress());
+				this.getTargetXDIAddress().equals(other.getTargetXDIAddress());
 	}
 
 	@Override
@@ -100,7 +126,7 @@ public abstract class AbstractRelation implements Relation {
 
 		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
 		hashCode = (hashCode * 31) + this.getXDIAddress().hashCode();
-		hashCode = (hashCode * 31) + this.getTargetContextNodeXDIAddress().hashCode();
+		hashCode = (hashCode * 31) + this.getTargetXDIAddress().hashCode();
 
 		return hashCode;
 	}
@@ -114,7 +140,7 @@ public abstract class AbstractRelation implements Relation {
 
 		if ((compare = this.getContextNode().compareTo(other.getContextNode())) != 0) return compare;
 		if ((compare = this.getXDIAddress().compareTo(other.getXDIAddress())) != 0) return compare;
-		if ((compare = this.getTargetContextNodeXDIAddress().compareTo(other.getTargetContextNodeXDIAddress())) != 0) return compare;
+		if ((compare = this.getTargetXDIAddress().compareTo(other.getTargetXDIAddress())) != 0) return compare;
 
 		return 0;
 	}
@@ -142,7 +168,7 @@ public abstract class AbstractRelation implements Relation {
 		@Override
 		public XDIAddress getObject() {
 
-			return AbstractRelation.this.getTargetContextNodeXDIAddress();
+			return AbstractRelation.this.getTargetXDIAddress();
 		}
 
 		@Override

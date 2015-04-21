@@ -236,7 +236,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (targetXDIStatement.isContextNodeStatement()) {
 
-			targetXDIAddress = targetXDIStatement.getTargetContextNodeXDIAddress();
+			targetXDIAddress = targetXDIStatement.getTargetXDIAddress();
 		} else {
 
 			targetXDIAddress = targetXDIStatement.getContextNodeXDIAddress();
@@ -264,10 +264,10 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			if (isSetOnRefRepStatement(targetXDIStatement, operation)) {
 
 				if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIStatement.getContextNodeXDIAddress(), linkContract) && 
-						decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIStatement.getTargetContextNodeXDIAddress(), linkContract)) {
+						decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIStatement.getTargetXDIAddress(), linkContract)) {
 
 					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_REF + " permission on target addresses " + targetXDIStatement.getContextNodeXDIAddress() + " and " + targetXDIStatement.getTargetContextNodeXDIAddress());
+					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_REF + " permission on target addresses " + targetXDIStatement.getContextNodeXDIAddress() + " and " + targetXDIStatement.getTargetXDIAddress());
 				} else if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIStatement, linkContract)) {
 
 					authorized = Boolean.TRUE;
@@ -275,7 +275,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 				} else {
 
 					authorized = Boolean.FALSE;
-					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_REF + " permissions on either target addresses " + targetXDIStatement.getContextNodeXDIAddress() + " and " + targetXDIStatement.getTargetContextNodeXDIAddress() + ", or target statement " + targetXDIStatement);
+					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_REF + " permissions on either target addresses " + targetXDIStatement.getContextNodeXDIAddress() + " and " + targetXDIStatement.getTargetXDIAddress() + ", or target statement " + targetXDIStatement);
 				}
 			}
 		}

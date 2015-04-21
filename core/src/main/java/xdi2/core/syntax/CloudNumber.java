@@ -39,12 +39,12 @@ public class CloudNumber {
 
 				if (XDIarc0.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIarc0.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc0.hasXRef() || XDIarc0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc0.hasXRef() || XDIarc0.hasLiteralNode()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 
 				if (XDIarc1.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc1.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteralNode()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 

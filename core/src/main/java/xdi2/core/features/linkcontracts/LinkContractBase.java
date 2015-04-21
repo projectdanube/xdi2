@@ -16,7 +16,7 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IterableIterator;
-import xdi2.core.util.iterators.MappingRelationTargetContextNodeXDIAddressIterator;
+import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 
@@ -150,7 +150,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 		// return the target addresses
 
-		return new MappingRelationTargetContextNodeXDIAddressIterator(
+		return new MappingRelationTargetXDIAddressIterator(
 						this.getContextNode().getRelations(permissionAddress));
 	}
 

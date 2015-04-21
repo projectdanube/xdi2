@@ -9,9 +9,6 @@ import xdi2.messaging.exceptions.Xdi2MessagingException;
 /**
  * A StatementHandler can execute an XDI operation against a statement given in a cross-reference.
  * 
- * The AbstractMessagingTarget requests StatementHandler implementations for each
- * statement given as part of an operation.
- * 
  * @author markus
  */
 public interface StatementHandler {

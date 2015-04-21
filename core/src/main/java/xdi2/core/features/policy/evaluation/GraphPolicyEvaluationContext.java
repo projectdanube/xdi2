@@ -16,21 +16,27 @@ public class GraphPolicyEvaluationContext implements PolicyEvaluationContext {
 	}
 
 	@Override
-	public XDIAddress resolveXDIAddress(XDIAddress contextNodeXri) {
+	public XDIAddress resolveXDIAddress(XDIAddress XDIaddress) {
 
-		return contextNodeXri;
+		return XDIaddress;
 	}
 
 	@Override
-	public ContextNode getContextNode(XDIAddress contextNodeXri) {
+	public ContextNode getContextNode(XDIAddress XDIaddress) {
 
-		return this.getGraph().getDeepContextNode(contextNodeXri, false);
+		if (XDIaddress.isLiteralNodeXDIAddress()) {
+
+			return this.getGraph().getDeepContextNode(XDIaddress.getContextNodeXDIAddress());
+		} else {
+
+			return this.getGraph().getDeepContextNode(XDIaddress);
+		}
 	}
 
 	@Override
-	public Statement getStatement(XDIStatement statementXri) {
+	public Statement getStatement(XDIStatement XDIstatement) {
 
-		return this.getGraph().getStatement(statementXri);
+		return this.getGraph().getStatement(XDIstatement);
 	}
 
 	public Graph getGraph() {

@@ -1,6 +1,5 @@
 package xdi2.webtools.parser;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -303,3 +302,4 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 		return string.replace("<", "&lt;").replace(">", "&gt;").replace("&lt;b&gt;", "<b>").replace("&lt;/b&gt;", "</b>");
 	}
 }
+

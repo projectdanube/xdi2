@@ -84,7 +84,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 		if (! (operation instanceof SetOperation)) return targetStatement;
 
 		XDIAddress substitutedTargetSubject = substituteAddress(targetStatement.getSubject(), executionContext);
-		XDIAddress substitutedTargetPredicate = substituteAddress(targetStatement.getPredicate(), executionContext);
+		Object substitutedTargetPredicate = targetStatement.getPredicate() instanceof XDIAddress ? substituteAddress((XDIAddress) targetStatement.getPredicate(), executionContext) : targetStatement.getPredicate();
 		Object substitutedTargetObject = substituteObject(targetStatement.getObject(), executionContext);
 
 		if (substitutedTargetSubject == targetStatement.getSubject() && substitutedTargetPredicate == targetStatement.getPredicate() && substitutedTargetObject == targetStatement.getObject()) return targetStatement;

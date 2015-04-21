@@ -2,7 +2,7 @@ package xdi2.core.util;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -63,14 +63,14 @@ public final class GraphUtil {
 	 * Creates a relation from its components.
 	 * @param contextNodeXDIAddress The address of the context node containing the relation.
 	 * @param XDIaddress The address of the relation.
-	 * @param targetContextNodeXDIAddress The target context node address of the relation.
+	 * @param targetXDIAddress The target context node address of the relation.
 	 * @return A relation.
 	 */
-	public static Relation relationFromComponents(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public static Relation relationFromComponents(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXDIAddress).setRelation(XDIaddress, targetContextNodeXDIAddress);
+		return graph.setDeepContextNode(contextNodeXDIAddress).setRelation(XDIaddress, targetXDIAddress);
 	}
 
 	/**
@@ -79,10 +79,10 @@ public final class GraphUtil {
 	 * @param literalData The literal data of the literal.
 	 * @return A literal.
 	 */
-	public static Literal literalFromComponents(XDIAddress contextNodeXDIAddress, Object literalData) {
+	public static LiteralNode literalFromComponents(XDIAddress contextNodeXDIAddress, Object literalData) {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		return graph.setDeepContextNode(contextNodeXDIAddress).setLiteral(literalData);
+		return graph.setDeepContextNode(contextNodeXDIAddress).setLiteralNode(literalData);
 	}
 }

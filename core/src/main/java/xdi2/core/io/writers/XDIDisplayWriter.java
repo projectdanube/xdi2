@@ -17,7 +17,7 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAbstractRoot;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
@@ -28,7 +28,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
-import xdi2.core.util.iterators.MappingLiteralStatementIterator;
+import xdi2.core.util.iterators.MappingLiteralNodeStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 
@@ -75,7 +75,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllContextNodes()));
 			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode(true).getAllRelations()));
-			list.add(new MappingLiteralStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
+			list.add(new MappingLiteralNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {
@@ -123,12 +123,12 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 		this.writeContextNodeXDIAddress(bufferedWriter, XDIstatement.getSubject());
 		this.writeSeparator(bufferedWriter);
-		this.writePredicateAddress(bufferedWriter, XDIstatement.getPredicate());
+		this.writePredicate(bufferedWriter, XDIstatement.getPredicate());
 		this.writeSeparator(bufferedWriter);
 
 		if (XDIstatement.isContextNodeStatement()) {
 
-			this.writecontextNodeXDIArc(bufferedWriter, XDIstatement.getSubject(), (XDIArc) XDIstatement.getObject());
+			this.writeContextNodeXDIArc(bufferedWriter, XDIstatement.getSubject(), (XDIArc) XDIstatement.getObject());
 		} else if (XDIstatement.isRelationStatement()) {
 
 			this.writeContextNodeXDIAddress(bufferedWriter, (XDIAddress) XDIstatement.getObject());
@@ -160,7 +160,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 
 			for (XDIArc contextNodeXDIArc : contextNodeXDIAddress.getXDIArcs()) {
 
-				this.writecontextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
+				this.writeContextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
 
 				if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIArc)) {
 
@@ -173,7 +173,7 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private void writecontextNodeXDIArc(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress, XDIArc contextNodeXDIArc) throws IOException {
+	private void writeContextNodeXDIArc(BufferedWriter bufferedWriter, XDIAddress contextNodeXDIAddress, XDIArc contextNodeXDIArc) throws IOException {
 
 		ContextNode contextNode = MemoryGraphFactory.getInstance().openGraph().getRootContextNode(false);
 
@@ -182,10 +182,10 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 			contextNode = contextNode.setDeepContextNode(contextNodeXDIAddress);
 		}
 
-		this.writecontextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
+		this.writeContextNodeXDIArc(bufferedWriter, contextNode, contextNodeXDIArc);
 	}
 
-	private void writecontextNodeXDIArc(BufferedWriter bufferedWriter, ContextNode contextNode, XDIArc contextNodeXDIArc) throws IOException {
+	private void writeContextNodeXDIArc(BufferedWriter bufferedWriter, ContextNode contextNode, XDIArc contextNodeXDIArc) throws IOException {
 
 		if (! XDIConstants.XDI_ADD_ROOT.equals(contextNodeXDIArc)) {
 
@@ -207,15 +207,15 @@ public class XDIDisplayWriter extends AbstractXDIWriter {
 	}
 
 	@SuppressWarnings("static-method")
-	private void writePredicateAddress(BufferedWriter bufferedWriter, XDIAddress predicateAddress) throws IOException {
+	private void writePredicate(BufferedWriter bufferedWriter, Object predicate) throws IOException {
 
-		bufferedWriter.write(predicateAddress.toString());
+		bufferedWriter.write(predicate.toString());
 	}
 
 	@SuppressWarnings("static-method")
 	private void writeLiteralData(BufferedWriter bufferedWriter, Object literalData) throws IOException {
 
-		bufferedWriter.write(AbstractLiteral.literalDataToString(literalData));
+		bufferedWriter.write(AbstractLiteralNode.literalDataToString(literalData));
 	}
 
 	@Override

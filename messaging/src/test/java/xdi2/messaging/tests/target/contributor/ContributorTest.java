@@ -5,8 +5,8 @@ import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Node;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
@@ -21,9 +21,9 @@ public class ContributorTest extends TestCase {
 
 	static String referenceGraphStatements = 
 			"" +
-					"(#con)=a<#b>&/&/\"val\"" + "\n" + 
+					"(#con)=a<#b>/&/\"val\"" + "\n" + 
 					"(#con)=x*y/#c/(#con)=d*e" + "\n" + 
-					"(#con)<#email>&/&/\"val\"" + "\n" + 
+					"(#con)<#email>/&/\"val\"" + "\n" + 
 					"(#test)=markus/#friend/(#test)=animesh" + "\n";
 
 	static String[] targetStrings = new String[] {
@@ -79,8 +79,8 @@ public class ContributorTest extends TestCase {
 			// validate result
 
 			Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-			ContextNode referenceContextNode = referenceGraph.getDeepContextNode(target);
-			CopyUtil.copyContextNode(referenceContextNode, tempGraph, null);
+			Node referenceNode = referenceGraph.getDeepNode(target);
+			CopyUtil.copyNode(referenceNode, tempGraph, null);
 
 			assertEquals(result.getGraph(), tempGraph);
 

@@ -8,14 +8,13 @@ import javax.crypto.SecretKey;
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeMember;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.io.Normalization;
 import xdi2.core.util.CopyUtil;
 
@@ -110,19 +109,16 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
-		this.getXdiAttribute().getXdiValue(true).getContextNode().setLiteralString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralString(Base64.encodeBase64String(bytes));
 	}
 
 	@Override
 	public void decrypt(SecretKey secretKey) throws GeneralSecurityException {
 
-		XdiValue xdiValue = this.getXdiAttribute().getXdiValue(false);
-		if (xdiValue == null) throw new GeneralSecurityException("No encryption value.");
+		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
+		if (literalNode == null) throw new GeneralSecurityException("No encryption literal node.");
 
-		Literal literal = xdiValue.getContextNode().getLiteral();
-		if (literal == null) throw new GeneralSecurityException("No encryption literal.");
-
-		String literalString = literal.getLiteralDataString();
+		String literalString = literalNode.getLiteralDataString();
 		if (literalString == null) throw new GeneralSecurityException("No encryption literal string.");
 
 		byte[] bytes = Base64.decodeBase64(literalString);

@@ -17,16 +17,16 @@ public class DataTypesTest extends TestCase {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("=markus<#age>&/&/\"33\"\n");
+		buffer.append("=markus<#age>/&/\"33\"\n");
 		buffer.append("=markus<#age>/$is#/$xsd$int\n");
 		buffer.append("=markus<#age>/$is#/$json$number\n");
 		String xdiString = buffer.toString();
 
 		Graph graph = (new MemoryGraphFactory()).parseGraph(xdiString, "XDI DISPLAY", null);
 
-		DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")), XDIAddress.create("$mime$image$png"));
+		DataTypes.setDataType(graph.getDeepContextNode(XDIAddress.create("=markus<#age>")), XDIAddress.create("$mime$image$png"));
 
-		List<XDIAddress> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDIAddress.create("=markus<#age>&")));
+		List<XDIAddress> dataTypes = DataTypes.getDataTypes(graph.getDeepContextNode(XDIAddress.create("=markus<#age>")));
 
 		assertNotNull(dataTypes);
 

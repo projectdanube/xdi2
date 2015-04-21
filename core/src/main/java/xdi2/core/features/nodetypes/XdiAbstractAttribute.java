@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.LiteralNode;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
@@ -62,13 +63,71 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public LiteralNode setLiteralNode(Object literalData) {
+
+		return this.getContextNode().setLiteralNode(literalData);
+	}
+
+	@Override
+	public LiteralNode setLiteralString(String literalData) {
+
+		return this.getContextNode().setLiteralString(literalData);
+	}
+
+	@Override
+	public LiteralNode setLiteralNumber(Double literalData) {
+
+		return this.getContextNode().setLiteralNumber(literalData);
+	}
+
+	@Override
+	public LiteralNode setLiteralBoolean(Boolean literalData) {
+
+		return this.getContextNode().setLiteralBoolean(literalData);
+	}	
+
+	@Override
+	public LiteralNode getLiteralNode() {
+
+		return this.getContextNode().getLiteralNode();
+	}
+
+	@Override
+	public LiteralNode getLiteralNode(Object literalData) {
+
+		return this.getContextNode().getLiteralNode(literalData);
+	}
+
+	@Override
+	public LiteralNode getLiteralString(String literalData) {
+
+		return this.getContextNode().getLiteralString(literalData);
+	}
+
+	@Override
+	public LiteralNode getLiteralNumber(Double literalData) {
+
+		return this.getContextNode().getLiteralNumber(literalData);
+	}
+
+	@Override
+	public LiteralNode getLiteralBoolean(Boolean literalData) {
+
+		return this.getContextNode().getLiteralBoolean(literalData);
+	}
+
+	/*
 	 * Methods for arcs
 	 */
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
-		
+
 		if (XdiAttributeSingleton.isValidXDIArc(XDIarc)) return true; 
 		if (XdiAttributeMemberUnordered.isValidXDIArc(XDIarc)) return true;
 		if (XdiAttributeMemberOrdered.isValidXDIArc(XDIarc)) return true;

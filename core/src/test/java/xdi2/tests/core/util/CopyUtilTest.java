@@ -11,9 +11,9 @@ public class CopyUtilTest extends TestCase {
 	public void testCopyUtil() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		graph.setStatement(XDIStatement.create("=markus<#email>&/&/\"markus.sabadello@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus@projectdanube.org\""));
 		graph.setStatement(XDIStatement.create("=markus/#friend/=neustar=animesh"));
-		graph.setStatement(XDIStatement.create("=neustar=animesh<#email>&/&/\"animesh@gmail.com\""));
+		graph.setStatement(XDIStatement.create("=neustar=animesh<#email>/&/\"animesh@gmail.com\""));
 		graph.setStatement(XDIStatement.create("=neustar=animesh/#friend/=markus"));
 
 		Graph graph2 = MemoryGraphFactory.getInstance().openGraph();

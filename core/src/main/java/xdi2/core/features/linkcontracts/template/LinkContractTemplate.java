@@ -66,10 +66,11 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 
 		if (templateAuthorityAndId == null) throw new NullPointerException();
 
+		if (templateAuthorityAndId.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address of template authority and ID " + templateAuthorityAndId);
+
 		List<XDIArc> linkContractTemplateArcXDIAddresses = new ArrayList<XDIArc> ();
 
 		linkContractTemplateArcXDIAddresses.addAll(templateAuthorityAndId.getXDIArcs());
-
 		linkContractTemplateArcXDIAddresses.add(XDILinkContractConstants.XDI_ARC_V_DO);
 
 		return XDIAddress.fromComponents(linkContractTemplateArcXDIAddresses);
@@ -83,7 +84,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 
 		XDIAddress linkContractTemplateXDIAddress = createLinkContractTemplateXDIAddress(templateAuthorityAndId);
 
-		ContextNode linkContractTemplateContextNode = create ? graph.setDeepContextNode(linkContractTemplateXDIAddress) : graph.getDeepContextNode(linkContractTemplateXDIAddress, true);
+		ContextNode linkContractTemplateContextNode = create ? (ContextNode) graph.setDeepNode(linkContractTemplateXDIAddress) : (ContextNode) graph.getDeepNode(linkContractTemplateXDIAddress, true);
 		if (linkContractTemplateContextNode == null) return null;
 
 		return new LinkContractTemplate(XdiEntitySingleton.Variable.fromContextNode(linkContractTemplateContextNode));

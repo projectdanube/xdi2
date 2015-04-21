@@ -92,14 +92,14 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (XDIarc.isAttribute()) return false;
-			if (! XDIarc.hasLiteral()) return false;
+			if (! XDIarc.hasLiteralNode()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
 			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (! XDIarc.isAttribute()) return false;
-			if (! XDIarc.hasLiteral()) return false;
+			if (! XDIarc.hasLiteralNode()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else {
 

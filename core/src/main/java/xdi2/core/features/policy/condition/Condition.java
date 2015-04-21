@@ -19,13 +19,13 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	private static final Logger log = LoggerFactory.getLogger(Condition.class);
 
-	private XDIStatement statementXri;
+	private XDIStatement XDIstatement;
 
-	protected Condition(XDIStatement statementXri) {
+	protected Condition(XDIStatement XDIstatement) {
 
-		if (statementXri == null) throw new NullPointerException();
+		if (XDIstatement == null) throw new NullPointerException();
 
-		this.statementXri = statementXri;
+		this.XDIstatement = XDIstatement;
 	}
 
 	/*
@@ -34,33 +34,33 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	/**
 	 * Checks if a statement is a valid XDI condition.
-	 * @param statement The statement to check.
+	 * @param XDIstatement The statement to check.
 	 * @return True if the statement is a valid XDI condition.
 	 */
-	public static boolean isValid(XDIStatement statement) {
+	public static boolean isValid(XDIStatement XDIstatement) {
 
 		return
-				EqualsCondition.isValid(statement) ||
-				MatchesCondition.isValid(statement) ||
-				GreaterCondition.isValid(statement) ||
-				LesserCondition.isValid(statement) ||
-				IsCondition.isValid(statement) ||
-				GenericCondition.isValid(statement);
+				EqualsCondition.isValid(XDIstatement) ||
+				MatchesCondition.isValid(XDIstatement) ||
+				GreaterCondition.isValid(XDIstatement) ||
+				LesserCondition.isValid(XDIstatement) ||
+				IsCondition.isValid(XDIstatement) ||
+				GenericCondition.isValid(XDIstatement);
 	}
 
 	/**
 	 * Factory method that creates an XDI condition bound to a given statement.
-	 * @param statement The statement that is an XDI condition.
+	 * @param XDIstatement The statement that is an XDI condition.
 	 * @return The XDI condition.
 	 */
-	public static Condition fromStatement(XDIStatement statement) {
+	public static Condition fromStatement(XDIStatement XDIstatement) {
 
-		if (EqualsCondition.isValid(statement)) return EqualsCondition.fromStatement(statement);
-		if (MatchesCondition.isValid(statement)) return MatchesCondition.fromStatement(statement);
-		if (GreaterCondition.isValid(statement)) return GreaterCondition.fromStatement(statement);
-		if (LesserCondition.isValid(statement)) return LesserCondition.fromStatement(statement);
-		if (IsCondition.isValid(statement)) return IsCondition.fromStatement(statement);
-		if (GenericCondition.isValid(statement)) return GenericCondition.fromStatement(statement);
+		if (EqualsCondition.isValid(XDIstatement)) return EqualsCondition.fromStatement(XDIstatement);
+		if (MatchesCondition.isValid(XDIstatement)) return MatchesCondition.fromStatement(XDIstatement);
+		if (GreaterCondition.isValid(XDIstatement)) return GreaterCondition.fromStatement(XDIstatement);
+		if (LesserCondition.isValid(XDIstatement)) return LesserCondition.fromStatement(XDIstatement);
+		if (IsCondition.isValid(XDIstatement)) return IsCondition.fromStatement(XDIstatement);
+		if (GenericCondition.isValid(XDIstatement)) return GenericCondition.fromStatement(XDIstatement);
 
 		return null;
 	}
@@ -74,7 +74,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		if (condition == null) return null;
 
-		return fromStatement(condition.getStatementXri());
+		return fromStatement(condition.getXDIStatement());
 	}
 
 	/*
@@ -85,9 +85,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * Returns the underlying statement to which this XDI condition is bound.
 	 * @return A statement that represents the XDI condition.
 	 */
-	public XDIStatement getStatementXri() {
+	public XDIStatement getXDIStatement() {
 
-		return this.statementXri;
+		return this.XDIstatement;
 	}
 
 	/**
@@ -97,9 +97,9 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 */
 	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
-		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getStatementXri());
+		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getXDIStatement());
 		Boolean result = this.evaluateInternal(policyEvaluationContext);
-		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getStatementXri() + ": " + result);
+		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getXDIStatement() + ": " + result);
 
 		return result;
 	}
@@ -113,7 +113,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	@Override
 	public String toString() {
 
-		return this.getStatementXri().toString();
+		return this.getXDIStatement().toString();
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		Condition other = (Condition) object;
 
-		return this.getStatementXri().equals(other.getStatementXri());
+		return this.getXDIStatement().equals(other.getXDIStatement());
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		int hashCode = 1;
 
-		hashCode = (hashCode * 31) + this.getStatementXri().hashCode();
+		hashCode = (hashCode * 31) + this.getXDIStatement().hashCode();
 
 		return hashCode;
 	}
@@ -142,6 +142,6 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		if (other == this || other == null) return(0);
 
-		return this.getStatementXri().compareTo(other.getStatementXri());
+		return this.getXDIStatement().compareTo(other.getXDIStatement());
 	}
 }

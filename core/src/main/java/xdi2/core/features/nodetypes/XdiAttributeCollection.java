@@ -38,7 +38,6 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 		if (contextNode == null) throw new NullPointerException();
 
 		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
-		if (contextNode.getContextNode() != null && XdiValue.isValid(contextNode.getContextNode())) return false;
 
 		return true;
 	}
@@ -97,7 +96,7 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
+			if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

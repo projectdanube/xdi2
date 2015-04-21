@@ -127,12 +127,12 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			XDIAddress XDIaddress = relativeTargetStatement.getRelationXDIAddress();
-			XDIAddress targetContextNodeXDIAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
+			XDIAddress targetXDIAddress = relativeTargetStatement.getTargetXDIAddress();
 
 			// check if applicable
 
 			if (! XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC.equals(XDIaddress)) return ContributorResult.DEFAULT;
-			if (! XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetContextNodeXDIAddress)) return ContributorResult.DEFAULT;
+			if (! XDIConstants.XDI_ADD_COMMON_VARIABLE.equals(targetXDIAddress)) return ContributorResult.DEFAULT;
 
 			// determine TO peer root XRI
 
@@ -155,7 +155,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 		public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 			XDIAddress XDIaddress = relativeTargetStatement.getRelationXDIAddress();
-			XDIAddress targetContextNodeXDIAddress = relativeTargetStatement.getTargetContextNodeXDIAddress();
+			XDIAddress targetXDIAddress = relativeTargetStatement.getTargetXDIAddress();
 
 			// check if applicable
 
@@ -163,7 +163,7 @@ public class MessageResultContributor extends AbstractContributor implements Pro
 
 			// check parameters
 
-			XDIAddress dataTypeXDIAddress = targetContextNodeXDIAddress;
+			XDIAddress dataTypeXDIAddress = targetXDIAddress;
 
 			String digestAlgorithm;
 			Integer digestLength;

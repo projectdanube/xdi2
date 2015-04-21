@@ -25,33 +25,33 @@ public class AbstractAddressHandler implements AddressHandler {
 	 */
 
 	@Override
-	public final void executeOnAddress(XDIAddress targetAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public final void executeOnAddress(XDIAddress targetXDIAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation instanceof GetOperation)
-			this.executeGetOnAddress(targetAddress, (GetOperation) operation, messageResult, executionContext);
+			this.executeGetOnAddress(targetXDIAddress, (GetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof SetOperation)
-			this.executeSetOnAddress(targetAddress, (SetOperation) operation, messageResult, executionContext);
+			this.executeSetOnAddress(targetXDIAddress, (SetOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DelOperation)
-			this.executeDelOnAddress(targetAddress, (DelOperation) operation, messageResult, executionContext);
+			this.executeDelOnAddress(targetXDIAddress, (DelOperation) operation, messageResult, executionContext);
 		else if (operation instanceof DoOperation)
-			this.executeDoOnAddress(targetAddress, (DoOperation) operation, messageResult, executionContext);
+			this.executeDoOnAddress(targetXDIAddress, (DoOperation) operation, messageResult, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public void executeGetOnAddress(XDIAddress targetAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeGetOnAddress(XDIAddress targetXDIAddress, GetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeSetOnAddress(XDIAddress targetAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeSetOnAddress(XDIAddress targetXDIAddress, SetOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDelOnAddress(XDIAddress targetAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDelOnAddress(XDIAddress targetXDIAddress, DelOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	public void executeDoOnAddress(XDIAddress targetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void executeDoOnAddress(XDIAddress targetXDIAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }

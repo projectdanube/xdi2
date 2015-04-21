@@ -98,6 +98,9 @@ public class XdiCommonRoot extends XdiAbstractRoot {
 		Relation relation = this.getContextNode().getRelation(XDIDictionaryConstants.XDI_ADD_IS_REF);
 		if (relation == null) return null;
 
-		return XdiPeerRoot.fromContextNode(relation.follow());
+		ContextNode targetContextNode = relation.followContextNode();
+		if (targetContextNode == null) return null;
+
+		return XdiPeerRoot.fromContextNode(targetContextNode);
 	}
 }

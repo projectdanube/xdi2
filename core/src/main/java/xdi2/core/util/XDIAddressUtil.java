@@ -401,6 +401,8 @@ public final class XDIAddressUtil {
 	 */
 	/*	public static XDIAddress findNotXDIAddress(XDIAddress XDIaddress, Class<? extends XdiContext<?>>[] clazzes) {
 
+		if (XDIaddress == null) throw new NullPointerException();
+
 		try {
 
 			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
@@ -646,7 +648,7 @@ public final class XDIAddressUtil {
 			{ result = XDIAddress.fromComponents(XDIarcs); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("contactXDIAddresses(" + Arrays.asList(XDIaddresses) + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("concatXDIAddresses(" + Arrays.asList(XDIaddresses) + ") --> " + result);
 		}
 	}
 

@@ -9,19 +9,19 @@ public class DummyRelation extends AbstractRelation implements Relation {
 	private static final long serialVersionUID = -8757473050724884998L;
 
 	private XDIAddress XDIaddress;
-	private XDIAddress targetContextNodeXDIAddress;
+	private XDIAddress targetXDIAddress;
 
-	public DummyRelation(ContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public DummyRelation(ContextNode contextNode, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
 		super(contextNode);
 
 		this.XDIaddress = XDIaddress;
-		this.targetContextNodeXDIAddress = targetContextNodeXDIAddress;
+		this.targetXDIAddress = targetXDIAddress;
 	}
 
-	public DummyRelation(XDIAddress XDIaddress, XDIAddress targetContextNodeXDIAddress) {
+	public DummyRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
 
-		this(new DummyContextNode(new DummyGraph(null, null), null, null, null, null, null), XDIaddress, targetContextNodeXDIAddress);
+		this(new DummyContextNode(new DummyGraph(null, null), null, null, null, null, null), XDIaddress, targetXDIAddress);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class DummyRelation extends AbstractRelation implements Relation {
 	}
 
 	@Override
-	public XDIAddress getTargetContextNodeXDIAddress() {
+	public XDIAddress getTargetXDIAddress() {
 
-		return this.targetContextNodeXDIAddress;
+		return this.targetXDIAddress;
 	}
 }

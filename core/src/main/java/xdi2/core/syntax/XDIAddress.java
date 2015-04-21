@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import xdi2.core.syntax.parser.ParserRegistry;
+import xdi2.core.util.XDIAddressUtil;
 
 public final class XDIAddress extends XDIIdentifier {
 
@@ -11,7 +12,7 @@ public final class XDIAddress extends XDIIdentifier {
 
 	private List<XDIArc> arcs;
 
-	XDIAddress(String string, List<XDIArc> arcs) {
+	private XDIAddress(String string, List<XDIArc> arcs) {
 
 		super(string);
 
@@ -23,12 +24,22 @@ public final class XDIAddress extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIAddress(string);
 	}
 
+	static XDIAddress fromComponents(String string, List<XDIArc> XDIarcs) {
+
+		if (string == null) {
+
+			StringBuffer buffer = new StringBuffer();
+			for (XDIArc XDIarc : XDIarcs) buffer.append(XDIarc.toString());
+
+			string = buffer.toString();
+		}
+
+		return new XDIAddress(string, XDIarcs);
+	}
+
 	public static XDIAddress fromComponents(List<XDIArc> XDIarcs) {
 
-		StringBuffer buffer = new StringBuffer();
-		for (XDIArc XDIarc : XDIarcs) buffer.append(XDIarc.toString());
-
-		return new XDIAddress(buffer.toString(), XDIarcs);
+		return fromComponents(null, XDIarcs);
 	}
 
 	public static XDIAddress fromComponent(XDIArc XDIarc) {
@@ -63,5 +74,24 @@ public final class XDIAddress extends XDIIdentifier {
 		if (this.arcs.size() < 1) return null;
 
 		return this.arcs.get(this.arcs.size() - 1);
+	}
+
+	public XDIAddress getContextNodeXDIAddress() {
+
+		if (this.isLiteralNodeXDIAddress()) {
+
+			return XDIAddressUtil.parentXDIAddress(this, -1);
+		} else {
+
+			return this;
+		}
+	}
+
+	public boolean isLiteralNodeXDIAddress() {
+
+		XDIArc XDIarc = this.getLastXDIArc();
+		if (XDIarc == null) return false;
+
+		return XDIarc.isLiteralNodeXDIArc();
 	}
 }

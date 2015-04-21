@@ -2,7 +2,7 @@ package xdi2.tests.core.impl;
 
 
 import junit.framework.TestCase;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
@@ -31,59 +31,59 @@ public class AbstractLiteralTest extends TestCase {
 
 	public void testIsValidLiteralData() {
 
-		assertTrue(AbstractLiteral.isValidLiteralData(s));
-		assertTrue(AbstractLiteral.isValidLiteralData(d));
-		assertTrue(AbstractLiteral.isValidLiteralData(b));
-		assertTrue(AbstractLiteral.isValidLiteralData(a));
-		assertTrue(AbstractLiteral.isValidLiteralData(o));
-		assertTrue(AbstractLiteral.isValidLiteralData(n));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(s));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(d));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(b));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(a));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(o));
+		assertTrue(AbstractLiteralNode.isValidLiteralData(n));
 	}
 
 	public void testJsonElement() {
 
-		assertEquals(AbstractLiteral.literalDataToJsonElement(s), new JsonPrimitive(s));
-		assertEquals(AbstractLiteral.literalDataToJsonElement(d), new JsonPrimitive(d));
-		assertEquals(AbstractLiteral.literalDataToJsonElement(b), new JsonPrimitive(b));
-		assertEquals(AbstractLiteral.literalDataToJsonElement(a), a);
-		assertEquals(AbstractLiteral.literalDataToJsonElement(o), o);
-		assertEquals(AbstractLiteral.literalDataToJsonElement(n), JsonNull.INSTANCE);
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(s), new JsonPrimitive(s));
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(d), new JsonPrimitive(d));
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(b), new JsonPrimitive(b));
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(a), a);
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(o), o);
+		assertEquals(AbstractLiteralNode.literalDataToJsonElement(n), JsonNull.INSTANCE);
 
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(new JsonPrimitive(s)), s);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(new JsonPrimitive(d)), d);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(new JsonPrimitive(b)), b);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(a), a);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(o), o);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(JsonNull.INSTANCE), n);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(new JsonPrimitive(s)), s);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(new JsonPrimitive(d)), d);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(new JsonPrimitive(b)), b);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(a), a);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(o), o);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(JsonNull.INSTANCE), n);
 
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(s)), s);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(d)), d);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(b)), b);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(a)), a);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(o)), o);
-		assertEquals(AbstractLiteral.jsonElementToLiteralData(AbstractLiteral.literalDataToJsonElement(n)), n);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(s)), s);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(d)), d);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(b)), b);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(a)), a);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(o)), o);
+		assertEquals(AbstractLiteralNode.jsonElementToLiteralData(AbstractLiteralNode.literalDataToJsonElement(n)), n);
 	}
 
 	public void testString() {
 
-		assertEquals(AbstractLiteral.literalDataToString(s), "\"Markus Sabadello\"");
-		assertEquals(AbstractLiteral.literalDataToString(d), "34.0");
-		assertEquals(AbstractLiteral.literalDataToString(b), "false");
-		assertEquals(AbstractLiteral.literalDataToString(a), "[\"test\",5,false]");
-		assertEquals(AbstractLiteral.literalDataToString(o), "{\"one\":\"Markus Sabadello\",\"two\":34,\"three\":false}");
-		assertEquals(AbstractLiteral.literalDataToString(n), "null");
+		assertEquals(AbstractLiteralNode.literalDataToString(s), "\"Markus Sabadello\"");
+		assertEquals(AbstractLiteralNode.literalDataToString(d), "34.0");
+		assertEquals(AbstractLiteralNode.literalDataToString(b), "false");
+		assertEquals(AbstractLiteralNode.literalDataToString(a), "[\"test\",5,false]");
+		assertEquals(AbstractLiteralNode.literalDataToString(o), "{\"one\":\"Markus Sabadello\",\"two\":34,\"three\":false}");
+		assertEquals(AbstractLiteralNode.literalDataToString(n), "null");
 
-		assertEquals(AbstractLiteral.stringToLiteralData("\"Markus Sabadello\""), s);
-		assertEquals(AbstractLiteral.stringToLiteralData("34"), d);
-		assertEquals(AbstractLiteral.stringToLiteralData("false"), b);
-		assertEquals(AbstractLiteral.stringToLiteralData("[\"test\",5,false]"), a);
-		assertEquals(AbstractLiteral.stringToLiteralData("{\"one\":\"Markus Sabadello\",\"two\":34,\"three\":false}"), o);
-		assertEquals(AbstractLiteral.stringToLiteralData("null"), n);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("\"Markus Sabadello\""), s);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("34"), d);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("false"), b);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("[\"test\",5,false]"), a);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("{\"one\":\"Markus Sabadello\",\"two\":34,\"three\":false}"), o);
+		assertEquals(AbstractLiteralNode.stringToLiteralData("null"), n);
 
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(s)), s);
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(d)), d);
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(b)), b);
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(a)), a);
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(o)), o);
-		assertEquals(AbstractLiteral.stringToLiteralData(AbstractLiteral.literalDataToString(n)), n);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(s)), s);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(d)), d);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(b)), b);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(a)), a);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(o)), o);
+		assertEquals(AbstractLiteralNode.stringToLiteralData(AbstractLiteralNode.literalDataToString(n)), n);
 	}
 }

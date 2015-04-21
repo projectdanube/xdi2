@@ -15,7 +15,7 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> implements XdiAttribute {
+public class XdiAttributeSingleton extends XdiAbstractAttribute implements XdiSingleton<XdiAttribute>, XdiAttribute {
 
 	private static final long serialVersionUID = -5769813522592588864L;
 
@@ -38,7 +38,6 @@ public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> im
 		if (contextNode == null) throw new NullPointerException();
 
 		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
-		if (contextNode.getContextNode() != null && XdiValue.isValid(contextNode.getContextNode())) return false;
 
 		return true;
 	}
@@ -68,22 +67,6 @@ public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> im
 	/*
 	 * Instance methods
 	 */
-
-	/**
-	 * Creates or returns an XDI value under this XDI attribute element.
-	 * @param create Whether or not to create the context node if it doesn't exist.
-	 * @return The XDI value.
-	 */
-	@Override
-	public XdiValue getXdiValue(boolean create) {
-
-		XDIArc valuearc = XdiValue.createXDIArc();
-
-		ContextNode valueContextNode = create ? this.getContextNode().setContextNode(valuearc) : this.getContextNode().getContextNode(valuearc, false);
-		if (valueContextNode == null) return null;
-
-		return new XdiValue(valueContextNode);
-	}
 
 	/*
 	 * Methods for arcs
@@ -115,7 +98,7 @@ public class XdiAttributeSingleton extends XdiAbstractSingleton<XdiAttribute> im
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
-			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
+			if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
 		} else {
 
 			return false;

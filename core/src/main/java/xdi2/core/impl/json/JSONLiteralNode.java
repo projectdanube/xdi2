@@ -1,17 +1,17 @@
 package xdi2.core.impl.json;
 
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 
 import com.google.gson.JsonObject;
 
-public class JSONLiteral extends AbstractLiteral implements Literal {
+public class JSONLiteralNode extends AbstractLiteralNode implements LiteralNode {
 
 	private static final long serialVersionUID = 5656043671598618588L;
 
-	public JSONLiteral(ContextNode contextNode) {
+	public JSONLiteralNode(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -23,7 +23,7 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JsonObject jsonObject = ((JSONGraph) this.getGraph()).jsonLoad(jsonContextNode.getXDIAddress().toString());
 
-		return AbstractLiteral.jsonElementToLiteralData(jsonObject.get(XDIConstants.XDI_ARC_LITERAL.toString()));
+		return AbstractLiteralNode.jsonElementToLiteralData(jsonObject.get(XDIConstants.XDI_ARC_LITERAL.toString()));
 	}
 
 	@Override
@@ -31,6 +31,6 @@ public class JSONLiteral extends AbstractLiteral implements Literal {
 
 		JSONContextNode jsonContextNode = (JSONContextNode) this.getContextNode();
 
-		((JSONGraph) this.getGraph()).jsonSaveToObject(jsonContextNode.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString(), AbstractLiteral.literalDataToJsonElement(literalData));
+		((JSONGraph) this.getGraph()).jsonSaveToObject(jsonContextNode.getXDIAddress().toString(), XDIConstants.XDI_ARC_LITERAL.toString(), AbstractLiteralNode.literalDataToJsonElement(literalData));
 	}
 }

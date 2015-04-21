@@ -70,8 +70,8 @@ public class XDI2RDF {
 					if (rootXDIAddress != null) subjectXDIAddress = XDIAddressUtil.localXDIAddress(subjectXDIAddress, - rootXDIAddress.getNumXDIArcs());
 					if (subjectXDIAddress == null) subjectXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
-					XDIAddress predicateXDIAddress = XDIstatement.getPredicate();
-					XDIAddress objectXDIAddress = XDIstatement.getTargetContextNodeXDIAddress();
+					XDIAddress predicateXDIAddress = XDIstatement.getRelationXDIAddress();
+					XDIAddress objectXDIAddress = XDIstatement.getTargetXDIAddress();
 
 					subject = valueFactory.createURI(NAMESPACE, URLEncoder.encode(subjectXDIAddress.toString(), "UTF-8"));
 					predicate = valueFactory.createURI(NAMESPACE, URLEncoder.encode(predicateXDIAddress.toString(), "UTF-8"));

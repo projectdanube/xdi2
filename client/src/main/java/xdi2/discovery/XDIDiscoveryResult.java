@@ -13,7 +13,7 @@ import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -21,7 +21,6 @@ import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -225,10 +224,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 			endpointUriXdiAttribute = endpointUriXdiAttribute.dereference();
 
-			XdiValue endpointUriXdiValue = endpointUriXdiAttribute.getXdiValue(false);
-			if (endpointUriXdiValue == null) continue;
-
-			Literal endpointUriLiteral = endpointUriXdiValue.getLiteral();
+			LiteralNode endpointUriLiteral = endpointUriXdiAttribute.getLiteralNode();
 			if (endpointUriLiteral == null) continue;
 
 			String endpointUri = endpointUriLiteral.getLiteralDataString();

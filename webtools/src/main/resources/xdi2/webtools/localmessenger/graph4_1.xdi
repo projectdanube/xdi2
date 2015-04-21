@@ -1,8 +1,8 @@
 =markus/$ref/[=]!1111
-[=]!1111<#name>&/&/"Markus"
-[=]!1111<#country>&/&/"Austria"
-[=]!2222<#name>&/&/"Animesh"
-[=]!2222<#country>&/&/"USA"
+[=]!1111<#name>/&/"Markus"
+[=]!1111<#country>/&/"Austria"
+[=]!2222<#name>/&/"Animesh"
+[=]!2222<#country>/&/"USA"
 [=]!3333<#name>/$rep/[=]!1111<#name>
 [=]!3333<#country>/$rep/[=]!2222<#country>
 =animesh/$ref/[=]!2222

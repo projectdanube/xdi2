@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
@@ -19,7 +19,7 @@ import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIAddress;
@@ -63,9 +63,9 @@ public class XDIJSONReader extends AbstractXDIReader {
 			String key = entry.getKey();
 			JsonElement jsonEntryElement = entry.getValue();
 
-			if (key.endsWith("/" + XDIConstants.XDI_ADD_CONTEXT.toString())) {
+			if (key.endsWith("/" + XDIConstants.STRING_CONTEXT)) {
 
-				XDIStatement XDIstatement = makeStatement(key + "/", state);
+				XDIStatement XDIstatement = makeStatement(key + "/<$x>", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
@@ -73,8 +73,8 @@ public class XDIJSONReader extends AbstractXDIReader {
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -89,36 +89,36 @@ public class XDIJSONReader extends AbstractXDIReader {
 					ContextNode contextNode = baseContextNode.setContextNode(XDIarc);
 					if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set context node " + contextNode.getXDIArc() + " --> " + contextNode.getXDIAddress());
 				}
-			} else if (key.endsWith("/" + XDIConstants.XDI_ADD_LITERAL.toString())) {
+			} else if (key.endsWith("/" + XDIConstants.XDI_ARC_LITERAL.toString())) {
 
 				XDIStatement XDIstatement = makeStatement(key + "/\"\"", state);
 
-				Object literalData = AbstractLiteral.jsonElementToLiteralData(jsonEntryElement);
+				Object literalData = AbstractLiteralNode.jsonElementToLiteralData(jsonEntryElement);
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
 				// add literal
 
-				Literal literal = baseContextNode.setLiteral(literalData);
-				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set literal --> " + literal.getLiteralData());
+				LiteralNode literalNode = baseContextNode.setLiteralNode(literalData);
+				if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set literal node --> " + literalNode.getLiteralData());
 			} else {
 
 				XDIStatement XDIstatement = makeStatement(key + "/", state);
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("JSON object member must be an array: " + jsonEntryElement);
 
-				XDIAddress XDIaddress = XDIstatement.getPredicate();
+				XDIAddress XDIaddress = XDIstatement.getRelationXDIAddress();
 				JsonArray jsonEntryArray = (JsonArray) jsonEntryElement;
 
 				// find the root and the base context node of this statement
 
-				XdiRoot statementRoot = root.getRoot(XDIstatement.getSubject(), true);
-				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getSubject());
+				XdiRoot statementRoot = root.getRoot(XDIstatement.getContextNodeXDIAddress(), true);
+				XDIAddress absoluteSubject = root.relativeToAbsoluteXDIAddress(XDIstatement.getContextNodeXDIAddress());
 				XDIAddress relativeSubject = statementRoot.absoluteToRelativeXDIAddress(absoluteSubject);
 				ContextNode baseContextNode = relativeSubject == null ? statementRoot.getContextNode() : statementRoot.getContextNode().setDeepContextNode(relativeSubject);
 
@@ -135,10 +135,10 @@ public class XDIJSONReader extends AbstractXDIReader {
 						this.read(innerRoot, (JsonObject) jsonEntryArrayElement, state);
 					} else if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
 
-						XDIAddress targetContextNodeXDIAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
+						XDIAddress targetXDIAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
-						Relation relation = baseContextNode.setRelation(XDIaddress, targetContextNodeXDIAddress);
-						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set relation " + relation.getXDIAddress() + " --> " + relation.getTargetContextNodeXDIAddress());
+						Relation relation = baseContextNode.setRelation(XDIaddress, targetXDIAddress);
+						if (log.isTraceEnabled()) log.trace("Under " + baseContextNode.getXDIAddress() + ": Set relation " + relation.getXDIAddress() + " --> " + relation.getTargetXDIAddress());
 					} else {
 
 						throw new Xdi2ParseException("JSON array element must be either an object or a string: " + jsonEntryArrayElement);

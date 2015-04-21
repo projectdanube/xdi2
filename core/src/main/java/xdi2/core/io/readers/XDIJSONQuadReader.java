@@ -11,12 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIAddress;
@@ -78,12 +77,12 @@ public class XDIJSONQuadReader extends AbstractXDIReader {
 				}
 			} else if (key.equals("&")) {
 
-				Object literalData = AbstractLiteral.jsonElementToLiteralData(jsonEntryElement);
+				Object literalData = AbstractLiteralNode.jsonElementToLiteralData(jsonEntryElement);
 
-				// add literal
+				// add literal node
 
-				Literal literal = contextNode.setContextNode(XDIConstants.XDI_ARC_VALUE).setLiteral(literalData);
-				if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXDIAddress() + ": Set literal --> " + literal.getLiteralData());
+				LiteralNode literalNode = contextNode.setLiteralNode(literalData);
+				if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXDIAddress() + ": Set literal --> " + literalNode.getLiteralData());
 			} else if (key.startsWith("/")) {
 
 				if (! (jsonEntryElement instanceof JsonArray)) throw new Xdi2ParseException("For key " + key + ", the value must be a JSON array (list of relations): " + jsonEntryElement);
@@ -97,10 +96,10 @@ public class XDIJSONQuadReader extends AbstractXDIReader {
 
 					if (! (jsonEntryArrayElement instanceof JsonPrimitive) || ! ((JsonPrimitive) jsonEntryArrayElement).isString()) throw new Xdi2ParseException("Under key " + key + ", the element of the JSON array must be a string (relation): " + jsonEntryArrayElement);
 
-					XDIAddress targetContextNodeXDIAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
+					XDIAddress targetXDIAddress = makeXDIAddress(((JsonPrimitive) jsonEntryArrayElement).getAsString(), state);
 
-					Relation relation = contextNode.setRelation(XDIaddress, targetContextNodeXDIAddress);
-					if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXDIAddress() + ": Set relation " + relation.getXDIAddress() + " --> " + relation.getTargetContextNodeXDIAddress());
+					Relation relation = contextNode.setRelation(XDIaddress, targetXDIAddress);
+					if (log.isTraceEnabled()) log.trace("Under " + contextNode.getXDIAddress() + ": Set relation " + relation.getXDIAddress() + " --> " + relation.getTargetXDIAddress());
 				}
 			} else {
 

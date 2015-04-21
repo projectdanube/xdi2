@@ -6,12 +6,11 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.TimeZone;
 
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.features.nodetypes.XdiValue;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 
@@ -66,10 +65,7 @@ public class Timestamps {
 		XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(timestampXDIAddress, false);
 		if (xdiAttributeSingleton == null) return null;
 
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(false);
-		if (xdiValue == null) return null;
-
-		Literal timestampLiteral = xdiValue.getContextNode().getLiteral();
+		LiteralNode timestampLiteral = xdiAttributeSingleton.getLiteralNode();
 		if (timestampLiteral == null) return null;
 
 		Date timestamp = stringToTimestamp(timestampLiteral.getLiteralDataString());
@@ -91,8 +87,7 @@ public class Timestamps {
 		String literalData = timestampToString(timestamp);
 
 		XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(timestampXDIAddress, true);
-		XdiValue xdiValue = xdiAttributeSingleton.getXdiValue(true);
-		xdiValue.getContextNode().setLiteralString(literalData);
+		xdiAttributeSingleton.setLiteralString(literalData);
 	}
 
 	public static void setTimestamp(XdiContext<?> xdiContext, Date timestamp) {

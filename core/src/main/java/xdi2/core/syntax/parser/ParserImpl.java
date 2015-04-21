@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.impl.AbstractLiteral;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.Parser;
 import xdi2.core.syntax.ParserAbstract;
 import xdi2.core.syntax.XDIAddress;
@@ -46,20 +46,22 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		String objectString = string.substring(split0 + split1 + 2);
 
 		XDIAddress subject = this.parseXDIAddress(subjectString);
-		XDIAddress predicate = this.parseXDIAddress(predicateString);
 
-		if (XDIConstants.XDI_ADD_LITERAL.equals(predicateString)) {
+		if (XDIConstants.XDI_ARC_LITERAL.toString().equals(predicateString)) {
 
+			XDIArc predicate = XDIConstants.XDI_ARC_LITERAL;
 			Object object = this.parseLiteralData(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);
-		} else if (XDIConstants.XDI_ADD_CONTEXT.equals(predicateString)) {
+		} else if (XDIConstants.STRING_CONTEXT.equals(predicateString)) {
 
+			String predicate = XDIConstants.STRING_CONTEXT;
 			XDIArc object = this.parseXDIArc(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);
 		} else {
 
+			XDIAddress predicate = this.parseXDIAddress(predicateString);
 			XDIAddress object = this.parseXDIAddress(objectString);
 
 			return this.newXDIStatement(string, subject, predicate, object);
@@ -280,7 +282,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		try {
 
-			return AbstractLiteral.stringToLiteralData(string);
+			return AbstractLiteralNode.stringToLiteralData(string);
 		} catch (Exception ex) {
 
 			throw new ParserException("Invalid literal data: " + string);
@@ -324,7 +326,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		int indexAuthorityGeneral = string.indexOf(XDIConstants.CS_AUTHORITY_GENERAL.charValue());
 		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
-		int indexValue = string.indexOf(XDIConstants.CS_VALUE.charValue());
+		int indexValue = string.indexOf(XDIConstants.CS_LITERAL.charValue());
 		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
 		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
 
