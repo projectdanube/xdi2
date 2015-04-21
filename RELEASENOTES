@@ -1,6 +1,12 @@
 release 0.7 ("Belgrade")
 ========================
 
+* Removal of the & value node:
+The XdiValue class is removed. The Literal class has been renamed to LiteralNode. 
+The ContextNode and LiteralNode classes now share the common Node interface. Many
+other classes related to serialization, graph storage, and messaging have been
+adapted to these changes. 
+
 * Support for encryption and signatures:
 xdi2.core.features.encryption
 xdi2.core.features.signatures
