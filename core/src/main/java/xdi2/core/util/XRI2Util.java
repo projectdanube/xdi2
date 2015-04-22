@@ -76,27 +76,27 @@ public final class XRI2Util {
 		if (XDIaddress.getNumXDIArcs() != 2) return null;
 
 		if (! XDIaddress.getFirstXDIArc().isCollection()) return null;
-		if (XDIaddress.getFirstXDIArc().hasLiteralNode()) return null;
+		if (XDIaddress.getFirstXDIArc().hasLiteral()) return null;
 		if (XDIaddress.getFirstXDIArc().hasXRef()) return null;
 
 		char cs = XDIaddress.getFirstXDIArc().getCs().charValue();
 
 		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIaddress.getLastXDIArc().getCs())) return null;
-		if (! XDIaddress.getLastXDIArc().hasLiteralNode()) return null;
+		if (! XDIaddress.getLastXDIArc().hasLiteral()) return null;
 		if (XDIaddress.getLastXDIArc().hasXRef()) return null;
-		if (! XDIaddress.getLastXDIArc().getLiteralNode().startsWith(":uuid")) return null;
-		if (XDIaddress.getLastXDIArc().getLiteralNode().length() != 42) return null;
+		if (! XDIaddress.getLastXDIArc().getLiteral().startsWith(":uuid")) return null;
+		if (XDIaddress.getLastXDIArc().getLiteral().length() != 42) return null;
 
 		String[] parts = new String[4];
-		parts[0] = XDIaddress.getLastXDIArc().getLiteralNode().substring(6, 10);
-		parts[1] = XDIaddress.getLastXDIArc().getLiteralNode().substring(10, 14);
-		parts[2] = XDIaddress.getLastXDIArc().getLiteralNode().substring(15, 19);
-		parts[3] = XDIaddress.getLastXDIArc().getLiteralNode().substring(20, 24);
+		parts[0] = XDIaddress.getLastXDIArc().getLiteral().substring(6, 10);
+		parts[1] = XDIaddress.getLastXDIArc().getLiteral().substring(10, 14);
+		parts[2] = XDIaddress.getLastXDIArc().getLiteral().substring(15, 19);
+		parts[3] = XDIaddress.getLastXDIArc().getLiteral().substring(20, 24);
 
-		if (! parts[0].equals(XDIaddress.getLastXDIArc().getLiteralNode().substring(25, 29))) return null;
-		if (! parts[1].equals(XDIaddress.getLastXDIArc().getLiteralNode().substring(30, 34))) return null;
-		if (! parts[2].equals(XDIaddress.getLastXDIArc().getLiteralNode().substring(34, 38))) return null;
-		if (! parts[3].equals(XDIaddress.getLastXDIArc().getLiteralNode().substring(38, 42))) return null;
+		if (! parts[0].equals(XDIaddress.getLastXDIArc().getLiteral().substring(25, 29))) return null;
+		if (! parts[1].equals(XDIaddress.getLastXDIArc().getLiteral().substring(30, 34))) return null;
+		if (! parts[2].equals(XDIaddress.getLastXDIArc().getLiteral().substring(34, 38))) return null;
+		if (! parts[3].equals(XDIaddress.getLastXDIArc().getLiteral().substring(38, 42))) return null;
 
 		for (int i=0; i<parts.length; i++) {
 

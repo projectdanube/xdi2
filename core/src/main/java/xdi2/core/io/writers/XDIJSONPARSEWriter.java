@@ -158,9 +158,9 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			gom = gom2;
 		}
 
-		if (XDIarc.hasLiteralNode()) {
+		if (XDIarc.hasLiteral()) {
 
-			gom = new JsonPrimitive(XDIarc.getLiteralNode());
+			gom = new JsonPrimitive(XDIarc.getLiteral());
 		}
 
 		if (XDIarc.hasCs()) {

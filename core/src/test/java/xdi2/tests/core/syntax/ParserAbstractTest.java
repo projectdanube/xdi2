@@ -32,19 +32,19 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertEquals(statement.getSubject().getXDIArc(2), statement.getSubject().getLastXDIArc());
 		assertEquals(statement.getSubject().getXDIArc(0), parser.parseXDIArc("=markus"));
 		assertEquals(statement.getSubject().getXDIArc(0).getCs(), XDIConstants.CS_AUTHORITY_PERSONAL);
-		assertEquals(statement.getSubject().getXDIArc(0).getLiteralNode(), "markus");
+		assertEquals(statement.getSubject().getXDIArc(0).getLiteral(), "markus");
 		assertNull(statement.getSubject().getXDIArc(0).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(1), parser.parseXDIArc("[<#email>]"));
 		assertEquals(statement.getSubject().getXDIArc(1).getCs(), XDIConstants.CS_CLASS_UNRESERVED);
 		assertTrue(statement.getSubject().getXDIArc(1).isCollection());
 		assertTrue(statement.getSubject().getXDIArc(1).isAttribute());
-		assertEquals(statement.getSubject().getXDIArc(1).getLiteralNode(), "email");
+		assertEquals(statement.getSubject().getXDIArc(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getXDIArc(1).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("<!1>"));
 		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_MEMBER_UNORDERED);
 		assertFalse(statement.getSubject().getXDIArc(2).isCollection());
 		assertTrue(statement.getSubject().getXDIArc(2).isAttribute());
-		assertEquals(statement.getSubject().getXDIArc(2).getLiteralNode(), "1");
+		assertEquals(statement.getSubject().getXDIArc(2).getLiteral(), "1");
 		assertNull(statement.getSubject().getXDIArc(2).getXRef());
 
 		assertTrue(statement.getPredicate() instanceof XDIArc);

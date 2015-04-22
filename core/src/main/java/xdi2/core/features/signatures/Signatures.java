@@ -105,9 +105,9 @@ public class Signatures {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmAddress.getCs())) return null;
 		if (digestAlgorithmAddress.hasXRef()) return null;
-		if (! digestAlgorithmAddress.hasLiteralNode()) return null;
+		if (! digestAlgorithmAddress.hasLiteral()) return null;
 
-		return digestAlgorithmAddress.getLiteralNode();
+		return digestAlgorithmAddress.getLiteral();
 	}
 
 	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
@@ -124,9 +124,9 @@ public class Signatures {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthAddress.getCs())) return null;
 		if (digestLengthAddress.hasXRef()) return null;
-		if (! digestLengthAddress.hasLiteralNode()) return null;
+		if (! digestLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(digestLengthAddress.getLiteralNode());
+		return Integer.valueOf(digestLengthAddress.getLiteral());
 	}
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
@@ -143,9 +143,9 @@ public class Signatures {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
 		if (keyAlgorithmAddress.hasXRef()) return null;
-		if (! keyAlgorithmAddress.hasLiteralNode()) return null;
+		if (! keyAlgorithmAddress.hasLiteral()) return null;
 
-		return keyAlgorithmAddress.getLiteralNode();
+		return keyAlgorithmAddress.getLiteral();
 	}
 
 	public static Integer getKeyLength(XdiAttribute xdiAttribute) {
@@ -162,9 +162,9 @@ public class Signatures {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
 		if (keyLengthAddress.hasXRef()) return null;
-		if (! keyLengthAddress.hasLiteralNode()) return null;
+		if (! keyLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(keyLengthAddress.getLiteralNode());
+		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 
 	public static XDIAddress getDataTypeXDIAddress(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {

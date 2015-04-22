@@ -184,9 +184,9 @@ public class Keys {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
 		if (keyAlgorithmAddress.hasXRef()) return null;
-		if (! keyAlgorithmAddress.hasLiteralNode()) return null;
+		if (! keyAlgorithmAddress.hasLiteral()) return null;
 
-		return keyAlgorithmAddress.getLiteralNode();
+		return keyAlgorithmAddress.getLiteral();
 	}
 
 	public static Integer getKeyLength(XDIAddress dataTypeXDIAddress) {
@@ -196,8 +196,8 @@ public class Keys {
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;
 		if (keyLengthAddress.hasXRef()) return null;
-		if (! keyLengthAddress.hasLiteralNode()) return null;
+		if (! keyLengthAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(keyLengthAddress.getLiteralNode());
+		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 }

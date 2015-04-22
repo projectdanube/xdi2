@@ -92,7 +92,7 @@ public class XdiEntitySingleton extends XdiAbstractEntity implements XdiSingleto
 		if (XDIarc.isAttribute()) return false;
 		if (XDIarc.isCollection()) return false;
 
-		if (! XDIarc.hasLiteralNode() && ! XDIarc.hasXRef()) return false;
+		if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
 
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 

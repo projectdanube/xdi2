@@ -98,7 +98,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 		StringBuilder buffer = new StringBuilder();
 
 		if (XDIarc.hasCs()) buffer.append(XDIarc.getCs());
-		if (XDIarc.hasLiteralNode()) buffer.append(XDIarc.getLiteralNode());
+		if (XDIarc.hasLiteral()) buffer.append(XDIarc.getLiteral());
 		if (XDIarc.hasXRef()) buffer.append(XDIarc.getXRef());
 
 		return XDIArc.create(buffer.toString());
