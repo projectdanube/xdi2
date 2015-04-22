@@ -48,8 +48,8 @@
 	<p>All encryption and decryption operations require cryptographic keys:</p>
 	
 	<ul>
-    <li>Encrypt RSA: An RSA private key</li>
-    <li>Decrypt RSA: An RSA public key</li>
+    <li>Encrypt RSA: An RSA public key</li>
+    <li>Decrypt RSA: An RSA private key</li>
     <li>Encrypt AES: An AES symmetric key</li>
     <li>Decrypt AES: An AES symmetric key</li>
 	</ul>
