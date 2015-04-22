@@ -122,7 +122,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 		ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 		if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a digest secret token on an attribute.", null, executionContext);
 		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-		localSaltAndDigestSecretTokenXdiAttribute.setLiteralString(localSaltAndDigestSecretToken);
+		localSaltAndDigestSecretTokenXdiAttribute.setLiteralDataString(localSaltAndDigestSecretToken);
 
 		// done
 

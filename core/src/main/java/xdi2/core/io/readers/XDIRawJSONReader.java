@@ -73,7 +73,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				XDIArc XDIarc = Dictionary.nativeIdentifierToInstanceXDIArc(key);
 
 				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIarc), true);
-				xdiAttributeSingleton.setLiteralNode(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
+				xdiAttributeSingleton.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIarc), true);
 
 				XdiAttributeMemberOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(index);
-				xdiAttributeMember.setLiteralNode(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
+				xdiAttributeMember.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 
 			index++;

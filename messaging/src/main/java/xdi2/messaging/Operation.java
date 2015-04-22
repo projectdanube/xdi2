@@ -228,7 +228,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterAddress, true);
 
-		parameterXdiAttribute.setLiteralNode(parameterValue);
+		parameterXdiAttribute.setLiteralData(parameterValue);
 	}
 
 	/**

@@ -315,7 +315,7 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (secretToken != null) {
 
 			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN));
-			xdiAttribute.setLiteralNode(secretToken);
+			xdiAttribute.setLiteralData(secretToken);
 		} else {
 
 			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN, true));

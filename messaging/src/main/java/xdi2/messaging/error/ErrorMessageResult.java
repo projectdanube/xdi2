@@ -136,7 +136,7 @@ public class ErrorMessageResult extends MessageResult {
 
 		XdiAttributeSingleton xdiAttributeSingleton = XdiAbstractContext.fromContextNode(this.getGraph().getRootContextNode(false)).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDI_ARC_FALSE), true);
 
-		xdiAttributeSingleton.setLiteralString(errorString);
+		xdiAttributeSingleton.setLiteralDataString(errorString);
 	}
 
 	public void setErrorOperation(Operation operation) {

@@ -115,7 +115,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		byte[] bytes = signature.sign();
 
-		this.getXdiAttribute().setLiteralString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralDataString(Base64.encodeBase64String(bytes));
 	}
 
 	@Override

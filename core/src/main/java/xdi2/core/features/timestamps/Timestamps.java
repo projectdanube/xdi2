@@ -87,7 +87,7 @@ public class Timestamps {
 		String literalData = timestampToString(timestamp);
 
 		XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(timestampXDIAddress, true);
-		xdiAttributeSingleton.setLiteralString(literalData);
+		xdiAttributeSingleton.setLiteralDataString(literalData);
 	}
 
 	public static void setTimestamp(XdiContext<?> xdiContext, Date timestamp) {

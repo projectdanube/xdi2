@@ -130,7 +130,7 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 	 */
 	public void setValue(String value) {
 
-		this.getXdiAttribute().setLiteralString(value);
+		this.getXdiAttribute().setLiteralDataString(value);
 	}
 
 	/**

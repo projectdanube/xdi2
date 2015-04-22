@@ -146,7 +146,7 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 	 */
 	public void setValue(String value) {
 
-		this.getXdiAttribute().setLiteralString(value);
+		this.getXdiAttribute().setLiteralDataString(value);
 	}
 
 	/**

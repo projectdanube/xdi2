@@ -145,8 +145,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
 			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$public>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
 			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$private>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
-			publicKeyXdiAttribute.setLiteralString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
-			privateKeyXdiAttribute.setLiteralString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
+			publicKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
+			privateKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		} else if (XDI_ADD_DO_KEY.equals(operation.getOperationXDIAddress())) {
 
@@ -171,7 +171,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
 			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			symmetricKeyXdiAttribute.setLiteralString(Base64.encodeBase64String(secretKey.getEncoded()));
+			symmetricKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(secretKey.getEncoded()));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		}
 

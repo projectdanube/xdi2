@@ -67,25 +67,25 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	 */
 
 	@Override
-	public LiteralNode setLiteralNode(Object literalData) {
+	public LiteralNode setLiteralData(Object literalData) {
 
 		return this.getContextNode().setLiteralNode(literalData);
 	}
 
 	@Override
-	public LiteralNode setLiteralString(String literalData) {
+	public LiteralNode setLiteralDataString(String literalData) {
 
 		return this.getContextNode().setLiteralString(literalData);
 	}
 
 	@Override
-	public LiteralNode setLiteralNumber(Double literalData) {
+	public LiteralNode setLiteralDataNumber(Double literalData) {
 
 		return this.getContextNode().setLiteralNumber(literalData);
 	}
 
 	@Override
-	public LiteralNode setLiteralBoolean(Boolean literalData) {
+	public LiteralNode setLiteralDataBoolean(Boolean literalData) {
 
 		return this.getContextNode().setLiteralBoolean(literalData);
 	}	
@@ -97,25 +97,25 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	}
 
 	@Override
-	public LiteralNode getLiteralNode(Object literalData) {
+	public LiteralNode getLiteralData(Object literalData) {
 
 		return this.getContextNode().getLiteralNode(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralString(String literalData) {
+	public LiteralNode getLiteralDataString(String literalData) {
 
 		return this.getContextNode().getLiteralString(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralNumber(Double literalData) {
+	public LiteralNode getLiteralDataNumber(Double literalData) {
 
 		return this.getContextNode().getLiteralNumber(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralBoolean(Boolean literalData) {
+	public LiteralNode getLiteralDataBoolean(Boolean literalData) {
 
 		return this.getContextNode().getLiteralBoolean(literalData);
 	}

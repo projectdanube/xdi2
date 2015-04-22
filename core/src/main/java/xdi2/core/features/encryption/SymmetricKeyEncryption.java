@@ -109,7 +109,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
-		this.getXdiAttribute().setLiteralString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralDataString(Base64.encodeBase64String(bytes));
 	}
 
 	@Override

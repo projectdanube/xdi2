@@ -111,7 +111,7 @@ public final class KeyPairEncryption extends Encryption<PublicKey, PrivateKey> {
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
-		this.getXdiAttribute().setLiteralString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralDataString(Base64.encodeBase64String(bytes));
 	}
 
 	@Override
