@@ -25,7 +25,7 @@ function updateSamples() {
 </script>
 </head>
 <body onload="updateSamples();">
-	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><a href="http://projectdanube.org/"><img id="imgtopright" src="images/xdi2-topright.png"></a></div>
 	<div id="main">
 	<div class="header">
 	<span id="appname"><img src="images/app20b.png"> XDI Local Messenger</span>

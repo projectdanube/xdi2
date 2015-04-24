@@ -19,17 +19,17 @@ div.line { margin-left: -150px; }
 
 <body>
 
-	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><img id="imgtopright" src="images/xdi2-topright.png"></div>
+	<div id="imgtop"><img id="imgtopleft" src="images/xdi2-topleft.png"><a href="http://projectdanube.org/"><img id="imgtopright" src="images/xdi2-topright.png"></a></div>
 	<div id="main">
 	<div class="header">
 	<span id="appname"><img src="images/app20b.png"> XDI2</span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<strong>See <a href="https://xdi2.org/">https://xdi2.org/</a> for more information.</strong><br>
+	<strong>See <a href="https://xdi2.org/">https://xdi2.org/</a> for information, and Github <a href="http://github.com/projectdanube/xdi2">projectdanube/xdi2</a> for code.</strong><br>
 	This is version <%= XDI2Properties.properties.getProperty("project.version") %> <%= XDI2Properties.properties.getProperty("project.build.timestamp") %>, Git commit <%= XDI2Properties.properties.getProperty("git.commit.id").substring(0,6) %> <%= XDI2Properties.properties.getProperty("git.commit.time") %>.
 	</div>
 	
 	<p>XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.<br>
-	This is an example deployment of an XDI2 server and several web-based XDI tools.</p>
+	This is an example deployment of an XDI2 server with a set of web-based XDI tools.</p>
 
 	<p class="subheader">XDI Tools</p>
 
@@ -51,18 +51,28 @@ div.line { margin-left: -150px; }
 	</tr>
 	</table>
 	
-	<div class="line"></div>
-
-	<p class="subheader">XDI Server</p>
 	<table cellpadding="5"><tr>
 	<td>Click here to access the local XDI server: <a href="<%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/"><%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/</a></td>
 	</tr></table>
 	
-	<div class="line"></div>
+	<hr noshade>
+
+	<p class="subheader">Releases and Branches</p>
+	<table cellpadding="5"><tr>
+	<td>See here: <a href="https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches">Releases and Branches</a> for information about all releases and branches.</td>
+	</tr></table>
+	<table cellpadding="5">
+	<tr><td>snapshot-0.7</td><td><a href="https://server.xdi2.org/">https://server.xdi2.org/</a></td></tr>
+	<tr><td>snapshot-0.7-pre-no-value-node</td><td><a href="https://server.xdi2.org/pre-no-value-node">https://server.xdi2.org/pre-no-value-node</a></td></tr>
+	<tr><td>snapshot-0.5-pre-notation-shift</td><td><a href="https://server.xdi2.org/pre-notation-shift">https://server.xdi2.org/pre-notation-shift</a></td></tr>
+	<tr><td>snapshot-0.4-pre-link-contract-shift</td><td><a href="https://server.xdi2.org/pre-link-contract-shift">https://server.xdi2.org/pre-link-contract-shift</a></td></tr>
+	<tr><td>snapshot-0.2-pre-symbol-shift</td><td><a href="https://server.xdi2.org/pre-symbol-shift">https://server.xdi2.org/pre-symbol-shift</a></td></tr>
+	</table>
+	
+	<hr noshade>
 
 	<p class="subheader">Community</p>
 	<table cellpadding="5"><tr>
-	<td><a href="http://github.com/projectdanube/xdi2">Github</a></td>
 	<td><a href="http://groups.google.com/group/xdi2">Google Group</a></td>
 	<td><a href="https://github.com/projectdanube/xdi2/wiki/XDI2-Weekly-Call">Weekly Call</a></td>
 	<td><a href="irc://irc.freenode.net:6667/xdi">IRC</a></td>
