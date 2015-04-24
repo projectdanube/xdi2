@@ -1,7 +1,7 @@
 <a href="http://projectdanube.org/" target="_blank"><img src="http://projectdanube.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 
-| Current snapshot version: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
+| Current version under development: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
 | ---- |
 
 | Current stable release: [0.6](https://github.com/projectdanube/xdi2/wiki/release-0.6) | Next release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
