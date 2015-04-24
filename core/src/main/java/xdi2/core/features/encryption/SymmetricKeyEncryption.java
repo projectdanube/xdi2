@@ -79,12 +79,15 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 	 * Instance methods
 	 */
 
+	// TODO: ECB is insecure. should switch to CBC and support an initialization vector
+
 	@Override
 	public String getTransformation() {
 
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getKeyAlgorithm().toUpperCase());
+		builder.append("/ECB/PKCS5Padding");
 
 		return builder.toString();
 	}
