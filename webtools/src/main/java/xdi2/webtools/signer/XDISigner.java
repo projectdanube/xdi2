@@ -214,6 +214,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 					((SymmetricKeySignature) signature).sign((SecretKey) k);
 				}
+
+				output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
 			} else if ("Validate!".equals(submit)) {
 
 				ReadOnlyIterator<Signature<?, ?>> signatures = Signatures.getSignatures(contextNode);
@@ -235,6 +237,8 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
 					}
 				}
+
+				output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
 			}
 
 			// output the graph or result
@@ -251,10 +255,6 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				output = "Valid: " + valid.toString();
 			}
-
-			// output the normalized serialization
-
-			output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);

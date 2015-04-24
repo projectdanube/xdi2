@@ -208,6 +208,8 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 					((SymmetricKeyEncryption) encryption).encrypt((SecretKey) k);
 				}
 
+				output2 = Normalization.serialize(contextNode, new NoEncryptionsCopyStrategy());
+				
 				encryption.clearAfterEncrypt();
 			} else if ("Decrypt!".equals(submit)) {
 
@@ -231,6 +233,8 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 					}
 
 					encryption.clearAfterDecrypt();
+
+					output2 = Normalization.serialize(contextNode, new NoEncryptionsCopyStrategy());
 				}
 			}
 
@@ -242,10 +246,6 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 			outputId = UUID.randomUUID().toString();
 			OutputCache.put(outputId, graph);
-
-			// output the normalized serialization
-
-			output2 = Normalization.serialize(contextNode, new NoEncryptionsCopyStrategy());
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);
