@@ -161,6 +161,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		String definition = null;
 		String collection = null;
 		String attribute = null;
+		boolean immutable = false;
+		boolean relative = false;
 		String literal = null;
 		XDIXRef xref = null;
 
@@ -209,6 +211,20 @@ public class ParserImpl extends ParserAbstract implements Parser {
 			pos++;
 		}
 
+		// extract immutable
+
+		if (pos < len && (immutable = immutable(string.charAt(pos)))) {
+
+			pos++;
+		}
+
+		// extract relative
+
+		if (pos < len && (relative = relative(string.charAt(pos)))) {
+
+			pos++;
+		}
+
 		// parse the rest, either xref or literal
 
 		if (pos < len) {
@@ -225,7 +241,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIArc(string, cs, variable != null, definition != null, collection != null, attribute != null, literal, xref);
+		return this.newXDIArc(string, cs, variable != null, definition != null, collection != null, attribute != null, immutable, relative, literal, xref);
 	}
 
 	@Override
@@ -323,23 +339,25 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		int indexColon = string.indexOf(':');
 		int indexAuthorityPersonal = string.indexOf(XDIConstants.CS_AUTHORITY_PERSONAL.charValue());
 		int indexAuthorityLegal = string.indexOf(XDIConstants.CS_AUTHORITY_LEGAL.charValue());
-		int indexAuthorityGeneral = string.indexOf(XDIConstants.CS_AUTHORITY_GENERAL.charValue());
-		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
-		int indexValue = string.indexOf(XDIConstants.CS_LITERAL.charValue());
-		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
+		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
 		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
+		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
+		int indexValue = string.indexOf(XDIConstants.CS_LITERAL.charValue());
+		int indexImmutable = string.indexOf(XDIConstants.S_IMMUTABLE.charValue());
+		int indexRelative = string.indexOf(XDIConstants.S_RELATIVE.charValue());
 
 		if (indexColon == -1) return false;
 
 		if (indexAuthorityPersonal != -1 && indexAuthorityPersonal < indexColon) return false;
 		if (indexAuthorityLegal != -1 && indexAuthorityLegal < indexColon) return false;
-		if (indexAuthorityGeneral != -1 && indexAuthorityGeneral < indexColon) return false;
-		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
 		if (indexClassReserved != -1 && indexClassReserved < indexColon) return false;
-		if (indexValue != -1 && indexValue < indexColon) return false;
-		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
+		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
 		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
+		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
+		if (indexValue != -1 && indexValue < indexColon) return false;
+		if (indexImmutable != -1 && indexImmutable < indexColon) return false;
+		if (indexRelative != -1 && indexRelative < indexColon) return false;
 
 		return true;
 	}
@@ -381,6 +399,16 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (XDIConstants.XS_ATTRIBUTE.charAt(0) == c) return XDIConstants.XS_ATTRIBUTE;
 
 		return null;
+	}
+
+	private static boolean immutable(char c) {
+
+		return XDIConstants.S_IMMUTABLE.charValue() == c;
+	}
+
+	private static boolean relative(char c) {
+
+		return XDIConstants.S_RELATIVE.charValue() == c;
 	}
 
 	private static String xsxref(char c) {

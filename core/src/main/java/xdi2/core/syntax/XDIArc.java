@@ -12,10 +12,12 @@ public class XDIArc extends XDIIdentifier {
 	private boolean definition;
 	private boolean collection;
 	private boolean attribute;
+	private boolean immutable;
+	private boolean relative;
 	private String literal;
 	private XDIXRef xref;
 
-	private XDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	private XDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
 		super(string);
 
@@ -24,6 +26,8 @@ public class XDIArc extends XDIIdentifier {
 		this.definition = definition;
 		this.collection = collection;
 		this.attribute = attribute;
+		this.immutable = immutable;
+		this.relative = relative;
 		this.literal = literal;
 		this.xref = xref;
 	}
@@ -33,7 +37,7 @@ public class XDIArc extends XDIIdentifier {
 		return ParserRegistry.getInstance().getParser().parseXDIArc(string);
 	}
 
-	static XDIArc fromComponents(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	static XDIArc fromComponents(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
 		if (string == null) {
 
@@ -43,6 +47,8 @@ public class XDIArc extends XDIIdentifier {
 			if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
 			if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
 			if (cs != null) buffer.append(cs);
+			if (immutable) buffer.append(XDIConstants.S_IMMUTABLE);
+			if (relative) buffer.append(XDIConstants.S_RELATIVE);
 			if (literal != null) buffer.append(literal);
 			if (xref != null) buffer.append(xref.toString());
 			if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
@@ -53,12 +59,12 @@ public class XDIArc extends XDIIdentifier {
 			string = buffer.toString();
 		}
 
-		return new XDIArc(string, cs, variable, definition, collection, attribute, literal, xref);
+		return new XDIArc(string, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
 
-	public static XDIArc fromComponents(Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	public static XDIArc fromComponents(Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return fromComponents(null, cs, variable, definition, collection, attribute, literal, xref);
+		return fromComponents(null, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
 
 	public boolean hasCs() {
@@ -84,6 +90,16 @@ public class XDIArc extends XDIIdentifier {
 	public boolean isAttribute() {
 
 		return this.attribute;
+	}
+
+	public boolean isImmutable() {
+
+		return this.immutable;
+	}
+
+	public boolean isRelative() {
+
+		return this.relative;
 	}
 
 	public boolean hasLiteral() {
