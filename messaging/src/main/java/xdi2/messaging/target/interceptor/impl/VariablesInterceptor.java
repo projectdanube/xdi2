@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -181,7 +181,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (newArc == null) {
 
-			newArc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
+			newArc = XdiAbstractInstanceUnordered.createRandomUuidXDIArc(true, false, XdiEntityCollection.class);
 			putVariable(executionContext, XDIarc, newArc);
 		}
 

@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
-import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.util.CloneUtil;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
@@ -69,13 +69,13 @@ public final class MessagingCloneUtil {
 
 		XdiEntity xdiEntity = message.getXdiEntity();
 
-		if (xdiEntity instanceof XdiEntityMemberUnordered) {
+		if (xdiEntity instanceof XdiEntityInstanceUnordered) {
 
-			XdiEntityMemberUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(null);
+			XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(null);
 			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
-		} else if (xdiEntity instanceof XdiEntityMemberOrdered) {
+		} else if (xdiEntity instanceof XdiEntityInstanceOrdered) {
 
-			XdiEntityMemberOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberOrdered(-1);
+			XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberOrdered(-1);
 			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
 		} else {
 

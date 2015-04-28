@@ -15,11 +15,11 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberUnordered<EQC, EQI, C, U, O, I> {
+public abstract class XdiAbstractInstanceUnordered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractInstance<EQC, EQI, C, U, O, I> implements XdiMemberUnordered<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = -8496645644143069191L;
 
-	protected XdiAbstractMemberUnordered(ContextNode contextNode) {
+	protected XdiAbstractInstanceUnordered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -37,8 +37,8 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (XdiEntityMemberUnordered.isValid(contextNode)) return true;
-		if (XdiAttributeMemberUnordered.isValid(contextNode)) return true;
+		if (XdiEntityInstanceUnordered.isValid(contextNode)) return true;
+		if (XdiAttributeInstanceUnordered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -54,8 +54,8 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		XdiMemberUnordered<?, ?, ?, ?, ?, ?> xdiMember;
 
-		if ((xdiMember = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
-		if ((xdiMember = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiAttributeInstanceUnordered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
 	}
@@ -69,14 +69,14 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createXDIArc(String identifier, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
-			return XDIArc.create("" + XDIConstants.CS_MEMBER_UNORDERED + identifier);
+			return XDIArc.create("" + XDIConstants.CS_INSTANCE_UNORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier);
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
-			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_UNORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
+			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_INSTANCE_UNORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
 		} else {
 
 			throw new IllegalArgumentException("Unknown class for unordered member " + clazz.getName());
@@ -89,14 +89,14 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
+			if (! XDIConstants.CS_INSTANCE_UNORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc.getCs())) return false;
+			if (! XDIConstants.CS_INSTANCE_UNORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (! XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
@@ -109,19 +109,19 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 		return true;
 	}
 
-	public static XDIArc createUuidXDIArc(String uuid, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createUuidXDIArc(String uuid, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return createXDIArc(":uuid:" + uuid, clazz);
+		return createXDIArc(":uuid:" + uuid, immutable, relative, clazz);
 	}
 
-	public static XDIArc createRandomUuidXDIArc(Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createRandomUuidXDIArc(boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		String uuid = UUID.randomUUID().toString().toLowerCase();
 
-		return createUuidXDIArc(uuid, clazz);
+		return createUuidXDIArc(uuid, immutable, relative, clazz);
 	}
 
-	public static XDIArc createDigestXDIArc(String string, String algorithm, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createDigestXDIArc(String string, String algorithm, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		byte[] output;
 
@@ -137,12 +137,12 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 
 		String hex = new String(Hex.encodeHex(output));
 
-		return createXDIArc(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, clazz);
+		return createXDIArc(":" + algorithm.toLowerCase().replace("-", "") + ":" + hex, immutable, relative, clazz);
 	}
 
-	public static XDIArc createDigestXDIArc(String string, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createDigestXDIArc(String string, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
-		return createDigestXDIArc(string, "SHA-512", clazz);
+		return createDigestXDIArc(string, "SHA-512", immutable, relative, clazz);
 	}
 
 	/*
@@ -158,7 +158,7 @@ public abstract class XdiAbstractMemberUnordered<EQC extends XdiCollection<EQC, 
 				@Override
 				public XdiMemberUnordered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
-					return XdiAbstractMemberUnordered.fromContextNode(contextNode);
+					return XdiAbstractInstanceUnordered.fromContextNode(contextNode);
 				}
 			});
 		}

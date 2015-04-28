@@ -6,8 +6,8 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
-import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
@@ -119,7 +119,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public Message createMessage() {
 
-		XdiEntityMemberUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(null);
+		XdiEntityInstanceUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(true, false);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);
@@ -132,7 +132,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public Message createMessage(long index) {
 
-		XdiEntityMemberOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(index);
+		XdiEntityInstanceOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(index);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);

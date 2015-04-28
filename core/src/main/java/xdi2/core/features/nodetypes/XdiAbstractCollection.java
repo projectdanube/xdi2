@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered.MappingContextNodeXdiMemberUnorderedIterator;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered.MappingContextNodeXdiMemberUnorderedIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
@@ -92,9 +92,21 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * @return The XDI instance.
 	 */
 	@Override
+	public U setXdiMemberUnordered(boolean immutable, boolean relative) {
+
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createRandomUuidXDIArc(immutable, relative, this.getC());
+
+		return this.setXdiMemberUnordered(XDIarc);
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
+	@Override
 	public U setXdiMemberUnordered(XDIArc XDIarc) {
 
-		if (XDIarc == null) XDIarc = XdiAbstractMemberUnordered.createRandomUuidXDIArc(this.getC());
+		if (XDIarc == null) throw new NullPointerException();
 
 		ContextNode memberContextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -142,7 +154,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if (index < 0) index = this.getXdiMembersOrderedCount();
 
-		XDIArc XDIarc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(Long.toString(index), false, false, this.getC());
 
 		ContextNode contextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -156,7 +168,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	@Override
 	public O getXdiMemberOrdered(long index) {
 
-		XDIArc XDIarc = XdiAbstractMemberOrdered.createXDIArc(Long.toString(index), this.getC());
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(Long.toString(index), false, false, this.getC());
 
 		ContextNode contextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (contextNode == null) return null;

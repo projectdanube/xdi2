@@ -8,7 +8,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeMember;
+import xdi2.core.features.nodetypes.XdiAttributeInstance;
 
 /**
  * An XDI encryption, represented as an XDI attribute.
@@ -108,7 +108,7 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 
 	public ContextNode getBaseContextNode() {
 
-		ContextNode contextNode = (this.getXdiAttribute() instanceof XdiAttributeMember) ? this.getXdiAttribute().getContextNode().getContextNode() : this.getXdiAttribute().getContextNode();
+		ContextNode contextNode = (this.getXdiAttribute() instanceof XdiAttributeInstance) ? this.getXdiAttribute().getContextNode().getContextNode() : this.getXdiAttribute().getContextNode();
 		contextNode = contextNode.getContextNode();
 
 		return contextNode;

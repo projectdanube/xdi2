@@ -47,7 +47,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("[" + cs + "]" + XDIConstants.CS_MEMBER_UNORDERED + ":uuid:");
+		builder.append("[" + cs + "]" + XDIConstants.CS_INSTANCE_UNORDERED + ":uuid:");
 		builder.append(parts[0]);
 		builder.append(parts[1]);
 		builder.append("-");
@@ -81,7 +81,7 @@ public final class XRI2Util {
 
 		char cs = XDIaddress.getFirstXDIArc().getCs().charValue();
 
-		if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIaddress.getLastXDIArc().getCs())) return null;
+		if (! XDIConstants.CS_INSTANCE_UNORDERED.equals(XDIaddress.getLastXDIArc().getCs())) return null;
 		if (! XDIaddress.getLastXDIArc().hasLiteral()) return null;
 		if (XDIaddress.getLastXDIArc().hasXRef()) return null;
 		if (! XDIaddress.getLastXDIArc().getLiteral().startsWith(":uuid")) return null;
@@ -108,7 +108,7 @@ public final class XRI2Util {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("" + cs + XDIConstants.CS_MEMBER_UNORDERED);
+		builder.append("" + cs + XDIConstants.CS_INSTANCE_UNORDERED);
 		builder.append(parts[0]);
 		builder.append(".");
 		builder.append(parts[1]);

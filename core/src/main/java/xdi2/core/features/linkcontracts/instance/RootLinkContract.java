@@ -2,7 +2,7 @@ package xdi2.core.features.linkcontracts.instance;
 
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityMember;
+import xdi2.core.features.nodetypes.XdiEntityInstance;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphUtil;
@@ -43,7 +43,7 @@ public class RootLinkContract extends GenericLinkContract {
 			if (! GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()).equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
 
 			return true;
-		} else if (xdiEntity instanceof XdiEntityMember) {
+		} else if (xdiEntity instanceof XdiEntityInstance) {
 
 			return false;
 		} else {

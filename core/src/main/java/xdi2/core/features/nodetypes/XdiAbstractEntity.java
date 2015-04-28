@@ -32,8 +32,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 		if (contextNode == null) throw new NullPointerException();
 
 		if (XdiEntitySingleton.isValid(contextNode)) return true; 
-		if (XdiEntityMemberUnordered.isValid(contextNode)) return true;
-		if (XdiEntityMemberOrdered.isValid(contextNode)) return true;
+		if (XdiEntityInstanceUnordered.isValid(contextNode)) return true;
+		if (XdiEntityInstanceOrdered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -50,8 +50,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 		XdiEntity xdiEntity = null;
 
 		if ((xdiEntity = XdiEntitySingleton.fromContextNode(contextNode)) != null) return xdiEntity;
-		if ((xdiEntity = XdiEntityMemberUnordered.fromContextNode(contextNode)) != null) return xdiEntity;
-		if ((xdiEntity = XdiEntityMemberOrdered.fromContextNode(contextNode)) != null) return xdiEntity;
+		if ((xdiEntity = XdiEntityInstanceUnordered.fromContextNode(contextNode)) != null) return xdiEntity;
+		if ((xdiEntity = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiEntity;
 
 		return null;
 	}
@@ -70,8 +70,8 @@ public abstract class XdiAbstractEntity extends XdiAbstractSubGraph<XdiEntity> i
 		if (XDIarc == null) throw new NullPointerException();
 
 		if (XdiEntitySingleton.isValidXDIArc(XDIarc)) return true; 
-		if (XdiEntityMemberUnordered.isValidXDIArc(XDIarc)) return true;
-		if (XdiEntityMemberOrdered.isValidXDIArc(XDIarc)) return true;
+		if (XdiEntityInstanceUnordered.isValidXDIArc(XDIarc)) return true;
+		if (XdiEntityInstanceOrdered.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

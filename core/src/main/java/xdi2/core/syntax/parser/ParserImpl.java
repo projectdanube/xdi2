@@ -87,6 +87,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 			if (pos < string.length() && (pair = xscollection(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && (pair = xsattribute(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 			if (pos < string.length() && cs(string.charAt(pos)) != null) pos++;
+			if (pos < string.length() && immutable(string.charAt(pos))) pos++;
+			if (pos < string.length() && relative(string.charAt(pos))) pos++;
 			if (pos < string.length() && (pair = xsxref(string.charAt(pos))) != null) { pairs.push(pair); pos++; }
 
 			// parse to the end of the arc
@@ -104,6 +106,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 					if (xscollection(string.charAt(pos)) != null) break;
 					if (xsattribute(string.charAt(pos)) != null) break;
 					if (cs(string.charAt(pos)) != null) break;
+					if (immutable(string.charAt(pos))) break;
+					// intentionally don't check for relative here, since it's a valid character
 					if (xsxref(string.charAt(pos)) != null) break;
 				}
 
@@ -341,9 +345,9 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		int indexAuthorityLegal = string.indexOf(XDIConstants.CS_AUTHORITY_LEGAL.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
 		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
-		int indexMemberOrdered = string.indexOf(XDIConstants.CS_MEMBER_ORDERED.charValue());
-		int indexMemberUnordered = string.indexOf(XDIConstants.CS_MEMBER_UNORDERED.charValue());
-		int indexValue = string.indexOf(XDIConstants.CS_LITERAL.charValue());
+		int indexMemberOrdered = string.indexOf(XDIConstants.CS_INSTANCE_ORDERED.charValue());
+		int indexMemberUnordered = string.indexOf(XDIConstants.CS_INSTANCE_UNORDERED.charValue());
+		int indexLiteral = string.indexOf(XDIConstants.CS_LITERAL.charValue());
 		int indexImmutable = string.indexOf(XDIConstants.S_IMMUTABLE.charValue());
 		int indexRelative = string.indexOf(XDIConstants.S_RELATIVE.charValue());
 
@@ -355,7 +359,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
 		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
 		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
-		if (indexValue != -1 && indexValue < indexColon) return false;
+		if (indexLiteral != -1 && indexLiteral < indexColon) return false;
 		if (indexImmutable != -1 && indexImmutable < indexColon) return false;
 		if (indexRelative != -1 && indexRelative < indexColon) return false;
 

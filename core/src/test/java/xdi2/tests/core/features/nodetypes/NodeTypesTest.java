@@ -3,15 +3,15 @@ package xdi2.tests.core.features.nodetypes;
 import junit.framework.TestCase;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
-import xdi2.core.features.nodetypes.XdiAttributeMemberOrdered;
-import xdi2.core.features.nodetypes.XdiAttributeMemberUnordered;
+import xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCommonDefinition;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiCommonVariable;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
-import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -60,14 +60,14 @@ public class NodeTypesTest extends TestCase {
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("|[<#tel>]|")) instanceof XdiAttributeCollection.Definition);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("{|[<#tel>]|}")) instanceof XdiAttributeCollection.Definition.Variable);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("{[<#tel>]}")) instanceof XdiAttributeCollection.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<!:uuid:1111>")) instanceof XdiAttributeMemberUnordered);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<!:uuid:1111>|")) instanceof XdiAttributeMemberUnordered.Definition);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<!:uuid:1111>|}")) instanceof XdiAttributeMemberUnordered.Definition.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<!:uuid:1111>}")) instanceof XdiAttributeMemberUnordered.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")) instanceof XdiAttributeMemberOrdered);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")) instanceof XdiAttributeMemberOrdered.Definition);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")) instanceof XdiAttributeMemberOrdered.Definition.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")) instanceof XdiAttributeMemberOrdered.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<!:uuid:1111>")) instanceof XdiAttributeInstanceUnordered);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<!:uuid:1111>|")) instanceof XdiAttributeInstanceUnordered.Definition);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<!:uuid:1111>|}")) instanceof XdiAttributeInstanceUnordered.Definition.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<!:uuid:1111>}")) instanceof XdiAttributeInstanceUnordered.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")) instanceof XdiAttributeInstanceOrdered);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")) instanceof XdiAttributeInstanceOrdered.Definition);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")) instanceof XdiAttributeInstanceOrdered.Definition.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")) instanceof XdiAttributeInstanceOrdered.Variable);
 
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("#vehicle")) instanceof XdiEntitySingleton);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("|#vehicle|")) instanceof XdiEntitySingleton.Definition);
@@ -77,14 +77,14 @@ public class NodeTypesTest extends TestCase {
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("|[#passport]|")) instanceof XdiEntityCollection.Definition);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("{|[#passport]|}")) instanceof XdiEntityCollection.Definition.Variable);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("{[#passport]}")) instanceof XdiEntityCollection.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]!:uuid:1111")) instanceof XdiEntityMemberUnordered);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]|!:uuid:1111|")) instanceof XdiEntityMemberUnordered.Definition);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{|!:uuid:1111|}")) instanceof XdiEntityMemberUnordered.Definition.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{!:uuid:1111}")) instanceof XdiEntityMemberUnordered.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]@0")) instanceof XdiEntityMemberOrdered);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]|@0|")) instanceof XdiEntityMemberOrdered.Definition);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{|@0|}")) instanceof XdiEntityMemberOrdered.Definition.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{@0}")) instanceof XdiEntityMemberOrdered.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]!:uuid:1111")) instanceof XdiEntityInstanceUnordered);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]|!:uuid:1111|")) instanceof XdiEntityInstanceUnordered.Definition);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{|!:uuid:1111|}")) instanceof XdiEntityInstanceUnordered.Definition.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{!:uuid:1111}")) instanceof XdiEntityInstanceUnordered.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]@0")) instanceof XdiEntityInstanceOrdered);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]|@0|")) instanceof XdiEntityInstanceOrdered.Definition);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{|@0|}")) instanceof XdiEntityInstanceOrdered.Definition.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[#passport]{@0}")) instanceof XdiEntityInstanceOrdered.Variable);
 	}
 
 	public void testNodeTypes2() throws Exception {
@@ -128,14 +128,14 @@ public class NodeTypesTest extends TestCase {
 		assertNotNull(XdiAttributeCollection.Definition.fromXDIAddress(XDIAddress.create("|[<#tel>]|")));
 		assertNotNull(XdiAttributeCollection.Definition.Variable.fromXDIAddress(XDIAddress.create("{|[<#tel>]|}")));
 		assertNotNull(XdiAttributeCollection.Variable.fromXDIAddress(XDIAddress.create("{[<#tel>]}")));
-		assertNotNull(XdiAttributeMemberUnordered.fromXDIAddress(XDIAddress.create("[<#tel>]<!:uuid:1111>")));
-		assertNotNull(XdiAttributeMemberUnordered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<!:uuid:1111>|")));
-		assertNotNull(XdiAttributeMemberUnordered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<!:uuid:1111>|}")));
-		assertNotNull(XdiAttributeMemberUnordered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<!:uuid:1111>}")));
-		assertNotNull(XdiAttributeMemberOrdered.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")));
-		assertNotNull(XdiAttributeMemberOrdered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")));
-		assertNotNull(XdiAttributeMemberOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")));
-		assertNotNull(XdiAttributeMemberOrdered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")));
+		assertNotNull(XdiAttributeInstanceUnordered.fromXDIAddress(XDIAddress.create("[<#tel>]<!:uuid:1111>")));
+		assertNotNull(XdiAttributeInstanceUnordered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<!:uuid:1111>|")));
+		assertNotNull(XdiAttributeInstanceUnordered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<!:uuid:1111>|}")));
+		assertNotNull(XdiAttributeInstanceUnordered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<!:uuid:1111>}")));
+		assertNotNull(XdiAttributeInstanceOrdered.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")));
+		assertNotNull(XdiAttributeInstanceOrdered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")));
+		assertNotNull(XdiAttributeInstanceOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")));
+		assertNotNull(XdiAttributeInstanceOrdered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")));
 
 		assertNotNull(XdiEntitySingleton.fromXDIAddress(XDIAddress.create("#vehicle")));
 		assertNotNull(XdiEntitySingleton.Definition.fromXDIAddress(XDIAddress.create("|#vehicle|")));
@@ -145,13 +145,13 @@ public class NodeTypesTest extends TestCase {
 		assertNotNull(XdiEntityCollection.Definition.fromXDIAddress(XDIAddress.create("|[#passport]|")));
 		assertNotNull(XdiEntityCollection.Definition.Variable.fromXDIAddress(XDIAddress.create("{|[#passport]|}")));
 		assertNotNull(XdiEntityCollection.Variable.fromXDIAddress(XDIAddress.create("{[#passport]}")));
-		assertNotNull(XdiEntityMemberUnordered.fromXDIAddress(XDIAddress.create("[#passport]!:uuid:1111")));
-		assertNotNull(XdiEntityMemberUnordered.Definition.fromXDIAddress(XDIAddress.create("[#passport]|!:uuid:1111|")));
-		assertNotNull(XdiEntityMemberUnordered.Definition.Variable.fromXDIAddress(XDIAddress.create("[#passport]{|!:uuid:1111|}")));
-		assertNotNull(XdiEntityMemberUnordered.Variable.fromXDIAddress(XDIAddress.create("[#passport]{!:uuid:1111}")));
-		assertNotNull(XdiEntityMemberOrdered.fromXDIAddress(XDIAddress.create("[#passport]@0")));
-		assertNotNull(XdiEntityMemberOrdered.Definition.fromXDIAddress(XDIAddress.create("[#passport]|@0|")));
-		assertNotNull(XdiEntityMemberOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[#passport]{|@0|}")));
-		assertNotNull(XdiEntityMemberOrdered.Variable.fromXDIAddress(XDIAddress.create("[#passport]{@0}")));
+		assertNotNull(XdiEntityInstanceUnordered.fromXDIAddress(XDIAddress.create("[#passport]!:uuid:1111")));
+		assertNotNull(XdiEntityInstanceUnordered.Definition.fromXDIAddress(XDIAddress.create("[#passport]|!:uuid:1111|")));
+		assertNotNull(XdiEntityInstanceUnordered.Definition.Variable.fromXDIAddress(XDIAddress.create("[#passport]{|!:uuid:1111|}")));
+		assertNotNull(XdiEntityInstanceUnordered.Variable.fromXDIAddress(XDIAddress.create("[#passport]{!:uuid:1111}")));
+		assertNotNull(XdiEntityInstanceOrdered.fromXDIAddress(XDIAddress.create("[#passport]@0")));
+		assertNotNull(XdiEntityInstanceOrdered.Definition.fromXDIAddress(XDIAddress.create("[#passport]|@0|")));
+		assertNotNull(XdiEntityInstanceOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[#passport]{|@0|}")));
+		assertNotNull(XdiEntityInstanceOrdered.Variable.fromXDIAddress(XDIAddress.create("[#passport]{@0}")));
 	}
 }

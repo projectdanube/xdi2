@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.util.XDIAddressUtil;
@@ -46,7 +46,7 @@ public class CloudNumber {
 				if (XDIarc1.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc1.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_MEMBER_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_INSTANCE_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }
@@ -63,10 +63,9 @@ public class CloudNumber {
 
 	public static CloudNumber createRandom(Character cs) {
 
-		XDIArc XDIarc1 = XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.fromComponents(cs, false, false, false, false, null, null));
-		XDIArc XDIarc2 = XdiAbstractMemberUnordered.createRandomUuidXDIArc(XdiEntityCollection.class);
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createRandomUuidXDIArc(true, false, XdiEntityCollection.class);
 
-		XDIAddress XDIaddress = XDIAddressUtil.concatXDIAddresses(XDIarc1, XDIarc2);
+		XDIAddress XDIaddress = XDIAddress.fromComponent(XDIarc);
 
 		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 

@@ -1,11 +1,11 @@
 {
-	"/$is$ref":["([=]!1111)"],
+	"/$is$ref":["(=!1111)"],
 	"/":[
-		"([=]!1111)",
+		"(=!1111)",
 		"=drummond",
 		"=markus"
 	],
-	"([=]!1111)/$ref":[""],
+	"(=!1111)/$ref":[""],
 	"=markus<#email>/&":"markus@projectdanube.org",
 	"=markus<#name>/&":"Markus Sabadello",
 	"=markus/":[

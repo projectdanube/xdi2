@@ -10,11 +10,11 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractMember<EQC, EQI, C, U, O, I> implements XdiMemberOrdered<EQC, EQI, C, U, O, I> {
+public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractInstance<EQC, EQI, C, U, O, I> implements XdiMemberOrdered<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = 8283064321616435273L;
 
-	protected XdiAbstractMemberOrdered(ContextNode contextNode) {
+	protected XdiAbstractInstanceOrdered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -32,8 +32,8 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (XdiEntityMemberOrdered.isValid(contextNode)) return true;
-		if (XdiAttributeMemberOrdered.isValid(contextNode)) return true;
+		if (XdiEntityInstanceOrdered.isValid(contextNode)) return true;
+		if (XdiAttributeInstanceOrdered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -49,8 +49,8 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 
 		XdiMemberOrdered<?, ?, ?, ?, ?, ?> xdiElement;
 
-		if ((xdiElement = XdiEntityMemberOrdered.fromContextNode(contextNode)) != null) return xdiElement;
-		if ((xdiElement = XdiAttributeMemberOrdered.fromContextNode(contextNode)) != null) return xdiElement;
+		if ((xdiElement = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
+		if ((xdiElement = XdiAttributeInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 
 		return null;
 	}
@@ -64,14 +64,14 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(String identifier, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createXDIArc(String identifier, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
-			return XDIArc.create("" + XDIConstants.CS_MEMBER_ORDERED + identifier);
+			return XDIArc.create("" + XDIConstants.CS_INSTANCE_ORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier);
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
-			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_MEMBER_ORDERED + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
+			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_INSTANCE_ORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
 		} else {
 
 			throw new IllegalArgumentException("Unknown class for ordered member " + clazz.getName());
@@ -84,14 +84,14 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 
 		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_ORDERED.equals(XDIarc.getCs())) return false;
+			if (! XDIConstants.CS_INSTANCE_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
 		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
 
-			if (! XDIConstants.CS_MEMBER_ORDERED.equals(XDIarc.getCs())) return false;
+			if (! XDIConstants.CS_INSTANCE_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (! XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
@@ -117,7 +117,7 @@ public abstract class XdiAbstractMemberOrdered<EQC extends XdiCollection<EQC, EQ
 				@Override
 				public XdiMemberOrdered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
-					return XdiAbstractMemberOrdered.fromContextNode(contextNode);
+					return XdiAbstractInstanceOrdered.fromContextNode(contextNode);
 				}
 			});
 		}

@@ -2,8 +2,8 @@ package xdi2.tests.core.features.nodetypes;
 
 import junit.framework.TestCase;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
-import xdi2.core.features.nodetypes.XdiAbstractMemberOrdered;
-import xdi2.core.features.nodetypes.XdiAbstractMemberUnordered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
@@ -18,10 +18,10 @@ public class ArcsTest extends TestCase {
 		assertEquals(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIArc.create("#address")), XDIArc.create("<#address>"));
 		assertEquals(XdiEntityCollection.createEntityCollectionXDIArc(XDIArc.create("#address")), XDIArc.create("[#address]"));
 		assertEquals(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIArc.create("#address")), XDIArc.create("[<#address>]"));
-		assertEquals(XdiAbstractMemberUnordered.createXDIArc("1", XdiAttributeCollection.class), XDIArc.create("<!1>"));
-		assertEquals(XdiAbstractMemberOrdered.createXDIArc("1", XdiAttributeCollection.class), XDIArc.create("<@1>"));
-		assertEquals(XdiAbstractMemberUnordered.createXDIArc("1", XdiEntityCollection.class), XDIArc.create("!1"));
-		assertEquals(XdiAbstractMemberOrdered.createXDIArc("1", XdiEntityCollection.class), XDIArc.create("@1"));
+		assertEquals(XdiAbstractInstanceUnordered.createXDIArc("1", true, false, XdiAttributeCollection.class), XDIArc.create("<*!1>"));
+		assertEquals(XdiAbstractInstanceOrdered.createXDIArc("1", false, false, XdiAttributeCollection.class), XDIArc.create("<@1>"));
+		assertEquals(XdiAbstractInstanceUnordered.createXDIArc("1", true, false, XdiEntityCollection.class), XDIArc.create("*!1"));
+		assertEquals(XdiAbstractInstanceOrdered.createXDIArc("1", false, false, XdiEntityCollection.class), XDIArc.create("@1"));
 
 		assertTrue(XdiEntitySingleton.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));
 		assertFalse(XdiAttributeSingleton.isValidXDIArc(XdiEntitySingleton.createEntitySingletonXDIArc(XDIArc.create("#address"))));

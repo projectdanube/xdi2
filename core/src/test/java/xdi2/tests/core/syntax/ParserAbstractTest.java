@@ -41,7 +41,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertEquals(statement.getSubject().getXDIArc(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getXDIArc(1).getXRef());
 		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("<!1>"));
-		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_MEMBER_UNORDERED);
+		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_INSTANCE_UNORDERED);
 		assertFalse(statement.getSubject().getXDIArc(2).isCollection());
 		assertTrue(statement.getSubject().getXDIArc(2).isAttribute());
 		assertEquals(statement.getSubject().getXDIArc(2).getLiteral(), "1");
