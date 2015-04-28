@@ -83,6 +83,11 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal) {
+
+		return XdiAbstractInstanceUnordered.createXDIArc(false, immutable, relative, literal);
+	}
+
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();

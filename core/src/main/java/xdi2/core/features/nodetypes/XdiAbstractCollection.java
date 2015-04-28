@@ -91,22 +91,20 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Sets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
-	@Override
-	public U setXdiMemberUnordered(boolean immutable, boolean relative) {
+	public U setXdiMemberUnordered(boolean attribute, boolean immutable, boolean relative) {
 
-		XDIArc XDIarc = XdiAbstractInstanceUnordered.createRandomUuidXDIArc(immutable, relative, this.getC());
-
-		return this.setXdiMemberUnordered(XDIarc);
+		return this.setXdiMemberUnordered(attribute, immutable, relative, null);
 	}
 
 	/**
 	 * Sets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
-	@Override
-	public U setXdiMemberUnordered(XDIArc XDIarc) {
+	public U setXdiMemberUnordered(boolean attribute, boolean immutable, boolean relative, String literal) {
 
-		if (XDIarc == null) throw new NullPointerException();
+		if (literal == null) literal = XDIArc.literalFromRandomUuid();
+
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal);
 
 		ContextNode memberContextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -117,8 +115,11 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * gets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
-	@Override
-	public U getXdiMemberUnordered(XDIArc XDIarc) {
+	public U getXdiMemberUnordered(boolean attribute, boolean immutable, boolean relative, String literal) {
+
+		if (literal == null) throw new NullPointerException();
+
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal);
 
 		ContextNode memberContextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (memberContextNode == null) return null;
@@ -149,12 +150,22 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Sets an XDI element under this XDI collection.
 	 * @return The XDI element.
 	 */
-	@Override
-	public O setXdiMemberOrdered(long index) {
+	public O setXdiMemberOrdered(boolean attribute, boolean immutable, boolean relative) {
+
+		return this.setXdiMemberOrdered(attribute, immutable, relative, -1);
+	}
+
+	/**
+	 * Sets an XDI element under this XDI collection.
+	 * @return The XDI element.
+	 */
+	public O setXdiMemberOrdered(boolean attribute, boolean immutable, boolean relative, long index) {
 
 		if (index < 0) index = this.getXdiMembersOrderedCount();
 
-		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(Long.toString(index), false, false, this.getC());
+		String literal = Long.toString(index);
+
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal);
 
 		ContextNode contextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -165,10 +176,13 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Gets an XDI element under this XDI collection.
 	 * @return The XDI element.
 	 */
-	@Override
-	public O getXdiMemberOrdered(long index) {
+	public O getXdiMemberOrdered(boolean attribute, boolean immutable, boolean relative, long index) {
 
-		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(Long.toString(index), false, false, this.getC());
+		if (index < 0) throw new IllegalArgumentException();
+
+		String literal = Long.toString(index);
+
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal);
 
 		ContextNode contextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (contextNode == null) return null;
@@ -253,7 +267,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
-		
+
 		if (XdiEntityCollection.isValidXDIArc(XDIarc)) return true; 
 		if (XdiAttributeCollection.isValidXDIArc(XDIarc)) return true;
 
@@ -321,7 +335,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 			if (this.triedNextXdiElement) return;
 
-			this.nextXdiElement = XdiAbstractCollection.this.getXdiMemberOrdered(this.index);
+			this.nextXdiElement = XdiAbstractCollection.this.getXdiMemberOrdered(false, false, this.index);
 
 			if (log.isTraceEnabled()) log.trace("Next element at index " + this.index + ": " + this.nextXdiElement);
 

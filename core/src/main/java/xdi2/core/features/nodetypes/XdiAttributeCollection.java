@@ -65,6 +65,46 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public XdiAttributeInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberUnordered(true, immutable, relative);
+	}
+
+	@Override
+	public XdiAttributeInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.setXdiMemberUnordered(true, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiAttributeInstanceUnordered getXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.getXdiMemberUnordered(true, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberOrdered(true, immutable, relative);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.setXdiMemberOrdered(true, immutable, relative, index);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered getXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.getXdiMemberOrdered(true, immutable, relative, index);
+	}
+
+	/*
 	 * Methods for arcs
 	 */
 

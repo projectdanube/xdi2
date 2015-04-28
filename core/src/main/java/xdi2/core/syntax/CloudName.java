@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.XDIAddressUtil;
 
 public class CloudName {
 
@@ -31,15 +30,17 @@ public class CloudName {
 
 		try {
 
-			if (XDIaddress.getNumXDIArcs() < 1) { result = Boolean.FALSE; return result.booleanValue(); }
+			if (XDIaddress.getNumXDIArcs() != 1) { result = Boolean.FALSE; return result.booleanValue(); }
 
-			for (int i=0; i< XDIaddress.getNumXDIArcs(); i++) {
+			for (int i=0; i<XDIaddress.getNumXDIArcs(); i++) {
 
 				XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
 				if (XDIarc.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (XDIarc.hasXRef() || ! XDIarc.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isImmutable()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isRelative()) { result = Boolean.FALSE; return result.booleanValue(); }
 				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
@@ -71,9 +72,8 @@ public class CloudName {
 
 	public static CloudName fromXDIAddress(XDIAddress XDIaddress) {
 
-		if (XDIaddress.getNumXDIArcs() < 2) throw new Xdi2RuntimeException("Invalid cloud name length: " + XDIaddress);
+		if (XDIaddress.getNumXDIArcs() != 1) throw new Xdi2RuntimeException("Invalid cloud name length: " + XDIaddress);
 
-		XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, 1);
 		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
 		if (! isValid(XDIaddress)) throw new Xdi2RuntimeException("Invalid cloud name: " + XDIaddress);
@@ -92,7 +92,7 @@ public class CloudName {
 
 	public static CloudName fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
 
-		if (peerRootXDIArc.getNumXDIArcs() > 1) return null;
+		if (peerRootXDIArc.getNumXDIArcs() != 1) return null;
 
 		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
 	}

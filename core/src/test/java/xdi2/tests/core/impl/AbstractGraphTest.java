@@ -619,7 +619,7 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(markus.getAllRelationCount(), 0);
 
 		assertNull(markus.getLiteralNode());
-		assertNull(markus.getDeepLiteralNode(XDIAddress.create("<!not>&")));
+		assertNull(markus.getDeepLiteralNode(XDIAddress.create("<*!not>&")));
 		assertEquals(markus.getAllLiteralCount(), 0);
 
 		assertEquals(markus.getAllStatementCount(), 0);

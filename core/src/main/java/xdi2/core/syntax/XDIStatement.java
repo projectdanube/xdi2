@@ -22,10 +22,6 @@ public class XDIStatement extends XDIIdentifier {
 		this.object = object;
 	}
 
-	/*
-	 * Factory methods
-	 */
-
 	public static XDIStatement create(String string) {
 
 		return ParserRegistry.getInstance().getParser().parseXDIStatement(string);
@@ -55,6 +51,10 @@ public class XDIStatement extends XDIIdentifier {
 			throw new IllegalArgumentException("Invalid statement components: " + subject + "/" + predicate + "/" + object);
 		}
 	}
+
+	/*
+	 * Factory methods
+	 */
 
 	public static XDIStatement fromComponents(XDIAddress subject, Object predicate, Object object) {
 
@@ -106,7 +106,7 @@ public class XDIStatement extends XDIIdentifier {
 	}
 
 	/*
-	 * Instance methods
+	 * Getters
 	 */
 
 	public XDIAddress getSubject() {

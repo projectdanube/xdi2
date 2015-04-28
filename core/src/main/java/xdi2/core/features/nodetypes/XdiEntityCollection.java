@@ -67,6 +67,46 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberUnordered(false, immutable, relative);
+	}
+
+	@Override
+	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.setXdiMemberUnordered(false, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiEntityInstanceUnordered getXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.getXdiMemberUnordered(false, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberOrdered(false, immutable, relative);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.setXdiMemberOrdered(false, immutable, relative, index);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered getXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.getXdiMemberOrdered(false, immutable, relative, index);
+	}
+	
+	/*
 	 * Methods for arcs
 	 */
 
@@ -175,7 +215,7 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return XdiAttributeInstanceUnordered.isValid(contextNode) &&
+			return XdiEntityInstanceUnordered.isValid(contextNode) &&
 					! contextNode.getXDIArc().isDefinition() &&
 					contextNode.getXDIArc().isVariable();
 		}

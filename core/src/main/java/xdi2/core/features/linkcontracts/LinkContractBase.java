@@ -51,7 +51,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XdiEntitySingleton.createEntitySingletonXDIArc(XDIPolicyConstants.XDI_ARC_IF), create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_IF), create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);

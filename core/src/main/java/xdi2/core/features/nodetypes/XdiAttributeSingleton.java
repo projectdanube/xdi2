@@ -72,7 +72,7 @@ public class XdiAttributeSingleton extends XdiAbstractAttribute implements XdiSi
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createAttributeSingletonXDIArc(XDIArc XDIarc, boolean variable) {
+	public static XDIArc createXDIArc(XDIArc XDIarc, boolean variable) {
 
 		StringBuffer buffer = new StringBuffer();
 		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
@@ -86,7 +86,7 @@ public class XdiAttributeSingleton extends XdiAbstractAttribute implements XdiSi
 
 	public static XDIArc createAttributeSingletonXDIArc(XDIArc XDIarc) {
 
-		return createAttributeSingletonXDIArc(XDIarc, false);
+		return createXDIArc(XDIarc, false);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {

@@ -18,16 +18,16 @@ public class XDIStatementUtilTest extends TestCase {
 
 		String relationStatements[] = new String[] {
 				"=markus/#friend/=animesh",
-				"=markus/$ref/[=]!1111",
-				"()/$is$ref/[=]!1111",
-				"[=]!1111/$ref/",
-				"[=]!1111#tel/#home#fax/[=]!1111#tel!1"
+				"=markus/$ref/=!1111",
+				"()/$is$ref/=!1111",
+				"=!1111/$ref/",
+				"=!1111#tel/#home#fax/=!1111#tel*!1"
 		};
 
 		String literalStatements[] = new String[] {
 				"=markus<#name>/&/\"Markus Sabadello\"",
-				"[=]!1111<#tel>/&/\"+1-206-555-1212\"",
-				"[=]!1111<#tel>[1]/&/\"+1.206.555.1111\""
+				"=!1111<#tel>/&/\"+1-206-555-1212\"",
+				"=!1111<#tel><*!1>/&/\"+1.206.555.1111\""
 		};
 
 		String invalidStatements[] = new String[] {

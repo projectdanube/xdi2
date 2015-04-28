@@ -67,6 +67,11 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal) {
+
+		return XdiAbstractInstanceOrdered.createXDIArc(true, immutable, relative, literal);
+	}
+
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();

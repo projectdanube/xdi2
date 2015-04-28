@@ -5,10 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
-import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.util.XDIAddressUtil;
 
 public class CloudNumber {
 
@@ -31,22 +29,18 @@ public class CloudNumber {
 
 		try {
 
-			if (XDIaddress.getNumXDIArcs() < 2) { result = Boolean.FALSE; return result.booleanValue(); }
+			if (XDIaddress.getNumXDIArcs() != 1) { result = Boolean.FALSE; return result.booleanValue(); }
 
-			for (int i=0; i< XDIaddress.getNumXDIArcs(); i+=2) {
+			for (int i=0; i<XDIaddress.getNumXDIArcs(); i+=2) {
 
-				XDIArc XDIarc0 = XDIaddress.getXDIArc(i);
-				XDIArc XDIarc1 = XDIaddress.getXDIArc(i + 1);
+				XDIArc XDIarc = XDIaddress.getXDIArc(i);
 
-				if (XDIarc0.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIarc0.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc0.hasXRef() || XDIarc0.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc0.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc0.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
-
-				if (XDIarc1.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc1.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (XDIarc1.hasXRef() || ! XDIarc1.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
-				if (! XDIConstants.CS_INSTANCE_UNORDERED.equals(XDIarc1.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isAttribute()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isCollection()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.hasXRef() || ! XDIarc.hasLiteral()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIarc.isImmutable()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (XDIarc.isRelative()) { result = Boolean.FALSE; return result.booleanValue(); }
+				if (! XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) && ! XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) { result = Boolean.FALSE; return result.booleanValue(); }
 			}
 
 			{ result = Boolean.TRUE; return result.booleanValue(); }
@@ -63,7 +57,7 @@ public class CloudNumber {
 
 	public static CloudNumber createRandom(Character cs) {
 
-		XDIArc XDIarc = XdiAbstractInstanceUnordered.createRandomUuidXDIArc(true, false, XdiEntityCollection.class);
+		XDIArc XDIarc = XdiEntitySingleton.createXDIArc(cs, true, false, XDIArc.literalFromRandomUuid(), null);
 
 		XDIAddress XDIaddress = XDIAddress.fromComponent(XDIarc);
 
@@ -74,9 +68,8 @@ public class CloudNumber {
 
 	public static CloudNumber fromXDIAddress(XDIAddress XDIaddress) {
 
-		if (XDIaddress.getNumXDIArcs() < 2) throw new Xdi2RuntimeException("Invalid cloud number length: " + XDIaddress);
-		
-		XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, 2);
+		if (XDIaddress.getNumXDIArcs() != 1) throw new Xdi2RuntimeException("Invalid cloud number length: " + XDIaddress);
+
 		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
 
 		if (! isValid(XDIaddress)) throw new Xdi2RuntimeException("Invalid cloud number: " + XDIaddress);
@@ -95,8 +88,8 @@ public class CloudNumber {
 
 	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
 
-		if (peerRootXDIArc.getNumXDIArcs() > 1) return null;
-		
+		if (peerRootXDIArc.getNumXDIArcs() != 1) return null;
+
 		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
 	}
 

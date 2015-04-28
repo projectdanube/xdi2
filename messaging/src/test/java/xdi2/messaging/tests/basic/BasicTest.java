@@ -153,9 +153,9 @@ public class BasicTest extends TestCase {
 
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(XDIAddress.create("=sender"));
-		message.setFromPeerRootXDIArc(XDIArc.create("([=]!1111)"));
-		message.setToPeerRootXDIArc(XDIArc.create("([=]!2222)"));
-		assertEquals(message.getFromPeerRootXDIArc(), XDIAddress.create("([=]!1111)"));
-		assertEquals(message.getToPeerRootXDIArc(), XDIAddress.create("([=]!2222)"));
+		message.setFromPeerRootXDIArc(XDIArc.create("(=!1111)"));
+		message.setToPeerRootXDIArc(XDIArc.create("(=!2222)"));
+		assertEquals(message.getFromPeerRootXDIArc(), XDIAddress.create("(=!1111)"));
+		assertEquals(message.getToPeerRootXDIArc(), XDIAddress.create("(=!2222)"));
 	}
 }

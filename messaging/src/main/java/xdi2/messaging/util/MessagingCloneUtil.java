@@ -71,11 +71,11 @@ public final class MessagingCloneUtil {
 
 		if (xdiEntity instanceof XdiEntityInstanceUnordered) {
 
-			XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(null);
+			XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberUnordered(true, false);
 			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
 		} else if (xdiEntity instanceof XdiEntityInstanceOrdered) {
 
-			XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberOrdered(-1);
+			XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiMemberOrdered(false, false);
 			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
 		} else {
 

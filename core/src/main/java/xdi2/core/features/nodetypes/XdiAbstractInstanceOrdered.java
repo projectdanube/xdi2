@@ -64,18 +64,18 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(String identifier, boolean immutable, boolean relative, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static XDIArc createXDIArc(boolean attribute, boolean immutable, boolean relative, String literal) {
 
-		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.CS_INSTANCE_ORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier);
-		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
-
-			return XDIArc.create("" + XDIConstants.XS_ATTRIBUTE.charAt(0) + XDIConstants.CS_INSTANCE_ORDERED + (immutable ? XDIConstants.S_IMMUTABLE : "") + (relative ? XDIConstants.S_RELATIVE : "") + identifier + XDIConstants.XS_ATTRIBUTE.charAt(1));
-		} else {
-
-			throw new IllegalArgumentException("Unknown class for ordered member " + clazz.getName());
-		}
+		return XDIArc.fromComponents(
+				XDIConstants.CS_INSTANCE_ORDERED, 
+				false, 
+				false, 
+				false, 
+				attribute, 
+				immutable, 
+				relative, 
+				literal, 
+				null);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {

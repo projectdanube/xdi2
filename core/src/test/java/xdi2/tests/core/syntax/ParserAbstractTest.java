@@ -16,13 +16,13 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		Parser parser = this.getParser();
 
-		XDIStatement statement = parser.parseXDIStatement("=markus[<#email>]<!1>/&/\"xxx\"");
+		XDIStatement statement = parser.parseXDIStatement("=markus[<#email>]<*!1>/&/\"xxx\"");
 
-		assertEquals(statement.getSubject(), parser.parseXDIAddress("=markus[<#email>]<!1>"));
+		assertEquals(statement.getSubject(), parser.parseXDIAddress("=markus[<#email>]<*!1>"));
 		assertEquals(statement.getPredicate(), parser.parseXDIArc("&"));
 		assertEquals(statement.getObject(), "xxx");
 
-		assertEquals(statement.getContextNodeXDIAddress(), parser.parseXDIAddress("=markus[<#email>]<!1>"));
+		assertEquals(statement.getContextNodeXDIAddress(), parser.parseXDIAddress("=markus[<#email>]<*!1>"));
 		assertNull(statement.getContextNodeXDIArc());
 		assertNull(statement.getTargetXDIAddress());
 		assertEquals(statement.getLiteralData(), "xxx");
@@ -40,7 +40,7 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(statement.getSubject().getXDIArc(1).isAttribute());
 		assertEquals(statement.getSubject().getXDIArc(1).getLiteral(), "email");
 		assertNull(statement.getSubject().getXDIArc(1).getXRef());
-		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("<!1>"));
+		assertEquals(statement.getSubject().getXDIArc(2), parser.parseXDIArc("<*!1>"));
 		assertEquals(statement.getSubject().getXDIArc(2).getCs(), XDIConstants.CS_INSTANCE_UNORDERED);
 		assertFalse(statement.getSubject().getXDIArc(2).isCollection());
 		assertTrue(statement.getSubject().getXDIArc(2).isAttribute());

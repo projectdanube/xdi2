@@ -1,11 +1,19 @@
 package xdi2.core.syntax;
 
+import java.security.MessageDigest;
+import java.util.UUID;
+
+import org.apache.commons.codec.binary.Hex;
+
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.syntax.parser.ParserRegistry;
 
 public class XDIArc extends XDIIdentifier {
 
 	private static final long serialVersionUID = -645927779266394209L;
+
+	public static final String DEFAULT_DIGEST_ALGORITHM = "SHA-512";
 
 	private Character cs;
 	private boolean variable;
@@ -59,13 +67,63 @@ public class XDIArc extends XDIIdentifier {
 			string = buffer.toString();
 		}
 
+		if (cs == null && literal != null) throw new IllegalArgumentException("If there is a literal, must have a context symbol: " + string);
+		if (literal != null && xref != null) throw new IllegalArgumentException("Cannot have both literal and xref: " + string);
+
 		return new XDIArc(string, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
+
+	/*
+	 * Factory methods
+	 */
 
 	public static XDIArc fromComponents(Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
 		return fromComponents(null, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
+
+	public static String literalFromUuid(String uuid) {
+
+		String literal = ":uuid:" + uuid;
+
+		return literal;
+	}
+
+	public static String literalFromRandomUuid() {
+
+		String uuid = UUID.randomUUID().toString().toLowerCase();
+
+		return literalFromUuid(uuid);
+	}
+
+	public static String literalFromDigest(String input, String algorithm) {
+
+		byte[] output;
+
+		try {
+
+			MessageDigest digest = MessageDigest.getInstance(algorithm);
+			digest.update(input.getBytes("UTF-8"));
+			output = digest.digest();
+		} catch (Exception ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
+
+		String hex = new String(Hex.encodeHex(output));
+		String literal = ":" + algorithm.toLowerCase().replace("-", "") + ":" + hex;
+
+		return literal;
+	}
+
+	public static String literalFromDigest(String input) {
+
+		return literalFromDigest(input, DEFAULT_DIGEST_ALGORITHM);
+	}
+
+	/*
+	 * Getters
+	 */
 
 	public boolean hasCs() {
 
