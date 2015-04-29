@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.apache.commons.codec.binary.Base64;
+
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.json.AbstractJSONStore;
 import xdi2.core.impl.json.JSONStore;
@@ -111,10 +113,10 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 			if (prefix != null) {
 
 				buffer.append(URLEncoder.encode(prefix, "UTF-8"));
-				buffer.append("_");
+				buffer.append("-");
 			}
 
-			buffer.append(URLEncoder.encode(id, "UTF-8"));
+			buffer.append(Base64.encodeBase64URLSafeString(id.getBytes("UTF-8")));
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);
