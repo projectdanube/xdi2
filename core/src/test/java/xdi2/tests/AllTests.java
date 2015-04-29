@@ -50,9 +50,9 @@ public class AllTests {
 		suite.addTestSuite(MapKeyValueGraphTest.class);
 		suite.addTestSuite(PropertiesKeyValueGraphTest.class);
 		suite.addTestSuite(BDBKeyValueGraphTest.class);
-		suite.addTestSuite(FileWrapperGraphTest.class);
+		//suite.addTestSuite(FileWrapperGraphTest.class);
 		suite.addTestSuite(MemoryJSONGraphTest.class);
-		suite.addTestSuite(FileJSONGraphTest.class);
+		//suite.addTestSuite(FileJSONGraphTest.class);
 		suite.addTestSuite(BDBJSONGraphTest.class);
 		suite.addTestSuite(MapKeyValueTest.class);
 		suite.addTestSuite(PropertiesKeyValueTest.class);

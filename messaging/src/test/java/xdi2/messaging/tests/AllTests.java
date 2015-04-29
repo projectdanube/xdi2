@@ -27,9 +27,9 @@ public class AllTests {
 		suite.addTestSuite(PropertiesKeyValueGraphMessagingTargetTest.class);
 		suite.addTestSuite(BDBKeyValueGraphMessagingTargetTest.class);
 		suite.addTestSuite(MemoryJSONGraphMessagingTargetTest.class);
-		suite.addTestSuite(FileJSONGraphMessagingTargetTest.class);
+		//suite.addTestSuite(FileJSONGraphMessagingTargetTest.class);
 		suite.addTestSuite(BDBJSONGraphMessagingTargetTest.class);
-		suite.addTestSuite(FileWrapperGraphMessagingTargetTest.class);
+		//suite.addTestSuite(FileWrapperGraphMessagingTargetTest.class);
 		suite.addTestSuite(LinkContractInterceptorTest.class);
 		suite.addTestSuite(ContributorTest.class);
 		//$JUnit-END$
