@@ -63,6 +63,7 @@ div.line { margin-left: -150px; }
 	</tr></table>
 	<table cellpadding="5">
 	<tr><td>snapshot-0.7</td><td><a href="https://server.xdi2.org/">https://server.xdi2.org/</a></td></tr>
+	<tr><td>snapshot-0.7-pre-star-shift</td><td><a href="https://server.xdi2.org/pre-star-shift">https://server.xdi2.org/pre-star-shift</a></td></tr>
 	<tr><td>snapshot-0.7-pre-no-value-node</td><td><a href="https://server.xdi2.org/pre-no-value-node">https://server.xdi2.org/pre-no-value-node</a></td></tr>
 	<tr><td>snapshot-0.5-pre-notation-shift</td><td><a href="https://server.xdi2.org/pre-notation-shift">https://server.xdi2.org/pre-notation-shift</a></td></tr>
 	<tr><td>snapshot-0.4-pre-link-contract-shift</td><td><a href="https://server.xdi2.org/pre-link-contract-shift">https://server.xdi2.org/pre-link-contract-shift</a></td></tr>
