@@ -7,8 +7,6 @@ import xdi2.messaging.tests.http.AcceptHeaderTest;
 import xdi2.messaging.tests.target.contributor.ContributorTest;
 import xdi2.messaging.tests.target.impl.graph.BDBJSONGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.BDBKeyValueGraphMessagingTargetTest;
-import xdi2.messaging.tests.target.impl.graph.FileJSONGraphMessagingTargetTest;
-import xdi2.messaging.tests.target.impl.graph.FileWrapperGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MapGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MemoryGraphMessagingTargetTest;
 import xdi2.messaging.tests.target.impl.graph.MemoryJSONGraphMessagingTargetTest;
