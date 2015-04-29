@@ -10,7 +10,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.features.nodetypes.XdiEntityMember;
+import xdi2.core.features.nodetypes.XdiEntityInstance;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -50,9 +50,9 @@ public class GenericLinkContract extends LinkContract {
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 
 			return true;
-		} else if (xdiEntity instanceof XdiEntityMember) {
+		} else if (xdiEntity instanceof XdiEntityInstance) {
 
-			if (! ((XdiEntityMember) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
+			if (! ((XdiEntityInstance) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;

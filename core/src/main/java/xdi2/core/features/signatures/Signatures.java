@@ -54,7 +54,7 @@ public class Signatures {
 		if (singleton)
 			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
 		else
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(null);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
 		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);

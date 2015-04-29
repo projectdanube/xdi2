@@ -15,13 +15,13 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> implements XdiCollection<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember> {
+public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> implements XdiCollection<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
 	protected XdiEntityCollection(ContextNode contextNode) {
 
-		super(contextNode, XdiEntityCollection.class, XdiEntityMemberUnordered.class, XdiEntityMemberOrdered.class, XdiEntityMember.class);
+		super(contextNode, XdiEntityCollection.class, XdiEntityInstanceUnordered.class, XdiEntityInstanceOrdered.class, XdiEntityInstance.class);
 	}
 
 	/*
@@ -67,6 +67,46 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberUnordered(false, immutable, relative);
+	}
+
+	@Override
+	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.setXdiMemberUnordered(false, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiEntityInstanceUnordered getXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.getXdiMemberUnordered(false, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberOrdered(false, immutable, relative);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.setXdiMemberOrdered(false, immutable, relative, index);
+	}
+
+	@Override
+	public XdiEntityInstanceOrdered getXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.getXdiMemberOrdered(false, immutable, relative, index);
+	}
+	
+	/*
 	 * Methods for arcs
 	 */
 
@@ -97,7 +137,7 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 		if (XDIConstants.CS_CLASS_UNRESERVED.equals(XDIarc.getCs()) || XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) {
 
 			if (! XDIarc.hasLiteral() && ! XDIarc.hasXRef()) return false;
-		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_GENERAL.equals(XDIarc.getCs())) {
+		} else if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs()) || XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) {
 
 			if (XDIarc.hasLiteral() || XDIarc.hasXRef()) return false;
 		} else {
@@ -175,7 +215,7 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return XdiAttributeMemberUnordered.isValid(contextNode) &&
+			return XdiEntityInstanceUnordered.isValid(contextNode) &&
 					! contextNode.getXDIArc().isDefinition() &&
 					contextNode.getXDIArc().isVariable();
 		}

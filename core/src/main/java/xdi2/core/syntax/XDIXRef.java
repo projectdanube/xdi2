@@ -41,25 +41,33 @@ public class XDIXRef extends XDIIdentifier {
 		if (literal != null && (XDIaddress != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
 
 		if (string == null) {
-		
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(xs.charAt(0));
-		if (XDIaddress != null) buffer.append(XDIaddress.toString());
-		if (partialSubject != null && partialPredicate != null) buffer.append(partialSubject.toString() + "/" + partialPredicate.toString());
-		if (iri != null) buffer.append(iri);
-		if (literal != null) buffer.append(literal);
-		buffer.append(xs.charAt(1));
-		
-		string = buffer.toString();
+
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(xs.charAt(0));
+			if (XDIaddress != null) buffer.append(XDIaddress.toString());
+			if (partialSubject != null && partialPredicate != null) buffer.append(partialSubject.toString() + "/" + partialPredicate.toString());
+			if (iri != null) buffer.append(iri);
+			if (literal != null) buffer.append(literal);
+			buffer.append(xs.charAt(1));
+
+			string = buffer.toString();
 		}
 
 		return new XDIXRef(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
 	}
 
+	/*
+	 * Factory methods
+	 */
+
 	public static XDIXRef fromComponents(String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
-		
+
 		return fromComponents(null, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
 	}
+
+	/*
+	 * Getters
+	 */
 
 	public boolean isEmpty() {
 

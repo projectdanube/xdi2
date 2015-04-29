@@ -6,6 +6,6 @@
 (=markus/=markus)$do/$set/=markus
 =markus<#age>/&/"33"
 =markus<#name>/&/"Markus Sabadello"
-=markus[<#email>]<!1>/&/"markus@projectdanube.org"
-=markus[<#email>]<!2>/&/"markus.sabadello@hotmail.com"
+=markus[<#email>]<*!1>/&/"markus@projectdanube.org"
+=markus[<#email>]<*!2>/&/"markus.sabadello@hotmail.com"
 =markus/#friend/=drummond

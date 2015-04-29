@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityMemberOrdered;
-import xdi2.core.features.nodetypes.XdiEntityMemberUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.features.policy.operator.Operator;
@@ -37,10 +37,10 @@ public class PolicyNot extends Policy {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
 			return ((XdiEntitySingleton) xdiEntity).getBaseXDIArc().equals(XDIPolicyConstants.XDI_ARC_NOT);
-		else if (xdiEntity instanceof XdiEntityMemberUnordered)
-			return ((XdiEntityMemberUnordered) xdiEntity).getXdiCollection().getBaseXDIArc().equals(XDIPolicyConstants.XDI_ARC_NOT);
-		else if (xdiEntity instanceof XdiEntityMemberOrdered)
-			return ((XdiEntityMemberOrdered) xdiEntity).getXdiCollection().getBaseXDIArc().equals(XDIPolicyConstants.XDI_ARC_NOT);
+		else if (xdiEntity instanceof XdiEntityInstanceUnordered)
+			return ((XdiEntityInstanceUnordered) xdiEntity).getXdiCollection().getBaseXDIArc().equals(XDIPolicyConstants.XDI_ARC_NOT);
+		else if (xdiEntity instanceof XdiEntityInstanceOrdered)
+			return ((XdiEntityInstanceOrdered) xdiEntity).getXdiCollection().getBaseXDIArc().equals(XDIPolicyConstants.XDI_ARC_NOT);
 
 		return false;
 	}

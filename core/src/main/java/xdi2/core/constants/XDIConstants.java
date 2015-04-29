@@ -10,16 +10,18 @@ import xdi2.core.syntax.XDIArc;
  */
 public class XDIConstants {
 
-	public static final String STRING_CONTEXT = "";
-
 	public static final Character CS_AUTHORITY_PERSONAL = Character.valueOf('='); 
 	public static final Character CS_AUTHORITY_LEGAL = Character.valueOf('+'); 
-	public static final Character CS_AUTHORITY_GENERAL = Character.valueOf('*'); 
-	public static final Character CS_CLASS_UNRESERVED = Character.valueOf('#'); 
 	public static final Character CS_CLASS_RESERVED = Character.valueOf('$'); 
+	public static final Character CS_CLASS_UNRESERVED = Character.valueOf('#'); 
+	public static final Character CS_INSTANCE_ORDERED = Character.valueOf('@');
+	public static final Character CS_INSTANCE_UNORDERED = Character.valueOf('*'); 
 	public static final Character CS_LITERAL = Character.valueOf('&');
-	public static final Character CS_MEMBER_UNORDERED = Character.valueOf('!'); 
-	public static final Character CS_MEMBER_ORDERED = Character.valueOf('@');
+
+	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_CLASS_RESERVED, CS_CLASS_UNRESERVED, CS_INSTANCE_ORDERED, CS_INSTANCE_UNORDERED, CS_LITERAL };
+
+	public static final Character S_IMMUTABLE = Character.valueOf('!');
+	public static final Character S_RELATIVE = Character.valueOf('_');
 
 	public static final String XS_ROOT = "()";
 	public static final String XS_VARIABLE = "{}";
@@ -27,9 +29,9 @@ public class XDIConstants {
 	public static final String XS_COLLECTION = "[]";
 	public static final String XS_ATTRIBUTE = "<>";
 
-	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_AUTHORITY_GENERAL, CS_CLASS_UNRESERVED, CS_CLASS_RESERVED, CS_LITERAL, CS_MEMBER_UNORDERED, CS_MEMBER_ORDERED };
-
 	public static final XDIAddress XDI_ADD_ROOT = XDIAddress.create("");
+
+	public static final String STRING_CONTEXT = "";
 
 	public static final XDIArc XDI_ARC_LITERAL = XDIArc.create(CS_LITERAL.toString());
 

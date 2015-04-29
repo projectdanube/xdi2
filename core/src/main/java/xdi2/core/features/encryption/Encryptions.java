@@ -54,7 +54,7 @@ public class Encryptions {
 		if (singleton)
 			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true);
 		else
-			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true).setXdiMemberUnordered(null);
+			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true).setXdiMemberUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(keyAlgorithm, keyLength);
 		DataTypes.setDataType(encryptionXdiAttribute.getContextNode(), dataTypeXDIAddress);

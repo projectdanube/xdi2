@@ -33,8 +33,8 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 		if (contextNode == null) throw new NullPointerException();
 
 		if (XdiAttributeSingleton.isValid(contextNode)) return true; 
-		if (XdiAttributeMemberUnordered.isValid(contextNode)) return true;
-		if (XdiAttributeMemberOrdered.isValid(contextNode)) return true;
+		if (XdiAttributeInstanceUnordered.isValid(contextNode)) return true;
+		if (XdiAttributeInstanceOrdered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -51,8 +51,8 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 		XdiAttribute xdiAttribute = null;
 
 		if ((xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode)) != null) return xdiAttribute;
-		if ((xdiAttribute = XdiAttributeMemberUnordered.fromContextNode(contextNode)) != null) return xdiAttribute;
-		if ((xdiAttribute = XdiAttributeMemberOrdered.fromContextNode(contextNode)) != null) return xdiAttribute;
+		if ((xdiAttribute = XdiAttributeInstanceUnordered.fromContextNode(contextNode)) != null) return xdiAttribute;
+		if ((xdiAttribute = XdiAttributeInstanceOrdered.fromContextNode(contextNode)) != null) return xdiAttribute;
 
 		return null;
 	}
@@ -129,8 +129,8 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 		if (XDIarc == null) throw new NullPointerException();
 
 		if (XdiAttributeSingleton.isValidXDIArc(XDIarc)) return true; 
-		if (XdiAttributeMemberUnordered.isValidXDIArc(XDIarc)) return true;
-		if (XdiAttributeMemberOrdered.isValidXDIArc(XDIarc)) return true;
+		if (XdiAttributeInstanceUnordered.isValidXDIArc(XDIarc)) return true;
+		if (XdiAttributeInstanceOrdered.isValidXDIArc(XDIarc)) return true;
 
 		return false;
 	}

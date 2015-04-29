@@ -1,2 +1,2 @@
-=sender[$msg]!1/$do/(=a/=x)$do
-=sender[$msg]!1$do/$get/=a=b=c=d=e
+=sender[$msg]*!1/$do/(=a/=x)$do
+=sender[$msg]*!1$do/$get/=a=b=c=d=e

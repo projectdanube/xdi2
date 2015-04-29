@@ -128,6 +128,8 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 				false, 
 				false, 
 				false, 
+				false, 
+				false, 
 				null, 
 				XDIXRef.fromComponents(
 						XDIConstants.XS_ROOT, 

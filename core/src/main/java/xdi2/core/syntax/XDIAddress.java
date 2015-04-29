@@ -37,6 +37,10 @@ public final class XDIAddress extends XDIIdentifier {
 		return new XDIAddress(string, XDIarcs);
 	}
 
+	/*
+	 * Factory methods
+	 */
+
 	public static XDIAddress fromComponents(List<XDIArc> XDIarcs) {
 
 		return fromComponents(null, XDIarcs);
@@ -46,6 +50,10 @@ public final class XDIAddress extends XDIIdentifier {
 
 		return new XDIAddress(XDIarc.toString(), Collections.singletonList(XDIarc));
 	}
+
+	/*
+	 * Getters
+	 */
 
 	public List<XDIArc> getXDIArcs() {
 

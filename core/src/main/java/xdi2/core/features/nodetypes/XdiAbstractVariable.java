@@ -36,22 +36,22 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 		if (XdiInnerRoot.Variable.isValid(contextNode)) return true; 
 		if (XdiEntityCollection.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeCollection.Variable.isValid(contextNode)) return true; 
-		if (XdiEntityMemberOrdered.Variable.isValid(contextNode)) return true; 
-		if (XdiEntityMemberUnordered.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityInstanceOrdered.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityInstanceUnordered.Variable.isValid(contextNode)) return true; 
 		if (XdiEntitySingleton.Variable.isValid(contextNode)) return true; 
-		if (XdiAttributeMemberOrdered.Variable.isValid(contextNode)) return true; 
-		if (XdiAttributeMemberUnordered.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeInstanceOrdered.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeInstanceUnordered.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeSingleton.Variable.isValid(contextNode)) return true; 
 
 		if (XdiPeerRoot.Definition.Variable.isValid(contextNode)) return true; 
 		if (XdiInnerRoot.Definition.Variable.isValid(contextNode)) return true; 
 		if (XdiEntityCollection.Definition.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeCollection.Definition.Variable.isValid(contextNode)) return true; 
-		if (XdiEntityMemberOrdered.Definition.Variable.isValid(contextNode)) return true; 
-		if (XdiEntityMemberUnordered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityInstanceOrdered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiEntityInstanceUnordered.Definition.Variable.isValid(contextNode)) return true; 
 		if (XdiEntitySingleton.Definition.Variable.isValid(contextNode)) return true; 
-		if (XdiAttributeMemberOrdered.Definition.Variable.isValid(contextNode)) return true; 
-		if (XdiAttributeMemberUnordered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeInstanceOrdered.Definition.Variable.isValid(contextNode)) return true; 
+		if (XdiAttributeInstanceUnordered.Definition.Variable.isValid(contextNode)) return true; 
 		if (XdiAttributeSingleton.Definition.Variable.isValid(contextNode)) return true; 
 
 		return false;
@@ -74,22 +74,22 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 		if ((xdiVariable = XdiInnerRoot.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiEntityCollection.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiAttributeCollection.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiEntityMemberOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiEntityMemberUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityInstanceOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityInstanceUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiEntitySingleton.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiAttributeMemberOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiAttributeMemberUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeInstanceOrdered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeInstanceUnordered.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiAttributeSingleton.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 
 		if ((xdiVariable = XdiPeerRoot.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiInnerRoot.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiEntityCollection.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiAttributeCollection.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiEntityMemberOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiEntityMemberUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityInstanceOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiEntityInstanceUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiEntitySingleton.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiAttributeMemberOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
-		if ((xdiVariable = XdiAttributeMemberUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeInstanceOrdered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
+		if ((xdiVariable = XdiAttributeInstanceUnordered.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 		if ((xdiVariable = XdiAttributeSingleton.Definition.Variable.fromContextNode(contextNode)) != null) return xdiVariable;
 
 		return null;

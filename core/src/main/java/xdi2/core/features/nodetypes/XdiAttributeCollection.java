@@ -15,13 +15,13 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> implements XdiCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeMemberUnordered, XdiAttributeMemberOrdered, XdiAttributeMember> {
+public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance> implements XdiCollection<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance> {
 
 	private static final long serialVersionUID = -8518618921427437445L;
 
 	protected XdiAttributeCollection(ContextNode contextNode) {
 
-		super(contextNode, XdiAttributeCollection.class, XdiAttributeMemberUnordered.class, XdiAttributeMemberOrdered.class, XdiAttributeMember.class);
+		super(contextNode, XdiAttributeCollection.class, XdiAttributeInstanceUnordered.class, XdiAttributeInstanceOrdered.class, XdiAttributeInstance.class);
 	}
 
 	/*
@@ -62,6 +62,46 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 	public static XdiAttributeCollection fromXDIAddress(XDIAddress XDIaddress) {
 
 		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
+	}
+
+	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public XdiAttributeInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberUnordered(true, immutable, relative);
+	}
+
+	@Override
+	public XdiAttributeInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.setXdiMemberUnordered(true, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiAttributeInstanceUnordered getXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+
+		return super.getXdiMemberUnordered(true, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative) {
+
+		return super.setXdiMemberOrdered(true, immutable, relative);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.setXdiMemberOrdered(true, immutable, relative, index);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered getXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+
+		return super.getXdiMemberOrdered(true, immutable, relative, index);
 	}
 
 	/*

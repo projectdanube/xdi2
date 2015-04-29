@@ -9,11 +9,11 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQI> implements XdiMember<EQC, EQI, C, U, O, I> {
+public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQI> implements XdiMember<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = 3673396905245169194L;
 
-	protected XdiAbstractMember(ContextNode contextNode) {
+	protected XdiAbstractInstance(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -31,8 +31,8 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 
 		if (contextNode == null) throw new NullPointerException();
 
-		if (XdiAbstractMemberUnordered.isValid(contextNode)) return true;
-		if (XdiAbstractMemberOrdered.isValid(contextNode)) return true;
+		if (XdiAbstractInstanceUnordered.isValid(contextNode)) return true;
+		if (XdiAbstractInstanceOrdered.isValid(contextNode)) return true;
 
 		return false;
 	}
@@ -48,8 +48,8 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 
 		XdiMember<?, ?, ?, ?, ?, ?> xdiMember = null;
 
-		if ((xdiMember = XdiAbstractMemberUnordered.fromContextNode(contextNode)) != null) return xdiMember;
-		if ((xdiMember = XdiAbstractMemberOrdered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiMember = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiMember;
 
 		return null;
 	}
@@ -67,8 +67,8 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiAbstractMemberUnordered.isValidXDIArc(XDIarc, clazz)) return true; 
-		if (XdiAbstractMemberOrdered.isValidXDIArc(XDIarc, clazz)) return true;
+		if (XdiAbstractInstanceUnordered.isValidXDIArc(XDIarc, clazz)) return true; 
+		if (XdiAbstractInstanceOrdered.isValidXDIArc(XDIarc, clazz)) return true;
 
 		return false;
 	}
@@ -86,7 +86,7 @@ public abstract class XdiAbstractMember<EQC extends XdiCollection<EQC, EQI, C, U
 				@Override
 				public XdiMember<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
-					return XdiAbstractMember.fromContextNode(contextNode);
+					return XdiAbstractInstance.fromContextNode(contextNode);
 				}
 			});
 		}

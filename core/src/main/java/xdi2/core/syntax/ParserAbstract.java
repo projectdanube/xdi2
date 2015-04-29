@@ -14,9 +14,9 @@ public abstract class ParserAbstract implements Parser {
 		return XDIAddress.fromComponents(string, arcs);
 	}
 
-	protected XDIArc newXDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, String literal, XDIXRef xref) {
+	protected XDIArc newXDIArc(String string, Character cs, boolean variable, boolean definition, boolean collection, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return XDIArc.fromComponents(string, cs, variable, definition, collection, attribute, literal, xref);
+		return XDIArc.fromComponents(string, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
 
 	protected XDIXRef newXDIXRef(String string, String xs, XDIAddress XDIaddress, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {

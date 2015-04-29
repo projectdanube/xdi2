@@ -14,11 +14,11 @@ import xdi2.core.util.iterators.NotNullIterator;
  * 
  * @author markus
  */
-public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemberOrdered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityMemberUnordered, XdiEntityMemberOrdered, XdiEntityMember>, XdiEntityMember {
+public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMemberOrdered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance>, XdiEntityInstance {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
-	protected XdiEntityMemberOrdered(ContextNode contextNode) {
+	protected XdiEntityInstanceOrdered(ContextNode contextNode) {
 
 		super(contextNode);
 	}
@@ -37,7 +37,8 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 		if (contextNode == null) throw new NullPointerException();
 
 		if (contextNode.getXDIArc() == null || ! isValidXDIArc(contextNode.getXDIArc())) return false;
-		if (contextNode.getContextNode() == null || ! XdiEntityCollection.isValid(contextNode.getContextNode())) return false;
+		if (contextNode.getContextNode() != null && XdiAttributeCollection.isValid(contextNode.getContextNode())) return false;
+		if (contextNode.getContextNode() != null && XdiAbstractAttribute.isValid(contextNode.getContextNode())) return false;
 
 		return true;
 	}
@@ -47,7 +48,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 	 * @param contextNode The context node that is an XDI ordered entity member.
 	 * @return The XDI ordered entity member.
 	 */
-	public static XdiEntityMemberOrdered fromContextNode(ContextNode contextNode) {
+	public static XdiEntityInstanceOrdered fromContextNode(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
 
@@ -56,10 +57,10 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 		if (contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Definition.Variable(contextNode);
 		if (contextNode.getXDIArc().isDefinition() && ! contextNode.getXDIArc().isVariable()) return new Definition(contextNode);
 		if (! contextNode.getXDIArc().isDefinition() && contextNode.getXDIArc().isVariable()) return new Variable(contextNode);
-		return new XdiEntityMemberOrdered(contextNode);
+		return new XdiEntityInstanceOrdered(contextNode);
 	}
 
-	public static XdiEntityMemberOrdered fromXDIAddress(XDIAddress XDIaddress) {
+	public static XdiEntityInstanceOrdered fromXDIAddress(XDIAddress XDIaddress) {
 
 		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
@@ -82,11 +83,16 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal) {
+
+		return XdiAbstractInstanceOrdered.createXDIArc(false, immutable, relative, literal);
+	}
+
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XdiAbstractMemberOrdered.isValidXDIArc(XDIarc, XdiEntityCollection.class)) return false;
+		if (! XdiAbstractInstanceOrdered.isValidXDIArc(XDIarc, XdiEntityCollection.class)) return false;
 
 		return true;
 	}
@@ -95,7 +101,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 	 * Definition and Variable classes
 	 */
 
-	public static class Definition extends XdiEntityMemberOrdered implements XdiDefinition<XdiEntity> {
+	public static class Definition extends XdiEntityInstanceOrdered implements XdiDefinition<XdiEntity> {
 
 		private static final long serialVersionUID = 2573019454800317427L;
 
@@ -106,7 +112,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return XdiEntityMemberOrdered.isValid(contextNode) &&
+			return XdiEntityInstanceOrdered.isValid(contextNode) &&
 					contextNode.getXDIArc().isDefinition() &&
 					! contextNode.getXDIArc().isVariable();
 		}
@@ -131,7 +137,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 
 			public static boolean isValid(ContextNode contextNode) {
 
-				return XdiEntityMemberOrdered.isValid(contextNode) &&
+				return XdiEntityInstanceOrdered.isValid(contextNode) &&
 						contextNode.getXDIArc().isDefinition() &&
 						contextNode.getXDIArc().isVariable();
 			}
@@ -147,7 +153,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 		}
 	}
 
-	public static class Variable extends XdiEntityMemberOrdered implements XdiVariable<XdiEntity> {
+	public static class Variable extends XdiEntityInstanceOrdered implements XdiVariable<XdiEntity> {
 
 		private static final long serialVersionUID = -1763609127063056015L;
 
@@ -158,7 +164,7 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 
 		public static boolean isValid(ContextNode contextNode) {
 
-			return XdiEntityMemberOrdered.isValid(contextNode) &&
+			return XdiEntityInstanceOrdered.isValid(contextNode) &&
 					! contextNode.getXDIArc().isDefinition() &&
 					contextNode.getXDIArc().isVariable();
 		}
@@ -177,16 +183,16 @@ public class XdiEntityMemberOrdered extends XdiAbstractEntity implements XdiMemb
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityMemberOrderedIterator extends NotNullIterator<XdiEntityMemberOrdered> {
+	public static class MappingContextNodeXdiEntityMemberOrderedIterator extends NotNullIterator<XdiEntityInstanceOrdered> {
 
 		public MappingContextNodeXdiEntityMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiEntityMemberOrdered> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiEntityInstanceOrdered> (contextNodes) {
 
 				@Override
-				public XdiEntityMemberOrdered map(ContextNode contextNode) {
+				public XdiEntityInstanceOrdered map(ContextNode contextNode) {
 
-					return XdiEntityMemberOrdered.fromContextNode(contextNode);
+					return XdiEntityInstanceOrdered.fromContextNode(contextNode);
 				}
 			});
 		}

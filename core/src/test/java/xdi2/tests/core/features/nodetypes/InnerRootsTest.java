@@ -10,7 +10,7 @@ public class InnerRootsTest extends TestCase {
 	public void testInnerRootAddresses() throws Exception {
 
 		assertFalse(XdiInnerRoot.isValidXDIArc(XDIArc.create("")));
-		assertFalse(XdiInnerRoot.isValidXDIArc(XDIArc.create("([=]!1111!23)")));
+		assertFalse(XdiInnerRoot.isValidXDIArc(XDIArc.create("(=!1111*!23)")));
 		assertTrue(XdiInnerRoot.isValidXDIArc(XDIArc.create("(=a*b/+c*d)")));
 
 		assertEquals(XdiInnerRoot.createInnerRootXDIArc(XDIAddress.create("=a*b"), XDIAddress.create("+c*d")), XDIArc.create("(=a*b/+c*d)"));

@@ -13,7 +13,7 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeMember;
+import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.io.Normalization;
 import xdi2.core.util.CopyUtil;
@@ -48,9 +48,9 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
 			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION))) return false;
-		} else if (xdiAttribute instanceof XdiAttributeMember) {
+		} else if (xdiAttribute instanceof XdiAttributeInstance) {
 
-			if (! ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION))) return false;
+			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION))) return false;
 		} else {
 
 			return false;

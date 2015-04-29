@@ -12,7 +12,7 @@ import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeMember;
+import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
 import xdi2.core.io.Normalization;
@@ -49,9 +49,9 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
 			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
-		} else if (xdiAttribute instanceof XdiAttributeMember) {
+		} else if (xdiAttribute instanceof XdiAttributeInstance) {
 
-			if (! ((XdiAttributeMember) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
+			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
 		} else {
 
 			return false;

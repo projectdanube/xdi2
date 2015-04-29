@@ -49,7 +49,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l1.getRequestingAuthority(), XDIAddress.create("=alice"));
 		assertEquals(l1.getTemplateAuthorityAndId(), XDIAddress.create("=alice#registration"));
 
-		ContextNode c2 = graph.setDeepContextNode(XDIAddress.create("(=bob/=alice)=alice#registration[$do]!:uuid:0e43479d-834e-085f-3e8a-faa060afe9cf"));
+		ContextNode c2 = graph.setDeepContextNode(XDIAddress.create("(=bob/=alice)=alice#registration[$do]*!:uuid:0e43479d-834e-085f-3e8a-faa060afe9cf"));
 		GenericLinkContract l2 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
 
 		assertNotNull(l2);
@@ -57,21 +57,21 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l2.getRequestingAuthority(), XDIAddress.create("=alice"));
 		assertEquals(l2.getTemplateAuthorityAndId(), XDIAddress.create("=alice#registration"));
 
-		ContextNode c3 = graph.setDeepContextNode(XDIAddress.create("([=]!1111/[=]!2222)[=]!2222#registration$do"));
+		ContextNode c3 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration$do"));
 		GenericLinkContract l3 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c3));
 
 		assertNotNull(l3);
-		assertEquals(l3.getAuthorizingAuthority(), XDIAddress.create("[=]!1111"));
-		assertEquals(l3.getRequestingAuthority(), XDIAddress.create("[=]!2222"));
-		assertEquals(l3.getTemplateAuthorityAndId(), XDIAddress.create("[=]!2222#registration"));
+		assertEquals(l3.getAuthorizingAuthority(), XDIAddress.create("=!1111"));
+		assertEquals(l3.getRequestingAuthority(), XDIAddress.create("=!2222"));
+		assertEquals(l3.getTemplateAuthorityAndId(), XDIAddress.create("=!2222#registration"));
 
-		ContextNode c4 = graph.setDeepContextNode(XDIAddress.create("([=]!1111/[=]!2222)[=]!2222#registration[$do]!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
+		ContextNode c4 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration[$do]*!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
 		GenericLinkContract l4 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c4));
 
 		assertNotNull(l4);
-		assertEquals(l4.getAuthorizingAuthority(), XDIAddress.create("[=]!1111"));
-		assertEquals(l4.getRequestingAuthority(), XDIAddress.create("[=]!2222"));
-		assertEquals(l4.getTemplateAuthorityAndId(), XDIAddress.create("[=]!2222#registration"));
+		assertEquals(l4.getAuthorizingAuthority(), XDIAddress.create("=!1111"));
+		assertEquals(l4.getRequestingAuthority(), XDIAddress.create("=!2222"));
+		assertEquals(l4.getTemplateAuthorityAndId(), XDIAddress.create("=!2222#registration"));
 
 		ContextNode c5 = graph.setDeepContextNode(XDIAddress.create("(#friend/$public)$do"));
 		GenericLinkContract l5 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c5));
