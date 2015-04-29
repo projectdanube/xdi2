@@ -102,7 +102,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[+]!:uuid:9999" />
+					<property name="bootstrapOwner" value="+!:uuid:9999" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>+testcsp</value>
@@ -121,7 +121,7 @@
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
-									<entry key="[+]!:uuid:9999" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
+									<entry key="+!:uuid:9999" value="xdi2-digest:00000000-0000-0000-0000-000000000000:a7292f2347aef29a9e4c05d35764019106143a339b6e9bb39faee53103e1d6f55e49213d77d16a326a91bab0fc6885779d04e2e4470125720860cf54f872b3bb" />
 								</util:map>
 							</property>
 						</bean>
@@ -176,7 +176,7 @@
 	</bean>
 
 	<bean id="graph4" factory-bean="graphfactory4" factory-method="openGraph">
-		<constructor-arg><value>([=]!:uuid:1111)</value></constructor-arg>
+		<constructor-arg><value>(=!:uuid:1111)</value></constructor-arg>
 	</bean>
 
 	<bean name="/=alice" class="xdi2.messaging.target.impl.graph.GraphMessagingTarget">
@@ -184,7 +184,7 @@
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
-					<property name="bootstrapOwner" value="[=]!:uuid:1111" />
+					<property name="bootstrapOwner" value="=!:uuid:1111" />
 					<property name="bootstrapOwnerSynonyms">
 						<util:list>
 							<value>=alice</value>
@@ -203,8 +203,8 @@
 					</property>
 					<property name="bootstrapMessageEnvelope">
 						<value>
-							($anon[$msg]!1$do/$do$keypair){$self}$msg$encrypt$keypair/$is#/$rsa$2048
-							($anon[$msg]!1$do/$do$keypair){$self}$msg$sig$keypair/$is#/$rsa$2048
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$encrypt$keypair/$is#/$rsa$2048
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$sig$keypair/$is#/$rsa$2048
 						</value>
 					</property>
 				</bean>
@@ -217,7 +217,7 @@
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
-									<entry key="[=]!:uuid:1111" value="xdi2-digest:ec136367-5969-4e69-9c8a-483e330c317f:8a447e411ad21477b67b8793e5be16749416b996c61a40476c17231be4d9390a8e703b87cf8750b66fb541f208799d3b564ee6ed33cae8f9f84ce39c1527e62e" />
+									<entry key="=!:uuid:1111" value="xdi2-digest:ec136367-5969-4e69-9c8a-483e330c317f:8a447e411ad21477b67b8793e5be16749416b996c61a40476c17231be4d9390a8e703b87cf8750b66fb541f208799d3b564ee6ed33cae8f9f84ce39c1527e62e" />
 								</util:map>
 							</property>
 						</bean>

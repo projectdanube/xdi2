@@ -65,7 +65,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l3.getRequestingAuthority(), XDIAddress.create("=!2222"));
 		assertEquals(l3.getTemplateAuthorityAndId(), XDIAddress.create("=!2222#registration"));
 
-		ContextNode c4 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration[$do]!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
+		ContextNode c4 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration[$do]*!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
 		GenericLinkContract l4 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c4));
 
 		assertNotNull(l4);
