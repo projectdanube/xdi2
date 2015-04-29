@@ -1,3 +1,3 @@
-=*!4444[$msg]*!1/$is()/(=!:uuid:1111)
-=*!4444[$msg]*!1/$do/(=!:uuid:1111/#friend)$do
-=*!4444[$msg]*!1$do/$get/=!:uuid:1111<#email>
+=!4444[$msg]*!1/$is()/(=!:uuid:1111)
+=!4444[$msg]*!1/$do/(=!:uuid:1111/#friend)$do
+=!4444[$msg]*!1$do/$get/=!:uuid:1111<#email>
