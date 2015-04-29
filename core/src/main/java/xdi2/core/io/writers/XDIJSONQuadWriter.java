@@ -37,7 +37,7 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "XDI/JSON/QUAD";
 	public static final String FILE_EXTENSION = "json";
-	public static final MimeType MIME_TYPE = null;
+	public static final MimeType MIME_TYPE = new MimeType("application/xdi+json");
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 

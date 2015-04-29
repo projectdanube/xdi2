@@ -44,12 +44,12 @@ public final class XDIWriterRegistry {
 
 	private static String writerClassNames[] = {
 
-		XDIJSONWriter.class.getName(),// first one in the array is the default
+		XDIJSONQuadWriter.class.getName(),// first one in the array is the default
 		XDIDisplayWriter.class.getName(),
+		XDIJSONWriter.class.getName(),
 		XDIJSONTREEWriter.class.getName(),
 		XDIJSONPARSEWriter.class.getName(),
 		XDIJSONTripleWriter.class.getName(),
-		XDIJSONQuadWriter.class.getName(),
 		XDIKeyValueWriter.class.getName(),
 		XDIHTMLWriter.class.getName()
 	};
