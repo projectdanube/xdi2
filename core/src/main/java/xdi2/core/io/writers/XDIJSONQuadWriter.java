@@ -18,9 +18,11 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiCommonVariable;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.impl.AbstractLiteralNode;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIAddressUtil;
 
 import com.google.gson.Gson;
@@ -56,6 +58,20 @@ public class XDIJSONQuadWriter extends AbstractXDIWriter {
 	@SuppressWarnings("resource")
 	@Override
 	public Writer write(Graph graph, Writer writer) throws IOException {
+
+		// write ordered?
+
+		Graph orderedGraph = null;
+
+		if (this.isWriteOrdered()) {
+
+			MemoryGraphFactory memoryGraphFactory = new MemoryGraphFactory();
+			memoryGraphFactory.setSortmode(MemoryGraphFactory.SORTMODE_ALPHA);
+			orderedGraph = memoryGraphFactory.openGraph();
+			CopyUtil.copyGraph(graph, orderedGraph, null);
+
+			graph = orderedGraph;
+		}
 
 		// write
 
