@@ -134,7 +134,7 @@ public final class XRI2Util {
 
 		if (XDIarc == null) return null;
 
-		if (! XdiAttributeSingleton.isValidXDIArc(XDIarc)) XDIarc = XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIarc);
+		if (! XdiAttributeSingleton.isValidXDIArc(XDIarc)) XDIarc = XdiAttributeSingleton.createXDIArc(XDIarc);
 
 		return XDIarc;
 	}

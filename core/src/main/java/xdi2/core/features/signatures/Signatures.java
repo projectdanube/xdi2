@@ -52,9 +52,9 @@ public class Signatures {
 		XdiAttribute signatureXdiAttribute;
 
 		if (singleton)
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
 		else
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(true, false);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiMemberUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
 		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);
@@ -73,14 +73,14 @@ public class Signatures {
 
 		// add signature that is an XDI attribute singleton
 
-		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 		Signature<?, ?> signatureSingleton = signatureAttributeSingleton == null ? null : Signature.fromXdiAttribute(signatureAttributeSingleton);
 
 		if (signatureSingleton != null) iterators.add(new SingleItemIterator<Signature<?, ?>> (signatureSingleton));
 
 		// add signatures that are XDI attribute instances
 
-		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiMembersDeref()));
 

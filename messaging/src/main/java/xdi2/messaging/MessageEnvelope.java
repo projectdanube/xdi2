@@ -148,7 +148,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		if (senderXDIAddress == null) senderXDIAddress = XDIMessagingConstants.XDI_ADD_ANONYMOUS;
 
-		XDIAddress messageCollectionXDIAddress = XDIAddress.create(senderXDIAddress.toString() + XdiEntityCollection.createEntityCollectionXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
+		XDIAddress messageCollectionXDIAddress = XDIAddress.create(senderXDIAddress.toString() + XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
 		ContextNode contextNode = create ? this.getGraph().setDeepContextNode(messageCollectionXDIAddress) : this.getGraph().getDeepContextNode(messageCollectionXDIAddress, true);
 
 		if (contextNode == null) return null;

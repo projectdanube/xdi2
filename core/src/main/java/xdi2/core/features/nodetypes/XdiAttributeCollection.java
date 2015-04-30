@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -108,23 +109,28 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createAttributeCollectionXDIArc(XDIArc XDIarc, boolean variable) {
+	public static XDIArc createXDIArc(Character cs, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		StringBuffer buffer = new StringBuffer();
-		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
-		buffer.append(XDIConstants.XS_COLLECTION.charAt(0));
-		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(0));
-		buffer.append(XDIarc.toString());
-		buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
-		buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
-		if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(1));
-
-		return XDIArc.create(buffer.toString());
+		return XDIArc.fromComponents(
+				cs, 
+				false, 
+				false, 
+				true, 
+				true, 
+				immutable, 
+				relative, 
+				literal, 
+				xref);
 	}
 
-	public static XDIArc createAttributeCollectionXDIArc(XDIArc XDIarc) {
+	public static XDIArc createXDIArc(XDIArc XDIarc) {
 
-		return createAttributeCollectionXDIArc(XDIarc, false);
+		return createXDIArc(
+				XDIarc.getCs(), 
+				XDIarc.isImmutable(), 
+				XDIarc.isRelative(), 
+				XDIarc.getLiteral(), 
+				XDIarc.getXRef());
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {

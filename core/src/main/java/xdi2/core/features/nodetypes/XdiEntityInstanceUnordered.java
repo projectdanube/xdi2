@@ -3,8 +3,10 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -83,16 +85,34 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	 * Methods for arcs
 	 */
 
-	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal) {
+	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return XdiAbstractInstanceUnordered.createXDIArc(false, immutable, relative, literal);
+		return XDIArc.fromComponents(
+				XDIConstants.CS_INSTANCE_UNORDERED, 
+				false, 
+				false, 
+				false, 
+				false, 
+				immutable, 
+				relative, 
+				literal, 
+				xref);
+	}
+
+	public static XDIArc createXDIArc(XDIArc XDIarc) {
+
+		return createXDIArc(
+				XDIarc.isImmutable(), 
+				XDIarc.isRelative(), 
+				XDIarc.getLiteral(), 
+				XDIarc.getXRef());
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (! XdiAbstractInstanceUnordered.isValidXDIArc(XDIarc, XdiEntityCollection.class)) return false;
+		if (! XdiAbstractInstanceUnordered.isValidXDIArc(XDIarc, false)) return false;
 
 		return true;
 	}

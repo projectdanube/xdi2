@@ -72,7 +72,7 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XDIArc XDIarc = Dictionary.nativeIdentifierToInstanceXDIArc(key);
 
-				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createAttributeSingletonXDIArc(XDIarc), true);
+				XdiAttributeSingleton xdiAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIarc), true);
 				xdiAttributeSingleton.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 		}
@@ -91,19 +91,19 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 			if (jsonElement instanceof JsonObject) {
 
-				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createEntityCollectionXDIArc(XDIarc), true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIarc), true);
 
 				XdiEntityInstanceOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(false, false, index);
 				readJsonObject(xdiEntityMember, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
-				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createEntityCollectionXDIArc(XDIarc), true);
+				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIarc), true);
 
 				XdiEntityInstanceOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(false, false, index);
 				readJsonArray(xdiEntityMember, null, (JsonArray) jsonElement);
 			} else {
 
-				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createAttributeCollectionXDIArc(XDIarc), true);
+				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIarc), true);
 
 				XdiAttributeInstanceOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(false, false, index);
 				xdiAttributeMember.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));

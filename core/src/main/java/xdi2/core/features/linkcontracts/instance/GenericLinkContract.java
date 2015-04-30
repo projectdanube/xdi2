@@ -140,7 +140,7 @@ public class GenericLinkContract extends LinkContract {
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
 
 		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_DO);
-		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createEntityCollectionXDIArc(XDILinkContractConstants.XDI_ARC_DO));
+		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createXDIArc(XDILinkContractConstants.XDI_ARC_DO));
 
 		XDIAddress templateAuthorityAndId = XDIAddressUtil.subXDIAddress(XDIaddress, 1, index);
 		if (XDIConstants.XDI_ADD_ROOT.equals(templateAuthorityAndId)) return null;

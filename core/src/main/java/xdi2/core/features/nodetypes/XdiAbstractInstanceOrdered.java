@@ -78,27 +78,24 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 				null);
 	}
 
-	public static boolean isValidXDIArc(XDIArc XDIarc, Class<? extends XdiCollection<?, ?, ?, ?, ?, ?>> clazz) {
+	public static boolean isValidXDIArc(XDIArc XDIarc, boolean attribute) {
 
 		if (XDIarc == null) throw new NullPointerException();
 
-		if (XdiEntityCollection.class.isAssignableFrom(clazz)) {
+		if (! attribute) {
 
 			if (! XDIConstants.CS_INSTANCE_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
-		} else if (XdiAttributeCollection.class.isAssignableFrom(clazz)) {
+		} else {
 
 			if (! XDIConstants.CS_INSTANCE_ORDERED.equals(XDIarc.getCs())) return false;
 			if (XDIarc.isCollection()) return false;
 			if (! XDIarc.isAttribute()) return false;
 			if (! XDIarc.hasLiteral()) return false;
 			if (XDIarc.hasXRef()) return false;
-		} else {
-
-			throw new IllegalArgumentException("Unknown class for ordered member " + clazz.getName());
 		}
 
 		return true;

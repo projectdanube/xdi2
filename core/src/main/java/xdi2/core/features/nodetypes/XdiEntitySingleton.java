@@ -68,6 +68,10 @@ public class XdiEntitySingleton extends XdiAbstractEntity implements XdiSingleto
 	}
 
 	/*
+	 * Instance methods
+	 */
+
+	/*
 	 * Methods for arcs
 	 */
 
@@ -87,7 +91,12 @@ public class XdiEntitySingleton extends XdiAbstractEntity implements XdiSingleto
 
 	public static XDIArc createXDIArc(XDIArc XDIarc) {
 
-		return createXDIArc(XDIarc.getCs(), XDIarc.isImmutable(), XDIarc.isRelative(), XDIarc.getLiteral(), XDIarc.getXRef());
+		return createXDIArc(
+				XDIarc.getCs(), 
+				XDIarc.isImmutable(), 
+				XDIarc.isRelative(), 
+				XDIarc.getLiteral(), 
+				XDIarc.getXRef());
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
