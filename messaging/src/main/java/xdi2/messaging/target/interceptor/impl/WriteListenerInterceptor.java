@@ -36,7 +36,7 @@ public class WriteListenerInterceptor extends AbstractInterceptor<MessagingTarge
 
 	private static final Logger log = LoggerFactory.getLogger(WriteListenerInterceptor.class);
 
-	private Map<XDIAddress, Set<WriteListener>> writeListeners;
+	private final Map<XDIAddress, Set<WriteListener>> writeListeners;
 
 	public WriteListenerInterceptor() {
 
