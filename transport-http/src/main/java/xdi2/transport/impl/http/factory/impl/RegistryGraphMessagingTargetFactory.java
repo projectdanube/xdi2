@@ -38,23 +38,25 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	private Graph registryGraph;
 	private boolean defaultDisabled;
 	private String disabledError;
+	private String expiredError;
 
-	public RegistryGraphMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError) {
+	public RegistryGraphMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError, String expiredError) {
 
 		super();
 
 		this.registryGraph = registryGraph;
 		this.defaultDisabled = defaultDisabled;
 		this.disabledError = disabledError;
+		this.expiredError = expiredError;
 	}
 
 	public RegistryGraphMessagingTargetFactory() {
 
-		this(null, false, null);
+		this(null, false, null, null);
 	}
 
 	@Override
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -83,12 +85,21 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			return null;
 		}
 
-		// enabled or disabled?
+		// disabled?
 
-		if (! this.checkEnabled(ownerXdiPeerRoot) || this.checkExpired(ownerXdiPeerRoot)) {
+		if (checkDisabled && ! this.checkEnabled(ownerXdiPeerRoot)) {
 
-			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled or expired. Ignoring.");
+			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled. Ignoring.");
 			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
+			return null;
+		}
+
+		// expired?
+
+		if (checkExpired && this.checkExpired(ownerXdiPeerRoot)) {
+
+			log.warn("Peer root " + ownerXdiPeerRoot + " is expired. Ignoring.");
+			if (this.getExpiredError() != null) throw new Xdi2TransportException(this.getExpiredError());
 			return null;
 		}
 
@@ -110,7 +121,7 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -134,11 +145,24 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 			return null;
 		}
 
-		// enabled or disabled?
+		// disabled?
 
-		if (! this.checkEnabled(ownerXdiPeerRoot) || this.checkExpired(ownerXdiPeerRoot)) {
+		if (checkDisabled && ! this.checkEnabled(ownerXdiPeerRoot)) {
 
-			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled or expired. Going to unmount messaging target.");
+			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled. Going to unmount messaging target.");
+
+			// unmount the messaging target
+
+			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
+			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
+			return null;
+		}
+
+		// expired?
+
+		if (checkExpired && this.checkExpired(ownerXdiPeerRoot)) {
+
+			log.warn("Peer root " + ownerXdiPeerRoot + " is expired. Going to unmount messaging target.");
 
 			// unmount the messaging target
 
@@ -191,16 +215,6 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		return requestPath;
 	}
 
-	private boolean checkExpired(XdiPeerRoot ownerPeerRoot) throws Xdi2TransportException {
-
-		// expired?
-
-		Date expirationDate = Timestamps.getTimestamp(ownerPeerRoot, XDITimestampsConstants.XDI_ADD_AS_EXPIRATION);
-		if (expirationDate == null) return false;
-
-		return expirationDate.before(new Date());
-	}
-
 	private boolean checkEnabled(XdiPeerRoot ownerPeerRoot) throws Xdi2TransportException {
 
 		// enabled or disabled?
@@ -219,6 +233,16 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 		}
 
 		return false;
+	}
+
+	private boolean checkExpired(XdiPeerRoot ownerPeerRoot) throws Xdi2TransportException {
+
+		// expired?
+
+		Date expirationDate = Timestamps.getTimestamp(ownerPeerRoot, XDITimestampsConstants.XDI_ADD_AS_EXPIRATION);
+		if (expirationDate == null) return false;
+
+		return expirationDate.before(new Date());
 	}
 
 	/*
@@ -253,5 +277,15 @@ public class RegistryGraphMessagingTargetFactory extends PrototypingMessagingTar
 	public void setDisabledError(String disabledError) {
 
 		this.disabledError = disabledError;
+	}
+
+	public String getExpiredError() {
+
+		return this.expiredError;
+	}
+
+	public void setExpiredError(String expiredError) {
+
+		this.expiredError = expiredError;
 	}
 }

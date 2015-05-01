@@ -25,7 +25,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	private static final Logger log = LoggerFactory.getLogger(AnyGraphMessagingTargetFactory.class);
 
 	@Override
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -45,7 +45,7 @@ public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFa
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException {
+	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException {
 
 		return messagingTarget;
 	}

@@ -29,6 +29,9 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 	private static final Logger log = LoggerFactory.getLogger(HttpMessagingTargetRegistry.class);
 
+	public static final boolean DEFAULT_CHECKDISABLED = true;
+	public static final boolean DEFAULT_CHECKEXPIRED = true;
+
 	private Map<String, MessagingTargetMount> messagingTargetMounts;
 	private Map<String, MessagingTargetFactoryMount> messagingTargetFactoryMounts;
 
@@ -36,12 +39,20 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 	private WebSocketTransport webSocketTransport;
 
+	private boolean checkDisabled;
+	private boolean checkExpired;
+
 	public HttpMessagingTargetRegistry() {
 
 		this.messagingTargetMounts = new HashMap<String, MessagingTargetMount> ();
 		this.messagingTargetFactoryMounts = new HashMap<String, MessagingTargetFactoryMount> ();
 
 		this.applicationContext = null;
+
+		this.webSocketTransport = null;
+
+		this.checkDisabled = DEFAULT_CHECKDISABLED;
+		this.checkExpired = DEFAULT_CHECKEXPIRED;
 	}
 
 	@Override
@@ -313,12 +324,12 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 				// if we don't have a messaging target, see if the messaging target factory can create one
 
-				messagingTargetFactory.mountMessagingTarget(this, messagingTargetFactoryPath, requestPath);
+				messagingTargetFactory.mountMessagingTarget(this, messagingTargetFactoryPath, requestPath, this.isCheckDisabled(), this.isCheckExpired());
 			} else {
 
 				// if we do have a messaging target, see if the messaging target factory wants to modify or remove it
 
-				messagingTargetFactory.updateMessagingTarget(this, messagingTargetFactoryPath, requestPath, messagingTarget);
+				messagingTargetFactory.updateMessagingTarget(this, messagingTargetFactoryPath, requestPath, this.isCheckDisabled(), this.isCheckExpired(), messagingTarget);
 			}
 
 			// after the messaging target factory did its work, look for the messaging target again
@@ -477,6 +488,26 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	public void setWebSocketTransport(WebSocketTransport webSocketTransport) {
 
 		this.webSocketTransport = webSocketTransport;
+	}
+
+	public boolean isCheckDisabled() {
+
+		return this.checkDisabled;
+	}
+
+	public void setCheckDisabled(boolean checkDisabled) {
+
+		this.checkDisabled = checkDisabled;
+	}
+
+	public boolean isCheckExpired() {
+
+		return this.checkExpired;
+	}
+
+	public void setCheckExpired(boolean checkExpired) {
+
+		this.checkExpired = checkExpired;
 	}
 }
 
