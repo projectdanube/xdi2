@@ -623,6 +623,51 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $push operation and adds it to this XDI message.
+	 * @param targetXDIAddress The target address to which the operation applies.
+	 * @return The newly created $push operation.
+	 */
+	public PushOperation createPushOperation(XDIAddress targetXDIAddress) {
+
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_PUSH, targetXDIAddress);
+
+		return PushOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $push operation and adds it to this XDI message.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @return The newly created $push operation.
+	 */
+	public PushOperation createPushOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH, true);
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+
+		return PushOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $push operation and adds it to this XDI message.
+	 * @param targetXDIStatement The target statement to which the operation applies.
+	 * @return The newly created $push operation.
+	 */
+	public PushOperation createPushOperation(XDIStatement targetXDIStatement) {
+
+		return this.createPushOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
+	}
+
+	/**
+	 * Creates a new $push operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $push operation.
+	 */
+	public PushOperation createPushOperation(Graph targetGraph) {
+
+		return this.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
 	 * Creates a new $do operation and adds it to this XDI message.
 	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $do operation.
@@ -730,6 +775,19 @@ public final class Message implements Serializable, Comparable<Message> {
 		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_DEL);
 
 		return new MappingRelationDelOperationIterator(this, relations);
+	}
+
+	/**
+	 * Returns all XDI $push operations in this XDI message.
+	 * @return An iterator over all XDI $push operations.
+	 */
+	public ReadOnlyIterator<PushOperation> getPushOperations() {
+
+		// get all relations that are valid XDI $push operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_PUSH);
+
+		return new MappingRelationPushOperationIterator(this, relations);
 	}
 
 	/**
@@ -872,6 +930,21 @@ public final class Message implements Serializable, Comparable<Message> {
 				public DelOperation map(Relation relation) {
 
 					return DelOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationPushOperationIterator extends NotNullIterator<PushOperation> {
+
+		public MappingRelationPushOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, PushOperation> (relations) {
+
+				@Override
+				public PushOperation map(Relation relation) {
+
+					return PushOperation.fromMessageAndRelation(message, relation);
 				}
 			});
 		}
