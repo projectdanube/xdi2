@@ -13,6 +13,7 @@
 <meta name="keywords" content="iterator()">
 <meta name="keywords" content="stringList()">
 <meta name="keywords" content="findInterceptors()">
+<meta name="keywords" content="findInterceptor()">
 <meta name="keywords" content="clearDisabledForOperation()">
 <meta name="keywords" content="clearDisabledForMessage()">
 <meta name="keywords" content="clearDisabledForMessageEnvelope()">
@@ -189,34 +190,38 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Itera
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#clearDisabledForOperation(xdi2.messaging.Operation)">clearDisabledForOperation</a></strong>(<a href="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#findInterceptor(java.lang.Class)">findInterceptor</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#findInterceptors(java.lang.Class)">findInterceptors</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>&lt;T extends <a href="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</a>&lt;?&gt;&gt;&nbsp;<br>T</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#getInterceptor(java.lang.Class)">getInterceptor</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="class in xdi2.messaging.target.interceptor">InterceptorList</a>&lt;<a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="type parameter in InterceptorList">CONTAINER</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#instanceFor(xdi2.messaging.target.Prototype.PrototypingContext)">instanceFor</a></strong>(<a href="../../../../xdi2/messaging/target/Prototype.PrototypingContext.html" title="class in xdi2.messaging.target">Prototype.PrototypingContext</a>&nbsp;prototypingContext)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#isEmpty()">isEmpty</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</a>&lt;<a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html" title="type parameter in InterceptorList">CONTAINER</a>&gt;&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#iterator()">iterator</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#removeInterceptor(xdi2.messaging.target.interceptor.Interceptor)">removeInterceptor</a></strong>(<a href="../../../../xdi2/messaging/target/interceptor/Interceptor.html" title="interface in xdi2.messaging.target.interceptor">Interceptor</a>&lt;?&gt;&nbsp;interceptor)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#size()">size</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/interceptor/InterceptorList.html#stringList()">stringList</a></strong>()</code>&nbsp;</td>
 </tr>
@@ -353,6 +358,15 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Itera
 <pre>public&nbsp;&lt;T&gt;&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;T&gt;&nbsp;findInterceptors(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</pre>
 </li>
 </ul>
+<a name="findInterceptor(java.lang.Class)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>findInterceptor</h4>
+<pre>public&nbsp;&lt;T&gt;&nbsp;T&nbsp;findInterceptor(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</pre>
+</li>
+</ul>
 <a name="clearDisabledForOperation(xdi2.messaging.Operation)">
 <!--   -->
 </a>
@@ -462,6 +476,6 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Itera
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

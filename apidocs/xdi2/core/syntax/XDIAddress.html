@@ -13,6 +13,8 @@
 <meta name="keywords" content="getXDIArc()">
 <meta name="keywords" content="getFirstXDIArc()">
 <meta name="keywords" content="getLastXDIArc()">
+<meta name="keywords" content="getContextNodeXDIAddress()">
+<meta name="keywords" content="isLiteralNodeXDIAddress()">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -162,24 +164,32 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#fromComponents(java.util.List)">fromComponents</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;&nbsp;XDIarcs)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getContextNodeXDIAddress()">getContextNodeXDIAddress</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getFirstXDIArc()">getFirstXDIArc</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getLastXDIArc()">getLastXDIArc</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getNumXDIArcs()">getNumXDIArcs</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getXDIArc(int)">getXDIArc</a></strong>(int&nbsp;i)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#getXDIArcs()">getXDIArcs</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIAddress.html#isLiteralNodeXDIAddress()">isLiteralNodeXDIAddress</a></strong>()</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -276,10 +286,28 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <a name="getLastXDIArc()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getLastXDIArc</h4>
 <pre>public&nbsp;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;getLastXDIArc()</pre>
+</li>
+</ul>
+<a name="getContextNodeXDIAddress()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getContextNodeXDIAddress</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getContextNodeXDIAddress()</pre>
+</li>
+</ul>
+<a name="isLiteralNodeXDIAddress()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isLiteralNodeXDIAddress</h4>
+<pre>public&nbsp;boolean&nbsp;isLiteralNodeXDIAddress()</pre>
 </li>
 </ul>
 </li>
@@ -349,6 +377,6 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

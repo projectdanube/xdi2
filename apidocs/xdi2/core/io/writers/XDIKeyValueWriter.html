@@ -8,7 +8,6 @@
 <meta name="keywords" content="FORMAT_NAME">
 <meta name="keywords" content="FILE_EXTENSION">
 <meta name="keywords" content="MIME_TYPE">
-<meta name="keywords" content="init()">
 <meta name="keywords" content="write()">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
@@ -42,7 +41,7 @@
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers"><span class="strong">Prev Class</span></a></li>
-<li>Next Class</li>
+<li><a href="../../../../xdi2/core/io/writers/XDIRDFJSONLDWriter.html" title="class in xdi2.core.io.writers"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/io/writers/XDIKeyValueWriter.html" target="_top">Frames</a></li>
@@ -183,10 +182,6 @@ extends <a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class i
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIKeyValueWriter.html#init()">init</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIKeyValueWriter.html#write(xdi2.core.Graph, java.io.Writer)">write</a></strong>(<a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph,
      <a href="http://download.oracle.com/javase/6/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer)</code>
@@ -199,7 +194,7 @@ extends <a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class i
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.io.<a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a></h3>
-<code><a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getFileExtension()">getFileExtension</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getFormat()">getFormat</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getMimeType()">getMimeType</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsFileExtension(java.lang.String)">supportsFileExtension</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsFormat(java.lang.String)">supportsFormat</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsMimeType(xdi2.core.io.MimeType)">supportsMimeType</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.ContextNode, java.io.OutputStream)">write</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.ContextNode, java.io.Writer)">write</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.Graph, java.io.OutputStream)">write</a></code></li>
+<code><a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getFileExtension()">getFileExtension</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getFormat()">getFormat</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#getMimeType()">getMimeType</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#init()">init</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#isWriteHtml()">isWriteHtml</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#isWriteImplied()">isWriteImplied</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#isWriteOrdered()">isWriteOrdered</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#isWritePretty()">isWritePretty</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsFileExtension(java.lang.String)">supportsFileExtension</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsFormat(java.lang.String)">supportsFormat</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#supportsMimeType(xdi2.core.io.MimeType)">supportsMimeType</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.ContextNode, java.io.OutputStream)">write</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.ContextNode, java.io.Writer)">write</a>, <a href="../../../../xdi2/core/io/AbstractXDIWriter.html#write(xdi2.core.Graph, java.io.OutputStream)">write</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -275,19 +270,6 @@ extends <a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class i
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="init()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>init</h4>
-<pre>protected&nbsp;void&nbsp;init()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/io/AbstractXDIWriter.html#init()">init</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a></code></dd>
-</dl>
-</li>
-</ul>
 <a name="write(xdi2.core.Graph, java.io.Writer)">
 <!--   -->
 </a>
@@ -332,7 +314,7 @@ extends <a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class i
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers"><span class="strong">Prev Class</span></a></li>
-<li>Next Class</li>
+<li><a href="../../../../xdi2/core/io/writers/XDIRDFJSONLDWriter.html" title="class in xdi2.core.io.writers"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/io/writers/XDIKeyValueWriter.html" target="_top">Frames</a></li>
@@ -372,6 +354,6 @@ extends <a href="../../../../xdi2/core/io/AbstractXDIWriter.html" title="class i
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -15,6 +15,10 @@
 <meta name="keywords" content="supportsFormat()">
 <meta name="keywords" content="supportsFileExtension()">
 <meta name="keywords" content="supportsMimeType()">
+<meta name="keywords" content="isWriteImplied()">
+<meta name="keywords" content="isWriteOrdered()">
+<meta name="keywords" content="isWritePretty()">
+<meta name="keywords" content="isWriteHtml()">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -110,7 +114,7 @@
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../xdi2/core/io/writers/XDIDisplayWriter.html" title="class in xdi2.core.io.writers">XDIDisplayWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONPARSEWriter.html" title="class in xdi2.core.io.writers">XDIJSONPARSEWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONTREEWriter.html" title="class in xdi2.core.io.writers">XDIJSONTREEWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers">XDIJSONWriter</a>, <a href="../../../xdi2/core/io/writers/XDIKeyValueWriter.html" title="class in xdi2.core.io.writers">XDIKeyValueWriter</a></dd>
+<dd><a href="../../../xdi2/core/io/writers/XDIDisplayWriter.html" title="class in xdi2.core.io.writers">XDIDisplayWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONPARSEWriter.html" title="class in xdi2.core.io.writers">XDIJSONPARSEWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONQuadWriter.html" title="class in xdi2.core.io.writers">XDIJSONQuadWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONTREEWriter.html" title="class in xdi2.core.io.writers">XDIJSONTREEWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONTripleWriter.html" title="class in xdi2.core.io.writers">XDIJSONTripleWriter</a>, <a href="../../../xdi2/core/io/writers/XDIJSONWriter.html" title="class in xdi2.core.io.writers">XDIJSONWriter</a>, <a href="../../../xdi2/core/io/writers/XDIKeyValueWriter.html" title="class in xdi2.core.io.writers">XDIKeyValueWriter</a>, <a href="../../../xdi2/core/io/writers/XDIRDFJSONLDWriter.html" title="class in xdi2.core.io.writers">XDIRDFJSONLDWriter</a>, <a href="../../../xdi2/core/io/writers/XDIRDFTriGWriter.html" title="class in xdi2.core.io.writers">XDIRDFTriGWriter</a></dd>
 </dl>
 <hr>
 <br>
@@ -198,8 +202,24 @@ implements <a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xd
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected abstract void</code></td>
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/io/AbstractXDIWriter.html#init()">init</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/io/AbstractXDIWriter.html#isWriteHtml()">isWriteHtml</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/io/AbstractXDIWriter.html#isWriteImplied()">isWriteImplied</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/io/AbstractXDIWriter.html#isWriteOrdered()">isWriteOrdered</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/io/AbstractXDIWriter.html#isWritePretty()">isWritePretty</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
@@ -319,7 +339,7 @@ implements <a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xd
 <ul class="blockList">
 <li class="blockList">
 <h4>init</h4>
-<pre>protected abstract&nbsp;void&nbsp;init()</pre>
+<pre>protected&nbsp;void&nbsp;init()</pre>
 </li>
 </ul>
 <a name="write(xdi2.core.Graph, java.io.OutputStream)">
@@ -472,7 +492,7 @@ implements <a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xd
 <a name="supportsMimeType(xdi2.core.io.MimeType)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>supportsMimeType</h4>
 <pre>public&nbsp;boolean&nbsp;supportsMimeType(<a href="../../../xdi2/core/io/MimeType.html" title="class in xdi2.core.io">MimeType</a>&nbsp;mimeType)</pre>
@@ -482,6 +502,42 @@ implements <a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xd
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../xdi2/core/io/XDIWriter.html#supportsMimeType(xdi2.core.io.MimeType)">supportsMimeType</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xdi2.core.io">XDIWriter</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>True, if supported.</dd></dl>
+</li>
+</ul>
+<a name="isWriteImplied()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isWriteImplied</h4>
+<pre>public&nbsp;boolean&nbsp;isWriteImplied()</pre>
+</li>
+</ul>
+<a name="isWriteOrdered()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isWriteOrdered</h4>
+<pre>public&nbsp;boolean&nbsp;isWriteOrdered()</pre>
+</li>
+</ul>
+<a name="isWritePretty()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isWritePretty</h4>
+<pre>public&nbsp;boolean&nbsp;isWritePretty()</pre>
+</li>
+</ul>
+<a name="isWriteHtml()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isWriteHtml</h4>
+<pre>public&nbsp;boolean&nbsp;isWriteHtml()</pre>
 </li>
 </ul>
 </li>
@@ -551,6 +607,6 @@ implements <a href="../../../xdi2/core/io/XDIWriter.html" title="interface in xd
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -134,7 +134,7 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#GenericCondition(xdi2.core.syntax.XDIStatement)">GenericCondition</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#GenericCondition(xdi2.core.syntax.XDIStatement)">GenericCondition</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -157,13 +157,13 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html" title="class in xdi2.core.features.policy.condition">GenericCondition</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#fromStatement(xdi2.core.syntax.XDIStatement)">fromStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</code>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#fromStatement(xdi2.core.syntax.XDIStatement)">fromStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>
 <div class="block">Factory method that creates an XDI generic condition bound to a given statement.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#isValid(xdi2.core.syntax.XDIStatement)">isValid</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</code>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html#isValid(xdi2.core.syntax.XDIStatement)">isValid</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>
 <div class="block">Checks if a statement is a valid XDI generic condition.</div>
 </td>
 </tr>
@@ -173,7 +173,7 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.features.policy.condition.<a href="../../../../../xdi2/core/features/policy/condition/Condition.html" title="class in xdi2.core.features.policy.condition">Condition</a></h3>
-<code><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#castCondition(xdi2.core.features.policy.condition.Condition)">castCondition</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#compareTo(xdi2.core.features.policy.condition.Condition)">compareTo</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#equals(java.lang.Object)">equals</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#evaluate(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">evaluate</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#getStatementXri()">getStatementXri</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#hashCode()">hashCode</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#toString()">toString</a></code></li>
+<code><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#castCondition(xdi2.core.features.policy.condition.Condition)">castCondition</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#compareTo(xdi2.core.features.policy.condition.Condition)">compareTo</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#equals(java.lang.Object)">equals</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#evaluate(xdi2.core.features.policy.evaluation.PolicyEvaluationContext)">evaluate</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#getXDIStatement()">getXDIStatement</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#hashCode()">hashCode</a>, <a href="../../../../../xdi2/core/features/policy/condition/Condition.html#toString()">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -202,7 +202,7 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GenericCondition</h4>
-<pre>protected&nbsp;GenericCondition(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</pre>
+<pre>protected&nbsp;GenericCondition(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 </li>
 </ul>
 </li>
@@ -219,9 +219,9 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 <ul class="blockList">
 <li class="blockList">
 <h4>isValid</h4>
-<pre>public static&nbsp;boolean&nbsp;isValid(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</pre>
+<pre>public static&nbsp;boolean&nbsp;isValid(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 <div class="block">Checks if a statement is a valid XDI generic condition.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>statement</code> - The statement to check.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>XDIstatement</code> - The statement to check.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>True if the statement is a valid XDI generic condition.</dd></dl>
 </li>
 </ul>
@@ -231,9 +231,9 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 <ul class="blockList">
 <li class="blockList">
 <h4>fromStatement</h4>
-<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html" title="class in xdi2.core.features.policy.condition">GenericCondition</a>&nbsp;fromStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</pre>
+<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/condition/GenericCondition.html" title="class in xdi2.core.features.policy.condition">GenericCondition</a>&nbsp;fromStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 <div class="block">Factory method that creates an XDI generic condition bound to a given statement.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>statement</code> - The statement that is an XDI generic condition.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>XDIstatement</code> - The statement that is an XDI generic condition.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The XDI generic condition.</dd></dl>
 </li>
 </ul>
@@ -317,6 +317,6 @@ extends <a href="../../../../../xdi2/core/features/policy/condition/Condition.ht
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

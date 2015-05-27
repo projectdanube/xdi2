@@ -7,6 +7,7 @@
 <meta name="keywords" content="xdi2.core.features.equivalence.Equivalence class">
 <meta name="keywords" content="getIdentityRelations()">
 <meta name="keywords" content="getIdentityContextNodes()">
+<meta name="keywords" content="getIdentityContextNode()">
 <meta name="keywords" content="setIdentityContextNode()">
 <meta name="keywords" content="getIncomingIdentityRelations()">
 <meta name="keywords" content="getIncomingIdentityContextNodes()">
@@ -137,79 +138,83 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getAllReferenceAndReplacementRelations(xdi2.core.ContextNode)">getAllReferenceAndReplacementRelations</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIdentityContextNode(xdi2.core.ContextNode)">getIdentityContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIdentityContextNodes(xdi2.core.ContextNode)">getIdentityContextNodes</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIdentityRelations(xdi2.core.ContextNode)">getIdentityRelations</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingIdentityContextNodes(xdi2.core.ContextNode)">getIncomingIdentityContextNodes</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingIdentityRelations(xdi2.core.ContextNode)">getIncomingIdentityRelations</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceContextNodes(xdi2.core.ContextNode)">getIncomingReferenceContextNodes</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceRelations(xdi2.core.ContextNode)">getIncomingReferenceRelations</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReplacementContextNodes(xdi2.core.ContextNode)">getIncomingReplacementContextNodes</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReplacementRelations(xdi2.core.ContextNode)">getIncomingReplacementRelations</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getReferenceContextNode(xdi2.core.ContextNode)">getReferenceContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getReferenceRelation(xdi2.core.ContextNode)">getReferenceRelation</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getReplacementContextNode(xdi2.core.ContextNode)">getReplacementContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#getReplacementRelation(xdi2.core.ContextNode)">getReplacementRelation</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setIdentityContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                       <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;identityContextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setIdentityContextNode(xdi2.core.ContextNode, xdi2.core.syntax.XDIAddress)">setIdentityContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                       <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;identitycontextNodeXDIAddress)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setReferenceContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setReferenceContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                        <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;referenceContextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setReferenceContextNode(xdi2.core.ContextNode, xdi2.core.syntax.XDIAddress)">setReferenceContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                        <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;referencecontextNodeXDIAddress)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setReplacementContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">setReplacementContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                          <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;replacementContextNode)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/equivalence/Equivalence.html#setReplacementContextNode(xdi2.core.ContextNode, xdi2.core.syntax.XDIAddress)">setReplacementContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                          <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;replacementcontextNodeXDIAddress)</code>&nbsp;</td>
@@ -242,7 +247,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIdentityRelations</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIdentityRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIdentityRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getIdentityContextNodes(xdi2.core.ContextNode)">
@@ -251,7 +256,16 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIdentityContextNodes</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIdentityContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIdentityContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+</li>
+</ul>
+<a name="getIdentityContextNode(xdi2.core.ContextNode)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getIdentityContextNode</h4>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getIdentityContextNode(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="setIdentityContextNode(xdi2.core.ContextNode, xdi2.core.ContextNode)">
@@ -280,7 +294,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingIdentityRelations</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingIdentityRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingIdentityRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getIncomingIdentityContextNodes(xdi2.core.ContextNode)">
@@ -289,7 +303,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingIdentityContextNodes</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingIdentityContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingIdentityContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getReferenceRelation(xdi2.core.ContextNode)">
@@ -336,7 +350,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingReferenceRelations</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingReferenceRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingReferenceRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getIncomingReferenceContextNodes(xdi2.core.ContextNode)">
@@ -345,7 +359,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingReferenceContextNodes</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingReferenceContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingReferenceContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getReplacementRelation(xdi2.core.ContextNode)">
@@ -392,7 +406,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingReplacementRelations</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingReplacementRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getIncomingReplacementRelations(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getIncomingReplacementContextNodes(xdi2.core.ContextNode)">
@@ -401,7 +415,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getIncomingReplacementContextNodes</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingReplacementContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getIncomingReplacementContextNodes(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</pre>
 </li>
 </ul>
 <a name="getAllReferenceAndReplacementRelations(xdi2.core.ContextNode)">
@@ -480,6 +494,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

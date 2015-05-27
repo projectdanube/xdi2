@@ -98,7 +98,9 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><a href="#xdi2.core.impl.json">xdi2.core.impl.json</a></td>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Implementation of the XDI graph model as JSON objects.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><a href="#xdi2.core.impl.keyvalue">xdi2.core.impl.keyvalue</a></td>
@@ -152,36 +154,6 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">Statement.RelationStatement.</span><code><strong><a href="../../../xdi2/core/Statement.RelationStatement.html#getRelation()">getRelation</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -193,53 +165,21 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Returns a relation at this context node.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIarc,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>
+<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>
 <div class="block">Creates a new relation and adds it to this context node, or returns an existing relation.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIarc,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Creates a new relation and adds it to this context node, or returns an existing relation.</div>
 </td>
 </tr>
@@ -262,32 +202,6 @@
 <td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getAllRelations()">getAllRelations</a></strong>()</code>
 <div class="block">Returns all relations of this context node.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">Graph.</span><code><strong><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">ContextNode.</span><code><strong><a href="../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -350,19 +264,19 @@
 <td class="colLast"><span class="strong">Equivalence.</span><code><strong><a href="../../../xdi2/core/features/equivalence/Equivalence.html#getAllReferenceAndReplacementRelations(xdi2.core.ContextNode)">getAllReferenceAndReplacementRelations</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">Equivalence.</span><code><strong><a href="../../../xdi2/core/features/equivalence/Equivalence.html#getIdentityRelations(xdi2.core.ContextNode)">getIdentityRelations</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">Equivalence.</span><code><strong><a href="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingIdentityRelations(xdi2.core.ContextNode)">getIncomingIdentityRelations</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">Equivalence.</span><code><strong><a href="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReferenceRelations(xdi2.core.ContextNode)">getIncomingReferenceRelations</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">Equivalence.</span><code><strong><a href="../../../xdi2/core/features/equivalence/Equivalence.html#getIncomingReplacementRelations(xdi2.core.ContextNode)">getIncomingReplacementRelations</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>&nbsp;</td>
 </tr>
 </tbody>
@@ -520,7 +434,7 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/BasicRelation.html" title="class in xdi2.core.impl">BasicRelation</a></strong></code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/DummyRelation.html" title="class in xdi2.core.impl">DummyRelation</a></strong></code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -533,28 +447,6 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">AbstractStatement.AbstractRelationStatement.</span><code><strong><a href="../../../xdi2/core/impl/AbstractStatement.AbstractRelationStatement.html#getRelation()">getRelation</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -564,41 +456,17 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">BasicContextNode.</span><code><strong><a href="../../../xdi2/core/impl/BasicContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">DummyContextNode.</span><code><strong><a href="../../../xdi2/core/impl/DummyContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -619,24 +487,6 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">AbstractGraph.</span><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeContextNodeXDIAddress,
-                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
 <td class="colLast"><span class="strong">AbstractContextNode.</span><code><strong><a href="../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations()">getIncomingRelations</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -645,7 +495,7 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">BasicContextNode.</span><code><strong><a href="../../../xdi2/core/impl/BasicContextNode.html#getRelations()">getRelations</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><span class="strong">DummyContextNode.</span><code><strong><a href="../../../xdi2/core/impl/DummyContextNode.html#getRelations()">getRelations</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
@@ -673,12 +523,12 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/BasicContextNode.html#BasicContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.syntax.XDIArc, java.lang.Iterable, java.lang.Iterable, xdi2.core.Literal)">BasicContextNode</a></strong>(<a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph,
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/DummyContextNode.html#DummyContextNode(xdi2.core.Graph, xdi2.core.ContextNode, xdi2.core.syntax.XDIArc, java.lang.Iterable, java.lang.Iterable, xdi2.core.LiteralNode)">DummyContextNode</a></strong>(<a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph,
                 <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                 <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc,
                 <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;contextNodes,
                 <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations,
-                <a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal)</code>&nbsp;</td>
+                <a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalNode)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -709,8 +559,8 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../xdi2/core/impl/json/JSONContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">JSONContextNode.</span><code><strong><a href="../../../xdi2/core/impl/json/JSONContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -763,12 +613,12 @@
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">KeyValueContextNode.</span><code><strong><a href="../../../xdi2/core/impl/keyvalue/KeyValueContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -817,12 +667,12 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../xdi2/core/impl/memory/MemoryContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../xdi2/core/impl/memory/MemoryContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">MemoryContextNode.</span><code><strong><a href="../../../xdi2/core/impl/memory/MemoryContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -871,12 +721,12 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">WrappedContextNode.</span><code><strong><a href="../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -929,7 +779,7 @@
 <td class="colFirst"><code>static <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><span class="strong">GraphUtil.</span><code><strong><a href="../../../xdi2/core/util/GraphUtil.html#relationFromComponents(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">relationFromComponents</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Creates a relation from its components.</div>
 </td>
 </tr>
@@ -1010,8 +860,8 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">MappingRelationTargetContextNodeXDIAddressIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetContextNodeXDIAddressIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+<td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><span class="strong">MappingRelationTargetNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Statement.RelationStatement.html" title="interface in xdi2.core">Statement.RelationStatement</a></code></td>
@@ -1020,6 +870,14 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><span class="strong">MappingRelationContextNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationContextNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">MappingRelationTargetXDIAddressIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetXDIAddressIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><span class="strong">MappingRelationTargetLiteralNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetLiteralNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
@@ -1058,7 +916,13 @@
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetContextNodeIterator.html#MappingRelationTargetContextNodeIterator(java.util.Iterator)">MappingRelationTargetContextNodeIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetContextNodeXDIAddressIterator.html#MappingRelationTargetContextNodeXDIAddressIterator(java.util.Iterator)">MappingRelationTargetContextNodeXDIAddressIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetLiteralNodeIterator.html#MappingRelationTargetLiteralNodeIterator(java.util.Iterator)">MappingRelationTargetLiteralNodeIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetNodeIterator.html#MappingRelationTargetNodeIterator(java.util.Iterator)">MappingRelationTargetNodeIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetXDIAddressIterator.html#MappingRelationTargetXDIAddressIterator(java.util.Iterator)">MappingRelationTargetXDIAddressIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationXDIAddressIterator.html#MappingRelationXDIAddressIterator(java.util.Iterator)">MappingRelationXDIAddressIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
@@ -1120,36 +984,49 @@
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">PushOperation</a></code></td>
+<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
+                      <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Factory method that creates an XDI $push operation bound to a given relation.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</a></code></td>
 <td class="colLast"><span class="strong">DoOperation.</span><code><strong><a href="../../../xdi2/messaging/DoOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                       <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Factory method that creates an XDI $do operation bound to a given relation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a></code></td>
 <td class="colLast"><span class="strong">SetOperation.</span><code><strong><a href="../../../xdi2/messaging/SetOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                       <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Factory method that creates an XDI $set operation bound to a given relation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
 <td class="colLast"><span class="strong">Operation.</span><code><strong><a href="../../../xdi2/messaging/Operation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                       <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Factory method that creates an XDI operation bound to a given relation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><span class="strong">GetOperation.</span><code><strong><a href="../../../xdi2/messaging/GetOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Checks if an relation is a valid XDI $get operation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><span class="strong">DelOperation.</span><code><strong><a href="../../../xdi2/messaging/DelOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Checks if an relation is a valid XDI $del operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Checks if an relation is a valid XDI $push operation.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1195,6 +1072,10 @@
          <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../xdi2/messaging/PushOperation.html#PushOperation(xdi2.messaging.Message, xdi2.core.Relation)">PushOperation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
+             <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colLast"><code><strong><a href="../../../xdi2/messaging/SetOperation.html#SetOperation(xdi2.messaging.Message, xdi2.core.Relation)">SetOperation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
             <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
@@ -1223,6 +1104,10 @@
                                         <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../xdi2/messaging/Message.MappingRelationPushOperationIterator.html#Message.MappingRelationPushOperationIterator(xdi2.messaging.Message, java.util.Iterator)">Message.MappingRelationPushOperationIterator</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
+                                            <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colLast"><code><strong><a href="../../../xdi2/messaging/Message.MappingRelationSetOperationIterator.html#Message.MappingRelationSetOperationIterator(xdi2.messaging.Message, java.util.Iterator)">Message.MappingRelationSetOperationIterator</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                                            <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;relations)</code>&nbsp;</td>
 </tr>
@@ -1278,6 +1163,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -156,7 +156,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeDelOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.DelOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeDelOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                    <a href="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</a>&nbsp;operation,
                    <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                    <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
@@ -177,7 +177,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress,
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeGetOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.GetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeGetOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                    <a href="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</a>&nbsp;operation,
                    <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                    <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
@@ -205,7 +205,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/impl/graph/GraphContextHandler.html#executeSetOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.SetOperation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeSetOnAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                    <a href="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a>&nbsp;operation,
                    <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                    <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
@@ -314,7 +314,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 <ul class="blockList">
 <li class="blockList">
 <h4>executeGetOnAddress</h4>
-<pre>public&nbsp;void&nbsp;executeGetOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress,
+<pre>public&nbsp;void&nbsp;executeGetOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                        <a href="../../../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</a>&nbsp;operation,
                        <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                        <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)
@@ -332,7 +332,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 <ul class="blockList">
 <li class="blockList">
 <h4>executeSetOnAddress</h4>
-<pre>public&nbsp;void&nbsp;executeSetOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+<pre>public&nbsp;void&nbsp;executeSetOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                        <a href="../../../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a>&nbsp;operation,
                        <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                        <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)
@@ -350,7 +350,7 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 <ul class="blockList">
 <li class="blockList">
 <h4>executeDelOnAddress</h4>
-<pre>public&nbsp;void&nbsp;executeDelOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+<pre>public&nbsp;void&nbsp;executeDelOnAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                        <a href="../../../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</a>&nbsp;operation,
                        <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                        <a href="../../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)
@@ -555,6 +555,6 @@ extends <a href="../../../../../xdi2/messaging/target/impl/AbstractContextHandle
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

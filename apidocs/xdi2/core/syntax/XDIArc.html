@@ -5,16 +5,25 @@
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>XDIArc (xdi2 0.7-SNAPSHOT API)</title>
 <meta name="keywords" content="xdi2.core.syntax.XDIArc class">
+<meta name="keywords" content="DEFAULT_DIGEST_ALGORITHM">
 <meta name="keywords" content="create()">
 <meta name="keywords" content="fromComponents()">
+<meta name="keywords" content="literalFromUuid()">
+<meta name="keywords" content="literalFromRandomUuid()">
+<meta name="keywords" content="literalFromDigest()">
 <meta name="keywords" content="hasCs()">
-<meta name="keywords" content="isClassXs()">
-<meta name="keywords" content="isAttributeXs()">
+<meta name="keywords" content="isVariable()">
+<meta name="keywords" content="isDefinition()">
+<meta name="keywords" content="isCollection()">
+<meta name="keywords" content="isAttribute()">
+<meta name="keywords" content="isImmutable()">
+<meta name="keywords" content="isRelative()">
 <meta name="keywords" content="hasLiteral()">
 <meta name="keywords" content="hasXRef()">
 <meta name="keywords" content="getCs()">
 <meta name="keywords" content="getLiteral()">
 <meta name="keywords" content="getXRef()">
+<meta name="keywords" content="isLiteralNodeXDIArc()">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -72,13 +81,13 @@
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields_inherited_from_class_xdi2.core.syntax.XDIIdentifier">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method_summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method_detail">Method</a></li>
 </ul>
@@ -130,6 +139,17 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <!--   -->
 </a>
 <h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#DEFAULT_DIGEST_ALGORITHM">DEFAULT_DIGEST_ALGORITHM</a></strong></code>&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a name="fields_inherited_from_class_xdi2.core.syntax.XDIIdentifier">
 <!--   -->
@@ -157,9 +177,13 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#fromComponents(java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">fromComponents</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
-              boolean&nbsp;classXs,
-              boolean&nbsp;attributeXs,
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#fromComponents(java.lang.Character, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">fromComponents</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
+              boolean&nbsp;variable,
+              boolean&nbsp;definition,
+              boolean&nbsp;collection,
+              boolean&nbsp;attribute,
+              boolean&nbsp;immutable,
+              boolean&nbsp;relative,
               <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
               <a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</code>&nbsp;</td>
 </tr>
@@ -189,11 +213,48 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isAttributeXs()">isAttributeXs</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isAttribute()">isAttribute</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isClassXs()">isClassXs</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isCollection()">isCollection</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isDefinition()">isDefinition</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isImmutable()">isImmutable</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isLiteralNodeXDIArc()">isLiteralNodeXDIArc</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isRelative()">isRelative</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#isVariable()">isVariable</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#literalFromDigest(java.lang.String)">literalFromDigest</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;input)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#literalFromDigest(java.lang.String, java.lang.String)">literalFromDigest</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;input,
+                 <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;algorithm)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#literalFromRandomUuid()">literalFromRandomUuid</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/XDIArc.html#literalFromUuid(java.lang.String)">literalFromUuid</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uuid)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -218,6 +279,24 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="DEFAULT_DIGEST_ALGORITHM">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>DEFAULT_DIGEST_ALGORITHM</h4>
+<pre>public static final&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DEFAULT_DIGEST_ALGORITHM</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../constant-values.html#xdi2.core.syntax.XDIArc.DEFAULT_DIGEST_ALGORITHM">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method_detail">
@@ -233,17 +312,58 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <pre>public static&nbsp;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;create(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 </li>
 </ul>
-<a name="fromComponents(java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">
+<a name="fromComponents(java.lang.Character, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>fromComponents</h4>
 <pre>public static&nbsp;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;fromComponents(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
-                    boolean&nbsp;classXs,
-                    boolean&nbsp;attributeXs,
+                    boolean&nbsp;variable,
+                    boolean&nbsp;definition,
+                    boolean&nbsp;collection,
+                    boolean&nbsp;attribute,
+                    boolean&nbsp;immutable,
+                    boolean&nbsp;relative,
                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
                     <a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</pre>
+</li>
+</ul>
+<a name="literalFromUuid(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>literalFromUuid</h4>
+<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalFromUuid(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uuid)</pre>
+</li>
+</ul>
+<a name="literalFromRandomUuid()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>literalFromRandomUuid</h4>
+<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalFromRandomUuid()</pre>
+</li>
+</ul>
+<a name="literalFromDigest(java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>literalFromDigest</h4>
+<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalFromDigest(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;input,
+                       <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;algorithm)</pre>
+</li>
+</ul>
+<a name="literalFromDigest(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>literalFromDigest</h4>
+<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalFromDigest(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;input)</pre>
 </li>
 </ul>
 <a name="hasCs()">
@@ -255,22 +375,58 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <pre>public&nbsp;boolean&nbsp;hasCs()</pre>
 </li>
 </ul>
-<a name="isClassXs()">
+<a name="isVariable()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>isClassXs</h4>
-<pre>public&nbsp;boolean&nbsp;isClassXs()</pre>
+<h4>isVariable</h4>
+<pre>public&nbsp;boolean&nbsp;isVariable()</pre>
 </li>
 </ul>
-<a name="isAttributeXs()">
+<a name="isDefinition()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>isAttributeXs</h4>
-<pre>public&nbsp;boolean&nbsp;isAttributeXs()</pre>
+<h4>isDefinition</h4>
+<pre>public&nbsp;boolean&nbsp;isDefinition()</pre>
+</li>
+</ul>
+<a name="isCollection()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isCollection</h4>
+<pre>public&nbsp;boolean&nbsp;isCollection()</pre>
+</li>
+</ul>
+<a name="isAttribute()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isAttribute</h4>
+<pre>public&nbsp;boolean&nbsp;isAttribute()</pre>
+</li>
+</ul>
+<a name="isImmutable()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isImmutable</h4>
+<pre>public&nbsp;boolean&nbsp;isImmutable()</pre>
+</li>
+</ul>
+<a name="isRelative()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRelative</h4>
+<pre>public&nbsp;boolean&nbsp;isRelative()</pre>
 </li>
 </ul>
 <a name="hasLiteral()">
@@ -312,10 +468,19 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <a name="getXRef()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getXRef</h4>
 <pre>public&nbsp;<a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;getXRef()</pre>
+</li>
+</ul>
+<a name="isLiteralNodeXDIArc()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isLiteralNodeXDIArc</h4>
+<pre>public&nbsp;boolean&nbsp;isLiteralNodeXDIArc()</pre>
 </li>
 </ul>
 </li>
@@ -370,13 +535,13 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields_inherited_from_class_xdi2.core.syntax.XDIIdentifier">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method_summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method_detail">Method</a></li>
 </ul>
@@ -385,6 +550,6 @@ extends <a href="../../../xdi2/core/syntax/XDIIdentifier.html" title="class in x
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

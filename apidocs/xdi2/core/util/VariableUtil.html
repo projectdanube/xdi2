@@ -5,9 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>VariableUtil (xdi2 0.7-SNAPSHOT API)</title>
 <meta name="keywords" content="xdi2.core.util.VariableUtil class">
-<meta name="keywords" content="isVariable()">
-<meta name="keywords" content="getArcs()">
-<meta name="keywords" content="getXs()">
 <meta name="keywords" content="isMultiple()">
 <meta name="keywords" content="matches()">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
@@ -125,34 +122,25 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#getArcs(xdi2.core.syntax.XDIArc)">getArcs</a></strong>(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>&nbsp;</td>
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#isMultiple(xdi2.core.syntax.XDIAddress)">isMultiple</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#getXs(xdi2.core.syntax.XDIArc)">getXs</a></strong>(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>&nbsp;</td>
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#isMultiple(xdi2.core.features.nodetypes.XdiVariable)">isMultiple</a></strong>(<a href="../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;?&gt;&nbsp;xdiVariable)</code>
+<div class="block">Checks if a variable can match multiple contexts.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#isMultiple(xdi2.core.syntax.XDIArc)">isMultiple</a></strong>(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>
-<div class="block">Checks if a variable matches multiple arcs.</div>
-</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#matches(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">matches</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIvariableAddress,
+       <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#isVariable(xdi2.core.syntax.XDIAddress)">isVariable</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;variable)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#isVariable(xdi2.core.syntax.XDIArc)">isVariable</a></strong>(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</code>
-<div class="block">Checks if an arc is a valid XDI variable.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#matches(xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIArc)">matches</a></strong>(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable,
-       <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
-<div class="block">Checks if a variables matches an arc.</div>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/VariableUtil.html#matches(xdi2.core.features.nodetypes.XdiVariable, xdi2.core.features.nodetypes.XdiContext)">matches</a></strong>(<a href="../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;?&gt;&nbsp;xdiVariable,
+       <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&nbsp;xdiContext)</code>
+<div class="block"><strong>Deprecated.</strong>&nbsp;</div>
 </td>
 </tr>
 </table>
@@ -177,68 +165,50 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="isVariable(xdi2.core.syntax.XDIArc)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isVariable</h4>
-<pre>public static&nbsp;boolean&nbsp;isVariable(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</pre>
-<div class="block">Checks if an arc is a valid XDI variable.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>variable</code> - The arc to check.</dd>
-<dt><span class="strong">Returns:</span></dt><dd>True if the arc is a valid XDI variable.</dd></dl>
-</li>
-</ul>
-<a name="isVariable(xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isVariable</h4>
-<pre>public static&nbsp;boolean&nbsp;isVariable(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;variable)</pre>
-</li>
-</ul>
-<a name="getArcs(xdi2.core.syntax.XDIArc)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getArcs</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;&nbsp;getArcs(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</pre>
-</li>
-</ul>
-<a name="getXs(xdi2.core.syntax.XDIArc)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getXs</h4>
-<pre>public static&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getXs(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</pre>
-</li>
-</ul>
-<a name="isMultiple(xdi2.core.syntax.XDIArc)">
+<a name="isMultiple(xdi2.core.features.nodetypes.XdiVariable)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isMultiple</h4>
-<pre>public static&nbsp;boolean&nbsp;isMultiple(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable)</pre>
-<div class="block">Checks if a variable matches multiple arcs.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>variable</code> - The variable.</dd>
-<dt><span class="strong">Returns:</span></dt><dd>True, if the variable matches multiple arcs.</dd></dl>
+<pre>public static&nbsp;boolean&nbsp;isMultiple(<a href="../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;?&gt;&nbsp;xdiVariable)</pre>
+<div class="block">Checks if a variable can match multiple contexts.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>xdiVariable</code> - The variable.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>True, if the variable can match multiple contexts.</dd></dl>
 </li>
 </ul>
-<a name="matches(xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIArc)">
+<a name="isMultiple(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isMultiple</h4>
+<pre>public static&nbsp;boolean&nbsp;isMultiple(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
+</li>
+</ul>
+<a name="matches(xdi2.core.features.nodetypes.XdiVariable, xdi2.core.features.nodetypes.XdiContext)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>matches</h4>
+<pre><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang">@Deprecated</a>
+public static&nbsp;boolean&nbsp;matches(<a href="../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;?&gt;&nbsp;xdiVariable,
+                         <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&nbsp;xdiContext)</pre>
+<div class="block"><span class="strong">Deprecated.</span>&nbsp;</div>
+<div class="block">Checks if a variables matches an arc.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>xdiVariable</code> - The variable.</dd><dd><code>arc</code> - The arc to match the variable against.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>True, if the variable matches the arc.</dd></dl>
+</li>
+</ul>
+<a name="matches(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>matches</h4>
-<pre>public static&nbsp;boolean&nbsp;matches(<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;variable,
-              <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</pre>
-<div class="block">Checks if a variables matches an arc.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>variable</code> - The variable.</dd><dd><code>arc</code> - The arc to match the variable against.</dd>
-<dt><span class="strong">Returns:</span></dt><dd>True, if the variable matches the arc.</dd></dl>
+<pre>public static&nbsp;boolean&nbsp;matches(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIvariableAddress,
+              <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIaddress)</pre>
 </li>
 </ul>
 </li>
@@ -308,6 +278,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <meta name="keywords" content="xdi2.core.features.nodetypes.XdiInnerRoot class">
 <meta name="keywords" content="isValid()">
 <meta name="keywords" content="fromContextNode()">
+<meta name="keywords" content="fromXDIAddress()">
 <meta name="keywords" content="getSubjectContextNode()">
 <meta name="keywords" content="getPredicateRelation()">
 <meta name="keywords" content="getSubjectOfInnerRoot()">
@@ -46,8 +47,8 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.MappingContextNodeXdiEntitySingletonIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.MappingContextNodeInnerRootIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiInnerRoot.html" target="_top">Frames</a></li>
@@ -118,6 +119,10 @@
 <dt>All Implemented Interfaces:</dt>
 <dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a>&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a></dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Variable</a></dd>
+</dl>
 <hr>
 <br>
 <pre>public class <span class="strong">XdiInnerRoot</span>
@@ -146,7 +151,15 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Definition</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.MappingContextNodeInnerRootIterator.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.MappingContextNodeInnerRootIterator</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Variable</a></strong></code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -203,60 +216,64 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getPredicateOfInnerRoot()">getPredicateOfInnerRoot</a></strong>()</code>
 <div class="block">Returns the predicate address of this XDI inner root.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getPredicateOfInnerRootXDIArc(xdi2.core.syntax.XDIArc)">getPredicateOfInnerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
 <div class="block">Returns the predicate address of the inner root arc.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getPredicateRelation()">getPredicateRelation</a></strong>()</code>
 <div class="block">Returns the underlying predicate relation of this XDI inner root.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getPredicateRelation(xdi2.core.ContextNode)">getPredicateRelation</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>
 <div class="block">Returns the predicate relation of the XDI inner root context node.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getSubjectContextNode()">getSubjectContextNode</a></strong>()</code>
 <div class="block">Returns the underlying subject context node of this XDI inner root.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getSubjectContextNode(xdi2.core.ContextNode)">getSubjectContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>
 <div class="block">Returns the subject context node of the XDI inner root context node.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getSubjectOfInnerRoot()">getSubjectOfInnerRoot</a></strong>()</code>
 <div class="block">Returns the subject address of this XDI inner root.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#getSubjectOfInnerRootXDIArc(xdi2.core.syntax.XDIArc)">getSubjectOfInnerRootXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
 <div class="block">Returns the subject address of the inner root arcc.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#isValid(xdi2.core.ContextNode)">isValid</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>
 <div class="block">Checks if a context node is a valid XDI inner root.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#isValidXDIArc(xdi2.core.syntax.XDIArc)">isValidXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
 <div class="block">Checks if a given arc is an inner root arc.</div>
@@ -268,14 +285,14 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.features.nodetypes.<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</a></h3>
-<code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#absoluteToRelativeXDIAddress(xdi2.core.syntax.XDIAddress)">absoluteToRelativeXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#absoluteToRelativeXDIStatement(xdi2.core.syntax.XDIStatement)">absoluteToRelativeXDIStatement</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getInnerRoot(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, boolean)">getInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getPeerRoot(xdi2.core.syntax.XDIAddress, boolean)">getPeerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRoot(xdi2.core.syntax.XDIAddress, boolean)">getRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#relativeToAbsoluteXDIAddress(xdi2.core.syntax.XDIAddress)">relativeToAbsoluteXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#relativeToAbsoluteXDIStatement(xdi2.core.syntax.XDIStatement)">relativeToAbsoluteXDIStatement</a></code></li>
+<code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#absoluteToRelativeXDIAddress(xdi2.core.syntax.XDIAddress)">absoluteToRelativeXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#absoluteToRelativeXDIStatement(xdi2.core.syntax.XDIStatement)">absoluteToRelativeXDIStatement</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getInnerRoot(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, boolean)">getInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getInnerRoots()">getInnerRoots</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getPeerRoot(xdi2.core.syntax.XDIAddress, boolean)">getPeerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getPeerRoots()">getPeerRoots</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#getRoot(xdi2.core.syntax.XDIAddress, boolean)">getRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#relativeToAbsoluteXDIAddress(xdi2.core.syntax.XDIAddress)">relativeToAbsoluteXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#relativeToAbsoluteXDIStatement(xdi2.core.syntax.XDIStatement)">relativeToAbsoluteXDIStatement</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_xdi2.core.features.nodetypes.XdiAbstractContext">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.features.nodetypes.<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a></h3>
-<code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc(xdi2.core.syntax.XDIArc)">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</a></code></li>
+<code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#compareTo(xdi2.core.features.nodetypes.XdiContext)">compareTo</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference(boolean, boolean, boolean)">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class)">fromXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc(xdi2.core.syntax.XDIArc)">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContext()">getIdentityXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#toString()">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -289,7 +306,7 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.features.nodetypes.<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a></h3>
-<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
+<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference(boolean, boolean, boolean)">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContext()">getIdentityXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Comparable">
@@ -351,6 +368,15 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 <div class="block">Factory method that creates an XDI inner root bound to a given context node.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>contextNode</code> - The context node that is an XDI inner root.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The XDI inner root.</dd></dl>
+</li>
+</ul>
+<a name="fromXDIAddress(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXDIAddress</h4>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a>&nbsp;fromXDIAddress(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
 </li>
 </ul>
 <a name="getSubjectContextNode()">
@@ -496,8 +522,8 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.MappingContextNodeXdiEntitySingletonIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.MappingContextNodeInnerRootIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiInnerRoot.html" target="_top">Frames</a></li>
@@ -537,6 +563,6 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" 
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

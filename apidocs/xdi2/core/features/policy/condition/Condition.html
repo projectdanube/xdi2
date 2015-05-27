@@ -8,7 +8,7 @@
 <meta name="keywords" content="isValid()">
 <meta name="keywords" content="fromStatement()">
 <meta name="keywords" content="castCondition()">
-<meta name="keywords" content="getStatementXri()">
+<meta name="keywords" content="getXDIStatement()">
 <meta name="keywords" content="evaluate()">
 <meta name="keywords" content="evaluateInternal()">
 <meta name="keywords" content="toString()">
@@ -141,7 +141,7 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#Condition(xdi2.core.syntax.XDIStatement)">Condition</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#Condition(xdi2.core.syntax.XDIStatement)">Condition</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -184,13 +184,13 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../xdi2/core/features/policy/condition/Condition.html" title="class in xdi2.core.features.policy.condition">Condition</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#fromStatement(xdi2.core.syntax.XDIStatement)">fromStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</code>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#fromStatement(xdi2.core.syntax.XDIStatement)">fromStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>
 <div class="block">Factory method that creates an XDI condition bound to a given statement.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#getStatementXri()">getStatementXri</a></strong>()</code>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#getXDIStatement()">getXDIStatement</a></strong>()</code>
 <div class="block">Returns the underlying statement to which this XDI condition is bound.</div>
 </td>
 </tr>
@@ -200,7 +200,7 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#isValid(xdi2.core.syntax.XDIStatement)">isValid</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</code>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/condition/Condition.html#isValid(xdi2.core.syntax.XDIStatement)">isValid</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>
 <div class="block">Checks if a statement is a valid XDI condition.</div>
 </td>
 </tr>
@@ -236,7 +236,7 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Condition</h4>
-<pre>protected&nbsp;Condition(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</pre>
+<pre>protected&nbsp;Condition(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 </li>
 </ul>
 </li>
@@ -253,9 +253,9 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <ul class="blockList">
 <li class="blockList">
 <h4>isValid</h4>
-<pre>public static&nbsp;boolean&nbsp;isValid(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</pre>
+<pre>public static&nbsp;boolean&nbsp;isValid(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 <div class="block">Checks if a statement is a valid XDI condition.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>statement</code> - The statement to check.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>XDIstatement</code> - The statement to check.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>True if the statement is a valid XDI condition.</dd></dl>
 </li>
 </ul>
@@ -265,9 +265,9 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <ul class="blockList">
 <li class="blockList">
 <h4>fromStatement</h4>
-<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/condition/Condition.html" title="class in xdi2.core.features.policy.condition">Condition</a>&nbsp;fromStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statement)</pre>
+<pre>public static&nbsp;<a href="../../../../../xdi2/core/features/policy/condition/Condition.html" title="class in xdi2.core.features.policy.condition">Condition</a>&nbsp;fromStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 <div class="block">Factory method that creates an XDI condition bound to a given statement.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>statement</code> - The statement that is an XDI condition.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>XDIstatement</code> - The statement that is an XDI condition.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The XDI condition.</dd></dl>
 </li>
 </ul>
@@ -283,13 +283,13 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <dt><span class="strong">Returns:</span></dt><dd>The casted Condition.</dd></dl>
 </li>
 </ul>
-<a name="getStatementXri()">
+<a name="getXDIStatement()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getStatementXri</h4>
-<pre>public&nbsp;<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;getStatementXri()</pre>
+<h4>getXDIStatement</h4>
+<pre>public&nbsp;<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;getXDIStatement()</pre>
 <div class="block">Returns the underlying statement to which this XDI condition is bound.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>A statement that represents the XDI condition.</dd></dl>
 </li>
@@ -434,6 +434,6 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

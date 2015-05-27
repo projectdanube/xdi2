@@ -87,10 +87,8 @@
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="#xdi2.transport.impl.http.impl.servlet">xdi2.transport.impl.http.impl.servlet</a></td>
-<td class="colLast">
-<div class="block">A servlet exposing an XDI messaging endpoint.</div>
-</td>
+<td class="colFirst"><a href="#xdi2.transport.impl.websocket">xdi2.transport.impl.websocket</a></td>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -152,11 +150,41 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/AbstractMessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
 <td class="colLast"><span class="strong">MessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath)</code>
 <div class="block">Mount a new MessagingTarget.</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><span class="strong">MessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                    boolean&nbsp;checkDisabled,
+                    boolean&nbsp;checkExpired)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><span class="strong">MessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                     boolean&nbsp;checkDisabled,
+                     boolean&nbsp;checkExpired,
+                     <a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><span class="strong">AbstractMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/AbstractMessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                     <a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
@@ -183,15 +211,19 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
-<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath)</code>&nbsp;</td>
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                    boolean&nbsp;checkDisabled,
+                    boolean&nbsp;checkExpired)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
-<td class="colLast"><span class="strong">AnyGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/AnyGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+<td class="colLast"><span class="strong">AnyGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/AnyGraphMessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean)">mountMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath)</code>&nbsp;</td>
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                    boolean&nbsp;checkDisabled,
+                    boolean&nbsp;checkExpired)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
@@ -203,27 +235,31 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
-<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+<td class="colLast"><span class="strong">RegistryGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/RegistryGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                     boolean&nbsp;checkDisabled,
+                     boolean&nbsp;checkExpired,
                      <a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
-<td class="colLast"><span class="strong">AnyGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+<td class="colLast"><span class="strong">AnyGraphMessagingTargetFactory.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/factory/impl/AnyGraphMessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                     boolean&nbsp;checkDisabled,
+                     boolean&nbsp;checkExpired,
                      <a href="../../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
 </li>
-<li class="blockList"><a name="xdi2.transport.impl.http.impl.servlet">
+<li class="blockList"><a name="xdi2.transport.impl.websocket">
 <!--   -->
 </a>
-<h3>Uses of <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a> in <a href="../../../../../../xdi2/transport/impl/http/impl/servlet/package-summary.html">xdi2.transport.impl.http.impl.servlet</a></h3>
+<h3>Uses of <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a> in <a href="../../../../../../xdi2/transport/impl/websocket/package-summary.html">xdi2.transport.impl.websocket</a></h3>
 <table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
-<caption><span>Methods in <a href="../../../../../../xdi2/transport/impl/http/impl/servlet/package-summary.html">xdi2.transport.impl.http.impl.servlet</a> that return <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>Methods in <a href="../../../../../../xdi2/transport/impl/websocket/package-summary.html">xdi2.transport.impl.websocket</a> that return <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -231,12 +267,12 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></code></td>
-<td class="colLast"><span class="strong">EndpointServlet.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#getHttpMessagingTargetRegistry()">getHttpMessagingTargetRegistry</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><span class="strong">WebSocketTransport.</span><code><strong><a href="../../../../../../xdi2/transport/impl/websocket/WebSocketTransport.html#getHttpMessagingTargetRegistry()">getHttpMessagingTargetRegistry</a></strong>()</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
 <table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
-<caption><span>Methods in <a href="../../../../../../xdi2/transport/impl/http/impl/servlet/package-summary.html">xdi2.transport.impl.http.impl.servlet</a> with parameters of type <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>Methods in <a href="../../../../../../xdi2/transport/impl/websocket/package-summary.html">xdi2.transport.impl.websocket</a> with parameters of type <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -244,7 +280,19 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><span class="strong">EndpointServlet.</span><code><strong><a href="../../../../../../xdi2/transport/impl/http/impl/servlet/EndpointServlet.html#setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)">setHttpMessagingTargetRegistry</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">WebSocketTransport.</span><code><strong><a href="../../../../../../xdi2/transport/impl/websocket/WebSocketTransport.html#setHttpMessagingTargetRegistry(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry)">setHttpMessagingTargetRegistry</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing constructors, and an explanation">
+<caption><span>Constructors in <a href="../../../../../../xdi2/transport/impl/websocket/package-summary.html">xdi2.transport.impl.websocket</a> with parameters of type <a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colLast"><code><strong><a href="../../../../../../xdi2/transport/impl/websocket/WebSocketTransport.html#WebSocketTransport(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String)">WebSocketTransport</a></strong>(<a href="../../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                  <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;endpointPath)</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -298,6 +346,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

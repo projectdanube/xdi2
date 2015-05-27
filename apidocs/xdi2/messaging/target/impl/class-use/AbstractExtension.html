@@ -83,11 +83,11 @@
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a href="#xdi2.messaging.target.contributor.impl.digest">xdi2.messaging.target.contributor.impl.digest</a></td>
+<td class="colFirst"><a href="#xdi2.messaging.target.contributor.impl.connection">xdi2.messaging.target.contributor.impl.connection</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="#xdi2.messaging.target.contributor.impl.instantiation">xdi2.messaging.target.contributor.impl.instantiation</a></td>
+<td class="colFirst"><a href="#xdi2.messaging.target.contributor.impl.digest">xdi2.messaging.target.contributor.impl.digest</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -178,6 +178,38 @@
 </tbody>
 </table>
 </li>
+<li class="blockList"><a name="xdi2.messaging.target.contributor.impl.connection">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</a> in <a href="../../../../../xdi2/messaging/target/contributor/impl/connection/package-summary.html">xdi2.messaging.target.contributor.impl.connection</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing subclasses, and an explanation">
+<caption><span>Subclasses of <a href="../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</a> in <a href="../../../../../xdi2/messaging/target/contributor/impl/connection/package-summary.html">xdi2.messaging.target.contributor.impl.connection</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/contributor/impl/connection/ConnectionInvitationContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">ConnectionInvitationContributor</a></strong></code>
+<div class="block">This contributor can process connection invitations.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/contributor/impl/connection/ConnectionRequestContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">ConnectionRequestContributor</a></strong></code>
+<div class="block">This contributor can process connection requests.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/contributor/impl/connection/InverseOperationContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">InverseOperationContributor</a></strong></code>
+<div class="block">This contributor can inverse operations.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
 <li class="blockList"><a name="xdi2.messaging.target.contributor.impl.digest">
 <!--   -->
 </a>
@@ -193,26 +225,6 @@
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/contributor/impl/digest/GenerateDigestSecretTokenContributor.html" title="class in xdi2.messaging.target.contributor.impl.digest">GenerateDigestSecretTokenContributor</a></strong></code>
 <div class="block">This contributor can generate secret tokens in digest form in a target graph.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList"><a name="xdi2.messaging.target.contributor.impl.instantiation">
-<!--   -->
-</a>
-<h3>Uses of <a href="../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</a> in <a href="../../../../../xdi2/messaging/target/contributor/impl/instantiation/package-summary.html">xdi2.messaging.target.contributor.impl.instantiation</a></h3>
-<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing subclasses, and an explanation">
-<caption><span>Subclasses of <a href="../../../../../xdi2/messaging/target/impl/AbstractExtension.html" title="class in xdi2.messaging.target.impl">AbstractExtension</a> in <a href="../../../../../xdi2/messaging/target/contributor/impl/instantiation/package-summary.html">xdi2.messaging.target.contributor.impl.instantiation</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colLast" scope="col">Class and Description</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><code>class&nbsp;</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/contributor/impl/instantiation/InstantiationContributor.html" title="class in xdi2.messaging.target.contributor.impl.instantiation">InstantiationContributor</a></strong></code>
-<div class="block">This contributor can instantiate new link contracts.</div>
 </td>
 </tr>
 </tbody>
@@ -316,38 +328,51 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/ExecuteCommandInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ExecuteCommandInterceptor</a></strong></code>
+<div class="block">This interceptor will execute a command line
+ on an incoming message envelope, message, or operation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/FromInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">FromInterceptor</a></strong></code>
 <div class="block">This interceptor checks if the source peer root XRI of a message matches the sender of the message.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/MessagePolicyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">MessagePolicyInterceptor</a></strong></code>
 <div class="block">This interceptor evaluates message policies.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/ReadOnlyInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ReadOnlyInterceptor</a></strong></code>
 <div class="block">This interceptor throws an exception when $add, $mod or $del operations are attempted on given contexts of the target graph.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</a></strong></code>
 <div class="block">This interceptor handles $ref and $rep relations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/ToInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ToInterceptor</a></strong></code>
 <div class="block">This interceptor checks if the target peer root XRI of a message matches the owner peer root XRI of the messaging target.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</a></strong></code>
 <div class="block">This interceptor can replace XDI variables in a $add operation with automatically generated persistent addresses.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/WriteListenerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">WriteListenerInterceptor</a></strong></code>
+<div class="block">This interceptor listens to changes on a messaging target.</div>
 </td>
 </tr>
 </tbody>
@@ -452,6 +477,13 @@
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/transport/HttpTransportDataInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">HttpTransportDataInterceptor</a></strong></code>
 <div class="block">This interceptor looks for certain features associated with the HTTP transport,
  e.g.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/transport/SkipLinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">SkipLinkContractsInterceptor</a></strong></code>
+<div class="block">This interceptor will skip the link contract interceptor,
+ if a request comes from a whitelisted IP address.</div>
 </td>
 </tr>
 </tbody>
@@ -566,6 +598,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -150,10 +150,27 @@
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean)">mountMessagingTarget</a></strong>(<a href="../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                    boolean&nbsp;checkDisabled,
+                    boolean&nbsp;checkExpired)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#shutdown()">shutdown</a></strong>()</code>
 <div class="block">This method gets called when the MessagingTargetFactory is no longer needed.</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/transport/impl/http/factory/MessagingTargetFactory.html#updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean, xdi2.messaging.target.MessagingTarget)">updateMessagingTarget</a></strong>(<a href="../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                     boolean&nbsp;checkDisabled,
+                     boolean&nbsp;checkExpired,
+                     <a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a></code></td>
@@ -222,6 +239,24 @@
 <dd><code><a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></code></dd></dl>
 </li>
 </ul>
+<a name="mountMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mountMessagingTarget</h4>
+<pre><a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;mountMessagingTarget(<a href="../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                                   <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                                   <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                                   boolean&nbsp;checkDisabled,
+                                   boolean&nbsp;checkExpired)
+                                     throws <a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a>,
+                                            <a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a></code></dd>
+<dd><code><a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></code></dd></dl>
+</li>
+</ul>
 <a name="updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, xdi2.messaging.target.MessagingTarget)">
 <!--   -->
 </a>
@@ -235,6 +270,25 @@
                                       throws <a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a>,
                                              <a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></pre>
 <div class="block">Updates a MessagingTarget.</div>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a></code></dd>
+<dd><code><a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></code></dd></dl>
+</li>
+</ul>
+<a name="updateMessagingTarget(xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry, java.lang.String, java.lang.String, boolean, boolean, xdi2.messaging.target.MessagingTarget)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>updateMessagingTarget</h4>
+<pre><a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;updateMessagingTarget(<a href="../../../../../xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a>&nbsp;httpMessagingTargetRegistry,
+                                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;messagingTargetFactoryPath,
+                                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;requestPath,
+                                    boolean&nbsp;checkDisabled,
+                                    boolean&nbsp;checkExpired,
+                                    <a href="../../../../../xdi2/messaging/target/MessagingTarget.html" title="interface in xdi2.messaging.target">MessagingTarget</a>&nbsp;messagingTarget)
+                                      throws <a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a>,
+                                             <a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></pre>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../../xdi2/transport/exceptions/Xdi2TransportException.html" title="class in xdi2.transport.exceptions">Xdi2TransportException</a></code></dd>
 <dd><code><a href="../../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></code></dd></dl>
@@ -332,6 +386,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -141,7 +141,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/GraphUtil.html#getOwnerXDIAddress(xdi2.core.Graph)">getOwnerXDIAddress</a></strong>(<a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;graph)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/GraphUtil.html#literalFromComponents(xdi2.core.syntax.XDIAddress, java.lang.Object)">literalFromComponents</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>
 <div class="block">Creates a literal from its components.</div>
@@ -151,7 +151,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <td class="colFirst"><code>static <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/GraphUtil.html#relationFromComponents(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">relationFromComponents</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Creates a relation from its components.</div>
 </td>
 </tr>
@@ -245,9 +245,9 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <h4>relationFromComponents</h4>
 <pre>public static&nbsp;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relationFromComponents(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
                               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                              <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
+                              <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</pre>
 <div class="block">Creates a relation from its components.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>contextNodeXDIAddress</code> - The address of the context node containing the relation.</dd><dd><code>XDIaddress</code> - The address of the relation.</dd><dd><code>targetContextNodeXDIAddress</code> - The target context node address of the relation.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>contextNodeXDIAddress</code> - The address of the context node containing the relation.</dd><dd><code>XDIaddress</code> - The address of the relation.</dd><dd><code>targetXDIAddress</code> - The target context node address of the relation.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>A relation.</dd></dl>
 </li>
 </ul>
@@ -257,8 +257,8 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>literalFromComponents</h4>
-<pre>public static&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literalFromComponents(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
+<pre>public static&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalFromComponents(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
+                                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
 <div class="block">Creates a literal from its components.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>contextNodeXDIAddress</code> - The address of the context node containing the literal.</dd><dd><code>literalData</code> - The literal data of the literal.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>A literal.</dd></dl>
@@ -331,6 +331,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

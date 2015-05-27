@@ -171,8 +171,9 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsAddress(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsAddress</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                          <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainXDIAddresses,
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsAddress(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsAddress</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                          <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                          <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                           <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeTargetXDIAddress,
                           <a href="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                           <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -180,8 +181,9 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsStatement(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsStatement</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                            <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainXDIAddresses,
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsStatement(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsStatement</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                            <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                            <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                             <a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;relativeTargetXDIStatement,
                             <a href="../../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                             <a href="../../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -189,13 +191,15 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.ContributorFound.html" title="class in xdi2.messaging.target.contributor">ContributorMap.ContributorFound</a>&gt;</code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#findHigherContributors(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress)">findHigherContributors</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                      <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#findHigherContributors(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">findHigherContributors</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                      <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
+                      <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeNodeXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.ContributorFound.html" title="class in xdi2.messaging.target.contributor">ContributorMap.ContributorFound</a>&gt;</code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#findLowerContributors(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress)">findLowerContributors</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                     <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>&nbsp;</td>
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../../../xdi2/messaging/target/impl/ContributorExecutor.html#findLowerContributors(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">findLowerContributors</a></strong>(<a href="../../../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                     <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
+                     <a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeNodeXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -275,6 +279,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

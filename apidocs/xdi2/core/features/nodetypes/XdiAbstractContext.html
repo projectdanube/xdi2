@@ -7,6 +7,7 @@
 <meta name="keywords" content="xdi2.core.features.nodetypes.XdiAbstractContext class">
 <meta name="keywords" content="isValid()">
 <meta name="keywords" content="fromContextNode()">
+<meta name="keywords" content="fromXDIAddress()">
 <meta name="keywords" content="getBaseXDIArc()">
 <meta name="keywords" content="getContextNode()">
 <meta name="keywords" content="getGraph()">
@@ -16,6 +17,7 @@
 <meta name="keywords" content="getReferenceXdiContext()">
 <meta name="keywords" content="getReplacementXdiContext()">
 <meta name="keywords" content="getIdentityXdiContexts()">
+<meta name="keywords" content="getIdentityXdiContext()">
 <meta name="keywords" content="findRoot()">
 <meta name="keywords" content="findLocalRoot()">
 <meta name="keywords" content="getXdiInnerRoot()">
@@ -61,7 +63,7 @@
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersUnorderedIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiAbstractContext.html" target="_top">Frames</a></li>
@@ -124,7 +126,7 @@
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="class in xdi2.core.features.nodetypes">XdiAbstractDefinition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">XdiAbstractVariable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes">XdiCommonDefinition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes">XdiCommonVariable</a></dd>
 </dl>
 <hr>
 <br>
@@ -178,47 +180,66 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference()">dereference</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#dereference(boolean, boolean, boolean)">dereference</a></strong>(boolean&nbsp;reference,
+           boolean&nbsp;replacement,
+           boolean&nbsp;identity)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#equals(java.lang.Object)">equals</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes">XdiCommonRoot</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findLocalRoot()">findLocalRoot</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#findRoot()">findRoot</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode)">fromContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode)</code>
 <div class="block">Factory method that creates a XDI context bound to a given context node.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static &lt;T extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<br>T</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromContextNode(xdi2.core.ContextNode, java.lang.Class)">fromContextNode</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;t)</code>&nbsp;</td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static &lt;T extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<br>T</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+              <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;t)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc()">getBaseXDIArc</a></strong>()</code>
 <div class="block">Returns the "base" arc, without context node type syntax.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getBaseXDIArc(xdi2.core.syntax.XDIArc)">getBaseXDIArc</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>
 <div class="block">Returns the "base" arc, without context node type syntax.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getContextNode()">getContextNode</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getGraph()">getGraph</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#getIdentityXdiContext()">getIdentityXdiContext</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&gt;</code></td>
@@ -392,6 +413,25 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
                                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;t)</pre>
 </li>
 </ul>
+<a name="fromXDIAddress(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXDIAddress</h4>
+<pre>public static&nbsp;<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&nbsp;fromXDIAddress(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
+</li>
+</ul>
+<a name="fromXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXDIAddress</h4>
+<pre>public static&nbsp;&lt;T extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;T&nbsp;fromXDIAddress(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                                         <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;t)</pre>
+</li>
+</ul>
 <a name="getBaseXDIArc(xdi2.core.syntax.XDIArc)">
 <!--   -->
 </a>
@@ -470,6 +510,21 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
 <dt><span class="strong">Returns:</span></dt><dd>The "base" arc.</dd></dl>
 </li>
 </ul>
+<a name="dereference(boolean, boolean, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dereference</h4>
+<pre>public&nbsp;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&nbsp;dereference(boolean&nbsp;reference,
+             boolean&nbsp;replacement,
+             boolean&nbsp;identity)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference(boolean, boolean, boolean)">dereference</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a> extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&gt;&gt;</code></dd>
+</dl>
+</li>
+</ul>
 <a name="dereference()">
 <!--   -->
 </a>
@@ -519,6 +574,19 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a> extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&gt;&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="getIdentityXdiContext()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getIdentityXdiContext</h4>
+<pre>public&nbsp;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&nbsp;getIdentityXdiContext()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContext()">getIdentityXdiContext</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a> extends <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="type parameter in XdiAbstractContext">EQ</a>&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -809,7 +877,7 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.XdiMembersUnorderedIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiAbstractContext.html" target="_top">Frames</a></li>
@@ -849,6 +917,6 @@ implements <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" ti
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

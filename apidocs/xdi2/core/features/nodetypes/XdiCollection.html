@@ -46,8 +46,8 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.MappingContextNodeXdiAttributeSingletonIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Variable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiCollection.html" target="_top">Frames</a></li>
@@ -102,7 +102,7 @@
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Variable</a></dd>
 </dl>
 <hr>
 <br>
@@ -128,7 +128,9 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberOrdered(long)">getXdiMemberOrdered</a></strong>(long&nbsp;index)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberOrdered(boolean, boolean, long)">getXdiMemberOrdered</a></strong>(boolean&nbsp;immutable,
+                   boolean&nbsp;relative,
+                   long&nbsp;index)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">I</a>&gt;</code></td>
@@ -156,15 +158,31 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberUnordered(xdi2.core.syntax.XDIArc)">getXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#getXdiMemberUnordered(boolean, boolean, java.lang.String)">getXdiMemberUnordered</a></strong>(boolean&nbsp;immutable,
+                     boolean&nbsp;relative,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberOrdered(long)">setXdiMemberOrdered</a></strong>(long&nbsp;index)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberOrdered(boolean, boolean)">setXdiMemberOrdered</a></strong>(boolean&nbsp;immutable,
+                   boolean&nbsp;relative)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberOrdered(boolean, boolean, long)">setXdiMemberOrdered</a></strong>(boolean&nbsp;immutable,
+                   boolean&nbsp;relative,
+                   long&nbsp;index)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(boolean, boolean)">setXdiMemberUnordered</a></strong>(boolean&nbsp;immutable,
+                     boolean&nbsp;relative)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(xdi2.core.syntax.XDIArc)">setXdiMemberUnordered</a></strong>(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html#setXdiMemberUnordered(boolean, boolean, java.lang.String)">setXdiMemberUnordered</a></strong>(boolean&nbsp;immutable,
+                     boolean&nbsp;relative,
+                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -172,7 +190,7 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.features.nodetypes.<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a></h3>
-<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
+<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference(boolean, boolean, boolean)">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContext()">getIdentityXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Comparable">
@@ -195,22 +213,36 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="setXdiMemberUnordered(xdi2.core.syntax.XDIArc)">
+<a name="setXdiMemberUnordered(boolean, boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setXdiMemberUnordered</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a>&nbsp;setXdiMemberUnordered(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</pre>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a>&nbsp;setXdiMemberUnordered(boolean&nbsp;immutable,
+                      boolean&nbsp;relative)</pre>
 </li>
 </ul>
-<a name="getXdiMemberUnordered(xdi2.core.syntax.XDIArc)">
+<a name="setXdiMemberUnordered(boolean, boolean, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setXdiMemberUnordered</h4>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a>&nbsp;setXdiMemberUnordered(boolean&nbsp;immutable,
+                      boolean&nbsp;relative,
+                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal)</pre>
+</li>
+</ul>
+<a name="getXdiMemberUnordered(boolean, boolean, java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getXdiMemberUnordered</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a>&nbsp;getXdiMemberUnordered(<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;XDIarc)</pre>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">U</a>&nbsp;getXdiMemberUnordered(boolean&nbsp;immutable,
+                      boolean&nbsp;relative,
+                      <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal)</pre>
 </li>
 </ul>
 <a name="getXdiMembersUnordered()">
@@ -231,22 +263,36 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <pre>long&nbsp;getXdiMembersUnorderedCount()</pre>
 </li>
 </ul>
-<a name="setXdiMemberOrdered(long)">
+<a name="setXdiMemberOrdered(boolean, boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setXdiMemberOrdered</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a>&nbsp;setXdiMemberOrdered(long&nbsp;index)</pre>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a>&nbsp;setXdiMemberOrdered(boolean&nbsp;immutable,
+                    boolean&nbsp;relative)</pre>
 </li>
 </ul>
-<a name="getXdiMemberOrdered(long)">
+<a name="setXdiMemberOrdered(boolean, boolean, long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setXdiMemberOrdered</h4>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a>&nbsp;setXdiMemberOrdered(boolean&nbsp;immutable,
+                    boolean&nbsp;relative,
+                    long&nbsp;index)</pre>
+</li>
+</ul>
+<a name="getXdiMemberOrdered(boolean, boolean, long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getXdiMemberOrdered</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a>&nbsp;getXdiMemberOrdered(long&nbsp;index)</pre>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="type parameter in XdiCollection">O</a>&nbsp;getXdiMemberOrdered(boolean&nbsp;immutable,
+                    boolean&nbsp;relative,
+                    long&nbsp;index)</pre>
 </li>
 </ul>
 <a name="getXdiMembersOrdered()">
@@ -311,8 +357,8 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.MappingContextNodeXdiAttributeSingletonIterator.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Variable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiCollection.html" target="_top">Frames</a></li>
@@ -352,6 +398,6 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

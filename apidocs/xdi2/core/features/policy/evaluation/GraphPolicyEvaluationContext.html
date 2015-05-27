@@ -145,7 +145,7 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#getContextNode(xdi2.core.syntax.XDIAddress)">getContextNode</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXri)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#getContextNode(xdi2.core.syntax.XDIAddress)">getContextNode</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></td>
@@ -153,11 +153,11 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#resolveXDIAddress(xdi2.core.syntax.XDIAddress)">resolveXDIAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXri)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/core/features/policy/evaluation/GraphPolicyEvaluationContext.html#resolveXDIAddress(xdi2.core.syntax.XDIAddress)">resolveXDIAddress</a></strong>(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -208,7 +208,7 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 <ul class="blockList">
 <li class="blockList">
 <h4>resolveXDIAddress</h4>
-<pre>public&nbsp;<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;resolveXDIAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXri)</pre>
+<pre>public&nbsp;<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;resolveXDIAddress(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html#resolveXDIAddress(xdi2.core.syntax.XDIAddress)">resolveXDIAddress</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a></code></dd>
@@ -221,7 +221,7 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 <ul class="blockList">
 <li class="blockList">
 <h4>getContextNode</h4>
-<pre>public&nbsp;<a href="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getContextNode(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXri)</pre>
+<pre>public&nbsp;<a href="../../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getContextNode(<a href="../../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html#getContextNode(xdi2.core.syntax.XDIAddress)">getContextNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a></code></dd>
@@ -234,7 +234,7 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 <ul class="blockList">
 <li class="blockList">
 <h4>getStatement</h4>
-<pre>public&nbsp;<a href="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</a>&nbsp;getStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;statementXri)</pre>
+<pre>public&nbsp;<a href="../../../../../xdi2/core/Statement.html" title="interface in xdi2.core">Statement</a>&nbsp;getStatement(<a href="../../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;XDIstatement)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEvaluationContext.html" title="interface in xdi2.core.features.policy.evaluation">PolicyEvaluationContext</a></code></dd>
@@ -326,6 +326,6 @@ implements <a href="../../../../../xdi2/core/features/policy/evaluation/PolicyEv
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

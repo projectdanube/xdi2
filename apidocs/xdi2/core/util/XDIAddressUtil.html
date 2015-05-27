@@ -12,7 +12,7 @@
 <meta name="keywords" content="parentXDIAddress()">
 <meta name="keywords" content="localXDIAddress()">
 <meta name="keywords" content="subXDIAddress()">
-<meta name="keywords" content="findXDIAddress()">
+<meta name="keywords" content="extractXDIAddress()">
 <meta name="keywords" content="indexOfXDIArc()">
 <meta name="keywords" content="lastIndexOfXDIArc()">
 <meta name="keywords" content="removeStartXDIAddress()">
@@ -200,47 +200,56 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static &lt;X extends <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<br><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#findXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class)">findXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-              <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;X&gt;&nbsp;clazz)</code>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#extractXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class[], boolean, boolean)">extractXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                 <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends X&gt;[]&nbsp;clazzes,
+                 boolean&nbsp;keepParent,
+                 boolean&nbsp;keepLocal)</code>
 <div class="block">Finds a part of an XDI address that matches a certain node type.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static &lt;X extends <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<br><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#extractXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class, boolean, boolean)">extractXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                 <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;X&gt;&nbsp;clazz,
+                 boolean&nbsp;keepParent,
+                 boolean&nbsp;keepLocal)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>static int</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#indexOfXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">indexOfXDIArc</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
              <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;searchXDIArc)</code>
 <div class="block">Get the index of an arc inside an address.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static int</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#lastIndexOfXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">lastIndexOfXDIArc</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                  <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;searchXDIArc)</code>
 <div class="block">Get the last index of an arc inside an address.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#localXDIAddress(xdi2.core.syntax.XDIAddress, int)">localXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                int&nbsp;numXDIArcs)</code>
 <div class="block">Extracts an address's local arc(s).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#parentXDIAddress(xdi2.core.syntax.XDIAddress, int)">parentXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                int&nbsp;numArcs)</code>
+                int&nbsp;numXDIArcs)</code>
 <div class="block">Extracts an address's parent arc(s), counting either from the start or the end.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#removeEndXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">removeEndXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                    <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;endXDIAddress)</code>
 <div class="block">Removes an end address from an address.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#removeEndXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, boolean, boolean)">removeEndXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                    <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;endXDIAddress,
@@ -249,14 +258,14 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <div class="block">Removes an end address from an address.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#removeStartXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">removeStartXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;startXDIAddress)</code>
 <div class="block">Removes a start address from an address.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#removeStartXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, boolean, boolean)">removeStartXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                      <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;startXDIAddress,
@@ -265,22 +274,22 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <div class="block">Removes a start address from an address.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#replaceXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc, xdi2.core.syntax.XDIAddress)">replaceXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                  <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;oldXDIArc,
                  <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;newXDIAddress)</code>
-<div class="block">Replaces all occurences of an arc with an address.</div>
+<div class="block">Replaces all occurrences of an arc with an address.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#startsWithXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">startsWithXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                     <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;startXDIAddress)</code>
 <div class="block">Checks if an address starts with a certain other address.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#startsWithXDIAddress(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, boolean, boolean)">startsWithXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                     <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;startXDIAddress,
@@ -289,7 +298,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <div class="block">Checks if an address starts with a certain other address.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/util/XDIAddressUtil.html#subXDIAddress(xdi2.core.syntax.XDIAddress, int, int)">subXDIAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
              int&nbsp;startIndex,
@@ -400,7 +409,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <li class="blockList">
 <h4>parentXDIAddress</h4>
 <pre>public static&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;parentXDIAddress(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                          int&nbsp;numArcs)</pre>
+                          int&nbsp;numXDIArcs)</pre>
 <div class="block">Extracts an address's parent arc(s), counting either from the start or the end.
  For =a*b*c*d and 1, this returns =a
  For =a*b*c*d and -1, this returns =a*b*c</div>
@@ -431,15 +440,29 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <div class="block">Extracts an partial address from an address.</div>
 </li>
 </ul>
-<a name="findXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class)">
+<a name="extractXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class[], boolean, boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>findXDIAddress</h4>
-<pre>public static&nbsp;&lt;X extends <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;findXDIAddress(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                                                  <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;X&gt;&nbsp;clazz)</pre>
+<h4>extractXDIAddress</h4>
+<pre>public static&nbsp;&lt;X extends <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;extractXDIAddress(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                                                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends X&gt;[]&nbsp;clazzes,
+                                                     boolean&nbsp;keepParent,
+                                                     boolean&nbsp;keepLocal)</pre>
 <div class="block">Finds a part of an XDI address that matches a certain node type.</div>
+</li>
+</ul>
+<a name="extractXDIAddress(xdi2.core.syntax.XDIAddress, java.lang.Class, boolean, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>extractXDIAddress</h4>
+<pre>public static&nbsp;&lt;X extends <a href="../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;&gt;&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;extractXDIAddress(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+                                                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;X&gt;&nbsp;clazz,
+                                                     boolean&nbsp;keepParent,
+                                                     boolean&nbsp;keepLocal)</pre>
 </li>
 </ul>
 <a name="indexOfXDIArc(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">
@@ -543,7 +566,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <pre>public static&nbsp;<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;replaceXDIAddress(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
                            <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;oldXDIArc,
                            <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;newXDIAddress)</pre>
-<div class="block">Replaces all occurences of an arc with an address.</div>
+<div class="block">Replaces all occurrences of an arc with an address.</div>
 </li>
 </ul>
 <a name="concatXDIAddresses(xdi2.core.syntax.XDIAddress...)">
@@ -655,6 +678,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

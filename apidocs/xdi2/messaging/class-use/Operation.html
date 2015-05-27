@@ -166,6 +166,12 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">PushOperation</a></strong></code>
+<div class="block">A $push XDI operation, represented as a relation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a></strong></code>
 <div class="block">A $set XDI operation, represented as a relation.</div>
 </td>
@@ -187,36 +193,36 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.Graph)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress,
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.Graph)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress,
                <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph)</code>
 <div class="block">Creates a new operation and adds it to this XDI message.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, java.util.Iterator)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress,
-               <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&gt;&nbsp;targetStatementAddresses)</code>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, java.util.Iterator)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress,
+               <a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&gt;&nbsp;targetXDIStatementAddresses)</code>
 <div class="block">Creates a new operation and adds it to this XDI message.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, java.lang.String)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress,
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, java.lang.String)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress,
                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;target)</code>
 <div class="block">Creates a new operation and adds it to this XDI message.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress)</code>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress,
+               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Creates a new operation and adds it to this XDI message.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a></code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress,
-               <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;targetStatementAddress)</code>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#createOperation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement)">createOperation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress,
+               <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;targetXDIStatementAddress)</code>
 <div class="block">Creates a new operation and adds it to this XDI message.</div>
 </td>
 </tr>
@@ -256,7 +262,7 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&gt;</code></td>
-<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#getOperations(xdi2.core.syntax.XDIAddress)">getOperations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationAddress)</code>
+<td class="colLast"><span class="strong">Message.</span><code><strong><a href="../../../xdi2/messaging/Message.html#getOperations(xdi2.core.syntax.XDIAddress)">getOperations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;operationXDIAddress)</code>
 <div class="block">Returns all XDI operations with a given operation address in this XDI message.</div>
 </td>
 </tr>
@@ -366,7 +372,7 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><span class="strong">AddressHandler.</span><code><strong><a href="../../../xdi2/messaging/target/AddressHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress,
+<td class="colLast"><span class="strong">AddressHandler.</span><code><strong><a href="../../../xdi2/messaging/target/AddressHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                 <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                 <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                 <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>
@@ -435,8 +441,8 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><span class="strong">Contributor.</span><code><strong><a href="../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainAddresses,
-                  <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorChainAddress,
+<td class="colLast"><span class="strong">Contributor.</span><code><strong><a href="../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                  <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                   <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;relativeTargetStatement,
                   <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                   <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -553,8 +559,9 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsAddress(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsAddress</a></strong>(<a href="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                          <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainXDIAddresses,
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsAddress(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsAddress</a></strong>(<a href="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                          <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                          <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;relativeTargetXDIAddress,
                           <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                           <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -562,8 +569,9 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsStatement(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsStatement</a></strong>(<a href="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
-                            <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainXDIAddresses,
+<td class="colLast"><span class="strong">ContributorExecutor.</span><code><strong><a href="../../../xdi2/messaging/target/impl/ContributorExecutor.html#executeContributorsStatement(xdi2.messaging.target.contributor.ContributorMap, xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeContributorsStatement</a></strong>(<a href="../../../xdi2/messaging/target/contributor/ContributorMap.html" title="class in xdi2.messaging.target.contributor">ContributorMap</a>&nbsp;contributorMap,
+                            <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                            <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                             <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;relativeTargetXDIStatement,
                             <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                             <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -571,14 +579,14 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><span class="strong">AbstractContextHandler.</span><code><strong><a href="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress,
+<td class="colLast"><span class="strong">AbstractContextHandler.</span><code><strong><a href="../../../xdi2/messaging/target/impl/AbstractContextHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                 <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                 <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                 <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><span class="strong">AbstractAddressHandler.</span><code><strong><a href="../../../xdi2/messaging/target/impl/AbstractAddressHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetAddress,
+<td class="colLast"><span class="strong">AbstractAddressHandler.</span><code><strong><a href="../../../xdi2/messaging/target/impl/AbstractAddressHandler.html#executeOnAddress(xdi2.core.syntax.XDIAddress, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnAddress</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress,
                 <a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                 <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
                 <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>
@@ -735,8 +743,32 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</a></code></td>
+<td class="colLast"><span class="strong">ExecuteCommandInterceptor.</span><code><strong><a href="../../../xdi2/messaging/target/interceptor/impl/ExecuteCommandInterceptor.html#after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">after</a></strong>(<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
+     <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
+     <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</a></code></td>
+<td class="colLast"><span class="strong">WriteListenerInterceptor.</span><code><strong><a href="../../../xdi2/messaging/target/interceptor/impl/WriteListenerInterceptor.html#after(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">after</a></strong>(<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
+     <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
+     <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</a></code></td>
 <td class="colLast"><span class="strong">RefInterceptor.</span><code><strong><a href="../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">before</a></strong>(<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
       <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
+      <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</a></code></td>
+<td class="colLast"><span class="strong">ExecuteCommandInterceptor.</span><code><strong><a href="../../../xdi2/messaging/target/interceptor/impl/ExecuteCommandInterceptor.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">before</a></strong>(<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
+      <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
+      <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/messaging/target/interceptor/InterceptorResult.html" title="class in xdi2.messaging.target.interceptor">InterceptorResult</a></code></td>
+<td class="colLast"><span class="strong">WriteListenerInterceptor.</span><code><strong><a href="../../../xdi2/messaging/target/interceptor/impl/WriteListenerInterceptor.html#before(xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">before</a></strong>(<a href="../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
+      <a href="../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;messageResult,
       <a href="../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -924,6 +956,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

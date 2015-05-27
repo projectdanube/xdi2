@@ -20,10 +20,10 @@
 <meta name="keywords" content="containsRelations()">
 <meta name="keywords" content="delRelation()">
 <meta name="keywords" content="delRelations()">
-<meta name="keywords" content="setLiteral()">
-<meta name="keywords" content="getLiteral()">
-<meta name="keywords" content="containsLiteral()">
-<meta name="keywords" content="delLiteral()">
+<meta name="keywords" content="setLiteralNode()">
+<meta name="keywords" content="getLiteralNode()">
+<meta name="keywords" content="containsLiteralNode()">
+<meta name="keywords" content="delLiteralNode()">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -106,10 +106,15 @@
 <li><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
+<li><a href="../../../../xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractNode</a></li>
+<li>
+<ul class="inheritance">
 <li><a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractContextNode</a></li>
 <li>
 <ul class="inheritance">
 <li>xdi2.core.impl.wrapped.WrappedContextNode</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -120,7 +125,7 @@
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;, <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></dd>
+<dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;, <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>, <a href="../../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></dd>
 </dl>
 <hr>
 <br>
@@ -160,14 +165,14 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#containsLiteral()">containsLiteral</a></strong>()</code>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#containsLiteralNode()">containsLiteralNode</a></strong>()</code>
 <div class="block">Checks if this context node has a literal.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#containsRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">containsRelation</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+                <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Checks if a relation with a given arc and target context node XRI exists in this context node.</div>
 </td>
 </tr>
@@ -197,14 +202,14 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#delLiteral()">delLiteral</a></strong>()</code>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#delLiteralNode()">delLiteralNode</a></strong>()</code>
 <div class="block">Deletes the literal from this context node.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#delRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">delRelation</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+           <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Deletes the relation with a given arc from this context node.</div>
 </td>
 </tr>
@@ -234,15 +239,15 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getLiteral()">getLiteral</a></strong>()</code>
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getLiteralNode()">getLiteralNode</a></strong>()</code>
 <div class="block">Returns the literal of this context node.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
+           <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>
 <div class="block">Returns a relation at this context node.</div>
 </td>
 </tr>
@@ -261,7 +266,7 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#getXDIArc()">getXDIArc</a></strong>()</code>
-<div class="block">Every context node has an associated arc.</div>
+<div class="block">Every node has an associated arc.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -271,15 +276,15 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setLiteral(java.lang.Object)">setLiteral</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setLiteralNode(java.lang.Object)">setLiteralNode</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>
 <div class="block">Creates a new literal and adds it to this context node, or returns an existing literal.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-           <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/wrapped/WrappedContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
+           <a href="../../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</code>
 <div class="block">Creates a new relation and adds it to this context node, or returns an existing relation.</div>
 </td>
 </tr>
@@ -289,7 +294,14 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.impl.<a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a></h3>
-<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#clear()">clear</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#compareTo(xdi2.core.ContextNode)">compareTo</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsIncomingRelations()">containsIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsIncomingRelations(xdi2.core.syntax.XDIAddress)">containsIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral(java.lang.Object)">containsLiteral</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralBoolean(java.lang.Boolean)">containsLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralNumber(java.lang.Double)">containsLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralString(java.lang.String)">containsLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsStatement(xdi2.core.syntax.XDIStatement)">containsStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllIncomingRelations()">delContextNodeDelAllIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllInnerRoots()">delContextNodeDelAllInnerRoots</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllRelations()">delContextNodeDelAllRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delete()">delete</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delIncomingRelations()">delIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delRelationDelInnerRoot(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">delRelationDelInnerRoot</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodes()">getAllContextNodes</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLiteralCount()">getAllLiteralCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLiterals()">getAllLiterals</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllRelationCount()">getAllRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllRelations()">getAllRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllStatementCount()">getAllStatementCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllStatements()">getAllStatements</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(int)">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNodeCount()">getContextNodeCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNodes(xdi2.core.syntax.XDIAddress)">getDeepContextNodes</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteral(xdi2.core.syntax.XDIAddress)">getDeepLiteral</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">getDeepLiteral</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">getDeepLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">getDeepLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">getDeepLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations()">getIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations(xdi2.core.syntax.XDIAddress)">getIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteral(java.lang.Object)">getLiteral</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralString(java.lang.String)">getLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.syntax.XDIAddress)">getRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount()">getRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount(xdi2.core.syntax.XDIAddress)">getRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isEmpty()">isEmpty</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isLeafContextNode()">isLeafContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isRootContextNode()">isRootContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeCheckValid(xdi2.core.syntax.XDIArc)">setContextNodeCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeSetInnerRoot(xdi2.core.syntax.XDIArc, xdi2.core.ContextNode)">setContextNodeSetInnerRoot</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">setDeepLiteral</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">setDeepLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">setDeepLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">setDeepLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralCheckValid(java.lang.Object)">setLiteralCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralString(java.lang.String)">setLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelationCheckValid(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelationCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelationSetTargetContextNode(xdi2.core.syntax.XDIAddress)">setRelationSetTargetContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setStatement(xdi2.core.syntax.XDIStatement)">setStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#toString()">toString</a></code></li>
+<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#clear()">clear</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#compareTo(xdi2.core.ContextNode)">compareTo</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsIncomingRelations()">containsIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsIncomingRelations(xdi2.core.syntax.XDIAddress)">containsIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralBoolean(java.lang.Boolean)">containsLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralNode(java.lang.Object)">containsLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralNumber(java.lang.Double)">containsLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralString(java.lang.String)">containsLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsStatement(xdi2.core.syntax.XDIStatement)">containsStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllIncomingRelations()">delContextNodeDelAllIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllInnerRoots()">delContextNodeDelAllInnerRoots</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delContextNodeDelAllRelations()">delContextNodeDelAllRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delete()">delete</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delIncomingRelations()">delIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#delRelationDelInnerRoot(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">delRelationDelInnerRoot</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllContextNodes()">getAllContextNodes</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLiteralCount()">getAllLiteralCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllLiterals()">getAllLiterals</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllRelationCount()">getAllRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllRelations()">getAllRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllStatementCount()">getAllStatementCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getAllStatements()">getAllStatements</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getContextNodeCount()">getContextNodeCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress)">getDeepLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepNode(xdi2.core.syntax.XDIAddress)">getDeepNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations()">getIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getIncomingRelations(xdi2.core.syntax.XDIAddress)">getIncomingRelations</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralNode(java.lang.Object)">getLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getLiteralString(java.lang.String)">getLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.syntax.XDIAddress)">getRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount()">getRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelationCount(xdi2.core.syntax.XDIAddress)">getRelationCount</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isEmpty()">isEmpty</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isLeafContextNode()">isLeafContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#isRootContextNode()">isRootContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeCheckValid(xdi2.core.syntax.XDIArc)">setContextNodeCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setContextNodeSetInnerRoot(xdi2.core.syntax.XDIArc, xdi2.core.ContextNode)">setContextNodeSetInnerRoot</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepLiteralNode(xdi2.core.syntax.XDIAddress)">setDeepLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setDeepNode(xdi2.core.syntax.XDIAddress)">setDeepNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralCheckValid(java.lang.Object)">setLiteralCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setLiteralString(java.lang.String)">setLiteralString</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelationCheckValid(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelationCheckValid</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setRelationSetTargetNode(xdi2.core.syntax.XDIAddress)">setRelationSetTargetNode</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#setStatement(xdi2.core.syntax.XDIStatement)">setStatement</a>, <a href="../../../../xdi2/core/impl/AbstractContextNode.html#toString()">toString</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_xdi2.core.impl.AbstractNode">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;xdi2.core.impl.<a href="../../../../xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">AbstractNode</a></h3>
+<code><a href="../../../../xdi2/core/impl/AbstractNode.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractNode.html#getContextNode(int)">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractNode.html#getXDIAddress()">getXDIAddress</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -303,7 +315,14 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></h3>
-<code><a href="../../../../xdi2/core/ContextNode.html#clear()">clear</a>, <a href="../../../../xdi2/core/ContextNode.html#containsIncomingRelations()">containsIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#containsIncomingRelations(xdi2.core.syntax.XDIAddress)">containsIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteral(java.lang.Object)">containsLiteral</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralBoolean(java.lang.Boolean)">containsLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralNumber(java.lang.Double)">containsLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralString(java.lang.String)">containsLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#containsStatement(xdi2.core.syntax.XDIStatement)">containsStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#delete()">delete</a>, <a href="../../../../xdi2/core/ContextNode.html#delIncomingRelations()">delIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllContextNodes()">getAllContextNodes</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLiteralCount()">getAllLiteralCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLiterals()">getAllLiterals</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllRelationCount()">getAllRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllRelations()">getAllRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllStatementCount()">getAllStatementCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllStatements()">getAllStatements</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNode(int)">getContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNodeCount()">getContextNodeCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepContextNodes(xdi2.core.syntax.XDIAddress)">getDeepContextNodes</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.syntax.XDIAddress)">getDeepLiteral</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">getDeepLiteral</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">getDeepLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">getDeepLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">getDeepLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/ContextNode.html#getIncomingRelations()">getIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.syntax.XDIAddress)">getIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteral(java.lang.Object)">getLiteral</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralString(java.lang.String)">getLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.syntax.XDIAddress)">getRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelationCount()">getRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelationCount(xdi2.core.syntax.XDIAddress)">getRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/ContextNode.html#isEmpty()">isEmpty</a>, <a href="../../../../xdi2/core/ContextNode.html#isLeafContextNode()">isLeafContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#isRootContextNode()">isRootContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">setDeepLiteral</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">setDeepLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">setDeepLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">setDeepLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralString(java.lang.String)">setLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#setStatement(xdi2.core.syntax.XDIStatement)">setStatement</a></code></li>
+<code><a href="../../../../xdi2/core/ContextNode.html#clear()">clear</a>, <a href="../../../../xdi2/core/ContextNode.html#containsIncomingRelations()">containsIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#containsIncomingRelations(xdi2.core.syntax.XDIAddress)">containsIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralBoolean(java.lang.Boolean)">containsLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralNode(java.lang.Object)">containsLiteralNode</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralNumber(java.lang.Double)">containsLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#containsLiteralString(java.lang.String)">containsLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#containsStatement(xdi2.core.syntax.XDIStatement)">containsStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#delIncomingRelations()">delIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllContextNodeCount()">getAllContextNodeCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllContextNodes()">getAllContextNodes</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllIncomingRelations()">getAllIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLeafContextNodes()">getAllLeafContextNodes</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLiteralCount()">getAllLiteralCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllLiterals()">getAllLiterals</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllRelationCount()">getAllRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllRelations()">getAllRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllStatementCount()">getAllStatementCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getAllStatements()">getAllStatements</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNode(xdi2.core.syntax.XDIArc)">getContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getContextNodeCount()">getContextNodeCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress)">getDeepLiteralNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepLiteralNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepNode(xdi2.core.syntax.XDIAddress)">getDeepNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getIncomingRelations()">getIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getIncomingRelations(xdi2.core.syntax.XDIAddress)">getIncomingRelations</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralBoolean(java.lang.Boolean)">getLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralNode(java.lang.Object)">getLiteralNode</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralNumber(java.lang.Double)">getLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#getLiteralString(java.lang.String)">getLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.syntax.XDIAddress)">getRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelationCount()">getRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getRelationCount(xdi2.core.syntax.XDIAddress)">getRelationCount</a>, <a href="../../../../xdi2/core/ContextNode.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#getStatement(xdi2.core.syntax.XDIStatement)">getStatement</a>, <a href="../../../../xdi2/core/ContextNode.html#isEmpty()">isEmpty</a>, <a href="../../../../xdi2/core/ContextNode.html#isLeafContextNode()">isLeafContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#isRootContextNode()">isRootContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepLiteralNode(xdi2.core.syntax.XDIAddress)">setDeepLiteralNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setDeepNode(xdi2.core.syntax.XDIAddress)">setDeepNode</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralBoolean(java.lang.Boolean)">setLiteralBoolean</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralNumber(java.lang.Double)">setLiteralNumber</a>, <a href="../../../../xdi2/core/ContextNode.html#setLiteralString(java.lang.String)">setLiteralString</a>, <a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setRelation</a>, <a href="../../../../xdi2/core/ContextNode.html#setStatement(xdi2.core.syntax.XDIStatement)">setStatement</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_xdi2.core.Node">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;xdi2.core.<a href="../../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></h3>
+<code><a href="../../../../xdi2/core/Node.html#delete()">delete</a>, <a href="../../../../xdi2/core/Node.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/Node.html#getContextNode(int)">getContextNode</a>, <a href="../../../../xdi2/core/Node.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/Node.html#getXDIAddress()">getXDIAddress</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Comparable">
@@ -333,13 +352,13 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <li class="blockList">
 <h4>getXDIArc</h4>
 <pre>public&nbsp;<a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;getXDIArc()</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#getXDIArc()">ContextNode</a></code></strong></div>
-<div class="block">Every context node has an associated arc.
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/Node.html#getXDIArc()">Node</a></code></strong></div>
+<div class="block">Every node has an associated arc.
  This returns null for the root context node.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#getXDIArc()">getXDIArc</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
-<dt><span class="strong">Returns:</span></dt><dd>The arc associated with this context node.</dd></dl>
+<dd><code><a href="../../../../xdi2/core/Node.html#getXDIArc()">getXDIArc</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>The arc associated with this node.</dd></dl>
 </li>
 </ul>
 <a name="setContextNode(xdi2.core.syntax.XDIArc)">
@@ -459,20 +478,19 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </dl>
 </li>
 </ul>
-<a name="setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">
+<a name="setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setRelation</h4>
 <pre>public&nbsp;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;setRelation(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                   <a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">ContextNode</a></code></strong></div>
+                   <a href="../../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;targetNode)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">ContextNode</a></code></strong></div>
 <div class="block">Creates a new relation and adds it to this context node, or returns an existing relation.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
-<dd><code>targetContextNode</code> - The target context node of the relation.</dd>
+<dd><code><a href="../../../../xdi2/core/ContextNode.html#setRelation(xdi2.core.syntax.XDIAddress, xdi2.core.Node)">setRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The newly created or existing relation.</dd></dl>
 </li>
 </ul>
@@ -483,7 +501,7 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <li class="blockList">
 <h4>getRelation</h4>
 <pre>public&nbsp;<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;getRelation(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                   <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
+                   <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">ContextNode</a></code></strong></div>
 <div class="block">Returns a relation at this context node.</div>
 <dl>
@@ -491,7 +509,7 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <dd><code><a href="../../../../xdi2/core/ContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#getRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getRelation</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a></code></dd>
-<dd><code>targetContextNodeXDIAddress</code> - The target context node XRI of the relation.</dd>
+<dd><code>targetXDIAddress</code> - The target context node XRI of the relation.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The relation with the given arc, or null.</dd></dl>
 </li>
 </ul>
@@ -534,7 +552,7 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <li class="blockList">
 <h4>containsRelation</h4>
 <pre>public&nbsp;boolean&nbsp;containsRelation(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                       <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
+                       <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#containsRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">ContextNode</a></code></strong></div>
 <div class="block">Checks if a relation with a given arc and target context node XRI exists in this context node.</div>
 <dl>
@@ -542,7 +560,7 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <dd><code><a href="../../../../xdi2/core/ContextNode.html#containsRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">containsRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">containsRelation</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a></code></dd>
-<dd><code>targetContextNodeXDIAddress</code> - The target context node XRI of the relation.</dd>
+<dd><code>targetXDIAddress</code> - The target context node XRI of the relation.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>True if this context node has a relation with the given arc and target context node XRI.</dd></dl>
 </li>
 </ul>
@@ -587,13 +605,13 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <li class="blockList">
 <h4>delRelation</h4>
 <pre>public&nbsp;void&nbsp;delRelation(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
+               <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#delRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">ContextNode</a></code></strong></div>
 <div class="block">Deletes the relation with a given arc from this context node.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../xdi2/core/ContextNode.html#delRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">delRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
-<dd><code>targetContextNodeXDIAddress</code> - The target context node XRI of the relation.</dd></dl>
+<dd><code>targetXDIAddress</code> - The target context node XRI of the relation.</dd></dl>
 </li>
 </ul>
 <a name="delRelations(xdi2.core.syntax.XDIAddress)">
@@ -630,66 +648,66 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 </dl>
 </li>
 </ul>
-<a name="setLiteral(java.lang.Object)">
+<a name="setLiteralNode(java.lang.Object)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setLiteral</h4>
-<pre>public&nbsp;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;setLiteral(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#setLiteral(java.lang.Object)">ContextNode</a></code></strong></div>
+<h4>setLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setLiteralNode(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#setLiteralNode(java.lang.Object)">ContextNode</a></code></strong></div>
 <div class="block">Creates a new literal and adds it to this context node, or returns an existing literal.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#setLiteral(java.lang.Object)">setLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/ContextNode.html#setLiteralNode(java.lang.Object)">setLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>literalData</code> - The literal data associated with the literal.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The newly created or existing literal.</dd></dl>
 </li>
 </ul>
-<a name="getLiteral()">
+<a name="getLiteralNode()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getLiteral</h4>
-<pre>public&nbsp;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getLiteral()</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#getLiteral()">ContextNode</a></code></strong></div>
+<h4>getLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralNode()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#getLiteralNode()">ContextNode</a></code></strong></div>
 <div class="block">Returns the literal of this context node.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#getLiteral()">getLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/ContextNode.html#getLiteralNode()">getLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The literal.</dd></dl>
 </li>
 </ul>
-<a name="containsLiteral()">
+<a name="containsLiteralNode()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>containsLiteral</h4>
-<pre>public&nbsp;boolean&nbsp;containsLiteral()</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#containsLiteral()">ContextNode</a></code></strong></div>
+<h4>containsLiteralNode</h4>
+<pre>public&nbsp;boolean&nbsp;containsLiteralNode()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#containsLiteralNode()">ContextNode</a></code></strong></div>
 <div class="block">Checks if this context node has a literal.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#containsLiteral()">containsLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/ContextNode.html#containsLiteralNode()">containsLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 <dt><strong>Overrides:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteral()">containsLiteral</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/impl/AbstractContextNode.html#containsLiteralNode()">containsLiteralNode</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>True if this context node has a literal.</dd></dl>
 </li>
 </ul>
-<a name="delLiteral()">
+<a name="delLiteralNode()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>delLiteral</h4>
-<pre>public&nbsp;void&nbsp;delLiteral()</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#delLiteral()">ContextNode</a></code></strong></div>
+<h4>delLiteralNode</h4>
+<pre>public&nbsp;void&nbsp;delLiteralNode()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html#delLiteralNode()">ContextNode</a></code></strong></div>
 <div class="block">Deletes the literal from this context node.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/ContextNode.html#delLiteral()">delLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/ContextNode.html#delLiteralNode()">delLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -760,6 +778,6 @@ implements <a href="../../../../xdi2/core/ContextNode.html" title="interface in 
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

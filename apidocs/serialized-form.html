@@ -292,6 +292,51 @@
 </ul>
 </li>
 <li class="blockList">
+<h2 title="Package">Package&nbsp;xdi2.core.features.encryption</h2>
+<ul class="blockList">
+<li class="blockList"><a name="xdi2.core.features.encryption.Encryption">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/encryption/Encryption.html" title="class in xdi2.core.features.encryption">xdi2.core.features.encryption.Encryption</a> extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>556316259037177674L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockListLast">
+<h4>xdiAttribute</h4>
+<pre><a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a> xdiAttribute</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="xdi2.core.features.encryption.KeyPairEncryption">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/encryption/KeyPairEncryption.html" title="class in xdi2.core.features.encryption">xdi2.core.features.encryption.KeyPairEncryption</a> extends <a href="xdi2/core/features/encryption/Encryption.html" title="class in xdi2.core.features.encryption">Encryption</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/java/security/PublicKey.html?is-external=true" title="class or interface in java.security">PublicKey</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/security/PrivateKey.html?is-external=true" title="class or interface in java.security">PrivateKey</a>&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4642238801656414526L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.encryption.SymmetricKeyEncryption">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/encryption/SymmetricKeyEncryption.html" title="class in xdi2.core.features.encryption">xdi2.core.features.encryption.SymmetricKeyEncryption</a> extends <a href="xdi2/core/features/encryption/Encryption.html" title="class in xdi2.core.features.encryption">Encryption</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</a>,<a href="http://download.oracle.com/javase/6/docs/api/javax/crypto/SecretKey.html?is-external=true" title="class or interface in javax.crypto">SecretKey</a>&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>8245580198671482543L</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li class="blockList">
 <h2 title="Package">Package&nbsp;xdi2.core.features.linkcontracts</h2>
 <ul class="blockList">
 <li class="blockList"><a name="xdi2.core.features.linkcontracts.LinkContractBase">
@@ -393,7 +438,7 @@
 <li class="blockList"><a name="xdi2.core.features.linkcontracts.template.LinkContractTemplate">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/linkcontracts/template/LinkContractTemplate.html" title="class in xdi2.core.features.linkcontracts.template">xdi2.core.features.linkcontracts.template.LinkContractTemplate</a> extends <a href="xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</a>&lt;<a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/linkcontracts/template/LinkContractTemplate.html" title="class in xdi2.core.features.linkcontracts.template">xdi2.core.features.linkcontracts.template.LinkContractTemplate</a> extends <a href="xdi2/core/features/linkcontracts/LinkContractBase.html" title="class in xdi2.core.features.linkcontracts">LinkContractBase</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Variable</a>&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1373222090414868359L</dd>
@@ -405,8 +450,8 @@
 <h3>Serialized Fields</h3>
 <ul class="blockList">
 <li class="blockListLast">
-<h4>xdiVariable</h4>
-<pre><a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a> xdiVariable</pre>
+<h4>xdiEntitySingletonVariable</h4>
+<pre><a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Variable</a> xdiEntitySingletonVariable</pre>
 </li>
 </ul>
 </li>
@@ -482,6 +527,15 @@
 </li>
 </ul>
 </li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractDefinition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractDefinition</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="type parameter in XdiAbstractDefinition">EQ</a> extends <a href="xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="type parameter in XdiAbstractDefinition">EQ</a>&gt;&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-6867120632356031373L</dd>
+</dl>
+</li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractEntity">
 <!--   -->
 </a>
@@ -491,28 +545,28 @@
 <dd>7648046902369626744L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractMember">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractInstance">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractMember.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractMember</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMember.html" title="type parameter in XdiAbstractMember">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMember.html" title="type parameter in XdiAbstractMember">EQI</a>&gt;&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractInstance</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="type parameter in XdiAbstractInstance">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="type parameter in XdiAbstractInstance">EQI</a>&gt;&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>3673396905245169194L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractMemberOrdered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractMemberOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMember.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a> extends <a href="xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="type parameter in XdiAbstractMemberOrdered">I</a>&gt;&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractInstanceOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstance</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a> extends <a href="xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="type parameter in XdiAbstractInstanceOrdered">I</a>&gt;&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>8283064321616435273L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractMemberUnordered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractMemberUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMember.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a> extends <a href="xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="type parameter in XdiAbstractMemberUnordered">I</a>&gt;&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstance</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a> extends <a href="xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a> extends <a href="xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a> extends <a href="xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a>&gt;,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a> extends <a href="xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQC</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">EQI</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">C</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">U</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">O</a>,<a href="xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="type parameter in XdiAbstractInstanceUnordered">I</a>&gt;&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-8496645644143069191L</dd>
@@ -548,46 +602,163 @@
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAbstractVariable">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractVariable</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">XdiAbstractVariable</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAbstractVariable</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="type parameter in XdiAbstractVariable">EQ</a> extends <a href="xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="type parameter in XdiAbstractVariable">EQ</a>&gt;&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
-<dd>-5443590668167159237L</dd>
+<dd>3293452777739432663L</dd>
 </dl>
 </li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeCollection">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeCollection</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeCollection</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeInstance.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeInstance</a>&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-8518618921427437445L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeMemberOrdered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeCollection.Definition">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeMemberOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeCollection.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>6740262141309967040L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeCollection.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeCollection.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>1599526969113350097L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeCollection.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeCollection.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>2330513109724196648L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>3562576098019686485L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeMemberUnordered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Definition">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeMemberUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>9076766650130455708L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>8232065600537713537L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceOrdered.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-3150796131750366380L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1027868266675630350L</dd>
 </dl>
 </li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4402788017621704585L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-1780709783037852933L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeInstanceUnordered.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4215503983322026456L</dd>
+</dl>
+</li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeSingleton">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeSingleton</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</a>&lt;<a href="xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeSingleton</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-5769813522592588864L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeSingleton.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeSingleton.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>7411198118077832135L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeSingleton.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeSingleton.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>8934101084784717952L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiAttributeSingleton.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiAttributeSingleton.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-5508680702470597923L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiCommonDefinition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiCommonDefinition</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes">XdiCommonDefinition</a>&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4872125371237353090L</dd>
 </dl>
 </li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiCommonRoot">
@@ -599,40 +770,157 @@
 <dd>2956364705721958108L</dd>
 </dl>
 </li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiCommonVariable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiCommonVariable</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>&lt;<a href="xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes">XdiCommonVariable</a>&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4872125371237353090L</dd>
+</dl>
+</li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityCollection">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityCollection</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>,<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMember.html" title="interface in xdi2.core.features.nodetypes">XdiEntityMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityCollection</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>,<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityInstance.html" title="interface in xdi2.core.features.nodetypes">XdiEntityInstance</a>&gt; implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-8518618921427437445L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityMemberOrdered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityCollection.Definition">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityMemberOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>,<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMember.html" title="interface in xdi2.core.features.nodetypes">XdiEntityMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityCollection.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityCollection.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-8764054945300451833L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityCollection.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityCollection.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>2708216443425874389L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityCollection.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityCollection.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityCollection.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-2507121175725369946L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceOrdered">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1027868266675630350L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityMemberUnordered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Definition">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityMemberUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>,<a href="xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiEntityMember.html" title="interface in xdi2.core.features.nodetypes">XdiEntityMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>2573019454800317427L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-733187918902336345L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceOrdered.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-1763609127063056015L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceUnordered">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1027868266675630350L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>517841074677834425L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-7805697920934511410L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntityInstanceUnordered.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-3855592195407455246L</dd>
 </dl>
 </li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntitySingleton">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntitySingleton</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</a>&lt;<a href="xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntitySingleton</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>7600443284706530972L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntitySingleton.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntitySingleton.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>2775226960452256609L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntitySingleton.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntitySingleton.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-4966302176187920083L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiEntitySingleton.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiEntitySingleton.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>3191398216480478995L</dd>
 </dl>
 </li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiInnerRoot">
@@ -644,6 +932,33 @@
 <dd>-203126514430691007L</dd>
 </dl>
 </li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiInnerRoot.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiInnerRoot.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-5640216972462296407L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiInnerRoot.Definition.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiInnerRoot.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiInnerRoot.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Definition</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-1401635713470819189L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiInnerRoot.Variable">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiInnerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiInnerRoot.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>245548841077666133L</dd>
+</dl>
+</li>
 <li class="blockList"><a name="xdi2.core.features.nodetypes.XdiPeerRoot">
 <!--   -->
 </a>
@@ -653,49 +968,31 @@
 <dd>-4689596452249483618L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiValue">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiPeerRoot.Definition">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiValue</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>&lt;<a href="xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiPeerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiPeerRoot.Definition</a> extends <a href="xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
-<dd>3710989824639753381L</dd>
+<dd>-7421993257285271303L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiVariableCollection">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiPeerRoot.Definition.Variable">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiVariableCollection</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>&lt;<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>,<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMember.html" title="interface in xdi2.core.features.nodetypes">XdiVariableMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiPeerRoot.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiPeerRoot.Definition.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiPeerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot.Definition</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
-<dd>577420131345150256L</dd>
+<dd>-4287720287904718749L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiVariableMemberOrdered">
+<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiPeerRoot.Variable">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiVariableMemberOrdered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>,<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMember.html" title="interface in xdi2.core.features.nodetypes">XdiVariableMember</a>&gt; implements Serializable</h3>
+<h3>Class <a href="xdi2/core/features/nodetypes/XdiPeerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiPeerRoot.Variable</a> extends <a href="xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
-<dd>1027868266675630350L</dd>
-</dl>
-</li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiVariableMemberUnordered">
-<!--   -->
-</a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiVariableMemberUnordered</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered</a>&lt;<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>,<a href="xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberUnordered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberOrdered</a>,<a href="xdi2/core/features/nodetypes/XdiVariableMember.html" title="interface in xdi2.core.features.nodetypes">XdiVariableMember</a>&gt; implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>1027868266675630350L</dd>
-</dl>
-</li>
-<li class="blockList"><a name="xdi2.core.features.nodetypes.XdiVariableSingleton">
-<!--   -->
-</a>
-<h3>Class <a href="xdi2/core/features/nodetypes/XdiVariableSingleton.html" title="class in xdi2.core.features.nodetypes">xdi2.core.features.nodetypes.XdiVariableSingleton</a> extends <a href="xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</a>&lt;<a href="xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&gt; implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>3095667439821943614L</dd>
+<dd>-2044945343736353559L</dd>
 </dl>
 </li>
 </ul>
@@ -781,8 +1078,8 @@
 <h3>Serialized Fields</h3>
 <ul class="blockList">
 <li class="blockListLast">
-<h4>statementXri</h4>
-<pre><a href="xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a> statementXri</pre>
+<h4>XDIstatement</h4>
+<pre><a href="xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a> XDIstatement</pre>
 </li>
 </ul>
 </li>
@@ -949,7 +1246,7 @@
 <li class="blockList"><a name="xdi2.core.impl.AbstractContextNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractContextNode</a> extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractContextNode</a> extends <a href="xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">AbstractNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>7937255194345376190L</dd>
@@ -963,14 +1260,6 @@
 <li class="blockList">
 <h4>graph</h4>
 <pre><a href="xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a> graph</pre>
-</li>
-<li class="blockList">
-<h4>contextNode</h4>
-<pre><a href="xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a> contextNode</pre>
-</li>
-<li class="blockList">
-<h4>XDIaddress</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 <li class="blockListLast">
 <h4>statement</h4>
@@ -1007,13 +1296,36 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.AbstractLiteral">
+<li class="blockList"><a name="xdi2.core.impl.AbstractLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractLiteral</a> extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractLiteralNode</a> extends <a href="xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">AbstractNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-3376866498591508078L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockListLast">
+<h4>statement</h4>
+<pre><a href="xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</a> statement</pre>
+<div class="block">A statement for this literal.</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="xdi2.core.impl.AbstractNode">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">xdi2.core.impl.AbstractNode</a> extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>151088659284780089L</dd>
 </dl>
 <ul class="blockList">
 <li class="blockList"><a name="serializedForm">
@@ -1026,9 +1338,8 @@
 <pre><a href="xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a> contextNode</pre>
 </li>
 <li class="blockListLast">
-<h4>statement</h4>
-<pre><a href="xdi2/core/Statement.LiteralStatement.html" title="interface in xdi2.core">Statement.LiteralStatement</a> statement</pre>
-<div class="block">A statement for this literal.</div>
+<h4>XDIaddress</h4>
+<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 </ul>
 </li>
@@ -1097,10 +1408,10 @@
 <dd>-2393268622327844933L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.BasicContextNode">
+<li class="blockList"><a name="xdi2.core.impl.DummyContextNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/BasicContextNode.html" title="class in xdi2.core.impl">xdi2.core.impl.BasicContextNode</a> extends <a href="xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/DummyContextNode.html" title="class in xdi2.core.impl">xdi2.core.impl.DummyContextNode</a> extends <a href="xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-3684616841641336596L</dd>
@@ -1124,26 +1435,26 @@
 <pre><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">T</a>&gt; relations</pre>
 </li>
 <li class="blockListLast">
-<h4>literal</h4>
-<pre><a href="xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a> literal</pre>
+<h4>literalNode</h4>
+<pre><a href="xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a> literalNode</pre>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.BasicGraph">
+<li class="blockList"><a name="xdi2.core.impl.DummyGraph">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/BasicGraph.html" title="class in xdi2.core.impl">xdi2.core.impl.BasicGraph</a> extends <a href="xdi2/core/impl/AbstractGraph.html" title="class in xdi2.core.impl">AbstractGraph</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/DummyGraph.html" title="class in xdi2.core.impl">xdi2.core.impl.DummyGraph</a> extends <a href="xdi2/core/impl/AbstractGraph.html" title="class in xdi2.core.impl">AbstractGraph</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>4690232105168518399L</dd>
 </dl>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.BasicLiteral">
+<li class="blockList"><a name="xdi2.core.impl.DummyLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/BasicLiteral.html" title="class in xdi2.core.impl">xdi2.core.impl.BasicLiteral</a> extends <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">AbstractLiteral</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/DummyLiteralNode.html" title="class in xdi2.core.impl">xdi2.core.impl.DummyLiteralNode</a> extends <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>3101871056623742994L</dd>
@@ -1162,10 +1473,10 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.BasicRelation">
+<li class="blockList"><a name="xdi2.core.impl.DummyRelation">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/BasicRelation.html" title="class in xdi2.core.impl">xdi2.core.impl.BasicRelation</a> extends <a href="xdi2/core/impl/AbstractRelation.html" title="class in xdi2.core.impl">AbstractRelation</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/DummyRelation.html" title="class in xdi2.core.impl">xdi2.core.impl.DummyRelation</a> extends <a href="xdi2/core/impl/AbstractRelation.html" title="class in xdi2.core.impl">AbstractRelation</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-8757473050724884998L</dd>
@@ -1181,8 +1492,8 @@
 <pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 <li class="blockListLast">
-<h4>targetContextNodeXDIAddress</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetContextNodeXDIAddress</pre>
+<h4>targetXDIAddress</h4>
+<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetXDIAddress</pre>
 </li>
 </ul>
 </li>
@@ -1265,10 +1576,10 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.json.JSONLiteral">
+<li class="blockList"><a name="xdi2.core.impl.json.JSONLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/json/JSONLiteral.html" title="class in xdi2.core.impl.json">xdi2.core.impl.json.JSONLiteral</a> extends <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">AbstractLiteral</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/json/JSONLiteralNode.html" title="class in xdi2.core.impl.json">xdi2.core.impl.json.JSONLiteralNode</a> extends <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>5656043671598618588L</dd>
@@ -1293,8 +1604,8 @@
 <pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 <li class="blockListLast">
-<h4>targetContextNodeXDIAddress</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetContextNodeXDIAddress</pre>
+<h4>targetXDIAddress</h4>
+<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetXDIAddress</pre>
 </li>
 </ul>
 </li>
@@ -1369,10 +1680,10 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.keyvalue.KeyValueLiteral">
+<li class="blockList"><a name="xdi2.core.impl.keyvalue.KeyValueLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/keyvalue/KeyValueLiteral.html" title="class in xdi2.core.impl.keyvalue">xdi2.core.impl.keyvalue.KeyValueLiteral</a> extends <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">AbstractLiteral</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/keyvalue/KeyValueLiteralNode.html" title="class in xdi2.core.impl.keyvalue">xdi2.core.impl.keyvalue.KeyValueLiteralNode</a> extends <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>5391652119780088907L</dd>
@@ -1426,8 +1737,8 @@
 <pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 <li class="blockListLast">
-<h4>targetContextNodeXDIAddress</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetContextNodeXDIAddress</pre>
+<h4>targetXDIAddress</h4>
+<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetXDIAddress</pre>
 </li>
 </ul>
 </li>
@@ -1465,8 +1776,8 @@
 <pre><a href="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">K</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">V</a>&gt; relations</pre>
 </li>
 <li class="blockListLast">
-<h4>literal</h4>
-<pre><a href="xdi2/core/impl/memory/MemoryLiteral.html" title="class in xdi2.core.impl.memory">MemoryLiteral</a> literal</pre>
+<h4>literalNode</h4>
+<pre><a href="xdi2/core/impl/memory/MemoryLiteralNode.html" title="class in xdi2.core.impl.memory">MemoryLiteralNode</a> literalNode</pre>
 </li>
 </ul>
 </li>
@@ -1498,10 +1809,10 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.memory.MemoryLiteral">
+<li class="blockList"><a name="xdi2.core.impl.memory.MemoryLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/memory/MemoryLiteral.html" title="class in xdi2.core.impl.memory">xdi2.core.impl.memory.MemoryLiteral</a> extends <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">AbstractLiteral</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/memory/MemoryLiteralNode.html" title="class in xdi2.core.impl.memory">xdi2.core.impl.memory.MemoryLiteralNode</a> extends <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>-7857969624385707741L</dd>
@@ -1539,8 +1850,8 @@
 <pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> XDIaddress</pre>
 </li>
 <li class="blockListLast">
-<h4>targetContextNodeXDIAddress</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetContextNodeXDIAddress</pre>
+<h4>targetXDIAddress</h4>
+<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> targetXDIAddress</pre>
 </li>
 </ul>
 </li>
@@ -1599,10 +1910,10 @@
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="xdi2.core.impl.wrapped.WrappedLiteral">
+<li class="blockList"><a name="xdi2.core.impl.wrapped.WrappedLiteralNode">
 <!--   -->
 </a>
-<h3>Class <a href="xdi2/core/impl/wrapped/WrappedLiteral.html" title="class in xdi2.core.impl.wrapped">xdi2.core.impl.wrapped.WrappedLiteral</a> extends <a href="xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl">AbstractLiteral</a> implements Serializable</h3>
+<h3>Class <a href="xdi2/core/impl/wrapped/WrappedLiteralNode.html" title="class in xdi2.core.impl.wrapped">xdi2.core.impl.wrapped.WrappedLiteralNode</a> extends <a href="xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a> implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1602689543198362042L</dd>
@@ -1615,7 +1926,7 @@
 <ul class="blockList">
 <li class="blockListLast">
 <h4>memoryLiteral</h4>
-<pre><a href="xdi2/core/impl/memory/MemoryLiteral.html" title="class in xdi2.core.impl.memory">MemoryLiteral</a> memoryLiteral</pre>
+<pre><a href="xdi2/core/impl/memory/MemoryLiteralNode.html" title="class in xdi2.core.impl.memory">MemoryLiteralNode</a> memoryLiteral</pre>
 </li>
 </ul>
 </li>
@@ -1684,9 +1995,25 @@
 </a>
 <h3>Serialized Fields</h3>
 <ul class="blockList">
-<li class="blockListLast">
+<li class="blockList">
 <h4>parameters</h4>
 <pre><a href="http://download.oracle.com/javase/6/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</a> parameters</pre>
+</li>
+<li class="blockList">
+<h4>writeImplied</h4>
+<pre>boolean writeImplied</pre>
+</li>
+<li class="blockList">
+<h4>writeOrdered</h4>
+<pre>boolean writeOrdered</pre>
+</li>
+<li class="blockList">
+<h4>writePretty</h4>
+<pre>boolean writePretty</pre>
+</li>
+<li class="blockListLast">
+<h4>writeHtml</h4>
+<pre>boolean writeHtml</pre>
 </li>
 </ul>
 </li>
@@ -1754,6 +2081,15 @@
 <dd>1450041480967749122L</dd>
 </dl>
 </li>
+<li class="blockList"><a name="xdi2.core.io.readers.XDIJSONQuadReader">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/io/readers/XDIJSONQuadReader.html" title="class in xdi2.core.io.readers">xdi2.core.io.readers.XDIJSONQuadReader</a> extends <a href="xdi2/core/io/AbstractXDIReader.html" title="class in xdi2.core.io">AbstractXDIReader</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-141407281637273449L</dd>
+</dl>
+</li>
 <li class="blockList"><a name="xdi2.core.io.readers.XDIJSONReader">
 <!--   -->
 </a>
@@ -1785,31 +2121,6 @@
 <dt>serialVersionUID:</dt>
 <dd>-1653073796384849940L</dd>
 </dl>
-<ul class="blockList">
-<li class="blockList"><a name="serializedForm">
-<!--   -->
-</a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockList">
-<h4>writeImplied</h4>
-<pre>boolean writeImplied</pre>
-</li>
-<li class="blockList">
-<h4>writeOrdered</h4>
-<pre>boolean writeOrdered</pre>
-</li>
-<li class="blockList">
-<h4>writePretty</h4>
-<pre>boolean writePretty</pre>
-</li>
-<li class="blockListLast">
-<h4>writeHtml</h4>
-<pre>boolean writeHtml</pre>
-</li>
-</ul>
-</li>
-</ul>
 </li>
 <li class="blockList"><a name="xdi2.core.io.writers.XDIHTMLWriter">
 <!--   -->
@@ -1828,27 +2139,15 @@
 <dt>serialVersionUID:</dt>
 <dd>-5510592554616900152L</dd>
 </dl>
-<ul class="blockList">
-<li class="blockList"><a name="serializedForm">
+</li>
+<li class="blockList"><a name="xdi2.core.io.writers.XDIJSONQuadWriter">
 <!--   -->
 </a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockList">
-<h4>writeImplied</h4>
-<pre>boolean writeImplied</pre>
-</li>
-<li class="blockList">
-<h4>writeOrdered</h4>
-<pre>boolean writeOrdered</pre>
-</li>
-<li class="blockListLast">
-<h4>writePretty</h4>
-<pre>boolean writePretty</pre>
-</li>
-</ul>
-</li>
-</ul>
+<h3>Class <a href="xdi2/core/io/writers/XDIJSONQuadWriter.html" title="class in xdi2.core.io.writers">xdi2.core.io.writers.XDIJSONQuadWriter</a> extends <a href="xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>1077789049204778292L</dd>
+</dl>
 </li>
 <li class="blockList"><a name="xdi2.core.io.writers.XDIJSONTREEWriter">
 <!--   -->
@@ -1858,27 +2157,15 @@
 <dt>serialVersionUID:</dt>
 <dd>-7518609157052712790L</dd>
 </dl>
-<ul class="blockList">
-<li class="blockList"><a name="serializedForm">
+</li>
+<li class="blockList"><a name="xdi2.core.io.writers.XDIJSONTripleWriter">
 <!--   -->
 </a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockList">
-<h4>writeImplied</h4>
-<pre>boolean writeImplied</pre>
-</li>
-<li class="blockList">
-<h4>writeOrdered</h4>
-<pre>boolean writeOrdered</pre>
-</li>
-<li class="blockListLast">
-<h4>writePretty</h4>
-<pre>boolean writePretty</pre>
-</li>
-</ul>
-</li>
-</ul>
+<h3>Class <a href="xdi2/core/io/writers/XDIJSONTripleWriter.html" title="class in xdi2.core.io.writers">xdi2.core.io.writers.XDIJSONTripleWriter</a> extends <a href="xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-1182712339753412616L</dd>
+</dl>
 </li>
 <li class="blockList"><a name="xdi2.core.io.writers.XDIJSONWriter">
 <!--   -->
@@ -1888,27 +2175,6 @@
 <dt>serialVersionUID:</dt>
 <dd>-5510592554616900152L</dd>
 </dl>
-<ul class="blockList">
-<li class="blockList"><a name="serializedForm">
-<!--   -->
-</a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockList">
-<h4>writeImplied</h4>
-<pre>boolean writeImplied</pre>
-</li>
-<li class="blockList">
-<h4>writeOrdered</h4>
-<pre>boolean writeOrdered</pre>
-</li>
-<li class="blockListLast">
-<h4>writePretty</h4>
-<pre>boolean writePretty</pre>
-</li>
-</ul>
-</li>
-</ul>
 </li>
 <li class="blockList"><a name="xdi2.core.io.writers.XDIKeyValueWriter">
 <!--   -->
@@ -1918,19 +2184,24 @@
 <dt>serialVersionUID:</dt>
 <dd>4377123541696335486L</dd>
 </dl>
-<ul class="blockList">
-<li class="blockList"><a name="serializedForm">
+</li>
+<li class="blockList"><a name="xdi2.core.io.writers.XDIRDFJSONLDWriter">
 <!--   -->
 </a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockListLast">
-<h4>writeOrdered</h4>
-<pre>boolean writeOrdered</pre>
+<h3>Class <a href="xdi2/core/io/writers/XDIRDFJSONLDWriter.html" title="class in xdi2.core.io.writers">xdi2.core.io.writers.XDIRDFJSONLDWriter</a> extends <a href="xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>5092527153822636157L</dd>
+</dl>
 </li>
-</ul>
-</li>
-</ul>
+<li class="blockList"><a name="xdi2.core.io.writers.XDIRDFTriGWriter">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/core/io/writers/XDIRDFTriGWriter.html" title="class in xdi2.core.io.writers">xdi2.core.io.writers.XDIRDFTriGWriter</a> extends <a href="xdi2/core/io/AbstractXDIWriter.html" title="class in xdi2.core.io">AbstractXDIWriter</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-7401855287387482242L</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -1992,12 +2263,28 @@
 <pre><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a> cs</pre>
 </li>
 <li class="blockList">
-<h4>classXs</h4>
-<pre>boolean classXs</pre>
+<h4>variable</h4>
+<pre>boolean variable</pre>
 </li>
 <li class="blockList">
-<h4>attributeXs</h4>
-<pre>boolean attributeXs</pre>
+<h4>definition</h4>
+<pre>boolean definition</pre>
+</li>
+<li class="blockList">
+<h4>collection</h4>
+<pre>boolean collection</pre>
+</li>
+<li class="blockList">
+<h4>attribute</h4>
+<pre>boolean attribute</pre>
+</li>
+<li class="blockList">
+<h4>immutable</h4>
+<pre>boolean immutable</pre>
+</li>
+<li class="blockList">
+<h4>relative</h4>
+<pre>boolean relative</pre>
 </li>
 <li class="blockList">
 <h4>literal</h4>
@@ -2053,7 +2340,7 @@
 </li>
 <li class="blockList">
 <h4>predicate</h4>
-<pre><a href="xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a> predicate</pre>
+<pre><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> predicate</pre>
 </li>
 <li class="blockListLast">
 <h4>object</h4>
@@ -2323,6 +2610,15 @@
 </ul>
 </li>
 </ul>
+</li>
+<li class="blockList"><a name="xdi2.messaging.PushOperation">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">xdi2.messaging.PushOperation</a> extends <a href="xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>4953230035946917353L</dd>
+</dl>
 </li>
 <li class="blockList"><a name="xdi2.messaging.SetOperation">
 <!--   -->
@@ -2678,10 +2974,6 @@
 </a>
 <h3>Serialized Fields</h3>
 <ul class="blockList">
-<li class="blockList">
-<h4>httpMessagingTargetRegistry</h4>
-<pre><a href="xdi2/transport/impl/http/registry/HttpMessagingTargetRegistry.html" title="class in xdi2.transport.impl.http.registry">HttpMessagingTargetRegistry</a> httpMessagingTargetRegistry</pre>
-</li>
 <li class="blockListLast">
 <h4>httpTransport</h4>
 <pre><a href="xdi2/transport/impl/http/HttpTransport.html" title="class in xdi2.transport.impl.http">HttpTransport</a> httpTransport</pre>
@@ -2716,6 +3008,20 @@
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>216233584449545708L</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li class="blockList">
+<h2 title="Package">Package&nbsp;xdi2.webtools.encrypter</h2>
+<ul class="blockList">
+<li class="blockList"><a name="xdi2.webtools.encrypter.XDIEncrypter">
+<!--   -->
+</a>
+<h3>Class <a href="xdi2/webtools/encrypter/XDIEncrypter.html" title="class in xdi2.webtools.encrypter">xdi2.webtools.encrypter.XDIEncrypter</a> extends javax.servlet.http.HttpServlet implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>717572297333319206L</dd>
 </dl>
 </li>
 </ul>
@@ -2897,6 +3203,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

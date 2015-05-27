@@ -14,6 +14,7 @@
 <meta name="keywords" content="getReferenceXdiContext()">
 <meta name="keywords" content="getReplacementXdiContext()">
 <meta name="keywords" content="getIdentityXdiContexts()">
+<meta name="keywords" content="getIdentityXdiContext()">
 <meta name="keywords" content="findRoot()">
 <meta name="keywords" content="findLocalRoot()">
 <meta name="keywords" content="getXdiInnerRoot()">
@@ -54,8 +55,8 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiDefinition.html" title="interface in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiContext.html" target="_top">Frames</a></li>
@@ -110,11 +111,11 @@
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityMember.html" title="interface in xdi2.core.features.nodetypes">XdiEntityMember</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiSingleton.html" title="interface in xdi2.core.features.nodetypes">XdiSingleton</a>&lt;EQ&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;EQ&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableMember.html" title="interface in xdi2.core.features.nodetypes">XdiVariableMember</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstance.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeInstance</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiDefinition.html" title="interface in xdi2.core.features.nodetypes">XdiDefinition</a>&lt;EQ&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstance.html" title="interface in xdi2.core.features.nodetypes">XdiEntityInstance</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;EQC,EQI,C,U,O,I&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiSingleton.html" title="interface in xdi2.core.features.nodetypes">XdiSingleton</a>&lt;EQ&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;EQ&gt;, <a href="../../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;EQ&gt;</dd>
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMember.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMember</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractMemberUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">XdiAbstractVariable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes">XdiCommonRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityMemberUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableCollection.html" title="class in xdi2.core.features.nodetypes">XdiVariableCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiVariableMemberUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiVariableSingleton.html" title="class in xdi2.core.features.nodetypes">XdiVariableSingleton</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html" title="class in xdi2.core.features.nodetypes">XdiAbstractCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html" title="class in xdi2.core.features.nodetypes">XdiAbstractContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractDefinition.html" title="class in xdi2.core.features.nodetypes">XdiAbstractDefinition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html" title="class in xdi2.core.features.nodetypes">XdiAbstractEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstance.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstance</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAbstractInstanceUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html" title="class in xdi2.core.features.nodetypes">XdiAbstractRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html" title="class in xdi2.core.features.nodetypes">XdiAbstractSubGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAbstractVariable.html" title="class in xdi2.core.features.nodetypes">XdiAbstractVariable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonDefinition.html" title="class in xdi2.core.features.nodetypes">XdiCommonDefinition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes">XdiCommonRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes">XdiCommonVariable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityCollection.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityCollection.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.Definition.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.Variable.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.Definition.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.Variable.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot.Variable</a></dd>
 </dl>
 <hr>
 <br>
@@ -143,24 +144,34 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference(boolean, boolean, boolean)">dereference</a></strong>(boolean&nbsp;reference,
+           boolean&nbsp;replacement,
+           boolean&nbsp;identity)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes">XdiCommonRoot</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContext()">getIdentityXdiContext</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a>&gt;</code></td>
@@ -244,7 +255,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;innerRootPredicateAddress,
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;innerRootPredicateXDIAddress,
                boolean&nbsp;create)</code>&nbsp;</td>
 </tr>
 </table>
@@ -314,6 +325,17 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <pre><a href="../../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;getBaseXDIArc()</pre>
 </li>
 </ul>
+<a name="dereference(boolean, boolean, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dereference</h4>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a>&nbsp;dereference(boolean&nbsp;reference,
+             boolean&nbsp;replacement,
+             boolean&nbsp;identity)</pre>
+</li>
+</ul>
 <a name="dereference()">
 <!--   -->
 </a>
@@ -350,6 +372,15 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <pre><a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a>&gt;&nbsp;getIdentityXdiContexts()</pre>
 </li>
 </ul>
+<a name="getIdentityXdiContext()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getIdentityXdiContext</h4>
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="type parameter in XdiContext">EQ</a>&nbsp;getIdentityXdiContext()</pre>
+</li>
+</ul>
 <a name="findRoot()">
 <!--   -->
 </a>
@@ -374,7 +405,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>getXdiInnerRoot</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a>&nbsp;getXdiInnerRoot(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;innerRootPredicateAddress,
+<pre><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html" title="class in xdi2.core.features.nodetypes">XdiInnerRoot</a>&nbsp;getXdiInnerRoot(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;innerRootPredicateXDIAddress,
                            boolean&nbsp;create)</pre>
 </li>
 </ul>
@@ -524,8 +555,8 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiCommonVariable.html" title="class in xdi2.core.features.nodetypes"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/features/nodetypes/XdiDefinition.html" title="interface in xdi2.core.features.nodetypes"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?xdi2/core/features/nodetypes/XdiContext.html" target="_top">Frames</a></li>
@@ -565,6 +596,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

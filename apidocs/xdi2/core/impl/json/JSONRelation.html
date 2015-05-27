@@ -6,7 +6,7 @@
 <title>JSONRelation (xdi2 0.7-SNAPSHOT API)</title>
 <meta name="keywords" content="xdi2.core.impl.json.JSONRelation class">
 <meta name="keywords" content="getXDIAddress()">
-<meta name="keywords" content="getTargetContextNodeXDIAddress()">
+<meta name="keywords" content="getTargetXDIAddress()">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -38,7 +38,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/impl/json/JSONLiteral.html" title="class in xdi2.core.impl.json"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/impl/json/JSONLiteralNode.html" title="class in xdi2.core.impl.json"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../../xdi2/core/impl/json/JSONStore.html" title="interface in xdi2.core.impl.json"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -131,7 +131,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <tr class="altColor">
 <td class="colOne"><code><strong><a href="../../../../xdi2/core/impl/json/JSONRelation.html#JSONRelation(xdi2.core.ContextNode, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">JSONRelation</a></strong>(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
             <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-            <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>&nbsp;</td>
+            <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -150,7 +150,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/json/JSONRelation.html#getTargetContextNodeXDIAddress()">getTargetContextNodeXDIAddress</a></strong>()</code>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/impl/json/JSONRelation.html#getTargetXDIAddress()">getTargetXDIAddress</a></strong>()</code>
 <div class="block">Get the target context node address.</div>
 </td>
 </tr>
@@ -166,7 +166,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;xdi2.core.impl.<a href="../../../../xdi2/core/impl/AbstractRelation.html" title="class in xdi2.core.impl">AbstractRelation</a></h3>
-<code><a href="../../../../xdi2/core/impl/AbstractRelation.html#compareTo(xdi2.core.Relation)">compareTo</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#delete()">delete</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#follow()">follow</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#toString()">toString</a></code></li>
+<code><a href="../../../../xdi2/core/impl/AbstractRelation.html#compareTo(xdi2.core.Relation)">compareTo</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#delete()">delete</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#equals(java.lang.Object)">equals</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#follow()">follow</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#followContextNode()">followContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#followLiteralNode()">followLiteralNode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#getStatement()">getStatement</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#hashCode()">hashCode</a>, <a href="../../../../xdi2/core/impl/AbstractRelation.html#toString()">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -180,7 +180,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.<a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></h3>
-<code><a href="../../../../xdi2/core/Relation.html#delete()">delete</a>, <a href="../../../../xdi2/core/Relation.html#follow()">follow</a>, <a href="../../../../xdi2/core/Relation.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/Relation.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/Relation.html#getStatement()">getStatement</a></code></li>
+<code><a href="../../../../xdi2/core/Relation.html#delete()">delete</a>, <a href="../../../../xdi2/core/Relation.html#follow()">follow</a>, <a href="../../../../xdi2/core/Relation.html#followContextNode()">followContextNode</a>, <a href="../../../../xdi2/core/Relation.html#followLiteralNode()">followLiteralNode</a>, <a href="../../../../xdi2/core/Relation.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/Relation.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/Relation.html#getStatement()">getStatement</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Comparable">
@@ -211,7 +211,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <h4>JSONRelation</h4>
 <pre>public&nbsp;JSONRelation(<a href="../../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
             <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-            <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
+            <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetXDIAddress)</pre>
 </li>
 </ul>
 </li>
@@ -237,18 +237,18 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <dt><span class="strong">Returns:</span></dt><dd>The address associated with the relation.</dd></dl>
 </li>
 </ul>
-<a name="getTargetContextNodeXDIAddress()">
+<a name="getTargetXDIAddress()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getTargetContextNodeXDIAddress</h4>
-<pre>public&nbsp;<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getTargetContextNodeXDIAddress()</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/Relation.html#getTargetContextNodeXDIAddress()">Relation</a></code></strong></div>
+<h4>getTargetXDIAddress</h4>
+<pre>public&nbsp;<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getTargetXDIAddress()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../xdi2/core/Relation.html#getTargetXDIAddress()">Relation</a></code></strong></div>
 <div class="block">Get the target context node address.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/Relation.html#getTargetContextNodeXDIAddress()">getTargetContextNodeXDIAddress</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></dd>
+<dd><code><a href="../../../../xdi2/core/Relation.html#getTargetXDIAddress()">getTargetXDIAddress</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The target context node address of the relation.</dd></dl>
 </li>
 </ul>
@@ -278,7 +278,7 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../xdi2/core/impl/json/JSONLiteral.html" title="class in xdi2.core.impl.json"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../xdi2/core/impl/json/JSONLiteralNode.html" title="class in xdi2.core.impl.json"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../../xdi2/core/impl/json/JSONStore.html" title="interface in xdi2.core.impl.json"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -319,6 +319,6 @@ implements <a href="../../../../xdi2/core/Relation.html" title="interface in xdi
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -91,7 +91,7 @@
 <li><a href="../../../../xdi2/core/util/iterators/IterableIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.IterableIterator</a>&lt;O&gt;</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</a>&lt;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</li>
+<li><a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">xdi2.core.util.iterators.MappingIterator</a>&lt;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</li>
 <li>
 <ul class="inheritance">
 <li>xdi2.core.util.iterators.MappingLiteralDataNumberIterator</li>
@@ -112,7 +112,7 @@
 <hr>
 <br>
 <pre>public class <span class="strong">MappingLiteralDataNumberIterator</span>
-extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</a>&lt;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</pre>
+extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</a>&lt;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</pre>
 <div class="block">A MappingIterator that maps XDI literals to their literal datas.</div>
 <dl><dt><span class="strong">Author:</span></dt>
   <dd>markus</dd></dl>
@@ -149,7 +149,7 @@ extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" titl
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><strong><a href="../../../../xdi2/core/util/iterators/MappingLiteralDataNumberIterator.html#MappingLiteralDataNumberIterator(java.util.Iterator)">MappingLiteralDataNumberIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&gt;&nbsp;literals)</code>&nbsp;</td>
+<td class="colOne"><code><strong><a href="../../../../xdi2/core/util/iterators/MappingLiteralDataNumberIterator.html#MappingLiteralDataNumberIterator(java.util.Iterator)">MappingLiteralDataNumberIterator</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&gt;&nbsp;literals)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -168,7 +168,7 @@ extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" titl
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/util/iterators/MappingLiteralDataNumberIterator.html#map(xdi2.core.Literal)">map</a></strong>(<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/util/iterators/MappingLiteralDataNumberIterator.html#map(xdi2.core.LiteralNode)">map</a></strong>(<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literal)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -212,7 +212,7 @@ extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" titl
 <ul class="blockListLast">
 <li class="blockList">
 <h4>MappingLiteralDataNumberIterator</h4>
-<pre>public&nbsp;MappingLiteralDataNumberIterator(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&gt;&nbsp;literals)</pre>
+<pre>public&nbsp;MappingLiteralDataNumberIterator(<a href="http://download.oracle.com/javase/6/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&gt;&nbsp;literals)</pre>
 </li>
 </ul>
 </li>
@@ -223,16 +223,16 @@ extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" titl
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="map(xdi2.core.Literal)">
+<a name="map(xdi2.core.LiteralNode)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>map</h4>
-<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&nbsp;map(<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal)</pre>
+<pre>public&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&nbsp;map(<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literal)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</a>&lt;<a href="../../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</code></dd>
+<dd><code><a href="../../../../xdi2/core/util/iterators/MappingIterator.html#map(I)">map</a></code>&nbsp;in class&nbsp;<code><a href="../../../../xdi2/core/util/iterators/MappingIterator.html" title="class in xdi2.core.util.iterators">MappingIterator</a>&lt;<a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>,<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -303,6 +303,6 @@ extends <a href="../../../../xdi2/core/util/iterators/MappingIterator.html" titl
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

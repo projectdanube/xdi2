@@ -13,6 +13,7 @@ xdi2.core.constants
 xdi2.core.exceptions
 xdi2.core.features.datatypes
 xdi2.core.features.dictionary
+xdi2.core.features.encryption
 xdi2.core.features.equivalence
 xdi2.core.features.keys
 xdi2.core.features.linkcontracts
@@ -62,8 +63,8 @@ xdi2.messaging.http
 xdi2.messaging.target
 xdi2.messaging.target.contributor
 xdi2.messaging.target.contributor.impl
+xdi2.messaging.target.contributor.impl.connection
 xdi2.messaging.target.contributor.impl.digest
-xdi2.messaging.target.contributor.impl.instantiation
 xdi2.messaging.target.contributor.impl.keygen
 xdi2.messaging.target.contributor.impl.proxy
 xdi2.messaging.target.contributor.impl.proxy.manipulator
@@ -82,6 +83,7 @@ xdi2.messaging.target.interceptor.impl.linkcontract
 xdi2.messaging.target.interceptor.impl.transport
 xdi2.messaging.target.interceptor.impl.util
 xdi2.messaging.util
+xdi2.rdf
 xdi2.transport
 xdi2.transport.exceptions
 xdi2.transport.impl
@@ -95,11 +97,14 @@ xdi2.transport.impl.http.interceptor
 xdi2.transport.impl.http.interceptor.impl
 xdi2.transport.impl.http.registry
 xdi2.transport.impl.http.standalone
+xdi2.transport.impl.websocket
+xdi2.transport.impl.websocket.endpoint
 xdi2.transport.interceptor
 xdi2.transport.interceptor.impl
 xdi2.transport.spring
 xdi2.webtools.converter
 xdi2.webtools.discoverer
+xdi2.webtools.encrypter
 xdi2.webtools.grapher
 xdi2.webtools.localmessenger
 xdi2.webtools.messenger

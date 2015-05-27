@@ -5,7 +5,15 @@
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>XdiAttribute (xdi2 0.7-SNAPSHOT API)</title>
 <meta name="keywords" content="xdi2.core.features.nodetypes.XdiAttribute interface">
-<meta name="keywords" content="getXdiValue()">
+<meta name="keywords" content="setLiteralData()">
+<meta name="keywords" content="setLiteralDataString()">
+<meta name="keywords" content="setLiteralDataNumber()">
+<meta name="keywords" content="setLiteralDataBoolean()">
+<meta name="keywords" content="getLiteralNode()">
+<meta name="keywords" content="getLiteralData()">
+<meta name="keywords" content="getLiteralDataString()">
+<meta name="keywords" content="getLiteralDataNumber()">
+<meta name="keywords" content="getLiteralDataBoolean()">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
@@ -93,11 +101,11 @@
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMember.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeMember</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstance.html" title="interface in xdi2.core.features.nodetypes">XdiAttributeInstance</a></dd>
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeMemberUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeMemberUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a></dd>
+<dd><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html" title="class in xdi2.core.features.nodetypes">XdiAbstractAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Definition</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Definition.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Definition.Variable</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.Variable.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton.Variable</a></dd>
 </dl>
 <hr>
 <br>
@@ -122,10 +130,40 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../../xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getXdiValue(boolean)">getXdiValue</a></strong>(boolean&nbsp;create)</code>
-<div class="block">Returns the XDI value of this XDI attribute.</div>
-</td>
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getLiteralData(java.lang.Object)">getLiteralData</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getLiteralDataBoolean(java.lang.Boolean)">getLiteralDataBoolean</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getLiteralDataNumber(java.lang.Double)">getLiteralDataNumber</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getLiteralDataString(java.lang.String)">getLiteralDataString</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#getLiteralNode()">getLiteralNode</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#setLiteralData(java.lang.Object)">setLiteralData</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#setLiteralDataBoolean(java.lang.Boolean)">setLiteralDataBoolean</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#setLiteralDataNumber(java.lang.Double)">setLiteralDataNumber</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html#setLiteralDataString(java.lang.String)">setLiteralDataString</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -133,7 +171,7 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.features.nodetypes.<a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a></h3>
-<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
+<code><a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference()">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#dereference(boolean, boolean, boolean)">dereference</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findLocalRoot()">findLocalRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#findRoot()">findRoot</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getBaseXDIArc()">getBaseXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getContextNode()">getContextNode</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getGraph()">getGraph</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContext()">getIdentityXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getIdentityXdiContexts()">getIdentityXdiContexts</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReferenceXdiContext()">getReferenceXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getReplacementXdiContext()">getReplacementXdiContext</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIAddress()">getXDIAddress</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXDIArc()">getXDIArc</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttribute(xdi2.core.syntax.XDIArc, boolean)">getXdiAttribute</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiAttributeSingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiAttributeSingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntity(xdi2.core.syntax.XDIArc, boolean)">getXdiEntity</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntityCollection(xdi2.core.syntax.XDIArc, boolean)">getXdiEntityCollection</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIAddress, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiEntitySingleton(xdi2.core.syntax.XDIArc, boolean)">getXdiEntitySingleton</a>, <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html#getXdiInnerRoot(xdi2.core.syntax.XDIAddress, boolean)">getXdiInnerRoot</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Comparable">
@@ -156,16 +194,85 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="getXdiValue(boolean)">
+<a name="setLiteralData(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLiteralData</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setLiteralData(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="setLiteralDataString(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLiteralDataString</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setLiteralDataString(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="setLiteralDataNumber(java.lang.Double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLiteralDataNumber</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setLiteralDataNumber(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="setLiteralDataBoolean(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLiteralDataBoolean</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setLiteralDataBoolean(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="getLiteralNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLiteralNode</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralNode()</pre>
+</li>
+</ul>
+<a name="getLiteralData(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLiteralData</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralData(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="getLiteralDataString(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLiteralDataString</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralDataString(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="getLiteralDataNumber(java.lang.Double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLiteralDataNumber</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralDataNumber(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</pre>
+</li>
+</ul>
+<a name="getLiteralDataBoolean(java.lang.Boolean)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getXdiValue</h4>
-<pre><a href="../../../../xdi2/core/features/nodetypes/XdiValue.html" title="class in xdi2.core.features.nodetypes">XdiValue</a>&nbsp;getXdiValue(boolean&nbsp;create)</pre>
-<div class="block">Returns the XDI value of this XDI attribute.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>create</code> - Whether to create the value if it does not exist.</dd>
-<dt><span class="strong">Returns:</span></dt><dd>The XDI value.</dd></dl>
+<h4>getLiteralDataBoolean</h4>
+<pre><a href="../../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getLiteralDataBoolean(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</pre>
 </li>
 </ul>
 </li>
@@ -235,6 +342,6 @@ extends <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" titl
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

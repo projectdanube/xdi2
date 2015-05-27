@@ -10,7 +10,8 @@
 <meta name="keywords" content="copyContextNodes()">
 <meta name="keywords" content="copyRelation()">
 <meta name="keywords" content="copyRelations()">
-<meta name="keywords" content="copyLiteral()">
+<meta name="keywords" content="copyLiteralNode()">
+<meta name="keywords" content="copyNode()">
 <meta name="keywords" content="copyContextNodeContents()">
 <meta name="keywords" content="copyStatement()">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
@@ -201,28 +202,40 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
-           <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteralNode(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteralNode</a></strong>(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
+               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+               <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
 <div class="block">Copies a literal of a context node into a target context node.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.Literal, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</a></strong>(<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal,
-           <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
-           <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteralNode(xdi2.core.LiteralNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteralNode</a></strong>(<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalNode,
+               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+               <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
 <div class="block">Copies a literal into another context node.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static <a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteral</a></strong>(<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal,
-           <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
-           <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
+<td class="colFirst"><code>static <a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyLiteralNode(xdi2.core.LiteralNode, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyLiteralNode</a></strong>(<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalNode,
+               <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
+               <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>
 <div class="block">Copies a literal into another graph.</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyNode(xdi2.core.Node, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">copyNode</a></strong>(<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;node,
+        <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+        <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/util/CopyUtil.html#copyNode(xdi2.core.Node, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">copyNode</a></strong>(<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;node,
+        <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
+        <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
@@ -375,46 +388,68 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <dt><span class="strong">Returns:</span></dt><dd>The copied relations in the target graph.</dd></dl>
 </li>
 </ul>
-<a name="copyLiteral(xdi2.core.Literal, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">
+<a name="copyLiteralNode(xdi2.core.LiteralNode, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>copyLiteral</h4>
-<pre>public static&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;copyLiteral(<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal,
-                  <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
-                  <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
+<h4>copyLiteralNode</h4>
+<pre>public static&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;copyLiteralNode(<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalNode,
+                          <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
+                          <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
 <div class="block">Copies a literal into another graph.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>literal</code> - A literal from any graph.</dd><dd><code>targetGraph</code> - The target graph.</dd><dd><code>copyStrategy</code> - The strategy to determine what to copy.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>literalNode</code> - A literal from any graph.</dd><dd><code>targetGraph</code> - The target graph.</dd><dd><code>copyStrategy</code> - The strategy to determine what to copy.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The copied literal in the target graph.</dd></dl>
 </li>
 </ul>
-<a name="copyLiteral(xdi2.core.Literal, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
+<a name="copyLiteralNode(xdi2.core.LiteralNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>copyLiteral</h4>
-<pre>public static&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;copyLiteral(<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;literal,
-                  <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
-                  <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
+<h4>copyLiteralNode</h4>
+<pre>public static&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;copyLiteralNode(<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;literalNode,
+                          <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+                          <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
 <div class="block">Copies a literal into another context node.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>literal</code> - A literal from any context node.</dd><dd><code>targetContextNode</code> - The target context node.</dd><dd><code>copyStrategy</code> - The strategy to determine what to copy.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>literalNode</code> - A literal from any context node.</dd><dd><code>targetContextNode</code> - The target context node.</dd><dd><code>copyStrategy</code> - The strategy to determine what to copy.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The copied literal in the target context node.</dd></dl>
 </li>
 </ul>
-<a name="copyLiteral(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
+<a name="copyLiteralNode(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>copyLiteral</h4>
-<pre>public static&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;copyLiteral(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
-                  <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
-                  <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
+<h4>copyLiteralNode</h4>
+<pre>public static&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;copyLiteralNode(<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;contextNode,
+                          <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+                          <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
 <div class="block">Copies a literal of a context node into a target context node.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>contextNode</code> - A context node from any graph.</dd><dd><code>targetContextNode</code> - The target context node.</dd><dd><code>copyStrategy</code> - The strategy to determine what to copy.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The copied literal in the target graph.</dd></dl>
+</li>
+</ul>
+<a name="copyNode(xdi2.core.Node, xdi2.core.Graph, xdi2.core.util.CopyUtil.CopyStrategy)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>copyNode</h4>
+<pre>public static&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;copyNode(<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;node,
+            <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;targetGraph,
+            <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
+</li>
+</ul>
+<a name="copyNode(xdi2.core.Node, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>copyNode</h4>
+<pre>public static&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;copyNode(<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;node,
+            <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode,
+            <a href="../../../xdi2/core/util/CopyUtil.CopyStrategy.html" title="class in xdi2.core.util">CopyUtil.CopyStrategy</a>&nbsp;copyStrategy)</pre>
 </li>
 </ul>
 <a name="copyContextNodeContents(xdi2.core.ContextNode, xdi2.core.ContextNode, xdi2.core.util.CopyUtil.CopyStrategy)">
@@ -511,6 +546,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.h
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

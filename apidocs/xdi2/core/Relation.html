@@ -9,8 +9,10 @@
 <meta name="keywords" content="getContextNode()">
 <meta name="keywords" content="delete()">
 <meta name="keywords" content="getXDIAddress()">
-<meta name="keywords" content="getTargetContextNodeXDIAddress()">
+<meta name="keywords" content="getTargetXDIAddress()">
 <meta name="keywords" content="follow()">
+<meta name="keywords" content="followContextNode()">
+<meta name="keywords" content="followLiteralNode()">
 <meta name="keywords" content="getStatement()">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 </head>
@@ -43,7 +45,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../xdi2/core/Literal.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../xdi2/core/Node.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../xdi2/core/Statement.html" title="interface in xdi2.core"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -99,7 +101,7 @@
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../xdi2/core/impl/AbstractRelation.html" title="class in xdi2.core.impl">AbstractRelation</a>, <a href="../../xdi2/core/impl/BasicRelation.html" title="class in xdi2.core.impl">BasicRelation</a>, <a href="../../xdi2/core/impl/json/JSONRelation.html" title="class in xdi2.core.impl.json">JSONRelation</a>, <a href="../../xdi2/core/impl/keyvalue/KeyValueRelation.html" title="class in xdi2.core.impl.keyvalue">KeyValueRelation</a>, <a href="../../xdi2/core/impl/memory/MemoryRelation.html" title="class in xdi2.core.impl.memory">MemoryRelation</a>, <a href="../../xdi2/core/impl/wrapped/WrappedRelation.html" title="class in xdi2.core.impl.wrapped">WrappedRelation</a></dd>
+<dd><a href="../../xdi2/core/impl/AbstractRelation.html" title="class in xdi2.core.impl">AbstractRelation</a>, <a href="../../xdi2/core/impl/DummyRelation.html" title="class in xdi2.core.impl">DummyRelation</a>, <a href="../../xdi2/core/impl/json/JSONRelation.html" title="class in xdi2.core.impl.json">JSONRelation</a>, <a href="../../xdi2/core/impl/keyvalue/KeyValueRelation.html" title="class in xdi2.core.impl.keyvalue">KeyValueRelation</a>, <a href="../../xdi2/core/impl/memory/MemoryRelation.html" title="class in xdi2.core.impl.memory">MemoryRelation</a>, <a href="../../xdi2/core/impl/wrapped/WrappedRelation.html" title="class in xdi2.core.impl.wrapped">WrappedRelation</a></dd>
 </dl>
 <hr>
 <br>
@@ -133,9 +135,21 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colFirst"><code><a href="../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
 <td class="colLast"><code><strong><a href="../../xdi2/core/Relation.html#follow()">follow</a></strong>()</code>
+<div class="block">Follows the relation to the target node.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Relation.html#followContextNode()">followContextNode</a></strong>()</code>
 <div class="block">Follows the relation to the target context node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Relation.html#followLiteralNode()">followLiteralNode</a></strong>()</code>
+<div class="block">Follows the relation to the target literal node.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -158,7 +172,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><code><strong><a href="../../xdi2/core/Relation.html#getTargetContextNodeXDIAddress()">getTargetContextNodeXDIAddress</a></strong>()</code>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Relation.html#getTargetXDIAddress()">getTargetXDIAddress</a></strong>()</code>
 <div class="block">Get the target context node address.</div>
 </td>
 </tr>
@@ -233,13 +247,13 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <dl><dt><span class="strong">Returns:</span></dt><dd>The address associated with the relation.</dd></dl>
 </li>
 </ul>
-<a name="getTargetContextNodeXDIAddress()">
+<a name="getTargetXDIAddress()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getTargetContextNodeXDIAddress</h4>
-<pre><a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getTargetContextNodeXDIAddress()</pre>
+<h4>getTargetXDIAddress</h4>
+<pre><a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getTargetXDIAddress()</pre>
 <div class="block">Get the target context node address.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>The target context node address of the relation.</dd></dl>
 </li>
@@ -250,9 +264,31 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>follow</h4>
-<pre><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;follow()</pre>
+<pre><a href="../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;follow()</pre>
+<div class="block">Follows the relation to the target node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The target node of the relation.</dd></dl>
+</li>
+</ul>
+<a name="followContextNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>followContextNode</h4>
+<pre><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;followContextNode()</pre>
 <div class="block">Follows the relation to the target context node.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>The target context node of the relation.</dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The target context node of the relation, or null.</dd></dl>
+</li>
+</ul>
+<a name="followLiteralNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>followLiteralNode</h4>
+<pre><a href="../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;followLiteralNode()</pre>
+<div class="block">Follows the relation to the target literal node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The target literal node of the relation, or null.</dd></dl>
 </li>
 </ul>
 <a name="getStatement()">
@@ -292,7 +328,7 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../xdi2/core/Literal.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../xdi2/core/Node.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../xdi2/core/Statement.html" title="interface in xdi2.core"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -333,6 +369,6 @@ extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializab
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

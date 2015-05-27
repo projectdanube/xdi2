@@ -153,33 +153,23 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIArc(java.lang.String, java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">newXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIArc(java.lang.String, java.lang.Character, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">newXDIArc</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
          <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
-         boolean&nbsp;classXs,
-         boolean&nbsp;attributeXs,
+         boolean&nbsp;variable,
+         boolean&nbsp;definition,
+         boolean&nbsp;collection,
+         boolean&nbsp;attribute,
+         boolean&nbsp;immutable,
+         boolean&nbsp;relative,
          <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
          <a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, java.lang.Object)">newXDIStatement</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, java.lang.Object, java.lang.Object)">newXDIStatement</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
+               <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;predicate,
                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>protected <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">newXDIStatement</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;object)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/syntax/ParserAbstract.html#newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">newXDIStatement</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
-               <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;object)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a></code></td>
@@ -237,7 +227,7 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIArc)">
+<a name="newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, java.lang.Object, java.lang.Object)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -245,31 +235,7 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
 <h4>newXDIStatement</h4>
 <pre>protected&nbsp;<a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;newXDIStatement(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                            <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
-                           <a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;object)</pre>
-</li>
-</ul>
-<a name="newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>newXDIStatement</h4>
-<pre>protected&nbsp;<a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;newXDIStatement(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;object)</pre>
-</li>
-</ul>
-<a name="newXDIStatement(java.lang.String, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, java.lang.Object)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>newXDIStatement</h4>
-<pre>protected&nbsp;<a href="../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;newXDIStatement(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;subject,
-                           <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;predicate,
+                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;predicate,
                            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</pre>
 </li>
 </ul>
@@ -283,7 +249,7 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
                        <a href="http://download.oracle.com/javase/6/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&gt;&nbsp;arcs)</pre>
 </li>
 </ul>
-<a name="newXDIArc(java.lang.String, java.lang.Character, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">
+<a name="newXDIArc(java.lang.String, java.lang.Character, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, xdi2.core.syntax.XDIXRef)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -291,8 +257,12 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
 <h4>newXDIArc</h4>
 <pre>protected&nbsp;<a href="../../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;newXDIArc(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&nbsp;cs,
-               boolean&nbsp;classXs,
-               boolean&nbsp;attributeXs,
+               boolean&nbsp;variable,
+               boolean&nbsp;definition,
+               boolean&nbsp;collection,
+               boolean&nbsp;attribute,
+               boolean&nbsp;immutable,
+               boolean&nbsp;relative,
                <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literal,
                <a href="../../../xdi2/core/syntax/XDIXRef.html" title="class in xdi2.core.syntax">XDIXRef</a>&nbsp;xref)</pre>
 </li>
@@ -379,6 +349,6 @@ implements <a href="../../../xdi2/core/syntax/Parser.html" title="interface in x
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

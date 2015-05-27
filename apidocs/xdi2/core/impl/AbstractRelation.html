@@ -9,6 +9,8 @@
 <meta name="keywords" content="getContextNode()">
 <meta name="keywords" content="delete()">
 <meta name="keywords" content="follow()">
+<meta name="keywords" content="followContextNode()">
+<meta name="keywords" content="followLiteralNode()">
 <meta name="keywords" content="getStatement()">
 <meta name="keywords" content="toString()">
 <meta name="keywords" content="equals()">
@@ -45,7 +47,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../xdi2/core/impl/AbstractStatement.html" title="class in xdi2.core.impl"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -109,7 +111,7 @@
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../xdi2/core/impl/BasicRelation.html" title="class in xdi2.core.impl">BasicRelation</a>, <a href="../../../xdi2/core/impl/json/JSONRelation.html" title="class in xdi2.core.impl.json">JSONRelation</a>, <a href="../../../xdi2/core/impl/keyvalue/KeyValueRelation.html" title="class in xdi2.core.impl.keyvalue">KeyValueRelation</a>, <a href="../../../xdi2/core/impl/memory/MemoryRelation.html" title="class in xdi2.core.impl.memory">MemoryRelation</a>, <a href="../../../xdi2/core/impl/wrapped/WrappedRelation.html" title="class in xdi2.core.impl.wrapped">WrappedRelation</a></dd>
+<dd><a href="../../../xdi2/core/impl/DummyRelation.html" title="class in xdi2.core.impl">DummyRelation</a>, <a href="../../../xdi2/core/impl/json/JSONRelation.html" title="class in xdi2.core.impl.json">JSONRelation</a>, <a href="../../../xdi2/core/impl/keyvalue/KeyValueRelation.html" title="class in xdi2.core.impl.keyvalue">KeyValueRelation</a>, <a href="../../../xdi2/core/impl/memory/MemoryRelation.html" title="class in xdi2.core.impl.memory">MemoryRelation</a>, <a href="../../../xdi2/core/impl/wrapped/WrappedRelation.html" title="class in xdi2.core.impl.wrapped">WrappedRelation</a></dd>
 </dl>
 <hr>
 <br>
@@ -167,9 +169,21 @@ implements <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.c
 <td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractRelation.html#equals(java.lang.Object)">equals</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;object)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractRelation.html#follow()">follow</a></strong>()</code>
+<div class="block">Follows the relation to the target node.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractRelation.html#followContextNode()">followContextNode</a></strong>()</code>
 <div class="block">Follows the relation to the target context node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractRelation.html#followLiteralNode()">followLiteralNode</a></strong>()</code>
+<div class="block">Follows the relation to the target literal node.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -211,7 +225,7 @@ implements <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.c
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;xdi2.core.<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></h3>
-<code><a href="../../../xdi2/core/Relation.html#getTargetContextNodeXDIAddress()">getTargetContextNodeXDIAddress</a>, <a href="../../../xdi2/core/Relation.html#getXDIAddress()">getXDIAddress</a></code></li>
+<code><a href="../../../xdi2/core/Relation.html#getTargetXDIAddress()">getTargetXDIAddress</a>, <a href="../../../xdi2/core/Relation.html#getXDIAddress()">getXDIAddress</a></code></li>
 </ul>
 </li>
 </ul>
@@ -295,13 +309,43 @@ implements <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.c
 <ul class="blockList">
 <li class="blockList">
 <h4>follow</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;follow()</pre>
+<pre>public&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;follow()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Relation.html#follow()">Relation</a></code></strong></div>
-<div class="block">Follows the relation to the target context node.</div>
+<div class="block">Follows the relation to the target node.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../xdi2/core/Relation.html#follow()">follow</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></dd>
-<dt><span class="strong">Returns:</span></dt><dd>The target context node of the relation.</dd></dl>
+<dt><span class="strong">Returns:</span></dt><dd>The target node of the relation.</dd></dl>
+</li>
+</ul>
+<a name="followContextNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>followContextNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;followContextNode()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Relation.html#followContextNode()">Relation</a></code></strong></div>
+<div class="block">Follows the relation to the target context node.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Relation.html#followContextNode()">followContextNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>The target context node of the relation, or null.</dd></dl>
+</li>
+</ul>
+<a name="followLiteralNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>followLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;followLiteralNode()</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Relation.html#followLiteralNode()">Relation</a></code></strong></div>
+<div class="block">Follows the relation to the target literal node.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Relation.html#followLiteralNode()">followLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>The target literal node of the relation, or null.</dd></dl>
 </li>
 </ul>
 <a name="getStatement()">
@@ -397,7 +441,7 @@ implements <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.c
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../xdi2/core/impl/AbstractLiteral.html" title="class in xdi2.core.impl"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../xdi2/core/impl/AbstractStatement.html" title="class in xdi2.core.impl"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -438,6 +482,6 @@ implements <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.c
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

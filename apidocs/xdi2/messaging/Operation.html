@@ -18,14 +18,14 @@
 <meta name="keywords" content="getTargetInnerRoot()">
 <meta name="keywords" content="getTargetXDIAddress()">
 <meta name="keywords" content="getTargetXDIStatements()">
+<meta name="keywords" content="getSender()">
+<meta name="keywords" content="getSenderXDIAddress()">
+<meta name="keywords" content="isReadOnlyOperation()">
 <meta name="keywords" content="setParameter()">
 <meta name="keywords" content="getParameter()">
 <meta name="keywords" content="getParameterString()">
 <meta name="keywords" content="getParameterNumber()">
 <meta name="keywords" content="getParameterBoolean()">
-<meta name="keywords" content="getSender()">
-<meta name="keywords" content="getSenderXDIAddress()">
-<meta name="keywords" content="isReadOnlyOperation()">
 <meta name="keywords" content="toString()">
 <meta name="keywords" content="equals()">
 <meta name="keywords" content="hashCode()">
@@ -62,7 +62,7 @@
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging"><span class="strong">Next Class</span></a></li>
+<li><a href="../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?xdi2/messaging/Operation.html" target="_top">Frames</a></li>
@@ -125,7 +125,7 @@
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</a>, <a href="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</a>, <a href="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</a>, <a href="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a></dd>
+<dd><a href="../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</a>, <a href="../../xdi2/messaging/DoOperation.html" title="class in xdi2.messaging">DoOperation</a>, <a href="../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</a>, <a href="../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">PushOperation</a>, <a href="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging">SetOperation</a></dd>
 </dl>
 <hr>
 <br>
@@ -520,6 +520,38 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <dl><dt><span class="strong">Returns:</span></dt><dd>The target statements of the operation.</dd></dl>
 </li>
 </ul>
+<a name="getSender()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSender</h4>
+<pre>public&nbsp;<a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getSender()</pre>
+<div class="block">Returns the sender of the operation's message collection.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The sender of the operation's message collection.</dd></dl>
+</li>
+</ul>
+<a name="getSenderXDIAddress()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSenderXDIAddress</h4>
+<pre>public&nbsp;<a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getSenderXDIAddress()</pre>
+<div class="block">Returns the sender address of the operation's message collection.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The sender address of the operation's message collection.</dd></dl>
+</li>
+</ul>
+<a name="isReadOnlyOperation()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isReadOnlyOperation</h4>
+<pre>public&nbsp;boolean&nbsp;isReadOnlyOperation()</pre>
+<div class="block">Is this a read-only operation?</div>
+</li>
+</ul>
 <a name="setParameter(xdi2.core.syntax.XDIAddress, java.lang.Object)">
 <!--   -->
 </a>
@@ -578,38 +610,6 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <div class="block">Returns a parameter value boolean of this operation.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>parameterAddress</code> - The parameter XRI.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>The parameter value boolean.</dd></dl>
-</li>
-</ul>
-<a name="getSender()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getSender</h4>
-<pre>public&nbsp;<a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getSender()</pre>
-<div class="block">Returns the sender of the operation's message collection.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>The sender of the operation's message collection.</dd></dl>
-</li>
-</ul>
-<a name="getSenderXDIAddress()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getSenderXDIAddress</h4>
-<pre>public&nbsp;<a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getSenderXDIAddress()</pre>
-<div class="block">Returns the sender address of the operation's message collection.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>The sender address of the operation's message collection.</dd></dl>
-</li>
-</ul>
-<a name="isReadOnlyOperation()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isReadOnlyOperation</h4>
-<pre>public&nbsp;boolean&nbsp;isReadOnlyOperation()</pre>
-<div class="block">Is this a read-only operation?</div>
 </li>
 </ul>
 <a name="toString()">
@@ -691,7 +691,7 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../xdi2/messaging/SetOperation.html" title="class in xdi2.messaging"><span class="strong">Next Class</span></a></li>
+<li><a href="../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?xdi2/messaging/Operation.html" target="_top">Frames</a></li>
@@ -731,6 +731,6 @@ implements <a href="http://download.oracle.com/javase/6/docs/api/java/io/Seriali
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

@@ -95,7 +95,7 @@
 <tr class="rowColor">
 <td class="colFirst"><a href="#xdi2.core.io">xdi2.core.io</a></td>
 <td class="colLast">
-<div class="block">Classes for reading and writing XDI graphs in XDI/XML, X3 and X-TRIPLES format.</div>
+<div class="block">Classes for reading and writing XDI graphs in XDI DISPLAY, XDI/JSON, and a few other experimental formats.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -296,6 +296,19 @@
 </tr>
 </tbody>
 </table>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing methods, and an explanation">
+<caption><span>Method parameters in <a href="../../../../xdi2/core/io/package-summary.html">xdi2.core.io</a> with type arguments of type <a href="../../../../xdi2/core/io/XDIWriter.html" title="interface in xdi2.core.io">XDIWriter</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><span class="strong">XDIWriterRegistry.</span><code><strong><a href="../../../../xdi2/core/io/XDIWriterRegistry.html#addWriter(java.lang.Class)">addWriter</a></strong>(<a href="http://download.oracle.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../xdi2/core/io/XDIWriter.html" title="interface in xdi2.core.io">XDIWriter</a>&gt;&nbsp;writerClass)</code>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li class="blockList"><a name="xdi2.core.io.writers">
 <!--   -->
@@ -322,7 +335,15 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIJSONQuadWriter.html" title="class in xdi2.core.io.writers">XDIJSONQuadWriter</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIJSONTREEWriter.html" title="class in xdi2.core.io.writers">XDIJSONTREEWriter</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIJSONTripleWriter.html" title="class in xdi2.core.io.writers">XDIJSONTripleWriter</a></strong></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
@@ -331,6 +352,14 @@
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIKeyValueWriter.html" title="class in xdi2.core.io.writers">XDIKeyValueWriter</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIRDFJSONLDWriter.html" title="class in xdi2.core.io.writers">XDIRDFJSONLDWriter</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../xdi2/core/io/writers/XDIRDFTriGWriter.html" title="class in xdi2.core.io.writers">XDIRDFTriGWriter</a></strong></code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -384,6 +413,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

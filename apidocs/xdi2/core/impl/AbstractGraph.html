@@ -11,20 +11,12 @@
 <meta name="keywords" content="clear()">
 <meta name="keywords" content="isEmpty()">
 <meta name="keywords" content="toString()">
+<meta name="keywords" content="setDeepNode()">
 <meta name="keywords" content="setDeepContextNode()">
+<meta name="keywords" content="setDeepLiteralNode()">
+<meta name="keywords" content="getDeepNode()">
 <meta name="keywords" content="getDeepContextNode()">
-<meta name="keywords" content="getDeepContextNodes()">
-<meta name="keywords" content="setDeepRelation()">
-<meta name="keywords" content="getDeepRelation()">
-<meta name="keywords" content="getDeepRelations()">
-<meta name="keywords" content="setDeepLiteral()">
-<meta name="keywords" content="setDeepLiteralString()">
-<meta name="keywords" content="setDeepLiteralNumber()">
-<meta name="keywords" content="setDeepLiteralBoolean()">
-<meta name="keywords" content="getDeepLiteral()">
-<meta name="keywords" content="getDeepLiteralString()">
-<meta name="keywords" content="getDeepLiteralNumber()">
-<meta name="keywords" content="getDeepLiteralBoolean()">
+<meta name="keywords" content="getDeepLiteralNode()">
 <meta name="keywords" content="setStatement()">
 <meta name="keywords" content="getStatement()">
 <meta name="keywords" content="containsStatement()">
@@ -132,7 +124,7 @@
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../xdi2/core/impl/BasicGraph.html" title="class in xdi2.core.impl">BasicGraph</a>, <a href="../../../xdi2/core/impl/json/JSONGraph.html" title="class in xdi2.core.impl.json">JSONGraph</a>, <a href="../../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</a>, <a href="../../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</a>, <a href="../../../xdi2/core/impl/wrapped/WrappedGraph.html" title="class in xdi2.core.impl.wrapped">WrappedGraph</a></dd>
+<dd><a href="../../../xdi2/core/impl/DummyGraph.html" title="class in xdi2.core.impl">DummyGraph</a>, <a href="../../../xdi2/core/impl/json/JSONGraph.html" title="class in xdi2.core.impl.json">JSONGraph</a>, <a href="../../../xdi2/core/impl/keyvalue/KeyValueGraph.html" title="class in xdi2.core.impl.keyvalue">KeyValueGraph</a>, <a href="../../../xdi2/core/impl/memory/MemoryGraph.html" title="class in xdi2.core.impl.memory">MemoryGraph</a>, <a href="../../../xdi2/core/impl/wrapped/WrappedGraph.html" title="class in xdi2.core.impl.wrapped">WrappedGraph</a></dd>
 </dl>
 <hr>
 <br>
@@ -224,83 +216,33 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getContextNode(XDIArc), operates at a context node further down in the graph.</div>
-</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                  boolean&nbsp;subgraph)</code>
-<div class="block">Deep version of ContextNode.getContextNode(XDIArc, boolean), operates at a context node further down in the graph.</div>
-</td>
+                  boolean&nbsp;subgraph)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepContextNodes(xdi2.core.syntax.XDIAddress)">getDeepContextNodes</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.</div>
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress)">getDeepLiteralNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepLiteralNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress,
+                  boolean&nbsp;subgraph)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepNode(xdi2.core.syntax.XDIAddress)">getDeepNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress)</code>
+<div class="block">Returns a node at an arbitrary level of the graph.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress)">getDeepLiteral</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">getDeepLiteral</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-              <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">getDeepLiteralBoolean</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">getDeepLiteralNumber</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.getLiteralNumber(Double), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">getDeepLiteralString</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;</code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>
-<div class="block">Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.</div>
+<td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress,
+           boolean&nbsp;subgraph)</code>
+<div class="block">Returns a node at an arbitrary level of the graph.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -345,52 +287,16 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.setContextNode(XDIArc), operates at a context node further down in the graph.</div>
-</td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">setDeepLiteral</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-              <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.</div>
-</td>
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteralNode(xdi2.core.syntax.XDIAddress)">setDeepLiteralNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">setDeepLiteralBoolean</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">setDeepLiteralNumber</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">setDeepLiteralString</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                    <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</code>
-<div class="block">Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a></code></td>
-<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-               <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</code>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
+<td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
+<td class="colLast"><code><strong><a href="../../../xdi2/core/impl/AbstractGraph.html#setDeepNode(xdi2.core.syntax.XDIAddress)">setDeepNode</a></strong>(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress)</code>
+<div class="block">Create a new node at an arbitrary level of the graph, or returns an existing node.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -577,6 +483,22 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 <dt><span class="strong">Parameters:</span></dt><dd><code>mimeType</code> - The MIME type.</dd></dl>
 </li>
 </ul>
+<a name="setDeepNode(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDeepNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;setDeepNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepNode(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
+<div class="block">Create a new node at an arbitrary level of the graph, or returns an existing node.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Graph.html#setDeepNode(xdi2.core.syntax.XDIAddress)">setDeepNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>nodeXDIAddress</code> - The relative address of the new or existing node.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The newly created or existing node.</dd></dl>
+</li>
+</ul>
 <a name="setDeepContextNode(xdi2.core.syntax.XDIAddress)">
 <!--   -->
 </a>
@@ -584,12 +506,42 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 <li class="blockList">
 <h4>setDeepContextNode</h4>
 <pre>public&nbsp;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;setDeepContextNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setContextNode(XDIArc), operates at a context node further down in the graph.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../xdi2/core/Graph.html#setDeepContextNode(xdi2.core.syntax.XDIAddress)">setDeepContextNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
 </dl>
+</li>
+</ul>
+<a name="setDeepLiteralNode(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDeepLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;setDeepLiteralNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Graph.html#setDeepLiteralNode(xdi2.core.syntax.XDIAddress)">setDeepLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeepNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;getDeepNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress,
+               boolean&nbsp;subgraph)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">Graph</a></code></strong></div>
+<div class="block">Returns a node at an arbitrary level of the graph.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Graph.html#getDeepNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>nodeXDIAddress</code> - The relative address of the node.</dd><dd><code>subgraph</code> - This is simply a hint to the implementation whether 
+ child context nodes will subsequently be requested. Implementations may 
+ or may not actually use this parameter.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The node with the given address, or null.</dd></dl>
 </li>
 </ul>
 <a name="getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">
@@ -600,12 +552,40 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 <h4>getDeepContextNode</h4>
 <pre>public&nbsp;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getDeepContextNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
                              boolean&nbsp;subgraph)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getContextNode(XDIArc, boolean), operates at a context node further down in the graph.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../xdi2/core/Graph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepContextNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
 </dl>
+</li>
+</ul>
+<a name="getDeepLiteralNode(xdi2.core.syntax.XDIAddress, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeepLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getDeepLiteralNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress,
+                             boolean&nbsp;subgraph)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress, boolean)">getDeepLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="getDeepNode(xdi2.core.syntax.XDIAddress)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeepNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a>&nbsp;getDeepNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;nodeXDIAddress)</pre>
+<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepNode(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
+<div class="block">Returns a node at an arbitrary level of the graph.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../xdi2/core/Graph.html#getDeepNode(xdi2.core.syntax.XDIAddress)">getDeepNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>nodeXDIAddress</code> - The relative address of the node.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The node with the given address, or null.</dd></dl>
 </li>
 </ul>
 <a name="getDeepContextNode(xdi2.core.syntax.XDIAddress)">
@@ -615,267 +595,22 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 <li class="blockList">
 <h4>getDeepContextNode</h4>
 <pre>public&nbsp;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getDeepContextNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getContextNode(XDIArc), operates at a context node further down in the graph.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../xdi2/core/Graph.html#getDeepContextNode(xdi2.core.syntax.XDIAddress)">getDeepContextNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="getDeepContextNodes(xdi2.core.syntax.XDIAddress)">
+<a name="getDeepLiteralNode(xdi2.core.syntax.XDIAddress)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getDeepContextNodes</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&gt;&nbsp;getDeepContextNodes(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepContextNodes(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getContextNodes(), operates at a context node further down in the graph.</div>
+<h4>getDeepLiteralNode</h4>
+<pre>public&nbsp;<a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a>&nbsp;getDeepLiteralNode(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;literalNodeXDIAddress)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepContextNodes(xdi2.core.syntax.XDIAddress)">getDeepContextNodes</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepRelation</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;setDeepRelation(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">setDeepRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepRelation</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;setDeepRelation(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                       <a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;targetContextNode)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setRelation(XDIAddress, ContextNode), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.ContextNode)">setDeepRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepRelation</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;getDeepRelation(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;targetContextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress, XDIAddress), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepRelation</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;getDeepRelation(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                       <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getRelation(XDIAddress), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepRelation(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelation</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepRelations</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getDeepRelations(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                                          <a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getRelations(XDIAddress), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIAddress)">getDeepRelations</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepRelations(xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepRelations</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/util/iterators/ReadOnlyIterator.html" title="class in xdi2.core.util.iterators">ReadOnlyIterator</a>&lt;<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&gt;&nbsp;getDeepRelations(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getRelations(), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepRelations(xdi2.core.syntax.XDIAddress)">getDeepRelations</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepLiteral</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;setDeepLiteral(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setLiteral(Object), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">setDeepLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepLiteralString</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;setDeepLiteralString(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setLiteralString(String), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">setDeepLiteralString</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepLiteralNumber</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;setDeepLiteralNumber(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setLiteralNumber(Double), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">setDeepLiteralNumber</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setDeepLiteralBoolean</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;setDeepLiteralBoolean(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.setLiteralBoolean(Boolean), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#setDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">setDeepLiteralBoolean</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepLiteral</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getDeepLiteral(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                     <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getLiteral(Object), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress, java.lang.Object)">getDeepLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepLiteralString</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getDeepLiteralString(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getLiteralString(String), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteralString(xdi2.core.syntax.XDIAddress, java.lang.String)">getDeepLiteralString</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepLiteralNumber</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getDeepLiteralNumber(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                           <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Double.html?is-external=true" title="class or interface in java.lang">Double</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getLiteralNumber(Double), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteralNumber(xdi2.core.syntax.XDIAddress, java.lang.Double)">getDeepLiteralNumber</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepLiteralBoolean</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getDeepLiteralBoolean(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress,
-                            <a href="http://download.oracle.com/javase/6/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&nbsp;literalData)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getLiteralBoolean(Boolean), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteralBoolean(xdi2.core.syntax.XDIAddress, java.lang.Boolean)">getDeepLiteralBoolean</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getDeepLiteral(xdi2.core.syntax.XDIAddress)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeepLiteral</h4>
-<pre>public&nbsp;<a href="../../../xdi2/core/Literal.html" title="interface in xdi2.core">Literal</a>&nbsp;getDeepLiteral(<a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contextNodeXDIAddress)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress)">Graph</a></code></strong></div>
-<div class="block">Deep version of ContextNode.getLiteral(), operates at a context node further down in the graph.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteral(xdi2.core.syntax.XDIAddress)">getDeepLiteral</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
+<dd><code><a href="../../../xdi2/core/Graph.html#getDeepLiteralNode(xdi2.core.syntax.XDIAddress)">getDeepLiteralNode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -1133,6 +868,6 @@ implements <a href="../../../xdi2/core/Graph.html" title="interface in xdi2.core
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

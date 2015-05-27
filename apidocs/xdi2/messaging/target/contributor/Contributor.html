@@ -97,7 +97,7 @@
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/digest/GenerateDigestSecretTokenContributor.html" title="class in xdi2.messaging.target.contributor.impl.digest">GenerateDigestSecretTokenContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html" title="class in xdi2.messaging.target.contributor.impl.keygen">GenerateKeyContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/instantiation/InstantiationContributor.html" title="class in xdi2.messaging.target.contributor.impl.instantiation">InstantiationContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/MessageResultContributor.html" title="class in xdi2.messaging.target.contributor.impl">MessageResultContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</a></dd>
+<dd><a href="../../../../xdi2/messaging/target/contributor/AbstractContributor.html" title="class in xdi2.messaging.target.contributor">AbstractContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/connection/ConnectionInvitationContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">ConnectionInvitationContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/connection/ConnectionRequestContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">ConnectionRequestContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/digest/GenerateDigestSecretTokenContributor.html" title="class in xdi2.messaging.target.contributor.impl.digest">GenerateDigestSecretTokenContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/keygen/GenerateKeyContributor.html" title="class in xdi2.messaging.target.contributor.impl.keygen">GenerateKeyContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/connection/InverseOperationContributor.html" title="class in xdi2.messaging.target.contributor.impl.connection">InverseOperationContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/MessageResultContributor.html" title="class in xdi2.messaging.target.contributor.impl">MessageResultContributor</a>, <a href="../../../../xdi2/messaging/target/contributor/impl/proxy/ProxyContributor.html" title="class in xdi2.messaging.target.contributor.impl.proxy">ProxyContributor</a></dd>
 </dl>
 <hr>
 <br>
@@ -149,8 +149,8 @@ extends <a href="../../../../xdi2/messaging/target/Extension.html" title="interf
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainAddresses,
-                  <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorChainAddress,
+<td class="colLast"><code><strong><a href="../../../../xdi2/messaging/target/contributor/Contributor.html#executeOnStatement(xdi2.core.syntax.XDIAddress[], xdi2.core.syntax.XDIAddress, xdi2.core.syntax.XDIStatement, xdi2.messaging.Operation, xdi2.messaging.MessageResult, xdi2.messaging.context.ExecutionContext)">executeOnStatement</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                  <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                   <a href="../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;relativeTargetStatement,
                   <a href="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                   <a href="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
@@ -245,15 +245,15 @@ extends <a href="../../../../xdi2/messaging/target/Extension.html" title="interf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>executeOnStatement</h4>
-<pre><a href="../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a>&nbsp;executeOnStatement(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorChainAddresses,
-                                   <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorChainAddress,
+<pre><a href="../../../../xdi2/messaging/target/contributor/ContributorResult.html" title="class in xdi2.messaging.target.contributor">ContributorResult</a>&nbsp;executeOnStatement(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>[]&nbsp;contributorAddresses,
+                                   <a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;contributorsAddress,
                                    <a href="../../../../xdi2/core/syntax/XDIStatement.html" title="class in xdi2.core.syntax">XDIStatement</a>&nbsp;relativeTargetStatement,
                                    <a href="../../../../xdi2/messaging/Operation.html" title="class in xdi2.messaging">Operation</a>&nbsp;operation,
                                    <a href="../../../../xdi2/messaging/MessageResult.html" title="class in xdi2.messaging">MessageResult</a>&nbsp;operationMessageResult,
                                    <a href="../../../../xdi2/messaging/context/ExecutionContext.html" title="class in xdi2.messaging.context">ExecutionContext</a>&nbsp;executionContext)
                                      throws <a href="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></pre>
 <div class="block">Executes an XDI operation on a statement.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>contributorChainAddresses</code> - The individual XRIs in the contributor chain.</dd><dd><code>contributorChainAddress</code> - The complete XRI of the contributor chain.</dd><dd><code>relativeTargetStatement</code> - The relative target statement.</dd><dd><code>operation</code> - The operation that is being executed.</dd><dd><code>operationMessageResult</code> - The operation's message result.</dd><dd><code>executionContext</code> - An "execution context" object for the entire XDI message envelope.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>contributorAddresses</code> - The individual XRIs in the contributor chain.</dd><dd><code>contributorsAddress</code> - The complete XRI of the contributor chain.</dd><dd><code>relativeTargetStatement</code> - The relative target statement.</dd><dd><code>operation</code> - The operation that is being executed.</dd><dd><code>operationMessageResult</code> - The operation's message result.</dd><dd><code>executionContext</code> - An "execution context" object for the entire XDI message envelope.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>True, if the operation has been fully handled and the server should stop processing it.</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../xdi2/messaging/exceptions/Xdi2MessagingException.html" title="class in xdi2.messaging.exceptions">Xdi2MessagingException</a></code></dd></dl>
@@ -326,6 +326,6 @@ extends <a href="../../../../xdi2/messaging/target/Extension.html" title="interf
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>

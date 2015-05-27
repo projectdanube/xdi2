@@ -86,6 +86,10 @@
 <td class="colFirst"><a href="#xdi2.messaging.target.interceptor.impl">xdi2.messaging.target.interceptor.impl</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="#xdi2.messaging.target.interceptor.impl.transport">xdi2.messaging.target.interceptor.impl.transport</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </li>
@@ -140,14 +144,48 @@
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
-<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</a></strong></code>
-<div class="block">This interceptor handles $ref and $rep relations.</div>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/ExecuteCommandInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">ExecuteCommandInterceptor</a></strong></code>
+<div class="block">This interceptor will execute a command line
+ on an incoming message envelope, message, or operation.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/RefInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">RefInterceptor</a></strong></code>
+<div class="block">This interceptor handles $ref and $rep relations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/VariablesInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">VariablesInterceptor</a></strong></code>
 <div class="block">This interceptor can replace XDI variables in a $add operation with automatically generated persistent addresses.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/WriteListenerInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl">WriteListenerInterceptor</a></strong></code>
+<div class="block">This interceptor listens to changes on a messaging target.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList"><a name="xdi2.messaging.target.interceptor.impl.transport">
+<!--   -->
+</a>
+<h3>Uses of <a href="../../../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageEnvelopeInterceptor</a> in <a href="../../../../../xdi2/messaging/target/interceptor/impl/transport/package-summary.html">xdi2.messaging.target.interceptor.impl.transport</a></h3>
+<table border="0" cellpadding="3" cellspacing="0" summary="Use table, listing classes, and an explanation">
+<caption><span>Classes in <a href="../../../../../xdi2/messaging/target/interceptor/impl/transport/package-summary.html">xdi2.messaging.target.interceptor.impl.transport</a> that implement <a href="../../../../../xdi2/messaging/target/interceptor/MessageEnvelopeInterceptor.html" title="interface in xdi2.messaging.target.interceptor">MessageEnvelopeInterceptor</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../xdi2/messaging/target/interceptor/impl/transport/SkipLinkContractsInterceptor.html" title="class in xdi2.messaging.target.interceptor.impl.transport">SkipLinkContractsInterceptor</a></strong></code>
+<div class="block">This interceptor will skip the link contract interceptor,
+ if a request comes from a whitelisted IP address.</div>
 </td>
 </tr>
 </tbody>
@@ -202,6 +240,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014. All Rights Reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
 </body>
 </html>
