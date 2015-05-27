@@ -860,6 +860,14 @@
 </tr>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><span class="strong">MappingRelationTargetXDIAddressIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetXDIAddressIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
+<td class="colLast"><span class="strong">MappingRelationTargetLiteralNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetLiteralNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/Node.html" title="interface in xdi2.core">Node</a></code></td>
 <td class="colLast"><span class="strong">MappingRelationTargetNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
@@ -870,14 +878,6 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
 <td class="colLast"><span class="strong">MappingRelationContextNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationContextNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">MappingRelationTargetXDIAddressIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetXDIAddressIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></code></td>
-<td class="colLast"><span class="strong">MappingRelationTargetLiteralNodeIterator.</span><code><strong><a href="../../../xdi2/core/util/iterators/MappingRelationTargetLiteralNodeIterator.html#map(xdi2.core.Relation)">map</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
@@ -970,24 +970,24 @@
 </tr>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">PushOperation</a></code></td>
+<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
+                      <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Factory method that creates an XDI $push operation bound to a given relation.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/GetOperation.html" title="class in xdi2.messaging">GetOperation</a></code></td>
 <td class="colLast"><span class="strong">GetOperation.</span><code><strong><a href="../../../xdi2/messaging/GetOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                       <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Factory method that creates an XDI $get operation bound to a given relation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../xdi2/messaging/DelOperation.html" title="class in xdi2.messaging">DelOperation</a></code></td>
 <td class="colLast"><span class="strong">DelOperation.</span><code><strong><a href="../../../xdi2/messaging/DelOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
                       <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
 <div class="block">Factory method that creates an XDI $del operation bound to a given relation.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../xdi2/messaging/PushOperation.html" title="class in xdi2.messaging">PushOperation</a></code></td>
-<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#fromMessageAndRelation(xdi2.messaging.Message, xdi2.core.Relation)">fromMessageAndRelation</a></strong>(<a href="../../../xdi2/messaging/Message.html" title="class in xdi2.messaging">Message</a>&nbsp;message,
-                      <a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
-<div class="block">Factory method that creates an XDI $push operation bound to a given relation.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1013,20 +1013,20 @@
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><span class="strong">GetOperation.</span><code><strong><a href="../../../xdi2/messaging/GetOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
-<div class="block">Checks if an relation is a valid XDI $get operation.</div>
+<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Checks if an relation is a valid XDI $push operation.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><span class="strong">DelOperation.</span><code><strong><a href="../../../xdi2/messaging/DelOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
-<div class="block">Checks if an relation is a valid XDI $del operation.</div>
+<td class="colLast"><span class="strong">GetOperation.</span><code><strong><a href="../../../xdi2/messaging/GetOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Checks if an relation is a valid XDI $get operation.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><span class="strong">PushOperation.</span><code><strong><a href="../../../xdi2/messaging/PushOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
-<div class="block">Checks if an relation is a valid XDI $push operation.</div>
+<td class="colLast"><span class="strong">DelOperation.</span><code><strong><a href="../../../xdi2/messaging/DelOperation.html#isValid(xdi2.core.Relation)">isValid</a></strong>(<a href="../../../xdi2/core/Relation.html" title="interface in xdi2.core">Relation</a>&nbsp;relation)</code>
+<div class="block">Checks if an relation is a valid XDI $del operation.</div>
 </td>
 </tr>
 <tr class="rowColor">

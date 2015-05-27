@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Node (xdi2 0.7-SNAPSHOT API)</title>
+<meta name="keywords" content="xdi2.core.Node interface">
+<meta name="keywords" content="getGraph()">
+<meta name="keywords" content="getContextNode()">
+<meta name="keywords" content="getXDIAddress()">
+<meta name="keywords" content="getXDIArc()">
+<meta name="keywords" content="delete()">
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Node (xdi2 0.7-SNAPSHOT API)";
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Node.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../index-all.html">Index</a></li>
+<li><a href="../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../xdi2/core/LiteralNode.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../xdi2/core/Relation.html" title="interface in xdi2.core"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../index.html?xdi2/core/Node.html" target="_top">Frames</a></li>
+<li><a href="Node.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">xdi2.core</div>
+<h2 title="Interface Node" class="title">Interface Node</h2>
+</div>
+<div class="contentContainer">
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Superinterfaces:</dt>
+<dd><a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></dd>
+</dl>
+<dl>
+<dt>All Known Subinterfaces:</dt>
+<dd><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>, <a href="../../xdi2/core/LiteralNode.html" title="interface in xdi2.core">LiteralNode</a></dd>
+</dl>
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../xdi2/core/impl/AbstractContextNode.html" title="class in xdi2.core.impl">AbstractContextNode</a>, <a href="../../xdi2/core/impl/AbstractLiteralNode.html" title="class in xdi2.core.impl">AbstractLiteralNode</a>, <a href="../../xdi2/core/impl/AbstractNode.html" title="class in xdi2.core.impl">AbstractNode</a>, <a href="../../xdi2/core/impl/DummyContextNode.html" title="class in xdi2.core.impl">DummyContextNode</a>, <a href="../../xdi2/core/impl/DummyLiteralNode.html" title="class in xdi2.core.impl">DummyLiteralNode</a>, <a href="../../xdi2/core/impl/json/JSONContextNode.html" title="class in xdi2.core.impl.json">JSONContextNode</a>, <a href="../../xdi2/core/impl/json/JSONLiteralNode.html" title="class in xdi2.core.impl.json">JSONLiteralNode</a>, <a href="../../xdi2/core/impl/keyvalue/KeyValueContextNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueContextNode</a>, <a href="../../xdi2/core/impl/keyvalue/KeyValueLiteralNode.html" title="class in xdi2.core.impl.keyvalue">KeyValueLiteralNode</a>, <a href="../../xdi2/core/impl/memory/MemoryContextNode.html" title="class in xdi2.core.impl.memory">MemoryContextNode</a>, <a href="../../xdi2/core/impl/memory/MemoryLiteralNode.html" title="class in xdi2.core.impl.memory">MemoryLiteralNode</a>, <a href="../../xdi2/core/impl/wrapped/WrappedContextNode.html" title="class in xdi2.core.impl.wrapped">WrappedContextNode</a>, <a href="../../xdi2/core/impl/wrapped/WrappedLiteralNode.html" title="class in xdi2.core.impl.wrapped">WrappedLiteralNode</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public interface <span class="strong">Node</span>
+extends <a href="http://download.oracle.com/javase/6/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></pre>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#delete()">delete</a></strong>()</code>
+<div class="block">Deletes this node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#getContextNode()">getContextNode</a></strong>()</code>
+<div class="block">Every node has a parent context node, except the root context node.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#getContextNode(int)">getContextNode</a></strong>(int&nbsp;arcs)</code>
+<div class="block">Every node has ancestor context nodes, except the root context node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#getGraph()">getGraph</a></strong>()</code>
+<div class="block">Get the graph of this node.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#getXDIAddress()">getXDIAddress</a></strong>()</code>
+<div class="block">Gets the address of this node.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a></code></td>
+<td class="colLast"><code><strong><a href="../../xdi2/core/Node.html#getXDIArc()">getXDIArc</a></strong>()</code>
+<div class="block">Every node has an associated arc.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="getGraph()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGraph</h4>
+<pre><a href="../../xdi2/core/Graph.html" title="interface in xdi2.core">Graph</a>&nbsp;getGraph()</pre>
+<div class="block">Get the graph of this node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The graph of this node.</dd></dl>
+</li>
+</ul>
+<a name="getContextNode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getContextNode</h4>
+<pre><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getContextNode()</pre>
+<div class="block">Every node has a parent context node, except the root context node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The parent context node of this node, or null.</dd></dl>
+</li>
+</ul>
+<a name="getContextNode(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getContextNode</h4>
+<pre><a href="../../xdi2/core/ContextNode.html" title="interface in xdi2.core">ContextNode</a>&nbsp;getContextNode(int&nbsp;arcs)</pre>
+<div class="block">Every node has ancestor context nodes, except the root context node.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>arcs</code> - The number of arcs to follow up the graph.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>The ancestor context node of this node, or null.</dd></dl>
+</li>
+</ul>
+<a name="getXDIAddress()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getXDIAddress</h4>
+<pre><a href="../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;getXDIAddress()</pre>
+<div class="block">Gets the address of this node.
+ This returns the empty string for the root context node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The address of this node.</dd></dl>
+</li>
+</ul>
+<a name="getXDIArc()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getXDIArc</h4>
+<pre><a href="../../xdi2/core/syntax/XDIArc.html" title="class in xdi2.core.syntax">XDIArc</a>&nbsp;getXDIArc()</pre>
+<div class="block">Every node has an associated arc.
+ This returns null for the root context node.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>The arc associated with this node.</dd></dl>
+</li>
+</ul>
+<a name="delete()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>delete</h4>
+<pre>void&nbsp;delete()</pre>
+<div class="block">Deletes this node.</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Node.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../index-all.html">Index</a></li>
+<li><a href="../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../xdi2/core/LiteralNode.html" title="interface in xdi2.core"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../xdi2/core/Relation.html" title="interface in xdi2.core"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../index.html?xdi2/core/Node.html" target="_top">Frames</a></li>
+<li><a href="Node.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2015. All Rights Reserved.</small></p>
+</body>
+</html>

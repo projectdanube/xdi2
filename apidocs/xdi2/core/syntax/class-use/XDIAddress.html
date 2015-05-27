@@ -512,14 +512,14 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">Relation.</span><code><strong><a href="../../../../xdi2/core/Relation.html#getXDIAddress()">getXDIAddress</a></strong>()</code>
-<div class="block">Every relation has an associated address.</div>
+<td class="colLast"><span class="strong">Node.</span><code><strong><a href="../../../../xdi2/core/Node.html#getXDIAddress()">getXDIAddress</a></strong>()</code>
+<div class="block">Gets the address of this node.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">Node.</span><code><strong><a href="../../../../xdi2/core/Node.html#getXDIAddress()">getXDIAddress</a></strong>()</code>
-<div class="block">Gets the address of this node.</div>
+<td class="colLast"><span class="strong">Relation.</span><code><strong><a href="../../../../xdi2/core/Relation.html#getXDIAddress()">getXDIAddress</a></strong>()</code>
+<div class="block">Every relation has an associated address.</div>
 </td>
 </tr>
 </tbody>
@@ -1612,12 +1612,36 @@
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a></code></td>
-<td class="colLast"><span class="strong">XdiAttributeSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;?,?,?,?,?,?&gt;</code></td>
+<td class="colLast"><span class="strong">XdiAbstractInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a></code></td>
+<td class="colLast"><span class="strong">XdiEntityInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeInstanceOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;?,?,?,?,?,?&gt;</code></td>
+<td class="colLast"><span class="strong">XdiAbstractInstanceOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceOrdered</a></code></td>
 <td class="colLast"><span class="strong">XdiEntityInstanceOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceOrdered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;?,?,?,?,?,?&gt;</code></td>
+<td class="colLast"><span class="strong">XdiAbstractInstance.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstance.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html" title="class in xdi2.core.features.nodetypes">XdiAttributeSingleton</a></code></td>
+<td class="colLast"><span class="strong">XdiAttributeSingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeSingleton.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeCollection.html" title="class in xdi2.core.features.nodetypes">XdiAttributeCollection</a></code></td>
@@ -1628,16 +1652,8 @@
 <td class="colLast"><span class="strong">XdiInnerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiInnerRoot.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceOrdered</a></code></td>
-<td class="colLast"><span class="strong">XdiAttributeInstanceOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceOrdered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiContext.html" title="interface in xdi2.core.features.nodetypes">XdiContext</a>&lt;?&gt;</code></td>
 <td class="colLast"><span class="strong">XdiAbstractContext.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractContext.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMemberUnordered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberUnordered</a>&lt;?,?,?,?,?,?&gt;</code></td>
-<td class="colLast"><span class="strong">XdiAbstractInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiVariable.html" title="interface in xdi2.core.features.nodetypes">XdiVariable</a>&lt;?&gt;</code></td>
@@ -1652,14 +1668,6 @@
 <td class="colLast"><span class="strong">XdiCommonDefinition.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCommonDefinition.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMemberOrdered.html" title="interface in xdi2.core.features.nodetypes">XdiMemberOrdered</a>&lt;?,?,?,?,?,?&gt;</code></td>
-<td class="colLast"><span class="strong">XdiAbstractInstanceOrdered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstanceOrdered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiMember.html" title="interface in xdi2.core.features.nodetypes">XdiMember</a>&lt;?,?,?,?,?,?&gt;</code></td>
-<td class="colLast"><span class="strong">XdiAbstractInstance.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractInstance.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiSubGraph.html" title="interface in xdi2.core.features.nodetypes">XdiSubGraph</a>&lt;?&gt;</code></td>
 <td class="colLast"><span class="strong">XdiAbstractSubGraph.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractSubGraph.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
@@ -1668,40 +1676,32 @@
 <td class="colLast"><span class="strong">XdiCommonVariable.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiCommonVariable.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiEntityInstanceUnordered</a></code></td>
-<td class="colLast"><span class="strong">XdiEntityInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntityInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html" title="class in xdi2.core.features.nodetypes">XdiPeerRoot</a></code></td>
 <td class="colLast"><span class="strong">XdiPeerRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiPeerRoot.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html" title="class in xdi2.core.features.nodetypes">XdiEntitySingleton</a></code></td>
 <td class="colLast"><span class="strong">XdiEntitySingleton.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiEntitySingleton.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiDefinition.html" title="interface in xdi2.core.features.nodetypes">XdiDefinition</a>&lt;?&gt;</code></td>
 <td class="colLast"><span class="strong">XdiAbstractDefinition.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractDefinition.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttribute.html" title="interface in xdi2.core.features.nodetypes">XdiAttribute</a></code></td>
 <td class="colLast"><span class="strong">XdiAbstractAttribute.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractAttribute.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiCollection.html" title="interface in xdi2.core.features.nodetypes">XdiCollection</a>&lt;?,?,?,?,?,?&gt;</code></td>
 <td class="colLast"><span class="strong">XdiAbstractCollection.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractCollection.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiRoot.html" title="interface in xdi2.core.features.nodetypes">XdiRoot</a></code></td>
 <td class="colLast"><span class="strong">XdiAbstractRoot.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractRoot.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiEntity.html" title="interface in xdi2.core.features.nodetypes">XdiEntity</a></code></td>
 <td class="colLast"><span class="strong">XdiAbstractEntity.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAbstractEntity.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html" title="class in xdi2.core.features.nodetypes">XdiAttributeInstanceUnordered</a></code></td>
-<td class="colLast"><span class="strong">XdiAttributeInstanceUnordered.</span><code><strong><a href="../../../../xdi2/core/features/nodetypes/XdiAttributeInstanceUnordered.html#fromXDIAddress(xdi2.core.syntax.XDIAddress)">fromXDIAddress</a></strong>(<a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a>&nbsp;XDIaddress)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../xdi2/core/features/nodetypes/XdiCommonRoot.html" title="class in xdi2.core.features.nodetypes">XdiCommonRoot</a></code></td>
@@ -2060,11 +2060,11 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">DummyRelation.</span><code><strong><a href="../../../../xdi2/core/impl/DummyRelation.html#getXDIAddress()">getXDIAddress</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><span class="strong">AbstractNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractNode.html#getXDIAddress()">getXDIAddress</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../xdi2/core/syntax/XDIAddress.html" title="class in xdi2.core.syntax">XDIAddress</a></code></td>
-<td class="colLast"><span class="strong">AbstractNode.</span><code><strong><a href="../../../../xdi2/core/impl/AbstractNode.html#getXDIAddress()">getXDIAddress</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><span class="strong">DummyRelation.</span><code><strong><a href="../../../../xdi2/core/impl/DummyRelation.html#getXDIAddress()">getXDIAddress</a></strong>()</code>&nbsp;</td>
 </tr>
 </tbody>
 </table>
