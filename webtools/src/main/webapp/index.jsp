@@ -62,7 +62,7 @@ div.line { margin-left: -150px; }
 	<td>See here: <a href="https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches">Releases and Branches</a> for information about all releases and branches.</td>
 	</tr></table>
 	<table cellpadding="5">
-	<tr><td>snapshot-0.7</td><td><a href="https://server.xdi2.org/">https://server.xdi2.org/</a></td></tr>
+	<tr><td>snapshot-0.8</td><td><a href="https://server.xdi2.org/">https://server.xdi2.org/</a></td></tr>
 	<tr><td>snapshot-0.7-pre-star-shift</td><td><a href="https://server.xdi2.org/pre-star-shift">https://server.xdi2.org/pre-star-shift</a></td></tr>
 	<tr><td>snapshot-0.7-pre-no-value-node</td><td><a href="https://server.xdi2.org/pre-no-value-node">https://server.xdi2.org/pre-no-value-node</a></td></tr>
 	<tr><td>snapshot-0.5-pre-notation-shift</td><td><a href="https://server.xdi2.org/pre-notation-shift">https://server.xdi2.org/pre-notation-shift</a></td></tr>
