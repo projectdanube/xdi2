@@ -1,10 +1,10 @@
 <a href="http://projectdanube.org/" target="_blank"><img src="http://projectdanube.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 
-| Current version under development: 0.7-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
+| Current version under development: 0.8-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
 | ---- |
 
-| Current stable release: [0.6](https://github.com/projectdanube/xdi2/wiki/release-0.6) | Next release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
+| Current stable release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) | Next release: [0.8](https://github.com/projectdanube/xdi2/wiki/release-0.8) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
 | ---- | ---- | ---- |
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
@@ -14,6 +14,7 @@ Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
 ### Components
 
 * [xdi2-core](https://github.com/projectdanube/xdi2/wiki/xdi2-core) - Implementation of the XDI graph model and basic features [.jar]
+* [xdi2-rdf](https://github.com/projectdanube/xdi2/wiki/xdi2-rdf) - Implementation of the XDI/RDF compatibility layer [.jar]
 * [xdi2-messaging](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
 * [xdi2-client](https://github.com/projectdanube/xdi2/wiki/xdi2-client) - An XDI client can send messages to an XDI server, including discovery [.jar]
 * [xdi2-transport](https://github.com/projectdanube/xdi2/wiki/xdi2-transport) - A transport (server) can receive XDI message and process them [.jar]
