@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>xdi2</groupId>
 		<artifactId>xdi2</artifactId>
-		<version>0.7</version>
+		<version>0.8-SNAPSHOT</version>
 	</parent>
 
 	<build>
@@ -144,19 +144,19 @@
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-client</artifactId>
-			<version>0.7</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-http</artifactId>
-			<version>0.7</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-rdf</artifactId>
-			<version>0.7</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
