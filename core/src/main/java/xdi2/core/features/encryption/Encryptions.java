@@ -54,7 +54,7 @@ public class Encryptions {
 		if (singleton)
 			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true);
 		else
-			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true).setXdiMemberUnordered(true, false);
+			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true).setXdiInstanceUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(keyAlgorithm, keyLength);
 		DataTypes.setDataType(encryptionXdiAttribute.getContextNode(), dataTypeXDIAddress);
@@ -82,7 +82,7 @@ public class Encryptions {
 
 		XdiAttributeCollection encryptionAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), false);
 
-		if (encryptionAttributeCollection != null) iterators.add(new MappingXdiAttributeEncryptionIterator(encryptionAttributeCollection.getXdiMembersDeref()));
+		if (encryptionAttributeCollection != null) iterators.add(new MappingXdiAttributeEncryptionIterator(encryptionAttributeCollection.getXdiInstancesDeref()));
 
 		return new CompositeIterator<Encryption<? extends Key, ? extends Key>> (iterators.iterator());
 	}

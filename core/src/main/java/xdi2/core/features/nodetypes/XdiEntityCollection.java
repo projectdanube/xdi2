@@ -72,39 +72,39 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 	 */
 
 	@Override
-	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative) {
+	public XdiEntityInstanceUnordered setXdiInstanceUnordered(boolean immutable, boolean relative) {
 
-		return super.setXdiMemberUnordered(false, immutable, relative);
+		return super.setXdiInstanceUnordered(false, immutable, relative);
 	}
 
 	@Override
-	public XdiEntityInstanceUnordered setXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+	public XdiEntityInstanceUnordered setXdiInstanceUnordered(boolean immutable, boolean relative, String literal) {
 
-		return super.setXdiMemberUnordered(false, immutable, relative, literal);
+		return super.setXdiInstanceUnordered(false, immutable, relative, literal);
 	}
 
 	@Override
-	public XdiEntityInstanceUnordered getXdiMemberUnordered(boolean immutable, boolean relative, String literal) {
+	public XdiEntityInstanceUnordered getXdiInstanceUnordered(boolean immutable, boolean relative, String literal) {
 
-		return super.getXdiMemberUnordered(false, immutable, relative, literal);
+		return super.getXdiInstanceUnordered(false, immutable, relative, literal);
 	}
 
 	@Override
-	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative) {
+	public XdiEntityInstanceOrdered setXdiInstanceOrdered(boolean immutable, boolean relative) {
 
-		return super.setXdiMemberOrdered(false, immutable, relative);
+		return super.setXdiInstanceOrdered(false, immutable, relative);
 	}
 
 	@Override
-	public XdiEntityInstanceOrdered setXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+	public XdiEntityInstanceOrdered setXdiInstanceOrdered(boolean immutable, boolean relative, long index) {
 
-		return super.setXdiMemberOrdered(false, immutable, relative, index);
+		return super.setXdiInstanceOrdered(false, immutable, relative, index);
 	}
 
 	@Override
-	public XdiEntityInstanceOrdered getXdiMemberOrdered(boolean immutable, boolean relative, long index) {
+	public XdiEntityInstanceOrdered getXdiInstanceOrdered(boolean immutable, boolean relative, long index) {
 
-		return super.getXdiMemberOrdered(false, immutable, relative, index);
+		return super.getXdiInstanceOrdered(false, immutable, relative, index);
 	}
 	
 	/*

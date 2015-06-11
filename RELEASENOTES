@@ -1,6 +1,14 @@
 release 0.8 ("Orșova")
 ========================
 
+* xdi2.core.features.nodetypes.XdiMember -> xdi2.core.features.nodetypes.XdiInstance
+
+* xdi2.core.features.nodetypes.XdiMemberOrdered -> xdi2.core.features.nodetypes.XdiInstanceOrdered
+
+* xdi2.core.features.nodetypes.XdiMemberUnordered -> xdi2.core.features.nodetypes.XdiInstanceUnordered
+
+* In xdi2.core.features.nodetypes.XdiCollection and subclasses, changed various ..Member.. methods to ..Instance..
+
 release 0.7 ("Belgrade")
 ========================
 

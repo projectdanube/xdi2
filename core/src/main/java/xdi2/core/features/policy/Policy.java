@@ -137,7 +137,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyAndXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_AND), true);
 		else
-			policyAndXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_AND), true).setXdiMemberUnordered(true, false);
+			policyAndXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_AND), true).setXdiInstanceUnordered(true, false);
 
 		return PolicyAnd.fromXdiEntity(policyAndXdiEntity);
 	}
@@ -152,7 +152,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyOrXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_OR), true);
 		else
-			policyOrXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_OR), true).setXdiMemberUnordered(true, false);
+			policyOrXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_OR), true).setXdiInstanceUnordered(true, false);
 
 		return PolicyOr.fromXdiEntity(policyOrXdiEntity);
 	}
@@ -167,7 +167,7 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		if (singleton)
 			policyNotXdiEntity = this.getXdiEntity().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_NOT), true);
 		else
-			policyNotXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_NOT), true).setXdiMemberUnordered(true, false);
+			policyNotXdiEntity = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_NOT), true).setXdiInstanceUnordered(true, false);
 
 		return PolicyNot.fromXdiEntity(policyNotXdiEntity);
 	}
@@ -195,9 +195,9 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 		XdiEntityCollection policyOrEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_OR), false);
 		XdiEntityCollection policyNotEntityCollection = this.getXdiEntity().getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIPolicyConstants.XDI_ARC_NOT), false);
 
-		if (policyAndEntityCollection != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityCollection.getXdiMembersDeref()));
-		if (policyOrEntityCollection != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityCollection.getXdiMembersDeref()));
-		if (policyNotEntityCollection != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityCollection.getXdiMembersDeref()));
+		if (policyAndEntityCollection != null) iterators.add(new MappingXdiEntityPolicyAndIterator(policyAndEntityCollection.getXdiInstancesDeref()));
+		if (policyOrEntityCollection != null) iterators.add(new MappingXdiEntityPolicyOrIterator(policyOrEntityCollection.getXdiInstancesDeref()));
+		if (policyNotEntityCollection != null) iterators.add(new MappingXdiEntityPolicyNotIterator(policyNotEntityCollection.getXdiInstancesDeref()));
 
 		return new CompositeIterator<Policy> (iterators.iterator());
 	}

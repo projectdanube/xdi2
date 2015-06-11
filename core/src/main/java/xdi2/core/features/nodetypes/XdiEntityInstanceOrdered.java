@@ -12,11 +12,11 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
 /**
- * An XDI ordered entity member, represented as a context node.
+ * An XDI ordered entity instance, represented as a context node.
  * 
  * @author markus
  */
-public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMemberOrdered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance>, XdiEntityInstance {
+public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiInstanceOrdered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance>, XdiEntityInstance {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
@@ -30,9 +30,9 @@ public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMe
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI ordered entity member.
+	 * Checks if a context node is a valid XDI ordered entity instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI ordered entity member.
+	 * @return True if the context node is a valid XDI ordered entity instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -46,9 +46,9 @@ public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMe
 	}
 
 	/**
-	 * Factory method that creates an XDI ordered entity member bound to a given context node.
-	 * @param contextNode The context node that is an XDI ordered entity member.
-	 * @return The XDI ordered entity member.
+	 * Factory method that creates an XDI ordered entity instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI ordered entity instance.
+	 * @return The XDI ordered entity instance.
 	 */
 	public static XdiEntityInstanceOrdered fromContextNode(ContextNode contextNode) {
 
@@ -72,7 +72,7 @@ public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMe
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI ordered entity member.
+	 * Returns the parent XDI collection of this XDI ordered entity instance.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -203,9 +203,9 @@ public class XdiEntityInstanceOrdered extends XdiAbstractEntity implements XdiMe
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityMemberOrderedIterator extends NotNullIterator<XdiEntityInstanceOrdered> {
+	public static class MappingContextNodeXdiEntityInstanceOrderedIterator extends NotNullIterator<XdiEntityInstanceOrdered> {
 
-		public MappingContextNodeXdiEntityMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiEntityInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiEntityInstanceOrdered> (contextNodes) {
 

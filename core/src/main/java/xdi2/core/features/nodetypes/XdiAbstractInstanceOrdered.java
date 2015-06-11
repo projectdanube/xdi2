@@ -10,7 +10,7 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractInstance<EQC, EQI, C, U, O, I> implements XdiMemberOrdered<EQC, EQI, C, U, O, I> {
+public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiInstanceUnordered<EQC, EQI, C, U, O, I>, O extends XdiInstanceOrdered<EQC, EQI, C, U, O, I>, I extends XdiInstance<EQC, EQI, C, U, O, I>> extends XdiAbstractInstance<EQC, EQI, C, U, O, I> implements XdiInstanceOrdered<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = 8283064321616435273L;
 
@@ -24,9 +24,9 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI ordered member.
+	 * Checks if a context node is a valid XDI ordered instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI ordered member.
+	 * @return True if the context node is a valid XDI ordered instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -39,15 +39,15 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 	}
 
 	/**
-	 * Factory method that creates an XDI ordered member bound to a given context node.
-	 * @param contextNode The context node that is an XDI ordered member.
-	 * @return The XDI ordered member.
+	 * Factory method that creates an XDI ordered instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI ordered instance.
+	 * @return The XDI ordered instance.
 	 */
-	public static XdiMemberOrdered<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiInstanceOrdered<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
 
-		XdiMemberOrdered<?, ?, ?, ?, ?, ?> xdiElement;
+		XdiInstanceOrdered<?, ?, ?, ?, ?, ?> xdiElement;
 
 		if ((xdiElement = XdiEntityInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
 		if ((xdiElement = XdiAttributeInstanceOrdered.fromContextNode(contextNode)) != null) return xdiElement;
@@ -55,7 +55,7 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 		return null;
 	}
 
-	public static XdiMemberOrdered<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
+	public static XdiInstanceOrdered<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
 
 		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
@@ -105,14 +105,14 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiMemberOrderedIterator extends NotNullIterator<XdiMemberOrdered<?, ?, ?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiInstanceOrderedIterator extends NotNullIterator<XdiInstanceOrdered<?, ?, ?, ?, ?, ?>> {
 
-		public MappingContextNodeXdiMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiMemberOrdered<?, ?, ?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstanceOrdered<?, ?, ?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiMemberOrdered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiInstanceOrdered<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractInstanceOrdered.fromContextNode(contextNode);
 				}

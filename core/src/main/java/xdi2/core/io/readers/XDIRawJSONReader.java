@@ -93,20 +93,20 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 
 				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIarc), true);
 
-				XdiEntityInstanceOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(false, false, index);
-				readJsonObject(xdiEntityMember, (JsonObject) jsonElement);
+				XdiEntityInstanceOrdered xdiEntityInstance = xdiEntityCollection.setXdiInstanceOrdered(false, false, index);
+				readJsonObject(xdiEntityInstance, (JsonObject) jsonElement);
 			} else if (jsonElement instanceof JsonArray) {
 
 				XdiEntityCollection xdiEntityCollection = xdiContext.getXdiEntityCollection(XdiEntityCollection.createXDIArc(XDIarc), true);
 
-				XdiEntityInstanceOrdered xdiEntityMember = xdiEntityCollection.setXdiMemberOrdered(false, false, index);
-				readJsonArray(xdiEntityMember, null, (JsonArray) jsonElement);
+				XdiEntityInstanceOrdered xdiEntityInstance = xdiEntityCollection.setXdiInstanceOrdered(false, false, index);
+				readJsonArray(xdiEntityInstance, null, (JsonArray) jsonElement);
 			} else {
 
 				XdiAttributeCollection xdiAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIarc), true);
 
-				XdiAttributeInstanceOrdered xdiAttributeMember = xdiAttributeCollection.setXdiMemberOrdered(false, false, index);
-				xdiAttributeMember.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
+				XdiAttributeInstanceOrdered xdiAttributeInstance = xdiAttributeCollection.setXdiInstanceOrdered(false, false, index);
+				xdiAttributeInstance.setLiteralData(AbstractLiteralNode.jsonElementToLiteralData(jsonElement));
 			}
 
 			index++;

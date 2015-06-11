@@ -12,11 +12,11 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
 /**
- * An XDI unordered entity member, represented as a context node.
+ * An XDI unordered entity instance, represented as a context node.
  * 
  * @author markus
  */
-public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements XdiMemberUnordered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance>, XdiEntityInstance {
+public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements XdiInstanceUnordered<XdiEntityCollection, XdiEntity, XdiEntityCollection, XdiEntityInstanceUnordered, XdiEntityInstanceOrdered, XdiEntityInstance>, XdiEntityInstance {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
@@ -30,9 +30,9 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI unordered entity member.
+	 * Checks if a context node is a valid XDI unordered entity instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI unordered entity member.
+	 * @return True if the context node is a valid XDI unordered entity instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -46,9 +46,9 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	}
 
 	/**
-	 * Factory method that creates an XDI unordered entity member bound to a given context node.
-	 * @param contextNode The context node that is an XDI unordered entity member.
-	 * @return The XDI unordered entity member.
+	 * Factory method that creates an XDI unordered entity instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI unordered entity instance.
+	 * @return The XDI unordered entity instance.
 	 */
 	public static XdiEntityInstanceUnordered fromContextNode(ContextNode contextNode) {
 
@@ -72,7 +72,7 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI unordered entity member.
+	 * Returns the parent XDI collection of this XDI unordered entity instance.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -203,9 +203,9 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiEntityMemberUnorderedIterator extends NotNullIterator<XdiEntityInstanceUnordered> {
+	public static class MappingContextNodeXdiEntityInstanceUnorderedIterator extends NotNullIterator<XdiEntityInstanceUnordered> {
 
-		public MappingContextNodeXdiEntityMemberUnorderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiEntityInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiEntityInstanceUnordered> (contextNodes) {
 

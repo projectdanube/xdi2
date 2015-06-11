@@ -12,11 +12,11 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
 /**
- * An XDI ordered attribute member, represented as a context node.
+ * An XDI ordered attribute instance, represented as a context node.
  * 
  * @author markus
  */
-public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements XdiMemberOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance>, XdiAttributeInstance {
+public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements XdiInstanceOrdered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance>, XdiAttributeInstance {
 
 	private static final long serialVersionUID = 3562576098019686485L;
 
@@ -30,9 +30,9 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI ordered attribute member.
+	 * Checks if a context node is a valid XDI ordered attribute instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI ordered attribute member.
+	 * @return True if the context node is a valid XDI ordered attribute instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -44,9 +44,9 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 	}
 
 	/**
-	 * Factory method that creates an XDI ordered attribute member bound to a given context node.
-	 * @param contextNode The context node that is an XDI ordered attribute member.
-	 * @return The XDI ordered attribute member.
+	 * Factory method that creates an XDI ordered attribute instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI ordered attribute instance.
+	 * @return The XDI ordered attribute instance.
 	 */
 	public static XdiAttributeInstanceOrdered fromContextNode(ContextNode contextNode) {
 
@@ -106,7 +106,7 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI ordered attribute member.
+	 * Returns the parent XDI collection of this XDI ordered attribute instance.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -201,9 +201,9 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeMemberOrderedIterator extends NotNullIterator<XdiAttributeInstanceOrdered> {
+	public static class MappingContextNodeXdiAttributeInstanceOrderedIterator extends NotNullIterator<XdiAttributeInstanceOrdered> {
 
-		public MappingContextNodeXdiAttributeMemberOrderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeInstanceOrderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeInstanceOrdered> (contextNodes) {
 

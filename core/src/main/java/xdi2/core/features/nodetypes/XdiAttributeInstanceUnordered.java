@@ -12,11 +12,11 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
 /**
- * An XDI unordered attribute member, represented as a context node.
+ * An XDI unordered attribute instance, represented as a context node.
  * 
  * @author markus
  */
-public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implements XdiMemberUnordered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance>, XdiAttributeInstance {
+public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implements XdiInstanceUnordered<XdiAttributeCollection, XdiAttribute, XdiAttributeCollection, XdiAttributeInstanceUnordered, XdiAttributeInstanceOrdered, XdiAttributeInstance>, XdiAttributeInstance {
 
 	private static final long serialVersionUID = 1027868266675630350L;
 
@@ -30,9 +30,9 @@ public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implemen
 	 */
 
 	/**
-	 * Checks if a context node is a valid XDI unordered attribute member.
+	 * Checks if a context node is a valid XDI unordered attribute instance.
 	 * @param contextNode The context node to check.
-	 * @return True if the context node is a valid XDI unordered attribute member.
+	 * @return True if the context node is a valid XDI unordered attribute instance.
 	 */
 	public static boolean isValid(ContextNode contextNode) {
 
@@ -44,9 +44,9 @@ public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implemen
 	}
 
 	/**
-	 * Factory method that creates an XDI unordered attribute member bound to a given context node.
-	 * @param contextNode The context node that is an XDI unordered attribute member.
-	 * @return The XDI unordered attribute member.
+	 * Factory method that creates an XDI unordered attribute instance bound to a given context node.
+	 * @param contextNode The context node that is an XDI unordered attribute instance.
+	 * @return The XDI unordered attribute instance.
 	 */
 	public static XdiAttributeInstanceUnordered fromContextNode(ContextNode contextNode) {
 
@@ -106,7 +106,7 @@ public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implemen
 	 */
 
 	/**
-	 * Returns the parent XDI collection of this XDI unordered attribute member.
+	 * Returns the parent XDI collection of this XDI unordered attribute instance.
 	 * @return The parent XDI collection.
 	 */
 	@Override
@@ -201,9 +201,9 @@ public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implemen
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiAttributeMemberUnorderedIterator extends NotNullIterator<XdiAttributeInstanceUnordered> {
+	public static class MappingContextNodeXdiAttributeInstanceUnorderedIterator extends NotNullIterator<XdiAttributeInstanceUnordered> {
 
-		public MappingContextNodeXdiAttributeMemberUnorderedIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiAttributeInstanceUnorderedIterator(Iterator<ContextNode> contextNodes) {
 
 			super(new MappingIterator<ContextNode, XdiAttributeInstanceUnordered> (contextNodes) {
 

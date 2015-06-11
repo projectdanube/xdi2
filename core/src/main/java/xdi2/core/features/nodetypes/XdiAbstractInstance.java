@@ -9,7 +9,7 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 
-public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiMemberUnordered<EQC, EQI, C, U, O, I>, O extends XdiMemberOrdered<EQC, EQI, C, U, O, I>, I extends XdiMember<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQI> implements XdiMember<EQC, EQI, C, U, O, I> {
+public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiInstanceUnordered<EQC, EQI, C, U, O, I>, O extends XdiInstanceOrdered<EQC, EQI, C, U, O, I>, I extends XdiInstance<EQC, EQI, C, U, O, I>> extends XdiAbstractSubGraph<EQI> implements XdiInstance<EQC, EQI, C, U, O, I> {
 
 	private static final long serialVersionUID = 3673396905245169194L;
 
@@ -42,19 +42,19 @@ public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C,
 	 * @param contextNode The context node that is an XDI instance.
 	 * @return The XDI instance.
 	 */
-	public static XdiMember<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
+	public static XdiInstance<?, ?, ?, ?, ?, ?> fromContextNode(ContextNode contextNode) {
 
 		if (contextNode == null) throw new NullPointerException();
 
-		XdiMember<?, ?, ?, ?, ?, ?> xdiMember = null;
+		XdiInstance<?, ?, ?, ?, ?, ?> xdiInstance = null;
 
-		if ((xdiMember = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiMember;
-		if ((xdiMember = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiMember;
+		if ((xdiInstance = XdiAbstractInstanceUnordered.fromContextNode(contextNode)) != null) return xdiInstance;
+		if ((xdiInstance = XdiAbstractInstanceOrdered.fromContextNode(contextNode)) != null) return xdiInstance;
 
 		return null;
 	}
 
-	public static XdiMember<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
+	public static XdiInstance<?, ?, ?, ?, ?, ?> fromXDIAddress(XDIAddress XDIaddress) {
 
 		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));
 	}
@@ -77,14 +77,14 @@ public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C,
 	 * Helper classes
 	 */
 
-	public static class MappingContextNodeXdiMemberIterator extends NotNullIterator<XdiMember<?, ?, ?, ?, ?, ?>> {
+	public static class MappingContextNodeXdiInstanceIterator extends NotNullIterator<XdiInstance<?, ?, ?, ?, ?, ?>> {
 
-		public MappingContextNodeXdiMemberIterator(Iterator<ContextNode> contextNodes) {
+		public MappingContextNodeXdiInstanceIterator(Iterator<ContextNode> contextNodes) {
 
-			super(new MappingIterator<ContextNode, XdiMember<?, ?, ?, ?, ?, ?>> (contextNodes) {
+			super(new MappingIterator<ContextNode, XdiInstance<?, ?, ?, ?, ?, ?>> (contextNodes) {
 
 				@Override
-				public XdiMember<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
+				public XdiInstance<?, ?, ?, ?, ?, ?> map(ContextNode contextNode) {
 
 					return XdiAbstractInstance.fromContextNode(contextNode);
 				}

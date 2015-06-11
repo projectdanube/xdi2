@@ -345,8 +345,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		int indexAuthorityLegal = string.indexOf(XDIConstants.CS_AUTHORITY_LEGAL.charValue());
 		int indexClassReserved = string.indexOf(XDIConstants.CS_CLASS_RESERVED.charValue());
 		int indexClassUnreserved = string.indexOf(XDIConstants.CS_CLASS_UNRESERVED.charValue());
-		int indexMemberOrdered = string.indexOf(XDIConstants.CS_INSTANCE_ORDERED.charValue());
-		int indexMemberUnordered = string.indexOf(XDIConstants.CS_INSTANCE_UNORDERED.charValue());
+		int indexInstanceOrdered = string.indexOf(XDIConstants.CS_INSTANCE_ORDERED.charValue());
+		int indexInstanceUnordered = string.indexOf(XDIConstants.CS_INSTANCE_UNORDERED.charValue());
 		int indexLiteral = string.indexOf(XDIConstants.CS_LITERAL.charValue());
 		int indexImmutable = string.indexOf(XDIConstants.S_IMMUTABLE.charValue());
 		int indexRelative = string.indexOf(XDIConstants.S_RELATIVE.charValue());
@@ -357,8 +357,8 @@ public class ParserImpl extends ParserAbstract implements Parser {
 		if (indexAuthorityLegal != -1 && indexAuthorityLegal < indexColon) return false;
 		if (indexClassReserved != -1 && indexClassReserved < indexColon) return false;
 		if (indexClassUnreserved != -1 && indexClassUnreserved < indexColon) return false;
-		if (indexMemberOrdered != -1 && indexMemberOrdered < indexColon) return false;
-		if (indexMemberUnordered != -1 && indexMemberUnordered < indexColon) return false;
+		if (indexInstanceOrdered != -1 && indexInstanceOrdered < indexColon) return false;
+		if (indexInstanceUnordered != -1 && indexInstanceUnordered < indexColon) return false;
 		if (indexLiteral != -1 && indexLiteral < indexColon) return false;
 		if (indexImmutable != -1 && indexImmutable < indexColon) return false;
 		if (indexRelative != -1 && indexRelative < indexColon) return false;

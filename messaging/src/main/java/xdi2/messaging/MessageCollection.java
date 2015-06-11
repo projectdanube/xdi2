@@ -119,7 +119,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public Message createMessage() {
 
-		XdiEntityInstanceUnordered xdiEntityMember = this.xdiEntityCollection.setXdiMemberUnordered(true, false);
+		XdiEntityInstanceUnordered xdiEntityMember = this.xdiEntityCollection.setXdiInstanceUnordered(true, false);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);
@@ -132,7 +132,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public Message createMessage(long index) {
 
-		XdiEntityInstanceOrdered xdiEntityMember = this.xdiEntityCollection.setXdiMemberOrdered(false, false, index);
+		XdiEntityInstanceOrdered xdiEntityMember = this.xdiEntityCollection.setXdiInstanceOrdered(false, false, index);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);
@@ -144,7 +144,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public ReadOnlyIterator<Message> getMessages() {
 
-		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityCollection().getXdiMembersDeref());
+		return new MappingXdiEntityMessageIterator(this, this.getXdiEntityCollection().getXdiInstancesDeref());
 	}
 
 	/**
