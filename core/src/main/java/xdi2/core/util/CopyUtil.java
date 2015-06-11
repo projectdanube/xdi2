@@ -102,6 +102,8 @@ public final class CopyUtil {
 
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
+		if (contextNode.isRootContextNode()) throw new IllegalArgumentException("Cannot copy root context node.");
+		
 		XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
 		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
