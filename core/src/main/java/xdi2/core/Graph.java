@@ -79,44 +79,48 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public String toString(MimeType mimeType);
 
 	/*
-	 * Deep methods
+	 * Deep methods for nodes
 	 */
 
-	/**
-	 * Create a new node at an arbitrary level of the graph, or returns an existing node.
-	 * @param nodeXDIAddress The relative address of the new or existing node.
-	 * @return The newly created or existing node.
-	 */
 	public Node setDeepNode(XDIAddress nodeXDIAddress);
+
+	public Node getDeepNode(XDIAddress nodeXDIAddress, boolean subgraph);
+
+	public Node getDeepNode(XDIAddress nodeXDIAddress);
+
+	/*
+	 * Deep methods for context nodes
+	 */
 
 	public ContextNode setDeepContextNode(XDIAddress contextNodeXDIAddress);
 
-	public LiteralNode setDeepLiteralNode(XDIAddress literalNodeXDIAddress);
-
-	/**
-	 * Returns a node at an arbitrary level of the graph.
-	 * @param nodeXDIAddress The relative address of the node.
-	 * @param subgraph This is simply a hint to the implementation whether 
-	 * child context nodes will subsequently be requested. Implementations may 
-	 * or may not actually use this parameter.
-	 * @return The node with the given address, or null.
-	 */
-	public Node getDeepNode(XDIAddress nodeXDIAddress, boolean subgraph);
-
 	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress, boolean subgraph);
-
-	public LiteralNode getDeepLiteralNode(XDIAddress literalNodeXDIAddress, boolean subgraph);
-
-	/**
-	 * Returns a node at an arbitrary level of the graph.
-	 * @param nodeXDIAddress The relative address of the node.
-	 * @return The node with the given address, or null.
-	 */
-	public Node getDeepNode(XDIAddress nodeXDIAddress);
 
 	public ContextNode getDeepContextNode(XDIAddress contextNodeXDIAddress);
 
+	/*
+	 * Deep methods for literal nodes
+	 */
+
+	public LiteralNode setDeepLiteralNode(XDIAddress literalNodeXDIAddress);
+
+	public LiteralNode getDeepLiteralNode(XDIAddress literalNodeXDIAddress, boolean subgraph);
+
 	public LiteralNode getDeepLiteralNode(XDIAddress literalNodeXDIAddress);
+
+	/*
+	 * Deep methods for relations
+	 */
+
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetXDIAddress);
+
+	public Relation setDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, Node targetNode);
+
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetXDIAddress);
+
+	public Relation getDeepRelation(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress);
+
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress contextNodeXDIAddress, XDIAddress XDIaddress);
 
 	/*
 	 * Methods related to statements

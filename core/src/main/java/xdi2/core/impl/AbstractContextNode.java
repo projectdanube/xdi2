@@ -481,7 +481,7 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	}
 
 	/*
-	 * Deep methods
+	 * Deep methods for nodes
 	 */
 
 	@Override
@@ -507,22 +507,6 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	}
 
 	@Override
-	public ContextNode setDeepContextNode(XDIAddress relativeContextNodeXDIAddress) {
-
-		if (relativeContextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a context node address: " + relativeContextNodeXDIAddress);
-
-		return (ContextNode) this.setDeepNode(relativeContextNodeXDIAddress);
-	}
-
-	@Override
-	public LiteralNode setDeepLiteralNode(XDIAddress relativeLiteralNodeXDIAddress) {
-
-		if (! relativeLiteralNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a literal node address: " + relativeLiteralNodeXDIAddress);
-
-		return (LiteralNode) this.setDeepNode(relativeLiteralNodeXDIAddress);
-	}
-
-	@Override
 	public Node getDeepNode(XDIAddress relativeNodeXDIAddress, boolean subgraph) {
 
 		if (XDIConstants.XDI_ADD_ROOT.equals(relativeNodeXDIAddress)) return this;
@@ -545,11 +529,49 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	}
 
 	@Override
+	public Node getDeepNode(XDIAddress relativeNodeXDIAddress) {
+
+		return this.getDeepNode(relativeNodeXDIAddress, false);
+	}
+
+	/*
+	 * Deep methods for context nodes
+	 */
+
+	@Override
+	public ContextNode setDeepContextNode(XDIAddress relativeContextNodeXDIAddress) {
+
+		if (relativeContextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a context node address: " + relativeContextNodeXDIAddress);
+
+		return (ContextNode) this.setDeepNode(relativeContextNodeXDIAddress);
+	}
+
+	@Override
 	public ContextNode getDeepContextNode(XDIAddress relativeContextNodeXDIAddress, boolean subgraph) {
 
 		if (relativeContextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a context node address: " + relativeContextNodeXDIAddress);
 
 		return (ContextNode) this.getDeepNode(relativeContextNodeXDIAddress, subgraph);
+	}
+
+	@Override
+	public ContextNode getDeepContextNode(XDIAddress relativeContextNodeXDIAddress) {
+
+		if (relativeContextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a context node address: " + relativeContextNodeXDIAddress);
+
+		return (ContextNode) this.getDeepNode(relativeContextNodeXDIAddress);
+	}
+
+	/*
+	 * Deep methods for literal nodes
+	 */
+
+	@Override
+	public LiteralNode setDeepLiteralNode(XDIAddress relativeLiteralNodeXDIAddress) {
+
+		if (! relativeLiteralNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a literal node address: " + relativeLiteralNodeXDIAddress);
+
+		return (LiteralNode) this.setDeepNode(relativeLiteralNodeXDIAddress);
 	}
 
 	@Override
@@ -561,25 +583,54 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	}
 
 	@Override
-	public Node getDeepNode(XDIAddress relativeNodeXDIAddress) {
-
-		return this.getDeepNode(relativeNodeXDIAddress, false);
-	}
-
-	@Override
-	public ContextNode getDeepContextNode(XDIAddress relativeContextNodeXDIAddress) {
-
-		if (relativeContextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a context node address: " + relativeContextNodeXDIAddress);
-
-		return (ContextNode) this.getDeepNode(relativeContextNodeXDIAddress);
-	}
-
-	@Override
 	public LiteralNode getDeepLiteralNode(XDIAddress relativeLiteralNodeXDIAddress) {
 
 		if (! relativeLiteralNodeXDIAddress.isLiteralNodeXDIAddress()) throw new Xdi2GraphException("Not a literal node address: " + relativeLiteralNodeXDIAddress);
 
 		return (LiteralNode) this.getDeepNode(relativeLiteralNodeXDIAddress);
+	}
+
+	/*
+	 * Deep methods for relations
+	 */
+
+	@Override
+	public Relation setDeepRelation(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
+
+		return this.setDeepContextNode(relativeContextNodeXDIAddress).setRelation(XDIaddress, targetXDIAddress);
+	}
+
+	@Override
+	public Relation setDeepRelation(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIaddress, Node targetNode) {
+
+		return this.setDeepContextNode(relativeContextNodeXDIAddress).setRelation(XDIaddress, targetNode);
+	}
+
+	@Override
+	public Relation getDeepRelation(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIaddress, XDIAddress targetXDIAddress) {
+
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXDIAddress);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelation(XDIaddress, targetXDIAddress);
+	}
+
+	@Override
+	public Relation getDeepRelation(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIaddress) {
+
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXDIAddress);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelation(XDIaddress);
+	}
+
+	@Override
+	public ReadOnlyIterator<Relation> getDeepRelations(XDIAddress relativeContextNodeXDIAddress, XDIAddress XDIaddress) {
+
+		ContextNode contextNode = this.getDeepContextNode(relativeContextNodeXDIAddress);
+		if (contextNode == null) return null;
+
+		return contextNode.getRelations(XDIaddress);
 	}
 
 	/*
