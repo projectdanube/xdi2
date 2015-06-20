@@ -99,8 +99,21 @@ public class XDI2X509TrustManager implements X509TrustManager {
 
 			// create XDI2 trust manager
 
-			KeyStore ks2 = KeyStore.getInstance("JKS");
-			ks2.load(XDI2X509TrustManager.class.getResourceAsStream("cacerts.jks"), "changeit".toCharArray());
+			KeyStore ks2;
+
+			if (KeyStore.getDefaultType().equalsIgnoreCase("JKS")) {
+
+				ks2 = KeyStore.getInstance("JKS");
+				ks2.load(XDI2X509TrustManager.class.getResourceAsStream("cacerts.jks"), "changeit".toCharArray());
+			} else if (KeyStore.getDefaultType().equalsIgnoreCase("BKS")) {
+
+				ks2 = KeyStore.getInstance("BKS");
+				ks2.load(XDI2X509TrustManager.class.getResourceAsStream("cacerts.bks"), "changeit".toCharArray());
+			} else {
+
+				log.warn("Cannot enable X509 trust manager for key store type " + KeyStore.getDefaultType());
+				return;
+			}
 
 			TrustManagerFactory tmf2 = TrustManagerFactory.getInstance("X509");
 			tmf2.init(ks2);
