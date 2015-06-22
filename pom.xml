@@ -19,6 +19,13 @@
 		</developer>
 	</developers>
 
+	<licenses>
+		<license>
+			<name>Various</name>
+			<comments>See LICENSE files</comments>
+		</license>
+	</licenses>
+
 	<modules>
 		<module>core</module>
 		<module>messaging</module>
