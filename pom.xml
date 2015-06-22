@@ -188,6 +188,14 @@
 					<keywords>true</keywords>
 					<useStandardDocletOptions>true</useStandardDocletOptions>
 				</configuration>
+				<executions>
+					<execution>
+						<id>execution</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
