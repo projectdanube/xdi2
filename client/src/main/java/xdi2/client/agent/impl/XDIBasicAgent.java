@@ -98,9 +98,12 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find out the target peer root of the address
 
+		XDIArc firstXDIArc = XDIaddress.getFirstXDIArc();
+		XDIAddress firstXDIArcXDIAddress = XDIAddress.fromComponent(firstXDIArc);
+
 		XDIAddress targetPeerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false);
-		CloudNumber targetCloudNumber = CloudNumber.fromXDIAddress(XDIaddress);
-		CloudName targetCloudName = CloudName.fromXDIAddress(XDIaddress);
+		CloudNumber targetCloudNumber = CloudNumber.isValid(firstXDIArcXDIAddress) ? CloudNumber.fromXDIAddress(firstXDIArcXDIAddress) : null;
+		CloudName targetCloudName = CloudName.isValid(firstXDIArcXDIAddress) ? CloudName.fromXDIAddress(firstXDIArcXDIAddress) : null;
 
 		if (log.isDebugEnabled()) log.debug("Peer root: " + targetPeerRootXDIAddress + ", Cloud Number: " + targetCloudNumber + ", Cloud Name: " + targetCloudName);
 
