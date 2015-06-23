@@ -91,6 +91,15 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Sets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
+	public U setXdiInstanceUnordered(boolean attribute) {
+
+		return this.setXdiInstanceUnordered(attribute, true, false, null);
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
 	public U setXdiInstanceUnordered(boolean attribute, boolean immutable, boolean relative) {
 
 		return this.setXdiInstanceUnordered(attribute, immutable, relative, null);
@@ -147,8 +156,17 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Sets an XDI element under this XDI collection.
-	 * @return The XDI element.
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
+	public O setXdiInstanceOrdered(boolean attribute) {
+
+		return this.setXdiInstanceOrdered(attribute, false, false, -1);
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
 	 */
 	public O setXdiInstanceOrdered(boolean attribute, boolean immutable, boolean relative) {
 
@@ -156,8 +174,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Sets an XDI element under this XDI collection.
-	 * @return The XDI element.
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
 	 */
 	public O setXdiInstanceOrdered(boolean attribute, boolean immutable, boolean relative, long index) {
 
@@ -173,8 +191,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Gets an XDI element under this XDI collection.
-	 * @return The XDI element.
+	 * Gets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
 	 */
 	public O getXdiInstanceOrdered(boolean attribute, boolean immutable, boolean relative, long index) {
 
@@ -191,8 +209,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI elements in this XDI collection.
-	 * @return An iterator over all XDI elements.
+	 * Returns all XDI instances in this XDI collection.
+	 * @return An iterator over all XDI instances.
 	 */
 	@Override
 	public ReadOnlyIterator<O> getXdiInstancesOrdered() {
@@ -201,7 +219,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns the number of XDI elements in this XDI collection.
+	 * Returns the number of XDI instances in this XDI collection.
 	 */
 	@Override
 	public long getXdiInstancesOrderedCount() {
@@ -210,8 +228,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI instances and elements in this XDI collection.
-	 * @return An iterator over all XDI instances and elements.
+	 * Returns all XDI instances and instances in this XDI collection.
+	 * @return An iterator over all XDI instances and instances.
 	 */
 	@Override
 	public ReadOnlyIterator<I> getXdiInstances() {
@@ -226,8 +244,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	}
 
 	/**
-	 * Returns all XDI instances and elements in this XDI collection.
-	 * @return An iterator over all XDI instances and elements.
+	 * Returns all XDI instances and instances in this XDI collection.
+	 * @return An iterator over all XDI instances and instances.
 	 */
 	@Override
 	public ReadOnlyIterator<EQI> getXdiInstancesDeref() {
@@ -304,8 +322,8 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	public class XdiInstancesOrderedIterator extends ReadOnlyIterator<O> {
 
 		private int index = 0;
-		private O nextXdiElement = null;
-		private boolean triedNextXdiElement = false;
+		private O nextXdiInstance = null;
+		private boolean triedNextXdiInstance = false;
 
 		public XdiInstancesOrderedIterator() {
 
@@ -315,31 +333,31 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 		@Override
 		public boolean hasNext() {
 
-			this.tryNextXdiElement();
+			this.tryNextXdiInstance();
 
-			return this.nextXdiElement != null;
+			return this.nextXdiInstance != null;
 		}
 
 		@Override
 		public O next() {
 
-			this.tryNextXdiElement();
+			this.tryNextXdiInstance();
 
 			this.index++;
-			this.triedNextXdiElement = false;
+			this.triedNextXdiInstance = false;
 
-			return this.nextXdiElement;
+			return this.nextXdiInstance;
 		}
 
-		private void tryNextXdiElement() {
+		private void tryNextXdiInstance() {
 
-			if (this.triedNextXdiElement) return;
+			if (this.triedNextXdiInstance) return;
 
-			this.nextXdiElement = XdiAbstractCollection.this.getXdiInstanceOrdered(false, false, this.index);
+			this.nextXdiInstance = XdiAbstractCollection.this.getXdiInstanceOrdered(false, false, this.index);
 
-			if (log.isTraceEnabled()) log.trace("Next element at index " + this.index + ": " + this.nextXdiElement);
+			if (log.isTraceEnabled()) log.trace("Next instance at index " + this.index + ": " + this.nextXdiInstance);
 
-			this.triedNextXdiElement = true;
+			this.triedNextXdiInstance = true;
 		}
 	}
 }

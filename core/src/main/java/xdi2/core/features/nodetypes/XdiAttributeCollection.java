@@ -70,6 +70,12 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 	 */
 
 	@Override
+	public XdiAttributeInstanceUnordered setXdiInstanceUnordered() {
+
+		return super.setXdiInstanceUnordered(true);
+	}
+
+	@Override
 	public XdiAttributeInstanceUnordered setXdiInstanceUnordered(boolean immutable, boolean relative) {
 
 		return super.setXdiInstanceUnordered(true, immutable, relative);
@@ -85,6 +91,12 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 	public XdiAttributeInstanceUnordered getXdiInstanceUnordered(boolean immutable, boolean relative, String literal) {
 
 		return super.getXdiInstanceUnordered(true, immutable, relative, literal);
+	}
+
+	@Override
+	public XdiAttributeInstanceOrdered setXdiInstanceOrdered() {
+
+		return super.setXdiInstanceOrdered(true);
 	}
 
 	@Override
