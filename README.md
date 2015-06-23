@@ -53,7 +53,7 @@ Google Group: http://groups.google.com/group/xdi2
 
 Weekly Call: [Thursdays at 4pm US Eastern Time](https://github.com/projectdanube/xdi2/wiki/XDI2-Weekly-Call)
 
-IRC: [irc://irc.freenode.net:6667/xdi](irc://irc.freenode.net:6667/xdi)
+IRC: [irc://irc.freenode.net:6667/xdi](http://webchat.freenode.net?randomnick=1&channels=%23xdi)
 
 Javadoc: http://projectdanube.github.io/xdi2/apidocs/
 
