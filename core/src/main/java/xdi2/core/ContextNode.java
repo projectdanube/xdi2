@@ -338,6 +338,30 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	public LiteralNode getLiteralBoolean(Boolean literalData);
 
 	/**
+	 * Get the literal data.
+	 * @return The literal data associated with the context node.
+	 */
+	public Object getLiteralData();
+
+	/**
+	 * Get the literal data string.
+	 * @return The literal data string associated with the context node.
+	 */
+	public String getLiteralDataString();
+
+	/**
+	 * Get the literal data number.
+	 * @return The literal data number associated with the context node.
+	 */
+	public Double getLiteralDataNumber();
+
+	/**
+	 * Get the literal data boolean.
+	 * @return The literal data boolean associated with the context node.
+	 */
+	public Boolean getLiteralDataBoolean();
+
+	/**
 	 * Returns all literals of this context node.
 	 * @return An iterator over literals.
 	 */

@@ -421,6 +421,42 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 		return this.getLiteralNode(literalData);
 	}
 
+	@Override
+	public Object getLiteralData() {
+
+		LiteralNode literalNode = this.getLiteralNode();
+		if (literalNode == null) return null;
+
+		return literalNode.getLiteralData();
+	}
+
+	@Override
+	public String getLiteralDataString() {
+
+		LiteralNode literalNode = this.getLiteralNode();
+		if (literalNode == null) return null;
+
+		return literalNode.getLiteralDataString();
+	}
+
+	@Override
+	public Double getLiteralDataNumber() {
+
+		LiteralNode literalNode = this.getLiteralNode();
+		if (literalNode == null) return null;
+
+		return literalNode.getLiteralDataNumber();
+	}
+
+	@Override
+	public Boolean getLiteralDataBoolean() {
+
+		LiteralNode literalNode = this.getLiteralNode();
+		if (literalNode == null) return null;
+
+		return literalNode.getLiteralDataBoolean();
+	}
+
 	//	public Literal getLiteralNode();
 
 	@Override
