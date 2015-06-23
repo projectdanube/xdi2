@@ -4,7 +4,7 @@
 | Current version under development: 0.8-SNAPSHOT&nbsp;&nbsp;[![Build Status](https://secure.travis-ci.org/projectdanube/xdi2.png)](http://travis-ci.org/projectdanube/xdi2) |
 | ---- |
 
-| Current stable release: [0.7](https://github.com/projectdanube/xdi2/wiki/release-0.7) | Next release: [0.8](https://github.com/projectdanube/xdi2/wiki/release-0.8) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
+| Current stable release: [0.7.4](https://github.com/projectdanube/xdi2/wiki/release-0.7) | Next release: [0.8](https://github.com/projectdanube/xdi2/wiki/release-0.8) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
 | ---- | ---- | ---- |
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
@@ -40,6 +40,10 @@ To build all components.
 Then go to:
 
     http://localhost:8080/
+
+### Maven and Gradle
+
+See https://bintray.com/projectdanube/maven/xdi2/view
 
 ### Community
 
