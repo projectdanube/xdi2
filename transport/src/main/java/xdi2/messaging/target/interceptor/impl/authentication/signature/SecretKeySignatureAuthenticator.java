@@ -1,5 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
+import java.nio.charset.Charset;
+
 import javax.crypto.SecretKey;
 
 import org.apache.commons.codec.binary.Base64;
@@ -40,7 +42,7 @@ public abstract class SecretKeySignatureAuthenticator extends AbstractSignatureA
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Secret key found for sender " + message.getSenderXDIAddress() + ": " + Base64.encodeBase64String(secretKey.getEncoded()));
+		if (log.isDebugEnabled()) log.debug("Secret key found for sender " + message.getSenderXDIAddress() + ": " + new String(Base64.encodeBase64(secretKey.getEncoded()), Charset.forName("UTF-8")));
 
 		// authenticate
 

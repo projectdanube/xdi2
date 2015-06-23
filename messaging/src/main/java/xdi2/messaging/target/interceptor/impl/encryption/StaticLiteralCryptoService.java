@@ -1,5 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.encryption;
 
+import java.nio.charset.Charset;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -39,7 +41,7 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		if (this.getSecretKeyString() == null) throw new NullPointerException("No secret key string.");
 
-		this.secretKey = new SecretKeySpec(Base64.decodeBase64(this.getSecretKeyString()), this.getAlgorithm());
+		this.secretKey = new SecretKeySpec(Base64.decodeBase64(this.getSecretKeyString().getBytes(Charset.forName("UTF-8"))), this.getAlgorithm());
 	}
 
 	@Override
@@ -55,8 +57,8 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		Cipher cipher = Cipher.getInstance(this.getTransformation());
 		cipher.init(Cipher.ENCRYPT_MODE, this.secretKey);
-		byte[] encryptedLiteralDataBytes = cipher.doFinal(literalDataString.getBytes("UTF-8"));
-		encryptedLiteralDataString = Base64.encodeBase64String(encryptedLiteralDataBytes);
+		byte[] encryptedLiteralDataBytes = cipher.doFinal(literalDataString.getBytes(Charset.forName("UTF-8")));
+		encryptedLiteralDataString = new String(Base64.encodeBase64(encryptedLiteralDataBytes), Charset.forName("UTF-8"));
 
 		return encryptedLiteralDataString;
 	}
@@ -68,8 +70,8 @@ public class StaticLiteralCryptoService extends AbstractLiteralCryptoService imp
 
 		Cipher cipher = Cipher.getInstance(this.getTransformation());
 		cipher.init(Cipher.DECRYPT_MODE, this.secretKey);
-		byte[] literalDataBytes = cipher.doFinal(Base64.decodeBase64(encryptedLiteralDataString));
-		literalDataString = new String(literalDataBytes, "UTF-8");
+		byte[] literalDataBytes = cipher.doFinal(Base64.decodeBase64(encryptedLiteralDataString.getBytes(Charset.forName("UTF-8"))));
+		literalDataString = new String(literalDataBytes, Charset.forName("UTF-8"));
 
 		return literalDataString;
 	}

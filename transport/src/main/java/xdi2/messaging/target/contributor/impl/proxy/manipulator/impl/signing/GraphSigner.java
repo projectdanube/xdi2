@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
 
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -82,7 +83,7 @@ public class GraphSigner extends PrivateKeySigner {
 
 		try {
 
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(privateKeyString));
+			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(Charset.forName("UTF-8"))));
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 			privateKey = keyFactory.generatePrivate(keySpec);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -203,14 +204,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				if (signature instanceof KeyPairSignature) {
 
-					PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
+					PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					k = keyFactory.generatePrivate(keySpec);
 
 					((KeyPairSignature) signature).sign((PrivateKey) k);
 				} else if (signature instanceof SymmetricKeySignature) {
 
-					k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 					((SymmetricKeySignature) signature).sign((SecretKey) k);
 				}
@@ -225,14 +226,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 					if (signature instanceof KeyPairSignature) {
 
-						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
+						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 						k = keyFactory.generatePublic(keySpec);
 
 						valid.add(Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k)));
 					} else if (signature instanceof SymmetricKeySignature) {
 
-						k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
 					}

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -126,7 +127,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				// tree
 
 				rule.accept(new xdi2.core.xri3.parser.aparse.TreeDisplayer(stream1));
-				output1 = html(new String(buffer1.toByteArray(), "UTF-8"));
+				output1 = html(new String(buffer1.toByteArray(), Charset.forName("UTF-8")));
 
 				// stack
 
@@ -158,16 +159,16 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				}
 				stream2.println("</tr></table>");
 				stream2.println("<div id='stack'></div>");
-				output2 = new String(buffer2.toByteArray(), "UTF-8");
+				output2 = new String(buffer2.toByteArray(), Charset.forName("UTF-8"));
 
 				// xml
 
-				output3 = html(new String(buffer3.toByteArray(), "UTF-8"));
+				output3 = html(new String(buffer3.toByteArray(), Charset.forName("UTF-8")));
 
 				// count
 
 				for (Entry<String, Integer> entry : countEntrySet) stream4.println(entry.getKey() + ": " + entry.getValue());
-				output4 = html(new String(buffer4.toByteArray(), "UTF-8"));
+				output4 = html(new String(buffer4.toByteArray(), Charset.forName("UTF-8")));
 			} /*   DEPRECATED  else if ("apg".equals(parser)) {
 
 				com.coasttocoastresearch.apg.Grammar g;
@@ -189,12 +190,12 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				Result result = p.parse();
 
 				result.displayResult(stream5);
-				output5 = html(new String(buffer5.toByteArray(), "UTF-8"));
+				output5 = html(new String(buffer5.toByteArray(), Charset.forName("UTF-8")));
 
 				statistics.displayStats(stream6, "rules");
-				output6 = html(new String(buffer6.toByteArray(), "UTF-8"));
+				output6 = html(new String(buffer6.toByteArray(), Charset.forName("UTF-8")));
 
-				output7 = html(new String(buffer7.toByteArray(), "UTF-8"));
+				output7 = html(new String(buffer7.toByteArray(), Charset.forName("UTF-8")));
 			} else*/ if ("manual".equals(parser)) {
 
 				XDIAddress XDIaddress;
@@ -243,7 +244,7 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 					stream8.println();
 				}
 
-				output8 = html(new String(buffer8.toByteArray(), "UTF-8"));
+				output8 = html(new String(buffer8.toByteArray(), Charset.forName("UTF-8")));
 			} else {
 
 				throw new RuntimeException("Parser not supported.");

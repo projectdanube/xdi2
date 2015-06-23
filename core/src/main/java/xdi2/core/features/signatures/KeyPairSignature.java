@@ -1,5 +1,6 @@
 package xdi2.core.features.signatures;
 
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -101,7 +102,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		try {
 
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes("UTF-8");
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -115,7 +116,7 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 
 		byte[] bytes = signature.sign();
 
-		this.getXdiAttribute().setLiteralDataString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralDataString(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
 	}
 
 	@Override
@@ -127,13 +128,13 @@ public final class KeyPairSignature extends Signature<PrivateKey, PublicKey> {
 		String literalString = literalNode.getLiteralDataString();
 		if (literalString == null) throw new GeneralSecurityException("No signature literal string.");
 
-		byte[] bytes = Base64.decodeBase64(literalString);
+		byte[] bytes = Base64.decodeBase64(literalString.getBytes(Charset.forName("UTF-8")));
 
 		byte[] normalizedSerialization;
 
 		try {
 
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes("UTF-8");
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);

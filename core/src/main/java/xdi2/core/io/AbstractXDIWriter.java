@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractXDIWriter.class);
 
-	public static final String DEFAULT_CHARSET_NAME = "UTF-8";
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
 	protected Properties parameters;
 
@@ -57,7 +58,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 	@Override
 	public OutputStream write(Graph graph, OutputStream stream) throws IOException {
 
-		this.write(graph, new OutputStreamWriter(stream, DEFAULT_CHARSET_NAME));
+		this.write(graph, new OutputStreamWriter(stream, DEFAULT_CHARSET));
 		stream.flush();
 
 		return stream;

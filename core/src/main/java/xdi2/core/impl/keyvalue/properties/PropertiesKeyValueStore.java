@@ -7,6 +7,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,7 +65,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	@Override
 	public void set(String key, String value) {
 
-		String hash = hash(value);
+		String hash = sha512String(value);
 
 		// find index
 
@@ -173,7 +174,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	@Override
 	public boolean contains(String key, String value) {
 
-		String hash = hash(value);
+		String hash = sha512String(value);
 
 		// find index
 
@@ -218,7 +219,7 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 	@Override
 	public void delete(String key, String value) {
 
-		String hash = hash(value);
+		String hash = sha512String(value);
 
 		// find index
 
@@ -382,22 +383,22 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		}
 	}
 
-	private static String hash(String str) {
+	private static String sha512String(String str) {
 
-		String hash;
+		MessageDigest digest;
 
 		try {
 
-			MessageDigest digest = MessageDigest.getInstance("SHA-512");
-			digest.reset();
-			digest.update(str.getBytes());
-			hash = new String(Base64.encodeBase64(digest.digest()), "UTF-8");
+			digest = MessageDigest.getInstance("SHA-512");
 		} catch (Exception ex) {
 
-			throw new RuntimeException("hash(): " + ex.getMessage(), ex);
+			throw new RuntimeException(ex.getMessage(), ex);
 		}
 
-		return hash;
+		digest.reset();
+		digest.update(str.getBytes(Charset.forName("UTF-8")));
+
+		return new String(Base64.encodeBase64(digest.digest()), Charset.forName("UTF-8"));
 	}
 
 	/*

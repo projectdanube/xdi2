@@ -1,5 +1,6 @@
 package xdi2.core.features.encryption;
 
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
@@ -99,7 +100,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		try {
 
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoEncryptionsCopyStrategy()).getBytes("UTF-8");
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoEncryptionsCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -112,7 +113,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
-		this.getXdiAttribute().setLiteralDataString(Base64.encodeBase64String(bytes));
+		this.getXdiAttribute().setLiteralDataString(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
 	}
 
 	@Override
@@ -124,7 +125,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 		String literalString = literalNode.getLiteralDataString();
 		if (literalString == null) throw new GeneralSecurityException("No encryption literal string.");
 
-		byte[] bytes = Base64.decodeBase64(literalString);
+		byte[] bytes = Base64.decodeBase64(literalString.getBytes(Charset.forName("UTF-8")));
 
 		String transformation = this.getTransformation();
 
@@ -137,7 +138,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		try {
 
-			tempGraph = Normalization.deserialize(new String(normalizedSerialization, "UTF-8"));
+			tempGraph = Normalization.deserialize(new String(normalizedSerialization, Charset.forName("UTF-8")));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);

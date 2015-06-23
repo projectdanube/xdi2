@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -196,14 +197,14 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 				if (encryption instanceof KeyPairEncryption) {
 
-					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key));
+					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					k = keyFactory.generatePublic(keySpec);
 
 					((KeyPairEncryption) encryption).encrypt((PublicKey) k);
 				} else if (encryption instanceof SymmetricKeyEncryption) {
 
-					k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 					((SymmetricKeyEncryption) encryption).encrypt((SecretKey) k);
 				}
@@ -220,14 +221,14 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 					if (encryption instanceof KeyPairEncryption) {
 
-						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key));
+						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 						k = keyFactory.generatePrivate(keySpec);
 
 						((KeyPairEncryption) encryption).decrypt((PrivateKey) k);
 					} else if (encryption instanceof SymmetricKeyEncryption) {
 
-						k = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 						((SymmetricKeyEncryption) encryption).decrypt((SecretKey) k);
 					}

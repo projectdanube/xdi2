@@ -1,5 +1,6 @@
 package xdi2.core.features.keys;
 
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -152,7 +153,7 @@ public class Keys {
 
 		if (publicKeyString == null) return null;
 
-		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString));
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString.getBytes(Charset.forName("UTF-8"))));
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 		return keyFactory.generatePublic(keySpec);
@@ -162,7 +163,7 @@ public class Keys {
 
 		if (privateKeyString == null) return null;
 
-		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKeyString));
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(Charset.forName("UTF-8"))));
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 		return keyFactory.generatePrivate(keySpec);
@@ -172,7 +173,7 @@ public class Keys {
 
 		if (secretKeyString == null) return null;
 
-		byte[] secretKeyBytes = Base64.decodeBase64(secretKeyString);
+		byte[] secretKeyBytes = Base64.decodeBase64(secretKeyString.getBytes(Charset.forName("UTF-8")));
 
 		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
 	}

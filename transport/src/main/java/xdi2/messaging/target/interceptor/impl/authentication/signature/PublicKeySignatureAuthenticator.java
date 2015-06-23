@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
+import java.nio.charset.Charset;
 import java.security.PublicKey;
 
 import org.apache.commons.codec.binary.Base64;
@@ -40,7 +41,7 @@ public abstract class PublicKeySignatureAuthenticator extends AbstractSignatureA
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderXDIAddress() + ": " + Base64.encodeBase64String(publicKey.getEncoded()));
+		if (log.isDebugEnabled()) log.debug("Public key found for sender " + message.getSenderXDIAddress() + ": " + new String(Base64.encodeBase64(publicKey.getEncoded()), Charset.forName("UTF-8")));
 
 		// authenticate
 

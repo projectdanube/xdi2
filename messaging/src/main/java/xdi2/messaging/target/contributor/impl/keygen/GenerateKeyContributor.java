@@ -1,5 +1,6 @@
 package xdi2.messaging.target.contributor.impl.keygen;
 
+import java.nio.charset.Charset;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
@@ -41,7 +42,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		contributorXDIAddresses={"{}$keypair", "$keypair", "{}<$key>", "<$key>"},
 		operationXDIAddresses={"$do$keypair", "$do<$key>"},
 		relationXDIAddresses={"$is#"}
-)
+		)
 public class GenerateKeyContributor extends AbstractContributor implements Prototype<GenerateKeyContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateKeyContributor.class);
@@ -145,8 +146,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
 			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$public>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
 			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$private>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
-			publicKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(keyPair.getPublic().getEncoded()));
-			privateKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(keyPair.getPrivate().getEncoded()));
+			publicKeyXdiAttribute.setLiteralDataString(new String(Base64.encodeBase64(keyPair.getPublic().getEncoded()), Charset.forName("UTF-8")));
+			privateKeyXdiAttribute.setLiteralDataString(new String(Base64.encodeBase64(keyPair.getPrivate().getEncoded()), Charset.forName("UTF-8")));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		} else if (XDI_ADD_DO_KEY.equals(operation.getOperationXDIAddress())) {
 
@@ -171,7 +172,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
 			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			symmetricKeyXdiAttribute.setLiteralDataString(Base64.encodeBase64String(secretKey.getEncoded()));
+			symmetricKeyXdiAttribute.setLiteralDataString(new String(Base64.encodeBase64(secretKey.getEncoded()), Charset.forName("UTF-8")));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		}
 

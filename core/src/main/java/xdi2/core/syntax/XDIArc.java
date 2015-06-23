@@ -1,5 +1,6 @@
 package xdi2.core.syntax;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.UUID;
 
@@ -103,7 +104,7 @@ public class XDIArc extends XDIIdentifier {
 		try {
 
 			MessageDigest digest = MessageDigest.getInstance(algorithm);
-			digest.update(input.getBytes("UTF-8"));
+			digest.update(input.getBytes(Charset.forName("UTF-8")));
 			output = digest.digest();
 		} catch (Exception ex) {
 
