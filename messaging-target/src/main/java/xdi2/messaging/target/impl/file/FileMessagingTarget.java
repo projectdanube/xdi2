@@ -56,11 +56,11 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	}
 
 	@Override
-	public void execute(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		this.readGraph();
 
-		super.execute(messageEnvelope, executionResult, executionContext);
+		super.execute(messageEnvelope, executionContext, executionResult);
 
 		this.writeGraph();
 	}

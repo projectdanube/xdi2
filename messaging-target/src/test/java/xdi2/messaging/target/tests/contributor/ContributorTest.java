@@ -12,6 +12,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
@@ -69,11 +70,13 @@ public class ContributorTest extends TestCase {
 
 			log.info("Doing $get: " + targetString);
 
-			MessageEnvelope envelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
+			MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
+			ExecutionContext executionContext = ExecutionContext.createExecutionContext();
+			ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
 
-			ExecutionResult executionResult = messagingTarget.execute(envelope);
+			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
 
-			log.info("Result: " + executionResult.getResultGraph().toString());
+ 			log.info("Result: " + executionResult.getResultGraph().toString());
 
 			// validate result
 

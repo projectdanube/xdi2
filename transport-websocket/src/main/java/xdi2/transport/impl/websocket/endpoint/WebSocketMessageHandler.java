@@ -1,15 +1,24 @@
 package xdi2.transport.impl.websocket.endpoint;
 
+import java.io.IOException;
 import java.io.Reader;
 
+import javax.websocket.CloseReason;
+import javax.websocket.CloseReason.CloseCodes;
 import javax.websocket.Session;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.transport.impl.websocket.WebSocketRequest;
 import xdi2.transport.impl.websocket.WebSocketResponse;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 import xdi2.transport.impl.websocket.WebSocketTransport.WebSocketWriteListener;
 
 public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
+
+	private static final Logger log = LoggerFactory.getLogger(WebSocketMessageHandler.class);
 
 	private Session session;
 	private WebSocketTransport webSocketTransport;
@@ -34,7 +43,20 @@ public class WebSocketMessageHandler implements javax.websocket.MessageHandler.W
 		WebSocketRequest request = WebSocketRequest.create(this, this.getSession(), this.getContextPath(), this.getEndpointPath(), reader);
 		WebSocketResponse response = WebSocketResponse.create(this, this.getSession());
 
-		this.getWebSocketTransport().doMessage(request, response);
+		try {
+
+			this.getWebSocketTransport().execute(request, response);
+		} catch (IOException ex) {
+
+			try {
+
+				log.error("I/O exception: " + ex.getMessage(), ex);
+				this.getSession().close(new CloseReason(CloseCodes.UNEXPECTED_CONDITION, "I/O exception: " + ex.getMessage()));
+			} catch (IOException ex2) {
+
+				throw new Xdi2RuntimeException(ex2.getMessage(), ex2);
+			}
+		}
 	}
 
 	/*

@@ -1,9 +1,9 @@
 package xdi2.messaging.target.execution;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
@@ -34,10 +34,16 @@ public final class ExecutionResult {
 	private ExecutionResult(Map<Operation, Graph> operationResultGraphs) {
 
 		this.operationResultGraphs = operationResultGraphs;
-		this.resultGraph = null;
+		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
 	}
 
-	public static ExecutionResult forMessageEnvelope(MessageEnvelope messageEnvelope) {
+	/*
+	 * Static methods
+	 */
+	
+	public static ExecutionResult createExecutionResult(MessageEnvelope messageEnvelope) {
+
+		// set up operation result graphs
 
 		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
 
@@ -46,9 +52,70 @@ public final class ExecutionResult {
 			operationResultGraphs.put(operation, MemoryGraphFactory.getInstance().openGraph());
 		}
 
+		// create execution result
+		
 		return new ExecutionResult(operationResultGraphs);
 	}
 
+	public static ExecutionResult createExecutionResult(ExecutionResult executionResult, Exception ex) {
+
+		// error string
+
+		String errorString = ex.getMessage();
+		if (errorString == null) errorString = ex.getClass().getName();
+
+		// set up operation result graphs
+
+		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
+
+		for (Operation operation : executionResult.getOperationResultGraphs().keySet()) {
+
+			operationResultGraphs.put(operation, MemoryGraphFactory.getInstance().openGraph());
+		}
+
+		// create execution result
+
+		ExecutionResult exceptionExecutionResult = new ExecutionResult(operationResultGraphs);
+
+		// look for exception operation
+
+		Operation exceptionOperation = null;
+
+		if (ex instanceof Xdi2MessagingException) {
+
+			exceptionOperation = ((Xdi2MessagingException) ex).getExecutionContext().getExceptionOperation();
+			if (! exceptionExecutionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
+		}
+
+		// fill new operation result graphs
+
+		for (Entry<Operation, Graph> entry : exceptionExecutionResult.getOperationResultGraphs().entrySet()) {
+
+			Operation operation = entry.getKey();
+			Graph exceptionOperationResultGraph = entry.getValue();
+
+			if (exceptionOperation == null || exceptionOperation == operation) {
+
+				MessagingError messagingError = MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(exceptionOperationResultGraph), true);
+				messagingError.setErrorString(errorString);
+				messagingError.setErrorTimestamp(new Date());
+			} else {
+
+				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+
+				CopyUtil.copyGraph(operationResultGraph, exceptionOperationResultGraph, null);
+			}
+		}
+
+		// done
+
+		return exceptionExecutionResult;
+	}
+
+	/*
+	 * Instance methods
+	 */
+	
 	public Graph getOperationResultGraph(Operation operation) {
 
 		if (operation == null) throw new NullPointerException();
@@ -59,17 +126,6 @@ public final class ExecutionResult {
 		return this.operationResultGraphs.get(operation);
 	}
 
-	public void putOperationResultGraph(Operation operation, Graph operationResultGraph) {
-
-		if (operation == null) throw new NullPointerException();
-		if (operationResultGraph == null) throw new NullPointerException();
-
-		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
-		if (! this.operationResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation result graph for operation " + operation);
-
-		this.operationResultGraphs.put(operation, operationResultGraph);
-	}
-
 	public Map<Operation, Graph> getOperationResultGraphs() {
 
 		return this.operationResultGraphs;
@@ -77,47 +133,9 @@ public final class ExecutionResult {
 
 	public Graph getResultGraph() {
 
-		if (! this.isFinished()) throw new Xdi2RuntimeException("Result graph has not been finished yet.");
+		if (! this.isFinished()) this.finish();
 
 		return this.resultGraph;
-	}
-
-	public void setException(Exception ex) {
-
-		// restart the result graph
-
-		this.resultGraph = null;
-
-		// error string
-
-		String errorString = ex.getMessage();
-		if (errorString == null) errorString = ex.getClass().getName();
-
-		// see if the exception corresponds to a specific operation
-
-		Graph singleOperationResultGraph = null;
-
-		if (ex instanceof Xdi2MessagingException) {
-
-			singleOperationResultGraph = this.getOperationResultGraph(((Xdi2MessagingException) ex).getExecutionContext().getExceptionOperation());
-		}
-
-		// put the error into that specific operation result graph, or in all of them
-
-		Collection<Graph> operationResultGraphs = null;
-		if (singleOperationResultGraph != null) operationResultGraphs = Collections.singleton(singleOperationResultGraph);
-		if (operationResultGraphs == null) operationResultGraphs = this.getOperationResultGraphs().values();
-
-		for (Graph operationResultGraph : operationResultGraphs) {
-
-			operationResultGraph.clear();
-			MessagingError messagingError = MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(operationResultGraph), true);
-			messagingError.setErrorString(errorString);
-		}
-
-		// finish the result graph
-
-		this.finish();
 	}
 
 	public boolean isFinished() {
@@ -125,11 +143,10 @@ public final class ExecutionResult {
 		return this.resultGraph != null;
 	}
 
-	public void finish() {
+	private void finish() {
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
 
-		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
 		for (Graph operationResultGraph : this.getOperationResultGraphs().values()) CopyUtil.copyGraph(operationResultGraph, this.resultGraph, null);
 	}
 }

@@ -18,7 +18,7 @@ public class EchoMessagingTarget extends AbstractMessagingTarget {
 	}
 
 	@Override
-	public void execute(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		CopyUtil.copyGraph(messageEnvelope.getGraph(), executionResult.getResultGraph(), null);
 	}

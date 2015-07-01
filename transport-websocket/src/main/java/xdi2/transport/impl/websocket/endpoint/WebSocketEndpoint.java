@@ -50,16 +50,16 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		serverContainer.setDefaultMaxSessionIdleTimeout(newDefaultMaxSessionIdleTimeout);
 
 		if (log.isDebugEnabled()) log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
-		
+
 		// figure out paths
 
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
-// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
+		// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
 
 		for (MessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
-// TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
+			// TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
 		}
 	}
 
@@ -130,7 +130,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 	}
 
 	@Override
-	public void onError (Session session, Throwable throwable) {
+	public void onError(Session session, Throwable throwable) {
 
 		log.error("WebSocket session " + session.getId() + " problem: " + throwable.getMessage(), throwable);
 	}

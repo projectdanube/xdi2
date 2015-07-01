@@ -20,7 +20,7 @@ public interface MessagingResponse extends Serializable, Comparable<MessagingRes
 	/**
 	 * Returns whether the messaging response has an associated error.
 	 */
-	public boolean isMessagingError();
+	public boolean hasMessagingError();
 
 	/**
 	 * Returns the error associated with this messaging response, if any.

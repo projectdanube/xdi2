@@ -28,16 +28,9 @@ public interface MessagingTarget {
 	 * @param messageEnvelope The XDI message envelope to be executed.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
-	 * @return The execution result produced by executing the messaging request.
+	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
-	public ExecutionResult execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException;
-
-	/**
-	 * Executes a messaging request against this messaging target, using a default execution context.
-	 * @param messageEnvelope The XDI message envelope to be executed.
-	 * @return The execution result produced by executing the messaging request.
-	 */
-	public ExecutionResult execute(MessageEnvelope messageEnvelope) throws Xdi2MessagingException;
+	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
 	 * Returns the owner peer root XRI of the messaging target.

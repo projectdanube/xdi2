@@ -12,16 +12,12 @@ import xdi2.messaging.target.tests.impl.graph.MemoryGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.impl.graph.MemoryJSONGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.impl.graph.PropertiesKeyValueGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.interceptor.impl.linkcontract.LinkContractInterceptorTest;
-import xdi2.messaging.tests.basic.BasicTest;
-import xdi2.messaging.tests.http.AcceptHeaderTest;
 
 public class AllTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		//$JUnit-BEGIN$
-		suite.addTestSuite(BasicTest.class);
-		suite.addTestSuite(AcceptHeaderTest.class);
 		suite.addTestSuite(MemoryGraphMessagingTargetTest.class);
 		suite.addTestSuite(MapGraphMessagingTargetTest.class);
 		suite.addTestSuite(PropertiesKeyValueGraphMessagingTargetTest.class);

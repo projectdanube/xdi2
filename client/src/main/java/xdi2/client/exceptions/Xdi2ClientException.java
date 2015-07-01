@@ -1,6 +1,7 @@
 package xdi2.client.exceptions;
 
 import xdi2.core.exceptions.Xdi2Exception;
+import xdi2.messaging.error.MessagingError;
 import xdi2.messaging.response.MessagingResponse;
 
 /**
@@ -50,29 +51,34 @@ public class Xdi2ClientException extends Xdi2Exception {
 		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(String message, MessagingResponse MessagingResponse) {
+	public Xdi2ClientException(String message, MessagingResponse messagingResponse) {
 
 		super(message);
 
-		this.messagingResponse = MessagingResponse;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(Throwable ex, MessagingResponse MessagingResponse) {
+	public Xdi2ClientException(Throwable ex, MessagingResponse messagingResponse) {
 
 		super(ex);
 
-		this.messagingResponse = MessagingResponse;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(MessagingResponse MessagingResponse) {
+	public Xdi2ClientException(MessagingResponse messagingResponse) {
 
 		super();
 
-		this.messagingResponse = MessagingResponse;
+		this.messagingResponse = messagingResponse;
 	}
 
 	public MessagingResponse getMessagingResponse() {
 
 		return this.messagingResponse;
+	}
+
+	public MessagingError getMessagingError() {
+
+		return this.getMessagingResponse().getMessagingError();
 	}
 }

@@ -191,8 +191,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer.write("Message result from registry:\n\n");
 
-				if (discoveryResultRegistry.getResultGraph() != null) 
-					xdiResultWriter.write(discoveryResultRegistry.getResultGraph(), writer);
+				if (discoveryResultRegistry.getMessagingResponse() != null) 
+					xdiResultWriter.write(discoveryResultRegistry.getMessagingResponse().getGraph(), writer);
 				else
 					writer.write("(null)\n");
 			} else {
@@ -268,8 +268,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer2.write("Message result from authority:\n\n");
 
-				if (discoveryResultAuthority.getResultGraph() != null)
-					xdiResultWriter.write(discoveryResultAuthority.getResultGraph(), writer2);
+				if (discoveryResultAuthority.getMessagingResponse() != null)
+					xdiResultWriter.write(discoveryResultAuthority.getMessagingResponse().getGraph(), writer2);
 				else
 					writer2.write("(null)");
 			} else if (exceptionAuthority != null) {
@@ -283,16 +283,16 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 			output2 = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
-			if (discoveryResultRegistry != null && discoveryResultRegistry.getResultGraph() != null) {
+			if (discoveryResultRegistry != null && discoveryResultRegistry.getMessagingResponse() != null) {
 
 				outputId = UUID.randomUUID().toString();
-				OutputCache.put(outputId, discoveryResultRegistry.getResultGraph());
+				OutputCache.put(outputId, discoveryResultRegistry.getMessagingResponse().getGraph());
 			}
 
-			if (discoveryResultAuthority != null && discoveryResultAuthority.getResultGraph() != null) {
+			if (discoveryResultAuthority != null && discoveryResultAuthority.getMessagingResponse() != null) {
 
 				outputId2 = UUID.randomUUID().toString();
-				OutputCache.put(outputId2, discoveryResultAuthority.getResultGraph());
+				OutputCache.put(outputId2, discoveryResultAuthority.getMessagingResponse().getGraph());
 			}
 		} catch (Exception ex) {
 
@@ -326,8 +326,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (discoveryResultRegistry != null && discoveryResultRegistry.getResultGraph() != null) stats += Long.toString(discoveryResultRegistry.getResultGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from registry. ";
-		if (discoveryResultAuthority != null && discoveryResultAuthority.getResultGraph() != null) stats += Long.toString(discoveryResultAuthority.getResultGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from authority. ";
+		if (discoveryResultRegistry != null && discoveryResultRegistry.getMessagingResponse() != null) stats += Long.toString(discoveryResultRegistry.getMessagingResponse().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from registry. ";
+		if (discoveryResultAuthority != null && discoveryResultAuthority.getMessagingResponse() != null) stats += Long.toString(discoveryResultAuthority.getMessagingResponse().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from authority. ";
 
 		// display results
 

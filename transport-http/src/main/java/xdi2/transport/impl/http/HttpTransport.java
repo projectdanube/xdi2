@@ -107,9 +107,12 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, messagingTargetMount);
 			else if (HttpTransportRequest.METHOD_OPTIONS.equals(request.getMethod())) this.processOptionsRequest(request, response);
 			else throw new Xdi2TransportException("Invalid HTTP method: " + request.getMethod());
+		} catch (IOException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
-			sendInternalServerError(request, response, ex);
+			sendErrorInternalServer(request, response, ex);
 			return;
 		}
 
@@ -118,7 +121,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
@@ -136,7 +139,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		if (messagingTarget == null) {
 
-			sendNotFoundError(request, response);
+			sendErrorNotFound(request, response);
 			return;
 		}
 
@@ -163,7 +166,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
@@ -181,7 +184,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		if (messagingTarget == null) {
 
-			sendNotFoundError(request, response);
+			sendErrorNotFound(request, response);
 			return;
 		}
 
@@ -208,7 +211,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
@@ -226,7 +229,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		if (messagingTarget == null) {
 
-			sendNotFoundError(request, response);
+			sendErrorNotFound(request, response);
 			return;
 		}
 
@@ -253,7 +256,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
@@ -271,7 +274,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		if (messagingTarget == null) {
 
-			sendNotFoundError(request, response);
+			sendErrorNotFound(request, response);
 			return;
 		}
 
@@ -457,13 +460,13 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void sendNotFoundError(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
+	private static void sendErrorNotFound(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
 
 		log.warn("Not found: " + request.getRequestPath() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".");
 		response.sendError(HttpTransportResponse.SC_NOT_FOUND, "Not found: " + request.getRequestPath());
 	}
 
-	private static void sendInternalServerError(HttpTransportRequest request, HttpTransportResponse response, Exception ex) throws IOException {
+	private static void sendErrorInternalServer(HttpTransportRequest request, HttpTransportResponse response, Exception ex) throws IOException {
 
 		log.error("Internal server error: " + ex.getMessage() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".", ex);
 		response.sendError(HttpTransportResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error: " + ex.getMessage());

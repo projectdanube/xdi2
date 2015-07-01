@@ -15,7 +15,7 @@ import xdi2.client.events.XDISendEvent;
 import xdi2.client.events.XDISendSuccessEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.ErrorMessagingResponse;
+import xdi2.messaging.error.MessagingError;
 import xdi2.messaging.response.MessagingResponse;
 
 public abstract class XDIAbstractClient implements XDIClient {
@@ -48,13 +48,13 @@ public abstract class XDIAbstractClient implements XDIClient {
 
 		// see if it is an error messaging response
 
-		if (messagingResponse instanceof ErrorMessagingResponse) {
+		if (messagingResponse.hasMessagingError()) {
 
-			ErrorMessagingResponse errorMessagingResponse = (ErrorMessagingResponse) messagingResponse;
+			MessagingError messagingError = messagingResponse.getMessagingError();
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessagingResponse, beginTimestamp, endTimestamp));
+			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 
-			throw new Xdi2ClientException("Error messaging response: " + errorMessagingResponse.getErrorString(), null, errorMessagingResponse);
+			throw new Xdi2ClientException("Error messaging response: " + messagingError.getErrorString(), messagingResponse);
 		}
 
 		// done

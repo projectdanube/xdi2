@@ -131,10 +131,10 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// create an execution context and execution result
 
-		ExecutionContext executionContext = this.createExecutionContext(request, response);
-		ExecutionResult executionResult = ExecutionResult.forMessageEnvelope(messageEnvelope);
+		final ExecutionContext executionContext = this.createExecutionContext(request, response);
+		final ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
 
-		// messaging response
+		// execution result and messaging response
 
 		MessagingResponse messagingResponse;
 
@@ -150,7 +150,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
-			executionResult = messagingTarget.execute(messageEnvelope, executionContext);
+			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
 			if (log.isDebugEnabled()) log.debug("ExecutionResult: " + executionResult);
 
 			// make messaging response
@@ -166,11 +166,11 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			// insert exception into execution result
 
-			executionResult.setException(ex);
+			ExecutionResult exceptionExecutionResult = ExecutionResult.createExecutionResult(executionResult, ex);
 
 			// make messaging response
 
-			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, exceptionExecutionResult);
 
 			// execute interceptors (exception)
 
@@ -187,7 +187,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 	@Override
 	public ExecutionContext createExecutionContext(REQUEST request, RESPONSE response) {
 
-		ExecutionContext executionContext = new ExecutionContext();
+		ExecutionContext executionContext = ExecutionContext.createExecutionContext();
 
 		AbstractTransport.putTransport(executionContext, this);
 		AbstractTransport.putRequest(executionContext, request);

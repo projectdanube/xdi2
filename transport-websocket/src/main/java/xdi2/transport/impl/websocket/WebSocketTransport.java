@@ -5,11 +5,15 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.util.List;
 
+import javax.websocket.CloseReason;
+import javax.websocket.CloseReason.CloseCodes;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
@@ -25,8 +29,6 @@ import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;
 import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor.WriteListener;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
-import xdi2.transport.impl.http.HttpTransportRequest;
-import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
 
@@ -61,7 +63,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	}
 
 	@Override
-	public void execute(WebSocketRequest request, WebSocketResponse response) {
+	public void execute(WebSocketRequest request, WebSocketResponse response) throws IOException {
 
 		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getSubprotocol());
 
@@ -70,10 +72,12 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
 
 			this.processMessage(request, response, messagingTargetMount);
+		} catch (IOException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
+			sendCloseCannotAccept(request, response, ex);
 			return;
 		}
 
@@ -83,6 +87,8 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	protected void processMessage(WebSocketRequest request, WebSocketResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		MessageEnvelope messageEnvelope;
+		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -92,9 +98,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		if (messagingTarget == null) {
 
-			// TODO: what to do here?
-			log.warn("No XDI messaging target configured. TODO: what to do here?");
-
+			sendCloseViolatedPolicy(request, response);
 			return;
 		}
 
@@ -102,7 +106,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		try {
 
-			MessageEnvelope messageEnvelope = read(request, response);
+			messageEnvelope = read(request, response);
 			if (messageEnvelope == null) return;
 		} catch (IOException ex) {
 
@@ -111,7 +115,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		// execute the message envelope against our message target, save result
 
-		MessagingResponse messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) return;
 
 		// EXPERIMENTAL: install a write listener
@@ -127,9 +131,9 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 			writeListenerInterceptor.addWriteListener(XDIConstants.XDI_ADD_ROOT, webSocketWriteListener);
 		}
 
-		// send out messaging response
+		// done
 
-		sendMessagingResponse(messagingResponse, request, response);
+		sendText(request, response, messagingResponse);
 	}
 
 	private MessageEnvelope read(WebSocketRequest request, WebSocketResponse response) throws IOException {
@@ -180,7 +184,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	 * Helper methods
 	 */
 
-	private static void sendMessagingResponse(MessagingResponse messagingResponse, WebSocketRequest request, WebSocketResponse response) throws IOException {
+	private static void sendText(WebSocketRequest request, WebSocketResponse response, MessagingResponse messagingResponse) throws IOException {
 
 		// use default writer
 
@@ -206,10 +210,16 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void sendError(HttpTransportRequest request, HttpTransportResponse response, Exception ex) throws IOException {
+	private static void sendCloseViolatedPolicy(WebSocketRequest request, WebSocketResponse response) throws IOException {
 
-		log.error("Internal server error: " + ex.getMessage() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".", ex);
-		response.sendError(HttpTransportResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error: " + ex.getMessage());
+		log.error("Violated policy: " + request.getRequestPath() + ". Sending " + CloseCodes.VIOLATED_POLICY + ".");
+		request.getWebSocketMessageHandler().getSession().close(new CloseReason(CloseCodes.VIOLATED_POLICY, "Violated policy: " + request.getRequestPath()));
+	}
+
+	private static void sendCloseCannotAccept(WebSocketRequest request, WebSocketResponse response, Exception ex) throws IOException {
+
+		log.error("Cannot accept: " + ex.getMessage() + ". Sending " + CloseCodes.CANNOT_ACCEPT + ".", ex);
+		request.getWebSocketMessageHandler().getSession().close(new CloseReason(CloseCodes.CANNOT_ACCEPT, "Cannot accept: " + ex.getMessage()));
 	}
 
 	/*
@@ -243,11 +253,17 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 				// send out result
 
-				sendMessagingResponse(messagingResponse, this.request, this.response);
+				sendText(this.request, this.response, messagingResponse);
 			} catch (Exception ex) {
 
-				log.error("Unexpected exception: " + ex.getMessage(), ex);
-				handleInternalException(this.request, this.response, ex);
+				try {
+
+					sendCloseCannotAccept(this.request, this.response, ex);
+				} catch (IOException ex2) {
+
+					throw new Xdi2RuntimeException(ex2.getMessage(), ex2);
+				}
+
 				return;
 			}
 		}

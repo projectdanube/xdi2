@@ -70,7 +70,7 @@ public final class ExecutionContext implements Serializable {
 	 */
 	private ExecutionPosition<?> currentExecutionPosition, topExecutionPosition, exceptionExecutionPosition;
 
-	public ExecutionContext() { 
+	private ExecutionContext() { 
 
 		this.executionContextAttributes = new HashMap<String, Object> ();
 		this.messageEnvelopeAttributes = new HashMap<String, Object> ();
@@ -82,6 +82,11 @@ public final class ExecutionContext implements Serializable {
 
 		this.currentExecutionPosition = new ExecutionPosition<ExecutionContext> (null, this, null);
 		this.topExecutionPosition = this.currentExecutionPosition;
+	}
+
+	public static ExecutionContext createExecutionContext() {
+
+		return new ExecutionContext();
 	}
 
 	/*

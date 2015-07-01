@@ -49,7 +49,7 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	 */
 
 	@Override
-	public boolean isMessagingError() {
+	public boolean hasMessagingError() {
 
 		return this.getMessagingError() != null;
 	}

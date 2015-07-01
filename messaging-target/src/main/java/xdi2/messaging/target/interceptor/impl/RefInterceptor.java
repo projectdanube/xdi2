@@ -442,17 +442,19 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
-		// prepare feedback execution result
-
-		ExecutionResult feedbackExecutionResult = new ExecutionResult();
-
 		// prepare feedback message
 
-		Message feedbackMessage = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		MessageEnvelope feedbackMessageEnvelope = new MessageEnvelope();
+
+		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
+
+		// prepare feedback execution result
+
+		ExecutionResult feedbackExecutionResult = ExecutionResult.createExecutionResult(feedbackMessageEnvelope);
 
 		// feedback
 
@@ -471,7 +473,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// execute feedback messages
 
-			messagingTarget.execute(feedbackMessage, feedbackExecutionResult, executionContext);
+			messagingTarget.execute(feedbackMessage, executionContext, feedbackExecutionResult);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
@@ -479,10 +481,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
-
-		// finish feedback execution result
-
-		feedbackExecutionResult.finish();
 
 		// done
 
@@ -499,19 +497,21 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
 
-		// prepare feedback execution result
-
-		ExecutionResult feedbackExecutionResult = new ExecutionResult();
-
 		// prepare feedback messages
 
-		Message feedbackMessageRef = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
-		Message feedbackMessageRep = new MessageEnvelope().createMessage(operation.getSenderXDIAddress());
+		MessageEnvelope feedbackMessageEnvelope = new MessageEnvelope();
+
+		Message feedbackMessageRef = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessageRep = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
 		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_COMMON_VARIABLE));
+
+		// prepare feedback execution result
+
+		ExecutionResult feedbackExecutionResult = ExecutionResult.createExecutionResult(feedbackMessageEnvelope);
 
 		// feedback
 
@@ -539,8 +539,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// execute feedback messages
 
-			messagingTarget.execute(feedbackMessageRef, feedbackExecutionResult, executionContext);
-			messagingTarget.execute(feedbackMessageRep, feedbackExecutionResult, executionContext);
+			messagingTarget.execute(feedbackMessageRef, executionContext, feedbackExecutionResult);
+			messagingTarget.execute(feedbackMessageRep, executionContext, feedbackExecutionResult);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
@@ -548,10 +548,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
-
-		// finish feedback execution result
-
-		feedbackExecutionResult.finish();
 
 		// done
 
