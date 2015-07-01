@@ -68,7 +68,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -136,7 +135,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -164,7 +162,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
@@ -236,7 +233,6 @@
 				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">
 					<property name="xdiDiscoveryClient" value="https://xdidiscoveryservice.xdi.net/" />
 				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.MessageResultContributor" />
 			</util:list>
 		</property>
 	</bean>
