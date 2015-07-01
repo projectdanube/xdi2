@@ -34,13 +34,13 @@ public final class ExecutionResult {
 	private ExecutionResult(Map<Operation, Graph> operationResultGraphs) {
 
 		this.operationResultGraphs = operationResultGraphs;
-		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
+		this.resultGraph = null;
 	}
 
 	/*
 	 * Static methods
 	 */
-	
+
 	public static ExecutionResult createExecutionResult(MessageEnvelope messageEnvelope) {
 
 		// set up operation result graphs
@@ -53,7 +53,7 @@ public final class ExecutionResult {
 		}
 
 		// create execution result
-		
+
 		return new ExecutionResult(operationResultGraphs);
 	}
 
@@ -115,7 +115,7 @@ public final class ExecutionResult {
 	/*
 	 * Instance methods
 	 */
-	
+
 	public Graph getOperationResultGraph(Operation operation) {
 
 		if (operation == null) throw new NullPointerException();
@@ -146,6 +146,8 @@ public final class ExecutionResult {
 	private void finish() {
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
+
+		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 		for (Graph operationResultGraph : this.getOperationResultGraphs().values()) CopyUtil.copyGraph(operationResultGraph, this.resultGraph, null);
 	}

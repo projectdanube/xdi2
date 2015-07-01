@@ -40,12 +40,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		ExecutionContext executionContext1 = ExecutionContext.createExecutionContext();
 		ExecutionResult executionResult1 = ExecutionResult.createExecutionResult(messageEnvelope1);
 		graphMessagingTarget.execute(messageEnvelope1, executionContext1, executionResult1);
-		assertEquals(executionResult1.getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, XDIAddress.create("=markus"));
 		ExecutionContext executionContext2 = ExecutionContext.createExecutionContext();
 		ExecutionResult executionResult2 = ExecutionResult.createExecutionResult(messageEnvelope2);
-		graphMessagingTarget.execute(messageEnvelope1, executionContext2, executionResult2);
+		graphMessagingTarget.execute(messageEnvelope2, executionContext2, executionResult2);
+
 		assertEquals(executionResult2.getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		graphMessagingTarget.shutdown();
