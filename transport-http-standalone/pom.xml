@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>xdi2-transport-http-standalone</artifactId>
+	<artifactId>xdi2-server-standalone</artifactId>
 	<packaging>jar</packaging>
-	<name>xdi2-transport-http-standalone</name>
+	<name>xdi2-server-standalone</name>
 
 	<parent>
 		<groupId>xdi2</groupId>
@@ -13,7 +13,9 @@
 	</parent>
 
 	<build>
+
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -51,16 +53,20 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
+
 	</build>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-transport-http-embedded</artifactId>
+			<artifactId>xdi2-server-embedded</artifactId>
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+
 	</dependencies>
 
 </project>

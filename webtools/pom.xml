@@ -134,6 +134,7 @@
 
 	</build>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -149,7 +150,13 @@
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-transport-http</artifactId>
+			<artifactId>xdi2-server</artifactId>
+			<version>0.8-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-transport-local</artifactId>
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
@@ -165,6 +172,7 @@
 			<version>2.0.1</version>
 			<scope>compile</scope>
 		</dependency>
+
 	</dependencies>
 
 </project>

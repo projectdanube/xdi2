@@ -18,14 +18,12 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.response.ErrorMessagingResponse;
-import xdi2.messaging.response.MessageEnvelopeMessagingResponse;
+import xdi2.messaging.response.FullMessagingResponse;
+import xdi2.messaging.response.LightMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.response.ResultGraphMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.GraphSigner;
-import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -131,11 +129,12 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 	protected MessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
-		// create an execution context
+		// create an execution context and execution result
 
 		ExecutionContext executionContext = this.createExecutionContext(request, response);
+		ExecutionResult executionResult = ExecutionResult.forMessageEnvelope(messageEnvelope);
 
-		// create a message result
+		// messaging response
 
 		MessagingResponse messagingResponse;
 
@@ -151,18 +150,12 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
-			ExecutionResult executionResult = messagingTarget.execute(messageEnvelope, executionContext);
+			executionResult = messagingTarget.execute(messageEnvelope, executionContext);
 			if (log.isDebugEnabled()) log.debug("ExecutionResult: " + executionResult);
 
 			// make messaging response
 
-			if (isAsync(messageEnvelope)) {
-
-				messagingResponse = this.makeMessageEnvelopeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
-			} else {
-
-				messagingResponse = this.makeResultGraphMessagingResponse(executionResult);
-			}
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
 
 			// execute interceptors (after)
 
@@ -171,9 +164,13 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 
+			// insert exception into execution result
+
+			executionResult.setException(ex);
+
 			// make messaging response
 
-			messagingResponse = this.makeErrorMessagingResponse(ex);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
 
 			// execute interceptors (exception)
 
@@ -188,8 +185,8 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 	}
 
 	@Override
-
 	public ExecutionContext createExecutionContext(REQUEST request, RESPONSE response) {
+
 		ExecutionContext executionContext = new ExecutionContext();
 
 		AbstractTransport.putTransport(executionContext, this);
@@ -199,18 +196,33 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		return executionContext;
 	}
 
-	protected final ResultGraphMessagingResponse makeResultGraphMessagingResponse(ExecutionResult executionResult) {
+	private final MessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
+
+		MessagingResponse messagingResponse;
+
+		if (isFull(messageEnvelope)) {
+
+			messagingResponse = this.makeFullMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+		} else {
+
+			messagingResponse = this.makeLightMessagingResponse(executionResult);
+		}
+
+		return messagingResponse;
+	}
+
+	private final LightMessagingResponse makeLightMessagingResponse(ExecutionResult executionResult) {
 
 		// create messaging response
 
-		ResultGraphMessagingResponse resultGraphMessagingResponse = ResultGraphMessagingResponse.create(executionResult.getResultGraph());
+		LightMessagingResponse resultGraphMessagingResponse = LightMessagingResponse.create(executionResult.getResultGraph());
 
 		// done
 
 		return resultGraphMessagingResponse;
 	}
 
-	protected final MessageEnvelopeMessagingResponse makeMessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
+	private final FullMessagingResponse makeFullMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) {
 
 		// create messaging response
 
@@ -229,7 +241,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			for (Operation operation : message.getOperations()) {
 
 				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
-				if (operationResultGraph == null) throw new Xdi2TransportException("No operation result graph for operation " + operation);
+				if (operationResultGraph == null) continue;
 
 				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);
 			}
@@ -240,35 +252,11 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			signer.sign(responseMessage);
 		}
 
-		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = MessageEnvelopeMessagingResponse.create(responseMessageEnvelope);
+		FullMessagingResponse messageEnvelopeMessagingResponse = FullMessagingResponse.create(responseMessageEnvelope);
 
 		// done
 
 		return messageEnvelopeMessagingResponse;
-	}
-
-	protected final ErrorMessagingResponse makeErrorMessagingResponse(Exception ex) {
-
-		// set error string
-
-		String errorString = ex.getMessage();
-		if (errorString == null) errorString = ex.getClass().getName();
-
-		// information specific to certain exceptions
-
-		Operation errorOperation = null;
-
-		if (ex instanceof Xdi2MessagingException) {
-
-			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
-			errorOperation = executionContext == null ? null : executionContext.getExceptionOperation();
-		}
-
-		ErrorMessagingResponse errorMessagingResponse = ErrorMessagingResponse.create(errorString, errorOperation);
-
-		// done
-
-		return errorMessagingResponse;
 	}
 
 	/*
@@ -319,11 +307,11 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 	 * Helper methods
 	 */
 
-	public static boolean isAsync(MessageEnvelope messageEnvelope) {
+	public static boolean isFull(MessageEnvelope messageEnvelope) {
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			Boolean async = message.getParameterBoolean(Message.XDI_ADD_PARAMETER_ASYNC);
+			Boolean async = message.getParameterBoolean(Message.XDI_ADD_PARAMETER_FULL);
 			if (Boolean.TRUE.equals(async)) return true;
 		}
 

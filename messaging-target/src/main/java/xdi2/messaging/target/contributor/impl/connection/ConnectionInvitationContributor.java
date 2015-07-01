@@ -3,6 +3,8 @@ package xdi2.messaging.target.contributor.impl.connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -10,10 +12,12 @@ import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
+import xdi2.discovery.XDIDiscoveryClient;
+import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
@@ -94,7 +98,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 	 */
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
 
@@ -138,13 +142,21 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 			CopyUtil.copyContextNode(xdiVariable.getContextNode(), message.getContextNode(), null);
 		}
 
+		// send connection request
+
+		MessagingResponse messagingResponse;
+
 		try {
 
-			new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope, messageResult);
+			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending connection request: " + ex.getMessage(), ex, executionContext);
 		}
+
+		// copy messaging response to our result graph
+
+		CopyUtil.copyGraph(messagingResponse.getResultGraph(), operationResultGraph, null);
 
 		// done
 

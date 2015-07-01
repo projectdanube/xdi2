@@ -18,6 +18,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
+import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2Exception;
@@ -37,7 +38,6 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
@@ -46,9 +46,9 @@ import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
 import xdi2.transport.TransportResponse;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.HttpRequest;
-import xdi2.transport.impl.http.HttpResponse;
 import xdi2.transport.impl.http.HttpTransport;
+import xdi2.transport.impl.http.HttpTransportRequest;
+import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.factory.MessagingTargetFactory;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
 import xdi2.transport.impl.http.registry.MessagingTargetFactoryMount;
@@ -121,7 +121,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -333,7 +333,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// parse and execute message envelope
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
-			ExecutionResult executionResult = null;
+			MessagingResponse messagingResponse = null;
 
 			XDIReader xdiReader = XDIReaderRegistry.getAuto();
 
@@ -350,7 +350,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 					if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(messageEnvelope);
 				}
 
-				executionResult = cmdMessagingTarget.execute(messageEnvelope);
+				messagingResponse = new XDILocalClient(cmdMessagingTarget).send(messageEnvelope);
 			} catch (Xdi2Exception ex) {
 
 				error = ex.getMessage();
@@ -374,9 +374,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// write result graph
 
-			if (executionResult != null) {
+			if (messagingResponse != null) {
 
-				Graph resultGraph = executionResult.getResultGraph();
+				Graph resultGraph = messagingResponse.getResultGraph();
 
 				XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 				StringWriter stringWriter = new StringWriter();
@@ -420,7 +420,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -459,13 +459,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processPutRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processDeleteRequest(HttpTransport httpTransport, HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}

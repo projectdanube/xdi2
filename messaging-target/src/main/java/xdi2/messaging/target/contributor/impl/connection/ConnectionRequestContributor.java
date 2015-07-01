@@ -6,6 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.agent.XDIAgent;
+import xdi2.client.agent.impl.XDIBasicAgent;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -19,7 +21,7 @@ import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.messaging.MessageResult;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -97,7 +99,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 	 */
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
 
@@ -160,7 +162,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// return link contract instance in result
 
-		messageResult.getGraph().setStatement(XDIStatement.fromComponents(
+		operationResultGraph.setStatement(XDIStatement.fromComponents(
 				linkContractTemplate.getContextNode().getXDIAddress(),
 				XDIDictionaryConstants.XDI_ADD_TYPE, 
 				genericLinkContract.getContextNode().getXDIAddress())); 

@@ -3,6 +3,7 @@ package xdi2.messaging.response;
 import java.io.Serializable;
 
 import xdi2.core.Graph;
+import xdi2.messaging.error.MessagingError;
 
 public interface MessagingResponse extends Serializable, Comparable<MessagingResponse> {
 
@@ -15,4 +16,14 @@ public interface MessagingResponse extends Serializable, Comparable<MessagingRes
 	 * Returns the result graph returned in this messaging response.
 	 */
 	public Graph getResultGraph();
+
+	/**
+	 * Returns whether the messaging response has an associated error.
+	 */
+	public boolean isMessagingError();
+
+	/**
+	 * Returns the error associated with this messaging response, if any.
+	 */
+	public MessagingError getMessagingError();
 }

@@ -12,7 +12,7 @@ import xdi2.transport.TransportResponse;
  * 
  * @author markus
  */
-public interface HttpResponse extends TransportResponse {
+public interface HttpTransportResponse extends TransportResponse {
 
 	public static final int SC_OK = 200;
 	public static final int SC_NOT_FOUND = 404;

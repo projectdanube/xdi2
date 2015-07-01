@@ -1,9 +1,9 @@
 package xdi2.transport.impl.http.impl;
 
 import xdi2.transport.impl.AbstractTransportRequest;
-import xdi2.transport.impl.http.HttpRequest;
+import xdi2.transport.impl.http.HttpTransportRequest;
 
-public abstract class AbstractHttpRequest extends AbstractTransportRequest implements HttpRequest {
+public abstract class AbstractHttpRequest extends AbstractTransportRequest implements HttpTransportRequest {
 
 	@Override
 	public String toString() {

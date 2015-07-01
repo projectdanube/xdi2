@@ -11,7 +11,6 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -23,6 +22,7 @@ import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.contributor.AbstractContributor;
@@ -256,17 +256,17 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
 		}
 
-		// prepare the forwarding result graph
-
-		Graph forwardingOperationResultGraph = MemoryGraphFactory.getInstance().openGraph();
-
 		// send the forwarding message envelope
+
+		MessagingResponse forwardingMessagingResponse;
+		Graph forwardingResultGraph;
 
 		try {
 
 			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUrl() + ".");
 
-			xdiClient.send(forwardingMessageEnvelope, forwardingoperationResultGraph);
+			forwardingMessagingResponse = xdiClient.send(forwardingMessageEnvelope);
+			forwardingResultGraph = forwardingMessagingResponse.getResultGraph();
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
@@ -278,12 +278,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (log.isDebugEnabled()) log.debug("Executing proxy manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on address " + targetAddress + " (message result).");
 
-			proxyManipulator.manipulate(forwardingoperationResultGraph, executionContext);
+			proxyManipulator.manipulate(forwardingResultGraph, executionContext);
 		}
+
+		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingResultGraph);
 
 		// done
 
-		CopyUtil.copyGraph(forwardingoperationResultGraph, operationResultGraph, null);
+		CopyUtil.copyGraph(forwardingResultGraph, operationResultGraph, null);
 
 		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
 	}
@@ -328,17 +330,17 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (log.isDebugEnabled()) log.debug("Manipulated message envelope for forwarding: " + forwardingMessageEnvelope);
 
-		// prepare the forwarding result graph
-
-		Graph forwardingOperationResultGraph = MemoryGraphFactory.getInstance().openGraph();
-
 		// send the forwarding message envelope
+
+		MessagingResponse forwardingMessagingResponse;
+		Graph forwardingResultGraph;
 
 		try {
 
 			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUrl() + ".");
 
-			xdiClient.send(forwardingMessageEnvelope, forwardingOperationResultGraph);
+			forwardingMessagingResponse = xdiClient.send(forwardingMessageEnvelope);
+			forwardingResultGraph = forwardingMessagingResponse.getResultGraph();
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
@@ -350,14 +352,14 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			if (log.isDebugEnabled()) log.debug("Executing manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on statement " + targetStatement + " (message result).");
 
-			proxyManipulator.manipulate(forwardingOperationResultGraph, executionContext);
+			proxyManipulator.manipulate(forwardingResultGraph, executionContext);
 		}
 
-		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingOperationResultGraph);
+		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingResultGraph);
 
 		// done
 
-		CopyUtil.copyGraph(forwardingOperationResultGraph, operationResultGraph, null);
+		CopyUtil.copyGraph(forwardingResultGraph, operationResultGraph, null);
 
 		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
 	}

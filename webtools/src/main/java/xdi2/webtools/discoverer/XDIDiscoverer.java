@@ -25,7 +25,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.webtools.util.LoggingTrustManager;
 import xdi2.webtools.util.OutputCache;
 
@@ -191,8 +191,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer.write("Message result from registry:\n\n");
 
-				if (discoveryResultRegistry.getMessageResult() != null) 
-					xdiResultWriter.write(discoveryResultRegistry.getMessageResult().getGraph(), writer);
+				if (discoveryResultRegistry.getResultGraph() != null) 
+					xdiResultWriter.write(discoveryResultRegistry.getResultGraph(), writer);
 				else
 					writer.write("(null)\n");
 			} else {
@@ -268,8 +268,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer2.write("Message result from authority:\n\n");
 
-				if (discoveryResultAuthority.getMessageResult() != null)
-					xdiResultWriter.write(discoveryResultAuthority.getMessageResult().getGraph(), writer2);
+				if (discoveryResultAuthority.getResultGraph() != null)
+					xdiResultWriter.write(discoveryResultAuthority.getResultGraph(), writer2);
 				else
 					writer2.write("(null)");
 			} else if (exceptionAuthority != null) {
@@ -283,33 +283,33 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 			output2 = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
-			if (discoveryResultRegistry != null && discoveryResultRegistry.getMessageResult() != null) {
+			if (discoveryResultRegistry != null && discoveryResultRegistry.getResultGraph() != null) {
 
 				outputId = UUID.randomUUID().toString();
-				OutputCache.put(outputId, discoveryResultRegistry.getMessageResult().getGraph());
+				OutputCache.put(outputId, discoveryResultRegistry.getResultGraph());
 			}
 
-			if (discoveryResultAuthority != null && discoveryResultAuthority.getMessageResult() != null) {
+			if (discoveryResultAuthority != null && discoveryResultAuthority.getResultGraph() != null) {
 
 				outputId2 = UUID.randomUUID().toString();
-				OutputCache.put(outputId2, discoveryResultAuthority.getMessageResult().getGraph());
+				OutputCache.put(outputId2, discoveryResultAuthority.getResultGraph());
 			}
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				MessageResult messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				MessagingResponse messagingResponse = ((Xdi2ClientException) ex).getMessagingResponse();
 
 				// output the message result
 
-				if (messageResult != null) {
+				if (messagingResponse != null) {
 
 					StringWriter writer = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer);
+					xdiResultWriter.write(messagingResponse.getGraph(), writer);
 					output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, messagingResponse.getGraph());
 				}
 			}
 
@@ -326,8 +326,8 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		stats = "";
 		stats += Long.toString(stop - start) + " ms time. ";
-		if (discoveryResultRegistry != null && discoveryResultRegistry.getMessageResult() != null) stats += Long.toString(discoveryResultRegistry.getMessageResult().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from registry. ";
-		if (discoveryResultAuthority != null && discoveryResultAuthority.getMessageResult() != null) stats += Long.toString(discoveryResultAuthority.getMessageResult().getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from authority. ";
+		if (discoveryResultRegistry != null && discoveryResultRegistry.getResultGraph() != null) stats += Long.toString(discoveryResultRegistry.getResultGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from registry. ";
+		if (discoveryResultAuthority != null && discoveryResultAuthority.getResultGraph() != null) stats += Long.toString(discoveryResultAuthority.getResultGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s) from authority. ";
 
 		// display results
 

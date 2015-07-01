@@ -7,13 +7,13 @@ import xdi2.core.Graph;
  * 
  * @author markus
  */
-public class ResultGraphMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class LightMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
 
 	private static final long serialVersionUID = -518357785421448783L;
 
 	private Graph resultGraph;
 
-	private ResultGraphMessagingResponse(Graph resultGraph) {
+	private LightMessagingResponse(Graph resultGraph) {
 
 		this.resultGraph = resultGraph;
 	}
@@ -22,9 +22,9 @@ public class ResultGraphMessagingResponse extends AbstractMessagingResponse impl
 	 * Static methods
 	 */
 
-	public static ResultGraphMessagingResponse create(Graph resultGraph) {
+	public static LightMessagingResponse create(Graph resultGraph) {
 
-		ResultGraphMessagingResponse resultGraphMessagingResponse = new ResultGraphMessagingResponse(resultGraph);
+		LightMessagingResponse resultGraphMessagingResponse = new LightMessagingResponse(resultGraph);
 
 		return resultGraphMessagingResponse;
 	}
@@ -34,11 +34,11 @@ public class ResultGraphMessagingResponse extends AbstractMessagingResponse impl
 		return true;
 	}
 
-	public static ResultGraphMessagingResponse fromGraph(Graph graph) {
+	public static LightMessagingResponse fromGraph(Graph graph) {
 
 		if (! isValid(graph)) return(null);
 
-		return new ResultGraphMessagingResponse(graph);
+		return new LightMessagingResponse(graph);
 	}
 
 	/*

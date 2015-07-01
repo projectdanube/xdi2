@@ -18,12 +18,15 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;
 import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor.WriteListener;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
+import xdi2.transport.impl.http.HttpTransportRequest;
+import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
 
@@ -57,7 +60,8 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		super.shutdown();
 	}
 
-	public void doMessage(WebSocketRequest request, WebSocketResponse response) {
+	@Override
+	public void execute(WebSocketRequest request, WebSocketResponse response) {
 
 		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getSubprotocol());
 
@@ -96,13 +100,19 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		// construct message envelope from reader
 
-		MessageEnvelope messageEnvelope = read(request, response);
-		if (messageEnvelope == null) return;
+		try {
+
+			MessageEnvelope messageEnvelope = read(request, response);
+			if (messageEnvelope == null) return;
+		} catch (IOException ex) {
+
+			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
 
 		// execute the message envelope against our message target, save result
 
-		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
-		if (messageResult == null || messageResult.getGraph() == null) return;
+		MessagingResponse messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		if (messagingResponse == null || messagingResponse.getGraph() == null) return;
 
 		// EXPERIMENTAL: install a write listener
 
@@ -117,9 +127,9 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 			writeListenerInterceptor.addWriteListener(XDIConstants.XDI_ADD_ROOT, webSocketWriteListener);
 		}
 
-		// send out result
+		// send out messaging response
 
-		sendMessageResult(messageResult, request, response);
+		sendMessagingResponse(messagingResponse, request, response);
 	}
 
 	private MessageEnvelope read(WebSocketRequest request, WebSocketResponse response) throws IOException {
@@ -149,11 +159,13 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 			xdiReader.read(graph, reader);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
+		} catch (IOException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
 			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
-			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
-			return null;
+			throw new IOException("Cannot parse XDI graph: " + ex.getMessage(), ex);
 		} finally {
 
 			reader.close();
@@ -168,7 +180,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	 * Helper methods
 	 */
 
-	private static void sendMessageResult(MessageResult messageResult, WebSocketRequest request, WebSocketResponse response) throws IOException {
+	private static void sendMessagingResponse(MessagingResponse messagingResponse, WebSocketRequest request, WebSocketResponse response) throws IOException {
 
 		// use default writer
 
@@ -184,7 +196,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Sending result in " + sendMimeType + " with writer " + writer.getClass().getSimpleName() + ".");
 
 		StringWriter buffer = new StringWriter();
-		writer.write(messageResult.getGraph(), buffer);
+		writer.write(messagingResponse.getGraph(), buffer);
 
 		if (buffer.getBuffer().length() > 0) {
 
@@ -194,18 +206,10 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void handleInternalException(WebSocketRequest request, WebSocketResponse response, Exception ex) {
+	private static void sendError(HttpTransportRequest request, HttpTransportResponse response, Exception ex) throws IOException {
 
-		// TODO: what to do here?
-		log.error("Unexpected exception: " + ex.getMessage(), ex);
-	}
-
-	@Override
-	protected void handleException(WebSocketRequest request, WebSocketResponse response, ErrorMessageResult errorMessageResult) throws IOException {
-
-		// send error result
-
-		sendMessageResult(errorMessageResult, request, response);
+		log.error("Internal server error: " + ex.getMessage() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".", ex);
+		response.sendError(HttpTransportResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error: " + ex.getMessage());
 	}
 
 	/*
@@ -234,12 +238,12 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 				// execute the message envelope against our message target, save result
 
-				MessageResult messageResult = WebSocketTransport.this.execute(this.messageEnvelope, this.messagingTarget, this.request, this.response);
-				if (messageResult == null || messageResult.getGraph() == null) return;
+				MessagingResponse messagingResponse = WebSocketTransport.this.execute(this.messageEnvelope, this.messagingTarget, this.request, this.response);
+				if (messagingResponse == null || messagingResponse.getGraph() == null) return;
 
 				// send out result
 
-				sendMessageResult(messageResult, this.request, this.response);
+				sendMessagingResponse(messagingResponse, this.request, this.response);
 			} catch (Exception ex) {
 
 				log.error("Unexpected exception: " + ex.getMessage(), ex);

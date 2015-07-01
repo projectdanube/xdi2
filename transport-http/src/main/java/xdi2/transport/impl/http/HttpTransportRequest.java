@@ -11,7 +11,13 @@ import xdi2.transport.TransportRequest;
  * 
  * @author markus
  */
-public interface HttpRequest extends TransportRequest {
+public interface HttpTransportRequest extends TransportRequest {
+
+	public static final String METHOD_GET = "GET";
+	public static final String METHOD_POST= "POST";
+	public static final String METHOD_PUT = "PUT";
+	public static final String METHOD_DELETE = "DELETE";
+	public static final String METHOD_OPTIONS = "OPTIONS";
 
 	public String getMethod();
 	public String getBaseUri();

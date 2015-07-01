@@ -9,6 +9,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractMessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -16,7 +17,7 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.transport.TransportRequest;
 import xdi2.transport.impl.AbstractTransport;
-import xdi2.transport.impl.http.HttpRequest;
+import xdi2.transport.impl.http.HttpTransportRequest;
 
 /**
  * This interceptor will skip the link contract interceptor,
@@ -45,14 +46,14 @@ public class SkipLinkContractsInterceptor extends AbstractMessageEnvelopeInterce
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
 		TransportRequest request = AbstractTransport.getRequest(executionContext);
-		if (! (request instanceof HttpRequest)) return InterceptorResult.DEFAULT;
+		if (! (request instanceof HttpTransportRequest)) return InterceptorResult.DEFAULT;
 
-		HttpRequest httpRequest = (HttpRequest) request;
+		HttpTransportRequest httpRequest = (HttpTransportRequest) request;
 
 		String remoteAddr = httpRequest.getHeader("X-Forwarded-Remote-Addr"); 
 		if (remoteAddr == null) remoteAddr = httpRequest.getRemoteAddr();

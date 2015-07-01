@@ -1,14 +1,14 @@
 package xdi2.messaging.target.contributor.impl.proxy.manipulator;
 
+import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 
 /**
  * This is used to manipulate message envelopes before they are forwarded
- * by the XdiContributor, and message result after they are received by the
+ * by the XdiContributor, and result graphs after they are received by the
  * XdiContributor.
  * 
  * @author markus
@@ -30,9 +30,9 @@ public interface ProxyManipulator {
 	public void manipulate(MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
-	 * Manipulate a message result.
-	 * @param messageResult The message result to manipulate.
+	 * Manipulate a result graph.
+	 * @param resultGraph The result graph to manipulate.
 	 * @param executionContext The current execution context.
 	 */
-	public void manipulate(MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public void manipulate(Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

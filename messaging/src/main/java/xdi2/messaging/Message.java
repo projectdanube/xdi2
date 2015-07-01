@@ -56,7 +56,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
-	public static final XDIAddress XDI_ADD_PARAMETER_ASYNC = XDIAddress.create("<$async>");
+	public static final XDIAddress XDI_ADD_PARAMETER_FULL = XDIAddress.create("<$full>");
 
 	private MessageCollection messageCollection;
 	private XdiEntity xdiEntity;

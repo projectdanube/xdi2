@@ -44,7 +44,7 @@ import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor;
 import xdi2.webtools.util.OutputCache;
 import xdi2.webtools.util.SecretTokenInsertingCopyStrategy;
@@ -569,7 +569,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
 		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		MessagingResponse messageResponse = null;
 
 		long start = System.currentTimeMillis();
 
@@ -589,32 +589,32 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			XDIClient client = new XDIHttpClient(sessionXdiEndpointUri);
 
-			messageResult = client.send(messageEnvelope, null);
+			messageResponse = client.send(messageEnvelope);
 
 			// output the message result
 
 			StringWriter writer = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer);
+			xdiResultWriter.write(messageResponse.getGraph(), writer);
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
 			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, messageResult.getGraph());
+			OutputCache.put(outputId, messageResponse.getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				messageResponse = ((Xdi2ClientException) ex).getMessagingResponse();
 
 				// output the message result
 
-				if (messageResult != null) {
+				if (messageResponse != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					xdiResultWriter.write(messageResponse.getGraph(), writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, messageResponse.getGraph());
 				}
 			}
 
@@ -629,7 +629,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
+		if (messageResponse != null) stats += Long.toString(messageResponse.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

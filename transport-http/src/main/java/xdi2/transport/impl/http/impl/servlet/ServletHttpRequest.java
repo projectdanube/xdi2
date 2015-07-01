@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.transport.impl.http.HttpRequest;
+import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.impl.AbstractHttpRequest;
 
-public final class ServletHttpRequest extends AbstractHttpRequest implements HttpRequest {
+public final class ServletHttpRequest extends AbstractHttpRequest implements HttpTransportRequest {
 
 	private static final Logger log = LoggerFactory.getLogger(ServletHttpRequest.class);
 

@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.local.XDILocalClient;
+import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
@@ -29,7 +29,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.FromInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
@@ -202,7 +202,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		XDIWriter xdiInputWriter;
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		MessagingResponse messagingResponse = null;
 		Graph graphInput = graphFactory.openGraph();
 
 		long start = System.currentTimeMillis();
@@ -276,7 +276,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			XDILocalClient client = new XDILocalClient(messagingTarget);
 
-			messageResult = client.send(messageEnvelope, null);
+			messagingResponse = client.send(messageEnvelope);
 
 			// output the modified input graph
 
@@ -289,27 +289,27 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 			// output the message result
 
 			StringWriter writer2 = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer2);
+			xdiResultWriter.write(messagingResponse.getGraph(), writer2);
 			output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, messageResult.getGraph());
+			OutputCache.put(outputId, messagingResponse.getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				messagingResponse = ((Xdi2ClientException) ex).getMessagingResponse();
 
 				// output the message result
 
-				if (messageResult != null) {
+				if (messagingResponse != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					xdiResultWriter.write(messagingResponse.getGraph(), writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, messagingResponse.getGraph());
 				}
 			}
 
@@ -327,7 +327,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
+		if (messagingResponse != null) stats += Long.toString(messagingResponse.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

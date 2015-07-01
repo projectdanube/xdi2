@@ -8,13 +8,13 @@ import xdi2.messaging.MessageEnvelope;
  * 
  * @author markus
  */
-public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class FullMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
 
 	private static final long serialVersionUID = -150908814464607155L;
 
 	private MessageEnvelope messageEnvelope;
 
-	private MessageEnvelopeMessagingResponse(MessageEnvelope messageEnvelope) {
+	private FullMessagingResponse(MessageEnvelope messageEnvelope) {
 
 		this.messageEnvelope = messageEnvelope;
 	}
@@ -23,9 +23,9 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 	 * Static methods
 	 */
 
-	public static MessageEnvelopeMessagingResponse create(MessageEnvelope messageEnvelope) {
+	public static FullMessagingResponse create(MessageEnvelope messageEnvelope) {
 
-		MessageEnvelopeMessagingResponse messageEnvelopeMessagingResponse = new MessageEnvelopeMessagingResponse(messageEnvelope);
+		FullMessagingResponse messageEnvelopeMessagingResponse = new FullMessagingResponse(messageEnvelope);
 
 		return messageEnvelopeMessagingResponse;
 	}
@@ -35,11 +35,11 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 		return MessageEnvelope.isValid(graph);
 	}
 
-	public static MessageEnvelopeMessagingResponse fromGraph(Graph graph) {
+	public static FullMessagingResponse fromGraph(Graph graph) {
 
 		if (! isValid(graph)) return(null);
 
-		return new MessageEnvelopeMessagingResponse(MessageEnvelope.fromGraph(graph));
+		return new FullMessagingResponse(MessageEnvelope.fromGraph(graph));
 	}
 
 	/*
@@ -54,6 +54,8 @@ public class MessageEnvelopeMessagingResponse extends AbstractMessagingResponse 
 
 	@Override
 	public Graph getResultGraph() {
+
+		// TODO this is not really the result graph
 
 		return this.getMessageEnvelope().getGraph();
 	}

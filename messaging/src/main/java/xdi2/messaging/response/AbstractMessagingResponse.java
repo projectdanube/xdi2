@@ -1,9 +1,11 @@
 package xdi2.messaging.response;
 
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.messaging.error.MessagingError;
 
 public abstract class AbstractMessagingResponse implements MessagingResponse {
-	
+
 	private static final long serialVersionUID = -6307483543411797001L;
 
 	/*
@@ -19,9 +21,8 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 
 		if (graph == null) throw new NullPointerException();
 
-		if (ErrorMessagingResponse.isValid(graph)) return true; 
-		if (MessageEnvelopeMessagingResponse.isValid(graph)) return true;
-		if (ResultGraphMessagingResponse.isValid(graph)) return true;
+		if (FullMessagingResponse.isValid(graph)) return true;
+		if (LightMessagingResponse.isValid(graph)) return true;
 
 		return false;
 	}
@@ -37,11 +38,26 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 
 		MessagingResponse messagingResponse = null;
 
-		if ((messagingResponse = ErrorMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
-		if ((messagingResponse = MessageEnvelopeMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
-		if ((messagingResponse = ResultGraphMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
+		if ((messagingResponse = FullMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
+		if ((messagingResponse = LightMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
 
 		return null;
+	}
+
+	/*
+	 * Instance methods
+	 */
+
+	@Override
+	public boolean isMessagingError() {
+
+		return this.getMessagingError() != null;
+	}
+
+	@Override
+	public MessagingError getMessagingError() {
+
+		return MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(this.getResultGraph()), false);
 	}
 
 	/*
@@ -57,10 +73,10 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	@Override
 	public boolean equals(Object object) {
 
-		if (object == null || ! (object instanceof MessageEnvelopeMessagingResponse)) return false;
+		if (object == null || ! (object instanceof FullMessagingResponse)) return false;
 		if (object == this) return true;
 
-		MessageEnvelopeMessagingResponse other = (MessageEnvelopeMessagingResponse) object;
+		FullMessagingResponse other = (FullMessagingResponse) object;
 
 		return this.getGraph().equals(other.getGraph());
 	}

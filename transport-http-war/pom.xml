@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>xdi2-transport-http-war</artifactId>
+	<artifactId>xdi2-server-war</artifactId>
 	<packaging>war</packaging>
-	<name>xdi2-transport-http-war</name>
+	<name>xdi2-server-war</name>
 
 	<parent>
 		<groupId>xdi2</groupId>
@@ -138,7 +138,7 @@
 
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-transport-http</artifactId>
+			<artifactId>xdi2-server</artifactId>
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
