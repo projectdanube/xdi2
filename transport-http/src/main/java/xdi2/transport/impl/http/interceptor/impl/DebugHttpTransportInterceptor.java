@@ -42,8 +42,8 @@ import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.transport.Request;
-import xdi2.transport.Response;
+import xdi2.transport.TransportRequest;
+import xdi2.transport.TransportResponse;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpRequest;
@@ -84,7 +84,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean before(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
+	public boolean before(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
 		Date start = new Date();
 		putStart(executionContext, start);
@@ -93,7 +93,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean after(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
+	public boolean after(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2TransportException {
 
 		Date start = getStart(executionContext);
 		long stop = System.currentTimeMillis();
@@ -106,7 +106,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public void exception(Transport<?, ?> transport, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ErrorMessageResult errorMessageResult, ExecutionContext executionContext, Exception ex) {
 
 		Date start = getStart(executionContext);
 		long stop = System.currentTimeMillis();
@@ -536,15 +536,15 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		private Date start;
 		private long duration;
-		private Request request;
-		private Response response;
+		private TransportRequest request;
+		private TransportResponse response;
 		private MessagingTarget messagingTarget;
 		private MessageEnvelope messageEnvelope;
 		private MessageResult messageResult;
 		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(Date start, long duration, Request request, Response response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
+		public LogEntry(Date start, long duration, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessageResult messageResult, ExecutionContext executionContext, Exception ex) {
 
 			this.start = start;
 			this.duration = duration;
@@ -577,22 +577,22 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			this.duration = duration;
 		}
 
-		public Request getRequest() {
+		public TransportRequest getRequest() {
 
 			return this.request;
 		}
 
-		public void setRequest(Request request) {
+		public void setRequest(TransportRequest request) {
 
 			this.request = request;
 		}
 
-		public Response getResponse() {
+		public TransportResponse getResponse() {
 
 			return this.response;
 		}
 
-		public void setResponse(Response response) {
+		public void setResponse(TransportResponse response) {
 
 			this.response = response;
 		}

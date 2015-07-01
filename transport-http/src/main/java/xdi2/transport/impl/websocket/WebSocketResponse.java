@@ -3,7 +3,7 @@ package xdi2.transport.impl.websocket;
 import javax.websocket.RemoteEndpoint.Async;
 import javax.websocket.Session;
 
-import xdi2.transport.Response;
+import xdi2.transport.TransportResponse;
 import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
 
 /**
@@ -12,7 +12,7 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketResponse implements Response {
+public class WebSocketResponse implements TransportResponse {
 
 	private WebSocketMessageHandler webSocketMessageHandler;
 	private Async async;

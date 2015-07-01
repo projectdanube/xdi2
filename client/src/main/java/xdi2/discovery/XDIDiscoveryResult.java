@@ -25,7 +25,6 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 
 public class XDIDiscoveryResult implements Serializable {
 
@@ -38,7 +37,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private URL xdiEndpointUrl;
 
 	private MessageEnvelope messageEnvelope;
-	private MessageResult messageResult;
+	private Graph resultGraph;
 
 	public XDIDiscoveryResult() {
 
@@ -49,27 +48,23 @@ public class XDIDiscoveryResult implements Serializable {
 		this.xdiEndpointUrl = null;
 
 		this.messageEnvelope = null;
-		this.messageResult = null;
+		this.resultGraph = null;
 	}
 
 	void initFromRegistryAndAuthorityDiscoveryResult(XDIDiscoveryResult xdiDiscoveryResultRegistry, XDIDiscoveryResult xdiDiscoveryResultAuthority, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
-		this.initFromRegistryMessageResult(xdiDiscoveryResultRegistry.getMessageEnvelope(), xdiDiscoveryResultRegistry.getMessageResult(), query, endpointUriTypes);
-		this.initFromAuthorityMessageResult(xdiDiscoveryResultAuthority.getMessageEnvelope(), xdiDiscoveryResultAuthority.getMessageResult(), endpointUriTypes);
+		this.initFromRegistryResultGraph(xdiDiscoveryResultRegistry.getMessageEnvelope(), xdiDiscoveryResultRegistry.getResultGraph(), query, endpointUriTypes);
+		this.initFromAuthorityResultGraph(xdiDiscoveryResultAuthority.getMessageEnvelope(), xdiDiscoveryResultAuthority.getResultGraph(), endpointUriTypes);
 	}
 
-	void initFromRegistryMessageResult(MessageEnvelope registryMessageEnvelope, MessageResult registryMessageResult, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromRegistryResultGraph(MessageEnvelope registryMessageEnvelope, Graph registryResultGraph, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = registryMessageEnvelope;
-		this.messageResult = registryMessageResult;
-
-		// look into registry message result
-
-		Graph registryMessageResultGraph = registryMessageResult.getGraph();
+		this.resultGraph = registryResultGraph;
 
 		// find cloud number
 
-		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(registryMessageResultGraph).getPeerRoot(query, false);
+		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(registryResultGraph).getPeerRoot(query, false);
 		if (xdiRoot == null) return;
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
@@ -93,19 +88,15 @@ public class XDIDiscoveryResult implements Serializable {
 		initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
-	void initFromAuthorityMessageResult(MessageEnvelope authorityMessageEnvelope, MessageResult authorityMessageResult, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromAuthorityResultGraph(MessageEnvelope authorityMessageEnvelope, Graph authorityResultGraph, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = authorityMessageEnvelope;
-		this.messageResult = authorityMessageResult;
-
-		// look into authority message result
-
-		Graph authorityMessageResultGraph = authorityMessageResult.getGraph();
+		this.resultGraph = authorityResultGraph;
 
 		// find cloud number
 
-		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getSelfPeerRoot();
-		if (xdiRoot == null) xdiRoot = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph);
+		XdiRoot xdiRoot = XdiCommonRoot.findCommonRoot(authorityResultGraph).getSelfPeerRoot();
+		if (xdiRoot == null) xdiRoot = XdiCommonRoot.findCommonRoot(authorityResultGraph);
 		if (xdiRoot == null) return;
 
 		if (xdiRoot instanceof XdiPeerRoot && CloudNumber.isValid(((XdiPeerRoot) xdiRoot).getXDIAddressOfPeerRoot())) {
@@ -125,7 +116,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// find authority
 
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityMessageResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
 		if (authorityXdiEntity == null) return;
 
 		// find signature public key
@@ -157,7 +148,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// done
 
-		this.messageResult = ex.getErrorMessageResult();
+		this.resultGraph = ex.getErrorMessagingResponse().getGraph();
 	}
 
 	/*
@@ -199,9 +190,9 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.messageEnvelope;
 	}
 
-	public MessageResult getMessageResult() {
+	public Graph getResultGraph() {
 
-		return this.messageResult;
+		return this.resultGraph;
 	}
 
 	/*

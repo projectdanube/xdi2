@@ -3,7 +3,7 @@ package xdi2.transport.impl.http;
 import java.io.IOException;
 import java.io.InputStream;
 
-import xdi2.transport.Request;
+import xdi2.transport.TransportRequest;
 
 /**
  * This interface abstracts path information about a request to the server.
@@ -11,7 +11,7 @@ import xdi2.transport.Request;
  * 
  * @author markus
  */
-public interface HttpRequest extends Request {
+public interface HttpRequest extends TransportRequest {
 
 	public String getMethod();
 	public String getBaseUri();

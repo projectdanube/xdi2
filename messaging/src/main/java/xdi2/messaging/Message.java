@@ -40,6 +40,12 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.DoOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.PushOperation;
+import xdi2.messaging.operations.SetOperation;
 
 /**
  * An XDI message, represented as a context node.
@@ -49,6 +55,8 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 public final class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
+
+	public static final XDIAddress XDI_ADD_PARAMETER_ASYNC = XDIAddress.create("<$async>");
 
 	private MessageCollection messageCollection;
 	private XdiEntity xdiEntity;
@@ -126,6 +134,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	public ContextNode getContextNode() {
 
 		return this.getXdiEntity().getContextNode();
+	}
+
+	/**
+	 * Returns the message's XDI address.
+	 * @return The message's XDI address.
+	 */
+	public XDIAddress getXDIAddress() {
+
+		return this.getContextNode().getXDIAddress();
 	}
 
 	/**
@@ -302,6 +319,104 @@ public final class Message implements Serializable, Comparable<Message> {
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
+	/**
+	 * Set this message's correlation to another message.
+	 */
+	public void setCorrelationXDIAddress(XDIAddress correlationXDIAddress) {
+
+		this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_CORRELATION, correlationXDIAddress);
+	}
+
+	/**
+	 * Get this message's correlation to another message.
+	 */
+	public XDIAddress getCorrelationXDIAddress() {
+
+		Relation relation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_CORRELATION);
+		if (relation == null) return null;
+
+		return relation.getTargetXDIAddress();
+	}
+
+	/*
+	 * Message parameters
+	 */
+
+	/**
+	 * Sets a parameter value of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @param parameterValue The parameter value.
+	 */
+	public void setParameter(XDIAddress parameterAddress, Object parameterValue) {
+
+		XdiAttributeSingleton parameterXdiAttribute = this.getXdiEntity().getXdiAttributeSingleton(parameterAddress, true);
+
+		parameterXdiAttribute.setLiteralData(parameterValue);
+	}
+
+	/**
+	 * Returns a parameter value of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value.
+	 */
+	public Object getParameter(XDIAddress parameterAddress) {
+
+		LiteralNode parameterLiteralNode = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteralNode == null) return null;
+
+		return parameterLiteralNode.getLiteralData();
+	}
+
+	/**
+	 * Returns a parameter value string of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value string.
+	 */
+	public String getParameterString(XDIAddress parameterAddress) {
+
+		LiteralNode parameterLiteralNode = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteralNode == null) return null;
+
+		return parameterLiteralNode.getLiteralDataString();
+	}
+
+	/**
+	 * Returns a parameter value number of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value number.
+	 */
+	public Number getParameterNumber(XDIAddress parameterAddress) {
+
+		LiteralNode parameterLiteralNode = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteralNode == null) return null;
+
+		return parameterLiteralNode.getLiteralDataNumber();
+	}
+
+	/**
+	 * Returns a parameter value boolean of this operation.
+	 * @param parameterAddress The parameter XRI.
+	 * @return The parameter value boolean.
+	 */
+	public Boolean getParameterBoolean(XDIAddress parameterAddress) {
+
+		LiteralNode parameterLiteralNode = this.getParameterLiteral(parameterAddress);
+		if (parameterLiteralNode == null) return null;
+
+		return parameterLiteralNode.getLiteralDataBoolean();
+	}
+
+	private LiteralNode getParameterLiteral(XDIAddress parameterAddress) {
+
+		XdiAttributeSingleton parameterXdiAttribute = this.getXdiEntity().getXdiAttributeSingleton(parameterAddress, false);
+		if (parameterXdiAttribute == null) return null;
+
+		LiteralNode parameterLiteralNode = parameterXdiAttribute.getLiteralNode();
+		if (parameterLiteralNode == null) return null;
+
+		return parameterLiteralNode;
+	}
+
 	/*
 	 * Methods releated to message authentication
 	 */
@@ -319,8 +434,8 @@ public final class Message implements Serializable, Comparable<Message> {
 		} else {
 
 			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN, true));
-			LiteralNode literal = xdiAttribute == null ? null : xdiAttribute.getLiteralNode();
-			if (literal != null) literal.delete();
+			LiteralNode literalNode = xdiAttribute == null ? null : xdiAttribute.getLiteralNode();
+			if (literalNode != null) literalNode.delete();
 		}
 	}
 
@@ -336,10 +451,10 @@ public final class Message implements Serializable, Comparable<Message> {
 		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode);
 		if (xdiAttribute == null) return null;
 
-		LiteralNode literal = xdiAttribute.getLiteralNode();
-		if (literal == null) return null;
+		LiteralNode literalNode = xdiAttribute.getLiteralNode();
+		if (literalNode == null) return null;
 
-		return literal.getLiteralDataString();
+		return literalNode.getLiteralDataString();
 	}
 
 	/**

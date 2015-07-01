@@ -9,7 +9,7 @@ import javax.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.transport.Request;
+import xdi2.transport.TransportRequest;
 import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
 
 /**
@@ -18,7 +18,7 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketRequest implements Request {
+public class WebSocketRequest implements TransportRequest {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketRequest.class);
 

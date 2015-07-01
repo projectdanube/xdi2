@@ -13,7 +13,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.Operation;
+import xdi2.messaging.operations.Operation;
 
 /**
  * Various utility methods for cloning messaging components.

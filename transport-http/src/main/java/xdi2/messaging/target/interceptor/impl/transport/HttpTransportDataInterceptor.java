@@ -16,7 +16,7 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.transport.Request;
+import xdi2.transport.TransportRequest;
 import xdi2.transport.impl.AbstractTransport;
 import xdi2.transport.impl.http.HttpRequest;
 
@@ -51,7 +51,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
-		Request request = AbstractTransport.getRequest(executionContext);
+		TransportRequest request = AbstractTransport.getRequest(executionContext);
 		if (! (request instanceof HttpRequest)) return InterceptorResult.DEFAULT;
 
 		HttpRequest httpRequest = (HttpRequest) request;

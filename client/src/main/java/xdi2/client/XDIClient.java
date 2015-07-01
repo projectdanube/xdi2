@@ -4,7 +4,7 @@ import xdi2.client.events.XDIDiscoverEvent;
 import xdi2.client.events.XDISendEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 
 /**
  * An XDIClient can send XDI message envelopes to an XDI endpoint, and retrieve the results.
@@ -14,13 +14,11 @@ import xdi2.messaging.MessageResult;
 public interface XDIClient {
 
 	/**
-	 * Sends an XDI message envelope to an XDI endpoint and retrieves the results.
-	 * @param messageEnvelope The XDI message envelope to send.
-	 * @param messageResult The message result that will hold results of the message. If this is null,
-	 * a new message result will be created.
-	 * @return The message result.
+	 * Sends an XDI messaging request to an XDI endpoint.
+	 * @param messageEnvelope The XDI messaging request to send.
+	 * @return The messaging response.
 	 */
-	public MessageResult send(MessageEnvelope messageEnvelope, MessageResult messageResult) throws Xdi2ClientException;
+	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
 
 	/**
 	 * Shuts down the client.

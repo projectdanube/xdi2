@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import xdi2.transport.Response;
+import xdi2.transport.TransportResponse;
 
 /**
  * This interface abstracts path information about a response from the server.
@@ -12,7 +12,7 @@ import xdi2.transport.Response;
  * 
  * @author markus
  */
-public interface HttpResponse extends Response {
+public interface HttpResponse extends TransportResponse {
 
 	public static final int SC_OK = 200;
 	public static final int SC_NOT_FOUND = 404;
