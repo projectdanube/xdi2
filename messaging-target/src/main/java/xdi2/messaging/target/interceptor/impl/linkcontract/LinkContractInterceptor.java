@@ -21,7 +21,6 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -29,6 +28,7 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -102,7 +102,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// find the XDI link contract referenced by the message
 
@@ -159,7 +159,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// done
 
@@ -171,7 +171,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 
@@ -223,7 +223,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// read the referenced link contract from the execution context
 

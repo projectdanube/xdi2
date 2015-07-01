@@ -30,5 +30,5 @@ public interface TransportInterceptor extends Interceptor<Transport<?, ?>> {
 	/**
 	 * Run if an exception occurs while a message envelope is executed.
 	 */
-	public void exception(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, Exception ex, ExecutionContext executionContext);
+	public void exception(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, Exception ex, ExecutionContext executionContext);
 }

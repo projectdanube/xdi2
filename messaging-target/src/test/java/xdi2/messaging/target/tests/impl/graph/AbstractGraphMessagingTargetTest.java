@@ -14,9 +14,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 
@@ -36,14 +36,12 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		graphMessagingTarget.init();
 
 		MessageEnvelope messageEnvelope1 = MessageEnvelope.fromOperationXDIAddressAndTargetXDIStatements(XDIMessagingConstants.XDI_ADD_SET, new SingleItemIterator<XDIStatement> (XDIStatement.create("=markus/#friend/=giovanni")));
-		MessageResult messageResult1 = new MessageResult();
-		graphMessagingTarget.execute(messageEnvelope1, messageResult1, null);
-		assertEquals(graph.getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
+		ExecutionResult executionResult1 = graphMessagingTarget.execute(messageEnvelope1);
+		assertEquals(executionResult1.getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		MessageEnvelope messageEnvelope2 = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, XDIAddress.create("=markus"));
-		MessageResult messageResult2 = new MessageResult();
-		graphMessagingTarget.execute(messageEnvelope2, messageResult2, null);
-		assertEquals(messageResult2.getGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
+		ExecutionResult executionResult2 = graphMessagingTarget.execute(messageEnvelope2);
+		assertEquals(executionResult2.getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		graphMessagingTarget.shutdown();
 	}
@@ -83,11 +81,10 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 					autoReader.read(message, this.getClass().getResourceAsStream("message" + i + "." + ii + ".xdi")).close();
 
 					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(message);
-					MessageResult messageResult = new MessageResult();
 
 					try {
 
-						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+						graphMessagingTarget.execute(messageEnvelope);
 					} finally {
 
 						message.close();
@@ -110,17 +107,17 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 					autoReader.read(positive, this.getClass().getResourceAsStream("positive" + i + "." + ii + ".xdi")).close();
 
 					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(positive);
-					MessageResult messageResult = new MessageResult();
+					ExecutionResult executionResult;
 
 					try {
 
-						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+						executionResult = graphMessagingTarget.execute(messageEnvelope);
 					} finally {
 
 						positive.close();
 					}
 
-					assertFalse(messageResult.isEmpty());
+					assertFalse(executionResult.getResultGraph().isEmpty());
 
 					ii++;
 				}
@@ -139,17 +136,17 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 					autoReader.read(negative, this.getClass().getResourceAsStream("negative" + i + "." + ii + ".xdi")).close();
 
 					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(negative);
-					MessageResult messageResult = new MessageResult();
+					ExecutionResult executionResult;
 
 					try {
 
-						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+						executionResult = graphMessagingTarget.execute(messageEnvelope);
 					} finally {
 
 						negative.close();
 					}
 
-					assertTrue(messageResult.isEmpty());
+					assertTrue(executionResult.getResultGraph().isEmpty());
 
 					ii++;
 				}
@@ -168,11 +165,10 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 					autoReader.read(exception, this.getClass().getResourceAsStream("exception" + i + "." + ii + ".xdi")).close();
 
 					MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(exception);
-					MessageResult messageResult = new MessageResult();
 
 					try {
 
-						graphMessagingTarget.execute(messageEnvelope, messageResult, null);
+						graphMessagingTarget.execute(messageEnvelope);
 
 						fail();
 					} catch (Xdi2MessagingException ex) {

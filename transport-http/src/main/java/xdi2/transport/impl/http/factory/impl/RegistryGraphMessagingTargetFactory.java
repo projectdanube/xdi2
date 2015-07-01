@@ -18,8 +18,8 @@ import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.SelectingMappingIterator;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 

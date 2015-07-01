@@ -11,8 +11,8 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public class ContributorTest extends TestCase {
@@ -70,11 +70,10 @@ public class ContributorTest extends TestCase {
 			log.info("Doing $get: " + targetString);
 
 			MessageEnvelope envelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, target);
-			MessageResult result = new MessageResult();
 
-			messagingTarget.execute(envelope, result, null);
+			ExecutionResult executionResult = messagingTarget.execute(envelope);
 
-			log.info("Result: " + result.getGraph().toString());
+			log.info("Result: " + executionResult.getResultGraph().toString());
 
 			// validate result
 
@@ -82,7 +81,7 @@ public class ContributorTest extends TestCase {
 			Node referenceNode = referenceGraph.getDeepNode(target);
 			CopyUtil.copyNode(referenceNode, tempGraph, null);
 
-			assertEquals(result.getGraph(), tempGraph);
+			assertEquals(executionResult.getResultGraph(), tempGraph);
 
 			tempGraph.close();
 		}

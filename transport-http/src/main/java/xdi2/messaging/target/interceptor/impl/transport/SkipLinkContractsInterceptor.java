@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.context.ExecutionContext;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.Prototype;
+import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.AbstractMessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;

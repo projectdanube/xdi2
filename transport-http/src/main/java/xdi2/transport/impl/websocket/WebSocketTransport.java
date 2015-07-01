@@ -18,8 +18,6 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;

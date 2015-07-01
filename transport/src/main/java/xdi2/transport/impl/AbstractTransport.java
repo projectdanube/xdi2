@@ -171,13 +171,13 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 
-			// execute interceptors (exception)
-
-			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, errorMessageResult, executionContext, ex);
-
 			// make messaging response
 
 			messagingResponse = this.makeErrorMessagingResponse(ex);
+
+			// execute interceptors (exception)
+
+			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messagingResponse, ex, executionContext);
 		}
 
 		// done

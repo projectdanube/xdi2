@@ -9,7 +9,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.operations.Operation;
 
-public class ExecutionResult {
+public final class ExecutionResult {
 
 	private Map<Operation, Graph> operationResultGraphs;
 	private Graph resultGraph;
