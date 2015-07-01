@@ -10,6 +10,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
@@ -71,7 +72,8 @@ public class GraphSigner extends PrivateKeySigner {
 
 		// look for private key in the graph
 
-		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true));
+		ContextNode signaturePrivateKeyContextNode = senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true);
+		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(signaturePrivateKeyContextNode);
 		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
 
 		LiteralNode privateKeyLiteral = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getLiteralNode();
