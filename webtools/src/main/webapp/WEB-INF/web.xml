@@ -69,6 +69,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDIPeerMessenger</display-name>
+		<servlet-name>XDIPeerMessenger</servlet-name>
+		<servlet-class>xdi2.webtools.peermessenger.XDIPeerMessenger</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIPeerMessenger</servlet-name>
+		<url-pattern>/XDIPeerMessenger</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDISigner</display-name>
 		<servlet-name>XDISigner</servlet-name>
 		<servlet-class>xdi2.webtools.signer.XDISigner</servlet-class>
