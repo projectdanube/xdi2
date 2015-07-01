@@ -15,7 +15,7 @@ function updateSamples() {
 	var html = '';
 	<% for (int c=0; c<((List<String>) request.getAttribute("sampleCategories")).size(); c++) { %>
 		if (category == <%= c %>) {
-			<% for (int i=0; i<((List<List<String>>) request.getAttribute("sampleInputs")).get(c).size(); i++) { %>
+			<% for (int i=0; i<((List<List<String>>) request.getAttribute("sampleInputs1")).get(c).size(); i++) { %>
 				html += '<a href="XDIPeerMessenger?category=<%= c+1 %>&sample=<%= i+1 %>" title="<%= ((List<List<String>>) request.getAttribute("sampleTooltips")).get(c).get(i) %>"><%= i+1 %></a>&nbsp;&nbsp;';
 			<% } %>
 		}

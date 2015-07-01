@@ -65,8 +65,8 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 		sampleCategories = new ArrayList<String> ();
 		sampleInputs1 = new ArrayList<List<String>> ();
-		sampleInputs1 = new ArrayList<List<String>> ();
-		sampleMessages2 = new ArrayList<List<String>> ();
+		sampleInputs2 = new ArrayList<List<String>> ();
+		sampleMessages1 = new ArrayList<List<String>> ();
 		sampleMessages2 = new ArrayList<List<String>> ();
 		sampleTooltips = new ArrayList<List<String>> ();
 
