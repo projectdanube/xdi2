@@ -16,6 +16,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.Operation;
 
 /**
  * An XDI message collection, represented as a context node.

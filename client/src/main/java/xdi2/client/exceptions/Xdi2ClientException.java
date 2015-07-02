@@ -1,7 +1,8 @@
 package xdi2.client.exceptions;
 
 import xdi2.core.exceptions.Xdi2Exception;
-import xdi2.messaging.error.ErrorMessageResult;
+import xdi2.messaging.error.MessagingError;
+import xdi2.messaging.response.MessagingResponse;
 
 /**
  * An exception that is thrown when an XDI client receives an error result,
@@ -13,66 +14,71 @@ public class Xdi2ClientException extends Xdi2Exception {
 
 	private static final long serialVersionUID = 8990812849132689916L;
 
-	private ErrorMessageResult errorMessageResult;
+	private MessagingResponse messagingResponse;
 
 	public Xdi2ClientException(String message, Throwable ex) {
 
 		super(message, ex);
 
-		this.errorMessageResult = null;
+		this.messagingResponse = null;
 	}
 
 	public Xdi2ClientException(String message) {
 
 		super(message);
 
-		this.errorMessageResult = null;
+		this.messagingResponse = null;
 	}
 
 	public Xdi2ClientException(Throwable ex) {
 
 		super(ex);
 
-		this.errorMessageResult = null;
+		this.messagingResponse = null;
 	}
 
 	public Xdi2ClientException() {
 
 		super();
 
-		this.errorMessageResult = null;
+		this.messagingResponse = null;
 	}
 
-	public Xdi2ClientException(String message, Throwable ex, ErrorMessageResult errorMessageResult) {
+	public Xdi2ClientException(String message, Throwable ex, MessagingResponse messagingResponse) {
 
 		super(message, ex);
 
-		this.errorMessageResult = errorMessageResult;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(String message, ErrorMessageResult errorMessageResult) {
+	public Xdi2ClientException(String message, MessagingResponse messagingResponse) {
 
 		super(message);
 
-		this.errorMessageResult = errorMessageResult;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(Throwable ex, ErrorMessageResult errorMessageResult) {
+	public Xdi2ClientException(Throwable ex, MessagingResponse messagingResponse) {
 
 		super(ex);
 
-		this.errorMessageResult = errorMessageResult;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public Xdi2ClientException(ErrorMessageResult errorMessageResult) {
+	public Xdi2ClientException(MessagingResponse messagingResponse) {
 
 		super();
 
-		this.errorMessageResult = errorMessageResult;
+		this.messagingResponse = messagingResponse;
 	}
 
-	public ErrorMessageResult getErrorMessageResult() {
+	public MessagingResponse getMessagingResponse() {
 
-		return this.errorMessageResult;
+		return this.messagingResponse;
+	}
+
+	public MessagingError getMessagingError() {
+
+		return this.getMessagingResponse().getMessagingError();
 	}
 }

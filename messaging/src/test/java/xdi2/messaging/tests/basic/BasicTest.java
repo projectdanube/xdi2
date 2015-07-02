@@ -6,14 +6,14 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.SingleItemIterator;
-import xdi2.messaging.DelOperation;
-import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.Operation;
-import xdi2.messaging.SetOperation;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.DelOperation;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SetOperation;
 
 public class BasicTest extends TestCase {
 

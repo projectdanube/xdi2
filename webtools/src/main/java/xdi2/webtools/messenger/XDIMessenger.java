@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
@@ -32,7 +32,7 @@ import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -261,7 +261,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		XDIWriter xdiResultWriter = XDIWriterRegistry.forFormat(resultFormat, xdiResultWriterParameters);
 
 		MessageEnvelope messageEnvelope = null;
-		MessageResult messageResult = null;
+		MessagingResponse messagingResponse = null;
 
 		long start = System.currentTimeMillis();
 
@@ -277,32 +277,32 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			XDIClient client = new XDIHttpClient(endpoint);
 
-			messageResult = client.send(messageEnvelope, null);
+			messagingResponse = client.send(messageEnvelope);
 
 			// output the message result
 
 			StringWriter writer = new StringWriter();
-			xdiResultWriter.write(messageResult.getGraph(), writer);
+			xdiResultWriter.write(messagingResponse.getGraph(), writer);
 			output = StringEscapeUtils.escapeHtml(writer.getBuffer().toString());
 
 			outputId = UUID.randomUUID().toString();
-			OutputCache.put(outputId, messageResult.getGraph());
+			OutputCache.put(outputId, messagingResponse.getGraph());
 		} catch (Exception ex) {
 
 			if (ex instanceof Xdi2ClientException) {
 
-				messageResult = ((Xdi2ClientException) ex).getErrorMessageResult();
+				messagingResponse = ((Xdi2ClientException) ex).getMessagingResponse();
 
 				// output the message result
 
-				if (messageResult != null) {
+				if (messagingResponse != null) {
 
 					StringWriter writer2 = new StringWriter();
-					xdiResultWriter.write(messageResult.getGraph(), writer2);
+					xdiResultWriter.write(messagingResponse.getGraph(), writer2);
 					output = StringEscapeUtils.escapeHtml(writer2.getBuffer().toString());
 
 					outputId = UUID.randomUUID().toString();
-					OutputCache.put(outputId, messageResult.getGraph());
+					OutputCache.put(outputId, messagingResponse.getGraph());
 				}
 			}
 
@@ -317,7 +317,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 		stats += Long.toString(stop - start) + " ms time. ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getMessageCount()) + " message(s). ";
 		if (messageEnvelope != null) stats += Long.toString(messageEnvelope.getOperationCount()) + " operation(s). ";
-		if (messageResult != null) stats += Long.toString(messageResult.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
+		if (messagingResponse != null) stats += Long.toString(messagingResponse.getGraph().getRootContextNode(true).getAllStatementCount()) + " result statement(s). ";
 
 		// display results
 

@@ -1,1 +1,1 @@
-Simple $get operation
+Retrieving a context

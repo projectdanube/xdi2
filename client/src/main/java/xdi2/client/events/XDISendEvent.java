@@ -4,23 +4,23 @@ import java.util.Date;
 
 import xdi2.client.XDIClient;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.response.MessagingResponse;
 
 public class XDISendEvent extends XDIEvent {
 
 	private static final long serialVersionUID = 5301716219045375638L;
 
 	private MessageEnvelope messageEnvelope;
-	private MessageResult messageResult;
+	private MessagingResponse messagingResponse;
 	private Date beginTimestamp;
 	private Date endTimestamp;
 
-	public XDISendEvent(Object source, MessageEnvelope messageEnvelope, MessageResult messageResult, Date beginTimestamp, Date endTimestamp) {
+	public XDISendEvent(Object source, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, Date beginTimestamp, Date endTimestamp) {
 
 		super(source);
 
 		this.messageEnvelope = messageEnvelope;
-		this.messageResult = messageResult;
+		this.messagingResponse = messagingResponse;
 		this.beginTimestamp = beginTimestamp;
 		this.endTimestamp = endTimestamp;
 	}
@@ -36,9 +36,9 @@ public class XDISendEvent extends XDIEvent {
 		return this.messageEnvelope;
 	}
 
-	public MessageResult getMessageResult() {
+	public MessagingResponse getMessagingResponse() {
 
-		return this.messageResult;
+		return this.messagingResponse;
 	}
 
 	public Date getBeginTimestamp() {

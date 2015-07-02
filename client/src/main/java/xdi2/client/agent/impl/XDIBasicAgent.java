@@ -9,7 +9,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.agent.XDIAgent;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
@@ -22,12 +22,11 @@ import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
-import xdi2.messaging.Operation;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.operations.Operation;
 
 public class XDIBasicAgent implements XDIAgent {
 
@@ -166,11 +165,11 @@ public class XDIBasicAgent implements XDIAgent {
 		if (xdiClient == null) xdiClient = this.constructXdiClient(xdiEndpointUrl);
 		if (xdiClient == null) throw new Xdi2AgentException("Unable to obtain an XDI client for address " + XDIaddress);
 
-		MessageResult messageResult = xdiClient.send(messageEnvelope, null);
+		Graph resultGraph = xdiClient.send(messageEnvelope).getResultGraph();
 
 		// let's look for our target address in the message result
 
-		ContextNode contextNode = messageResult.getGraph().getDeepContextNode(targetXDIAddress);
+		ContextNode contextNode = resultGraph.getDeepContextNode(targetXDIAddress);
 
 		if (contextNode != null) {
 

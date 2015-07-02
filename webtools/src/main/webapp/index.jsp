@@ -35,19 +35,20 @@ div.line { margin-left: -150px; }
 
 	<table cellpadding="5">
 	<tr>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIParser">XDI Parser</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIValidator">XDI Validator</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIConverter">XDI Converter</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIParser">XDI Parser</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIValidator">XDI Validator</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIConverter">XDI Converter</a></td>
 	</tr><tr>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIMessenger">XDI Messenger</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDILocalMessenger">XDI Local Messenger</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDISigner">XDI Signer</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIMessenger">XDI Messenger</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDILocalMessenger">XDI Local Messenger</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIPeerMessenger">XDI Peer Messenger</a></td>
 	</tr><tr>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIDiscoverer">XDI Discoverer</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIEncrypter">XDI Encrypter</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIDiscoverer">XDI Discoverer</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIEncrypter">XDI Encrypter</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDISigner">XDI Signer</a></td>
 	</tr><tr>
-	<td valign="middle"><img src="images/app20.png"></td><td style="width: 180px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
 	</tr>
 	</table>
 	

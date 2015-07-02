@@ -21,17 +21,16 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import xdi2.messaging.error.ErrorMessageResult;
 import xdi2.messaging.http.AcceptHeader;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 import xdi2.transport.impl.http.registry.MessagingTargetMount;
 
-public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> {
+public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpTransportResponse> {
 
 	private static final Logger log = LoggerFactory.getLogger(HttpTransport.class);
 
@@ -93,102 +92,38 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		super.shutdown();
 	}
 
-	public void doGet(HttpRequest request, HttpResponse response) throws IOException {
+	@Override
+	public void execute(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
 
-		if (log.isInfoEnabled()) log.info("Incoming GET request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
-		
-		try {
-
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
-
-			this.processGetRequest(request, response, messagingTargetMount);
-		} catch (Exception ex) {
-
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
-			return;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Successfully processed GET request.");
-	}
-
-	public void doPost(HttpRequest request, HttpResponse response) throws IOException {
-
-		if (log.isInfoEnabled()) log.info("Incoming POST request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
+		if (log.isInfoEnabled()) log.info("Incoming " + request.getMethod() + " request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
 
 		try {
 
 			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
 
-			this.processPostRequest(request, response, messagingTargetMount);
+			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, messagingTargetMount);
+			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, messagingTargetMount);
+			else if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) this.processPutRequest(request, response, messagingTargetMount);
+			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, messagingTargetMount);
+			else if (HttpTransportRequest.METHOD_OPTIONS.equals(request.getMethod())) this.processOptionsRequest(request, response);
+			else throw new Xdi2TransportException("Invalid HTTP method: " + request.getMethod());
+		} catch (IOException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
+			sendErrorInternalServer(request, response, ex);
 			return;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Successfully processed POST request.");
+		if (log.isDebugEnabled()) log.debug("Successfully processed " + request.getMethod() + " request.");
 	}
 
-	public void doPut(HttpRequest request, HttpResponse response) throws IOException {
+	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		if (log.isInfoEnabled()) log.info("Incoming PUT request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
-
-		try {
-
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
-
-			this.processPutRequest(request, response, messagingTargetMount);
-		} catch (Exception ex) {
-
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
-			return;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Successfully processed PUT request.");
-	}
-
-	public void doDelete(HttpRequest request, HttpResponse response) throws IOException {
-
-		if (log.isInfoEnabled()) log.info("Incoming DELETE request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
-
-		try {
-
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
-
-			this.processDeleteRequest(request, response, messagingTargetMount);
-		} catch (Exception ex) {
-
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
-			return;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Successfully processed DELETE request.");
-	}
-
-	public void doOptions(HttpRequest request, HttpResponse response) throws IOException {
-
-		if (log.isInfoEnabled()) log.info("Incoming OPTIONS request to " + request.getRequestPath() + ". Content-Type: " + request.getContentType());
-
-		try {
-
-			this.processOptionsRequest(request, response);
-		} catch (Exception ex) {
-
-			log.error("Unexpected exception: " + ex.getMessage(), ex);
-			handleInternalException(request, response, ex);
-			return;
-		}
-
-		if (log.isDebugEnabled()) log.debug("Successfully processed OPTIONS request.");
-	}
-
-	protected void processGetRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
-
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		MessageEnvelope messageEnvelope;
+		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -204,31 +139,36 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (messagingTarget == null) {
 
-			log.warn("No XDI messaging target configured at " + request.getRequestPath() + ". Sending " + HttpResponse.SC_NOT_FOUND + ".");
-			response.sendError(HttpResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + request.getRequestPath());
-
+			sendErrorNotFound(request, response);
 			return;
 		}
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
-		if (messageEnvelope == null) return;
+		try {
 
-		// execute the message envelope against our message target, save result
+			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
+			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
+		} catch (IOException ex) {
 
-		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
-		if (messageResult == null || messageResult.getGraph() == null) return;
+			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
 
-		// send out result
+		// execute the messaging request against our messaging target, save messaging response
 
-		this.sendStatusAndHeaders(request, response);
-		sendMessageResult(messageResult, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
+
+		// done
+
+		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPostRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		MessageEnvelope messageEnvelope;
+		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -244,31 +184,36 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (messagingTarget == null) {
 
-			log.warn("No XDI messaging target configured at " + request.getRequestPath() + ". Sending " + HttpResponse.SC_NOT_FOUND + ".");
-			response.sendError(HttpResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + request.getRequestPath());
-
+			sendErrorNotFound(request, response);
 			return;
 		}
 
-		// construct message envelope from body
+		// construct messaging request from body
 
-		MessageEnvelope messageEnvelope = readFromBody(request, response);
-		if (messageEnvelope == null) return;
+		try {
 
-		// execute the message envelope against our message target, save result
+			messageEnvelope = readFromBody(request, response);
+			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
+		} catch (IOException ex) {
 
-		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
-		if (messageResult == null || messageResult.getGraph() == null) return;
+			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
 
-		// send out result
+		// execute the messaging request against our messaging target, save messaging response
 
-		this.sendStatusAndHeaders(request, response);
-		sendMessageResult(messageResult, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
+
+		// done
+
+		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPutRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		MessageEnvelope messageEnvelope;
+		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -284,31 +229,36 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (messagingTarget == null) {
 
-			log.warn("No XDI messaging target configured at " + request.getRequestPath() + ". Sending " + HttpResponse.SC_NOT_FOUND + ".");
-			response.sendError(HttpResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + request.getRequestPath());
-
+			sendErrorNotFound(request, response);
 			return;
 		}
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
-		if (messageEnvelope == null) return;
+		try {
 
-		// execute the message envelope against our message target, save result
+			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
+			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
+		} catch (IOException ex) {
 
-		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
-		if (messageResult == null || messageResult.getGraph() == null) return;
+			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
 
-		// send out result
+		// execute the messaging request against our messaging target, save messaging response
 
-		this.sendStatusAndHeaders(request, response);
-		sendMessageResult(messageResult, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
+
+		// done
+
+		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processDeleteRequest(HttpRequest request, HttpResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		MessageEnvelope messageEnvelope;
+		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -324,37 +274,40 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		if (messagingTarget == null) {
 
-			log.warn("No XDI messaging target configured at " + request.getRequestPath() + ". Sending " + HttpResponse.SC_NOT_FOUND + ".");
-			response.sendError(HttpResponse.SC_NOT_FOUND, "No XDI messaging target configured at " + request.getRequestPath());
-
+			sendErrorNotFound(request, response);
 			return;
 		}
 
 		// construct message envelope from url 
 
-		MessageEnvelope messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
-		if (messageEnvelope == null) return;
+		try {
 
-		// execute the message envelope against our message target, save result
+			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
+			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
+		} catch (IOException ex) {
 
-		MessageResult messageResult = this.execute(messageEnvelope, messagingTarget, request, response);
-		if (messageResult == null || messageResult.getGraph() == null) return;
+			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
 
-		// send out result
+		// execute the messaging request against our messaging target, save messaging response
 
-		this.sendStatusAndHeaders(request, response);
-		sendMessageResult(messageResult, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
+
+		// done
+
+		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processOptionsRequest(HttpRequest request, HttpResponse response) throws Xdi2TransportException, IOException {
+	protected void processOptionsRequest(HttpTransportRequest request, HttpTransportResponse response) throws Xdi2TransportException, IOException {
 
-		// send out result
+		// send out response
 
-		this.sendStatusAndHeaders(request, response);
+		this.sendOk(request, response, null);
 		response.setContentLength(0);
 	}
 
-	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpRequest request, HttpResponse response, XDIAddress operationAddress) throws IOException {
+	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 
@@ -378,8 +331,7 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 			} catch (Exception ex) {
 
 				log.error("Cannot parse XDI address: " + ex.getMessage(), ex);
-				this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
-				return null;
+				throw new IOException("Cannot parse XDI graph: " + ex.getMessage(), ex);
 			}
 		}
 
@@ -404,21 +356,21 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 		return messageEnvelope;
 	}
 
-	private MessageEnvelope readFromBody(HttpRequest request, HttpResponse response) throws IOException {
+	private MessageEnvelope readFromBody(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
 
 		// try to find an appropriate reader for the provided mime type
 
-		XDIReader xdiReader = null;
+		XDIReader reader = null;
 
 		String contentType = request.getContentType();
 		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
-		xdiReader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
+		reader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
 
-		if (xdiReader == null) xdiReader = XDIReaderRegistry.getDefault();
+		if (reader == null) reader = XDIReaderRegistry.getDefault();
 
 		// read everything into an in-memory XDI graph (a message envelope)
 
-		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
+		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + reader.getClass().getSimpleName() + ".");
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		MessageEnvelope messageEnvelope;
@@ -428,14 +380,16 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 
 		try {
 
-			xdiReader.read(graph, inputStream);
+			reader.read(graph, inputStream);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
 			messageCount = messageEnvelope.getMessageCount();
+		} catch (IOException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
 			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
-			this.handleException(request, response, new Exception("Cannot parse XDI graph: " + ex.getMessage(), ex));
-			return null;
+			throw new IOException("Cannot parse XDI graph: " + ex.getMessage(), ex);
 		} finally {
 
 			inputStream.close();
@@ -450,74 +404,72 @@ public class HttpTransport extends AbstractTransport<HttpRequest, HttpResponse> 
 	 * Helper methods
 	 */
 
-	private void sendStatusAndHeaders(HttpRequest request, HttpResponse response) {
+	private void sendOk(HttpTransportRequest request, HttpTransportResponse response, MessagingResponse messagingResponse) throws IOException {
 
-		response.setStatus(HttpResponse.SC_OK);
+		response.setStatus(HttpTransportResponse.SC_OK);
 
 		Map<String, String> headers = new HashMap<String, String> ();
 		headers.putAll(this.getHeaders());
 
-		if ("GET".equals(request.getMethod())) headers.putAll(this.getHeadersGet());
-		if ("POST".equals(request.getMethod())) headers.putAll(this.getHeadersPost());
-		if ("PUT".equals(request.getMethod())) headers.putAll(this.getHeadersPut());
-		if ("DELETE".equals(request.getMethod())) headers.putAll(this.getHeadersDelete());
-		if ("OPTIONS".equals(request.getMethod())) headers.putAll(this.getHeadersOptions());
-		
+		if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) headers.putAll(this.getHeadersGet());
+		if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) headers.putAll(this.getHeadersPost());
+		if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) headers.putAll(this.getHeadersPut());
+		if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) headers.putAll(this.getHeadersDelete());
+		if (HttpTransportRequest.METHOD_OPTIONS.equals(request.getMethod())) headers.putAll(this.getHeadersOptions());
+
 		for (Map.Entry<String, String> header : headers.entrySet()) {
-			
+
 			response.setHeader(header.getKey(), header.getValue());
 		}
-	}
 
-	private static void sendMessageResult(MessageResult messageResult, HttpRequest request, HttpResponse response) throws IOException {
+		if (messagingResponse != null) {
 
-		// find a suitable writer based on accept headers
+			// find a suitable writer based on accept headers
 
-		if (log.isDebugEnabled()) log.debug("Accept: " + request.getHeader("Accept"));
+			if (log.isDebugEnabled()) log.debug("Accept: " + request.getHeader("Accept"));
 
-		XDIWriter writer = null;
+			XDIWriter writer = null;
 
-		String acceptHeader = request.getHeader("Accept");
-		MimeType sendMimeType = acceptHeader != null ? AcceptHeader.parse(acceptHeader).bestMimeType(false, true) : null;
-		writer = sendMimeType != null ? XDIWriterRegistry.forMimeType(sendMimeType) : null;
+			String acceptHeader = request.getHeader("Accept");
+			MimeType sendMimeType = acceptHeader != null ? AcceptHeader.parse(acceptHeader).bestMimeType(false, true) : null;
+			writer = sendMimeType != null ? XDIWriterRegistry.forMimeType(sendMimeType) : null;
 
-		if (writer == null) writer = XDIWriterRegistry.getDefault();
+			if (writer == null) writer = XDIWriterRegistry.getDefault();
 
-		// send out the message result
+			// send out the message result
 
-		if (log.isDebugEnabled()) log.debug("Sending result in " + sendMimeType + " with writer " + writer.getClass().getSimpleName() + ".");
+			if (log.isDebugEnabled()) log.debug("Sending result in " + sendMimeType + " with writer " + writer.getClass().getSimpleName() + ".");
 
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		writer.write(messageResult.getGraph(), buffer);
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			writer.write(messagingResponse.getGraph(), buffer);
 
-		response.setContentType(writer.getMimeType().toString());
-		response.setContentLength(buffer.size());
+			response.setContentType(writer.getMimeType().toString());
+			response.setContentLength(buffer.size());
 
-		if (buffer.size() > 0) {
+			if (buffer.size() > 0) {
 
-			OutputStream outputStream = response.getBodyOutputStream();
+				OutputStream outputStream = response.getBodyOutputStream();
 
-			outputStream.write(buffer.toByteArray());
-			outputStream.flush();
+				outputStream.write(buffer.toByteArray());
+				outputStream.flush();
 
-			outputStream.close();
+				outputStream.close();
+			}
 		}
 
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void handleInternalException(HttpRequest request, HttpResponse response, Exception ex) throws IOException {
+	private static void sendErrorNotFound(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
 
-		response.sendError(HttpResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected exception: " + ex.getMessage());
+		log.warn("Not found: " + request.getRequestPath() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".");
+		response.sendError(HttpTransportResponse.SC_NOT_FOUND, "Not found: " + request.getRequestPath());
 	}
 
-	@Override
-	protected void handleException(HttpRequest request, HttpResponse response, ErrorMessageResult errorMessageResult) throws IOException {
+	private static void sendErrorInternalServer(HttpTransportRequest request, HttpTransportResponse response, Exception ex) throws IOException {
 
-		// send error result
-
-		this.sendStatusAndHeaders(request, response);
-		sendMessageResult(errorMessageResult, request, response);
+		log.error("Internal server error: " + ex.getMessage() + ". Sending " + HttpTransportResponse.SC_NOT_FOUND + ".", ex);
+		response.sendError(HttpTransportResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error: " + ex.getMessage());
 	}
 
 	/*

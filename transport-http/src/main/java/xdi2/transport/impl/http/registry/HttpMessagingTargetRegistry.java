@@ -14,11 +14,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import xdi2.core.syntax.XDIArc;
-import xdi2.messaging.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.factory.MessagingTargetFactory;
-import xdi2.transport.impl.websocket.WebSocketTransport;
 
 /**
  * Registry to mount and unmount messaging targets.
@@ -37,8 +36,6 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 	private ApplicationContext applicationContext;
 
-	private WebSocketTransport webSocketTransport;
-
 	private boolean checkDisabled;
 	private boolean checkExpired;
 
@@ -48,8 +45,6 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		this.messagingTargetFactoryMounts = new HashMap<String, MessagingTargetFactoryMount> ();
 
 		this.applicationContext = null;
-
-		this.webSocketTransport = null;
 
 		this.checkDisabled = DEFAULT_CHECKDISABLED;
 		this.checkExpired = DEFAULT_CHECKEXPIRED;
@@ -479,16 +474,6 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	/*
 	 * Getters and setters
 	 */
-
-	public WebSocketTransport getWebSocketTransport() {
-
-		return this.webSocketTransport;
-	}
-
-	public void setWebSocketTransport(WebSocketTransport webSocketTransport) {
-
-		this.webSocketTransport = webSocketTransport;
-	}
 
 	public boolean isCheckDisabled() {
 

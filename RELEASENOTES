@@ -1,6 +1,27 @@
 release 0.8 ("Orșova")
 ========================
 
+* removed class ErrorMessageResult. introduced class MessagingError.
+use MessagingResponse.getMessagingError() instead of class ErrorMessageResult.
+
+* introducing class ExecutionResult as a major component of internal message execution
+
+* splitting module "messaging" into "messaging" and "messaging-target"
+
+* replacing class MessageResult with MessagingResponse
+instead of MessageResult.getGraph(), use MessagingResponse.getGraph() or MessagingResponse.getResultGraph()
+
+* renaming modules "transport-http-embedded" to "server-embedded",
+and "transport-http-standalone" to "server-standalone"
+and "transport-http-war" to "server-war"
+
+* splitting module "transport-http" into "transport-http" and "transport-websocket"
+
+* introducing module "server" to depend on "transport-http" and "transport-websocket"
+
+* introducing module "transport-local".
+XDILocalClient is now the preferred way to execute messages against graphs locally
+
 * xdi2.core.features.nodetypes.XdiMember -> xdi2.core.features.nodetypes.XdiInstance
 
 * xdi2.core.features.nodetypes.XdiMemberOrdered -> xdi2.core.features.nodetypes.XdiInstanceOrdered
