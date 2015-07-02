@@ -73,7 +73,7 @@ public class GraphSigner extends PrivateKeySigner {
 		// look for private key in the graph
 
 		ContextNode signaturePrivateKeyContextNode = senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true);
-		XdiAttribute signaturePrivateKeyXdiAttribute = senderXdiPeerRoot == null ? null : XdiAttributeSingleton.fromContextNode(signaturePrivateKeyContextNode);
+		XdiAttribute signaturePrivateKeyXdiAttribute = signaturePrivateKeyContextNode == null ? null : XdiAttributeSingleton.fromContextNode(signaturePrivateKeyContextNode);
 		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
 
 		LiteralNode privateKeyLiteral = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getLiteralNode();
