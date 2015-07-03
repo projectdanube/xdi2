@@ -31,7 +31,7 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 
 	public static boolean isValid(Graph graph) {
 
-		return MessageEnvelope.isValid(graph);
+		return MessageEnvelope.isValid(graph) && MessageEnvelope.fromGraph(graph).getMessageCollectionCount() > 0;
 	}
 
 	public static FullMessagingResponse fromGraph(Graph graph) {
