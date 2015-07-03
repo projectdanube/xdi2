@@ -1,6 +1,6 @@
 package xdi2.client.agent;
 
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
@@ -14,7 +14,7 @@ import xdi2.core.syntax.XDIAddress;
  */
 public interface XDIAgent {
 
-	public AgentConnection connect(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
+	public AgentRoute route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
 
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
 }

@@ -1,19 +1,19 @@
 package xdi2.client.agent.target.impl;
 
 import xdi2.client.XDIClient;
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
-final class LocalAgentConnection extends AbstractAgentConnection implements AgentConnection {
+final class LocalAgentRoute extends AbstractAgentRoute implements AgentRoute {
 
 	private Graph graph;
 	private XDIArc ownerPeerRootXDIArc;
 
-	public LocalAgentConnection(Graph graph, XDIArc ownerPeerRootXDIArc) {
+	public LocalAgentRoute(Graph graph, XDIArc ownerPeerRootXDIArc) {
 
 		this.graph = graph;
 		this.ownerPeerRootXDIArc = ownerPeerRootXDIArc;

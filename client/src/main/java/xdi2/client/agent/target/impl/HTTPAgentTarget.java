@@ -5,7 +5,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.agent.target.AgentTarget;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -28,7 +28,7 @@ public class HTTPAgentTarget implements AgentTarget {
 	}
 
 	@Override
-	public AgentConnection connect(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
 
 		// check if we can provide the target peer root
 
@@ -38,13 +38,13 @@ public class HTTPAgentTarget implements AgentTarget {
 			return null;
 		}
 
-		// construct the connection
+		// construct the route
 
-		AgentConnection connection = new HTTPAgentConnection(this.cloudNumber, this.xdiEndpointUrl);
+		AgentRoute route = new HTTPAgentRoute(this.cloudNumber, this.xdiEndpointUrl);
 
 		// done
 
-		return connection;
+		return route;
 	}
 
 	/*

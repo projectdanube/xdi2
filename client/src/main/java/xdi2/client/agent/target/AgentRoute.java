@@ -4,7 +4,7 @@ import xdi2.client.XDIClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
-public interface AgentConnection {
+public interface AgentRoute {
 
 	public XDIClient constructXDIClient();
 	public MessageEnvelope constructMessageEnvelope();

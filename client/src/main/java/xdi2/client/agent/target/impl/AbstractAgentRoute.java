@@ -1,11 +1,11 @@
 package xdi2.client.agent.target.impl;
 
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
-public abstract class AbstractAgentConnection implements AgentConnection {
+public abstract class AbstractAgentRoute implements AgentRoute {
 
 	@Override
 	public MessageEnvelope constructMessageEnvelope() {

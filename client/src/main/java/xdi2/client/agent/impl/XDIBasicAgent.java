@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.XDIClient;
 import xdi2.client.agent.XDIAgent;
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.agent.target.AgentTarget;
 import xdi2.client.agent.target.impl.DiscoveryAgentTarget;
 import xdi2.client.exceptions.Xdi2AgentException;
@@ -50,7 +50,7 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public AgentConnection connect(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
 		// let's find out the target peer root of the address
 
@@ -87,37 +87,39 @@ public class XDIBasicAgent implements XDIAgent {
 
 		if (log.isDebugEnabled()) log.debug("Determined target address: " + targetXDIAddress);
 
-		// let's find a connection
+		// let's find a route
 
-		AgentConnection connection = null;
+		AgentRoute route = null;
 
 		for (AgentTarget agentTarget : this.getAgentTargets()) {
 
-			connection = agentTarget.connect(targetPeerRootXDIArc);
-			if (connection != null) break;
+			route = agentTarget.route(targetPeerRootXDIArc);
+			if (route != null) break;
 		}
 
-		return connection;
+		// done
+		
+		return route;
 	}
 
 	@Override
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
-		// connect
+		// route
 
-		AgentConnection connection = this.connect(XDIaddress);
-		if (connection == null) throw new Xdi2AgentException("Unable to obtain a connection for address " + XDIaddress);
+		AgentRoute route = this.route(XDIaddress);
+		if (route == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
 
 		// message construction step
 
-		MessageEnvelope messageEnvelope = connection.constructMessageEnvelope();
-		Message message = connection.constructMessage(messageEnvelope);
+		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
+		Message message = route.constructMessage(messageEnvelope);
 		Operation operation = message.createGetOperation(XDIaddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
 		// client step
 
-		XDIClient xdiClient = connection.constructXDIClient();
+		XDIClient xdiClient = route.constructXDIClient();
 		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
 		Graph resultGraph = messagingResponse.getResultGraph();
 

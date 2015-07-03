@@ -3,7 +3,7 @@ package xdi2.client.agent.target.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.agent.target.AgentConnection;
+import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.agent.target.AgentTarget;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -18,7 +18,7 @@ public class LocalAgentTarget implements AgentTarget {
 	private Graph graph;
 
 	@Override
-	public AgentConnection connect(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
 
 		// check if we can provide the target peer root
 
@@ -36,13 +36,13 @@ public class LocalAgentTarget implements AgentTarget {
 			return null;
 		}
 
-		// construct the connection
+		// construct the route
 
-		AgentConnection connection = new LocalAgentConnection(this.getGraph(), ownerPeerRootXDIArc);
+		AgentRoute route = new LocalAgentRoute(this.getGraph(), ownerPeerRootXDIArc);
 
 		// done
 
-		return connection;
+		return route;
 	}
 
 	/*
