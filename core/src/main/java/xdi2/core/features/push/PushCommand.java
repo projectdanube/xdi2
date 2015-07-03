@@ -111,7 +111,7 @@ public class PushCommand implements Serializable {
 		return this.getXdiEntity().getContextNode();
 	}
 
-	public ReadOnlyIterator<XDIAddress> getTargetXDIAddresses() {
+	public ReadOnlyIterator<XDIAddress> getToXDIAddresses() {
 
 		return new ReadOnlyIterator<XDIAddress> (
 				new MappingRelationTargetXDIAddressIterator(

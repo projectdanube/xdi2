@@ -166,7 +166,17 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 			Map<Operation, XDIAddress> pushCommandXDIAddressMap = pushCommandsXDIAddressMap.get(pushCommand);
 			Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap = pushCommandsXDIStatementMap.get(pushCommand);
 
-			this.getPushExecutor().executePush(pushCommand, pushCommandXDIAddressMap, pushCommandXDIStatementMap);
+			Set<Operation> pushCommandOperations = new HashSet<Operation> ();
+			pushCommandOperations.addAll(pushCommandXDIAddressMap.keySet());
+			pushCommandOperations.addAll(pushCommandXDIStatementMap.keySet());
+			
+			try {
+
+				this.getPushExecutor().executePush(pushCommand, pushCommandOperations, pushCommandXDIAddressMap, pushCommandXDIStatementMap);
+			} catch (Exception ex) {
+
+				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
+			}
 		}
 
 		// done

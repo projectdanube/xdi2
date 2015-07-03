@@ -28,11 +28,19 @@ public class DiscoveryAgentTarget implements AgentTarget {
 
 
 	@Override
-	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the target peer root
 
-		XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(targetPeerRootXDIArc), null);
+		XDIDiscoveryResult xdiDiscoveryResult;
+
+		try {
+
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(targetPeerRootXDIArc), null);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2AgentException("Discovery problem: " + ex.getMessage(), ex);
+		}
 
 		if (xdiDiscoveryResult == null) {
 

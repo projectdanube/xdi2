@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.agent.target.AgentTarget;
 import xdi2.client.exceptions.Xdi2AgentException;
-import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
@@ -18,7 +17,7 @@ public class LocalAgentTarget implements AgentTarget {
 	private Graph graph;
 
 	@Override
-	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the target peer root
 

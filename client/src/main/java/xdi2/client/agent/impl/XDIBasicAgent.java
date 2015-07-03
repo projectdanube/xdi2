@@ -50,42 +50,7 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public AgentRoute route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
-
-		// let's find out the target peer root of the address
-
-		XDIArc firstXDIArc = XDIaddress.getFirstXDIArc();
-		XDIAddress firstXDIArcXDIAddress = XDIAddress.fromComponent(firstXDIArc);
-
-		XDIAddress targetPeerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false);
-		CloudNumber targetCloudNumber = CloudNumber.isValid(firstXDIArcXDIAddress) ? CloudNumber.fromXDIAddress(firstXDIArcXDIAddress) : null;
-		CloudName targetCloudName = CloudName.isValid(firstXDIArcXDIAddress) ? CloudName.fromXDIAddress(firstXDIArcXDIAddress) : null;
-
-		if (log.isDebugEnabled()) log.debug("Peer root: " + targetPeerRootXDIAddress + ", Cloud Number: " + targetCloudNumber + ", Cloud Name: " + targetCloudName);
-
-		XDIArc targetPeerRootXDIArc = null;
-		if (targetPeerRootXDIAddress != null) targetPeerRootXDIArc = targetPeerRootXDIAddress.getLastXDIArc();
-		if (targetCloudNumber != null) targetPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(targetCloudNumber.getXDIAddress());
-		if (targetCloudName != null) targetPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(targetCloudName.getXDIAddress());
-
-		if (log.isDebugEnabled()) log.debug("Determined target peer root: " + targetPeerRootXDIArc);
-
-		if (targetPeerRootXDIArc == null) {
-
-			if (log.isDebugEnabled()) log.debug("Unable to determine target peer root for address " + XDIaddress);
-			return null;
-		}
-
-		// let's find out the target address
-
-		XDIAddress targetXDIAddress = null;
-
-		if (targetPeerRootXDIAddress != null) 
-			targetXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, targetPeerRootXDIAddress.getNumXDIArcs());
-		else
-			targetXDIAddress = XDIaddress;
-
-		if (log.isDebugEnabled()) log.debug("Determined target address: " + targetXDIAddress);
+	public AgentRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// let's find a route
 
@@ -93,13 +58,83 @@ public class XDIBasicAgent implements XDIAgent {
 
 		for (AgentTarget agentTarget : this.getAgentTargets()) {
 
-			route = agentTarget.route(targetPeerRootXDIArc);
+			route = agentTarget.route(toPeerRootXDIArc);
 			if (route != null) break;
 		}
 
 		// done
-		
+
 		return route;
+	}
+
+	@Override
+	public AgentRoute route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
+
+		// let's find out the TO peer root of the address
+
+		XDIArc firstXDIArc = XDIaddress.getFirstXDIArc();
+		XDIAddress firstXDIArcXDIAddress = XDIAddress.fromComponent(firstXDIArc);
+
+		XDIAddress toPeerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false);
+		CloudNumber toCloudNumber = CloudNumber.isValid(firstXDIArcXDIAddress) ? CloudNumber.fromXDIAddress(firstXDIArcXDIAddress) : null;
+		CloudName toCloudName = CloudName.isValid(firstXDIArcXDIAddress) ? CloudName.fromXDIAddress(firstXDIArcXDIAddress) : null;
+
+		if (log.isDebugEnabled()) log.debug("Peer root: " + toPeerRootXDIAddress + ", Cloud Number: " + toCloudNumber + ", Cloud Name: " + toCloudName);
+
+		XDIArc toPeerRootXDIArc = null;
+		if (toPeerRootXDIAddress != null) toPeerRootXDIArc = toPeerRootXDIAddress.getLastXDIArc();
+		if (toCloudNumber != null) toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(toCloudNumber.getXDIAddress());
+		if (toCloudName != null) toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(toCloudName.getXDIAddress());
+
+		if (log.isDebugEnabled()) log.debug("Determined TO peer root: " + toPeerRootXDIArc);
+
+		if (toPeerRootXDIArc == null) {
+
+			if (log.isDebugEnabled()) log.debug("Unable to determine TO peer root for address " + XDIaddress);
+			return null;
+		}
+
+		// let's find a route
+
+		return route(toPeerRootXDIArc);
+	}
+
+	@Override
+	public AgentRoute route(MessageEnvelope messageEnvelope) throws Xdi2AgentException {
+
+		// use the TO peer root
+
+		XDIArc toPeerRootXDIArc = null;
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			if (toPeerRootXDIArc == null) { 
+
+				toPeerRootXDIArc = message.getToPeerRootXDIArc();
+				continue;
+			}
+
+			if (! toPeerRootXDIArc.equals(message.getToPeerRootXDIArc())) {
+
+				throw new Xdi2AgentException("Cannot route message envelope with multiple messages and different TO peer roots.");
+			}
+		}
+
+		// let's find a route
+
+		return route(toPeerRootXDIArc);
+	}
+
+	@Override
+	public AgentRoute route(Message message) throws Xdi2AgentException, Xdi2ClientException {
+
+		// use the TO peer root
+
+		XDIArc targetPeerRootXDIArc = message.getToPeerRootXDIArc();
+
+		// let's find a route
+
+		return route(targetPeerRootXDIArc);
 	}
 
 	@Override
@@ -110,16 +145,19 @@ public class XDIBasicAgent implements XDIAgent {
 		AgentRoute route = this.route(XDIaddress);
 		if (route == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
 
-		// message construction step
+		// client construction step
+
+		XDIClient xdiClient = route.constructXDIClient();
+
+		// message envelope construction step
 
 		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
 		Message message = route.constructMessage(messageEnvelope);
 		Operation operation = message.createGetOperation(XDIaddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
-		// client step
+		// send the message envelope
 
-		XDIClient xdiClient = route.constructXDIClient();
 		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
 		Graph resultGraph = messagingResponse.getResultGraph();
 

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.agent.target.AgentRoute;
 import xdi2.client.agent.target.AgentTarget;
 import xdi2.client.exceptions.Xdi2AgentException;
-import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 
@@ -28,7 +27,7 @@ public class HTTPAgentTarget implements AgentTarget {
 	}
 
 	@Override
-	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException {
+	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the target peer root
 
