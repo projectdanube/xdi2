@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -28,6 +31,8 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
  */
 public final class ExecutionResult {
 
+	private static final Logger log = LoggerFactory.getLogger(ExecutionResult.class);
+
 	private Map<Operation, Graph> operationResultGraphs;
 	private Graph resultGraph;
 
@@ -43,6 +48,8 @@ public final class ExecutionResult {
 
 	public static ExecutionResult createExecutionResult(MessageEnvelope messageEnvelope) {
 
+		if (messageEnvelope == null) throw new NullPointerException();
+		
 		// set up operation result graphs
 
 		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
@@ -59,23 +66,15 @@ public final class ExecutionResult {
 
 	public static ExecutionResult createExecutionResult(ExecutionResult executionResult, Exception ex) {
 
+		if (executionResult == null) throw new NullPointerException();
+		if (ex == null) throw new NullPointerException();
+
 		// error string
 
 		String errorString = ex.getMessage();
 		if (errorString == null) errorString = ex.getClass().getName();
 
-		// set up operation result graphs
-
-		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
-
-		for (Operation operation : executionResult.getOperationResultGraphs().keySet()) {
-
-			operationResultGraphs.put(operation, MemoryGraphFactory.getInstance().openGraph());
-		}
-
-		// create execution result
-
-		ExecutionResult exceptionExecutionResult = new ExecutionResult(operationResultGraphs);
+		log.info("Error string: " + errorString);
 
 		// look for exception operation
 
@@ -84,28 +83,40 @@ public final class ExecutionResult {
 		if (ex instanceof Xdi2MessagingException) {
 
 			exceptionOperation = ((Xdi2MessagingException) ex).getExecutionContext().getExceptionOperation();
-			if (! exceptionExecutionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
+			if (! executionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
 		}
 
-		// fill new operation result graphs
+		log.info("Exception operation: " + exceptionOperation);
 
-		for (Entry<Operation, Graph> entry : exceptionExecutionResult.getOperationResultGraphs().entrySet()) {
+		// set up operation result graphs
+
+		Map<Operation, Graph> exceptionOperationResultGraphs = new HashMap<Operation, Graph> ();
+
+		for (Entry<Operation, Graph> entry : executionResult.getOperationResultGraphs().entrySet()) {
 
 			Operation operation = entry.getKey();
-			Graph exceptionOperationResultGraph = entry.getValue();
+			Graph operationResultGraph = entry.getValue();
 
-			if (exceptionOperation == null || exceptionOperation == operation) {
+			Graph exceptionOperationResultGraph = MemoryGraphFactory.getInstance().openGraph();
+
+			if (exceptionOperation == null || exceptionOperation.equals(operation)) {
 
 				MessagingError messagingError = MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(exceptionOperationResultGraph), true);
 				messagingError.setErrorString(errorString);
 				messagingError.setErrorTimestamp(new Date());
 			} else {
 
-				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
-
 				CopyUtil.copyGraph(operationResultGraph, exceptionOperationResultGraph, null);
 			}
+
+			if (log.isDebugEnabled()) log.debug("For operation " + operation + " we have exception operation result graph " + exceptionOperationResultGraph);
+
+			exceptionOperationResultGraphs.put(operation, exceptionOperationResultGraph);
 		}
+
+		// create execution result
+
+		ExecutionResult exceptionExecutionResult = new ExecutionResult(exceptionOperationResultGraphs);
 
 		// done
 
