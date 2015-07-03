@@ -22,23 +22,16 @@ public class LightMessagingResponse extends AbstractMessagingResponse implements
 	 * Static methods
 	 */
 
-	public static LightMessagingResponse create(Graph resultGraph) {
-
-		LightMessagingResponse resultGraphMessagingResponse = new LightMessagingResponse(resultGraph);
-
-		return resultGraphMessagingResponse;
-	}
-
 	public static boolean isValid(Graph resultGraph) {
 
 		return true;
 	}
 
-	public static LightMessagingResponse fromGraph(Graph graph) {
+	public static LightMessagingResponse fromResultGraph(Graph resultGraph) {
 
-		if (! isValid(graph)) return(null);
+		if (! isValid(resultGraph)) return(null);
 
-		return new LightMessagingResponse(graph);
+		return new LightMessagingResponse(resultGraph);
 	}
 
 	/*

@@ -213,13 +213,17 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 	private final LightMessagingResponse makeLightMessagingResponse(ExecutionResult executionResult) {
 
+		// result graph
+
+		Graph resultGraph = executionResult.getResultGraph();
+
 		// create messaging response
 
-		LightMessagingResponse resultGraphMessagingResponse = LightMessagingResponse.create(executionResult.getResultGraph());
+		LightMessagingResponse lightMessagingResponse = LightMessagingResponse.fromResultGraph(resultGraph);
 
 		// done
 
-		return resultGraphMessagingResponse;
+		return lightMessagingResponse;
 	}
 
 	private final FullMessagingResponse makeFullMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) {
@@ -252,11 +256,11 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			signer.sign(responseMessage);
 		}
 
-		FullMessagingResponse messageEnvelopeMessagingResponse = FullMessagingResponse.create(responseMessageEnvelope);
+		FullMessagingResponse fullMessagingResponse = FullMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);
 
 		// done
 
-		return messageEnvelopeMessagingResponse;
+		return fullMessagingResponse;
 	}
 
 	/*

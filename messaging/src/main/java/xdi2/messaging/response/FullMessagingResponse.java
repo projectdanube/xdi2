@@ -1,7 +1,11 @@
 package xdi2.messaging.response;
 
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.operations.Operation;
 
 /**
  * A message envelope as an XDI messaging response.
@@ -13,22 +17,17 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 	private static final long serialVersionUID = -150908814464607155L;
 
 	private MessageEnvelope messageEnvelope;
+	private Graph resultGraph;
 
-	private FullMessagingResponse(MessageEnvelope messageEnvelope) {
+	private FullMessagingResponse(MessageEnvelope messageEnvelope, Graph resultGraph) {
 
 		this.messageEnvelope = messageEnvelope;
+		this.resultGraph = resultGraph;
 	}
 
 	/*
 	 * Static methods
 	 */
-
-	public static FullMessagingResponse create(MessageEnvelope messageEnvelope) {
-
-		FullMessagingResponse messageEnvelopeMessagingResponse = new FullMessagingResponse(messageEnvelope);
-
-		return messageEnvelopeMessagingResponse;
-	}
 
 	public static boolean isValid(Graph graph) {
 
@@ -39,7 +38,24 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 
 		if (! isValid(graph)) return(null);
 
-		return new FullMessagingResponse(MessageEnvelope.fromGraph(graph));
+		return fromMessageEnvelope(MessageEnvelope.fromGraph(graph));
+	}
+
+	public static FullMessagingResponse fromMessageEnvelope(MessageEnvelope messageEnvelope) {
+
+		Graph resultGraph = MemoryGraphFactory.getInstance().openGraph();
+
+		for (Operation operation : messageEnvelope.getOperations()) {
+
+			XdiInnerRoot xdiInnerRoot = operation.getTargetInnerRoot();
+			if (xdiInnerRoot == null) continue;
+
+			CopyUtil.copyContextNodeContents(xdiInnerRoot.getContextNode(), resultGraph, null);
+		}
+
+		FullMessagingResponse messageEnvelopeMessagingResponse = new FullMessagingResponse(messageEnvelope, resultGraph);
+
+		return messageEnvelopeMessagingResponse;
 	}
 
 	/*
@@ -55,9 +71,7 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 	@Override
 	public Graph getResultGraph() {
 
-		// TODO this is not really the result graph
-
-		return this.getMessageEnvelope().getGraph();
+		return this.resultGraph;
 	}
 
 	/*

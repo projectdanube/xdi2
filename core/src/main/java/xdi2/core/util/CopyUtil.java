@@ -48,7 +48,7 @@ public final class CopyUtil {
 
 		if (graph == targetGraph) throw new Xdi2RuntimeException("Source and target graph cannot be the same.");
 
-		copyContextNodeContents(graph.getRootContextNode(true), targetGraph.getRootContextNode(false), copyStrategy);
+		copyContextNodeContents(graph.getRootContextNode(true), targetGraph, copyStrategy);
 	}
 
 	/*
@@ -352,6 +352,21 @@ public final class CopyUtil {
 		copyContextNodes(contextNode, targetContextNode, copyStrategy);
 		copyRelations(contextNode, targetContextNode, copyStrategy);
 		copyLiteralNode(contextNode, targetContextNode, copyStrategy);
+	}
+
+	/**
+	 * Copies the contents of a context node (context nodes, relations, and the literal) into a target graph.
+	 * @param contextNode A context node from any graph.
+	 * @param targetGraph The target graph.
+	 * @param copyStrategy The strategy to determine what to copy.
+	 */
+	public static void copyContextNodeContents(ContextNode contextNode, Graph targetGraph, CopyStrategy copyStrategy) {
+
+		if (contextNode == null) throw new NullPointerException();
+		if (targetGraph == null) throw new NullPointerException();
+		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+
+		copyContextNodes(contextNode, targetGraph.getRootContextNode(false), null);
 	}
 
 	/**
