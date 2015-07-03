@@ -29,9 +29,9 @@ import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
  * 
  * @author markus
  */
-public class RegistryGraphHttpMessagingTargetFactory extends PrototypingHttpMessagingTargetFactory {
+public class RegistryHttpMessagingTargetFactory extends PrototypingHttpMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(RegistryGraphHttpMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(RegistryHttpMessagingTargetFactory.class);
 
 	public static final XDIAddress XDI_ADD_ENABLED = XDIAddress.create("<#enabled>");
 
@@ -40,7 +40,7 @@ public class RegistryGraphHttpMessagingTargetFactory extends PrototypingHttpMess
 	private String disabledError;
 	private String expiredError;
 
-	public RegistryGraphHttpMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError, String expiredError) {
+	public RegistryHttpMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError, String expiredError) {
 
 		super();
 
@@ -50,7 +50,7 @@ public class RegistryGraphHttpMessagingTargetFactory extends PrototypingHttpMess
 		this.expiredError = expiredError;
 	}
 
-	public RegistryGraphHttpMessagingTargetFactory() {
+	public RegistryHttpMessagingTargetFactory() {
 
 		this(null, false, null, null);
 	}

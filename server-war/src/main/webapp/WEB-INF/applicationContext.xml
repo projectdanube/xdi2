@@ -74,7 +74,7 @@
 
 	<!-- MESSAGING TARGET FACTORY at /any/* -->
 
-	<bean name="/any/*" class="xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory">
+	<bean name="/any/*" class="xdi2.transport.impl.http.factory.impl.AnyHttpMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
 	</bean>
 
@@ -87,7 +87,7 @@
 
 	<bean id="registryGraph" factory-bean="registryGraphfactory" factory-method="openGraph" />
 
-	<bean name="/users/*" class="xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory">
+	<bean name="/users/*" class="xdi2.transport.impl.http.factory.impl.RegistryHttpMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
 		<property name="registryGraph" ref="registryGraph" />
 		<property name="defaultDisabled" value="false" />
