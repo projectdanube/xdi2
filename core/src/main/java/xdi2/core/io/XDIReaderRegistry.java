@@ -27,9 +27,9 @@ public final class XDIReaderRegistry {
 
 	private static String readerClassNames[] = {
 
-		XDIJSONReader.class.getName(),
-		XDIDisplayReader.class.getName(),
 		XDIJSONQuadReader.class.getName(),
+		XDIDisplayReader.class.getName(),
+		XDIJSONReader.class.getName(),
 		XDIRawJSONReader.class.getName()
 	};
 
