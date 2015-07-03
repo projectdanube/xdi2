@@ -63,6 +63,8 @@ public class XDIBasicAgent implements XDIAgent {
 			if (route != null) break;
 		}
 
+		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + route);
+
 		// done
 
 		return route;

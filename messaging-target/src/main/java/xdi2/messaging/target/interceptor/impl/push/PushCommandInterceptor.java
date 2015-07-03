@@ -29,14 +29,13 @@ import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;
 
 /**
  * This interceptor executes push commands while a message is executed.
  */
 public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushCommandInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(WriteListenerInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(PushCommandInterceptor.class);
 
 	private Graph pushCommandsGraph;
 	private PushCommandExecutor pushExecutor;
@@ -118,10 +117,14 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			if (targetXDIAddress != null) {
 
+				if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target address " + targetXDIAddress);
+
 				List<PushCommand> pushCommands = findPushCommands(this.getPushCommandsGraph(), targetXDIAddress);
 				if (pushCommands == null || pushCommands.isEmpty()) continue;
 
 				for (PushCommand pushCommand : pushCommands) {
+
+					if (log.isDebugEnabled()) log.debug("For push command " + pushCommand + " processing target address " + targetXDIAddress);
 
 					Map<Operation, XDIAddress> pushCommandXDIAddressMap = pushCommandsXDIAddressMap.get(pushCommand);
 					if (pushCommandXDIAddressMap == null) { pushCommandXDIAddressMap = new HashMap<Operation, XDIAddress> (); pushCommandsXDIAddressMap.put(pushCommand, pushCommandXDIAddressMap); }
@@ -138,10 +141,14 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 
 					XDIStatement targetXDIStatement = targetXDIStatements.next();
 
+					if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target statement " + targetXDIStatement);
+
 					List<PushCommand> pushCommands = findPushCommands(this.getPushCommandsGraph(), targetXDIStatement);
 					if (pushCommands == null || pushCommands.isEmpty()) continue;
 
 					for (PushCommand pushCommand : pushCommands) {
+
+						if (log.isDebugEnabled()) log.debug("For push command " + pushCommand + " processing target statement " + targetXDIStatement);
 
 						Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap = pushCommandsXDIStatementMap.get(pushCommand);
 						if (pushCommandXDIStatementMap == null) { pushCommandXDIStatementMap = new HashMap<Operation, List<XDIStatement>> (); pushCommandsXDIStatementMap.put(pushCommand, pushCommandXDIStatementMap); }
@@ -169,8 +176,10 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 			Set<Operation> pushCommandOperations = new HashSet<Operation> ();
 			pushCommandOperations.addAll(pushCommandXDIAddressMap.keySet());
 			pushCommandOperations.addAll(pushCommandXDIStatementMap.keySet());
-			
+
 			try {
+
+				if (log.isDebugEnabled()) log.debug("Executing push command " + pushCommand);
 
 				this.getPushExecutor().executePush(pushCommand, pushCommandOperations, pushCommandXDIAddressMap, pushCommandXDIStatementMap);
 			} catch (Exception ex) {
@@ -260,7 +269,7 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 			contextNode = contextNode.getContextNode();
 		}
 
-		return null;
+		return pushCommands;
 	}
 
 	private static List<PushCommand> findPushCommands(Graph pushCommandsGraph, XDIStatement XDIstatement) {
@@ -272,7 +281,7 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE = WriteListenerInterceptor.class.getCanonicalName() + "#writeoperationspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE = PushCommandInterceptor.class.getCanonicalName() + "#writeoperationspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
 	private static List<Operation> getWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {

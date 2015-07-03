@@ -453,6 +453,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 		request.setAttribute("useReadOnlyInterceptor", useReadOnlyInterceptor);
 		request.setAttribute("useMessagePolicyInterceptor", useMessagePolicyInterceptor);
 		request.setAttribute("useLinkContractInterceptor", useLinkContractInterceptor);
+		request.setAttribute("usePushCommandInterceptor", usePushCommandInterceptor);
 		request.setAttribute("input1", input1);
 		request.setAttribute("input2", input2);
 		request.setAttribute("message1", message1);

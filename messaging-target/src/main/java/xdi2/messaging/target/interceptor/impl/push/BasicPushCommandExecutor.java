@@ -39,39 +39,61 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 	@Override
 	public void executePush(PushCommand pushCommand, Set<Operation> pushCommandOperations, Map<Operation, XDIAddress> pushCommandXDIAddressMap, Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
+		Exception ex = null;
+
 		for (XDIAddress toXDIAddress : pushCommand.getToXDIAddresses()) {
 
-			// find route to this target
+			if (log.isDebugEnabled()) log.debug("Trying to push to " + toXDIAddress);
 
-			XDIClientRoute<?> route = this.getXdiAgent().route(toXDIAddress);
+			try {
 
-			if (route == null) {
+				// find route to this target
 
-				log.warn("No route for " + toXDIAddress + ". Skipping push command.");
-				continue;
+				XDIClientRoute<?> route = this.getXdiAgent().route(toXDIAddress);
+
+				if (route == null) {
+
+					log.warn("No route for " + toXDIAddress + ". Skipping push command.");
+					continue;
+				}
+
+				// client construction step
+
+				XDIClient xdiClient = route.constructXDIClient();
+
+				// message envelope construction step
+
+				MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
+				Message message = route.constructMessage(messageEnvelope);
+
+				for (Operation pushCommandOperation : pushCommandOperations) {
+
+					XDIAddress pushCommandXDIAddress = pushCommandXDIAddressMap.get(pushCommandOperation);
+					List<XDIStatement> pushCommandXDIStatements = pushCommandXDIStatementMap.get(pushCommandOperation);
+
+					if (pushCommandXDIAddress != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIAddress);
+					if (pushCommandXDIStatements != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIStatements.iterator());
+				}
+
+				// send the message envelope
+
+				xdiClient.send(messageEnvelope);
+
+				// done
+
+				if (log.isDebugEnabled()) log.debug("Successfully pushed to " + toXDIAddress);
+			} catch (Exception ex2) {
+
+				log.warn("Failed to push to " + toXDIAddress + ": " + ex2.getMessage(), ex2);
+				ex = ex2;
 			}
+		}
 
-			// client construction step
+		// raise exception if any
 
-			XDIClient xdiClient = route.constructXDIClient();
+		if (ex != null) {
 
-			// message envelope construction step
-
-			MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
-			Message message = route.constructMessage(messageEnvelope);
-
-			for (Operation pushCommandOperation : pushCommandOperations) {
-
-				XDIAddress pushCommandXDIAddress = pushCommandXDIAddressMap.get(pushCommandOperation);
-				List<XDIStatement> pushCommandXDIStatements = pushCommandXDIStatementMap.get(pushCommandOperation);
-
-				if (pushCommandXDIAddress != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIAddress);
-				if (pushCommandXDIStatements != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIStatements.iterator());
-			}
-
-			// send the message envelope
-
-			xdiClient.send(messageEnvelope);
+			throw new Xdi2ClientException("At least one push failed: " + ex.getMessage(), ex);
 		}
 	}
 
