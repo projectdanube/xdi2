@@ -50,7 +50,7 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 	public PushCommandInterceptor() {
 
 		this.pushCommandsGraph = null;
-		this.pushExecutor = null;
+		this.pushExecutor = new BasicPushCommandExecutor();
 	}
 
 	/*

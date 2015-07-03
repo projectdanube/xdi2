@@ -7,9 +7,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
 import xdi2.client.XDIClient;
-import xdi2.client.agent.XDIAgent;
-import xdi2.client.agent.target.AgentRoute;
+import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.features.push.PushCommand;
@@ -25,6 +26,16 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 
 	private XDIAgent xdiAgent;
 
+	public BasicPushCommandExecutor(XDIAgent xdiAgent) {
+
+		this.xdiAgent = xdiAgent;
+	}
+
+	public BasicPushCommandExecutor() {
+
+		this.xdiAgent = new XDIBasicAgent();
+	}
+
 	@Override
 	public void executePush(PushCommand pushCommand, Set<Operation> pushCommandOperations, Map<Operation, XDIAddress> pushCommandXDIAddressMap, Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
@@ -32,7 +43,7 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 
 			// find route to this target
 
-			AgentRoute route = this.getXdiAgent().route(toXDIAddress);
+			XDIClientRoute<?> route = this.getXdiAgent().route(toXDIAddress);
 
 			if (route == null) {
 

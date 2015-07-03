@@ -1,27 +1,26 @@
-package xdi2.client.agent.target.impl;
+package xdi2.client.impl.http;
 
 import java.net.URL;
 
-import xdi2.client.XDIClient;
-import xdi2.client.agent.target.AgentRoute;
-import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.XDIClientRoute;
+import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
-final class HTTPAgentRoute extends AbstractAgentRoute implements AgentRoute {
+public class XDIHttpClientRoute extends XDIAbstractClientRoute<XDIHttpClient> implements XDIClientRoute<XDIHttpClient> {
 
 	private CloudNumber cloudNumber;
 	private URL xdiEndpointUrl;
 
-	public HTTPAgentRoute(CloudNumber cloudNumber, URL xdiEndpointUrl) {
+	public XDIHttpClientRoute(CloudNumber cloudNumber, URL xdiEndpointUrl) {
 
 		this.cloudNumber = cloudNumber;
 		this.xdiEndpointUrl = xdiEndpointUrl;
 	}
 
 	@Override
-	public XDIClient constructXDIClient() {
+	public XDIHttpClient constructXDIClient() {
 
 		return new XDIHttpClient(this.xdiEndpointUrl);
 	}

@@ -6,9 +6,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.agent.XDIAgent;
-import xdi2.client.agent.impl.XDIBasicAgent;
-import xdi2.client.agent.target.impl.DiscoveryAgentTarget;
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.agent.routing.impl.XDIDiscoveryAgentRouter;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -118,7 +118,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			XDIAgent xdiAgent = new XDIBasicAgent(new DiscoveryAgentTarget(this.getXdiDiscoveryClient()));
+			XDIAgent xdiAgent = new XDIBasicAgent(new XDIDiscoveryAgentRouter(this.getXdiDiscoveryClient()));
 			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress);
 		} catch (Exception ex) {
 

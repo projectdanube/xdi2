@@ -1,12 +1,11 @@
-package xdi2.client.agent.target;
+package xdi2.client;
 
-import xdi2.client.XDIClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
-public interface AgentRoute {
+public interface XDIClientRoute <CLIENT extends XDIClient> {
 
-	public XDIClient constructXDIClient();
+	public CLIENT constructXDIClient();
 	public MessageEnvelope constructMessageEnvelope();
 	public Message constructMessage(MessageEnvelope messageEnvelope);
 }

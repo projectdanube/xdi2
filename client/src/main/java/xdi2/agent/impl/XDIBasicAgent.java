@@ -1,16 +1,16 @@
-package xdi2.client.agent.impl;
+package xdi2.agent.impl;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIDiscoveryAgentRouter;
 import xdi2.client.XDIClient;
-import xdi2.client.agent.XDIAgent;
-import xdi2.client.agent.target.AgentRoute;
-import xdi2.client.agent.target.AgentTarget;
-import xdi2.client.agent.target.impl.DiscoveryAgentTarget;
+import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
@@ -32,31 +32,32 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
-	private List<AgentTarget> agentTargets;
+	private List<XDIAgentRouter<?, ?>> agentTargets;
 
-	public XDIBasicAgent(List<AgentTarget> agentTargets) {
+	public XDIBasicAgent(List<XDIAgentRouter<?, ?>> agentTargets) {
 
 		this.agentTargets = agentTargets;
 	}
 
-	public XDIBasicAgent(AgentTarget agentTarget) {
+	public XDIBasicAgent(XDIAgentRouter<?, ?> agentTarget) {
 
-		this.agentTargets = Collections.singletonList(agentTarget);
+		this.agentTargets = new ArrayList<XDIAgentRouter<?, ?>> ();
+		this.agentTargets.add(agentTarget);
 	}
 
 	public XDIBasicAgent() {
 
-		this(new DiscoveryAgentTarget(XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT));
+		this(new XDIDiscoveryAgentRouter(XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT));
 	}
 
 	@Override
-	public AgentRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIClientRoute<?> route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// let's find a route
 
-		AgentRoute route = null;
+		XDIClientRoute<?> route = null;
 
-		for (AgentTarget agentTarget : this.getAgentTargets()) {
+		for (XDIAgentRouter<?, ?> agentTarget : this.getAgentTargets()) {
 
 			route = agentTarget.route(toPeerRootXDIArc);
 			if (route != null) break;
@@ -68,7 +69,7 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public AgentRoute route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
+	public XDIClientRoute<?> route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
 		// let's find out the TO peer root of the address
 
@@ -100,7 +101,7 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public AgentRoute route(MessageEnvelope messageEnvelope) throws Xdi2AgentException {
+	public XDIClientRoute<?> route(MessageEnvelope messageEnvelope) throws Xdi2AgentException {
 
 		// use the TO peer root
 
@@ -126,7 +127,7 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public AgentRoute route(Message message) throws Xdi2AgentException, Xdi2ClientException {
+	public XDIClientRoute<?> route(Message message) throws Xdi2AgentException, Xdi2ClientException {
 
 		// use the TO peer root
 
@@ -142,7 +143,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// route
 
-		AgentRoute route = this.route(XDIaddress);
+		XDIClientRoute<?> route = this.route(XDIaddress);
 		if (route == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
 
 		// client construction step
@@ -181,12 +182,12 @@ public class XDIBasicAgent implements XDIAgent {
 	 * Getters and setters
 	 */
 
-	public List<AgentTarget> getAgentTargets() {
+	public List<XDIAgentRouter<?, ?>> getAgentTargets() {
 
 		return this.agentTargets;
 	}
 
-	public void setAgentTargets(List<AgentTarget> agentTargets) {
+	public void setAgentTargets(List<XDIAgentRouter<?, ?>> agentTargets) {
 
 		this.agentTargets = agentTargets;
 	}

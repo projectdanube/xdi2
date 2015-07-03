@@ -1,32 +1,33 @@
-package xdi2.client.agent.target.impl;
+package xdi2.agent.routing.impl;
 
 import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.agent.target.AgentRoute;
-import xdi2.client.agent.target.AgentTarget;
+import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
+import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClientRoute;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 
-public class HTTPAgentTarget implements AgentTarget {
+public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
-	private static final Logger log = LoggerFactory.getLogger(HTTPAgentTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIHttpAgentRouter.class);
 
 	private XDIArc targetPeerRootXDIArc;
 	private CloudNumber cloudNumber;
 	private URL xdiEndpointUrl;
 
-	public HTTPAgentTarget(XDIArc targetPeerRootXDIArc, CloudNumber cloudNumber, URL xdiEndpointUrl) {
+	public XDIHttpAgentRouter(XDIArc targetPeerRootXDIArc, CloudNumber cloudNumber, URL xdiEndpointUrl) {
 
 		this.targetPeerRootXDIArc = targetPeerRootXDIArc;
 		this.cloudNumber = cloudNumber;
 		this.xdiEndpointUrl = xdiEndpointUrl;
 	}
 
-	public HTTPAgentTarget() {
+	public XDIHttpAgentRouter() {
 
 		this.targetPeerRootXDIArc = null;
 		this.cloudNumber = null;
@@ -34,7 +35,7 @@ public class HTTPAgentTarget implements AgentTarget {
 	}
 
 	@Override
-	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIHttpClientRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the target peer root
 
@@ -46,7 +47,7 @@ public class HTTPAgentTarget implements AgentTarget {
 
 		// construct the route
 
-		AgentRoute route = new HTTPAgentRoute(this.cloudNumber, this.xdiEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(this.cloudNumber, this.xdiEndpointUrl);
 
 		// done
 

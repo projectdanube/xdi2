@@ -1,38 +1,39 @@
-package xdi2.client.agent.target.impl;
+package xdi2.agent.routing.impl;
 
 import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.agent.target.AgentRoute;
-import xdi2.client.agent.target.AgentTarget;
+import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClientRoute;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 
-public class DiscoveryAgentTarget implements AgentTarget {
+public class XDIDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
-	private static final Logger log = LoggerFactory.getLogger(DiscoveryAgentTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIDiscoveryAgentRouter.class);
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public DiscoveryAgentTarget(XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
-	public DiscoveryAgentTarget() {
+	public XDIDiscoveryAgentRouter() {
 
 		this.xdiDiscoveryClient = null;
 	}
 
 	@Override
-	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIHttpClientRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the target peer root
 
@@ -69,7 +70,7 @@ public class DiscoveryAgentTarget implements AgentTarget {
 
 		// construct the route
 
-		AgentRoute route = new HTTPAgentRoute(cloudNumber, xdiEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber, xdiEndpointUrl);
 
 		// done
 
