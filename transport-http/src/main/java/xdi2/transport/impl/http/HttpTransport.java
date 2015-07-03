@@ -27,8 +27,8 @@ import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
+import xdi2.transport.impl.http.registry.HttpMessagingTargetMount;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
 
 public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpTransportResponse> {
 
@@ -99,7 +99,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			HttpMessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
 
 			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, messagingTargetMount);
 			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, messagingTargetMount);
@@ -119,7 +119,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		if (log.isDebugEnabled()) log.debug("Successfully processed " + request.getMethod() + " request.");
 	}
 
-	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
@@ -164,7 +164,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
@@ -209,7 +209,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
@@ -254,7 +254,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
@@ -307,7 +307,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		response.setContentLength(0);
 	}
 
-	private MessageEnvelope readFromUrl(MessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
+	private MessageEnvelope readFromUrl(HttpMessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 

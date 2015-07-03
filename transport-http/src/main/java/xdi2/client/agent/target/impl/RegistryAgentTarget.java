@@ -10,21 +10,11 @@ import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
 
-public class LocalAgentTarget implements AgentTarget {
+public class RegistryAgentTarget implements AgentTarget {
 
-	private static final Logger log = LoggerFactory.getLogger(LocalAgentTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(RegistryAgentTarget.class);
 
 	private Graph graph;
-
-	public LocalAgentTarget(Graph graph) {
-
-		this.graph = graph;
-	}
-
-	public LocalAgentTarget() {
-
-		this.graph = null;
-	}
 
 	@Override
 	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
@@ -47,7 +37,7 @@ public class LocalAgentTarget implements AgentTarget {
 
 		// construct the route
 
-		AgentRoute route = new LocalAgentRoute(this.getGraph(), ownerPeerRootXDIArc);
+		AgentRoute route = new RegistryAgentRoute(this.getGraph(), ownerPeerRootXDIArc);
 
 		// done
 

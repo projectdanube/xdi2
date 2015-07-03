@@ -14,12 +14,11 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.factory.AbstractMessagingTargetFactory;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 
-public abstract class PrototypingMessagingTargetFactory extends AbstractMessagingTargetFactory {
+public abstract class PrototypingHttpMessagingTargetFactory extends AbstractHttpMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(PrototypingMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(PrototypingHttpMessagingTargetFactory.class);
 
 	private MessagingTarget prototypeMessagingTarget;
 

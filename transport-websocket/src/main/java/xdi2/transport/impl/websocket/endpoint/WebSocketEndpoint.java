@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpointConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.transport.impl.http.registry.MessagingTargetFactoryMount;
+import xdi2.transport.impl.http.registry.HttpMessagingTargetFactoryMount;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 
 public class WebSocketEndpoint extends javax.websocket.Endpoint {
@@ -56,7 +56,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
 		// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
 
-		for (MessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
+		for (HttpMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
 			// TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");

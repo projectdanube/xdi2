@@ -26,6 +26,13 @@ public class HTTPAgentTarget implements AgentTarget {
 		this.xdiEndpointUrl = xdiEndpointUrl;
 	}
 
+	public HTTPAgentTarget() {
+
+		this.targetPeerRootXDIArc = null;
+		this.cloudNumber = null;
+		this.xdiEndpointUrl = null;
+	}
+
 	@Override
 	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
 
@@ -56,27 +63,27 @@ public class HTTPAgentTarget implements AgentTarget {
 	}
 
 	public void setTargetPeerRootXDIArc(XDIArc targetPeerRootXDIArc) {
-		
+
 		this.targetPeerRootXDIArc = targetPeerRootXDIArc;
 	}
 
 	public CloudNumber getCloudNumber() {
-		
+
 		return this.cloudNumber;
 	}
 
 	public void setCloudNumber(CloudNumber cloudNumber) {
-		
+
 		this.cloudNumber = cloudNumber;
 	}
 
 	public URL getXdiEndpointUrl() {
-		
+
 		return this.xdiEndpointUrl;
 	}
 
 	public void setXdiEndpointUrl(URL xdiEndpointUrl) {
-		
+
 		this.xdiEndpointUrl = xdiEndpointUrl;
 	}
 }

@@ -26,6 +26,10 @@ public class DiscoveryAgentTarget implements AgentTarget {
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
+	public DiscoveryAgentTarget() {
+
+		this.xdiDiscoveryClient = null;
+	}
 
 	@Override
 	public AgentRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {

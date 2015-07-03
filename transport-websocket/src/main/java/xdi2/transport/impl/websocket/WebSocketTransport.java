@@ -30,7 +30,7 @@ import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor.WriteList
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
+import xdi2.transport.registry.MessagingTargetMount;
 
 public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebSocketResponse> {
 

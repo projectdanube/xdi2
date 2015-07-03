@@ -1,10 +1,9 @@
 package xdi2.transport.impl.http.factory;
 
-import java.util.Iterator;
-
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.factory.MessagingTargetFactory;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
 
@@ -13,21 +12,7 @@ import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
  * 
  * @author Markus
  */
-public interface MessagingTargetFactory {
-
-	/*
-	 * Init and shutdown
-	 */
-
-	/**
-	 * This method gets called when the MessagingTargetFactory is initialized.
-	 */
-	public void init() throws Exception;
-
-	/**
-	 * This method gets called when the MessagingTargetFactory is no longer needed.
-	 */
-	public void shutdown() throws Exception;
+public interface HttpMessagingTargetFactory extends MessagingTargetFactory {
 
 	/*
 	 * Basic methods for mounting and updating
@@ -46,15 +31,8 @@ public interface MessagingTargetFactory {
 	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException;
 
 	/*
-	 * Advanced methods
+	 * Maintenance methods
 	 */
-
-	/**
-	 * Returns a list of all owner peer root XRIs of the MessagingTargets this
-	 * MessagingTargetFactory can create. Not all MessagingTargetFactorys may
-	 * support this.
-	 */
-	public Iterator<XDIArc> getOwnerPeerRootXDIArcs();
 
 	/**
 	 * Returns the request path at which this MessagingTargetFactory is able to

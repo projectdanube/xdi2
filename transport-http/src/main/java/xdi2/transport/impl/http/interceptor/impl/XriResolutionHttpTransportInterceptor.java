@@ -26,10 +26,10 @@ import xdi2.core.util.iterators.IteratorArrayMaker;
 import xdi2.core.util.iterators.MappingContextNodeXDIAddressIterator;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
+import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.HttpTransport;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
+import xdi2.transport.impl.http.registry.HttpMessagingTargetMount;
 
 /**
  * This interceptor can act as a lightweight XRI resolution server based on a "registry graph".
@@ -55,7 +55,7 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().startsWith(this.getResolvePath())) return false;
 

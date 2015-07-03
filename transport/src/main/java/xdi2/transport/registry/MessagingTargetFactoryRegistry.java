@@ -1,9 +1,9 @@
-package xdi2.transport.impl.http.registry;
+package xdi2.transport.registry;
 
 import java.util.List;
 
 public interface MessagingTargetFactoryRegistry {
 
-	public List<MessagingTargetFactoryMount> getMessagingTargetFactoryMounts();
+	public List<? extends MessagingTargetFactoryMount> getMessagingTargetFactoryMounts();
 	public int getNumMessagingTargetFactorys();
 }

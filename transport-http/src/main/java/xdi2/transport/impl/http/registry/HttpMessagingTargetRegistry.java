@@ -17,7 +17,10 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.factory.MessagingTargetFactory;
+import xdi2.transport.impl.http.factory.HttpMessagingTargetFactory;
+import xdi2.transport.registry.MessagingTargetFactoryRegistry;
+import xdi2.transport.registry.MessagingTargetMount;
+import xdi2.transport.registry.MessagingTargetRegistry;
 
 /**
  * Registry to mount and unmount messaging targets.
@@ -31,8 +34,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	public static final boolean DEFAULT_CHECKDISABLED = true;
 	public static final boolean DEFAULT_CHECKEXPIRED = true;
 
-	private Map<String, MessagingTargetMount> messagingTargetMounts;
-	private Map<String, MessagingTargetFactoryMount> messagingTargetFactoryMounts;
+	private Map<String, HttpMessagingTargetMount> messagingTargetMounts;
+	private Map<String, HttpMessagingTargetFactoryMount> messagingTargetFactoryMounts;
 
 	private ApplicationContext applicationContext;
 
@@ -41,8 +44,8 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 	public HttpMessagingTargetRegistry() {
 
-		this.messagingTargetMounts = new HashMap<String, MessagingTargetMount> ();
-		this.messagingTargetFactoryMounts = new HashMap<String, MessagingTargetFactoryMount> ();
+		this.messagingTargetMounts = new HashMap<String, HttpMessagingTargetMount> ();
+		this.messagingTargetFactoryMounts = new HashMap<String, HttpMessagingTargetFactoryMount> ();
 
 		this.applicationContext = null;
 
@@ -88,12 +91,12 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		log.info("Mounting messaging target factories...");
 
-		Map<String, MessagingTargetFactory> messagingTargetFactorys = this.applicationContext.getBeansOfType(MessagingTargetFactory.class);
+		Map<String, HttpMessagingTargetFactory> messagingTargetFactorys = this.applicationContext.getBeansOfType(HttpMessagingTargetFactory.class);
 
-		for (Map.Entry<String, MessagingTargetFactory> entry : messagingTargetFactorys.entrySet()) {
+		for (Map.Entry<String, HttpMessagingTargetFactory> entry : messagingTargetFactorys.entrySet()) {
 
 			String path = entry.getKey();
-			MessagingTargetFactory messagingTargetFactory = entry.getValue();
+			HttpMessagingTargetFactory messagingTargetFactory = entry.getValue();
 
 			if (! path.startsWith("/")) continue;
 			if (! path.endsWith("/*")) continue;
@@ -112,7 +115,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// unmount all our messaging targets
 
-		List<MessagingTargetMount> tempList = this.getMessagingTargetMounts();
+		List<HttpMessagingTargetMount> tempList = this.getMessagingTargetMounts();
 
 		for (MessagingTargetMount messagingTargetMount : tempList) { 
 
@@ -163,16 +166,10 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		while (messagingTargetPath.startsWith("/")) messagingTargetPath = messagingTargetPath.substring(1);
 		messagingTargetPath = "/" + messagingTargetPath;
 
-		MessagingTargetMount messagingTargetMount = new MessagingTargetMount(messagingTargetPath, messagingTarget);
+		HttpMessagingTargetMount messagingTargetMount = new HttpMessagingTargetMount(messagingTargetPath, messagingTarget);
 
 		this.messagingTargetMounts.put(messagingTargetPath, messagingTargetMount);
 
-		// install websocket endpoint
-
-		/*		WebSocketEndpoint.install(servletContext, webSocketTransport, messagingTargetMount);
-
-		((WebApplicationContext) this.applicationContext)
-		 */	
 		// done
 
 		log.info("Messaging target " + messagingTarget.getClass().getCanonicalName() + " mounted at path " + messagingTargetPath + ".");
@@ -184,7 +181,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * Mount a messaging target factory in the registry.
 	 * @param messagingTargetFactory The messaging target factory to mount.
 	 */
-	public synchronized MessagingTargetFactoryMount mountMessagingTargetFactory(String messagingTargetFactoryPath, MessagingTargetFactory messagingTargetFactory) throws Xdi2TransportException {
+	public synchronized HttpMessagingTargetFactoryMount mountMessagingTargetFactory(String messagingTargetFactoryPath, HttpMessagingTargetFactory messagingTargetFactory) throws Xdi2TransportException {
 
 		if (messagingTargetFactoryPath == null) throw new NullPointerException("Cannot mount a messaging target factory without path.");
 
@@ -203,7 +200,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		if (messagingTargetFactoryPath.endsWith("/*")) messagingTargetFactoryPath = messagingTargetFactoryPath.substring(0, messagingTargetFactoryPath.length() - 2);
 		messagingTargetFactoryPath = "/" + messagingTargetFactoryPath;
 
-		MessagingTargetFactoryMount messagingTargetFactoryMount = new MessagingTargetFactoryMount(messagingTargetFactoryPath, messagingTargetFactory);
+		HttpMessagingTargetFactoryMount messagingTargetFactoryMount = new HttpMessagingTargetFactoryMount(messagingTargetFactoryPath, messagingTargetFactory);
 
 		this.messagingTargetFactoryMounts.put(messagingTargetFactoryPath, messagingTargetFactoryMount);
 
@@ -245,9 +242,9 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// unmount messaging target
 
-		for (Iterator<Entry<String, MessagingTargetMount>> messagingTargetMounts = this.messagingTargetMounts.entrySet().iterator(); messagingTargetMounts.hasNext(); ) {
+		for (Iterator<Entry<String, HttpMessagingTargetMount>> messagingTargetMounts = this.messagingTargetMounts.entrySet().iterator(); messagingTargetMounts.hasNext(); ) {
 
-			MessagingTargetMount messagingTargetMount = messagingTargetMounts.next().getValue();
+			HttpMessagingTargetMount messagingTargetMount = messagingTargetMounts.next().getValue();
 
 			if (messagingTargetMount.getMessagingTarget() == messagingTarget) messagingTargetMounts.remove();
 		}
@@ -261,7 +258,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * Unmounts a messaging target factory from the registry.
 	 * @param messagingTargetFactory The messaging target factory to unmount.
 	 */
-	public synchronized void unmountMessagingTargetFactory(MessagingTargetFactory messagingTargetFactory) {
+	public synchronized void unmountMessagingTargetFactory(HttpMessagingTargetFactory messagingTargetFactory) {
 
 		if (log.isDebugEnabled()) log.debug("Unmounting messaging target factory " + messagingTargetFactory.getClass().getSimpleName());
 
@@ -277,9 +274,9 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// unmount messaging target factory
 
-		for (Iterator<Entry<String, MessagingTargetFactoryMount>> messagingTargetFactoryMounts = this.messagingTargetFactoryMounts.entrySet().iterator(); messagingTargetFactoryMounts.hasNext(); ) {
+		for (Iterator<Entry<String, HttpMessagingTargetFactoryMount>> messagingTargetFactoryMounts = this.messagingTargetFactoryMounts.entrySet().iterator(); messagingTargetFactoryMounts.hasNext(); ) {
 
-			MessagingTargetFactoryMount messagingTargetFactoryMount = messagingTargetFactoryMounts.next().getValue();
+			HttpMessagingTargetFactoryMount messagingTargetFactoryMount = messagingTargetFactoryMounts.next().getValue();
 
 			if (messagingTargetFactoryMount.getMessagingTargetFactory() == messagingTargetFactory) messagingTargetFactoryMounts.remove();
 		}
@@ -293,7 +290,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 * Lookup
 	 */
 
-	public synchronized MessagingTargetMount lookup(String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
+	public synchronized HttpMessagingTargetMount lookup(String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Looking up messaging target for request path " + requestPath);
 
@@ -307,7 +304,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		// look at messaging target factorys
 
 		String messagingTargetFactoryPath = this.findMessagingTargetFactoryPath(requestPath);
-		MessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : this.getMessagingTargetFactory(messagingTargetFactoryPath);
+		HttpMessagingTargetFactory messagingTargetFactory = messagingTargetFactoryPath == null ? null : this.getMessagingTargetFactory(messagingTargetFactoryPath);
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetFactoryPath=" + messagingTargetFactoryPath + ", messagingTargetFactory=" + (messagingTargetFactory == null ? null : messagingTargetFactory.getClass().getSimpleName()));
 
@@ -337,16 +334,17 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// done
 
-		return new MessagingTargetMount(messagingTargetPath, messagingTarget);
+		return new HttpMessagingTargetMount(messagingTargetPath, messagingTarget);
 	}
 
-	public synchronized MessagingTargetMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException {
+	@Override
+	public synchronized HttpMessagingTargetMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootXDIArc);
 
 		// look at messaging targets
 
-		for (MessagingTargetMount messagingTargetMount : this.getMessagingTargetMounts()) {
+		for (HttpMessagingTargetMount messagingTargetMount : this.getMessagingTargetMounts()) {
 
 			String requestPath = messagingTargetMount.getMessagingTargetPath();
 			if (! ownerPeerRootXDIArc.equals(messagingTargetMount.getMessagingTarget().getOwnerPeerRootXDIArc())) continue;
@@ -356,7 +354,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		// look at messaging target factorys
 
-		for (MessagingTargetFactoryMount messagingTargetFactoryMount : this.getMessagingTargetFactoryMounts()) {
+		for (HttpMessagingTargetFactoryMount messagingTargetFactoryMount : this.getMessagingTargetFactoryMounts()) {
 
 			String requestPath = messagingTargetFactoryMount.getMessagingTargetFactory().getRequestPath(messagingTargetFactoryMount.getMessagingTargetFactoryPath(), ownerPeerRootXDIArc);
 			if (requestPath == null) continue;
@@ -374,9 +372,9 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 */
 
 	@Override
-	public synchronized List<MessagingTargetMount> getMessagingTargetMounts() {
+	public synchronized List<HttpMessagingTargetMount> getMessagingTargetMounts() {
 
-		return new ArrayList<MessagingTargetMount> (this.messagingTargetMounts.values());
+		return new ArrayList<HttpMessagingTargetMount> (this.messagingTargetMounts.values());
 	}
 
 	@Override
@@ -393,7 +391,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		String longestMessagingTargetPath = null;
 
-		for (Map.Entry<String, MessagingTargetMount> messagingTargetMount : this.messagingTargetMounts.entrySet()) {
+		for (Map.Entry<String, HttpMessagingTargetMount> messagingTargetMount : this.messagingTargetMounts.entrySet()) {
 
 			if (requestPath.startsWith(messagingTargetMount.getKey()) && (longestMessagingTargetPath == null || messagingTargetMount.getKey().length() > longestMessagingTargetPath.length())) {
 
@@ -425,9 +423,9 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 	 */
 
 	@Override
-	public synchronized List<MessagingTargetFactoryMount> getMessagingTargetFactoryMounts() {
+	public synchronized List<HttpMessagingTargetFactoryMount> getMessagingTargetFactoryMounts() {
 
-		return new ArrayList<MessagingTargetFactoryMount> (this.messagingTargetFactoryMounts.values());
+		return new ArrayList<HttpMessagingTargetFactoryMount> (this.messagingTargetFactoryMounts.values());
 	}
 
 	@Override
@@ -444,7 +442,7 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 
 		String longestMessagingTargetFactoryPath = null;
 
-		for (Map.Entry<String, MessagingTargetFactoryMount> messagingTargetFactoryMount : this.messagingTargetFactoryMounts.entrySet()) {
+		for (Map.Entry<String, HttpMessagingTargetFactoryMount> messagingTargetFactoryMount : this.messagingTargetFactoryMounts.entrySet()) {
 
 			if (requestPath.startsWith(messagingTargetFactoryMount.getKey()) && (longestMessagingTargetFactoryPath == null || messagingTargetFactoryMount.getKey().length() > longestMessagingTargetFactoryPath.length())) {
 
@@ -457,11 +455,11 @@ public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, Mes
 		return longestMessagingTargetFactoryPath;
 	}
 
-	public synchronized MessagingTargetFactory getMessagingTargetFactory(String messagingTargetFactoryPath) {
+	public synchronized HttpMessagingTargetFactory getMessagingTargetFactory(String messagingTargetFactoryPath) {
 
 		if (! messagingTargetFactoryPath.startsWith("/")) messagingTargetFactoryPath = "/" + messagingTargetFactoryPath;
 
-		MessagingTargetFactoryMount messagingTargetFactoryMount = this.messagingTargetFactoryMounts.get(messagingTargetFactoryPath);
+		HttpMessagingTargetFactoryMount messagingTargetFactoryMount = this.messagingTargetFactoryMounts.get(messagingTargetFactoryPath);
 
 		return messagingTargetFactoryMount == null ? null : messagingTargetFactoryMount.getMessagingTargetFactory();
 	}

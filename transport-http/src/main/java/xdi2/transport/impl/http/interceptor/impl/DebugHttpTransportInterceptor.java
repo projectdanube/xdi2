@@ -49,10 +49,10 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.factory.MessagingTargetFactory;
+import xdi2.transport.impl.http.factory.HttpMessagingTargetFactory;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.impl.http.registry.MessagingTargetFactoryMount;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
+import xdi2.transport.impl.http.registry.HttpMessagingTargetFactoryMount;
+import xdi2.transport.impl.http.registry.HttpMessagingTargetMount;
 import xdi2.transport.interceptor.TransportInterceptor;
 
 /**
@@ -121,7 +121,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -144,7 +144,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
 
-			MessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
+			HttpMessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
 			if (cmdMessagingTargetFactory != null) httpTransport.getHttpMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
 
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
@@ -420,7 +420,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -429,8 +429,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		File[] pluginFiles = PluginsLoader.getFiles();
 		Properties xdi2Properties = XDI2Properties.properties;
 		Properties systemProperties = System.getProperties();
-		List<MessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
-		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
+		List<HttpMessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
+		List<HttpMessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
 		VelocityContext context = new VelocityContext();
 		context.put("httptransport", httpTransport);
@@ -459,13 +459,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}

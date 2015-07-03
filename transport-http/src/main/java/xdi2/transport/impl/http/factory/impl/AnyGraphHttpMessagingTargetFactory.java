@@ -20,9 +20,9 @@ import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
  * 
  * @author markus
  */
-public class AnyGraphMessagingTargetFactory extends PrototypingMessagingTargetFactory {
+public class AnyGraphHttpMessagingTargetFactory extends PrototypingHttpMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(AnyGraphMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(AnyGraphHttpMessagingTargetFactory.class);
 
 	@Override
 	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {

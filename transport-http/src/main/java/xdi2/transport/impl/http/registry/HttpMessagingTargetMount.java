@@ -1,19 +1,20 @@
 package xdi2.transport.impl.http.registry;
 
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.transport.registry.MessagingTargetMount;
 
-public class MessagingTargetMount {
+public class HttpMessagingTargetMount implements MessagingTargetMount {
 
 	private String messagingTargetPath;
 	private MessagingTarget messagingTarget;
 
-	public MessagingTargetMount(String messagingTargetPath, MessagingTarget messagingTarget) {
+	public HttpMessagingTargetMount(String messagingTargetPath, MessagingTarget messagingTarget) {
 
 		this.messagingTargetPath = messagingTargetPath;
 		this.messagingTarget = messagingTarget;
 	}
 
-	public MessagingTargetMount() {
+	public HttpMessagingTargetMount() {
 
 	}
 
@@ -27,6 +28,7 @@ public class MessagingTargetMount {
 		this.messagingTargetPath = messagingTargetPath;
 	}
 
+	@Override
 	public MessagingTarget getMessagingTarget() {
 
 		return this.messagingTarget;
