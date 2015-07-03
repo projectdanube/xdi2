@@ -22,14 +22,19 @@ public class LightMessagingResponse extends AbstractMessagingResponse implements
 	 * Static methods
 	 */
 
-	public static boolean isValid(Graph resultGraph) {
+	public static boolean isValid(Graph graph) {
 
 		return true;
 	}
 
-	public static LightMessagingResponse fromResultGraph(Graph resultGraph) {
+	public static LightMessagingResponse fromGraph(Graph graph) {
 
-		if (! isValid(resultGraph)) return(null);
+		if (! isValid(graph)) return(null);
+
+		return fromResultGraph(graph);
+	}
+
+	public static LightMessagingResponse fromResultGraph(Graph resultGraph) {
 
 		return new LightMessagingResponse(resultGraph);
 	}
