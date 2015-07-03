@@ -58,17 +58,17 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 	@Override
 	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		this.readGraph();
+		this.readGraph(executionContext);
 
 		super.execute(messageEnvelope, executionContext, executionResult);
 
-		this.writeGraph();
+		this.writeGraph(executionContext);
 	}
 
-	private void readGraph() throws Xdi2MessagingException {
+	private void readGraph(ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIReader xdiReader = XDIReaderRegistry.forFormat(this.mimeType, null);
-		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.mimeType, null, null);
+		if (xdiReader == null) throw new Xdi2MessagingException("Cannot read this format: " + this.mimeType, null, executionContext);
 
 		Graph graph = this.getGraph();
 		graph.clear();
@@ -85,7 +85,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot read file: " + ex.getMessage(), ex, null);
+			throw new Xdi2MessagingException("Cannot read file: " + ex.getMessage(), ex, executionContext);
 		} finally {
 
 			if (reader != null) {
@@ -101,10 +101,10 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 		if (this.mimeType == null) this.mimeType = XDIWriterRegistry.getDefault().getFormat();
 	}
 
-	private void writeGraph() throws Xdi2MessagingException {
+	private void writeGraph(ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIWriter xdiWriter = XDIWriterRegistry.forFormat(this.mimeType, null);
-		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.mimeType, null, null);
+		if (xdiWriter == null) throw new Xdi2MessagingException("Cannot write this format: " + this.mimeType, null, executionContext);
 
 		Graph graph = this.getGraph();
 		
@@ -119,7 +119,7 @@ public class FileMessagingTarget extends GraphMessagingTarget {
 			writer.close();
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Cannot write file: " + ex.getMessage(), ex, null);
+			throw new Xdi2MessagingException("Cannot write file: " + ex.getMessage(), ex, executionContext);
 		} finally {
 
 			if (writer != null) try { writer.close(); } catch (Exception ex) { }
