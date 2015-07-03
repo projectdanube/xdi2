@@ -52,9 +52,9 @@ public abstract class XDIAbstractClient implements XDIClient {
 
 		// send the messaging request and retrieve the messaging response
 
-		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
+		if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
 		MessagingResponse messagingResponse = this.sendInternal(messageEnvelope);
-		if (log.isDebugEnabled()) log.debug("MessagingResponse: " + messagingResponse);
+		if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessagingResponse: " + messagingResponse);
 
 		// timestamp
 

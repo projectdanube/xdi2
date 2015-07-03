@@ -145,10 +145,10 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			// execute the message envelope against the messaging target
 
-			if (log.isDebugEnabled()) log.debug("We are running: " + VERSION);
-			if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope);
+			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": We are running: " + VERSION);
+			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
 			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
-			if (log.isDebugEnabled()) log.debug("ExecutionResult: " + executionResult);
+			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult: " + executionResult);
 
 			// make messaging response
 
