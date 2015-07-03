@@ -72,18 +72,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return null;
 	}
 
-	/**
-	 * Factory method that casts an Operation to the right subclass, e.g. to a GetOperation.
-	 * @param operation The Operation to be cast.
-	 * @return The casted Operation.
-	 */
-	public static Operation castOperation(Operation operation) {
-
-		if (operation == null) return null;
-
-		return fromMessageAndRelation(operation.getMessage(), operation.getRelation());
-	}
-
 	/*
 	 * Instance methods
 	 */

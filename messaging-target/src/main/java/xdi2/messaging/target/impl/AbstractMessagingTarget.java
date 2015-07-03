@@ -274,7 +274,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			while (operations.hasNext()) {
 
 				Operation operation = operations.next();
-				operation = Operation.castOperation(operation);
 
 				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
 
