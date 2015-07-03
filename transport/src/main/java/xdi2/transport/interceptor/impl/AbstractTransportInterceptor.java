@@ -4,7 +4,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
 import xdi2.transport.TransportResponse;

@@ -2,7 +2,7 @@ package xdi2.transport.impl.http.interceptor.impl;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransportRequest;

@@ -1,8 +1,8 @@
 package xdi2.messaging.response;
 
 import xdi2.core.Graph;
+import xdi2.core.features.error.XdiError;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.messaging.error.MessagingError;
 
 public abstract class AbstractMessagingResponse implements MessagingResponse {
 
@@ -49,15 +49,15 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	 */
 
 	@Override
-	public boolean hasMessagingError() {
+	public boolean hasXdiError() {
 
-		return this.getMessagingError() != null;
+		return this.getXdiError() != null;
 	}
 
 	@Override
-	public MessagingError getMessagingError() {
+	public XdiError getXdiError() {
 
-		return MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(this.getResultGraph()), false);
+		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(this.getResultGraph()), false);
 	}
 
 	/*

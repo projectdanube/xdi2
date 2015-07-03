@@ -40,7 +40,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;

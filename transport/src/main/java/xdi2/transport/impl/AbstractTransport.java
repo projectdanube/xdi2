@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.features.signatures.KeyPairSignature;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -23,10 +22,8 @@ import xdi2.messaging.response.LightMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing.GraphSigner;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.Transport;
@@ -249,11 +246,6 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);
 			}
-
-			GraphSigner signer = new GraphSigner(((GraphMessagingTarget) messagingTarget).getGraph());
-			signer.setDigestAlgorithm(KeyPairSignature.DIGEST_ALGORITHM_SHA);
-			signer.setDigestLength(256);
-			signer.sign(responseMessage);
 		}
 
 		FullMessagingResponse fullMessagingResponse = FullMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);

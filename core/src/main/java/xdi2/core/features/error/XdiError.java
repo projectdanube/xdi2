@@ -1,4 +1,4 @@
-package xdi2.messaging.error;
+package xdi2.core.features.error;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,11 +17,11 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 
 /**
- * An XDI messaging error, represented as an XDI attribute.
+ * An XDI error, represented as an XDI attribute.
  * 
  * @author markus
  */
-public class MessagingError implements Serializable {
+public class XdiError implements Serializable {
 
 	private static final long serialVersionUID = 5732150498065911411L;
 
@@ -36,7 +36,7 @@ public class MessagingError implements Serializable {
 
 	private XdiAttribute xdiAttribute;
 
-	protected MessagingError(XdiAttribute xdiAttribute) {
+	protected XdiError(XdiAttribute xdiAttribute) {
 
 		if (xdiAttribute == null) throw new NullPointerException();
 
@@ -48,9 +48,9 @@ public class MessagingError implements Serializable {
 	 */
 
 	/**
-	 * Checks if an XDI attribute is a valid XDI messaging error.
+	 * Checks if an XDI attribute is a valid XDI error.
 	 * @param xdiAttribute The XDI attribute to check.
-	 * @return True if the XDI attribute is a valid XDI messaging error.
+	 * @return True if the XDI attribute is a valid XDI error.
 	 */
 	public static boolean isValid(XdiAttribute xdiAttribute) {
 
@@ -65,27 +65,27 @@ public class MessagingError implements Serializable {
 	}
 
 	/**
-	 * Factory method that creates an XDI messaging error bound to a given XDI attribute.
-	 * @param xdiAttribute The XDI attribute that is an XDI messaging error.
-	 * @return The XDI messaging error.
+	 * Factory method that creates an XDI error bound to a given XDI attribute.
+	 * @param xdiAttribute The XDI attribute that is an XDI error.
+	 * @return The XDI error.
 	 */
-	public static MessagingError fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static XdiError fromXdiAttribute(XdiAttribute xdiAttribute) {
 
 		if (! isValid(xdiAttribute)) return null;
 
-		return new MessagingError(xdiAttribute);
+		return new XdiError(xdiAttribute);
 	}
 
 	/**
-	 * Factory method that finds or creates an XDI messaging error for a context.
-	 * @return The XDI messaging error.
+	 * Factory method that finds or creates an XDI error for a context.
+	 * @return The XDI error.
 	 */
-	public static MessagingError findMessagingError(XdiContext<?> xdiContext, boolean create) {
+	public static XdiError findXdiError(XdiContext<?> xdiContext, boolean create) {
 
 		XdiAttribute xdiAttribute = xdiContext.getXdiAttributeSingleton(XDI_ARC_AS_ERROR, create);
 		if (xdiAttribute == null) return null;
 
-		return new MessagingError(xdiAttribute);
+		return new XdiError(xdiAttribute);
 	}
 
 	/*
@@ -93,8 +93,8 @@ public class MessagingError implements Serializable {
 	 */
 
 	/**
-	 * Returns the underlying XDI attribute to which this XDI messaging error is bound.
-	 * @return An XDI attribute that represents the XDI messaging error.
+	 * Returns the underlying XDI attribute to which this XDI error is bound.
+	 * @return An XDI attribute that represents the XDI error.
 	 */
 	public XdiAttribute getXdiAttribute() {
 
@@ -102,8 +102,8 @@ public class MessagingError implements Serializable {
 	}
 
 	/**
-	 * Returns the underlying context node to which this XDI messaging error is bound.
-	 * @return A context node that represents the XDI messaging error.
+	 * Returns the underlying context node to which this XDI error is bound.
+	 * @return A context node that represents the XDI error.
 	 */
 	public ContextNode getContextNode() {
 
@@ -131,5 +131,38 @@ public class MessagingError implements Serializable {
 	public void setErrorString(String errorString) {
 
 		this.getXdiAttribute().setLiteralDataString(errorString);
+	}
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getContextNode().toString();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object == null || ! (object instanceof XdiContext)) return false;
+		if (object == this) return true;
+
+		XdiError other = (XdiError) object;
+
+		// two XDi errors are equal if their context nodes are equal
+
+		return this.getContextNode().equals(other.getContextNode());
+	}
+
+	@Override
+	public int hashCode() {
+
+		int hashCode = 1;
+
+		hashCode = (hashCode * 31) + this.getContextNode().hashCode();
+
+		return hashCode;
 	}
 }

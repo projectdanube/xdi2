@@ -2,8 +2,8 @@ package xdi2.client.events;
 
 import java.util.Date;
 
+import xdi2.core.features.error.XdiError;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.error.MessagingError;
 import xdi2.messaging.response.MessagingResponse;
 
 public class XDISendErrorEvent extends XDISendEvent {
@@ -15,8 +15,8 @@ public class XDISendErrorEvent extends XDISendEvent {
 		super(source, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp);
 	}
 
-	public MessagingError getMessagingError() {
+	public XdiError getXdiError() {
 
-		return this.getMessagingResponse().getMessagingError();
+		return this.getMessagingResponse().getXdiError();
 	}
 }

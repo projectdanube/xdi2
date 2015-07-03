@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
+package xdi2.client.manipulator.impl.signing;
 
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
@@ -20,9 +20,6 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 /**
  * A Signer that can authenticate an XDI message using a "private key graph",
@@ -46,15 +43,6 @@ public class GraphSigner extends PrivateKeySigner {
 		super();
 
 		this.privateKeyGraph = null;
-	}
-
-	@Override
-	public void init(MessagingTarget messagingTarget, SigningProxyManipulator signatureMessageEnvelopeManipulator) throws Exception {
-
-		super.init(messagingTarget, signatureMessageEnvelopeManipulator);
-
-		if (this.getPrivateKeyGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPrivateKeyGraph(((GraphMessagingTarget) messagingTarget).getGraph());
-		if (this.getPrivateKeyGraph() == null) throw new Xdi2MessagingException("No private key graph.", null, null);
 	}
 
 	@Override

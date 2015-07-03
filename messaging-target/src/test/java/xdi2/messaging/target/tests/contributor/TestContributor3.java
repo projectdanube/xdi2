@@ -4,9 +4,9 @@ import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.operations.GetOperation;
-import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
+import xdi2.messaging.target.contributor.impl.AbstractContributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 

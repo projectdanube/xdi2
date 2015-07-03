@@ -1,6 +1,7 @@
-package xdi2.messaging.target.interceptor;
+package xdi2.messaging.target.interceptor.impl;
 
 import xdi2.messaging.target.impl.AbstractExtension;
+import xdi2.messaging.target.interceptor.Interceptor;
 
 public abstract class AbstractInterceptor <CONTAINER >extends AbstractExtension<CONTAINER> implements Interceptor<CONTAINER> {
 

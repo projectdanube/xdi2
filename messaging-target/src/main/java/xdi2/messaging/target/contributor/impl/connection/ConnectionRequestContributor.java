@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.agent.XDIAgent;
 import xdi2.client.agent.impl.XDIBasicAgent;
+import xdi2.client.agent.target.impl.DiscoveryAgentTarget;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -25,9 +26,9 @@ import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
-import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
+import xdi2.messaging.target.contributor.impl.AbstractContributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -117,8 +118,8 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			XDIAgent xdiAgent = new XDIBasicAgent(this.getXdiDiscoveryClient());
-			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress, null);
+			XDIAgent xdiAgent = new XDIBasicAgent(new DiscoveryAgentTarget(this.getXdiDiscoveryClient()));
+			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);

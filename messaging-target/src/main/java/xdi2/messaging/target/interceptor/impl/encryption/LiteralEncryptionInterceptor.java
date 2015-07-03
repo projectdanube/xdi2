@@ -15,9 +15,9 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
  * This interceptor encrypts literals in an incoming XDI message, and decrypts literals

@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.proxy.manipulator.impl.signing;
+package xdi2.client.manipulator.impl.signing;
 
 import java.security.PrivateKey;
 import java.security.interfaces.RSAKey;
