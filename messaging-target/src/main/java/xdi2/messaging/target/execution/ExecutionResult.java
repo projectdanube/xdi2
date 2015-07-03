@@ -82,7 +82,8 @@ public final class ExecutionResult {
 
 		if (ex instanceof Xdi2MessagingException) {
 
-			exceptionOperation = ((Xdi2MessagingException) ex).getExecutionContext().getExceptionOperation();
+			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
+			exceptionOperation = executionContext == null ? null : executionContext.getExceptionOperation();
 			if (! executionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
 		}
 
