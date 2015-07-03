@@ -175,8 +175,8 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 			Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap = pushCommandsXDIStatementMap.get(pushCommand);
 
 			Set<Operation> pushCommandOperations = new HashSet<Operation> ();
-			pushCommandOperations.addAll(pushCommandXDIAddressMap.keySet());
-			pushCommandOperations.addAll(pushCommandXDIStatementMap.keySet());
+			if (pushCommandXDIAddressMap != null) pushCommandOperations.addAll(pushCommandXDIAddressMap.keySet());
+			if (pushCommandXDIStatementMap != null) pushCommandOperations.addAll(pushCommandXDIStatementMap.keySet());
 
 			try {
 

@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl.push;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 	@Override
 	public void executePush(PushCommand pushCommand, Set<Operation> pushCommandOperations, Map<Operation, XDIAddress> pushCommandXDIAddressMap, Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
-		Exception ex = null;
+		List<Exception> exs = new ArrayList<Exception> ();
 
 		for (XDIAddress toXDIAddress : pushCommand.getToXDIAddresses()) {
 
@@ -68,8 +69,8 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 
 				for (Operation pushCommandOperation : pushCommandOperations) {
 
-					XDIAddress pushCommandXDIAddress = pushCommandXDIAddressMap.get(pushCommandOperation);
-					List<XDIStatement> pushCommandXDIStatements = pushCommandXDIStatementMap.get(pushCommandOperation);
+					XDIAddress pushCommandXDIAddress = pushCommandXDIAddressMap == null ? null : pushCommandXDIAddressMap.get(pushCommandOperation);
+					List<XDIStatement> pushCommandXDIStatements = pushCommandXDIStatementMap == null ? null : pushCommandXDIStatementMap.get(pushCommandOperation);
 
 					if (pushCommandXDIAddress != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIAddress);
 					if (pushCommandXDIStatements != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIStatements.iterator());
@@ -82,18 +83,20 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 				// done
 
 				if (log.isDebugEnabled()) log.debug("Successfully pushed to " + toXDIAddress);
-			} catch (Exception ex2) {
+			} catch (Exception ex) {
 
-				log.warn("Failed to push to " + toXDIAddress + ": " + ex2.getMessage(), ex2);
-				ex = ex2;
+				log.warn("Failed to push to " + toXDIAddress + ": " + ex.getMessage(), ex);
+				exs.add(ex);
 			}
 		}
 
 		// raise exception if any
 
-		if (ex != null) {
+		if (exs.size() > 0) {
 
-			throw new Xdi2ClientException("At least one push failed: " + ex.getMessage(), ex);
+			if (exs.size() == 1) throw new Xdi2ClientException("Push failed: " + exs.get(0).getMessage(), exs.get(0));
+
+			throw new Xdi2ClientException("Multiple pushes failed. First failed push is: " + exs.get(0), exs.get(0));
 		}
 	}
 
