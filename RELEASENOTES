@@ -1,6 +1,10 @@
 release 0.8 ("Orșova")
 ========================
 
+* use Java 1.7 by default, because 1.6. has a DH 1024 bit limitation for SSL connections 
+
+* major updates to XDI agent framework, now supports concepts "AgentTarget" and "AgentRoute".
+
 * removed class ErrorMessageResult. introduced class MessagingError.
 use MessagingResponse.getMessagingError() instead of class ErrorMessageResult.
 
