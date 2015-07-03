@@ -3,10 +3,9 @@ package xdi2.core.features.push;
 import java.io.Serializable;
 
 import xdi2.core.ContextNode;
-import xdi2.core.features.nodetypes.XdiAttributeCollection;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
@@ -27,11 +26,11 @@ public class PushCommand implements Serializable {
 	public static final XDIArc XDI_ARC_PUSH = XDIArc.create("$push");
 	public static final XDIAddress XDI_ADD_PUSH = XDIAddress.fromComponent(XDI_ARC_PUSH);
 
-	public static final XDIArc XDI_ARC_AS_PUSH = XdiAttributeSingleton.createXDIArc(XDI_ARC_PUSH);
-	public static final XDIAddress XDI_ADD_AS_PUSH = XDIAddress.fromComponent(XDI_ARC_AS_PUSH);
+	public static final XDIArc XDI_ARC_ES_PUSH = XdiEntitySingleton.createXDIArc(XDI_ARC_PUSH);
+	public static final XDIAddress XDI_ADD_ES_PUSH = XDIAddress.fromComponent(XDI_ARC_ES_PUSH);
 
-	public static final XDIArc XDI_ARC_AC_PUSH = XdiAttributeCollection.createXDIArc(XDI_ARC_PUSH);
-	public static final XDIAddress XDI_ADD_AC_PUSH = XDIAddress.fromComponent(XDI_ARC_AC_PUSH);
+	public static final XDIArc XDI_ARC_EC_PUSH = XdiEntityCollection.createXDIArc(XDI_ARC_PUSH);
+	public static final XDIAddress XDI_ADD_EC_PUSH = XDIAddress.fromComponent(XDI_ARC_EC_PUSH);
 
 	public static final XDIAddress XDI_ADD_TARGET = XDIAddress.create("$is()");
 
@@ -56,11 +55,11 @@ public class PushCommand implements Serializable {
 	public static boolean isValid(XdiEntity xdiEntity) {
 
 		if (xdiEntity instanceof XdiEntitySingleton)
-			return ((XdiEntitySingleton) xdiEntity).getXDIArc().equals(XDI_ARC_AS_PUSH);
+			return ((XdiEntitySingleton) xdiEntity).getXDIArc().equals(XDI_ARC_ES_PUSH);
 		else if (xdiEntity instanceof XdiEntityInstanceUnordered)
-			return ((XdiEntityInstanceUnordered) xdiEntity).getXdiCollection().getXDIArc().equals(XDI_ARC_AC_PUSH);
+			return ((XdiEntityInstanceUnordered) xdiEntity).getXdiCollection().getXDIArc().equals(XDI_ARC_EC_PUSH);
 		else if (xdiEntity instanceof XdiEntityInstanceOrdered)
-			return ((XdiEntityInstanceOrdered) xdiEntity).getXdiCollection().getXDIArc().equals(XDI_ARC_AC_PUSH);
+			return ((XdiEntityInstanceOrdered) xdiEntity).getXdiCollection().getXDIArc().equals(XDI_ARC_EC_PUSH);
 
 		return false;
 	}
@@ -83,7 +82,7 @@ public class PushCommand implements Serializable {
 	 */
 	public static PushCommand findPushCommand(XdiContext<?> xdiContext, boolean create) {
 
-		XdiEntity xdiEntity = xdiContext.getXdiEntitySingleton(XDI_ARC_AS_PUSH, create);
+		XdiEntity xdiEntity = xdiContext.getXdiEntitySingleton(XDI_ARC_ES_PUSH, create);
 		if (xdiEntity == null) return null;
 
 		return new PushCommand(xdiEntity);

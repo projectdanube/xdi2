@@ -17,6 +17,7 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.push.PushCommand;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -256,17 +257,17 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 
 	private static List<PushCommand> findPushCommands(Graph pushCommandsGraph, XDIAddress XDIaddress) {
 
-		ContextNode contextNode = pushCommandsGraph.getDeepContextNode(XDIaddress);
-		if (contextNode == null) return null;
-
 		List<PushCommand> pushCommands = new ArrayList<PushCommand> ();
 
-		while (! contextNode.isRootContextNode()) {
+		while (true) {
 
-			PushCommand pushCommand = PushCommand.findPushCommand(XdiAbstractContext.fromContextNode(contextNode), false);
+			ContextNode contextNode = pushCommandsGraph.getDeepContextNode(XDIaddress);
+			PushCommand pushCommand = contextNode == null ? null : PushCommand.findPushCommand(XdiAbstractContext.fromContextNode(contextNode), false);
+
 			if (pushCommand != null) pushCommands.add(pushCommand);
 
-			contextNode = contextNode.getContextNode();
+			if (XDIaddress.getNumXDIArcs() == 0) break;
+			XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, -1);
 		}
 
 		return pushCommands;
