@@ -49,10 +49,15 @@ function updateSamples() {
 
 	<form action="XDIPeerMessenger" method="post" accept-charset="UTF-8">
 
-		<textarea class="input" name="input1" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("input1") != null ? request.getAttribute("input1") : "" %></textarea>
-		<textarea class="input" name="input2" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("input2") != null ? request.getAttribute("input2") : "" %></textarea><br>
-		<textarea class="input" name="message1" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("message1") != null ? request.getAttribute("message1") : "" %></textarea>
-		<textarea class="input" name="message2" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("message2") != null ? request.getAttribute("message2") : "" %></textarea><br>
+		<table width="100%">
+		<tr>
+		<td width="50"><textarea class="input" name="input1" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("input1") != null ? request.getAttribute("input1") : "" %></textarea></td>
+		<td width="50"><textarea class="input" name="input2" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("input2") != null ? request.getAttribute("input2") : "" %></textarea></td>
+		</tr><tr>
+		<td width="50"><textarea class="input" name="message1" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("message1") != null ? request.getAttribute("message1") : "" %></textarea></td>
+		<td width="50"><textarea class="input" name="message2" style="width: 45%" rows="12" wrap="off"><%= request.getAttribute("message2") != null ? request.getAttribute("message2") : "" %></textarea></td>
+		</tr>
+		</table>
 
 		<% String resultFormat = (String) request.getAttribute("resultFormat"); if (resultFormat == null) resultFormat = ""; %>
 		<% String writeImplied = (String) request.getAttribute("writeImplied"); if (writeImplied == null) writeImplied = ""; %>
