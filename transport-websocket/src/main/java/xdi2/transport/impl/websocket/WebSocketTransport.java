@@ -3,7 +3,6 @@ package xdi2.transport.impl.websocket;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.util.List;
 
 import javax.websocket.CloseReason;
 import javax.websocket.CloseReason.CloseCodes;
@@ -12,21 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.impl.AbstractMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor;
-import xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor.WriteListener;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
@@ -118,19 +111,6 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) return;
 
-		// EXPERIMENTAL: install a write listener
-
-		WriteListenerInterceptor writeListenerInterceptor = ((AbstractMessagingTarget) messagingTarget).getInterceptors().findInterceptor(WriteListenerInterceptor.class);
-		WebSocketWriteListener webSocketWriteListener = request.getWebSocketMessageHandler().getWebSocketWriteListener();
-
-		if (writeListenerInterceptor != null && webSocketWriteListener == null) {
-
-			webSocketWriteListener = new WebSocketWriteListener(messageEnvelope, messagingTarget, request, response);
-			request.getWebSocketMessageHandler().setWebSocketWriteListener(webSocketWriteListener);
-
-			writeListenerInterceptor.addWriteListener(XDIConstants.XDI_ADD_ROOT, webSocketWriteListener);
-		}
-
 		// done
 
 		sendText(request, response, messagingResponse);
@@ -220,53 +200,6 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		log.error("Cannot accept: " + ex.getMessage() + ". Sending " + CloseCodes.CANNOT_ACCEPT + ".", ex);
 		request.getWebSocketMessageHandler().getSession().close(new CloseReason(CloseCodes.CANNOT_ACCEPT, "Cannot accept: " + ex.getMessage()));
-	}
-
-	/*
-	 * Helper classes
-	 */
-
-	public class WebSocketWriteListener implements WriteListener {
-
-		private MessageEnvelope messageEnvelope;
-		private MessagingTarget messagingTarget;
-		private WebSocketRequest request;
-		private WebSocketResponse response;
-
-		private WebSocketWriteListener(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, WebSocketRequest request, WebSocketResponse response) {
-
-			this.messageEnvelope = messageEnvelope;
-			this.messagingTarget = messagingTarget;
-			this.request = request;
-			this.response = response;
-		}
-
-		@Override
-		public void onWrite(List<XDIAddress> writeXDIAddresses) {
-
-			try {
-
-				// execute the message envelope against our message target, save result
-
-				MessagingResponse messagingResponse = WebSocketTransport.this.execute(this.messageEnvelope, this.messagingTarget, this.request, this.response);
-				if (messagingResponse == null || messagingResponse.getGraph() == null) return;
-
-				// send out result
-
-				sendText(this.request, this.response, messagingResponse);
-			} catch (Exception ex) {
-
-				try {
-
-					sendCloseCannotAccept(this.request, this.response, ex);
-				} catch (IOException ex2) {
-
-					throw new Xdi2RuntimeException(ex2.getMessage(), ex2);
-				}
-
-				return;
-			}
-		}
 	}
 
 	/*

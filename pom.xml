@@ -32,6 +32,7 @@
 		<module>messaging</module>
 		<module>messaging-target</module>
 		<module>client</module>
+		<module>client-websocket</module>
 		<module>transport</module>
 		<module>transport-local</module>
 		<module>transport-http</module>

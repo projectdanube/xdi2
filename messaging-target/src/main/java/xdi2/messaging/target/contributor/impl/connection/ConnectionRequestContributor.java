@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
-import xdi2.agent.routing.impl.XDIDiscoveryAgentRouter;
+import xdi2.agent.routing.impl.XDIHttpDiscoveryAgentRouter;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -118,7 +118,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			XDIAgent xdiAgent = new XDIBasicAgent(new XDIDiscoveryAgentRouter(this.getXdiDiscoveryClient()));
+			XDIAgent xdiAgent = new XDIBasicAgent(new XDIHttpDiscoveryAgentRouter(this.getXdiDiscoveryClient()));
 			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress);
 		} catch (Exception ex) {
 

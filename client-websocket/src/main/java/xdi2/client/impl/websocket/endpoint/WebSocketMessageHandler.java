@@ -1,0 +1,42 @@
+package xdi2.client.impl.websocket.endpoint;
+
+import java.io.Reader;
+import java.net.URL;
+
+import javax.websocket.Session;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
+
+	private static final Logger log = LoggerFactory.getLogger(WebSocketMessageHandler.class);
+
+	private Session session;
+	private URL xdiWebSocketEndpointUrl;
+
+	public WebSocketMessageHandler(Session session, URL xdiWebSocketEndpointUrl) {
+
+		this.session = session;
+		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
+	}
+
+	@Override
+	public void onMessage(Reader reader) {
+
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Session getSession() {
+
+		return this.session;
+	}
+
+	public URL getXdiWebSocketEndpointUrl() {
+
+		return this.xdiWebSocketEndpointUrl;
+	}
+}

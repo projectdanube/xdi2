@@ -51,7 +51,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 
 		if (log.isDebugEnabled()) log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
 
-		// figure out paths
+		// install
 
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
 		// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
@@ -65,6 +65,8 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 
 	private static void install(ServerContainer serverContainer, WebSocketTransport webSocketTransport, String contextPath, String endpointPath, String requestPath) throws DeploymentException {
 
+		String path = endpointPath + requestPath;
+
 		// init websocket endpoint
 
 		List<String> subprotocols = Arrays.asList(new String[] { "xdi" });
@@ -75,8 +77,6 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		ServerEndpointConfig.Configurator serverEndpointConfigConfigurator = new ServerEndpointConfig.Configurator() {
 
 		};
-
-		String path = endpointPath + requestPath;
 
 		ServerEndpointConfig.Builder serverEndpointConfigBuilder = ServerEndpointConfig.Builder.create(
 				WebSocketEndpoint.class, 
@@ -92,6 +92,8 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		serverEndpointConfig.getUserProperties().put("webSocketTransport", webSocketTransport);
 		serverEndpointConfig.getUserProperties().put("contextPath", contextPath);
 		serverEndpointConfig.getUserProperties().put("endpointPath", endpointPath);
+
+		// install websocket endpoint
 
 		serverContainer.addEndpoint(serverEndpointConfig);
 

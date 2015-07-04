@@ -166,6 +166,16 @@ public class XDIDiscoveryClient {
 		return xdiDiscoveryResult;
 	}
 
+	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discover(query, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discover(XDIAddress query) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discover(query, (XDIAddress[]) null);
+	}
+
 	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
@@ -238,6 +248,16 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResult);
 
 		return xdiDiscoveryResult;
+	}
+
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromRegistry(query, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromRegistry(query, (XDIAddress[]) null);
 	}
 
 	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
@@ -322,6 +342,16 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResult);
 
 		return xdiDiscoveryResult;
+	}
+
+	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, (XDIAddress[]) null);
 	}
 
 	/*

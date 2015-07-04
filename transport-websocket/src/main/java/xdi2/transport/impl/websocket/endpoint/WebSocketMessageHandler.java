@@ -14,7 +14,6 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.transport.impl.websocket.WebSocketRequest;
 import xdi2.transport.impl.websocket.WebSocketResponse;
 import xdi2.transport.impl.websocket.WebSocketTransport;
-import xdi2.transport.impl.websocket.WebSocketTransport.WebSocketWriteListener;
 
 public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
@@ -25,16 +24,12 @@ public class WebSocketMessageHandler implements javax.websocket.MessageHandler.W
 	private String contextPath;
 	private String endpointPath;
 
-	private WebSocketWriteListener webSocketWriteListener;
-
 	public WebSocketMessageHandler(Session session, WebSocketTransport webSocketTransport, String contextPath, String endpointPath) {
 
 		this.session = session;
 		this.webSocketTransport = webSocketTransport;
 		this.contextPath = contextPath;
 		this.endpointPath = endpointPath;
-
-		this.webSocketWriteListener = null;
 	}
 
 	@Override
@@ -81,15 +76,5 @@ public class WebSocketMessageHandler implements javax.websocket.MessageHandler.W
 	public String getEndpointPath() {
 
 		return this.endpointPath;
-	}
-
-	public WebSocketWriteListener getWebSocketWriteListener() {
-
-		return this.webSocketWriteListener;
-	}
-
-	public void setWebSocketWriteListener(WebSocketWriteListener webSocketWriteListener) {
-
-		this.webSocketWriteListener = webSocketWriteListener;
 	}
 }

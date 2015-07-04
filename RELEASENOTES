@@ -1,6 +1,8 @@
 release 0.8 ("Orșova")
 ========================
 
+* more overloaded methods for XDIDiscoveryClient
+
 * xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory ->
 xdi2.transport.impl.http.factory.impl.AnyHttpMessagingTargetFactory
 

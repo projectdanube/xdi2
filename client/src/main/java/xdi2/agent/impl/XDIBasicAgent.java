@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.routing.XDIAgentRouter;
-import xdi2.agent.routing.impl.XDIDiscoveryAgentRouter;
+import xdi2.agent.routing.impl.XDIHttpDiscoveryAgentRouter;
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
@@ -21,7 +21,6 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.GetOperation;
@@ -47,7 +46,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 	public XDIBasicAgent() {
 
-		this(new XDIDiscoveryAgentRouter(XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT));
+		this(new XDIHttpDiscoveryAgentRouter());
 	}
 
 	@Override

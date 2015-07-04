@@ -22,5 +22,9 @@ public final class XDIClientConstants {
 	public static final XDIArc XDI_ARC_AS_XDI = XDIArc.create("<$xdi>");
 	public static final XDIArc XDI_ARC_AS_URI = XDIArc.create("<$uri>");
 
+	public static final XDIAddress XDI_ENDPOINT_URI_TYPE = XDIAddress.create("<$xdi>");
+	public static final XDIAddress WEBSOCKET_ENDPOINT_URI_TYPE = XDIAddress.create("<$websocket><$xdi>");
+	public static final XDIAddress CONNECT_ENDPOINT_URI_TYPE = XDIAddress.create("<$connect><$xdi>");
+
 	private XDIClientConstants() { }
 }

@@ -7,5 +7,5 @@ import xdi2.core.syntax.XDIArc;
 
 public interface XDIAgentRouter <ROUTE extends XDIClientRoute<CLIENT>, CLIENT extends XDIClient> {
 
-	public ROUTE route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException;
+	public ROUTE route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException;
 }

@@ -42,7 +42,7 @@ import xdi2.messaging.response.MessagingResponse;
  */
 public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
-	public static final String KEY_endpointUrl = "endpointUrl";
+	public static final String KEY_ENDPOINTURL = "endpointUrl";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
@@ -64,17 +64,6 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	static {
 
 		XDI2X509TrustManager.enable();
-	}
-
-	public XDIHttpClient() {
-
-		super();
-
-		this.xdiEndpointUrl = null;
-		this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
-		this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
-		this.userAgent = DEFAULT_USERAGENT;
-		this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 	}
 
 	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent, Boolean followRedirects) {
@@ -109,31 +98,29 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			this.setXdiEndpointUrl(new URL(xdiEndpointUrl));
+			if (xdiEndpointUrl != null) this.xdiEndpointUrl = new URL(xdiEndpointUrl);
 		} catch (MalformedURLException ex) {
 
 			throw new IllegalArgumentException(ex.getMessage(), ex);
 		}
 	}
 
+	public XDIHttpClient() {
+
+		this(null, null, null, null, null);
+	}
+
 	public XDIHttpClient(Properties parameters) throws Exception {
 
-		super();
+		this(null, null, null, null, null);
 
-		if (parameters == null) {
+		if (parameters != null) {
 
-			this.xdiEndpointUrl = null;
-			this.sendMimeType = new MimeType(DEFAULT_SENDMIMETYPE);
-			this.recvMimeType = new MimeType(DEFAULT_RECVMIMETYPE);
-			this.userAgent = DEFAULT_USERAGENT;
-			this.followRedirects = Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
-		} else {
-
-			this.xdiEndpointUrl = new URL(parameters.getProperty(KEY_endpointUrl, null));
-			this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE, DEFAULT_SENDMIMETYPE));
-			this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE, DEFAULT_RECVMIMETYPE));
-			this.userAgent = parameters.getProperty(KEY_USERAGENT, DEFAULT_USERAGENT);
-			this.followRedirects = Boolean.parseBoolean(parameters.getProperty(KEY_FOLLOWREDIRECTS, DEFAULT_FOLLOWREDIRECTS));
+			if (parameters.containsKey(KEY_ENDPOINTURL)) this.xdiEndpointUrl = new URL(parameters.getProperty(KEY_ENDPOINTURL));
+			if (parameters.containsKey(KEY_SENDMIMETYPE)) this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE));
+			if (parameters.containsKey(KEY_RECVMIMETYPE)) this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE));
+			if (parameters.containsKey(KEY_USERAGENT)) this.userAgent = parameters.getProperty(KEY_USERAGENT);
+			if (parameters.containsKey(KEY_FOLLOWREDIRECTS)) this.followRedirects = Boolean.parseBoolean(parameters.getProperty(KEY_FOLLOWREDIRECTS));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}

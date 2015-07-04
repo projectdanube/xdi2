@@ -2,8 +2,7 @@ package xdi2.client.impl.local;
 
 import xdi2.client.XDIClientRoute;
 import xdi2.client.impl.XDIAbstractClientRoute;
-import xdi2.messaging.Message;
-import xdi2.messaging.MessageEnvelope;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
 
 public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> implements XDIClientRoute<XDILocalClient> {
@@ -12,7 +11,15 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 
 	public XDILocalClientRoute(MessagingTarget messagingTarget) {
 
+		super(null);
+
 		this.messagingTarget = messagingTarget;
+	}
+
+	@Override
+	public XDIArc getToPeerRootXDIArc() {
+
+		return this.getMessagingTarget().getOwnerPeerRootXDIArc();
 	}
 
 	@Override
@@ -21,12 +28,12 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 		return new XDILocalClient(this.messagingTarget);
 	}
 
-	@Override
-	public Message constructMessage(MessageEnvelope messageEnvelope) {
+	/*
+	 * Getters and setters
+	 */
 
-		Message message = super.constructMessage(messageEnvelope);
-		message.setToPeerRootXDIArc(this.messagingTarget.getOwnerPeerRootXDIArc());
+	public MessagingTarget getMessagingTarget() {
 
-		return message;
+		return this.messagingTarget;
 	}
 }

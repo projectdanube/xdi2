@@ -9,45 +9,47 @@ import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.impl.http.XDIHttpClientRoute;
-import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 
 public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpAgentRouter.class);
 
-	private XDIArc targetPeerRootXDIArc;
-	private CloudNumber cloudNumber;
+	private XDIArc toPeerRootXDIArc;
 	private URL xdiEndpointUrl;
 
-	public XDIHttpAgentRouter(XDIArc targetPeerRootXDIArc, CloudNumber cloudNumber, URL xdiEndpointUrl) {
+	public XDIHttpAgentRouter(XDIArc toPeerRootXDIArc, URL xdiEndpointUrl) {
 
-		this.targetPeerRootXDIArc = targetPeerRootXDIArc;
-		this.cloudNumber = cloudNumber;
+		this.toPeerRootXDIArc = toPeerRootXDIArc;
 		this.xdiEndpointUrl = xdiEndpointUrl;
 	}
 
 	public XDIHttpAgentRouter() {
 
-		this.targetPeerRootXDIArc = null;
-		this.cloudNumber = null;
+		this.toPeerRootXDIArc = null;
 		this.xdiEndpointUrl = null;
 	}
 
 	@Override
-	public XDIHttpClientRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
-		// check if we can provide the target peer root
+		// check if we can provide the TO peer root
 
-		if (! this.targetPeerRootXDIArc.equals(targetPeerRootXDIArc)) {
+		if (! "https".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol()) && ! "http".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol())) {
 
-			log.debug("HTTP URL does not have target peer root " + targetPeerRootXDIArc + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(s) URL: " + this.getXdiEndpointUrl() + ". Skipping.");
+			return null;
+		}
+
+		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+
+			if (log.isDebugEnabled()) log.debug("HTTP(s) URL " + this.getXdiEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIHttpClientRoute route = new XDIHttpClientRoute(this.cloudNumber, this.xdiEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(this.toPeerRootXDIArc, this.xdiEndpointUrl);
 
 		// done
 
@@ -58,24 +60,14 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 	 * Getters and setters
 	 */
 
-	public XDIArc getTargetPeerRootXDIArc() {
+	public XDIArc getToPeerRootXDIArc() {
 
-		return this.targetPeerRootXDIArc;
+		return this.toPeerRootXDIArc;
 	}
 
-	public void setTargetPeerRootXDIArc(XDIArc targetPeerRootXDIArc) {
+	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
 
-		this.targetPeerRootXDIArc = targetPeerRootXDIArc;
-	}
-
-	public CloudNumber getCloudNumber() {
-
-		return this.cloudNumber;
-	}
-
-	public void setCloudNumber(CloudNumber cloudNumber) {
-
-		this.cloudNumber = cloudNumber;
+		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
 	public URL getXdiEndpointUrl() {
