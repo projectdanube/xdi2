@@ -166,7 +166,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(recipientXDIAddress, null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(recipientXDIAddress);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + recipientXDIAddress + ": " + ex.getMessage(), ex, executionContext);

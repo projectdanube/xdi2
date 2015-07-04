@@ -8,16 +8,20 @@ import javax.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.impl.websocket.XDIWebSocketClient;
+
 public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketMessageHandler.class);
 
 	private Session session;
+	private XDIWebSocketClient xdiWebSocketClient;
 	private URL xdiWebSocketEndpointUrl;
 
-	public WebSocketMessageHandler(Session session, URL xdiWebSocketEndpointUrl) {
+	public WebSocketMessageHandler(Session session, XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) {
 
 		this.session = session;
+		this.xdiWebSocketClient = xdiWebSocketClient;
 		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
 	}
 
@@ -33,6 +37,11 @@ public class WebSocketMessageHandler implements javax.websocket.MessageHandler.W
 	public Session getSession() {
 
 		return this.session;
+	}
+
+	public XDIWebSocketClient getXdiWebSocketClient() {
+
+		return this.xdiWebSocketClient;
 	}
 
 	public URL getXdiWebSocketEndpointUrl() {

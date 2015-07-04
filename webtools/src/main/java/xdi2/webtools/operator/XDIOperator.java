@@ -168,7 +168,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// discover
 
-			discoveryResult = discoveryClient.discover(XDIAddress.create(input), null);
+			discoveryResult = discoveryClient.discover(XDIAddress.create(input));
 
 			if (discoveryResult == null) throw new RuntimeException("No discovery result");
 			if (discoveryResult.getCloudNumber() == null) throw new RuntimeException("No cloud number");

@@ -197,7 +197,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			http.setRequestMethod("POST");
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot initialize HTTP transport: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot initialize HTTP client: " + ex.getMessage(), ex);
 		}
 
 		// send the message envelope

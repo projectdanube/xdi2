@@ -91,7 +91,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.toPeerRootXDIArc != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc));
 
 			if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIArc);
 
@@ -180,7 +180,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);

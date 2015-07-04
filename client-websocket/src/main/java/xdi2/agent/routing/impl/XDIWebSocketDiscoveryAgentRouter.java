@@ -71,7 +71,7 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 
 		if (! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(s) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(s) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
 			return null;
 		}
 

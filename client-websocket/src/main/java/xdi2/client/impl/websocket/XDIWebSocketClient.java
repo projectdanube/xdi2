@@ -1,14 +1,15 @@
 package xdi2.client.impl.websocket;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
-import java.util.concurrent.Future;
 
+import javax.websocket.CloseReason;
+import javax.websocket.CloseReason.CloseCodes;
 import javax.websocket.DeploymentException;
+import javax.websocket.RemoteEndpoint.Async;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +18,13 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.impl.websocket.endpoint.WebSocketEndpoint;
-import xdi2.core.Graph;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.AbstractMessagingResponse;
+import xdi2.messaging.response.FutureMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 
 /**
@@ -126,76 +125,35 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// initialize and open connection
 
-		WebSocketEndpoint webSocketEndpoint = this.connect();
+		try {
+
+			WebSocketEndpoint webSocketEndpoint = connect();
+
+			webSocketEndpoint.getSession().getBasicRemote().getSendWriter();
+		} catch (Exception ex) {
+
+			throw new Xdi2ClientException("Cannot initialize WebSocket client: " + ex.getMessage(), ex);
+		}
 
 		// send the message envelope
 
 		if (log.isDebugEnabled()) log.debug("MessageEnvelope: " + messageEnvelope.getGraph().toString(null, null));
 
-		int responseCode;
-		String responseMessage;
-
 		try {
 
-			OutputStream outputStream = http.getOutputStream();
-			writer.write(messageEnvelope.getGraph(), outputStream);
-			outputStream.flush();
-			outputStream.close();
+			Async async = this.getWebSocketEndpoint().getSession().getAsyncRemote();
+			StringWriter stringWriter = new StringWriter();
 
-			responseCode = http.getResponseCode();
-			responseMessage = http.getResponseMessage();
+			writer.write(messageEnvelope.getGraph(), stringWriter);
+			async.sendText(stringWriter.getBuffer().toString());
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex);
 		}
 
-		// check response code
+		// we return a future messaging response
 
-		if (responseCode >= 300) {
-
-			throw new Xdi2ClientException("HTTP code " + responseCode + " received: " + responseMessage);
-		}
-
-		// check in which format we receive the result
-
-		String contentType = http.getContentType();
-		int contentLength = http.getContentLength();
-
-		if (log.isDebugEnabled()) log.debug("Received result. Content-Type: " + contentType + ", Content-Length: " + contentLength);
-
-		if (contentType != null) {
-
-			reader = XDIReaderRegistry.forMimeType(new MimeType(contentType));
-
-			if (reader == null) {
-
-				log.info("Don't know how to read message result with Content-Type " + contentType + ". Trying to auto-detect format.");
-				reader = XDIReaderRegistry.getAuto();
-			}
-		} else {
-
-			log.info("No Content-Type received. Trying to auto-detect format.");
-			reader = XDIReaderRegistry.getAuto();
-		}
-
-		// read the messaging response and close connection
-
-		Graph messagingResponseGraph = MemoryGraphFactory.getInstance().openGraph();
-
-		try {
-
-			InputStream inputStream = http.getInputStream();
-			reader.read(messagingResponseGraph, inputStream);
-			inputStream.close();
-		} catch (Exception ex) {
-
-			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex);
-		} finally {
-
-			http.disconnect();
-		}
-
-		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
+		MessagingResponse messagingResponse = FutureMessagingResponse.create();
 
 		// done
 
@@ -205,6 +163,20 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public void close() {
 
+		// close the WebSocket session
+
+		if (this.getWebSocketEndpoint() != null) {
+
+			try {
+
+				this.getWebSocketEndpoint().getSession().close(new CloseReason(CloseCodes.NORMAL_CLOSURE, null));
+			} catch (IOException ex) {
+
+				throw new RuntimeException(ex.getMessage(), ex);
+			}
+
+			this.setWebSocketEndpoint(null);
+		}
 	}
 
 	private WebSocketEndpoint connect() throws DeploymentException, IOException {

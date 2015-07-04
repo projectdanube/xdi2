@@ -116,7 +116,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority, null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);
