@@ -25,7 +25,7 @@ public class AnyUriMessagingTargetFactory extends PrototypingUriMessagingTargetF
 	private static final Logger log = LoggerFactory.getLogger(AnyUriMessagingTargetFactory.class);
 
 	@Override
-	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -41,11 +41,11 @@ public class AnyUriMessagingTargetFactory extends PrototypingUriMessagingTargetF
 
 		log.info("Will create messaging target for " + ownerXDIAddress + " at " + messagingTargetPath);
 
-		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXDIAddress, null, null);
+		return super.mountMessagingTarget(uriMessagingTargetRegistry, messagingTargetPath, ownerXDIAddress, null, null);
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException {
+	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException {
 
 		return messagingTarget;
 	}

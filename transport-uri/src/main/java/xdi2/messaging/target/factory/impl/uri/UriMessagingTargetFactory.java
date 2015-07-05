@@ -38,9 +38,9 @@ public abstract class UriMessagingTargetFactory extends AbstractMessagingTargetF
 	 */
 	public abstract MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException;
 
-	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
 
-		return this.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetFactoryPath, requestPath, false, false);
+		return this.mountMessagingTarget(uriMessagingTargetRegistry, messagingTargetFactoryPath, requestPath, false, false);
 	}
 
 	/**
@@ -48,8 +48,8 @@ public abstract class UriMessagingTargetFactory extends AbstractMessagingTargetF
 	 */
 	public abstract MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException;
 
-	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
 
-		return this.updateMessagingTarget(httpMessagingTargetRegistry, messagingTargetFactoryPath, requestPath, false, false, messagingTarget);
+		return this.updateMessagingTarget(uriMessagingTargetRegistry, messagingTargetFactoryPath, requestPath, false, false, messagingTarget);
 	}
 }

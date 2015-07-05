@@ -56,7 +56,7 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 	}
 
 	@Override
-	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -117,11 +117,11 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 
 		log.info("Going to mount new messaging target for " + ownerXDIAddress + " at " + messagingTargetPath);
 
-		return super.mountMessagingTarget(httpMessagingTargetRegistry, messagingTargetPath, ownerXDIAddress, ownerXdiPeerRoot, ownerContextNode);
+		return super.mountMessagingTarget(uriMessagingTargetRegistry, messagingTargetPath, ownerXDIAddress, ownerXdiPeerRoot, ownerContextNode);
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -141,7 +141,7 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 
 			// unmount the messaging target
 
-			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
+			uriMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
 			return null;
 		}
 
@@ -153,7 +153,7 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 
 			// unmount the messaging target
 
-			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
+			uriMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
 			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
 			return null;
 		}
@@ -166,7 +166,7 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 
 			// unmount the messaging target
 
-			httpMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
+			uriMessagingTargetRegistry.unmountMessagingTarget(messagingTarget);
 			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
 			return null;
 		}

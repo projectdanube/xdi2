@@ -23,7 +23,7 @@ public abstract class PrototypingUriMessagingTargetFactory extends UriMessagingT
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry uriMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerXDIAddress=" + ownerXDIAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
@@ -70,7 +70,7 @@ public abstract class PrototypingUriMessagingTargetFactory extends UriMessagingT
 
 		// mount the new messaging target
 
-		httpMessagingTargetRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
+		uriMessagingTargetRegistry.mountMessagingTarget(messagingTargetPath, prototypedMessagingTarget);
 
 		// done
 
