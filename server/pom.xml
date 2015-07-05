@@ -34,6 +34,12 @@
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-transport-local</artifactId>
+			<version>0.8-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 
