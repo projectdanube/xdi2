@@ -20,27 +20,31 @@ public class WebSocketServerMessageHandler implements javax.websocket.MessageHan
 	private static final Logger log = LoggerFactory.getLogger(WebSocketServerMessageHandler.class);
 
 	private Session session;
-	private WebSocketTransport webSocketTransport;
-	private String contextPath;
-	private String endpointPath;
 
-	public WebSocketServerMessageHandler(Session session, WebSocketTransport webSocketTransport, String contextPath, String endpointPath) {
+	public WebSocketServerMessageHandler(Session session) {
 
 		this.session = session;
-		this.webSocketTransport = webSocketTransport;
-		this.contextPath = contextPath;
-		this.endpointPath = endpointPath;
 	}
 
 	@Override
 	public void onMessage(Reader reader) {
 
-		WebSocketRequest request = WebSocketRequest.create(this, this.getSession(), this.getContextPath(), this.getEndpointPath(), reader);
+		if (log.isDebugEnabled()) log.debug("Incoming message on session " + this.getSession().getId());
+
+		// read properties
+
+		WebSocketTransport webSocketTransport = (WebSocketTransport) this.getSession().getUserProperties().get("webSocketTransport");
+		String contextPath = (String) this.getSession().getUserProperties().get("contextPath");
+		String endpointPath = (String) this.getSession().getUserProperties().get("endpointPath");
+
+		// execute the transport
+
+		WebSocketRequest request = WebSocketRequest.create(this, this.getSession(), contextPath, endpointPath, reader);
 		WebSocketResponse response = WebSocketResponse.create(this, this.getSession());
 
 		try {
 
-			this.getWebSocketTransport().execute(request, response);
+			webSocketTransport.execute(request, response);
 		} catch (IOException ex) {
 
 			try {
@@ -61,20 +65,5 @@ public class WebSocketServerMessageHandler implements javax.websocket.MessageHan
 	public Session getSession() {
 
 		return this.session;
-	}
-
-	public WebSocketTransport getWebSocketTransport() {
-
-		return this.webSocketTransport;
-	}
-
-	public String getContextPath() {
-
-		return this.contextPath;
-	}
-
-	public String getEndpointPath() {
-
-		return this.endpointPath;
 	}
 }

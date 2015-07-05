@@ -124,6 +124,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this((Session) null);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
@@ -152,12 +153,14 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// connect
 
-		Session session;
+		Session session = null;
 
 		try {
 
 			session = this.connect();
 		} catch (Exception ex) {
+
+			this.disconnect(new CloseReason(CloseCodes.PROTOCOL_ERROR, "Cannot open WebSocket connection: " + ex.getMessage()));
 
 			throw new Xdi2ClientException("Cannot open WebSocket connection: " + ex.getMessage(), ex);
 		}
@@ -175,6 +178,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 			async.sendText(stringWriter.getBuffer().toString());
 		} catch (Exception ex) {
 
+			this.disconnect(new CloseReason(CloseCodes.PROTOCOL_ERROR, "Cannot send message envelope: " + ex.getMessage()));
+
 			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex);
 		}
 
@@ -190,7 +195,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public void close() {
 
-		this.disconnect();
+		this.disconnect(new CloseReason(CloseCodes.NORMAL_CLOSURE, "Bye."));
 	}
 
 	private Session connect() throws DeploymentException, IOException {
@@ -198,27 +203,30 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		if (this.getSession() != null) return this.getSession();
 
 		// connect
-		
+
 		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUrl());
 
 		Session session = WebSocketClientEndpoint.connect(this, this.getXdiWebSocketEndpointUrl()).getSession();
 
 		// done
-		
+
 		this.setSession(session);
 		return session;
 	}
 
-	private void disconnect() {
+	private void disconnect(CloseReason closeReason) {
 
 		if (this.getSession() != null) {
 
 			try {
 
-				this.getSession().close(new CloseReason(CloseCodes.NORMAL_CLOSURE, null));
+				if (this.getSession().isOpen()) {
+
+					this.getSession().close(closeReason);
+				}
 			} catch (IOException ex) {
 
-				throw new RuntimeException(ex.getMessage(), ex);
+				log.error("Cannot close session: " + ex.getMessage(), ex);
 			} finally {
 
 				this.setSession(null);

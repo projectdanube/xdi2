@@ -73,6 +73,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 		httpServletRequest.setCharacterEncoding("UTF-8");
 		httpServletResponse.setCharacterEncoding("UTF-8");
 
+		// execute the transport
+
 		HttpTransportRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
 		HttpTransportResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
 

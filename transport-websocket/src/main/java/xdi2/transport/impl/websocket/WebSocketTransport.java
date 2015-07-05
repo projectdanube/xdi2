@@ -36,14 +36,18 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
 	private String endpointPath;
 
-	private Map<XDIArc, Session> sessions;
+	private Map<String, Session> sessionIdToSessions;
+	private Map<XDIArc, Session> toPeerRootXDIArcSessions;
+	private Map<String, XDIArc> sessionIdToPeerRootXDIArcs;
 
 	public WebSocketTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
 		this.endpointPath = endpointPath;
 
-		this.sessions = new HashMap<XDIArc, Session> ();
+		this.sessionIdToSessions = new HashMap<String, Session> ();
+		this.toPeerRootXDIArcSessions = new HashMap<XDIArc, Session> ();
+		this.sessionIdToPeerRootXDIArcs = new HashMap<String, XDIArc> ();
 	}
 
 	public WebSocketTransport() {
@@ -61,6 +65,17 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	public void shutdown() throws Exception {
 
 		super.shutdown();
+
+		// unregister sessions
+
+		for (Session session : this.sessionIdToSessions.values()) {
+
+			session.close(new CloseReason(CloseCodes.GOING_AWAY, "Shuttind down."));
+		}
+
+		this.sessionIdToSessions.clear();
+		this.toPeerRootXDIArcSessions.clear();
+		this.sessionIdToPeerRootXDIArcs.clear();
 	}
 
 	@Override
@@ -169,6 +184,43 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	}
 
 	/*
+	 * Sessions
+	 */
+
+	public void registerSession(Session session, XDIArc toPeerRootXDIArc) {
+
+		if (log.isDebugEnabled()) log.debug("Registering session " + session.getId() + " for TO peer root " + toPeerRootXDIArc);
+
+		this.sessionIdToSessions.put(session.getId(), session);
+
+		if (toPeerRootXDIArc != null) {
+
+			this.toPeerRootXDIArcSessions.put(toPeerRootXDIArc, session);
+			this.sessionIdToPeerRootXDIArcs.put(session.getId(), toPeerRootXDIArc);
+		}
+	}
+
+	public void unregisterSession(Session session) {
+
+		if (log.isDebugEnabled()) log.debug("Unregistering session " + session.getId());
+
+		this.sessionIdToSessions.remove(session.getId());
+
+		XDIArc toPeerRootXDIArc = this.sessionIdToPeerRootXDIArcs.get(session.getId());
+		if (toPeerRootXDIArc != null) this.toPeerRootXDIArcSessions.remove(toPeerRootXDIArc);
+		this.sessionIdToPeerRootXDIArcs.remove(session.getId());
+	}
+
+	public Session findSession(XDIArc toPeerRootXDIArc) {
+
+		Session session = this.toPeerRootXDIArcSessions.get(toPeerRootXDIArc);
+
+		if (log.isDebugEnabled()) log.debug("Found session " + (session == null ? null : session.getId()) + " for TO peer root " + toPeerRootXDIArc);
+
+		return session;
+	}
+
+	/*
 	 * Helper methods
 	 */
 
@@ -232,15 +284,5 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	public void setEndpointPath(String endpointPath) {
 
 		this.endpointPath = endpointPath;
-	}
-
-	public Map<XDIArc, Session> getSessions() {
-
-		return this.sessions;
-	}
-
-	public void setWebSocketMessageHandlers(Map<XDIArc, Session> sessions) {
-
-		this.sessions = sessions;
 	}
 }

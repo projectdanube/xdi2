@@ -46,6 +46,7 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 		return connect(clientContainer, xdiWebSocketClient, xdiWebSocketEndpointUrl);
 	}
 
+	@SuppressWarnings("resource")
 	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) throws DeploymentException, IOException {
 
 		// init websocket endpoint
@@ -95,17 +96,22 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 
 		if (log.isDebugEnabled()) log.debug("Changed max idle timeout of session " + session.getId() + " from " + oldMaxIdleTimeout + " to " + newMaxIdleTimeout);
 
-		// init message handler
+		// read properties
 
 		ClientEndpointConfig clientEndpointConfig = (ClientEndpointConfig) endpointConfig;
-		XDIWebSocketClient xdiWebSocketClient = (XDIWebSocketClient) clientEndpointConfig.getUserProperties().get("xdiWebSocketClient");
+
 		URL xdiWebSocketEndpointUrl = (URL) clientEndpointConfig.getUserProperties().get("xdiWebSocketEndpointUrl");
 
-		WebSocketClientMessageHandler webSocketMessageHandler = new WebSocketClientMessageHandler(session, xdiWebSocketClient, xdiWebSocketEndpointUrl);
+		// init message handler
 
-		log.info("WebSocket session " + session.getId() + " opened (" + xdiWebSocketEndpointUrl + ")");
+		WebSocketClientMessageHandler webSocketMessageHandler = new WebSocketClientMessageHandler(session);
+
+		// init session
+
+		log.info("WebSocket session " + session.getId() + " opened (" + xdiWebSocketEndpointUrl + ").");
 
 		session.addMessageHandler(webSocketMessageHandler);
+		session.getUserProperties().putAll(clientEndpointConfig.getUserProperties());
 	}
 
 	@Override

@@ -19,15 +19,16 @@ public class XDIWebSocketTransportAgentRouter implements XDIAgentRouter<XDIWebSo
 	private WebSocketTransport webSocketTransport;
 
 	@Override
+	@SuppressWarnings("resource")
 	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
-		Session session = this.getWebSocketTransport().getSessions().get(toPeerRootXDIArc);
+		Session session = this.getWebSocketTransport().findSession(toPeerRootXDIArc);
 
 		if (session == null) {
 
-			log.debug("Session do not have TO peer root " + toPeerRootXDIArc + ". Skipping.");
+			log.debug("Sessions do not have TO peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 

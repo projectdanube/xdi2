@@ -54,12 +54,10 @@ public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 		// install
 
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
-		// TODO IS THIS INVALID??		install(servletContext, webSocketTransport, contextPath, endpointPath, "/{path}/");
 
 		for (HttpMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
-			// TODO IS THIS INVALID??			install(servletContext, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}/");
 		}
 	}
 
@@ -113,24 +111,40 @@ public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 
 		if (log.isDebugEnabled()) log.debug("Changed max idle timeout of session " + session.getId() + " from " + oldMaxIdleTimeout + " to " + newMaxIdleTimeout);
 
-		// init message handler
+		// read properties
 
 		ServerEndpointConfig serverEndpointConfig = (ServerEndpointConfig) endpointConfig;
+
 		WebSocketTransport webSocketTransport = (WebSocketTransport) serverEndpointConfig.getUserProperties().get("webSocketTransport");
-		String contextPath = (String) serverEndpointConfig.getUserProperties().get("contextPath");
-		String endpointPath = (String) serverEndpointConfig.getUserProperties().get("endpointPath");
 
-		WebSocketServerMessageHandler webSocketMessageHandler = new WebSocketServerMessageHandler(session, webSocketTransport, contextPath, endpointPath);
+		// init message handler
 
-		log.info("WebSocket session " + session.getId() + " opened (" + serverEndpointConfig.getPath() + ")");
+		WebSocketServerMessageHandler webSocketMessageHandler = new WebSocketServerMessageHandler(session);
+
+		// init session
+
+		log.info("WebSocket session " + session.getId() + " opened (" + serverEndpointConfig.getPath() + ").");
 
 		session.addMessageHandler(webSocketMessageHandler);
+		session.getUserProperties().putAll(serverEndpointConfig.getUserProperties());
+
+		// register session
+
+		webSocketTransport.registerSession(session, null);
 	}
 
 	@Override
 	public void onClose(Session session, CloseReason closeReason) {
 
 		log.info("WebSocket session " + session.getId() + " closed.");
+
+		// read properties
+
+		WebSocketTransport webSocketTransport = (WebSocketTransport) session.getUserProperties().get("webSocketTransport");
+
+		// unregister session
+
+		webSocketTransport.unregisterSession(session);
 	}
 
 	@Override
