@@ -7,7 +7,6 @@ import java.util.Properties;
 
 import javax.websocket.CloseReason;
 import javax.websocket.CloseReason.CloseCodes;
-import javax.websocket.DeploymentException;
 import javax.websocket.RemoteEndpoint.Async;
 import javax.websocket.Session;
 
@@ -193,7 +192,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.disconnect(new CloseReason(CloseCodes.NORMAL_CLOSURE, "Bye."));
 	}
 
-	private Session connect() throws DeploymentException, IOException {
+	private Session connect() throws Exception {
 
 		if (this.getSession() != null) return this.getSession();
 

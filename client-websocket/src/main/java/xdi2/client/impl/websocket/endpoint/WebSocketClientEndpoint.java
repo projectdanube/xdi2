@@ -1,6 +1,5 @@
 package xdi2.client.impl.websocket.endpoint;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 import javax.websocket.ClientEndpointConfig;
 import javax.websocket.CloseReason;
 import javax.websocket.Decoder;
-import javax.websocket.DeploymentException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Extension;
@@ -26,7 +24,7 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 
 	private Session session;
 
-	public static WebSocketClientEndpoint connect(XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws DeploymentException, IOException {
+	public static WebSocketClientEndpoint connect(XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
 
 		// create client container
 
@@ -46,7 +44,7 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 	}
 
 	@SuppressWarnings("resource")
-	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws DeploymentException, IOException {
+	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
 
 		// init websocket endpoint
 
@@ -75,6 +73,7 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 
 		WebSocketClientEndpoint webSocketEndpoint = new WebSocketClientEndpoint();
 
+		clientContainer.start();
 		Session session = clientContainer.connectToServer(webSocketEndpoint, clientEndpointConfig, URI.create(xdiWebSocketEndpointUri.toString()));
 		webSocketEndpoint.setSession(session);
 
