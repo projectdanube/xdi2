@@ -1,9 +1,9 @@
 package xdi2.client.impl.http;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
@@ -15,6 +15,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
+import xdi2.client.util.URLURIUtil;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
@@ -55,6 +56,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
+	private HttpURLConnection httpURLConnection;
+
 	protected URL xdiEndpointUrl;
 	protected MimeType sendMimeType;
 	protected MimeType recvMimeType;
@@ -66,9 +69,11 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		XDI2X509TrustManager.enable();
 	}
 
-	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent, Boolean followRedirects) {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent, Boolean followRedirects) {
 
 		super();
+
+		this.httpURLConnection = httpURLConnection;
 
 		this.xdiEndpointUrl = xdiEndpointUrl;
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
@@ -77,42 +82,29 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		this.followRedirects = (followRedirects != null) ? followRedirects.booleanValue() : Boolean.parseBoolean(DEFAULT_FOLLOWREDIRECTS);
 	}
 
-	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
 
-		this(xdiEndpointUrl, sendMimeType, recvMimeType, userAgent, null);
+		this(httpURLConnection, xdiEndpointUrl, sendMimeType, recvMimeType, userAgent, null);
 	}
 
-	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType) {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType) {
 
-		this(xdiEndpointUrl, sendMimeType, recvMimeType, null, null);
+		this(httpURLConnection, xdiEndpointUrl, sendMimeType, recvMimeType, null, null);
 	}
 
-	public XDIHttpClient(URL xdiEndpointUrl) {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, URL xdiEndpointUrl) {
 
-		this(xdiEndpointUrl, null, null, null, null);
+		this(httpURLConnection, xdiEndpointUrl, null, null, null, null);
 	}
 
-	public XDIHttpClient(String xdiEndpointUrl) {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, String xdiEndpointUrl) {
 
-		this(null, null, null, null, null);
-
-		try {
-
-			if (xdiEndpointUrl != null) this.xdiEndpointUrl = new URL(xdiEndpointUrl);
-		} catch (MalformedURLException ex) {
-
-			throw new IllegalArgumentException(ex.getMessage(), ex);
-		}
+		this(httpURLConnection, URLURIUtil.URL(xdiEndpointUrl), null, null, null, null);
 	}
 
-	public XDIHttpClient() {
+	public XDIHttpClient(HttpURLConnection httpURLConnection, Properties parameters) throws Exception {
 
-		this(null, null, null, null, null);
-	}
-
-	public XDIHttpClient(Properties parameters) throws Exception {
-
-		this(null, null, null, null, null);
+		this(httpURLConnection, null, null, null, null, null);
 
 		if (parameters != null) {
 
@@ -124,6 +116,46 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}
+	}
+
+	public XDIHttpClient(HttpURLConnection httpURLConnection) {
+
+		this(httpURLConnection, null, null, null, null, null);
+	}
+
+	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent, Boolean followRedirects) {
+
+		this((HttpURLConnection) null, xdiEndpointUrl, sendMimeType, recvMimeType, userAgent, followRedirects);
+	}
+
+	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType, String userAgent) {
+
+		this((HttpURLConnection) null, xdiEndpointUrl, sendMimeType, recvMimeType, userAgent);
+	}
+
+	public XDIHttpClient(URL xdiEndpointUrl, MimeType sendMimeType, MimeType recvMimeType) {
+
+		this((HttpURLConnection) null, xdiEndpointUrl, sendMimeType, recvMimeType);
+	}
+
+	public XDIHttpClient(URL xdiEndpointUrl) {
+
+		this((HttpURLConnection) null, xdiEndpointUrl);
+	}
+
+	public XDIHttpClient(String xdiEndpointUrl) {
+
+		this((HttpURLConnection) null, xdiEndpointUrl);
+	}
+
+	public XDIHttpClient(Properties parameters) throws Exception {
+
+		this((HttpURLConnection) null, parameters);
+	}
+
+	public XDIHttpClient() {
+
+		this((HttpURLConnection) null);
 	}
 
 	@Override
@@ -143,7 +175,6 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		}
 
 		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.");
-
 		if (log.isDebugEnabled()) log.debug("Using writer " + writer.getClass().getName() + ".");
 
 		// find out which XDIReader we want to use
@@ -158,46 +189,21 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		}
 
 		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.");
-
 		if (log.isDebugEnabled()) log.debug("Using reader " + reader.getClass().getName() + ".");
 
-		// prepare Accept: header
+		// connect
 
-		AcceptHeader acceptHeader = AcceptHeader.create(recvMimeType);
-
-		if (log.isDebugEnabled()) log.debug("Using Accept header " + acceptHeader.toString() + ".");
-
-		// initialize and open connection
-
-		if (log.isDebugEnabled()) log.debug("Connecting to " + this.xdiEndpointUrl);
-
-		URLConnection connection;
+		HttpURLConnection httpURLConnection;
 
 		try {
 
-			connection = this.getXdiEndpointUrl().openConnection();
+			httpURLConnection = this.connect();
+		} catch (Xdi2ClientException ex) {
+			
+			throw ex;
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot open connection: " + ex.getMessage(), ex);
-		}
-
-		if (! (connection instanceof HttpURLConnection)) throw new Xdi2ClientException("Can only work with HTTP(S) URLs.");
-
-		HttpURLConnection http = (HttpURLConnection) connection;
-
-		try {
-
-			http.setDoInput(true);
-			http.setDoOutput(true);
-			http.setInstanceFollowRedirects(this.getFollowRedirects());
-			System.setProperty("http.strictPostRedirect", "true");
-			http.setRequestProperty("Content-Type", sendMimeType.toString());
-			http.setRequestProperty("Accept", acceptHeader.toString());
-			http.setRequestProperty("User-Agent", this.getUserAgent());
-			http.setRequestMethod("POST");
-		} catch (Exception ex) {
-
-			throw new Xdi2ClientException("Cannot initialize HTTP client: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot open HTTP(S) connection: " + ex.getMessage(), ex);
 		}
 
 		// send the message envelope
@@ -209,13 +215,13 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			OutputStream outputStream = http.getOutputStream();
+			OutputStream outputStream = httpURLConnection.getOutputStream();
 			writer.write(messageEnvelope.getGraph(), outputStream);
 			outputStream.flush();
 			outputStream.close();
 
-			responseCode = http.getResponseCode();
-			responseMessage = http.getResponseMessage();
+			responseCode = httpURLConnection.getResponseCode();
+			responseMessage = httpURLConnection.getResponseMessage();
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex);
@@ -230,8 +236,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		// check in which format we receive the result
 
-		String contentType = http.getContentType();
-		int contentLength = http.getContentLength();
+		String contentType = httpURLConnection.getContentType();
+		int contentLength = httpURLConnection.getContentLength();
 
 		if (log.isDebugEnabled()) log.debug("Received result. Content-Type: " + contentType + ", Content-Length: " + contentLength);
 
@@ -256,7 +262,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			InputStream inputStream = http.getInputStream();
+			InputStream inputStream = httpURLConnection.getInputStream();
 			reader.read(messagingResponseGraph, inputStream);
 			inputStream.close();
 		} catch (Exception ex) {
@@ -264,7 +270,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			throw new Xdi2ClientException("Cannot read message result: " + ex.getMessage(), ex);
 		} finally {
 
-			http.disconnect();
+			this.disconnect();
 		}
 
 		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
@@ -277,11 +283,69 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public void close() {
 
+		this.disconnect();
+	}
+
+	private HttpURLConnection connect() throws Xdi2ClientException, IOException {
+
+		if (this.getHttpURLConnection() != null) return this.getHttpURLConnection();
+
+		if (this.getXdiEndpointUrl() == null) throw new Xdi2ClientException("No URL to connect to.");
+
+		// prepare Accept: header
+
+		AcceptHeader acceptHeader = AcceptHeader.create(recvMimeType);
+
+		if (log.isDebugEnabled()) log.debug("Using Accept header " + acceptHeader.toString() + ".");
+
+		// connect
+		
+		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiEndpointUrl());
+
+		URLConnection URLconnection = this.getXdiEndpointUrl().openConnection();
+
+		if (! (URLconnection instanceof HttpURLConnection)) throw new Xdi2ClientException("Can only work with HTTP(S) URLs: " + this.getXdiEndpointUrl());
+
+		HttpURLConnection httpURLConnection = (HttpURLConnection) URLconnection;
+
+		httpURLConnection.setDoInput(true);
+		httpURLConnection.setDoOutput(true);
+		httpURLConnection.setInstanceFollowRedirects(this.getFollowRedirects());
+		System.setProperty("http.strictPostRedirect", "true");
+		httpURLConnection.setRequestProperty("Content-Type", sendMimeType.toString());
+		httpURLConnection.setRequestProperty("Accept", acceptHeader.toString());
+		httpURLConnection.setRequestProperty("User-Agent", this.getUserAgent());
+		httpURLConnection.setRequestMethod("POST");
+
+		// done
+		
+		this.setHttpURLConnection(httpURLConnection);
+		return httpURLConnection;
+	}
+
+	private void disconnect() {
+
+		if (this.getHttpURLConnection() != null) {
+
+			this.getHttpURLConnection().disconnect();
+
+			this.setHttpURLConnection(null);
+		}
 	}
 
 	/*
 	 * Getters and setters
 	 */
+
+	public HttpURLConnection getHttpURLConnection() {
+
+		return this.httpURLConnection;
+	}
+
+	public void setHttpURLConnection(HttpURLConnection httpURLConnection) {
+
+		this.httpURLConnection = httpURLConnection;
+	}
 
 	public URL getXdiEndpointUrl() {
 

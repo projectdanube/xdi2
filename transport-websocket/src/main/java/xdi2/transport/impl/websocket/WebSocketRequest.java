@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.transport.TransportRequest;
-import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
+import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
 
 /**
  * This class represents a WebSocket request to the server.
@@ -22,12 +22,12 @@ public class WebSocketRequest implements TransportRequest {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketRequest.class);
 
-	private WebSocketMessageHandler webSocketMessageHandler;
+	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private String requestPath;
 	private String subprotocol;
 	private Reader reader;
 
-	private WebSocketRequest(WebSocketMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
+	private WebSocketRequest(WebSocketServerMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.requestPath = requestPath;
@@ -35,7 +35,7 @@ public class WebSocketRequest implements TransportRequest {
 		this.reader = reader;
 	}
 
-	public static WebSocketRequest create(WebSocketMessageHandler webSocketMessageHandler, Session session, String contextPath, String endpointPath, Reader reader) {
+	public static WebSocketRequest create(WebSocketServerMessageHandler webSocketMessageHandler, Session session, String contextPath, String endpointPath, Reader reader) {
 
 		String requestUri = session.getRequestURI().getPath();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
@@ -60,7 +60,7 @@ public class WebSocketRequest implements TransportRequest {
 	 * Getters and setters
 	 */
 
-	public WebSocketMessageHandler getWebSocketMessageHandler() {
+	public WebSocketServerMessageHandler getWebSocketMessageHandler() {
 
 		return this.webSocketMessageHandler;
 	}

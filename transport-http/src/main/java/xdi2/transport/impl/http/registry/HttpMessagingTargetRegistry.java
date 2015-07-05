@@ -18,7 +18,6 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.factory.HttpMessagingTargetFactory;
-import xdi2.transport.registry.MessagingTargetFactoryRegistry;
 import xdi2.transport.registry.MessagingTargetMount;
 import xdi2.transport.registry.MessagingTargetRegistry;
 
@@ -27,7 +26,7 @@ import xdi2.transport.registry.MessagingTargetRegistry;
  * 
  * @author markus
  */
-public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, MessagingTargetFactoryRegistry, ApplicationContextAware {
+public class HttpMessagingTargetRegistry implements MessagingTargetRegistry, ApplicationContextAware {
 
 	private static final Logger log = LoggerFactory.getLogger(HttpMessagingTargetRegistry.class);
 

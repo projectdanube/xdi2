@@ -15,16 +15,16 @@ import xdi2.transport.impl.websocket.WebSocketRequest;
 import xdi2.transport.impl.websocket.WebSocketResponse;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 
-public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
+public class WebSocketServerMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
-	private static final Logger log = LoggerFactory.getLogger(WebSocketMessageHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(WebSocketServerMessageHandler.class);
 
 	private Session session;
 	private WebSocketTransport webSocketTransport;
 	private String contextPath;
 	private String endpointPath;
 
-	public WebSocketMessageHandler(Session session, WebSocketTransport webSocketTransport, String contextPath, String endpointPath) {
+	public WebSocketServerMessageHandler(Session session, WebSocketTransport webSocketTransport, String contextPath, String endpointPath) {
 
 		this.session = session;
 		this.webSocketTransport = webSocketTransport;

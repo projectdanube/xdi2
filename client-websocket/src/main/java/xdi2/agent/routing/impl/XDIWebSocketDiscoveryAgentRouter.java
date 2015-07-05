@@ -69,15 +69,15 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 			return null;
 		}
 
-		if (! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
+		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No WS(s) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), xdiWebSocketEndpointUrl);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), null, xdiWebSocketEndpointUrl);
 
 		// done
 

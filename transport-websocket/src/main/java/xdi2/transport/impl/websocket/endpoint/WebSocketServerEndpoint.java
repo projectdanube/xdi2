@@ -20,11 +20,11 @@ import org.slf4j.LoggerFactory;
 import xdi2.transport.impl.http.registry.HttpMessagingTargetFactoryMount;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 
-public class WebSocketEndpoint extends javax.websocket.Endpoint {
+public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 
-	private static final Logger log = LoggerFactory.getLogger(WebSocketEndpoint.class);
+	private static final Logger log = LoggerFactory.getLogger(WebSocketServerEndpoint.class);
 
-	public static void install(ServletContext servletContext, WebSocketTransport webSocketTransport) throws DeploymentException {
+	public static void install(WebSocketTransport webSocketTransport, ServletContext servletContext) throws DeploymentException {
 
 		String contextPath = servletContext.getContextPath();
 		if (contextPath == null) contextPath = "";
@@ -79,7 +79,7 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		};
 
 		ServerEndpointConfig.Builder serverEndpointConfigBuilder = ServerEndpointConfig.Builder.create(
-				WebSocketEndpoint.class, 
+				WebSocketServerEndpoint.class, 
 				path);
 
 		serverEndpointConfigBuilder.subprotocols(subprotocols);
@@ -120,9 +120,11 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		String contextPath = (String) serverEndpointConfig.getUserProperties().get("contextPath");
 		String endpointPath = (String) serverEndpointConfig.getUserProperties().get("endpointPath");
 
+		WebSocketServerMessageHandler webSocketMessageHandler = new WebSocketServerMessageHandler(session, webSocketTransport, contextPath, endpointPath);
+
 		log.info("WebSocket session " + session.getId() + " opened (" + serverEndpointConfig.getPath() + ")");
 
-		session.addMessageHandler(new WebSocketMessageHandler(session, webSocketTransport, contextPath, endpointPath));
+		session.addMessageHandler(webSocketMessageHandler);
 	}
 
 	@Override

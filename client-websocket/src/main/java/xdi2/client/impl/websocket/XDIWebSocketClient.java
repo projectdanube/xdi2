@@ -10,6 +10,7 @@ import javax.websocket.CloseReason;
 import javax.websocket.CloseReason.CloseCodes;
 import javax.websocket.DeploymentException;
 import javax.websocket.RemoteEndpoint.Async;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,8 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
-import xdi2.client.impl.websocket.endpoint.WebSocketEndpoint;
+import xdi2.client.impl.websocket.endpoint.WebSocketClientEndpoint;
+import xdi2.client.util.URLURIUtil;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -46,27 +48,29 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
 
+	private Session session;
+
 	protected URL xdiWebSocketEndpointUrl;
 	protected MimeType sendMimeType;
 
-	private WebSocketEndpoint webSocketEndpoint;
-
-	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
+	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
 
 		super();
+
+		this.session = session;
 
 		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 	}
 
-	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl) {
 
-		this(xdiWebSocketEndpointUrl, null);
+		this(session, xdiWebSocketEndpointUrl, null);
 	}
 
-	public XDIWebSocketClient(String xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(Session session, String xdiWebSocketEndpointUrl) {
 
-		this(null, null);
+		this(session, URLURIUtil.URL(xdiWebSocketEndpointUrl), null);
 
 		try {
 
@@ -77,14 +81,9 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		}
 	}
 
-	public XDIWebSocketClient() {
+	public XDIWebSocketClient(Session session, Properties parameters) throws Exception {
 
-		this(null, null);
-	}
-
-	public XDIWebSocketClient(Properties parameters) throws Exception {
-
-		this(null, null);
+		this(session, null, null);
 
 		if (parameters != null) {
 
@@ -93,6 +92,36 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}
+	}
+
+	public XDIWebSocketClient(Session session) {
+
+		this(session, null, null);
+	}
+
+	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
+
+		this((Session) null, xdiWebSocketEndpointUrl, sendMimeType);
+	}
+
+	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl) {
+
+		this((Session) null, xdiWebSocketEndpointUrl);
+	}
+
+	public XDIWebSocketClient(String xdiWebSocketEndpointUrl) {
+
+		this((Session) null, xdiWebSocketEndpointUrl);
+	}
+
+	public XDIWebSocketClient(Properties parameters) throws Exception {
+
+		this((Session) null, parameters);
+	}
+
+	public XDIWebSocketClient() {
+
+		this((Session) null);
 	}
 
 	@Override
@@ -112,7 +141,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		}
 
 		if (writer == null) throw new Xdi2ClientException("Cannot find a suitable XDI writer.");
-
 		if (log.isDebugEnabled()) log.debug("Using writer " + writer.getClass().getName() + ".");
 
 		// find out which XDIReader we want to use
@@ -120,19 +148,18 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		XDIReader reader = XDIReaderRegistry.getAuto();
 
 		if (reader == null) throw new Xdi2ClientException("Cannot find a suitable XDI reader.");
-
 		if (log.isDebugEnabled()) log.debug("Using reader " + reader.getClass().getName() + ".");
 
-		// initialize and open connection
+		// connect
+
+		Session session;
 
 		try {
 
-			WebSocketEndpoint webSocketEndpoint = connect();
-
-			webSocketEndpoint.getSession().getBasicRemote().getSendWriter();
+			session = this.connect();
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot initialize WebSocket client: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot open WebSocket connection: " + ex.getMessage(), ex);
 		}
 
 		// send the message envelope
@@ -141,7 +168,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			Async async = this.getWebSocketEndpoint().getSession().getAsyncRemote();
+			Async async = session.getAsyncRemote();
 			StringWriter stringWriter = new StringWriter();
 
 			writer.write(messageEnvelope.getGraph(), stringWriter);
@@ -163,38 +190,55 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public void close() {
 
-		// close the WebSocket session
+		this.disconnect();
+	}
 
-		if (this.getWebSocketEndpoint() != null) {
+	private Session connect() throws DeploymentException, IOException {
+
+		if (this.getSession() != null) return this.getSession();
+
+		// connect
+		
+		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUrl());
+
+		Session session = WebSocketClientEndpoint.connect(this, this.getXdiWebSocketEndpointUrl()).getSession();
+
+		// done
+		
+		this.setSession(session);
+		return session;
+	}
+
+	private void disconnect() {
+
+		if (this.getSession() != null) {
 
 			try {
 
-				this.getWebSocketEndpoint().getSession().close(new CloseReason(CloseCodes.NORMAL_CLOSURE, null));
+				this.getSession().close(new CloseReason(CloseCodes.NORMAL_CLOSURE, null));
 			} catch (IOException ex) {
 
 				throw new RuntimeException(ex.getMessage(), ex);
+			} finally {
+
+				this.setSession(null);
 			}
-
-			this.setWebSocketEndpoint(null);
 		}
-	}
-
-	private WebSocketEndpoint connect() throws DeploymentException, IOException {
-
-		if (this.getWebSocketEndpoint() == null) {
-
-			if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUrl());
-
-			WebSocketEndpoint webSocketEndpoint = WebSocketEndpoint.connect(this.getXdiWebSocketEndpointUrl());
-			this.setWebSocketEndpoint(webSocketEndpoint);
-		}
-
-		return this.getWebSocketEndpoint();
 	}
 
 	/*
 	 * Getters and setters
 	 */
+
+	public Session getSession() {
+
+		return this.session;
+	}
+
+	public void setSession(Session session) {
+
+		this.session = session;
+	}
 
 	public URL getXdiWebSocketEndpointUrl() {
 
@@ -214,16 +258,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	public void setSendMimeType(MimeType sendMimeType) {
 
 		this.sendMimeType = sendMimeType;
-	}
-
-	public WebSocketEndpoint getWebSocketEndpoint() {
-
-		return this.webSocketEndpoint;
-	}
-
-	public void setWebSocketEndpoint(WebSocketEndpoint webSocketEndpoint) {
-
-		this.webSocketEndpoint = webSocketEndpoint;
 	}
 
 	/*

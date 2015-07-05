@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import xdi2.transport.impl.websocket.endpoint.WebSocketEndpoint;
+import xdi2.transport.impl.websocket.endpoint.WebSocketServerEndpoint;
 
 public class WebSocketsListener implements ServletContextListener, ApplicationContextAware {
 
@@ -48,7 +48,7 @@ public class WebSocketsListener implements ServletContextListener, ApplicationCo
 		
 		try {
 
-			WebSocketEndpoint.install(servletContext, this.webSocketTransport);
+			WebSocketServerEndpoint.install(this.webSocketTransport, servletContext);
 		} catch (DeploymentException ex) {
 
 			throw new RuntimeException("Problem while deploying websocket endpoint: " + ex.getMessage(), ex);

@@ -47,15 +47,15 @@ public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, 
 	}
 
 	@Override
-	public XDILocalClientRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
+	public XDILocalClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
-		// check if we can provide the target peer root
+		// check if we can provide the TO peer root
 
 		for (MessagingTarget messagingTarget : this.getMessagingTargets()) {
 
 			XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
 
-			if (! ownerPeerRootXDIArc.equals(targetPeerRootXDIArc)) continue;
+			if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) continue;
 
 			// construct the route
 
@@ -68,7 +68,7 @@ public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, 
 
 		// done
 
-		log.debug("No messaging target for target peer root " + targetPeerRootXDIArc + ". Skipping.");
+		log.debug("No messaging target for target peer root " + toPeerRootXDIArc + ". Skipping.");
 		return null;
 	}
 

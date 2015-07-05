@@ -19,13 +19,15 @@ import org.eclipse.jetty.websocket.jsr356.ClientContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WebSocketEndpoint extends javax.websocket.Endpoint {
+import xdi2.client.impl.websocket.XDIWebSocketClient;
 
-	private static final Logger log = LoggerFactory.getLogger(WebSocketEndpoint.class);
+public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
+
+	private static final Logger log = LoggerFactory.getLogger(WebSocketClientEndpoint.class);
 
 	private Session session;
 
-	public static WebSocketEndpoint connect(URL xdiWebSocketEndpointUrl) throws DeploymentException, IOException {
+	public static WebSocketClientEndpoint connect(XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) throws DeploymentException, IOException {
 
 		// create client container
 
@@ -41,11 +43,10 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 
 		// connect
 
-		return connect(clientContainer, xdiWebSocketEndpointUrl);
+		return connect(clientContainer, xdiWebSocketClient, xdiWebSocketEndpointUrl);
 	}
 
-	@SuppressWarnings("resource")
-	private static WebSocketEndpoint connect(ClientContainer clientContainer, URL xdiWebSocketEndpointUrl) throws DeploymentException, IOException {
+	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) throws DeploymentException, IOException {
 
 		// init websocket endpoint
 
@@ -67,11 +68,12 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		clientEndpointConfigBuilder.configurator(clientEndpointConfigConfigurator);
 
 		ClientEndpointConfig clientEndpointConfig = clientEndpointConfigBuilder.build();
+		clientEndpointConfig.getUserProperties().put("xdiWebSocketClient", xdiWebSocketClient);
 		clientEndpointConfig.getUserProperties().put("xdiWebSocketEndpointUrl", xdiWebSocketEndpointUrl);
 
 		// connect websocket endpoint
 
-		WebSocketEndpoint webSocketEndpoint = new WebSocketEndpoint();
+		WebSocketClientEndpoint webSocketEndpoint = new WebSocketClientEndpoint();
 
 		Session session = clientContainer.connectToServer(webSocketEndpoint, clientEndpointConfig, URI.create(xdiWebSocketEndpointUrl.toString()));
 		webSocketEndpoint.setSession(session);
@@ -96,11 +98,14 @@ public class WebSocketEndpoint extends javax.websocket.Endpoint {
 		// init message handler
 
 		ClientEndpointConfig clientEndpointConfig = (ClientEndpointConfig) endpointConfig;
+		XDIWebSocketClient xdiWebSocketClient = (XDIWebSocketClient) clientEndpointConfig.getUserProperties().get("xdiWebSocketClient");
 		URL xdiWebSocketEndpointUrl = (URL) clientEndpointConfig.getUserProperties().get("xdiWebSocketEndpointUrl");
+
+		WebSocketClientMessageHandler webSocketMessageHandler = new WebSocketClientMessageHandler(session, xdiWebSocketClient, xdiWebSocketEndpointUrl);
 
 		log.info("WebSocket session " + session.getId() + " opened (" + xdiWebSocketEndpointUrl + ")");
 
-		session.addMessageHandler(new WebSocketMessageHandler(session, xdiWebSocketEndpointUrl));
+		session.addMessageHandler(webSocketMessageHandler);
 	}
 
 	@Override

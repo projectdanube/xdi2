@@ -10,7 +10,6 @@ import xdi2.client.impl.local.XDILocalClientRoute;
 import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.transport.registry.MessagingTargetFactoryRegistry;
 import xdi2.transport.registry.MessagingTargetMount;
 import xdi2.transport.registry.MessagingTargetRegistry;
 
@@ -19,18 +18,17 @@ public class XDIMessagingTargetRegistryAgentRouter implements XDIAgentRouter<XDI
 	private static final Logger log = LoggerFactory.getLogger(XDIMessagingTargetRegistryAgentRouter.class);
 
 	private MessagingTargetRegistry messagingTargetRegistry;
-	private MessagingTargetFactoryRegistry messagingTargetFactoryRegistry;
 
 	@Override
-	public XDILocalClientRoute route(XDIArc targetPeerRootXDIArc) throws Xdi2AgentException {
+	public XDILocalClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
-		// check if we can provide the target peer root
+		// check if we can provide the TO peer root
 
 		MessagingTargetMount messagingTargetMount;
 
 		try {
 
-			messagingTargetMount = this.getMessagingTargetRegistry().lookup(targetPeerRootXDIArc);
+			messagingTargetMount = this.getMessagingTargetRegistry().lookup(toPeerRootXDIArc);
 		} catch (Xdi2Exception ex) {
 
 			throw new Xdi2AgentException("Registry problem: " + ex.getMessage(), ex);
@@ -40,7 +38,7 @@ public class XDIMessagingTargetRegistryAgentRouter implements XDIAgentRouter<XDI
 
 		if (messagingTarget == null) {
 
-			log.debug("Messaging target registry does not have target peer root " + targetPeerRootXDIArc + ". Skipping.");
+			log.debug("Messaging target registry does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 
@@ -65,15 +63,5 @@ public class XDIMessagingTargetRegistryAgentRouter implements XDIAgentRouter<XDI
 	public void setMessagingTargetRegistry(MessagingTargetRegistry messagingTargetRegistry) {
 
 		this.messagingTargetRegistry = messagingTargetRegistry;
-	}
-
-	public MessagingTargetFactoryRegistry getMessagingTargetFactoryRegistry() {
-
-		return this.messagingTargetFactoryRegistry;
-	}
-
-	public void setMessagingTargetFactoryRegistry(MessagingTargetFactoryRegistry messagingTargetFactoryRegistry) {
-
-		this.messagingTargetFactoryRegistry = messagingTargetFactoryRegistry;
 	}
 }

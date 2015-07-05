@@ -32,28 +32,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client-websocket</artifactId>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>1.7</version>
-			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-lang</groupId>
-					<artifactId>commons-lang</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 

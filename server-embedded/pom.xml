@@ -23,15 +23,15 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlet</artifactId>
-			<version>8.1.0.RC5</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-server</artifactId>
 			<version>0.8-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>8.1.0.RC5</version>
 			<scope>compile</scope>
 		</dependency>
 

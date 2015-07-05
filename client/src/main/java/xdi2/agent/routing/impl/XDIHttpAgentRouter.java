@@ -37,13 +37,13 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 
 		if (! "https".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol()) && ! "http".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(s) URL: " + this.getXdiEndpointUrl() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + this.getXdiEndpointUrl() + ". Skipping.");
 			return null;
 		}
 
 		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (log.isDebugEnabled()) log.debug("HTTP(s) URL " + this.getXdiEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("HTTP(S) URL " + this.getXdiEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 

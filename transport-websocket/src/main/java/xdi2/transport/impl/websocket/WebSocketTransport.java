@@ -3,9 +3,12 @@ package xdi2.transport.impl.websocket;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.websocket.CloseReason;
 import javax.websocket.CloseReason.CloseCodes;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -32,10 +36,14 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
 	private String endpointPath;
 
+	private Map<XDIArc, Session> sessions;
+
 	public WebSocketTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
 		this.endpointPath = endpointPath;
+
+		this.sessions = new HashMap<XDIArc, Session> ();
 	}
 
 	public WebSocketTransport() {
@@ -224,5 +232,15 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	public void setEndpointPath(String endpointPath) {
 
 		this.endpointPath = endpointPath;
+	}
+
+	public Map<XDIArc, Session> getSessions() {
+
+		return this.sessions;
+	}
+
+	public void setWebSocketMessageHandlers(Map<XDIArc, Session> sessions) {
+
+		this.sessions = sessions;
 	}
 }

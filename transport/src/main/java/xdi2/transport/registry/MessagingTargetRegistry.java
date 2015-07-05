@@ -9,6 +9,8 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 public interface MessagingTargetRegistry {
 
 	public List<? extends MessagingTargetMount> getMessagingTargetMounts();
+	public List<? extends MessagingTargetFactoryMount> getMessagingTargetFactoryMounts();
 	public MessagingTargetMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException;
 	public int getNumMessagingTargets();
+	public int getNumMessagingTargetFactorys();
 }

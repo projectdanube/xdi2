@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
-import xdi2.client.impl.http.XDIHttpClient;
-import xdi2.client.impl.http.XDIHttpClientRoute;
+import xdi2.client.impl.websocket.XDIWebSocketClient;
+import xdi2.client.impl.websocket.XDIWebSocketClientRoute;
 import xdi2.core.syntax.XDIArc;
 
-public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
+public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketAgentRouter.class);
 
@@ -31,25 +31,25 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIHttpClientRout
 	}
 
 	@Override
-	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
-		if (! "https".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol()) && ! "http".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol())) {
+		if (! "wss".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol()) && ! "ws".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(s) URL: " + this.getXdiWebSocketEndpointUrl() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + this.getXdiWebSocketEndpointUrl() + ". Skipping.");
 			return null;
 		}
 
 		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (log.isDebugEnabled()) log.debug("HTTP(s) URL " + this.getXdiWebSocketEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIHttpClientRoute route = new XDIHttpClientRoute(this.toPeerRootXDIArc, this.xdiWebSocketEndpointUrl);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(this.toPeerRootXDIArc, null, this.xdiWebSocketEndpointUrl);
 
 		// done
 

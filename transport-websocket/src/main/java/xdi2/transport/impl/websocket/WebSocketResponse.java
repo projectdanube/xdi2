@@ -4,7 +4,7 @@ import javax.websocket.RemoteEndpoint.Async;
 import javax.websocket.Session;
 
 import xdi2.transport.TransportResponse;
-import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
+import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
 
 /**
  * This class represents a WebSocket response from the server.
@@ -14,16 +14,16 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketMessageHandler;
  */
 public class WebSocketResponse implements TransportResponse {
 
-	private WebSocketMessageHandler webSocketMessageHandler;
+	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private Async async;
 
-	private WebSocketResponse(WebSocketMessageHandler webSocketMessageHandler, Async async) {
+	private WebSocketResponse(WebSocketServerMessageHandler webSocketMessageHandler, Async async) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.async = async;
 	}
 
-	public static WebSocketResponse create(WebSocketMessageHandler webSocketMessageHandler, Session session) {
+	public static WebSocketResponse create(WebSocketServerMessageHandler webSocketMessageHandler, Session session) {
 
 		Async async = session.getAsyncRemote();
 
@@ -34,7 +34,7 @@ public class WebSocketResponse implements TransportResponse {
 	 * Getters and setters
 	 */
 
-	public WebSocketMessageHandler getWebSocketMessageHandler() {
+	public WebSocketServerMessageHandler getWebSocketMessageHandler() {
 
 		return this.webSocketMessageHandler;
 	}

@@ -1,7 +1,6 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.security.GeneralSecurityException;
@@ -15,9 +14,9 @@ import java.util.Set;
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
+import xdi2.client.util.URLURIUtil;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -195,21 +194,21 @@ public class XDIDiscoveryResult implements Serializable {
 
 		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.XDI_ENDPOINT_URI_TYPE);
 
-		return toURL(xdiEndpointUri);
+		return URLURIUtil.URItoURL(xdiEndpointUri);
 	}
 
 	public URL getXdiWebSocketEndpointUrl() {
 
 		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
 
-		return toURL(xdiEndpointUri);
+		return URLURIUtil.URItoURL(xdiEndpointUri);
 	}
 
 	public URL getXdiConnectEndpointUrl() {
 
 		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.CONNECT_ENDPOINT_URI_TYPE);
 
-		return toURL(xdiEndpointUri);
+		return URLURIUtil.URItoURL(xdiEndpointUri);
 	}
 
 	public URI getDefaultEndpointUri() {
@@ -254,17 +253,6 @@ public class XDIDiscoveryResult implements Serializable {
 			if (endpointUri == null) continue;
 
 			this.endpointUris.put(endpointUriType, URI.create(endpointUri));
-		}
-	}
-
-	private static URL toURL(URI uri) {
-
-		try {
-
-			return uri == null ? null : uri.toURL();
-		} catch (MalformedURLException ex) {
-
-			throw new Xdi2RuntimeException("Malformed endpoint URL: " + uri);
 		}
 	}
 

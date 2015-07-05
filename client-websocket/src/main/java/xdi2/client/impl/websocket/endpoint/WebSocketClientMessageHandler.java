@@ -10,15 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.impl.websocket.XDIWebSocketClient;
 
-public class WebSocketMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
+public class WebSocketClientMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
-	private static final Logger log = LoggerFactory.getLogger(WebSocketMessageHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(WebSocketClientMessageHandler.class);
 
 	private Session session;
 	private XDIWebSocketClient xdiWebSocketClient;
 	private URL xdiWebSocketEndpointUrl;
 
-	public WebSocketMessageHandler(Session session, XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) {
+	public WebSocketClientMessageHandler(Session session, XDIWebSocketClient xdiWebSocketClient, URL xdiWebSocketEndpointUrl) {
 
 		this.session = session;
 		this.xdiWebSocketClient = xdiWebSocketClient;

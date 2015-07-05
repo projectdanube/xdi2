@@ -68,9 +68,9 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 			return null;
 		}
 
-		if (! "http".equalsIgnoreCase(xdiEndpointUrl.getProtocol()) && ! "https".equalsIgnoreCase(xdiEndpointUrl.getProtocol())) {
+		if (! "https".equalsIgnoreCase(xdiEndpointUrl.getProtocol()) && ! "http".equalsIgnoreCase(xdiEndpointUrl.getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(s) URL: " + xdiEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUrl + ". Skipping.");
 			return null;
 		}
 
