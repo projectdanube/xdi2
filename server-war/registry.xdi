@@ -4,7 +4,7 @@ $do/$all/
 (+testcsp)/$ref/(+!:uuid:9999)
 (=bob)/$ref/(=!:uuid:2222)
 (=charlie)/$ref/(=!:uuid:3333)
-(+!:uuid:9999)/$is/
+(+!:uuid:9999)/$ref/
 +testcsp/$ref/+!:uuid:9999
 ($do$if$and/$true){$msg}<$secret><$token><$valid>/&/true
 (=!:uuid:2222)<$digest><$secret><$token>/&/"xdi2-digest:00000000-0000-0000-0000-000000000000:08bde25cc3e4e77baa80ef4c2e16db1be63005f468baadeb4524ebef5c106d557f2f9c1cb978ff6b4395e7aa3d8faed88ca22881b283256aca3666d9886892c8"

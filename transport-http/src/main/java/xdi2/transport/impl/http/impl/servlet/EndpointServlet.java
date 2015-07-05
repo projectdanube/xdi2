@@ -17,10 +17,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.HttpTransport;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
 /**
  * The XDI endpoint servlet.
@@ -35,15 +35,15 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
-	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
+	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
 	private HttpTransport httpTransport;
 
 	public EndpointServlet() {
 
 		super();
 
-		this.httpMessagingTargetRegistry = new HttpMessagingTargetRegistry();
-		this.httpTransport = new HttpTransport(this.httpMessagingTargetRegistry);
+		this.uriMessagingTargetRegistry = new UriMessagingTargetRegistry();
+		this.httpTransport = new HttpTransport(this.uriMessagingTargetRegistry);
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
-		this.httpMessagingTargetRegistry = (HttpMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
-		if (this.httpMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpMessagingTargetRegistry' not found.");
+		this.uriMessagingTargetRegistry = (UriMessagingTargetRegistry) applicationContext.getBean("UriMessagingTargetRegistry");
+		if (this.uriMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'UriMessagingTargetRegistry' not found.");
 
 		this.httpTransport = (HttpTransport) applicationContext.getBean("HttpTransport");
 		if (this.httpTransport == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpTransport' not found.");
@@ -73,6 +73,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 		httpServletRequest.setCharacterEncoding("UTF-8");
 		httpServletResponse.setCharacterEncoding("UTF-8");
 
+		// execute the transport
+
 		HttpTransportRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
 		HttpTransportResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
 
@@ -83,14 +85,14 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	 * Getters and setters
 	 */
 
-	public HttpMessagingTargetRegistry getHttpMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
-		return this.httpMessagingTargetRegistry;
+		return this.uriMessagingTargetRegistry;
 	}
 
-	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
+	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
 
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 	}
 
 	public HttpTransport getHttpTransport() {

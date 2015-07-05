@@ -1,7 +1,6 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,6 +19,7 @@ import xdi2.client.events.XDIDiscoverFromRegistryEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.util.URLURIUtil;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -74,25 +74,19 @@ public class XDIDiscoveryClient {
 		DEFAULT_REGISTRY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
 		DEFAULT_AUTHORITY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
 
-		try {
+		XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://discovery.xdi2.org/neustar-discovery-service-prod"));
+		XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://discovery.xdi2.org/neustar-discovery-service-ote"));
+		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscoveryservice.xdi.net/"));
+		NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscoveryserviceote.xdi.net/"));
+		NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscovery-stg.cloudnames.biz/"));
+		LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("http://xdi.nymble.me/"));
 
-			NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("https://xdidiscoveryservice.xdi.net/"));
-			NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("https://xdidiscoveryserviceote.xdi.net/"));
-			NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("https://xdidiscovery-stg.cloudnames.biz/"));
-			LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("http://xdi.nymble.me/"));
-			XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("https://discovery.xdi2.org/neustar-discovery-service-prod"));
-			XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(new URL("https://discovery.xdi2.org/neustar-discovery-service-ote"));
-		} catch (MalformedURLException ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
-
+		XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
+		XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_STAGE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT);
 		LEOLA_NYMBLE_DISCOVERY_CLIENT = new XDIDiscoveryClient(LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT);
-		XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
-		XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
 
 		DEFAULT_XDI_CLIENT = XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 		DEFAULT_DISCOVERY_CLIENT = XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
@@ -164,6 +158,16 @@ public class XDIDiscoveryClient {
 		xdiDiscoveryResult.initFromRegistryAndAuthorityDiscoveryResult(xdiDiscoveryResultRegistry, xdiDiscoveryResultAuthority, query, endpointUriTypes);
 
 		return xdiDiscoveryResult;
+	}
+
+	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discover(query, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discover(XDIAddress query) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discover(query, (XDIAddress[]) null);
 	}
 
 	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
@@ -238,6 +242,16 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Discovery result from registry: " + xdiDiscoveryResult);
 
 		return xdiDiscoveryResult;
+	}
+
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromRegistry(query, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discoverFromRegistry(XDIAddress query) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromRegistry(query, (XDIAddress[]) null);
 	}
 
 	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
@@ -322,6 +336,16 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Discovery result from authority: " + xdiDiscoveryResult);
 
 		return xdiDiscoveryResult;
+	}
+
+	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, new XDIAddress[] { endpointUriType });
+	}
+
+	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber) throws Xdi2DiscoveryException, Xdi2ClientException {
+
+		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, (XDIAddress[]) null);
 	}
 
 	/*

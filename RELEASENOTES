@@ -1,6 +1,24 @@
 release 0.8 ("Orșova")
 ========================
 
+* xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry->
+xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry
+
+* xdi2.transport.impl.websocket.WebSocketsListener ->
+xdi2.transport.impl.websocket.impl.listener.WebSocketsListener
+
+* more overloaded methods for XDIDiscoveryClient
+
+* xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory ->
+xdi2.messaging.target.factory.impl.uri.AnyUriMessagingTargetFactory
+
+* xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory ->
+xdi2.messaging.target.factory.impl.uri.RegistryUriMessagingTargetFactory
+
+* use Java 1.7 by default, because 1.6. has a DH 1024 bit limitation for SSL connections 
+
+* major updates to XDI agent framework, now supports concepts "AgentTarget" and "AgentRoute".
+
 * removed class ErrorMessageResult. introduced class MessagingError.
 use MessagingResponse.getMessagingError() instead of class ErrorMessageResult.
 

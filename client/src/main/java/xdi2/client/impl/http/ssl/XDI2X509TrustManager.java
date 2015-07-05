@@ -1,6 +1,8 @@
 package xdi2.client.impl.http.ssl;
 
+import java.security.KeyManagementException;
 import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -132,5 +134,30 @@ public class XDI2X509TrustManager implements X509TrustManager {
 
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
+	}
+
+	public static void enableTrustAll() throws NoSuchAlgorithmException, KeyManagementException {
+
+		// Create a trust manager that does not validate certificate chains
+		TrustManager[] trustAllCerts = new TrustManager[] { 
+				new X509TrustManager() {     
+					@Override
+					public java.security.cert.X509Certificate[] getAcceptedIssuers() { 
+						return new X509Certificate[0];
+					} 
+					@Override
+					public void checkClientTrusted( 
+							java.security.cert.X509Certificate[] certs, String authType) {
+					} 
+					@Override
+					public void checkServerTrusted( 
+							java.security.cert.X509Certificate[] certs, String authType) {
+					}
+				} 
+		}; 
+
+		SSLContext sc = SSLContext.getInstance("SSL"); 
+		sc.init(null, trustAllCerts, new java.security.SecureRandom()); 
+		HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 	}
 }

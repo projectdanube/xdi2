@@ -10,7 +10,7 @@ import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 public class InterceptorExecutor {
 
@@ -24,7 +24,7 @@ public class InterceptorExecutor {
 	 * Methods for executing interceptors
 	 */
 
-	public static boolean executeHttpTransportInterceptorsGet(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public static boolean executeHttpTransportInterceptorsGet(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 
@@ -48,7 +48,7 @@ public class InterceptorExecutor {
 		return false;
 	}
 
-	public static boolean executeHttpTransportInterceptorsPut(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public static boolean executeHttpTransportInterceptorsPut(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 
@@ -72,7 +72,7 @@ public class InterceptorExecutor {
 		return false;
 	}
 
-	public static boolean executeHttpTransportInterceptorsPost(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public static boolean executeHttpTransportInterceptorsPost(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 
@@ -96,7 +96,7 @@ public class InterceptorExecutor {
 		return false;
 	}
 
-	public static boolean executeHttpTransportInterceptorsDelete(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public static boolean executeHttpTransportInterceptorsDelete(InterceptorList<? extends Transport<?, ?>> interceptorList, HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		for (Iterator<HttpTransportInterceptor> httpTransportInterceptors = findHttpTransportInterceptors(interceptorList); httpTransportInterceptors.hasNext(); ) {
 

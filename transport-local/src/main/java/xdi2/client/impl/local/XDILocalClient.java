@@ -64,7 +64,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
-		// use the local transport
+		// execute the transport
 
 		LocalTransportRequest request = new LocalTransportRequest(messageEnvelope);
 		LocalTransportResponse response = new LocalTransportResponse();

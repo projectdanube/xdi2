@@ -18,7 +18,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
-import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2Exception;
@@ -38,9 +37,11 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.execution.ExecutionResult;
+import xdi2.messaging.target.factory.impl.uri.UriMessagingTargetFactory;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
@@ -49,11 +50,10 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.factory.MessagingTargetFactory;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.impl.http.registry.MessagingTargetFactoryMount;
-import xdi2.transport.impl.http.registry.MessagingTargetMount;
 import xdi2.transport.interceptor.TransportInterceptor;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetFactoryMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
  * This interceptor prints out a list of mounted messaging targets.
@@ -121,7 +121,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -136,23 +136,23 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
-			if (cmdMessagingTarget != null) httpTransport.getHttpMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			if (cmdMessagingTarget != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
 
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
 
-			MessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
-			if (cmdMessagingTargetFactory != null) httpTransport.getHttpMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
+			UriMessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
+			if (cmdMessagingTargetFactory != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
 
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("edit_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// prepare format and parameters
 
@@ -213,7 +213,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("msg_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// prepare format and parameters
 
@@ -274,7 +274,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// parse graph
 
@@ -328,14 +328,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("exec_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getHttpMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// parse and execute message envelope
 
 			MessageEnvelope messageEnvelope = new MessageEnvelope();
-			MessagingResponse messagingResponse = null;
 
 			XDIReader xdiReader = XDIReaderRegistry.getAuto();
+
+			ExecutionContext executionContext = ExecutionContext.createExecutionContext();
+			ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
 
 			String error = null;
 			String resultstring = null;
@@ -350,7 +352,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 					if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(messageEnvelope);
 				}
 
-				messagingResponse = new XDILocalClient(cmdMessagingTarget).send(messageEnvelope);
+				cmdMessagingTarget.execute(messageEnvelope, executionContext, executionResult);
 			} catch (Xdi2Exception ex) {
 
 				error = ex.getMessage();
@@ -374,9 +376,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// write result graph
 
-			if (messagingResponse != null) {
+			if (executionResult != null) {
 
-				Graph resultGraph = messagingResponse.getResultGraph();
+				Graph resultGraph = executionResult.getResultGraph();
 
 				XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 				StringWriter stringWriter = new StringWriter();
@@ -420,7 +422,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 
@@ -429,8 +431,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		File[] pluginFiles = PluginsLoader.getFiles();
 		Properties xdi2Properties = XDI2Properties.properties;
 		Properties systemProperties = System.getProperties();
-		List<MessagingTargetMount> messagingTargetMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetMounts();
-		List<MessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts();
+		List<UriMessagingTargetMount> messagingTargetMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetMounts();
+		List<UriMessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
 		VelocityContext context = new VelocityContext();
 		context.put("httptransport", httpTransport);
@@ -459,13 +461,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}

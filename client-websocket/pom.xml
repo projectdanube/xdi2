@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>xdi2-client-websocket</artifactId>
+	<packaging>jar</packaging>
+	<name>xdi2-client-websocket</name>
+
+	<parent>
+		<groupId>xdi2</groupId>
+		<artifactId>xdi2</artifactId>
+		<version>0.8-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
+			<version>0.8-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>javax-websocket-client-impl</artifactId>
+			<version>9.3.0.RC1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-client</artifactId>
+			<version>9.3.0.RC1</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+</project>

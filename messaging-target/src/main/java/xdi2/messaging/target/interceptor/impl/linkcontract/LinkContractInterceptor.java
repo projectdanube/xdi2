@@ -30,10 +30,10 @@ import xdi2.messaging.target.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
 /**

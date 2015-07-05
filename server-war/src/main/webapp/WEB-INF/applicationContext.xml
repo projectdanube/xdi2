@@ -5,10 +5,10 @@
 
 	<!-- XDI ENDPOINT REGISTRY AND TRANSPORT -->
 
-	<bean id="HttpMessagingTargetRegistry" class="xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
+	<bean id="UriMessagingTargetRegistry" class="xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
 
 	<bean id="HttpTransport" class="xdi2.transport.impl.http.HttpTransport" init-method="init" destroy-method="shutdown">
-		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />
@@ -18,7 +18,7 @@
 	</bean>
 
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
-		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 		<property name="endpointPath" value="/xdi/" />
 	</bean>
 
@@ -74,7 +74,7 @@
 
 	<!-- MESSAGING TARGET FACTORY at /any/* -->
 
-	<bean name="/any/*" class="xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory">
+	<bean name="/any/*" class="xdi2.messaging.target.factory.impl.uri.AnyUriMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
 	</bean>
 
@@ -87,7 +87,7 @@
 
 	<bean id="registryGraph" factory-bean="registryGraphfactory" factory-method="openGraph" />
 
-	<bean name="/users/*" class="xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory">
+	<bean name="/users/*" class="xdi2.messaging.target.factory.impl.uri.RegistryUriMessagingTargetFactory">
 		<property name="prototypeMessagingTarget" ref="prototypeMessagingTarget" />
 		<property name="registryGraph" ref="registryGraph" />
 		<property name="defaultDisabled" value="false" />

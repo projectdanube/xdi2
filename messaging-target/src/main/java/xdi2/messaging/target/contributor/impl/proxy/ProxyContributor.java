@@ -1,8 +1,5 @@
 package xdi2.messaging.target.contributor.impl.proxy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,10 +22,9 @@ import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
-import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.impl.proxy.manipulator.ProxyManipulator;
+import xdi2.messaging.target.contributor.impl.AbstractContributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
@@ -55,14 +51,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	private boolean skipParentContributors;
 	private boolean skipSiblingContributors;
 	private boolean skipMessagingTarget;
-	private List<ProxyManipulator> proxyManipulators;
 
 	public ProxyContributor() {
 
 		this.skipParentContributors = false;
 		this.skipSiblingContributors = false;
 		this.skipMessagingTarget = true;
-		this.proxyManipulators = new ArrayList<ProxyManipulator> ();
 	}
 
 	/*
@@ -97,7 +91,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (this.toPeerRootXDIArc != null && this.xdiClient == null) {
 
-			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc), null);
+			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc));
 
 			if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIArc);
 
@@ -142,41 +136,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 			return InterceptorResult.DEFAULT;
 		}
 
-		// no static forwarding target, and target is not self, so we check if the target is local
+		// no static forwarding target, and target is not self, so we SHOULD check if the target is local
 
+		// TODO
+		
 		/* SKIP THIS FOR NOW, TREAT LOCAL JUST LIKE REMOTE (i.e. use discovery and messaging)
 
-		Transport<?, ?> transport = executionContext.getTransport();
-
-		if (transport instanceof HttpTransport) {
-
-			HttpTransport httpTransport = (HttpTransport) transport;
-
-			MessagingTargetMount messagingTargetMount;
-
-			try {
-
-				messagingTargetMount = httpTransport.getHttpMessagingTargetRegistry().lookup(toPeerRootXDIArc);
-			} catch (Xdi2TransportException ex) {
-
-				throw new Xdi2MessagingException("Unable to locally look up messaging target for peer root arc " + toPeerRootXDIArc, ex, executionContext);
-			}
-
-			if (messagingTargetMount != null) {
-
-				XDIArc dynamicForwardingTargetToPeerRootXDIArc = toPeerRootXDIArc;
-				XDIClient dynamicForwardingTargetXdiClient = new XDILocalClient(messagingTargetMount.getMessagingTarget());
-				XDIAddress dynamicLinkContractAddress = message.getLinkContractAddress();
-
-				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXDIArc + " (" + dynamicForwardingTargetXdiClient + ") with link contract address " + dynamicLinkContractAddress);
-
-				putToPeerRootXDIArc(executionContext, dynamicForwardingTargetToPeerRootXDIArc, this);
-				putXdiClient(executionContext, dynamicForwardingTargetXdiClient, this);
-				putLinkContractAddress(executionContext, dynamicLinkContractAddress, this);
-
-				return InterceptorResult.DEFAULT;
-			}
-		}
 
 		 */
 
@@ -186,7 +151,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
@@ -247,15 +212,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
 
-		// manipulate the forwarding message envelope
-
-		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
-
-			if (log.isDebugEnabled()) log.debug("Executing proxy manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on address " + targetAddress + " (message envelope).");
-
-			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
-		}
-
 		// send the forwarding message envelope
 
 		MessagingResponse forwardingMessagingResponse;
@@ -271,17 +227,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
 		}
-
-		// manipulate the forwarding message result
-
-		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
-
-			if (log.isDebugEnabled()) log.debug("Executing proxy manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on address " + targetAddress + " (message result).");
-
-			proxyManipulator.manipulate(forwardingResultGraph, executionContext);
-		}
-
-		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingResultGraph);
 
 		// done
 
@@ -319,17 +264,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		if (log.isDebugEnabled()) log.debug("Message envelope for forwarding: " + forwardingMessageEnvelope);
 
-		// manipulate the forwarding message envelope
-
-		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
-
-			if (log.isDebugEnabled()) log.debug("Executing manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on statement " + targetStatement + " (message envelope).");
-
-			proxyManipulator.manipulate(forwardingMessageEnvelope, executionContext);
-		}
-
-		if (log.isDebugEnabled()) log.debug("Manipulated message envelope for forwarding: " + forwardingMessageEnvelope);
-
 		// send the forwarding message envelope
 
 		MessagingResponse forwardingMessagingResponse;
@@ -345,17 +279,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			throw new Xdi2MessagingException("Problem while forwarding XDI request: " + ex.getMessage(), ex, executionContext);
 		}
-
-		// manipulate the forwarding message result
-
-		for (ProxyManipulator proxyManipulator : this.proxyManipulators) {
-
-			if (log.isDebugEnabled()) log.debug("Executing manipulator " + proxyManipulator.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on statement " + targetStatement + " (message result).");
-
-			proxyManipulator.manipulate(forwardingResultGraph, executionContext);
-		}
-
-		if (log.isDebugEnabled()) log.debug("Manipulated message result from forwarding: " + forwardingResultGraph);
 
 		// done
 
@@ -436,16 +359,6 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 	public void setSkipMessagingTarget(boolean skipMessagingTarget) {
 
 		this.skipMessagingTarget = skipMessagingTarget;
-	}
-
-	public List<ProxyManipulator> getProxyManipulators() {
-
-		return this.proxyManipulators;
-	}
-
-	public void setProxyManipulators(List<ProxyManipulator> proxyManipulators) {
-
-		this.proxyManipulators = proxyManipulators;
 	}
 
 	/*

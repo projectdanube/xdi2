@@ -145,7 +145,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			loggingTrustManager = new LoggingTrustManager();
 
 			startRegistry = System.currentTimeMillis();
-			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDIAddress.create(input), null);
+			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDIAddress.create(input));
 			stopRegistry = System.currentTimeMillis();
 
 			// output result from registry

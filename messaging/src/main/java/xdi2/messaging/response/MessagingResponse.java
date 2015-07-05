@@ -3,7 +3,7 @@ package xdi2.messaging.response;
 import java.io.Serializable;
 
 import xdi2.core.Graph;
-import xdi2.messaging.error.MessagingError;
+import xdi2.core.features.error.XdiError;
 
 public interface MessagingResponse extends Serializable, Comparable<MessagingResponse> {
 
@@ -20,10 +20,10 @@ public interface MessagingResponse extends Serializable, Comparable<MessagingRes
 	/**
 	 * Returns whether the messaging response has an associated error.
 	 */
-	public boolean hasMessagingError();
+	public boolean hasXdiError();
 
 	/**
 	 * Returns the error associated with this messaging response, if any.
 	 */
-	public MessagingError getMessagingError();
+	public XdiError getXdiError();
 }

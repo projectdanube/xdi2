@@ -20,9 +20,9 @@ import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
-import xdi2.messaging.target.contributor.AbstractContributor;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
+import xdi2.messaging.target.contributor.impl.AbstractContributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -116,7 +116,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority, null);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI Discovery failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);

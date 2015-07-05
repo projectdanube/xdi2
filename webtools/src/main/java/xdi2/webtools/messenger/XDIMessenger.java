@@ -340,7 +340,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
-		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(XDIaddress, null);
+		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(XDIaddress);
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + XDIaddress);
 		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("No XDI endpoint URI for " + XDIaddress);
 

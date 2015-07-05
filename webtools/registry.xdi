@@ -1,7 +1,7 @@
 /$is$ref/(+!:uuid:9999)
 $do/$all/
 ($do$if$and/$true){$from}/$is/+!:uuid:9999
-(+!:uuid:9999)/$is/
+(+!:uuid:9999)/$ref/
 (+testcsp)/$ref/(+!:uuid:9999)
 (=bob)/$ref/(=!:uuid:2222)
 (=charlie)/$ref/(=!:uuid:3333)

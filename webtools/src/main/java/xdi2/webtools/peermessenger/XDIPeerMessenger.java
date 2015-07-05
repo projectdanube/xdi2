@@ -18,6 +18,9 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.agent.routing.impl.local.XDILocalAgentRouter;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.local.XDILocalClient;
 import xdi2.core.Graph;
@@ -30,6 +33,7 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.FromInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
@@ -38,6 +42,9 @@ import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
+import xdi2.messaging.target.interceptor.impl.push.BasicPushCommandExecutor;
+import xdi2.messaging.target.interceptor.impl.push.PushCommandExecutor;
+import xdi2.messaging.target.interceptor.impl.push.PushCommandInterceptor;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -180,6 +187,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 		request.setAttribute("useReadOnlyInterceptor", null);
 		request.setAttribute("useMessagePolicyInterceptor", null);
 		request.setAttribute("useLinkContractInterceptor", null);
+		request.setAttribute("usePushCommandInterceptor", "on");
 		request.setAttribute("input1", sampleInputs1.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
 		request.setAttribute("input2", sampleInputs2.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
 		request.setAttribute("message1", sampleMessages1.get(Integer.parseInt(category) - 1).get(Integer.parseInt(sample) - 1));
@@ -207,6 +215,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 		String useReadOnlyInterceptor = request.getParameter("useReadOnlyInterceptor");
 		String useMessagePolicyInterceptor = request.getParameter("useMessagePolicyInterceptor");
 		String useLinkContractInterceptor = request.getParameter("useLinkContractInterceptor");
+		String usePushCommandInterceptor = request.getParameter("usePushCommandInterceptor");
 		String input1 = request.getParameter("input1");
 		String input2 = request.getParameter("input2");
 		String message1 = request.getParameter("message1");
@@ -326,6 +335,28 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				messagingTarget2.getInterceptors().addInterceptor(linkContractInterceptor2);
 			}
 
+			if ("on".equals(usePushCommandInterceptor)) {
+
+				List<MessagingTarget> messagingTargets = new ArrayList<MessagingTarget> ();
+				messagingTargets.add(messagingTarget1);
+				messagingTargets.add(messagingTarget2);
+
+				XDILocalAgentRouter agentRouter = new XDILocalAgentRouter(messagingTargets);
+
+				XDIAgent xdiAgent = new XDIBasicAgent(agentRouter);
+
+				PushCommandExecutor pushCommandExecutor = new BasicPushCommandExecutor(xdiAgent);
+
+				PushCommandInterceptor pushCommandInterceptor1 = new PushCommandInterceptor();
+				PushCommandInterceptor pushCommandInterceptor2 = new PushCommandInterceptor();
+				pushCommandInterceptor1.setPushCommandsGraph(graphInput1);
+				pushCommandInterceptor2.setPushCommandsGraph(graphInput2);
+				pushCommandInterceptor1.setPushExecutor(pushCommandExecutor);
+				pushCommandInterceptor2.setPushExecutor(pushCommandExecutor);
+				messagingTarget1.getInterceptors().addInterceptor(pushCommandInterceptor1);
+				messagingTarget2.getInterceptors().addInterceptor(pushCommandInterceptor2);
+			}
+
 			messagingTarget1.init();
 			messagingTarget2.init();
 
@@ -422,6 +453,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 		request.setAttribute("useReadOnlyInterceptor", useReadOnlyInterceptor);
 		request.setAttribute("useMessagePolicyInterceptor", useMessagePolicyInterceptor);
 		request.setAttribute("useLinkContractInterceptor", useLinkContractInterceptor);
+		request.setAttribute("usePushCommandInterceptor", usePushCommandInterceptor);
 		request.setAttribute("input1", input1);
 		request.setAttribute("input2", input2);
 		request.setAttribute("message1", message1);

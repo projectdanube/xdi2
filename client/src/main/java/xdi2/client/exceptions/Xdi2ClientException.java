@@ -1,7 +1,7 @@
 package xdi2.client.exceptions;
 
 import xdi2.core.exceptions.Xdi2Exception;
-import xdi2.messaging.error.MessagingError;
+import xdi2.core.features.error.XdiError;
 import xdi2.messaging.response.MessagingResponse;
 
 /**
@@ -77,8 +77,8 @@ public class Xdi2ClientException extends Xdi2Exception {
 		return this.messagingResponse;
 	}
 
-	public MessagingError getMessagingError() {
+	public XdiError getXdiError() {
 
-		return this.getMessagingResponse().getMessagingError();
+		return this.getMessagingResponse().getXdiError();
 	}
 }

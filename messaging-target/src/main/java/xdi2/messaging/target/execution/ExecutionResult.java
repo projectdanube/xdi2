@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.error.XdiError;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.error.MessagingError;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 
@@ -82,7 +82,8 @@ public final class ExecutionResult {
 
 		if (ex instanceof Xdi2MessagingException) {
 
-			exceptionOperation = ((Xdi2MessagingException) ex).getExecutionContext().getExceptionOperation();
+			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
+			exceptionOperation = executionContext == null ? null : executionContext.getExceptionOperation();
 			if (! executionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
 		}
 
@@ -101,9 +102,9 @@ public final class ExecutionResult {
 
 			if (exceptionOperation == null || exceptionOperation.equals(operation)) {
 
-				MessagingError messagingError = MessagingError.findMessagingError(XdiCommonRoot.findCommonRoot(exceptionOperationResultGraph), true);
-				messagingError.setErrorString(errorString);
-				messagingError.setErrorTimestamp(new Date());
+				XdiError xdiError = XdiError.findXdiError(XdiCommonRoot.findCommonRoot(exceptionOperationResultGraph), true);
+				xdiError.setErrorString(errorString);
+				xdiError.setErrorTimestamp(new Date());
 			} else {
 
 				CopyUtil.copyGraph(operationResultGraph, exceptionOperationResultGraph, null);
