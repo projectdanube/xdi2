@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.client.impl.websocket.XDIWebSocketClient;
+import xdi2.client.impl.websocket.XDIWebSocketClient.Callback;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
@@ -62,7 +63,8 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 
 		// callback
 
-		webSocketClient.getCallback().onMessageEnvelope(messageEnvelope);
+		Callback callback = webSocketClient.getCallback();
+		if (callback != null) callback.onMessageEnvelope(messageEnvelope);
 	}
 
 	/*
