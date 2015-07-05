@@ -56,7 +56,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		DEFAULT_HEADERS_OPTIONS.put("Allow", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
 	}
 
-	private UriMessagingTargetRegistry messagingTargetRegistry;
+	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
 	private Map<String, String> headers;
 	private Map<String, String> headersGet;
 	private Map<String, String> headersPost;
@@ -64,9 +64,9 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 	private Map<String, String> headersDelete;
 	private Map<String, String> headersOptions;
 
-	public HttpTransport(UriMessagingTargetRegistry messagingTargetRegistry) {
+	public HttpTransport(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
 
-		this.messagingTargetRegistry = messagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 		this.headers = DEFAULT_HEADERS;
 		this.headersGet = DEFAULT_HEADERS_GET;
 		this.headersPost = DEFAULT_HEADERS_POST;
@@ -99,12 +99,12 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		try {
 
-			UriMessagingTargetMount messagingTargetMount = this.getMessagingTargetRegistry().lookup(request.getRequestPath());
+			UriMessagingTargetMount uriMessagingTargetMount = this.getUriMessagingTargetRegistry().lookup(request.getRequestPath());
 
-			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, messagingTargetMount);
-			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, messagingTargetMount);
-			else if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) this.processPutRequest(request, response, messagingTargetMount);
-			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, messagingTargetMount);
+			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, uriMessagingTargetMount);
+			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, uriMessagingTargetMount);
+			else if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) this.processPutRequest(request, response, uriMessagingTargetMount);
+			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, uriMessagingTargetMount);
 			else if (HttpTransportRequest.METHOD_OPTIONS.equals(request.getMethod())) this.processOptionsRequest(request, response);
 			else throw new Xdi2TransportException("Invalid HTTP method: " + request.getMethod());
 		} catch (IOException ex) {
@@ -119,15 +119,15 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		if (log.isDebugEnabled()) log.debug("Successfully processed " + request.getMethod() + " request.");
 	}
 
-	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsGet(this.getInterceptors(), this, request, response, messagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsGet(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
 
 		if (result) {
 
@@ -147,7 +147,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		try {
 
-			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -164,15 +164,15 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPost(this.getInterceptors(), this, request, response, messagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPost(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
 
 		if (result) {
 
@@ -209,15 +209,15 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPut(this.getInterceptors(), this, request, response, messagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPut(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
 
 		if (result) {
 
@@ -237,7 +237,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		try {
 
-			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -254,15 +254,15 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsDelete(this.getInterceptors(), this, request, response, messagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsDelete(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
 
 		if (result) {
 
@@ -282,7 +282,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		try {
 
-			messageEnvelope = readFromUrl(messagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -476,14 +476,14 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 	 * Getters and setters
 	 */
 
-	public UriMessagingTargetRegistry getMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
-		return this.messagingTargetRegistry;
+		return this.uriMessagingTargetRegistry;
 	}
 
-	public void setMessagingTargetRegistry(UriMessagingTargetRegistry messagingTargetRegistry) {
+	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
 
-		this.messagingTargetRegistry = messagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 	}
 
 	public Map<String, String> getHeaders() {

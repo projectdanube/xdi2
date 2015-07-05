@@ -10,10 +10,10 @@ xdi2.transport.impl.websocket.impl.listener.WebSocketsListener
 * more overloaded methods for XDIDiscoveryClient
 
 * xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory ->
-xdi2.transport.impl.http.factory.impl.AnyHttpMessagingTargetFactory
+xdi2.messaging.target.factory.impl.uri.AnyUriMessagingTargetFactory
 
 * xdi2.transport.impl.http.factory.impl.RegistryGraphMessagingTargetFactory ->
-xdi2.transport.impl.http.factory.impl.RegistryHttpMessagingTargetFactory
+xdi2.messaging.target.factory.impl.uri.RegistryUriMessagingTargetFactory
 
 * use Java 1.7 by default, because 1.6. has a DH 1024 bit limitation for SSL connections 
 

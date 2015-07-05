@@ -33,16 +33,16 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransport.class);
 
-	private UriMessagingTargetRegistry messagingTargetRegistry;
+	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
 	private String endpointPath;
 
 	private Map<String, Session> sessionIdToSessions;
 	private Map<XDIArc, Session> toPeerRootXDIArcSessions;
 	private Map<String, XDIArc> sessionIdToPeerRootXDIArcs;
 
-	public WebSocketTransport(UriMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
+	public WebSocketTransport(UriMessagingTargetRegistry uriMessagingTargetRegistry, String endpointPath) {
 
-		this.messagingTargetRegistry = httpMessagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 		this.endpointPath = endpointPath;
 
 		this.sessionIdToSessions = new HashMap<String, Session> ();
@@ -85,9 +85,9 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 
 		try {
 
-			UriMessagingTargetMount messagingTargetMount = this.getMessagingTargetRegistry().lookup(request.getRequestPath());
+			UriMessagingTargetMount uriMessagingTargetMount = this.getUriMessagingTargetRegistry().lookup(request.getRequestPath());
 
-			this.processMessage(request, response, messagingTargetMount);
+			this.processMessage(request, response, uriMessagingTargetMount);
 		} catch (IOException ex) {
 
 			throw ex;
@@ -100,15 +100,15 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 		if (log.isDebugEnabled()) log.debug("Successfully processed message.");
 	}
 
-	protected void processMessage(WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processMessage(WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
+		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
 		MessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeWebSocketTransportInterceptorsMessage(this.getInterceptors(), this, request, response, messagingTargetMount);
+		boolean result = InterceptorExecutor.executeWebSocketTransportInterceptorsMessage(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
 
 		if (result) {
 
@@ -272,14 +272,14 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 	 * Getters and setters
 	 */
 
-	public UriMessagingTargetRegistry getMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
-		return this.messagingTargetRegistry;
+		return this.uriMessagingTargetRegistry;
 	}
 
-	public void setMessagingTargetRegistry(UriMessagingTargetRegistry messagingTargetRegistry) {
+	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
 
-		this.messagingTargetRegistry = messagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 	}
 
 	public String getEndpointPath() {

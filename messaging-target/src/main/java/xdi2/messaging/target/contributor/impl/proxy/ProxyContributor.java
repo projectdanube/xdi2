@@ -136,41 +136,12 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 			return InterceptorResult.DEFAULT;
 		}
 
-		// no static forwarding target, and target is not self, so we check if the target is local
+		// no static forwarding target, and target is not self, so we SHOULD check if the target is local
 
+		// TODO
+		
 		/* SKIP THIS FOR NOW, TREAT LOCAL JUST LIKE REMOTE (i.e. use discovery and messaging)
 
-		Transport<?, ?> transport = executionContext.getTransport();
-
-		if (transport instanceof HttpTransport) {
-
-			HttpTransport httpTransport = (HttpTransport) transport;
-
-			MessagingTargetMount messagingTargetMount;
-
-			try {
-
-				messagingTargetMount = httpTransport.getHttpMessagingTargetRegistry().lookup(toPeerRootXDIArc);
-			} catch (Xdi2TransportException ex) {
-
-				throw new Xdi2MessagingException("Unable to locally look up messaging target for peer root arc " + toPeerRootXDIArc, ex, executionContext);
-			}
-
-			if (messagingTargetMount != null) {
-
-				XDIArc dynamicForwardingTargetToPeerRootXDIArc = toPeerRootXDIArc;
-				XDIClient dynamicForwardingTargetXdiClient = new XDILocalClient(messagingTargetMount.getMessagingTarget());
-				XDIAddress dynamicLinkContractAddress = message.getLinkContractAddress();
-
-				if (log.isDebugEnabled()) log.debug("Setting dynamic local forwarding target: " + dynamicForwardingTargetToPeerRootXDIArc + " (" + dynamicForwardingTargetXdiClient + ") with link contract address " + dynamicLinkContractAddress);
-
-				putToPeerRootXDIArc(executionContext, dynamicForwardingTargetToPeerRootXDIArc, this);
-				putXdiClient(executionContext, dynamicForwardingTargetXdiClient, this);
-				putLinkContractAddress(executionContext, dynamicLinkContractAddress, this);
-
-				return InterceptorResult.DEFAULT;
-			}
-		}
 
 		 */
 

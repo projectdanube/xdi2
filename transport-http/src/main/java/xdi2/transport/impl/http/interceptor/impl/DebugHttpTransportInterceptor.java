@@ -136,23 +136,23 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
-			if (cmdMessagingTarget != null) httpTransport.getMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			if (cmdMessagingTarget != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
 
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
 
-			UriMessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
-			if (cmdMessagingTargetFactory != null) httpTransport.getMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
+			UriMessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
+			if (cmdMessagingTargetFactory != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
 
 			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
 		}
 
 		if ("edit_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// prepare format and parameters
 
@@ -213,7 +213,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("msg_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// prepare format and parameters
 
@@ -274,7 +274,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// parse graph
 
@@ -328,7 +328,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		if ("exec_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
-			MessagingTarget cmdMessagingTarget = httpTransport.getMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
+			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 
 			// parse and execute message envelope
 
@@ -431,8 +431,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		File[] pluginFiles = PluginsLoader.getFiles();
 		Properties xdi2Properties = XDI2Properties.properties;
 		Properties systemProperties = System.getProperties();
-		List<UriMessagingTargetMount> messagingTargetMounts = httpTransport.getMessagingTargetRegistry().getMessagingTargetMounts();
-		List<UriMessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getMessagingTargetRegistry().getMessagingTargetFactoryMounts();
+		List<UriMessagingTargetMount> messagingTargetMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetMounts();
+		List<UriMessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactoryMounts();
 
 		VelocityContext context = new VelocityContext();
 		context.put("httptransport", httpTransport);

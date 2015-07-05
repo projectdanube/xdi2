@@ -35,15 +35,15 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
-	private UriMessagingTargetRegistry httpMessagingTargetRegistry;
+	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
 	private HttpTransport httpTransport;
 
 	public EndpointServlet() {
 
 		super();
 
-		this.httpMessagingTargetRegistry = new UriMessagingTargetRegistry();
-		this.httpTransport = new HttpTransport(this.httpMessagingTargetRegistry);
+		this.uriMessagingTargetRegistry = new UriMessagingTargetRegistry();
+		this.httpTransport = new HttpTransport(this.uriMessagingTargetRegistry);
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
-		this.httpMessagingTargetRegistry = (UriMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
-		if (this.httpMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpMessagingTargetRegistry' not found.");
+		this.uriMessagingTargetRegistry = (UriMessagingTargetRegistry) applicationContext.getBean("UriMessagingTargetRegistry");
+		if (this.uriMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'UriMessagingTargetRegistry' not found.");
 
 		this.httpTransport = (HttpTransport) applicationContext.getBean("HttpTransport");
 		if (this.httpTransport == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpTransport' not found.");
@@ -85,14 +85,14 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	 * Getters and setters
 	 */
 
-	public UriMessagingTargetRegistry getHttpMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
-		return this.httpMessagingTargetRegistry;
+		return this.uriMessagingTargetRegistry;
 	}
 
-	public void setHttpMessagingTargetRegistry(UriMessagingTargetRegistry httpMessagingTargetRegistry) {
+	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
 
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
 	}
 
 	public HttpTransport getHttpTransport() {

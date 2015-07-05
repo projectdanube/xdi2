@@ -55,7 +55,7 @@ public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
 
-		for (UriMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
+		for (UriMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getUriMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
 		}
