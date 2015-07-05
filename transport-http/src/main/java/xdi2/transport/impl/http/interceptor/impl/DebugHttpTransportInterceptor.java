@@ -336,8 +336,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			XDIReader xdiReader = XDIReaderRegistry.getAuto();
 
-			ExecutionContext executionContext = ExecutionContext.createExecutionContext();
-			ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
+			ExecutionContext executionContext = null;
+			ExecutionResult executionResult = null;
 
 			String error = null;
 			String resultstring = null;
@@ -351,6 +351,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 					LinkContractInterceptor linkContractInterceptor = ((AbstractMessagingTarget) cmdMessagingTarget).getInterceptors().getInterceptor(LinkContractInterceptor.class);
 					if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessageEnvelope(messageEnvelope);
 				}
+
+				executionContext = ExecutionContext.createExecutionContext();
+				executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
 
 				cmdMessagingTarget.execute(messageEnvelope, executionContext, executionResult);
 			} catch (Xdi2Exception ex) {
