@@ -35,7 +35,7 @@
 	<!-- XDI DISCOVERY CLIENT AND AGENT -->
 
 	<bean id="XdiDiscoveryClient" class="xdi2.discovery.XDIDiscoveryClient">
-		<property name="registryXdiClient" value="https://xdidiscoveryservice.xdi.net/" />
+		<property name="registryXdiClient" value="https://discovery.xdi2.org/neustar-discovery-service-prod/" />
 	</bean>
 
 	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">

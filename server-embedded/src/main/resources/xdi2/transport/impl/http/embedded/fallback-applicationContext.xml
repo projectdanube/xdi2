@@ -17,12 +17,39 @@
 		</property>
 	</bean>
 
+	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
+		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+		<property name="endpointPath" value="/xdi/" />
+	</bean>
+
 	<!-- SPRING -->
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
 				<bean class="xdi2.transport.spring.XDI2SpringConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- XDI DISCOVERY CLIENT AND AGENT -->
+
+	<bean id="XdiDiscoveryClient" class="xdi2.discovery.XDIDiscoveryClient">
+		<property name="registryXdiClient" value="https://discovery.xdi2.org/neustar-discovery-service-prod/" />
+	</bean>
+
+	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">
+		<property name="agentRouters">
+			<list>
+				<bean class="xdi2.agent.routing.impl.local.XDIMessagingTargetRegistryAgentRouter">
+					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+				</bean>
+				<bean class="xdi2.agent.routing.impl.websocket.XDIWebSocketTransportAgentRouter">
+					<property name="webSocketTransport" ref="WebSocketTransport" />
+				</bean>
+				<bean class="xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter">
+					<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
+				</bean>
 			</list>
 		</property>
 	</bean>
