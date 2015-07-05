@@ -1,4 +1,4 @@
-package xdi2.agent.routing.impl;
+package xdi2.agent.routing.impl.websocket;
 
 import java.net.URL;
 
@@ -6,34 +6,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.http.XDIHttpClient;
-import xdi2.client.impl.http.XDIHttpClientRoute;
+import xdi2.client.impl.websocket.XDIWebSocketClient;
+import xdi2.client.impl.websocket.XDIWebSocketClientRoute;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 
-public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
+public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
 
-	private static final Logger log = LoggerFactory.getLogger(XDIHttpDiscoveryAgentRouter.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketDiscoveryAgentRouter.class);
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIWebSocketDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
-	public XDIHttpDiscoveryAgentRouter() {
+	public XDIWebSocketDiscoveryAgentRouter() {
 
-		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
+		this.xdiDiscoveryClient = null;
 	}
 
 	@Override
-	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
@@ -41,7 +42,7 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2AgentException("Discovery problem: " + ex.getMessage(), ex);
@@ -54,7 +55,7 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 		}
 
 		CloudNumber cloudNumber = xdiDiscoveryResult.getCloudNumber();
-		URL xdiEndpointUrl = xdiDiscoveryResult.getXdiEndpointUrl();
+		URL xdiWebSocketEndpointUrl = xdiDiscoveryResult.getXdiWebSocketEndpointUrl();
 
 		if (cloudNumber == null) {
 
@@ -62,21 +63,21 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 			return null;
 		}
 
-		if (xdiEndpointUrl == null) {
+		if (xdiWebSocketEndpointUrl == null) {
 
-			log.debug("Unable to discover XDI endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
+			log.debug("Unable to discover XDI WebSocket endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
 			return null;
 		}
 
-		if (! "https".equalsIgnoreCase(xdiEndpointUrl.getProtocol()) && ! "http".equalsIgnoreCase(xdiEndpointUrl.getProtocol())) {
+		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber.getPeerRootXDIArc(), xdiEndpointUrl);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), null, xdiWebSocketEndpointUrl);
 
 		// done
 

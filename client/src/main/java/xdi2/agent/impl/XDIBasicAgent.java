@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.routing.XDIAgentRouter;
-import xdi2.agent.routing.impl.XDIHttpDiscoveryAgentRouter;
+import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;

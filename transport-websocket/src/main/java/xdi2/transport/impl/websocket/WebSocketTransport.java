@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
@@ -21,6 +22,7 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIArc;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -133,6 +135,14 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 		} catch (IOException ex) {
 
 			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
+		}
+
+		// TODO HACK: register session to message senders
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			XDIArc toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(message.getSenderXDIAddress());
+			this.registerSession(request.getWebSocketMessageHandler().getSession(), toPeerRootXDIArc);
 		}
 
 		// execute the message envelope against our message target, save result

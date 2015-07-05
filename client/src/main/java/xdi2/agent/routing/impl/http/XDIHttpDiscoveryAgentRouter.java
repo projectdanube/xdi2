@@ -1,4 +1,4 @@
-package xdi2.agent.routing.impl;
+package xdi2.agent.routing.impl.http;
 
 import java.net.URL;
 
@@ -6,35 +6,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
-import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.websocket.XDIWebSocketClient;
-import xdi2.client.impl.websocket.XDIWebSocketClientRoute;
+import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.impl.http.XDIHttpClientRoute;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIArc;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 
-public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
+public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
-	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketDiscoveryAgentRouter.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIHttpDiscoveryAgentRouter.class);
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public XDIWebSocketDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
-	public XDIWebSocketDiscoveryAgentRouter() {
+	public XDIHttpDiscoveryAgentRouter() {
 
-		this.xdiDiscoveryClient = null;
+		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 	}
 
 	@Override
-	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
@@ -42,7 +41,7 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
+			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2AgentException("Discovery problem: " + ex.getMessage(), ex);
@@ -55,7 +54,7 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 		}
 
 		CloudNumber cloudNumber = xdiDiscoveryResult.getCloudNumber();
-		URL xdiWebSocketEndpointUrl = xdiDiscoveryResult.getXdiWebSocketEndpointUrl();
+		URL xdiEndpointUrl = xdiDiscoveryResult.getXdiEndpointUrl();
 
 		if (cloudNumber == null) {
 
@@ -63,21 +62,21 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 			return null;
 		}
 
-		if (xdiWebSocketEndpointUrl == null) {
+		if (xdiEndpointUrl == null) {
 
-			log.debug("Unable to discover XDI WebSocket endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
+			log.debug("Unable to discover XDI endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
 			return null;
 		}
 
-		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
+		if (! "https".equalsIgnoreCase(xdiEndpointUrl.getProtocol()) && ! "http".equalsIgnoreCase(xdiEndpointUrl.getProtocol())) {
 
-			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUrl + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), null, xdiWebSocketEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber.getPeerRootXDIArc(), xdiEndpointUrl);
 
 		// done
 

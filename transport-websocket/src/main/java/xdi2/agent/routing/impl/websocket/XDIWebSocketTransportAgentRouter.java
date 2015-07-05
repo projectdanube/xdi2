@@ -1,4 +1,4 @@
-package xdi2.agent.routing.impl;
+package xdi2.agent.routing.impl.websocket;
 
 import javax.websocket.Session;
 
