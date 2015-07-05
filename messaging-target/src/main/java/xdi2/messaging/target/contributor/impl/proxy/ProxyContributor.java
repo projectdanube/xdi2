@@ -93,9 +93,9 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.toPeerRootXDIArc));
 
-			if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIArc);
+			if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("Could not discover XDI endpoint URI for " + this.toPeerRootXDIArc);
 
-			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl());
+			this.xdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 		}
 	}
 
@@ -158,10 +158,10 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 		}
 
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for forwarding target at " + toPeerRootXDIArc, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toPeerRootXDIArc, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for forwarding target at " + toPeerRootXDIArc, null, executionContext);
 
 		XDIArc dynamicForwardingTargetToPeerRootXDIArc = toPeerRootXDIArc;
-		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl());
+		XDIClient dynamicForwardingTargetXdiClient = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri());
 		XDIAddress dynamicLinkContractAddress = message.getLinkContractXDIAddress();
 
 		if (log.isDebugEnabled()) log.debug("Setting dynamic remote forwarding target: " + dynamicForwardingTargetToPeerRootXDIArc + " (" + dynamicForwardingTargetXdiClient + ") with link contract address " + dynamicLinkContractAddress);
@@ -219,7 +219,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUrl() + ".");
+			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUri() + ".");
 
 			forwardingMessagingResponse = xdiClient.send(forwardingMessageEnvelope);
 			forwardingResultGraph = forwardingMessagingResponse.getResultGraph();
@@ -271,7 +271,7 @@ public class ProxyContributor extends AbstractContributor implements MessageInte
 
 		try {
 
-			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUrl() + ".");
+			if (log.isDebugEnabled() && this.getXdiClient() instanceof XDIHttpClient) log.debug("Forwarding operation " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " to " + ((XDIHttpClient) this.getXdiClient()).getXdiEndpointUri() + ".");
 
 			forwardingMessagingResponse = xdiClient.send(forwardingMessageEnvelope);
 			forwardingResultGraph = forwardingMessagingResponse.getResultGraph();

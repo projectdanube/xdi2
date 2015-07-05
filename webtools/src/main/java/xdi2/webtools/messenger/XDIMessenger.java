@@ -155,14 +155,14 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(recipientString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
 					recipientString = xdiDiscoveryResult.getCloudNumber().getXDIAddress().toString();
-					endpointString = xdiDiscoveryResult.getXdiEndpointUrl().toString();
+					endpointString = xdiDiscoveryResult.getXdiEndpointUri().toString();
 
 					request.setAttribute("endpoint", endpointString);
 				} else if (recipientString.toLowerCase().startsWith("prod:")) {
 
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(recipientString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
 					recipientString = xdiDiscoveryResult.getCloudNumber().getXDIAddress().toString();
-					endpointString = xdiDiscoveryResult.getXdiEndpointUrl().toString();
+					endpointString = xdiDiscoveryResult.getXdiEndpointUri().toString();
 
 					request.setAttribute("endpoint", endpointString);
 				}
@@ -214,11 +214,11 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 				if (endpointString.toLowerCase().startsWith("ote:")) {
 
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(endpointString.substring("ote:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_XDI_CLIENT));
-					endpointString = xdiDiscoveryResult.getXdiEndpointUrl().toString();
+					endpointString = xdiDiscoveryResult.getXdiEndpointUri().toString();
 				} else if (endpointString.toLowerCase().startsWith("prod:")) {
 
 					XDIDiscoveryResult xdiDiscoveryResult = discover(XDIAddress.create(endpointString.substring("prod:".length())), new XDIDiscoveryClient(XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_XDI_CLIENT));
-					endpointString = xdiDiscoveryResult.getXdiEndpointUrl().toString();
+					endpointString = xdiDiscoveryResult.getXdiEndpointUri().toString();
 				}
 			} catch (Exception ex) {
 
@@ -342,7 +342,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 		xdiDiscoveryResult = xdiDiscoveryClient.discoverFromRegistry(XDIaddress);
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new RuntimeException("No Cloud Number for " + XDIaddress);
-		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("No XDI endpoint URI for " + XDIaddress);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI for " + XDIaddress);
 
 		return xdiDiscoveryResult;
 	}

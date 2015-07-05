@@ -9,6 +9,8 @@ public class URLURIUtil {
 
 	public static URL URL(String url) {
 
+		if (url == null) return null;
+
 		try {
 
 			return new URL(url);
@@ -19,6 +21,8 @@ public class URLURIUtil {
 	}
 
 	public static URI URI(String uri) {
+
+		if (uri == null) return null;
 
 		try {
 
@@ -31,6 +35,8 @@ public class URLURIUtil {
 
 	public static URL URItoURL(URI uri) {
 
+		if (uri == null) return null;
+
 		try {
 
 			return uri.toURL();
@@ -41,6 +47,8 @@ public class URLURIUtil {
 	}
 
 	public static URI URLtoURI(URL url) {
+
+		if (url == null) return null;
 
 		try {
 

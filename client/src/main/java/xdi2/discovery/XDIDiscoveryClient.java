@@ -1,7 +1,7 @@
 package xdi2.discovery;
 
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,12 +74,12 @@ public class XDIDiscoveryClient {
 		DEFAULT_REGISTRY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
 		DEFAULT_AUTHORITY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
 
-		XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://discovery.xdi2.org/neustar-discovery-service-prod"));
-		XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://discovery.xdi2.org/neustar-discovery-service-ote"));
-		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscoveryservice.xdi.net/"));
-		NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscoveryserviceote.xdi.net/"));
-		NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("https://xdidiscovery-stg.cloudnames.biz/"));
-		LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URL("http://xdi.nymble.me/"));
+		XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://discovery.xdi2.org/neustar-discovery-service-prod"));
+		XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://discovery.xdi2.org/neustar-discovery-service-ote"));
+		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscoveryservice.xdi.net/"));
+		NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscoveryserviceote.xdi.net/"));
+		NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscovery-stg.cloudnames.biz/"));
+		LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("http://xdi.nymble.me/"));
 
 		XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 		XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
@@ -104,19 +104,19 @@ public class XDIDiscoveryClient {
 		this(registryXdiClient, DEFAULT_REGISTRY_CACHE, DEFAULT_AUTHORITY_CACHE);
 	}
 
-	public XDIDiscoveryClient(URL registryEndpointUrl, Cache registryCache, Cache authorityCache) {
+	public XDIDiscoveryClient(URI registryEndpointUri, Cache registryCache, Cache authorityCache) {
 
-		this(new XDIHttpClient(registryEndpointUrl), registryCache, authorityCache);
+		this(new XDIHttpClient(registryEndpointUri), registryCache, authorityCache);
 	}
 
-	public XDIDiscoveryClient(URL registryEndpointUrl) {
+	public XDIDiscoveryClient(URI registryEndpointUri) {
 
-		this(new XDIHttpClient(registryEndpointUrl));
+		this(new XDIHttpClient(registryEndpointUri));
 	}
 
-	public XDIDiscoveryClient(String registryEndpointUrl) {
+	public XDIDiscoveryClient(String registryEndpointUri) {
 
-		this(new XDIHttpClient(registryEndpointUrl));
+		this(new XDIHttpClient(registryEndpointUri));
 	}
 
 	public XDIDiscoveryClient() {
@@ -136,7 +136,7 @@ public class XDIDiscoveryClient {
 			return null;
 		}
 
-		if (xdiDiscoveryResultRegistry.getXdiEndpointUrl() == null || xdiDiscoveryResultRegistry.getCloudNumber() == null) {
+		if (xdiDiscoveryResultRegistry.getXdiEndpointUri() == null || xdiDiscoveryResultRegistry.getCloudNumber() == null) {
 
 			if (log.isDebugEnabled()) log.debug("No XDI endpoint URI or cloud number from registry for " + query);
 			return xdiDiscoveryResultRegistry;
@@ -144,7 +144,7 @@ public class XDIDiscoveryClient {
 
 		// then discover from authority
 
-		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUrl(), xdiDiscoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+		XDIDiscoveryResult xdiDiscoveryResultAuthority = this.discoverFromAuthority(xdiDiscoveryResultRegistry.getXdiEndpointUri(), xdiDiscoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 
 		if (xdiDiscoveryResultAuthority == null) {
 
@@ -254,7 +254,7 @@ public class XDIDiscoveryClient {
 		return this.discoverFromRegistry(query, (XDIAddress[]) null);
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(URI xdiEndpointUri, CloudNumber cloudNumber, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		XDIDiscoveryResult xdiDiscoveryResult = new XDIDiscoveryResult();
 
@@ -262,7 +262,7 @@ public class XDIDiscoveryClient {
 
 		MessagingResponse authorityMessagingResponse = null;
 
-		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUrl, endpointUriTypes);
+		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUri, endpointUriTypes);
 		Element authorityMessageResultElement = null;
 
 		if (this.getAuthorityCache() != null) authorityMessageResultElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
@@ -298,7 +298,7 @@ public class XDIDiscoveryClient {
 
 			try {
 
-				XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUrl);
+				XDIHttpClient authorityXdiHttpClient = new XDIHttpClient(xdiEndpointUri);
 
 				authorityMessagingResponse = authorityXdiHttpClient.send(authorityMessageEnvelope);
 			} catch (Xdi2ClientException ex) {
@@ -320,7 +320,7 @@ public class XDIDiscoveryClient {
 
 			// fire event
 
-			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, xdiDiscoveryResult, xdiEndpointUrl));
+			this.getRegistryXdiClient().fireDiscoverEvent(new XDIDiscoverFromAuthorityEvent(this, authorityMessageEnvelope, xdiDiscoveryResult, xdiEndpointUri));
 		}
 
 		// init the authority discovery result
@@ -338,14 +338,14 @@ public class XDIDiscoveryClient {
 		return xdiDiscoveryResult;
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(URI xdiEndpointUri, CloudNumber cloudNumber, XDIAddress endpointUriType) throws Xdi2DiscoveryException, Xdi2ClientException {
 
-		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, new XDIAddress[] { endpointUriType });
+		return this.discoverFromAuthority(xdiEndpointUri, cloudNumber, new XDIAddress[] { endpointUriType });
 	}
 
-	public XDIDiscoveryResult discoverFromAuthority(URL xdiEndpointUrl, CloudNumber cloudNumber) throws Xdi2DiscoveryException, Xdi2ClientException {
+	public XDIDiscoveryResult discoverFromAuthority(URI xdiEndpointUri, CloudNumber cloudNumber) throws Xdi2DiscoveryException, Xdi2ClientException {
 
-		return this.discoverFromAuthority(xdiEndpointUrl, cloudNumber, (XDIAddress[]) null);
+		return this.discoverFromAuthority(xdiEndpointUri, cloudNumber, (XDIAddress[]) null);
 	}
 
 	/*
@@ -357,22 +357,22 @@ public class XDIDiscoveryClient {
 		private static final long serialVersionUID = -2109761083423630152L;
 
 		private XDIAddress query;
-		private URL xdiEndpointUrl;
+		private URI xdiEndpointUri;
 		private Set<XDIAddress> endpointUriTypes;
 
-		public DiscoveryCacheKey(XDIAddress query, URL xdiEndpointUrl, Set<XDIAddress> endpointUriTypes) {
+		public DiscoveryCacheKey(XDIAddress query, URI xdiEndpointUri, Set<XDIAddress> endpointUriTypes) {
 
 			this.query = query;
-			this.xdiEndpointUrl = xdiEndpointUrl;
+			this.xdiEndpointUri = xdiEndpointUri;
 			this.endpointUriTypes = endpointUriTypes;
 		}
 
 		private static DiscoveryCacheKey build(XDIAddress query, XDIHttpClient registryXdiHttpClient, XDIAddress[] endpointUriTypes) {
 
-			return new DiscoveryCacheKey(query, registryXdiHttpClient.getXdiEndpointUrl(), endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
+			return new DiscoveryCacheKey(query, registryXdiHttpClient.getXdiEndpointUri(), endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
 		}
 
-		private static DiscoveryCacheKey build(CloudNumber cloudNumber, URL xdiEndpointUri, XDIAddress[] endpointUriTypes) {
+		private static DiscoveryCacheKey build(CloudNumber cloudNumber, URI xdiEndpointUri, XDIAddress[] endpointUriTypes) {
 
 			return new DiscoveryCacheKey(cloudNumber.getXDIAddress(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
 		}
@@ -384,7 +384,7 @@ public class XDIDiscoveryClient {
 			int result = 1;
 
 			result = prime * result + ((this.query == null) ? 0 : this.query.hashCode());
-			result = prime * result + ((this.xdiEndpointUrl == null) ? 0 : this.xdiEndpointUrl.hashCode());
+			result = prime * result + ((this.xdiEndpointUri == null) ? 0 : this.xdiEndpointUri.hashCode());
 			result = prime * result + ((this.endpointUriTypes == null) ? 0 : this.endpointUriTypes.hashCode());
 
 			return result;
@@ -404,10 +404,10 @@ public class XDIDiscoveryClient {
 				if (other.query != null) return false;
 			} else if (! this.query.equals(other.query)) return false;
 
-			if (this.xdiEndpointUrl == null) {
+			if (this.xdiEndpointUri == null) {
 
-				if (other.xdiEndpointUrl != null) return false;
-			} else if (! this.xdiEndpointUrl.equals(other.xdiEndpointUrl)) return false;
+				if (other.xdiEndpointUri != null) return false;
+			} else if (! this.xdiEndpointUri.equals(other.xdiEndpointUri)) return false;
 
 			if (this.endpointUriTypes == null) {
 
@@ -420,7 +420,7 @@ public class XDIDiscoveryClient {
 		@Override
 		public String toString() {
 
-			return "DiscoveryCacheKey [query=" + this.query + ", xdiEndpointUri=" + this.xdiEndpointUrl + ", endpointUriTypes=" + this.endpointUriTypes + "]";
+			return "DiscoveryCacheKey [query=" + this.query + ", xdiEndpointUri=" + this.xdiEndpointUri + ", endpointUriTypes=" + this.endpointUriTypes + "]";
 		}
 	}
 

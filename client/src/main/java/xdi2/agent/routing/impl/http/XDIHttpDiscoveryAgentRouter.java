@@ -1,6 +1,6 @@
 package xdi2.agent.routing.impl.http;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 		}
 
 		CloudNumber cloudNumber = xdiDiscoveryResult.getCloudNumber();
-		URL xdiEndpointUrl = xdiDiscoveryResult.getXdiEndpointUrl();
+		URI xdiEndpointUri = xdiDiscoveryResult.getXdiEndpointUri();
 
 		if (cloudNumber == null) {
 
@@ -62,21 +62,21 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 			return null;
 		}
 
-		if (xdiEndpointUrl == null) {
+		if (xdiEndpointUri == null) {
 
 			log.debug("Unable to discover XDI endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
 			return null;
 		}
 
-		if (! "https".equalsIgnoreCase(xdiEndpointUrl.getProtocol()) && ! "http".equalsIgnoreCase(xdiEndpointUrl.getProtocol())) {
+		if (! "https".equalsIgnoreCase(xdiEndpointUri.getScheme()) && ! "http".equalsIgnoreCase(xdiEndpointUri.getScheme())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUri + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber.getPeerRootXDIArc(), xdiEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber.getPeerRootXDIArc(), xdiEndpointUri);
 
 		// done
 

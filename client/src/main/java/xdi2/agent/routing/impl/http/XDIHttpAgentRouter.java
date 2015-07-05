@@ -1,6 +1,6 @@
 package xdi2.agent.routing.impl.http;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,18 +16,18 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpAgentRouter.class);
 
 	private XDIArc toPeerRootXDIArc;
-	private URL xdiEndpointUrl;
+	private URI xdiEndpointUri;
 
-	public XDIHttpAgentRouter(XDIArc toPeerRootXDIArc, URL xdiEndpointUrl) {
+	public XDIHttpAgentRouter(XDIArc toPeerRootXDIArc, URI xdiEndpointUri) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
-		this.xdiEndpointUrl = xdiEndpointUrl;
+		this.xdiEndpointUri = xdiEndpointUri;
 	}
 
 	public XDIHttpAgentRouter() {
 
 		this.toPeerRootXDIArc = null;
-		this.xdiEndpointUrl = null;
+		this.xdiEndpointUri = null;
 	}
 
 	@Override
@@ -35,21 +35,21 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 
 		// check if we can provide the TO peer root
 
-		if (! "https".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol()) && ! "http".equalsIgnoreCase(this.getXdiEndpointUrl().getProtocol())) {
+		if (! "https".equalsIgnoreCase(this.getXdiEndpointUri().getScheme()) && ! "http".equalsIgnoreCase(this.getXdiEndpointUri().getScheme())) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + this.getXdiEndpointUrl() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + this.getXdiEndpointUri() + ". Skipping.");
 			return null;
 		}
 
 		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (log.isDebugEnabled()) log.debug("HTTP(S) URL " + this.getXdiEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("HTTP(S) URL " + this.getXdiEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIHttpClientRoute route = new XDIHttpClientRoute(this.toPeerRootXDIArc, this.xdiEndpointUrl);
+		XDIHttpClientRoute route = new XDIHttpClientRoute(this.toPeerRootXDIArc, this.xdiEndpointUri);
 
 		// done
 
@@ -70,13 +70,13 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
-	public URL getXdiEndpointUrl() {
+	public URI getXdiEndpointUri() {
 
-		return this.xdiEndpointUrl;
+		return this.xdiEndpointUri;
 	}
 
-	public void setXdiEndpointUrl(URL xdiEndpointUrl) {
+	public void setXdiEndpointUri(URI xdiEndpointUri) {
 
-		this.xdiEndpointUrl = xdiEndpointUrl;
+		this.xdiEndpointUri = xdiEndpointUri;
 	}
 }

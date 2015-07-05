@@ -2,7 +2,6 @@ package xdi2.discovery;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 import java.util.Arrays;
@@ -14,7 +13,6 @@ import java.util.Set;
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
-import xdi2.client.util.URLURIUtil;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.features.keys.Keys;
@@ -190,25 +188,19 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.endpointUris;
 	}
 
-	public URL getXdiEndpointUrl() {
+	public URI getXdiEndpointUri() {
 
-		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.XDI_ENDPOINT_URI_TYPE);
-
-		return URLURIUtil.URItoURL(xdiEndpointUri);
+		return this.getEndpointUris().get(XDIClientConstants.XDI_ENDPOINT_URI_TYPE);
 	}
 
-	public URL getXdiWebSocketEndpointUrl() {
+	public URI getXdiWebSocketEndpointUri() {
 
-		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
-
-		return URLURIUtil.URItoURL(xdiEndpointUri);
+		return this.getEndpointUris().get(XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
 	}
 
-	public URL getXdiConnectEndpointUrl() {
+	public URI getXdiConnectEndpointUri() {
 
-		URI xdiEndpointUri = this.getEndpointUris().get(XDIClientConstants.CONNECT_ENDPOINT_URI_TYPE);
-
-		return URLURIUtil.URItoURL(xdiEndpointUri);
+		return this.getEndpointUris().get(XDIClientConstants.CONNECT_ENDPOINT_URI_TYPE);
 	}
 
 	public URI getDefaultEndpointUri() {
@@ -263,6 +255,6 @@ public class XDIDiscoveryResult implements Serializable {
 	@Override
 	public String toString() {
 
-		return this.getCloudNumber() + " (" + this.getXdiEndpointUrl() + ")";
+		return this.getCloudNumber() + " (" + this.getXdiEndpointUri() + ")";
 	}
 }

@@ -51,7 +51,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		sampleInputs = Collections.singletonList("=alice");
 
-		sampleEndpoint = XDIDiscoveryClient.DEFAULT_XDI_CLIENT.getXdiEndpointUrl().toString();
+		sampleEndpoint = XDIDiscoveryClient.DEFAULT_XDI_CLIENT.getXdiEndpointUri().toString();
 
 		sampleServices = "<$https><$connect><$xdi>";
 	}
@@ -162,7 +162,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				}
 
 				writer.write("Cloud Number: " + discoveryResultRegistry.getCloudNumber() + "\n");
-				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUrl() + "\n");
+				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Default Endpoint URI: " + discoveryResultRegistry.getDefaultEndpointUri() + "\n");
 				writer.write("Signature Public Key: " + discoveryResultRegistry.getSignaturePublicKey() + "\n");
 				writer.write("Encryption Public Key: " + discoveryResultRegistry.getEncryptionPublicKey() + "\n");
@@ -204,7 +204,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if ("on".equals(authority)) {
 
-				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUrl() != null) {
+				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
 
 					loggingTrustManager = new LoggingTrustManager();
 
@@ -215,7 +215,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 					try {
 
 						startAuthority = System.currentTimeMillis();
-						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUrl(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
 						stopAuthority = System.currentTimeMillis();
 					} catch (Exception ex) {
 
@@ -239,7 +239,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				}
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
-				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUrl() + "\n");
+				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
 				writer2.write("Default Endpoint URI: " + discoveryResultAuthority.getDefaultEndpointUri() + "\n");
 				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
 				writer2.write("Encryption Public Key: " + discoveryResultAuthority.getEncryptionPublicKey() + "\n");

@@ -172,16 +172,16 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			if (discoveryResult == null) throw new RuntimeException("No discovery result");
 			if (discoveryResult.getCloudNumber() == null) throw new RuntimeException("No cloud number");
-			if (discoveryResult.getXdiEndpointUrl() == null) throw new RuntimeException("No XDI endpoint URI");
+			if (discoveryResult.getXdiEndpointUri() == null) throw new RuntimeException("No XDI endpoint URI");
 
 			// authenticate
 
-			XDIClientUtil.authenticateSecretToken(discoveryResult.getCloudNumber(), discoveryResult.getXdiEndpointUrl(), secretToken);
+			XDIClientUtil.authenticateSecretToken(discoveryResult.getCloudNumber(), discoveryResult.getXdiEndpointUri(), secretToken);
 
 			// check result
 
 			CloudNumber cloudNumber = discoveryResult.getCloudNumber();
-			String xdiEndpointUri = discoveryResult.getXdiEndpointUrl().toString();
+			String xdiEndpointUri = discoveryResult.getXdiEndpointUri().toString();
 
 			// login
 

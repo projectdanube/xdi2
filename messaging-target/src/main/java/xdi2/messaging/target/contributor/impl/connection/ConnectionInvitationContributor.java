@@ -123,7 +123,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		}
 
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for authorizing authority at " + authorizingAuthority, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for authorizing authority at " + authorizingAuthority, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for authorizing authority at " + authorizingAuthority, null, executionContext);
 
 		// create connection request
 
@@ -148,7 +148,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		try {
 
-			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope);
+			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri()).send(messageEnvelope);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending connection request: " + ex.getMessage(), ex, executionContext);

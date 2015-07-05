@@ -1,6 +1,8 @@
 release 0.8 ("Orșova")
 ========================
 
+* use of URL class mostly replaced with URI
+
 * xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry->
 xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry
 

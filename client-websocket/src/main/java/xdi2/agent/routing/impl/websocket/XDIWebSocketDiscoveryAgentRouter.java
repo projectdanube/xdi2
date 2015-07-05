@@ -1,6 +1,6 @@
 package xdi2.agent.routing.impl.websocket;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 		}
 
 		CloudNumber cloudNumber = xdiDiscoveryResult.getCloudNumber();
-		URL xdiWebSocketEndpointUrl = xdiDiscoveryResult.getXdiWebSocketEndpointUrl();
+		URI xdiWebSocketEndpointUri = xdiDiscoveryResult.getXdiWebSocketEndpointUri();
 
 		if (cloudNumber == null) {
 
@@ -63,21 +63,21 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 			return null;
 		}
 
-		if (xdiWebSocketEndpointUrl == null) {
+		if (xdiWebSocketEndpointUri == null) {
 
 			log.debug("Unable to discover XDI WebSocket endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
 			return null;
 		}
 
-		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUrl.getProtocol())) {
+		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUri.getScheme()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUri.getScheme())) {
 
-			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUrl + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUri + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), null, xdiWebSocketEndpointUrl);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(cloudNumber.getPeerRootXDIArc(), null, xdiWebSocketEndpointUri);
 
 		// done
 

@@ -173,7 +173,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		}
 
 		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for recipient at " + recipientXDIAddress, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUrl() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for recipient at " + recipientXDIAddress, null, executionContext);
+		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for recipient at " + recipientXDIAddress, null, executionContext);
 
 		// create connection request
 
@@ -195,7 +195,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		try {
 
-			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUrl()).send(messageEnvelope);
+			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri()).send(messageEnvelope);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending message with inverse operation: " + ex.getMessage(), ex, executionContext);

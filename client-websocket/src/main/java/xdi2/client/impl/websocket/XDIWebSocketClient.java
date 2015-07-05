@@ -2,8 +2,7 @@ package xdi2.client.impl.websocket;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Properties;
 
 import javax.websocket.CloseReason;
@@ -50,48 +49,40 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	private Session session;
 
-	protected URL xdiWebSocketEndpointUrl;
+	protected URI xdiWebSocketEndpointUri;
 	protected MimeType sendMimeType;
 
 	private Callback callback;
 
-	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
+	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
 
 		super();
 
 		this.session = session;
 
-		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
+		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 
 		this.callback = null;
 	}
 
-	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri) {
 
-		this(session, xdiWebSocketEndpointUrl, null);
+		this(session, xdiWebSocketEndpointUri, null);
 	}
 
-	public XDIWebSocketClient(Session session, String xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(Session session, String xdiWebSocketEndpointUri) {
 
-		this(session, URLURIUtil.URL(xdiWebSocketEndpointUrl), null);
-
-		try {
-
-			if (xdiWebSocketEndpointUrl != null) this.xdiWebSocketEndpointUrl = new URL(xdiWebSocketEndpointUrl);
-		} catch (MalformedURLException ex) {
-
-			throw new IllegalArgumentException(ex.getMessage(), ex);
-		}
+		this(session, URLURIUtil.URI(xdiWebSocketEndpointUri), null);
 	}
 
-	public XDIWebSocketClient(Session session, Properties parameters) throws Exception {
+	public XDIWebSocketClient(Session session, Properties parameters) {
 
 		this(session, null, null);
 
 		if (parameters != null) {
 
-			if (parameters.containsKey(KEY_ENDPOINTURL)) this.xdiWebSocketEndpointUrl = new URL(parameters.getProperty(KEY_ENDPOINTURL));
+			if (parameters.containsKey(KEY_ENDPOINTURL)) this.xdiWebSocketEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURL));
 			if (parameters.containsKey(KEY_SENDMIMETYPE)) this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
@@ -103,22 +94,22 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this(session, null, null);
 	}
 
-	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
+	public XDIWebSocketClient(URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
 
-		this((Session) null, xdiWebSocketEndpointUrl, sendMimeType);
+		this((Session) null, xdiWebSocketEndpointUri, sendMimeType);
 	}
 
-	public XDIWebSocketClient(URL xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(URI xdiWebSocketEndpointUri) {
 
-		this((Session) null, xdiWebSocketEndpointUrl);
+		this((Session) null, xdiWebSocketEndpointUri);
 	}
 
-	public XDIWebSocketClient(String xdiWebSocketEndpointUrl) {
+	public XDIWebSocketClient(String xdiWebSocketEndpointUri) {
 
-		this((Session) null, xdiWebSocketEndpointUrl);
+		this((Session) null, xdiWebSocketEndpointUri);
 	}
 
-	public XDIWebSocketClient(Properties parameters) throws Exception {
+	public XDIWebSocketClient(Properties parameters) {
 
 		this((Session) null, parameters);
 	}
@@ -132,7 +123,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
-		if (this.xdiWebSocketEndpointUrl == null) throw new Xdi2ClientException("No URI set.");
+		if (this.xdiWebSocketEndpointUri == null) throw new Xdi2ClientException("No URI set.");
 
 		// find out which XDIWriter we want to use
 
@@ -208,9 +199,9 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// connect
 
-		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUrl());
+		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUri());
 
-		Session session = WebSocketClientEndpoint.connect(this, this.getXdiWebSocketEndpointUrl()).getSession();
+		Session session = WebSocketClientEndpoint.connect(this, this.getXdiWebSocketEndpointUri()).getSession();
 
 		// done
 
@@ -252,14 +243,14 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.session = session;
 	}
 
-	public URL getXdiWebSocketEndpointUrl() {
+	public URI getXdiWebSocketEndpointUri() {
 
-		return this.xdiWebSocketEndpointUrl;
+		return this.xdiWebSocketEndpointUri;
 	}
 
-	public void setXdiWebSocketEndpointUrl(URL xdiEndpointUrl) {
+	public void setXdiWebSocketEndpointUri(URI xdiEndpointUri) {
 
-		this.xdiWebSocketEndpointUrl = xdiEndpointUrl;
+		this.xdiWebSocketEndpointUri = xdiEndpointUri;
 	}
 
 	public MimeType getSendMimeType() {
@@ -289,7 +280,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@Override
 	public String toString() {
 
-		return this.getXdiWebSocketEndpointUrl().toString();
+		return this.getXdiWebSocketEndpointUri().toString();
 	}
 
 	/*

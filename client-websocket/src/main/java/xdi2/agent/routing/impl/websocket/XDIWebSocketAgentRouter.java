@@ -1,6 +1,6 @@
 package xdi2.agent.routing.impl.websocket;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,18 +16,18 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClien
 	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketAgentRouter.class);
 
 	private XDIArc toPeerRootXDIArc;
-	private URL xdiWebSocketEndpointUrl;
+	private URI xdiWebSocketEndpointUri;
 
-	public XDIWebSocketAgentRouter(XDIArc toPeerRootXDIArc, URL xdiWebSocketEndpointUrl) {
+	public XDIWebSocketAgentRouter(XDIArc toPeerRootXDIArc, URI xdiWebSocketEndpointUri) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
-		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
+		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
 	}
 
 	public XDIWebSocketAgentRouter() {
 
 		this.toPeerRootXDIArc = null;
-		this.xdiWebSocketEndpointUrl = null;
+		this.xdiWebSocketEndpointUri = null;
 	}
 
 	@Override
@@ -35,21 +35,21 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClien
 
 		// check if we can provide the TO peer root
 
-		if (! "wss".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol()) && ! "ws".equalsIgnoreCase(this.getXdiWebSocketEndpointUrl().getProtocol())) {
+		if (! "wss".equalsIgnoreCase(this.getXdiWebSocketEndpointUri().getScheme()) && ! "ws".equalsIgnoreCase(this.getXdiWebSocketEndpointUri().getScheme())) {
 
-			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + this.getXdiWebSocketEndpointUrl() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + this.getXdiWebSocketEndpointUri() + ". Skipping.");
 			return null;
 		}
 
 		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUrl() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(this.toPeerRootXDIArc, null, this.xdiWebSocketEndpointUrl);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(this.toPeerRootXDIArc, null, this.xdiWebSocketEndpointUri);
 
 		// done
 
@@ -70,13 +70,13 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClien
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
-	public URL getXdiWebSocketEndpointUrl() {
+	public URI getXdiWebSocketEndpointUri() {
 
-		return this.xdiWebSocketEndpointUrl;
+		return this.xdiWebSocketEndpointUri;
 	}
 
-	public void setXdiWebSocketEndpointUrl(URL xdiWebSocketEndpointUrl) {
+	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
 
-		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
+		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
 	}
 }
