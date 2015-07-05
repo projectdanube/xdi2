@@ -367,6 +367,8 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		copyContextNodes(contextNode, targetGraph.getRootContextNode(false), null);
+		copyRelations(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
+		copyLiteralNode(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
 	}
 
 	/**
