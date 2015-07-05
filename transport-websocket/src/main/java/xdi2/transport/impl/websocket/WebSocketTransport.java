@@ -83,7 +83,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 	@Override
 	public void execute(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
 
-		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getSubprotocol());
+		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getNegotiatedSubprotocol());
 
 		try {
 
@@ -155,50 +155,6 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 		sendText(request, response, messagingResponse);
 	}
 
-	private MessageEnvelope read(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
-
-		// try to find an appropriate reader for the provided mime type
-
-		XDIReader xdiReader = null;
-
-		String contentType = request.getSubprotocol();
-		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
-		xdiReader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
-
-		if (xdiReader == null) xdiReader = XDIReaderRegistry.getDefault();
-
-		// read everything into an in-memory XDI graph (a message envelope)
-
-		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		MessageEnvelope messageEnvelope;
-		long messageCount;
-
-		Reader reader = request.getReader();
-
-		try {
-
-			xdiReader.read(graph, reader);
-			messageEnvelope = MessageEnvelope.fromGraph(graph);
-			messageCount = messageEnvelope.getMessageCount();
-		} catch (IOException ex) {
-
-			throw ex;
-		} catch (Exception ex) {
-
-			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
-			throw new IOException("Cannot parse XDI graph: " + ex.getMessage(), ex);
-		} finally {
-
-			reader.close();
-		}
-
-		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageCount + " messages). Executing...");
-
-		return messageEnvelope;
-	}
-
 	/*
 	 * Sessions
 	 */
@@ -239,6 +195,51 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 	/*
 	 * Helper methods
 	 */
+
+	private static MessageEnvelope read(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
+
+		Reader reader = request.getReader();
+
+		// try to find an appropriate reader for the provided mime type
+
+		XDIReader xdiReader = null;
+
+		String contentType = request.getNegotiatedSubprotocol();
+		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
+		xdiReader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
+
+		if (xdiReader == null) xdiReader = XDIReaderRegistry.getDefault();
+
+		// read everything into an in-memory XDI graph (a message envelope)
+
+		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
+
+		MessageEnvelope messageEnvelope;
+
+		try {
+
+			Graph graph = MemoryGraphFactory.getInstance().openGraph();
+
+			xdiReader.read(graph, reader);
+			messageEnvelope = MessageEnvelope.fromGraph(graph);
+		} catch (IOException ex) {
+
+			throw ex;
+		} catch (Exception ex) {
+
+			log.error("Cannot parse XDI graph: " + ex.getMessage(), ex);
+			throw new IOException("Cannot parse XDI graph: " + ex.getMessage(), ex);
+		} finally {
+
+			reader.close();
+		}
+
+		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageEnvelope.getMessageCount() + " messages). Executing...");
+
+		// done
+		
+		return messageEnvelope;
+	}
 
 	private static void sendText(WebSocketTransportRequest request, WebSocketTransportResponse response, MessagingResponse messagingResponse) throws IOException {
 

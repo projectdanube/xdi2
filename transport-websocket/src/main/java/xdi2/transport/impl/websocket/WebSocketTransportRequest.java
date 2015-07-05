@@ -24,14 +24,14 @@ public class WebSocketTransportRequest implements TransportRequest {
 
 	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private String requestPath;
-	private String subprotocol;
+	private String negotiatedSubprotocol;
 	private Reader reader;
 
-	private WebSocketTransportRequest(WebSocketServerMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
+	private WebSocketTransportRequest(WebSocketServerMessageHandler webSocketMessageHandler, String requestPath, String negotiatedSubprotocol, Reader reader) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.requestPath = requestPath;
-		this.subprotocol = subprotocol;
+		this.negotiatedSubprotocol = negotiatedSubprotocol;
 		this.reader = reader;
 	}
 
@@ -51,9 +51,9 @@ public class WebSocketTransportRequest implements TransportRequest {
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 
-		String subprotocol = session.getNegotiatedSubprotocol();
+		String negotiatedSubprotocol = session.getNegotiatedSubprotocol();
 
-		return new WebSocketTransportRequest(webSocketMessageHandler, requestPath, subprotocol, reader);
+		return new WebSocketTransportRequest(webSocketMessageHandler, requestPath, negotiatedSubprotocol, reader);
 	}
 
 	/*
@@ -70,9 +70,9 @@ public class WebSocketTransportRequest implements TransportRequest {
 		return this.requestPath;
 	}
 
-	public String getSubprotocol() {
+	public String getNegotiatedSubprotocol() {
 
-		return this.subprotocol;
+		return this.negotiatedSubprotocol;
 	}
 
 	public Reader getReader() {

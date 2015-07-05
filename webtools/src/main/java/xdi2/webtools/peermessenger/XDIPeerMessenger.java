@@ -351,8 +351,8 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				PushCommandInterceptor pushCommandInterceptor2 = new PushCommandInterceptor();
 				pushCommandInterceptor1.setPushCommandsGraph(graphInput1);
 				pushCommandInterceptor2.setPushCommandsGraph(graphInput2);
-				pushCommandInterceptor1.setPushExecutor(pushCommandExecutor);
-				pushCommandInterceptor2.setPushExecutor(pushCommandExecutor);
+				pushCommandInterceptor1.setPushCommandExecutor(pushCommandExecutor);
+				pushCommandInterceptor2.setPushCommandExecutor(pushCommandExecutor);
 				messagingTarget1.getInterceptors().addInterceptor(pushCommandInterceptor1);
 				messagingTarget2.getInterceptors().addInterceptor(pushCommandInterceptor2);
 			}

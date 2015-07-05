@@ -242,7 +242,14 @@
 						</bean>
 					</property>
 				</bean>
-<!--				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" /> -->
+				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushCommandInterceptor">
+					<property name="pushCommandExecutor">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushCommandExecutor">
+							<property name="xdiAgent" ref="XdiAgent" />
+						</bean>
+					</property>
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">

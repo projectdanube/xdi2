@@ -307,7 +307,11 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		response.setContentLength(0);
 	}
 
-	private MessageEnvelope readFromUrl(UriMessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
+	/*
+	 * Helper methods
+	 */
+
+	private static MessageEnvelope readFromUrl(UriMessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 
@@ -356,33 +360,32 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		return messageEnvelope;
 	}
 
-	private MessageEnvelope readFromBody(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
-
-		// try to find an appropriate reader for the provided mime type
-
-		XDIReader reader = null;
-
-		String contentType = request.getContentType();
-		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
-		reader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
-
-		if (reader == null) reader = XDIReaderRegistry.getDefault();
-
-		// read everything into an in-memory XDI graph (a message envelope)
-
-		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + reader.getClass().getSimpleName() + ".");
-
-		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		MessageEnvelope messageEnvelope;
-		long messageCount;
+	private static MessageEnvelope readFromBody(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
 
 		InputStream inputStream = request.getBodyInputStream();
 
+		// try to find an appropriate reader for the provided mime type
+
+		XDIReader xdiReader = null;
+
+		String contentType = request.getContentType();
+		MimeType recvMimeType = contentType != null ? new MimeType(contentType) : null;
+		xdiReader = recvMimeType != null ? XDIReaderRegistry.forMimeType(recvMimeType) : null;
+
+		if (xdiReader == null) xdiReader = XDIReaderRegistry.getDefault();
+
+		// read everything into an in-memory XDI graph (a message envelope)
+
+		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
+
+		MessageEnvelope messageEnvelope;
+
 		try {
 
-			reader.read(graph, inputStream);
+			Graph graph = MemoryGraphFactory.getInstance().openGraph();
+
+			xdiReader.read(graph, inputStream);
 			messageEnvelope = MessageEnvelope.fromGraph(graph);
-			messageCount = messageEnvelope.getMessageCount();
 		} catch (IOException ex) {
 
 			throw ex;
@@ -395,14 +398,12 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			inputStream.close();
 		}
 
-		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageCount + " messages). Executing...");
+		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageEnvelope.getMessageCount() + " messages). Executing...");
+
+		// done
 
 		return messageEnvelope;
 	}
-
-	/*
-	 * Helper methods
-	 */
 
 	private void sendOk(HttpTransportRequest request, HttpTransportResponse response, MessagingResponse messagingResponse) throws IOException {
 

@@ -10,10 +10,9 @@ import javax.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.transport.impl.websocket.WebSocketTransport;
 import xdi2.transport.impl.websocket.WebSocketTransportRequest;
 import xdi2.transport.impl.websocket.WebSocketTransportResponse;
-import xdi2.transport.impl.websocket.WebSocketTransport;
 
 public class WebSocketServerMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
@@ -53,7 +52,8 @@ public class WebSocketServerMessageHandler implements javax.websocket.MessageHan
 				this.getSession().close(new CloseReason(CloseCodes.UNEXPECTED_CONDITION, "I/O exception: " + ex.getMessage()));
 			} catch (IOException ex2) {
 
-				throw new Xdi2RuntimeException(ex2.getMessage(), ex2);
+				log.error("Cannot close session: " + ex.getMessage(), ex);
+				return;
 			}
 		}
 	}

@@ -53,6 +53,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	protected URL xdiWebSocketEndpointUrl;
 	protected MimeType sendMimeType;
 
+	private Callback callback;
+
 	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl, MimeType sendMimeType) {
 
 		super();
@@ -61,6 +63,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		this.xdiWebSocketEndpointUrl = xdiWebSocketEndpointUrl;
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
+
+		this.callback = null;
 	}
 
 	public XDIWebSocketClient(Session session, URL xdiWebSocketEndpointUrl) {
@@ -185,7 +189,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// we return a future messaging response
 
-		MessagingResponse messagingResponse = FutureMessagingResponse.create();
+		MessagingResponse messagingResponse = FutureMessagingResponse.create(messageEnvelope);
 
 		// done
 
@@ -268,6 +272,16 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.sendMimeType = sendMimeType;
 	}
 
+	public Callback getCallback() {
+
+		return this.callback;
+	}
+
+	public void setCallback(Callback callback) {
+
+		this.callback = callback;
+	}
+
 	/*
 	 * Object methods
 	 */
@@ -276,5 +290,15 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	public String toString() {
 
 		return this.getXdiWebSocketEndpointUrl().toString();
+	}
+
+	/*
+	 * Helper classes
+	 */
+
+	public static interface Callback {
+
+		public void onMessageEnvelope(MessageEnvelope messageEnvelope);
+		public void onMessagingResponse(MessagingResponse messagingResponse);
 	}
 }

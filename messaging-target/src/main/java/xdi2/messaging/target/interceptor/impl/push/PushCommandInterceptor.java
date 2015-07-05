@@ -39,18 +39,18 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 	private static final Logger log = LoggerFactory.getLogger(PushCommandInterceptor.class);
 
 	private Graph pushCommandsGraph;
-	private PushCommandExecutor pushExecutor;
+	private PushCommandExecutor pushCommandExecutor;
 
-	public PushCommandInterceptor(Graph pushCommandsGraph, PushCommandExecutor pushExecutor) {
+	public PushCommandInterceptor(Graph pushCommandsGraph, PushCommandExecutor pushCommandExecutor) {
 
 		this.pushCommandsGraph = pushCommandsGraph;
-		this.pushExecutor = pushExecutor;
+		this.pushCommandExecutor = pushCommandExecutor;
 	}
 
 	public PushCommandInterceptor() {
 
 		this.pushCommandsGraph = null;
-		this.pushExecutor = new BasicPushCommandExecutor();
+		this.pushCommandExecutor = new BasicPushCommandExecutor();
 	}
 
 	/*
@@ -67,7 +67,7 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 		// set the graph
 
 		interceptor.setPushCommandsGraph(this.getPushCommandsGraph());
-		interceptor.setPushExecutor(this.getPushExecutor());
+		interceptor.setPushCommandExecutor(this.getPushCommandExecutor());
 
 		// done
 
@@ -182,7 +182,7 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 
 				if (log.isDebugEnabled()) log.debug("Executing push command " + pushCommand);
 
-				this.getPushExecutor().executePush(pushCommand, pushCommandOperations, pushCommandXDIAddressMap, pushCommandXDIStatementMap);
+				this.getPushCommandExecutor().executePush(pushCommand, pushCommandOperations, pushCommandXDIAddressMap, pushCommandXDIStatementMap);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
@@ -241,14 +241,14 @@ public class PushCommandInterceptor extends AbstractInterceptor<MessagingTarget>
 		this.pushCommandsGraph = pushCommandsGraph;
 	}
 
-	public PushCommandExecutor getPushExecutor() {
+	public PushCommandExecutor getPushCommandExecutor() {
 
-		return this.pushExecutor;
+		return this.pushCommandExecutor;
 	}
 
-	public void setPushExecutor(PushCommandExecutor pushExecutor) {
+	public void setPushCommandExecutor(PushCommandExecutor pushCommandExecutor) {
 
-		this.pushExecutor = pushExecutor;
+		this.pushCommandExecutor = pushCommandExecutor;
 	}
 
 	/*
