@@ -118,7 +118,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this((Session) null);
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 

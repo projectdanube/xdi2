@@ -43,7 +43,6 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 		return connect(clientContainer, xdiWebSocketClient, xdiWebSocketEndpointUri);
 	}
 
-	@SuppressWarnings("resource")
 	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
 
 		// init websocket endpoint
