@@ -32,6 +32,28 @@
 		</property>
 	</bean>
 
+	<!-- XDI DISCOVERY CLIENT AND AGENT -->
+
+	<bean id="XdiDiscoveryClient" class="xdi2.discovery.XDIDiscoveryClient">
+		<property name="registryXdiClient" value="https://xdidiscoveryservice.xdi.net/" />
+	</bean>
+
+	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">
+		<property name="agentRouters">
+			<list>
+				<bean class="xdi2.agent.routing.impl.XDIMessagingTargetRegistryAgentRouter">
+					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+				</bean>
+				<bean class="xdi2.agent.routing.impl.XDIMessagingTargetRegistryRouter">
+					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+				</bean>
+				<bean class="xdi2.agent.routing.impl.XDIWebSocketTransportAgentRouter">
+					<property name="webSocketTransport" ref="WebSocketTransport" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<!-- MESSAGING TARGET TO BE USED AS A PROTOTYPE FOR MESSAGING TARGET FACTORIES -->
 
 	<bean id="prototypeGraphFactory" class="xdi2.core.impl.memory.MemoryGraphFactory">
@@ -231,7 +253,7 @@
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor" />
 				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">
-					<property name="xdiDiscoveryClient" value="https://xdidiscoveryservice.xdi.net/" />
+					<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 				</bean>
 			</util:list>
 		</property>

@@ -31,17 +31,17 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
-	private List<XDIAgentRouter<?, ?>> agentTargets;
+	private List<XDIAgentRouter<?, ?>> agentRouters;
 
-	public XDIBasicAgent(List<XDIAgentRouter<?, ?>> agentTargets) {
+	public XDIBasicAgent(List<XDIAgentRouter<?, ?>> agentRouters) {
 
-		this.agentTargets = agentTargets;
+		this.agentRouters = agentRouters;
 	}
 
-	public XDIBasicAgent(XDIAgentRouter<?, ?> agentTarget) {
+	public XDIBasicAgent(XDIAgentRouter<?, ?> agentRouter) {
 
-		this.agentTargets = new ArrayList<XDIAgentRouter<?, ?>> ();
-		this.agentTargets.add(agentTarget);
+		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
+		this.agentRouters.add(agentRouter);
 	}
 
 	public XDIBasicAgent() {
@@ -56,7 +56,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		XDIClientRoute<?> route = null;
 
-		for (XDIAgentRouter<?, ?> agentTarget : this.getAgentTargets()) {
+		for (XDIAgentRouter<?, ?> agentTarget : this.getAgentRouters()) {
 
 			route = agentTarget.route(toPeerRootXDIArc);
 			if (route != null) break;
@@ -132,11 +132,11 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// use the TO peer root
 
-		XDIArc targetPeerRootXDIArc = message.getToPeerRootXDIArc();
+		XDIArc toPeerRootXDIArc = message.getToPeerRootXDIArc();
 
 		// let's find a route
 
-		return route(targetPeerRootXDIArc);
+		return route(toPeerRootXDIArc);
 	}
 
 	@Override
@@ -163,7 +163,7 @@ public class XDIBasicAgent implements XDIAgent {
 		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
 		Graph resultGraph = messagingResponse.getResultGraph();
 
-		// let's look for our target address in the message result
+		// let's look for our XDI address in the message result
 
 		ContextNode contextNode = resultGraph.getDeepContextNode(XDIaddress);
 
@@ -183,13 +183,13 @@ public class XDIBasicAgent implements XDIAgent {
 	 * Getters and setters
 	 */
 
-	public List<XDIAgentRouter<?, ?>> getAgentTargets() {
+	public List<XDIAgentRouter<?, ?>> getAgentRouters() {
 
-		return this.agentTargets;
+		return this.agentRouters;
 	}
 
-	public void setAgentTargets(List<XDIAgentRouter<?, ?>> agentTargets) {
+	public void setAgentRouters(List<XDIAgentRouter<?, ?>> agentRouters) {
 
-		this.agentTargets = agentTargets;
+		this.agentRouters = agentRouters;
 	}
 }
