@@ -33,9 +33,10 @@
 		<module>messaging-target</module>
 		<module>client</module>
 		<module>transport</module>
-		<module>transport-local</module>
+		<module>transport-uri</module>
 		<module>transport-http</module>
 		<module>transport-websocket</module>
+		<module>transport-local</module>
 		<module>server</module>
 		<module>server-embedded</module>
 		<module>server-standalone</module>
