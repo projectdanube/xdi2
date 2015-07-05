@@ -57,7 +57,10 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	@Override
 	public XdiError getXdiError() {
 
-		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(this.getResultGraph()), false);
+		Graph resultGraph = this.getResultGraph();
+		if (resultGraph == null) return null;
+
+		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(resultGraph), false);
 	}
 
 	/*

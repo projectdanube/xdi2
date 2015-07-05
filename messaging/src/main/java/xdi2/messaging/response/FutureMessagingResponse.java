@@ -41,7 +41,7 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 	@Override
 	public Graph getGraph() {
 
-		if (this.getMessagingResponse() == null) throw new IllegalStateException("Messaging response is not available yet.");
+		if (this.getMessagingResponse() == null) return null;
 
 		return this.getMessagingResponse().getGraph();
 	}
@@ -49,7 +49,7 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 	@Override
 	public Graph getResultGraph() {
 
-		if (this.getMessagingResponse() == null) throw new IllegalStateException("Messaging response is not available yet.");
+		if (this.getMessagingResponse() == null) return null;
 
 		return this.getMessagingResponse().getGraph();
 	}
