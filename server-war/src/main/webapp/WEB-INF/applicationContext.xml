@@ -19,7 +19,7 @@
 
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
 		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
-		<property name="endpointPath" value="/xdi/" />
+		<property name="endpointPath" value="/" />
 	</bean>
 
 	<!-- SPRING -->
