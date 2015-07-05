@@ -19,7 +19,6 @@ public class XDIWebSocketTransportAgentRouter implements XDIAgentRouter<XDIWebSo
 	private WebSocketTransport webSocketTransport;
 
 	@Override
-	@SuppressWarnings("resource")
 	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
