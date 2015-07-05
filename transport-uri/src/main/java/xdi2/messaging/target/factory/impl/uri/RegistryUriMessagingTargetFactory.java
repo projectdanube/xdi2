@@ -1,4 +1,4 @@
-package xdi2.transport.impl.http.factory.impl;
+package xdi2.messaging.target.factory.impl.uri;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -21,7 +21,7 @@ import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
 /**
  * This messaging target factory uses a "registry graph" as a basis to decide what 
@@ -29,9 +29,9 @@ import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
  * 
  * @author markus
  */
-public class RegistryHttpMessagingTargetFactory extends PrototypingHttpMessagingTargetFactory {
+public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(RegistryHttpMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(RegistryUriMessagingTargetFactory.class);
 
 	public static final XDIAddress XDI_ADD_ENABLED = XDIAddress.create("<#enabled>");
 
@@ -40,7 +40,7 @@ public class RegistryHttpMessagingTargetFactory extends PrototypingHttpMessaging
 	private String disabledError;
 	private String expiredError;
 
-	public RegistryHttpMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError, String expiredError) {
+	public RegistryUriMessagingTargetFactory(Graph registryGraph, boolean defaultDisabled, String disabledError, String expiredError) {
 
 		super();
 
@@ -50,13 +50,13 @@ public class RegistryHttpMessagingTargetFactory extends PrototypingHttpMessaging
 		this.expiredError = expiredError;
 	}
 
-	public RegistryHttpMessagingTargetFactory() {
+	public RegistryUriMessagingTargetFactory() {
 
 		this(null, false, null, null);
 	}
 
 	@Override
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -121,7 +121,7 @@ public class RegistryHttpMessagingTargetFactory extends PrototypingHttpMessaging
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 

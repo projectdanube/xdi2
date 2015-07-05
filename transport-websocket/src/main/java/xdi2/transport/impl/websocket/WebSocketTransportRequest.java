@@ -18,16 +18,16 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketRequest implements TransportRequest {
+public class WebSocketTransportRequest implements TransportRequest {
 
-	private static final Logger log = LoggerFactory.getLogger(WebSocketRequest.class);
+	private static final Logger log = LoggerFactory.getLogger(WebSocketTransportRequest.class);
 
 	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private String requestPath;
 	private String subprotocol;
 	private Reader reader;
 
-	private WebSocketRequest(WebSocketServerMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
+	private WebSocketTransportRequest(WebSocketServerMessageHandler webSocketMessageHandler, String requestPath, String subprotocol, Reader reader) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.requestPath = requestPath;
@@ -35,7 +35,7 @@ public class WebSocketRequest implements TransportRequest {
 		this.reader = reader;
 	}
 
-	public static WebSocketRequest create(WebSocketServerMessageHandler webSocketMessageHandler, Session session, String contextPath, String endpointPath, Reader reader) {
+	public static WebSocketTransportRequest create(WebSocketServerMessageHandler webSocketMessageHandler, Session session, String contextPath, String endpointPath, Reader reader) {
 
 		String requestUri = session.getRequestURI().getPath();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
@@ -53,7 +53,7 @@ public class WebSocketRequest implements TransportRequest {
 
 		String subprotocol = session.getNegotiatedSubprotocol();
 
-		return new WebSocketRequest(webSocketMessageHandler, requestPath, subprotocol, reader);
+		return new WebSocketTransportRequest(webSocketMessageHandler, requestPath, subprotocol, reader);
 	}
 
 	/*

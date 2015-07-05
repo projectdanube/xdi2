@@ -26,23 +26,23 @@ import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
-import xdi2.transport.registry.MessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
-public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebSocketResponse> {
+public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequest, WebSocketTransportResponse> {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransport.class);
 
-	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
+	private UriMessagingTargetRegistry messagingTargetRegistry;
 	private String endpointPath;
 
 	private Map<String, Session> sessionIdToSessions;
 	private Map<XDIArc, Session> toPeerRootXDIArcSessions;
 	private Map<String, XDIArc> sessionIdToPeerRootXDIArcs;
 
-	public WebSocketTransport(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
+	public WebSocketTransport(UriMessagingTargetRegistry httpMessagingTargetRegistry, String endpointPath) {
 
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.messagingTargetRegistry = httpMessagingTargetRegistry;
 		this.endpointPath = endpointPath;
 
 		this.sessionIdToSessions = new HashMap<String, Session> ();
@@ -79,13 +79,13 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	}
 
 	@Override
-	public void execute(WebSocketRequest request, WebSocketResponse response) throws IOException {
+	public void execute(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
 
 		if (log.isInfoEnabled()) log.info("Incoming message to " + request.getRequestPath() + ". Subprotocol: " + request.getSubprotocol());
 
 		try {
 
-			MessagingTargetMount messagingTargetMount = this.getHttpMessagingTargetRegistry().lookup(request.getRequestPath());
+			UriMessagingTargetMount messagingTargetMount = this.getMessagingTargetRegistry().lookup(request.getRequestPath());
 
 			this.processMessage(request, response, messagingTargetMount);
 		} catch (IOException ex) {
@@ -100,7 +100,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Successfully processed message.");
 	}
 
-	protected void processMessage(WebSocketRequest request, WebSocketResponse response, MessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processMessage(WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		final MessagingTarget messagingTarget = messagingTargetMount == null ? null : messagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
@@ -108,7 +108,13 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 
 		// execute interceptors
 
-		// TODO: no interceptors
+		boolean result = InterceptorExecutor.executeWebSocketTransportInterceptorsMessage(this.getInterceptors(), this, request, response, messagingTargetMount);
+
+		if (result) {
+
+			if (log.isDebugEnabled()) log.debug("Skipping request according to HTTP transport interceptor (GET).");
+			return;
+		}
 
 		// no messaging target?
 
@@ -139,7 +145,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		sendText(request, response, messagingResponse);
 	}
 
-	private MessageEnvelope read(WebSocketRequest request, WebSocketResponse response) throws IOException {
+	private MessageEnvelope read(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
 
 		// try to find an appropriate reader for the provided mime type
 
@@ -224,7 +230,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	 * Helper methods
 	 */
 
-	private static void sendText(WebSocketRequest request, WebSocketResponse response, MessagingResponse messagingResponse) throws IOException {
+	private static void sendText(WebSocketTransportRequest request, WebSocketTransportResponse response, MessagingResponse messagingResponse) throws IOException {
 
 		// use default writer
 
@@ -250,13 +256,13 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 		if (log.isDebugEnabled()) log.debug("Output complete.");
 	}
 
-	private static void sendCloseViolatedPolicy(WebSocketRequest request, WebSocketResponse response) throws IOException {
+	private static void sendCloseViolatedPolicy(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
 
 		log.error("Violated policy: " + request.getRequestPath() + ". Sending " + CloseCodes.VIOLATED_POLICY + ".");
 		request.getWebSocketMessageHandler().getSession().close(new CloseReason(CloseCodes.VIOLATED_POLICY, "Violated policy: " + request.getRequestPath()));
 	}
 
-	private static void sendCloseCannotAccept(WebSocketRequest request, WebSocketResponse response, Exception ex) throws IOException {
+	private static void sendCloseCannotAccept(WebSocketTransportRequest request, WebSocketTransportResponse response, Exception ex) throws IOException {
 
 		log.error("Cannot accept: " + ex.getMessage() + ". Sending " + CloseCodes.CANNOT_ACCEPT + ".", ex);
 		request.getWebSocketMessageHandler().getSession().close(new CloseReason(CloseCodes.CANNOT_ACCEPT, "Cannot accept: " + ex.getMessage()));
@@ -266,14 +272,14 @@ public class WebSocketTransport extends AbstractTransport<WebSocketRequest, WebS
 	 * Getters and setters
 	 */
 
-	public HttpMessagingTargetRegistry getHttpMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getMessagingTargetRegistry() {
 
-		return this.httpMessagingTargetRegistry;
+		return this.messagingTargetRegistry;
 	}
 
-	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
+	public void setMessagingTargetRegistry(UriMessagingTargetRegistry messagingTargetRegistry) {
 
-		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
+		this.messagingTargetRegistry = messagingTargetRegistry;
 	}
 
 	public String getEndpointPath() {

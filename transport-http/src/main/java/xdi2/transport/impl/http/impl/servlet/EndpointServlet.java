@@ -20,7 +20,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
 /**
  * The XDI endpoint servlet.
@@ -35,14 +35,14 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 	private static final Logger log = LoggerFactory.getLogger(EndpointServlet.class);
 
-	private HttpMessagingTargetRegistry httpMessagingTargetRegistry;
+	private UriMessagingTargetRegistry httpMessagingTargetRegistry;
 	private HttpTransport httpTransport;
 
 	public EndpointServlet() {
 
 		super();
 
-		this.httpMessagingTargetRegistry = new HttpMessagingTargetRegistry();
+		this.httpMessagingTargetRegistry = new UriMessagingTargetRegistry();
 		this.httpTransport = new HttpTransport(this.httpMessagingTargetRegistry);
 	}
 
@@ -51,7 +51,7 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
-		this.httpMessagingTargetRegistry = (HttpMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
+		this.httpMessagingTargetRegistry = (UriMessagingTargetRegistry) applicationContext.getBean("HttpMessagingTargetRegistry");
 		if (this.httpMessagingTargetRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'HttpMessagingTargetRegistry' not found.");
 
 		this.httpTransport = (HttpTransport) applicationContext.getBean("HttpTransport");
@@ -85,12 +85,12 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 	 * Getters and setters
 	 */
 
-	public HttpMessagingTargetRegistry getHttpMessagingTargetRegistry() {
+	public UriMessagingTargetRegistry getHttpMessagingTargetRegistry() {
 
 		return this.httpMessagingTargetRegistry;
 	}
 
-	public void setHttpMessagingTargetRegistry(HttpMessagingTargetRegistry httpMessagingTargetRegistry) {
+	public void setHttpMessagingTargetRegistry(UriMessagingTargetRegistry httpMessagingTargetRegistry) {
 
 		this.httpMessagingTargetRegistry = httpMessagingTargetRegistry;
 	}

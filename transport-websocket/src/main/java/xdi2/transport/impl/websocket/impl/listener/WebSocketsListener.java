@@ -1,4 +1,4 @@
-package xdi2.transport.impl.websocket;
+package xdi2.transport.impl.websocket.impl.listener;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import xdi2.transport.impl.websocket.WebSocketTransport;
 import xdi2.transport.impl.websocket.endpoint.WebSocketServerEndpoint;
 
 public class WebSocketsListener implements ServletContextListener, ApplicationContextAware {

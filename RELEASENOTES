@@ -1,6 +1,12 @@
 release 0.8 ("Orșova")
 ========================
 
+* xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry->
+xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry
+
+* xdi2.transport.impl.websocket.WebSocketsListener ->
+xdi2.transport.impl.websocket.impl.listener.WebSocketsListener
+
 * more overloaded methods for XDIDiscoveryClient
 
 * xdi2.transport.impl.http.factory.impl.AnyGraphMessagingTargetFactory ->

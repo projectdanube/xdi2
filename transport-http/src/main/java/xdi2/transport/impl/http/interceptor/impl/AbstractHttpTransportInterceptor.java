@@ -9,30 +9,30 @@ import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 public abstract class AbstractHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements HttpTransportInterceptor {
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPutRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}
 
 	@Override
-	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processDeleteRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		return false;
 	}

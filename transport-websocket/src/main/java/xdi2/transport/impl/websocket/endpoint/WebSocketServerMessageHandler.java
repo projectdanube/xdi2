@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.transport.impl.websocket.WebSocketRequest;
-import xdi2.transport.impl.websocket.WebSocketResponse;
+import xdi2.transport.impl.websocket.WebSocketTransportRequest;
+import xdi2.transport.impl.websocket.WebSocketTransportResponse;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 
 public class WebSocketServerMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
@@ -39,8 +39,8 @@ public class WebSocketServerMessageHandler implements javax.websocket.MessageHan
 
 		// execute the transport
 
-		WebSocketRequest request = WebSocketRequest.create(this, this.getSession(), contextPath, endpointPath, reader);
-		WebSocketResponse response = WebSocketResponse.create(this, this.getSession());
+		WebSocketTransportRequest request = WebSocketTransportRequest.create(this, this.getSession(), contextPath, endpointPath, reader);
+		WebSocketTransportResponse response = WebSocketTransportResponse.create(this, this.getSession());
 
 		try {
 

@@ -12,22 +12,22 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketResponse implements TransportResponse {
+public class WebSocketTransportResponse implements TransportResponse {
 
 	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private Async async;
 
-	private WebSocketResponse(WebSocketServerMessageHandler webSocketMessageHandler, Async async) {
+	private WebSocketTransportResponse(WebSocketServerMessageHandler webSocketMessageHandler, Async async) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
 		this.async = async;
 	}
 
-	public static WebSocketResponse create(WebSocketServerMessageHandler webSocketMessageHandler, Session session) {
+	public static WebSocketTransportResponse create(WebSocketServerMessageHandler webSocketMessageHandler, Session session) {
 
 		Async async = session.getAsyncRemote();
 
-		return new WebSocketResponse(webSocketMessageHandler, async);
+		return new WebSocketTransportResponse(webSocketMessageHandler, async);
 	}
 
 	/*

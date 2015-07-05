@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-transport-http</artifactId>
+			<artifactId>xdi2-transport-uri</artifactId>
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

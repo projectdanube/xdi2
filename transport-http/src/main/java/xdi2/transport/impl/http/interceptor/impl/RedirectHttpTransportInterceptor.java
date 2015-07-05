@@ -6,7 +6,7 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
  * This interceptor redirects to a specified URL in case of a GET request without path.
@@ -18,7 +18,7 @@ public class RedirectHttpTransportInterceptor extends AbstractHttpTransportInter
 	private String location;
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, HttpMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals("/")) return false;
 

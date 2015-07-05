@@ -1,20 +1,20 @@
-package xdi2.transport.impl.http.registry;
+package xdi2.transport.registry.impl.uri;
 
-import xdi2.transport.impl.http.factory.HttpMessagingTargetFactory;
+import xdi2.messaging.target.factory.impl.uri.UriMessagingTargetFactory;
 import xdi2.transport.registry.MessagingTargetFactoryMount;
 
-public class HttpMessagingTargetFactoryMount implements MessagingTargetFactoryMount {
+public class UriMessagingTargetFactoryMount implements MessagingTargetFactoryMount {
 
 	private String messagingTargetFactoryPath;
-	private HttpMessagingTargetFactory messagingTargetFactory;
+	private UriMessagingTargetFactory messagingTargetFactory;
 
-	public HttpMessagingTargetFactoryMount(String messagingTargetFactoryPath, HttpMessagingTargetFactory messagingTargetFactory) {
+	public UriMessagingTargetFactoryMount(String messagingTargetFactoryPath, UriMessagingTargetFactory messagingTargetFactory) {
 
 		this.messagingTargetFactoryPath = messagingTargetFactoryPath;
 		this.messagingTargetFactory = messagingTargetFactory;
 	}
 
-	public HttpMessagingTargetFactoryMount() {
+	public UriMessagingTargetFactoryMount() {
 
 	}
 
@@ -29,12 +29,12 @@ public class HttpMessagingTargetFactoryMount implements MessagingTargetFactoryMo
 	}
 
 	@Override
-	public HttpMessagingTargetFactory getMessagingTargetFactory() {
+	public UriMessagingTargetFactory getMessagingTargetFactory() {
 
 		return this.messagingTargetFactory;
 	}
 
-	public void setMessagingTargetFactory(HttpMessagingTargetFactory messagingTargetFactory) {
+	public void setMessagingTargetFactory(UriMessagingTargetFactory messagingTargetFactory) {
 
 		this.messagingTargetFactory = messagingTargetFactory;
 	}

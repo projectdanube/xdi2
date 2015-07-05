@@ -1,4 +1,4 @@
-package xdi2.transport.impl.http.factory.impl;
+package xdi2.messaging.target.factory.impl.uri;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +14,16 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
-public abstract class PrototypingHttpMessagingTargetFactory extends AbstractHttpMessagingTargetFactory {
+public abstract class PrototypingUriMessagingTargetFactory extends UriMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(PrototypingHttpMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(PrototypingUriMessagingTargetFactory.class);
 
 	private MessagingTarget prototypeMessagingTarget;
 
 	@SuppressWarnings("unchecked")
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetPath, XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) throws Xdi2MessagingException, Xdi2TransportException {
 
 		if (log.isDebugEnabled()) log.debug("messagingTargetPath=" + messagingTargetPath + ", ownerXDIAddress=" + ownerXDIAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 

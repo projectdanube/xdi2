@@ -1,4 +1,4 @@
-package xdi2.client.agent.routing.impl;
+package xdi2.agent.routing.impl.local;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

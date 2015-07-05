@@ -17,8 +17,8 @@ import javax.websocket.server.ServerEndpointConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.transport.impl.http.registry.HttpMessagingTargetFactoryMount;
 import xdi2.transport.impl.websocket.WebSocketTransport;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetFactoryMount;
 
 public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 
@@ -55,7 +55,7 @@ public class WebSocketServerEndpoint extends javax.websocket.Endpoint {
 
 		install(serverContainer, webSocketTransport, contextPath, endpointPath, "/{path}");
 
-		for (HttpMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getHttpMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
+		for (UriMessagingTargetFactoryMount messagingTargetFactoryMount : webSocketTransport.getMessagingTargetRegistry().getMessagingTargetFactoryMounts()) {
 
 			install(serverContainer, webSocketTransport, contextPath, endpointPath, messagingTargetFactoryMount.getMessagingTargetFactoryPath() + "/{path}");
 		}

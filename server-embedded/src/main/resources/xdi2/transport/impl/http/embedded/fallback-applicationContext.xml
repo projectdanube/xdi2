@@ -5,10 +5,10 @@
 
 	<!-- XDI ENDPOINT REGISTRY AND TRANSPORT -->
 
-	<bean id="HttpMessagingTargetRegistry" class="xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
+	<bean id="UriMessagingTargetRegistry" class="xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
 
 	<bean id="HttpTransport" class="xdi2.transport.impl.http.HttpTransport" init-method="init" destroy-method="shutdown">
-		<property name="httpMessagingTargetRegistry" ref="HttpMessagingTargetRegistry" />
+		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />

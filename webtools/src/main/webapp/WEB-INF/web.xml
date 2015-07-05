@@ -190,7 +190,7 @@
 	</listener>
 
 	<listener>
-		<listener-class>xdi2.transport.impl.websocket.WebSocketsListener</listener-class>
+		<listener-class>xdi2.transport.impl.websocket.impl.listener.WebSocketsListener</listener-class>
 	</listener>
 
 </web-app>

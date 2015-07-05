@@ -1,4 +1,4 @@
-package xdi2.transport.impl.http.factory.impl;
+package xdi2.messaging.target.factory.impl.uri;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,19 +13,19 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
 /**
  * This messaging target factory create messaging targets for any path.
  * 
  * @author markus
  */
-public class AnyHttpMessagingTargetFactory extends PrototypingHttpMessagingTargetFactory {
+public class AnyUriMessagingTargetFactory extends PrototypingUriMessagingTargetFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(AnyHttpMessagingTargetFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(AnyUriMessagingTargetFactory.class);
 
 	@Override
-	public MessagingTarget mountMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
+	public MessagingTarget mountMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired) throws Xdi2TransportException, Xdi2MessagingException {
 
 		// parse owner
 
@@ -45,7 +45,7 @@ public class AnyHttpMessagingTargetFactory extends PrototypingHttpMessagingTarge
 	}
 
 	@Override
-	public MessagingTarget updateMessagingTarget(HttpMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException {
+	public MessagingTarget updateMessagingTarget(UriMessagingTargetRegistry httpMessagingTargetRegistry, String messagingTargetFactoryPath, String requestPath, boolean checkDisabled, boolean checkExpired, MessagingTarget messagingTarget) throws Xdi2TransportException {
 
 		return messagingTarget;
 	}
