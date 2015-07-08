@@ -243,9 +243,9 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushCommandInterceptor">
-					<property name="pushCommandExecutor">
-						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushCommandExecutor">
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
 							<property name="xdiAgent" ref="XdiAgent" />
 						</bean>
 					</property>
