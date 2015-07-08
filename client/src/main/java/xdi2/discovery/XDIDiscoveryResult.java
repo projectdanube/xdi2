@@ -224,11 +224,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private void initEndpointUris(XdiContext<?> xdiContext, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException {
 
-		if (endpointUriTypes == null) {
-
-			this.endpointUris.clear();
-			return;
-		}
+		if (endpointUriTypes == null) return;
 
 		for (XDIAddress endpointUriType : endpointUriTypes) {
 
