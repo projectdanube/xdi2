@@ -32,7 +32,12 @@ public final class XDILinkContractConstants {
 	public static final XDIAddress XDI_ADD_SET_DO = XDIAddress.create("$set{$do}");
 	public static final XDIAddress XDI_ADD_SET_REF = XDIAddress.create("$set{$ref}");
 	public static final XDIAddress XDI_ADD_DEL = XDIAddress.create("$del");
+	public static final XDIAddress XDI_ADD_PUSH = XDIAddress.create("$push");
+	public static final XDIAddress XDI_ADD_IS_PUSH = XDIAddress.create("$is$push");
+
 	public static final XDIAddress XDI_ADD_NOT = XDIAddress.create("$not");
+
+	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 
 	private XDILinkContractConstants() { }
 }

@@ -1,9 +1,17 @@
 package xdi2.core.features.linkcontracts.instance;
 
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.linkcontracts.community.CommunityLinkContract;
 import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.iterators.MappingContextNodeXDIArcIterator;
+import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
+import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
@@ -71,5 +79,15 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 	public XdiEntity getXdiSubGraph() {
 
 		return this.xdiEntity;
+	}
+
+	public ReadOnlyIterator<XDIArc> getToPeerRootXDIArcs() {
+
+		return new NotNullIterator<XDIArc> (
+				new MappingContextNodeXDIArcIterator (
+						new XdiContext.MappingXdiContextContextNodeIterator(
+								new XdiPeerRoot.MappingContextNodePeerRootIterator(
+										new MappingRelationTargetContextNodeIterator(
+												this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_TO_PEER_ROOT_ARC))))));
 	}
 }

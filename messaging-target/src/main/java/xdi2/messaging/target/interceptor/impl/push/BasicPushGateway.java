@@ -14,47 +14,48 @@ import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.features.push.PushCommand;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 
-public class BasicPushCommandExecutor implements PushCommandExecutor {
+public class BasicPushGateway implements PushGateway {
 
-	private static final Logger log = LoggerFactory.getLogger(BasicPushCommandExecutor.class);
+	private static final Logger log = LoggerFactory.getLogger(BasicPushGateway.class);
 
 	private XDIAgent xdiAgent;
 
-	public BasicPushCommandExecutor(XDIAgent xdiAgent) {
+	public BasicPushGateway(XDIAgent xdiAgent) {
 
 		this.xdiAgent = xdiAgent;
 	}
 
-	public BasicPushCommandExecutor() {
+	public BasicPushGateway() {
 
 		this.xdiAgent = new XDIBasicAgent();
 	}
 
 	@Override
-	public void executePush(PushCommand pushCommand, Set<Operation> pushCommandOperations, Map<Operation, XDIAddress> pushCommandXDIAddressMap, Map<Operation, List<XDIStatement>> pushCommandXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
+	public void executePush(LinkContract linkContract, Set<Operation> pushOperations, Map<Operation, XDIAddress> pushXDIAddressMap, Map<Operation, List<XDIStatement>> pushXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
-		for (XDIAddress toXDIAddress : pushCommand.getToXDIAddresses()) {
+		for (XDIArc toPeerRootXDIArc : linkContract.getToPeerRootXDIArcs()) {
 
-			if (log.isDebugEnabled()) log.debug("Trying to push to " + toXDIAddress);
+			if (log.isDebugEnabled()) log.debug("Trying to push to " + toPeerRootXDIArc);
 
 			try {
 
 				// find route to this target
 
-				XDIClientRoute<?> route = this.getXdiAgent().route(toXDIAddress);
+				XDIClientRoute<?> route = this.getXdiAgent().route(toPeerRootXDIArc);
 
 				if (route == null) {
 
-					log.warn("No route for " + toXDIAddress + ". Skipping push command.");
+					log.warn("No route for " + toPeerRootXDIArc + ". Skipping push command.");
 					continue;
 				}
 
@@ -67,13 +68,13 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 				MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
 				Message message = route.constructMessage(messageEnvelope);
 
-				for (Operation pushCommandOperation : pushCommandOperations) {
+				for (Operation pushOperation : pushOperations) {
 
-					XDIAddress pushCommandXDIAddress = pushCommandXDIAddressMap == null ? null : pushCommandXDIAddressMap.get(pushCommandOperation);
-					List<XDIStatement> pushCommandXDIStatements = pushCommandXDIStatementMap == null ? null : pushCommandXDIStatementMap.get(pushCommandOperation);
+					XDIAddress pushXDIAddress = pushXDIAddressMap == null ? null : pushXDIAddressMap.get(pushOperation);
+					List<XDIStatement> pushXDIStatements = pushXDIStatementMap == null ? null : pushXDIStatementMap.get(pushOperation);
 
-					if (pushCommandXDIAddress != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIAddress);
-					if (pushCommandXDIStatements != null) message.createOperation(pushCommandOperation.getOperationXDIAddress(), pushCommandXDIStatements.iterator());
+					if (pushXDIAddress != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIAddress);
+					if (pushXDIStatements != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIStatements.iterator());
 				}
 
 				// send the message envelope
@@ -82,10 +83,10 @@ public class BasicPushCommandExecutor implements PushCommandExecutor {
 
 				// done
 
-				if (log.isDebugEnabled()) log.debug("Successfully pushed to " + toXDIAddress);
+				if (log.isDebugEnabled()) log.debug("Successfully pushed to " + toPeerRootXDIArc);
 			} catch (Exception ex) {
 
-				log.warn("Failed to push to " + toXDIAddress + ": " + ex.getMessage(), ex);
+				log.warn("Failed to push to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex);
 				exs.add(ex);
 			}
 		}

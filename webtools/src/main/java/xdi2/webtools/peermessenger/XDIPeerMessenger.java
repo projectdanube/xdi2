@@ -42,9 +42,9 @@ import xdi2.messaging.target.interceptor.impl.RefInterceptor;
 import xdi2.messaging.target.interceptor.impl.ToInterceptor;
 import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.messaging.target.interceptor.impl.push.BasicPushCommandExecutor;
-import xdi2.messaging.target.interceptor.impl.push.PushCommandExecutor;
-import xdi2.messaging.target.interceptor.impl.push.PushCommandInterceptor;
+import xdi2.messaging.target.interceptor.impl.push.BasicPushGateway;
+import xdi2.messaging.target.interceptor.impl.push.PushGateway;
+import xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -345,14 +345,14 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 				XDIAgent xdiAgent = new XDIBasicAgent(agentRouter);
 
-				PushCommandExecutor pushCommandExecutor = new BasicPushCommandExecutor(xdiAgent);
+				PushGateway pushCommandExecutor = new BasicPushGateway(xdiAgent);
 
-				PushCommandInterceptor pushCommandInterceptor1 = new PushCommandInterceptor();
-				PushCommandInterceptor pushCommandInterceptor2 = new PushCommandInterceptor();
-				pushCommandInterceptor1.setPushCommandsGraph(graphInput1);
-				pushCommandInterceptor2.setPushCommandsGraph(graphInput2);
-				pushCommandInterceptor1.setPushCommandExecutor(pushCommandExecutor);
-				pushCommandInterceptor2.setPushCommandExecutor(pushCommandExecutor);
+				PushLinkContractInterceptor pushCommandInterceptor1 = new PushLinkContractInterceptor();
+				PushLinkContractInterceptor pushCommandInterceptor2 = new PushLinkContractInterceptor();
+				pushCommandInterceptor1.setPushLinkContractsGraph(graphInput1);
+				pushCommandInterceptor2.setPushLinkContractsGraph(graphInput2);
+				pushCommandInterceptor1.setPushGateway(pushCommandExecutor);
+				pushCommandInterceptor2.setPushGateway(pushCommandExecutor);
 				messagingTarget1.getInterceptors().addInterceptor(pushCommandInterceptor1);
 				messagingTarget2.getInterceptors().addInterceptor(pushCommandInterceptor2);
 			}

@@ -7,6 +7,8 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.MappingIterator;
 
 public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Comparable<XdiContext<?>> {
 
@@ -38,4 +40,18 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public XdiEntity getXdiEntity(XDIAddress contextNodeXDIAddress, boolean create);
 	public XdiAttribute getXdiAttribute(XDIArc contextNodeXDIArc, boolean create);
 	public XdiAttribute getXdiAttribute(XDIAddress contextNodeXDIAddress, boolean create);
+
+	public static class MappingXdiContextContextNodeIterator extends MappingIterator<XdiContext<?>, ContextNode> {
+
+		public MappingXdiContextContextNodeIterator(Iterator<? extends XdiContext<?>> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public ContextNode map(XdiContext<?> xdiContext) {
+
+			return xdiContext.getContextNode();
+		}
+	}
 }
