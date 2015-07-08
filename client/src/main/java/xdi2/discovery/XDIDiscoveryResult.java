@@ -15,6 +15,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
+import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -22,9 +23,15 @@ import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.core.util.iterators.IteratorArrayMaker;
+import xdi2.core.util.iterators.MappingCloudNameIterator;
+import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
+import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 
@@ -33,6 +40,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private static final long serialVersionUID = -1141807747864855392L;
 
 	private CloudNumber cloudNumber;
+	private CloudName[] cloudNames;
 	private PublicKey signaturePublicKey;
 	private PublicKey encryptionPublicKey;
 	private Map<XDIAddress, URI> endpointUris;
@@ -43,6 +51,7 @@ public class XDIDiscoveryResult implements Serializable {
 	public XDIDiscoveryResult() {
 
 		this.cloudNumber = null;
+		this.cloudNames = null;
 		this.signaturePublicKey = null;
 		this.encryptionPublicKey = null;
 		this.endpointUris = new HashMap<XDIAddress, URI> ();
@@ -124,13 +133,20 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
-		// find cloud names
-
-
 		// find authority
 
 		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
 		if (authorityXdiEntity == null) return;
+
+		// find cloud names
+
+		ReadOnlyIterator<CloudName> cloudNameIterator =
+				new NotNullIterator<CloudName> (
+						new MappingCloudNameIterator(
+								new MappingRelationTargetXDIAddressIterator(
+										authorityXdiEntity.getContextNode().getRelations(XDIDictionaryConstants.XDI_ADD_IS_REF))));
+
+		this.cloudNames = new IteratorArrayMaker<CloudName> (cloudNameIterator).array(CloudName.class);
 
 		// find signature public key
 
@@ -171,6 +187,11 @@ public class XDIDiscoveryResult implements Serializable {
 	public CloudNumber getCloudNumber() {
 
 		return this.cloudNumber;
+	}
+
+	public CloudName[] getCloudNames() {
+
+		return this.cloudNames;
 	}
 
 	public PublicKey getSignaturePublicKey() {
