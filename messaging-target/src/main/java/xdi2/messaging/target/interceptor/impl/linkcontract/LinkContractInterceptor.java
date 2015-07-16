@@ -46,18 +46,18 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
-	private XDIAddress defaultLinkContractAddress;
+	private XDIAddress defaultLinkContractXDIAddress;
 
 	public LinkContractInterceptor(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
-		this.defaultLinkContractAddress = null;
+		this.defaultLinkContractXDIAddress = null;
 	}
 
 	public LinkContractInterceptor() {
 
 		this.linkContractsGraph = null;
-		this.defaultLinkContractAddress = null;
+		this.defaultLinkContractXDIAddress = null;
 	}
 
 	/*
@@ -77,7 +77,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// set the default link contract XRI
 
-		interceptor.setDefaultLinkContractAddress(this.getDefaultLinkContractAddress());
+		interceptor.setDefaultLinkContractXDIAddress(this.getDefaultLinkContractXDIAddress());
 
 		// done
 
@@ -106,17 +106,17 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// find the XDI link contract referenced by the message
 
-		XDIAddress linkContractAddress = message.getLinkContractXDIAddress();
+		XDIAddress linkContractXDIAddress = message.getLinkContractXDIAddress();
 
-		if (linkContractAddress == null) linkContractAddress = this.getDefaultLinkContractAddress();
+		if (linkContractXDIAddress == null) linkContractXDIAddress = this.getDefaultLinkContractXDIAddress();
 
-		if (linkContractAddress == null) {
+		if (linkContractXDIAddress == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract specified by message.");
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractAddress, true);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXDIAddress, true);
 		if (linkContractContextNode == null) {
 
 			if (log.isDebugEnabled()) log.debug("No link contract context node found in graph.");
@@ -323,14 +323,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		this.linkContractsGraph = linkContractsGraph;
 	}
 
-	public XDIAddress getDefaultLinkContractAddress() {
+	public XDIAddress getDefaultLinkContractXDIAddress() {
 
-		return this.defaultLinkContractAddress;
+		return this.defaultLinkContractXDIAddress;
 	}
 
-	public void setDefaultLinkContractAddress(XDIAddress defaultLinkContractAddress) {
+	public void setDefaultLinkContractXDIAddress(XDIAddress defaultLinkContractXDIAddress) {
 
-		this.defaultLinkContractAddress = defaultLinkContractAddress;
+		this.defaultLinkContractXDIAddress = defaultLinkContractXDIAddress;
 	}
 
 	/*
