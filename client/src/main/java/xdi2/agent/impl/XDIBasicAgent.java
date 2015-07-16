@@ -139,6 +139,15 @@ public class XDIBasicAgent implements XDIAgent {
 		return route(toPeerRootXDIArc);
 	}
 
+	// TEMP HACK: replace this with a more generic mechanism
+
+	private XDIAddress linkContractXDIAddress;
+
+	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
+
+		this.linkContractXDIAddress = linkContractXDIAddress;
+	}
+
 	@Override
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
@@ -155,6 +164,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
 		Message message = route.constructMessage(messageEnvelope);
+		message.setLinkContractXDIAddress(this.linkContractXDIAddress);
 		Operation operation = message.createGetOperation(XDIaddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
