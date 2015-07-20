@@ -183,7 +183,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		ContextNode contextNode = resultGraph.getDeepContextNode(XDIaddress);
 
-		if (contextNode != null) {
+		if (contextNode == null) {
 
 			if (log.isDebugEnabled()) log.debug("Unable to find context node. Giving up for address " + XDIaddress);
 			return null;
