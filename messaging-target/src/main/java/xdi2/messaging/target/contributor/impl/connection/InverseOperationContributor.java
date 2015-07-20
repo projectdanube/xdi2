@@ -1,7 +1,10 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.client.XDIClient;
+import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -13,7 +16,6 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.discovery.XDIDiscoveryClient;
-import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.DelOperation;
@@ -44,17 +46,17 @@ public class InverseOperationContributor extends AbstractContributor implements 
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private Graph targetGraph;
-	private XDIDiscoveryClient xdiDiscoveryClient;
+	private XDIAgent xdiAgent;
 
-	public InverseOperationContributor(Graph targetGraph, XDIDiscoveryClient xdiDiscoveryClient) {
+	public InverseOperationContributor(Graph targetGraph, XDIAgent xdiAgent) {
 
 		this.targetGraph = targetGraph;
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 
 	public InverseOperationContributor() {
 
-		this(null, DEFAULT_DISCOVERY_CLIENT);
+		this(null, new XDIBasicAgent());
 	}
 
 	/*
@@ -72,9 +74,9 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		contributor.setTargetGraph(this.getTargetGraph());
 
-		// set the discovery client
+		// set the agent
 
-		contributor.setXdiDiscoveryClient(this.getXdiDiscoveryClient());
+		contributor.setXdiAgent(this.getXdiAgent());
 
 		// done
 
@@ -160,20 +162,19 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		XDIAddress recipientXDIAddress = operation.getSenderXDIAddress();
 
-		// discover recipient
+		// find route to authorizing authority
 
-		XDIDiscoveryResult xdiDiscoveryResult;
+		XDIClientRoute<? extends XDIClient> route;
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(recipientXDIAddress);
+			route = this.getXdiAgent().route(recipientXDIAddress);
 		} catch (Xdi2ClientException ex) {
 
-			throw new Xdi2MessagingException("XDI Discovery failed on " + recipientXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("XDI routing failed on " + recipientXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for recipient at " + recipientXDIAddress, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for recipient at " + recipientXDIAddress, null, executionContext);
+		if (route == null) throw new Xdi2MessagingException("Could not find route to recipient at " + recipientXDIAddress, null, executionContext);
 
 		// create connection request
 
@@ -181,8 +182,8 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
 		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress(operation.getMessage());
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
+		Message message = route.constructMessage(messageEnvelope, senderXDIAddress);
 		message.getLinkContractXDIAddress();
 		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
 		message.deleteOperations();
@@ -191,11 +192,12 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		if (targetXDIAddress != null) message.createOperation(inverseOperationXDIAddress, targetXDIAddress);
 		if (targetXDIStatement != null) message.createOperation(inverseOperationXDIAddress, targetXDIStatement);
 
+		XDIClient xdiClient = route.constructXDIClient();
 		MessagingResponse messagingResponse;
 
 		try {
 
-			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri()).send(messageEnvelope);
+			messagingResponse = xdiClient.send(messageEnvelope);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending message with inverse operation: " + ex.getMessage(), ex, executionContext);
@@ -236,13 +238,13 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		this.targetGraph = targetGraph;
 	}
 
-	public XDIDiscoveryClient getXdiDiscoveryClient() {
+	public XDIAgent getXdiAgent() {
 
-		return this.xdiDiscoveryClient;
+		return this.xdiAgent;
 	}
 
-	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+	public void setXdiAgent(XDIAgent xdiAgent) {
 
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 }

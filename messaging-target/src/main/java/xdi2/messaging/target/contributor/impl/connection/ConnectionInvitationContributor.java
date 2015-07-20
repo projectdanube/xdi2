@@ -3,17 +3,18 @@ package xdi2.messaging.target.contributor.impl.connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.client.XDIClient;
+import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphUtil;
 import xdi2.discovery.XDIDiscoveryClient;
-import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.DoOperation;
@@ -43,17 +44,17 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private Graph targetGraph;
-	private XDIDiscoveryClient xdiDiscoveryClient;
+	private XDIAgent xdiAgent;
 
-	public ConnectionInvitationContributor(Graph targetGraph, XDIDiscoveryClient xdiDiscoveryClient) {
+	public ConnectionInvitationContributor(Graph targetGraph, XDIAgent xdiAgent) {
 
 		this.targetGraph = targetGraph;
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 
 	public ConnectionInvitationContributor() {
 
-		this(null, DEFAULT_DISCOVERY_CLIENT);
+		this(null, new XDIBasicAgent());
 	}
 
 	/*
@@ -71,9 +72,9 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		contributor.setTargetGraph(this.getTargetGraph());
 
-		// set the discovery client
+		// set the agent
 
-		contributor.setXdiDiscoveryClient(this.getXdiDiscoveryClient());
+		contributor.setXdiAgent(this.getXdiAgent());
 
 		// done
 
@@ -110,26 +111,24 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		XDIAddress authorizingAuthority = operation.getSenderXDIAddress();
 
-		// discover authorizing authority
+		// find route to authorizing authority
 
-		XDIDiscoveryResult xdiDiscoveryResult;
+		XDIClientRoute<? extends XDIClient> route;
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(authorizingAuthority);
+			route = this.getXdiAgent().route(authorizingAuthority);
 		} catch (Xdi2ClientException ex) {
 
-			throw new Xdi2MessagingException("XDI Discovery failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("XDI routing failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (xdiDiscoveryResult.getCloudNumber() == null) throw new Xdi2MessagingException("Could not discover Cloud Number for authorizing authority at " + authorizingAuthority, null, executionContext);
-		if (xdiDiscoveryResult.getXdiEndpointUri() == null) throw new Xdi2MessagingException("Could not discover XDI endpoint URI for authorizing authority at " + authorizingAuthority, null, executionContext);
+		if (route == null) throw new Xdi2MessagingException("Could not find route to authorizing authority at " + authorizingAuthority, null, executionContext);
 
 		// create connection request
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(requestingAuthority);
-		message.setToPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(authorizingAuthority));
+		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
+		Message message = route.constructMessage(messageEnvelope, requestingAuthority);
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
 
@@ -144,11 +143,12 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		// send connection request
 
+		XDIClient xdiClient = route.constructXDIClient();
 		MessagingResponse messagingResponse;
 
 		try {
 
-			messagingResponse = new XDIHttpClient(xdiDiscoveryResult.getXdiEndpointUri()).send(messageEnvelope);
+			messagingResponse = xdiClient.send(messageEnvelope);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending connection request: " + ex.getMessage(), ex, executionContext);
@@ -177,13 +177,13 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		this.targetGraph = targetGraph;
 	}
 
-	public XDIDiscoveryClient getXdiDiscoveryClient() {
+	public XDIAgent getXdiAgent() {
 
-		return this.xdiDiscoveryClient;
+		return this.xdiAgent;
 	}
 
-	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+	public void setXdiAgent(XDIAgent xdiAgent) {
 
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 }

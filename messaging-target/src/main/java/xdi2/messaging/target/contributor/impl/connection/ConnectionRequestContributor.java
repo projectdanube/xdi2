@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
-import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
@@ -22,7 +21,6 @@ import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -46,20 +44,18 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectionRequestContributor.class);
 
-	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
-
 	private Graph targetGraph;
-	private XDIDiscoveryClient xdiDiscoveryClient;
+	private XDIAgent xdiAgent;
 
-	public ConnectionRequestContributor(Graph targetGraph, XDIDiscoveryClient xdiDiscoveryClient) {
+	public ConnectionRequestContributor(Graph targetGraph, XDIAgent xdiAgent) {
 
 		this.targetGraph = targetGraph;
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 
 	public ConnectionRequestContributor() {
 
-		this(null, DEFAULT_DISCOVERY_CLIENT);
+		this(null, new XDIBasicAgent());
 	}
 
 	/*
@@ -76,6 +72,10 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		// set the graph
 
 		contributor.setTargetGraph(this.getTargetGraph());
+
+		// set the agent
+
+		contributor.setXdiAgent(this.getXdiAgent());
 
 		// done
 
@@ -118,8 +118,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			XDIAgent xdiAgent = new XDIBasicAgent(new XDIHttpDiscoveryAgentRouter(this.getXdiDiscoveryClient()));
-			linkContractTemplateContextNode = xdiAgent.get(linkContractTemplateXDIaddress);
+			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
@@ -187,13 +186,13 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		this.targetGraph = targetGraph;
 	}
 
-	public XDIDiscoveryClient getXdiDiscoveryClient() {
+	public XDIAgent getXdiAgent() {
 
-		return this.xdiDiscoveryClient;
+		return this.xdiAgent;
 	}
 
-	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
+	public void setXdiAgent(XDIAgent xdiAgent) {
 
-		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.xdiAgent = xdiAgent;
 	}
 }

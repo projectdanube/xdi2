@@ -2,6 +2,7 @@ package xdi2.client.impl;
 
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -31,11 +32,17 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	}
 
 	@Override
-	public Message constructMessage(MessageEnvelope messageEnvelope) {
+	public Message constructMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress) {
 
-		Message message = messageEnvelope.createMessage(XDIMessagingConstants.XDI_ADD_ANONYMOUS);
+		Message message = messageEnvelope.createMessage(senderXDIAddress);
 		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
 
 		return message;
+	}
+
+	@Override
+	public Message constructMessage(MessageEnvelope messageEnvelope) {
+
+		return this.constructMessage(messageEnvelope, XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 	}
 }

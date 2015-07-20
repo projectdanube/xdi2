@@ -243,9 +243,9 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushCommandInterceptor">
-					<property name="pushCommandExecutor">
-						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushCommandExecutor">
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
 							<property name="xdiAgent" ref="XdiAgent" />
 						</bean>
 					</property>
@@ -258,9 +258,11 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">
-					<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
+					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
 			</util:list>
 		</property>

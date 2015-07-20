@@ -1,5 +1,6 @@
 package xdi2.agent;
 
+import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -17,10 +18,10 @@ import xdi2.messaging.MessageEnvelope;
  */
 public interface XDIAgent {
 
-	public XDIClientRoute<?> route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<?> route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<?> route(MessageEnvelope messageEnvelope) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<?> route(Message message) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient> route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient> route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient> route(MessageEnvelope messageEnvelope) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient> route(Message message) throws Xdi2AgentException, Xdi2ClientException;
 
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
 }
