@@ -15,6 +15,7 @@ import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.CloudNumber;
@@ -166,7 +167,10 @@ public class XDIBasicAgent implements XDIAgent {
 
 		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
 		Message message = route.constructMessage(messageEnvelope);
-		message.setLinkContractXDIAddress(this.linkContractXDIAddress);
+		if (this.linkContractXDIAddress != null)
+			message.setLinkContractXDIAddress(this.linkContractXDIAddress);
+		else
+			message.setLinkContract(PublicLinkContract.class);
 		Operation operation = message.createGetOperation(XDIaddress);
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
 
