@@ -58,7 +58,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		for (XDIAgentRouter<?, ?> agentRouter : this.getAgentRouters()) {
 
-			if (log.isDebugEnabled()) log.debug("Trying router " + agentRouter.getClass().getSimpleName() + " to route to " + toPeerRootXDIArc + " is " + route);
+			if (log.isDebugEnabled()) log.debug("Trying router " + agentRouter.getClass().getSimpleName() + " to route to " + toPeerRootXDIArc);
 
 			route = agentRouter.route(toPeerRootXDIArc);
 			if (route != null) break;
