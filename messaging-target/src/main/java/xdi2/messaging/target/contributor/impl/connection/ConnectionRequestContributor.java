@@ -124,6 +124,8 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
 		}
 
+		if (linkContractTemplateContextNode == null) throw new Xdi2MessagingException("Cannot find link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
+
 		XdiEntitySingleton.Variable linkContractTemplateXdiVariable = XdiEntitySingleton.Variable.fromContextNode(linkContractTemplateContextNode);
 		if (linkContractTemplateXdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template variable at address " + operation.getTargetXDIAddress(), null, executionContext);
 
