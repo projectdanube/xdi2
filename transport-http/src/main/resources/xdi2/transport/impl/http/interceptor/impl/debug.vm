@@ -223,7 +223,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<th>Duration</th>
 	<th>Request</th>
 	<th>MessageEnvelope</th>
-	<th>MessageResult</th>
+	<th>MessagingResponse</th>
 	<th>Trace</th>
 	<th>Exception</th>
 	</tr>
@@ -246,7 +246,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     	<textarea>$logentry.messageEnvelope</textarea>
     </td>
     <td valign="top">
-    	<textarea>$logentry.messageResult</textarea>
+    	<textarea>$logentry.messagingResponse</textarea>
     </td>
     <td valign="top">
     	<textarea>$logentry.executionContext.getTraceBlock()</textarea>
