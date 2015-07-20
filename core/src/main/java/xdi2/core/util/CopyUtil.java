@@ -366,7 +366,7 @@ public final class CopyUtil {
 		if (targetGraph == null) throw new NullPointerException();
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
-		copyContextNodes(contextNode, targetGraph.getRootContextNode(false), null);
+		copyContextNodes(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
 		copyRelations(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
 		copyLiteralNode(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
 	}
