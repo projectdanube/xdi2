@@ -9,7 +9,6 @@ import javax.crypto.SecretKey;
 
 import org.apache.commons.codec.binary.Base64;
 
-import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
@@ -116,16 +115,13 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 
 		byte[] bytes = mac.doFinal();
 
-		this.getXdiAttribute().setLiteralDataString(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
+		this.setValue(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
 	}
 
 	@Override
 	public boolean validate(SecretKey secretKey) throws GeneralSecurityException {
 
-		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
-		if (literalNode == null) throw new GeneralSecurityException("No signature literal node.");
-
-		String literalString = literalNode.getLiteralDataString();
+		String literalString = this.getValue();
 		if (literalString == null) throw new GeneralSecurityException("No signature literal string.");
 
 		byte[] bytes = Base64.decodeBase64(literalString.getBytes(Charset.forName("UTF-8")));

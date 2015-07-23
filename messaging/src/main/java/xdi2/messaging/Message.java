@@ -1,7 +1,6 @@
 package xdi2.messaging;
 
 import java.io.Serializable;
-import java.security.Key;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -470,7 +469,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Sets a signature on the message.
 	 * @return The signature.
 	 */
-	public Signature<? extends Key, ? extends Key> createSignature(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength, boolean singleton) {
+	public Signature<?, ?> createSignature(String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength, boolean singleton) {
 
 		return Signatures.createSignature(this.getContextNode(), digestAlgorithm, digestLength, keyAlgorithm, keyLength, singleton);
 	}

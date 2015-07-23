@@ -1,6 +1,5 @@
 package xdi2.core.features.signatures;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +34,7 @@ public class Signatures {
 	 * @param graph The graph.
 	 * @return An iterator over signatures.
 	 */
-	public static Iterator<Signature<? extends Key, ? extends Key>> getAllSignatures(Graph graph) {
+	public static Iterator<Signature<?, ?>> getAllSignatures(Graph graph) {
 
 		ContextNode root = graph.getRootContextNode(true);
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
@@ -47,7 +46,7 @@ public class Signatures {
 	 * Creates an XDI signature on a context node.
 	 * @return The XDI signature.
 	 */
-	public static Signature<? extends Key, ? extends Key> createSignature(ContextNode contextNode, String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength, boolean singleton) {
+	public static Signature<?, ?> createSignature(ContextNode contextNode, String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength, boolean singleton) {
 
 		XdiAttribute signatureXdiAttribute;
 
@@ -57,7 +56,7 @@ public class Signatures {
 			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiInstanceUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
-		DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);
+		if (dataTypeXDIAddress != null) DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);
 
 		return Signature.fromXdiAttribute(signatureXdiAttribute);
 	}
@@ -65,9 +64,9 @@ public class Signatures {
 	/**
 	 * Returns the XDI signatures on a context node.
 	 */
-	public static ReadOnlyIterator<Signature<? extends Key, ? extends Key>> getSignatures(ContextNode contextNode) {
+	public static ReadOnlyIterator<Signature<?, ?>> getSignatures(ContextNode contextNode) {
 
-		List<Iterator<? extends Signature<? extends Key, ? extends Key>>> iterators = new ArrayList<Iterator<? extends Signature<? extends Key, ? extends Key>>> ();
+		List<Iterator<? extends Signature<?, ?>>> iterators = new ArrayList<Iterator<? extends Signature<?, ?>>> ();
 
 		XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 
@@ -84,7 +83,7 @@ public class Signatures {
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiInstancesDeref()));
 
-		return new CompositeIterator<Signature<? extends Key, ? extends Key>> (iterators.iterator());
+		return new CompositeIterator<Signature<?, ?>> (iterators.iterator());
 	}
 
 	/*
@@ -167,14 +166,16 @@ public class Signatures {
 		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 
-	public static XDIAddress getDataTypeXDIAddress(String digestAlgorithm, int digestLength, String keyAlgorithm, int keyLength) {
+	public static XDIAddress getDataTypeXDIAddress(String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength) {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(XDIConstants.CS_CLASS_RESERVED + digestAlgorithm.toLowerCase());
-		builder.append(XDIConstants.CS_CLASS_RESERVED + Integer.toString(digestLength));
-		builder.append(XDIConstants.CS_CLASS_RESERVED + keyAlgorithm.toLowerCase());
-		builder.append(XDIConstants.CS_CLASS_RESERVED + Integer.toString(keyLength));
+		if (digestAlgorithm != null) builder.append(XDIConstants.CS_CLASS_RESERVED + digestAlgorithm.toLowerCase());
+		if (digestLength != null) builder.append(XDIConstants.CS_CLASS_RESERVED + digestLength.toString());
+		if (keyAlgorithm != null) builder.append(XDIConstants.CS_CLASS_RESERVED + keyAlgorithm.toLowerCase());
+		if (keyLength != null) builder.append(XDIConstants.CS_CLASS_RESERVED + keyLength.toString());
+
+		if (builder.length() == 0) return null;
 
 		return XDIAddress.create(builder.toString());
 	}
@@ -198,14 +199,14 @@ public class Signatures {
 		}
 	}
 
-	public static class MappingXdiAttributeSignatureIterator extends NotNullIterator<Signature<? extends Key, ? extends Key>> {
+	public static class MappingXdiAttributeSignatureIterator extends NotNullIterator<Signature<?, ?>> {
 
 		public MappingXdiAttributeSignatureIterator(Iterator<XdiAttribute> iterator) {
 
-			super(new MappingIterator<XdiAttribute, Signature<? extends Key, ? extends Key>> (iterator) {
+			super(new MappingIterator<XdiAttribute, Signature<?, ?>> (iterator) {
 
 				@Override
-				public Signature<? extends Key, ? extends Key> map(XdiAttribute xdiAttribute) {
+				public Signature<?, ?> map(XdiAttribute xdiAttribute) {
 
 					return Signature.fromXdiAttribute(xdiAttribute);
 				}

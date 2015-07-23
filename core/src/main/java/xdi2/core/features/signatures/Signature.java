@@ -14,7 +14,7 @@ import xdi2.core.features.nodetypes.XdiAttributeInstance;
  * 
  * @author markus
  */
-public abstract class Signature <SKEY extends Key, VKEY extends Key> implements Serializable, Comparable<Signature<SKEY, VKEY>> {
+public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable<Signature<SKEY, VKEY>> {
 
 	private static final long serialVersionUID = -6984622275903043863L;
 
@@ -40,7 +40,8 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 
 		return
 				KeyPairSignature.isValid(xdiAttribute) ||
-				SymmetricKeySignature.isValid(xdiAttribute);
+				SymmetricKeySignature.isValid(xdiAttribute) ||
+				UnknownSignature.isValid(xdiAttribute);
 	}
 
 	/**
@@ -48,12 +49,13 @@ public abstract class Signature <SKEY extends Key, VKEY extends Key> implements 
 	 * @param xdiAttribute The XDI signature that is an XDI signature.
 	 * @return The XDI signature.
 	 */
-	public static Signature<? extends Key, ? extends Key> fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static Signature<?, ?> fromXdiAttribute(XdiAttribute xdiAttribute) {
 
-		Signature<? extends Key, ? extends Key> signature;
+		Signature<?, ?> signature;
 
 		if ((signature = KeyPairSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
 		if ((signature = SymmetricKeySignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
+		if ((signature = UnknownSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
 
 		return null;
 	}

@@ -183,9 +183,9 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			String secretToken = secretTokenString;
 			String signature = signatureString;
 			String signatureDigestAlgorithm = signatureDigestAlgorithmString;
-			int signatureDigestLength = signatureDigestLengthString == null ? -1 : Integer.parseInt(signatureDigestLengthString);
+			Integer signatureDigestLength = signatureDigestLengthString == null ? Integer.valueOf(-1) : Integer.valueOf(signatureDigestLengthString);
 			String signatureKeyAlgorithm = signatureKeyAlgorithmString;
-			int signatureKeyLength = signatureKeyLengthString == null ? -1 :Integer.parseInt(signatureKeyLengthString);
+			Integer signatureKeyLength = signatureKeyLengthString == null ? Integer.valueOf(-1) : Integer.valueOf(signatureKeyLengthString);
 
 			Message message = new MessageEnvelope().createMessage(sender);
 
@@ -194,7 +194,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			message.setLinkContractXDIAddress(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
-			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength > 0 && signatureKeyAlgorithm != null && signatureKeyLength > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);
+			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength.intValue() > 0 && signatureKeyAlgorithm != null && signatureKeyLength.intValue() > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);
 			message.createOperation(operation, target);
 
 			Properties parameters = new Properties();

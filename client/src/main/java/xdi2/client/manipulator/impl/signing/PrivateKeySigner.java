@@ -19,7 +19,7 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 	private static Logger log = LoggerFactory.getLogger(PrivateKeySigner.class.getName());
 
 	private String digestAlgorithm;
-	private int digestLength;
+	private Integer digestLength;
 
 	public PrivateKeySigner() {
 
@@ -47,7 +47,7 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 
 		try {
 
-			signature = message.createSignature(this.getDigestAlgorithm(), this.getDigestLength(), privateKey.getAlgorithm(), 0, true);
+			signature = message.createSignature(this.getDigestAlgorithm(), this.getDigestLength(), privateKey.getAlgorithm(), Integer.valueOf(0), true);
 
 			((KeyPairSignature) signature).sign(privateKey);
 		} catch (Exception ex) {
@@ -63,20 +63,20 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 	}
 
 	public String getPrivateKeyAlgorithm(PrivateKey privateKey) {
-		
+
 		return privateKey.getAlgorithm().toLowerCase();
 	}
-	
+
 	public int getPrivateKeyLength(PrivateKey privateKey) {
-		
+
 		if (privateKey instanceof RSAKey) {
-			
+
 			return ((RSAKey) privateKey).getModulus().bitLength();
 		}
 
 		throw new RuntimeException("Cannot determine key length for private key.");
 	}
-	
+
 	protected abstract PrivateKey getPrivateKey(Message message);
 
 	/*
@@ -93,12 +93,12 @@ public abstract class PrivateKeySigner extends AbstractSigner implements Signer 
 		this.digestAlgorithm = digestAlgorithm;
 	}
 
-	public int getDigestLength() {
+	public Integer getDigestLength() {
 
 		return this.digestLength;
 	}
 
-	public void setDigestLength(int digestLength) {
+	public void setDigestLength(Integer digestLength) {
 
 		this.digestLength = digestLength;
 	}
