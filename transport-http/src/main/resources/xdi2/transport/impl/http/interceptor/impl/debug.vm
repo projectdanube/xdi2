@@ -147,8 +147,8 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     	#end
     </td>
     <td valign="top">
-    	#if($messagingtargetmount.messagingTarget.ownerPeerRootXri)
-    		$messagingtargetmount.messagingTarget.ownerPeerRootXri
+    	#if($messagingtargetmount.messagingTarget.ownerPeerRootXDIArc)
+    		$messagingtargetmount.messagingTarget.ownerPeerRootXDIArc
     	#end
     </td>
 	<td valign="top">
@@ -158,8 +158,14 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		(none)
 	#else
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
-		$interceptor.class.simpleName<br>
-			<hr>
+		$interceptor.class.simpleName
+    	#if($interceptor.class.canonicalName=="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor")
+    		<br><span class="light">$interceptor.signatureAuthenticator.class.simpleName</span>
+    	#end
+    	#if($interceptor.class.canonicalName=="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor")
+    		<br><span class="light">$interceptor.secretTokenAuthenticator.class.simpleName</span>
+    	#end
+		<hr>
 	#end
 	#end
 	</div>
@@ -172,10 +178,11 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	#else
 	#foreach($contributorlist in $messagingtargetmount.messagingTarget.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
-			$contributor.class.simpleName<br>
+			$contributor.class.simpleName
 			<span class="light">
-			$contributorlist.key
-			</span><br><hr>
+			<br>$contributorlist.key
+			</span><br>
+			<hr>
 		#end
 	#end
 	#end
