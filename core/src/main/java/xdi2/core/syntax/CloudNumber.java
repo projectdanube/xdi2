@@ -70,8 +70,6 @@ public class CloudNumber {
 
 		if (XDIaddress.getNumXDIArcs() != 1) throw new Xdi2RuntimeException("Invalid cloud number length: " + XDIaddress);
 
-		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
-
 		if (! isValid(XDIaddress)) throw new Xdi2RuntimeException("Invalid cloud number: " + XDIaddress);
 
 		XDIArc peerRootAddress = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
