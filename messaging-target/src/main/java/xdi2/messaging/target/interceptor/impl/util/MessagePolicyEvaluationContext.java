@@ -20,11 +20,13 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 	private static final Logger log = LoggerFactory.getLogger(MessagePolicyEvaluationContext.class);
 
-	public static final XDIAddress XDI_ADD_FROM_VARIABLE = XDIAddress.create("{$from}");
-	public static final XDIAddress XDI_ADD_MSG_VARIABLE = XDIAddress.create("{$msg}");
-
 	public static final XDIArc XDI_ARC_FROM_VARIABLE = XDIArc.create("{$from}");
+	public static final XDIArc XDI_ARC_FROM_PEER_VARIABLE = XDIArc.create("{($from)}");
 	public static final XDIArc XDI_ARC_MSG_VARIABLE = XDIArc.create("{$msg}");
+
+	public static final XDIAddress XDI_ADD_FROM_VARIABLE = XDIAddress.fromComponent(XDI_ARC_FROM_VARIABLE);
+	public static final XDIAddress XDI_ADD_FROM_PEER_VARIABLE = XDIAddress.fromComponent(XDI_ARC_FROM_PEER_VARIABLE);
+	public static final XDIAddress XDI_ADD_MSG_VARIABLE = XDIAddress.fromComponent(XDI_ARC_MSG_VARIABLE);
 
 	private Message message;
 	private Graph targetGraph;
@@ -38,14 +40,15 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 	@Override
 	public XDIAddress resolveXDIAddress(XDIAddress contextNodeXDIAddress) {
 
-		XDIAddress resolvedcontextNodeXDIAddress = contextNodeXDIAddress;
+		XDIAddress resolvedContextNodeXDIAddress = contextNodeXDIAddress;
 
-		resolvedcontextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedcontextNodeXDIAddress, XDI_ARC_MSG_VARIABLE, this.getMessage().getContextNode().getXDIAddress());
-		resolvedcontextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedcontextNodeXDIAddress, XDI_ARC_FROM_VARIABLE, this.getMessage().getSenderXDIAddress());
+		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_FROM_VARIABLE, this.getMessage().getSenderXDIAddress());
+		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_FROM_PEER_VARIABLE, XDIAddress.fromComponent(this.getMessage().getFromPeerRootXDIArc()));
+		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_MSG_VARIABLE, this.getMessage().getContextNode().getXDIAddress());
 
-		if (log.isTraceEnabled()) log.trace("resolveXDIAddress(" + contextNodeXDIAddress + ") --> " + resolvedcontextNodeXDIAddress);
+		if (log.isTraceEnabled()) log.trace("resolveXDIAddress(" + contextNodeXDIAddress + ") --> " + resolvedContextNodeXDIAddress);
 
-		return resolvedcontextNodeXDIAddress;
+		return resolvedContextNodeXDIAddress;
 	}
 
 	@Override
@@ -128,6 +131,9 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 
 			resolvedGraph = this.getMessage().getContextNode().getGraph();
 		} else if (XDI_ARC_FROM_VARIABLE.equals(firstArc)) {
+
+			resolvedGraph = this.getTargetGraph();
+		} else if (XDI_ARC_FROM_PEER_VARIABLE.equals(firstArc)) {
 
 			resolvedGraph = this.getTargetGraph();
 		} else {
