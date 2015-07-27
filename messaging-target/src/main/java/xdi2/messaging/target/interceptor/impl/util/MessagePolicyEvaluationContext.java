@@ -43,7 +43,7 @@ public class MessagePolicyEvaluationContext implements PolicyEvaluationContext {
 		XDIAddress resolvedContextNodeXDIAddress = contextNodeXDIAddress;
 
 		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_FROM_VARIABLE, this.getMessage().getSenderXDIAddress());
-		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_FROM_PEER_VARIABLE, XDIAddress.fromComponent(this.getMessage().getFromPeerRootXDIArc()));
+		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_FROM_PEER_VARIABLE, this.getMessage().getFromPeerRootXDIArc());
 		resolvedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(resolvedContextNodeXDIAddress, XDI_ARC_MSG_VARIABLE, this.getMessage().getContextNode().getXDIAddress());
 
 		if (log.isTraceEnabled()) log.trace("resolveXDIAddress(" + contextNodeXDIAddress + ") --> " + resolvedContextNodeXDIAddress);

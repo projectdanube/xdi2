@@ -569,11 +569,12 @@ public final class XDIAddressUtil {
 	/**
 	 * Replaces all occurrences of an arc with an address.
 	 */
-	public static XDIAddress replaceXDIAddress(final XDIAddress XDIaddress, final XDIArc oldXDIArc, final XDIAddress newXDIAddress) {
+	public static XDIAddress replaceXDIAddress(final XDIAddress XDIaddress, final XDIArc oldXDIArc, XDIAddress newXDIAddress) {
 
 		if (XDIaddress == null) throw new NullPointerException();
 		if (oldXDIArc == null) throw new NullPointerException();
-		if (newXDIAddress == null) throw new NullPointerException();
+
+		if (newXDIAddress == null) newXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
 		XDIAddress result = null;
 
@@ -622,6 +623,16 @@ public final class XDIAddressUtil {
 
 			if (log.isTraceEnabled()) log.trace("replaceAddress(" + XDIaddress + "," + oldXDIArc + "," + newXDIAddress + ") --> " + result);
 		}
+	}
+
+	/**
+	 * Replaces all occurrences of an arc with an arc.
+	 */
+	public static XDIAddress replaceXDIAddress(final XDIAddress XDIaddress, final XDIArc oldXDIArc, final XDIArc newXDIArc) {
+
+		XDIAddress newXDIAddress = newXDIArc == null ? null : XDIAddress.fromComponent(newXDIArc);
+
+		return replaceXDIAddress(XDIaddress, oldXDIArc, newXDIAddress);
 	}
 
 	/**
