@@ -95,6 +95,8 @@ public class PluginClassLoader extends URLClassLoader {
 				addJarResource(jarEntryAsFile(jarFile, jarEntry));
 			}
 		}
+
+		jarFile.close();
 	}
 
 	@Override  
