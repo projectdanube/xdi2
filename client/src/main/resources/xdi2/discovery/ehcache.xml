@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
 	monitoring="autodetect" dynamicConfig="true">
-	<cacheManagerEventListenerFactory
-		class="" properties="" />
+
+	<cacheManagerEventListenerFactory class="" properties="" />
+
 	<defaultCache maxElementsInMemory="1000" eternal="false"
 		timeToIdleSeconds="120" timeToLiveSeconds="120"
 		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU">
 	</defaultCache>
+
 </ehcache>
