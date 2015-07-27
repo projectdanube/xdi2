@@ -43,17 +43,17 @@ public class XDIDiscoveryClient {
 
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
+	public static final XDIHttpClient XDI2_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient XDI2_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
 	public static final XDIHttpClient LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT;
 
+	public static final XDIDiscoveryClient XDI2_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT;
-	public static final XDIDiscoveryClient XDI2_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient NEUSTAR_PROD_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient NEUSTAR_OTE_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient NEUSTAR_STAGE_DISCOVERY_CLIENT;
@@ -76,24 +76,24 @@ public class XDIDiscoveryClient {
 		DEFAULT_REGISTRY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
 		DEFAULT_AUTHORITY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
 
+		XDI2_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://registry.xdi2.org/"));
 		XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://discovery.xdi2.org/neustar-discovery-service-prod"));
 		XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://discovery.xdi2.org/neustar-discovery-service-ote"));
-		XDI2_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://registry.xdi2.org/"));
 		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscoveryservice.xdi.net/"));
 		NEUSTAR_OTE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscoveryserviceote.xdi.net/"));
 		NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscovery-stg.cloudnames.biz/"));
 		LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("http://xdi.nymble.me/"));
 
+		XDI2_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_DISCOVERY_XDI_CLIENT);
 		XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 		XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
-		XDI2_DISCOVERY_CLIENT = new XDIDiscoveryClient(XDI2_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_PROD_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_OTE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_OTE_DISCOVERY_XDI_CLIENT);
 		NEUSTAR_STAGE_DISCOVERY_CLIENT = new XDIDiscoveryClient(NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT);
 		LEOLA_NYMBLE_DISCOVERY_CLIENT = new XDIDiscoveryClient(LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT);
 
-		DEFAULT_XDI_CLIENT = XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
-		DEFAULT_DISCOVERY_CLIENT = XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
+		DEFAULT_XDI_CLIENT = XDI2_DISCOVERY_XDI_CLIENT;
+		DEFAULT_DISCOVERY_CLIENT = XDI2_DISCOVERY_CLIENT;
 	}
 
 	public XDIDiscoveryClient(XDIHttpClient registryXdiClient, Cache registryCache, Cache authorityCache) {
