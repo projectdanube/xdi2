@@ -3,6 +3,7 @@ package xdi2.webtools.discoverer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +163,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				}
 
 				writer.write("Cloud Number: " + discoveryResultRegistry.getCloudNumber() + "\n");
+				writer.write("Cloud Names: " + Arrays.asList(discoveryResultRegistry.getCloudNames()) + "\n");
 				writer.write("XDI Endpoint URI: " + discoveryResultRegistry.getXdiEndpointUri() + "\n");
 				writer.write("Default Endpoint URI: " + discoveryResultRegistry.getDefaultEndpointUri() + "\n");
 				writer.write("Signature Public Key: " + discoveryResultRegistry.getSignaturePublicKey() + "\n");
@@ -239,6 +241,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 				}
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
+				writer2.write("Cloud Names: " + Arrays.asList(discoveryResultAuthority.getCloudNames()) + "\n");
 				writer2.write("XDI Endpoint URI: " + discoveryResultAuthority.getXdiEndpointUri() + "\n");
 				writer2.write("Default Endpoint URI: " + discoveryResultAuthority.getDefaultEndpointUri() + "\n");
 				writer2.write("Signature Public Key: " + discoveryResultAuthority.getSignaturePublicKey() + "\n");
