@@ -160,6 +160,16 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
+	 * Returns an existing XDI message collection in this XDI message envelope, or creates a new one.
+	 * @param create Whether to create an XDI message collection if it does not exist.
+	 * @return The existing or newly created XDI message collection.
+	 */
+	public MessageCollection getMessageCollection(boolean create) {
+
+		return this.getMessageCollection(null, create);
+	}
+
+	/**
 	 * Returns all message collections in this message envelope.
 	 * @return All message collections in the envelope.
 	 */
@@ -265,6 +275,17 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	/**
 	 * Creates a new XDI message in this XDI message envelope for a given sender.
 	 * @param senderXDIAddress The sender.
+	 * @param index Index in an ordered collection.
+	 * @return The newly created XDI message.
+	 */
+	public Message createMessage(XDIAddress senderXDIAddress, long index) {
+
+		return this.getMessageCollection(senderXDIAddress, true).createMessage(index);
+	}
+
+	/**
+	 * Creates a new XDI message in this XDI message envelope for a given sender.
+	 * @param senderXDIAddress The sender.
 	 * @return The newly created XDI message.
 	 */
 	public Message createMessage(XDIAddress senderXDIAddress) {
@@ -273,14 +294,12 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
-	 * Creates a new XDI message in this XDI message envelope for a given sender.
-	 * @param senderXDIAddress The sender.
-	 * @param index Index in an ordered collection.
+	 * Creates a new XDI message in this XDI message envelope.
 	 * @return The newly created XDI message.
 	 */
-	public Message createMessage(XDIAddress senderXDIAddress, long index) {
+	public Message createMessage() {
 
-		return this.getMessageCollection(senderXDIAddress, true).createMessage(index);
+		return this.getMessageCollection(true).createMessage();
 	}
 
 	/*
