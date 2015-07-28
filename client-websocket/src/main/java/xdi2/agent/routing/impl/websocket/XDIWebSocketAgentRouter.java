@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIAbstractAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.impl.websocket.XDIWebSocketClient;
 import xdi2.client.impl.websocket.XDIWebSocketClientRoute;
 import xdi2.core.syntax.XDIArc;
 
-public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
+public class XDIWebSocketAgentRouter extends XDIAbstractAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketAgentRouter.class);
 
@@ -31,23 +32,20 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClien
 	}
 
 	@Override
-	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDIWebSocketClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
-		if (! "wss".equalsIgnoreCase(this.getXdiWebSocketEndpointUri().getScheme()) && ! "ws".equalsIgnoreCase(this.getXdiWebSocketEndpointUri().getScheme())) {
+		if (toPeerRootXDIArc == null) {
 
-			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + this.getXdiWebSocketEndpointUri() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown peer root. Skipping.");
 			return null;
 		}
 
-		if (this.getToPeerRootXDIArc() != null) {
+		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
-
-				if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
-				return null;
-			}
+			if (log.isDebugEnabled()) log.debug("XDI WebSocket endpoint " + this.getXdiWebSocketEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
+			return null;
 		}
 
 		// construct the route

@@ -11,10 +11,12 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implements XDIClientRoute<CLIENT> {
 
 	private XDIArc toPeerRootXDIArc;
+	private ManipulatorList manipulators;
 
-	public XDIAbstractClientRoute(XDIArc toPeerRootXDIArc) {
+	protected XDIAbstractClientRoute(XDIArc toPeerRootXDIArc) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
+		this.manipulators = new ManipulatorList();
 	}
 
 	@Override
@@ -22,6 +24,21 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		return this.toPeerRootXDIArc;
 	}
+
+	@Override
+	public final CLIENT constructXDIClient() {
+
+		CLIENT client = this.constructXDIClientInternal();
+
+		if (client instanceof XDIAbstractClient) {
+
+			((XDIAbstractClient) client).setManipulators(this.getManipulators());
+		}
+
+		return client;
+	}
+
+	protected abstract CLIENT constructXDIClientInternal();
 
 	@Override
 	public MessageEnvelope constructMessageEnvelope() {
@@ -35,7 +52,8 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	public Message constructMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress) {
 
 		Message message = messageEnvelope.createMessage(senderXDIAddress);
-		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		if (this.getToPeerRootXDIArc() != null) message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
 
 		return message;
 	}
@@ -44,5 +62,19 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	public Message constructMessage(MessageEnvelope messageEnvelope) {
 
 		return this.constructMessage(messageEnvelope, XDIMessagingConstants.XDI_ADD_ANONYMOUS);
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public ManipulatorList getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(ManipulatorList manipulators) {
+
+		this.manipulators = manipulators;
 	}
 }

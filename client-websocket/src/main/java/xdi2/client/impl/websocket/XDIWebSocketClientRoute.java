@@ -31,9 +31,48 @@ public class XDIWebSocketClientRoute extends XDIAbstractClientRoute<XDIWebSocket
 		this(toPeerRootXDIArc, null, xdiWebSocketEndpointUri);
 	}
 
+	public XDIWebSocketClientRoute(Session session) {
+
+		this(null, session, null);
+	}
+
+	public XDIWebSocketClientRoute(URI xdiWebSocketEndpointUri) {
+
+		this(null, null, xdiWebSocketEndpointUri);
+	}
+
+	public XDIWebSocketClientRoute() {
+
+		this(null, null, null);
+	}
+
 	@Override
-	public XDIWebSocketClient constructXDIClient() {
+	public XDIWebSocketClient constructXDIClientInternal() {
 
 		return new XDIWebSocketClient(this.session, this.xdiWebSocketEndpointUri);
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Session getSession() {
+
+		return this.session;
+	}
+
+	public void setSession(Session session) {
+
+		this.session = session;
+	}
+
+	public URI getXdiWebSocketEndpointUri() {
+
+		return this.xdiWebSocketEndpointUri;
+	}
+
+	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
+
+		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
 	}
 }

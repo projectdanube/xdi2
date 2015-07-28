@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIAbstractAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.impl.http.XDIHttpClientRoute;
 import xdi2.core.syntax.XDIArc;
 
-public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
+public class XDIHttpAgentRouter extends XDIAbstractAgentRouter<XDIHttpClientRoute, XDIHttpClient> implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpAgentRouter.class);
 
@@ -31,23 +32,20 @@ public class XDIHttpAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XD
 	}
 
 	@Override
-	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDIHttpClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
-		if (! "https".equalsIgnoreCase(this.getXdiEndpointUri().getScheme()) && ! "http".equalsIgnoreCase(this.getXdiEndpointUri().getScheme())) {
+		if (toPeerRootXDIArc == null) {
 
-			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + this.getXdiEndpointUri() + ". Skipping.");
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown peer root. Skipping.");
 			return null;
 		}
 
-		if (this.getToPeerRootXDIArc() != null) {
+		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
 
-			if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
-
-				if (log.isDebugEnabled()) log.debug("HTTP(S) URL " + this.getXdiEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
-				return null;
-			}
+			if (log.isDebugEnabled()) log.debug("XDI endpoint " + this.getXdiEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
+			return null;
 		}
 
 		// construct the route

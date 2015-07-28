@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIAbstractAgentRouter;
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -17,7 +18,7 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 
-public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
+public class XDIWebSocketDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> implements XDIAgentRouter<XDIWebSocketClientRoute, XDIWebSocketClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketDiscoveryAgentRouter.class);
 
@@ -34,9 +35,15 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 	}
 
 	@Override
-	public XDIWebSocketClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDIWebSocketClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
+
+		if (toPeerRootXDIArc == null) {
+
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown peer root. Skipping.");
+			return null;
+		}
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
@@ -66,12 +73,6 @@ public class XDIWebSocketDiscoveryAgentRouter implements XDIAgentRouter<XDIWebSo
 		if (xdiWebSocketEndpointUri == null) {
 
 			log.debug("Unable to discover XDI WebSocket endpoint URI for peer root " + toPeerRootXDIArc + " and discovery client " + this.getXdiDiscoveryClient() + ". Skipping.");
-			return null;
-		}
-
-		if (! "wss".equalsIgnoreCase(xdiWebSocketEndpointUri.getScheme()) && ! "ws".equalsIgnoreCase(xdiWebSocketEndpointUri.getScheme())) {
-
-			if (log.isDebugEnabled()) log.debug("No WS(S) URL: " + xdiWebSocketEndpointUri + ". Skipping.");
 			return null;
 		}
 

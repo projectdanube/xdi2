@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIAbstractAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
@@ -16,26 +17,35 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 
-public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
+public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpClientRoute, XDIHttpClient> implements XDIAgentRouter<XDIHttpClientRoute, XDIHttpClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpDiscoveryAgentRouter.class);
 
+	private XDIArc toPeerRootXDIArc;
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIHttpDiscoveryAgentRouter(XDIArc toPeerRootXDIArc, XDIDiscoveryClient xdiDiscoveryClient) {
 
+		this.toPeerRootXDIArc = toPeerRootXDIArc;
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	public XDIHttpDiscoveryAgentRouter() {
 
+		this.toPeerRootXDIArc = null;
 		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 	}
 
 	@Override
-	public XDIHttpClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDIHttpClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
+
+		if (toPeerRootXDIArc == null) {
+
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown peer root. Skipping.");
+			return null;
+		}
 
 		XDIDiscoveryResult xdiDiscoveryResult;
 
@@ -68,12 +78,6 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 			return null;
 		}
 
-		if (! "https".equalsIgnoreCase(xdiEndpointUri.getScheme()) && ! "http".equalsIgnoreCase(xdiEndpointUri.getScheme())) {
-
-			if (log.isDebugEnabled()) log.debug("No HTTP(S) URL: " + xdiEndpointUri + ". Skipping.");
-			return null;
-		}
-
 		// construct the route
 
 		XDIHttpClientRoute route = new XDIHttpClientRoute(cloudNumber.getPeerRootXDIArc(), xdiEndpointUri);
@@ -86,6 +90,16 @@ public class XDIHttpDiscoveryAgentRouter implements XDIAgentRouter<XDIHttpClient
 	/*
 	 * Getters and setters
 	 */
+
+	public XDIArc getToPeerRootXDIArc() {
+
+		return this.toPeerRootXDIArc;
+	}
+
+	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
+
+		this.toPeerRootXDIArc = toPeerRootXDIArc;
+	}
 
 	public XDIDiscoveryClient getXdiDiscoveryClient() {
 

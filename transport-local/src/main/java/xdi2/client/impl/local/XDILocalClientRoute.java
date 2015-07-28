@@ -16,8 +16,18 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 		this.messagingTarget = messagingTarget;
 	}
 
+	public XDILocalClientRoute(MessagingTarget messagingTarget) {
+
+		this(null, messagingTarget);
+	}
+
+	public XDILocalClientRoute() {
+
+		this(null, null);
+	}
+
 	@Override
-	public XDILocalClient constructXDIClient() {
+	protected XDILocalClient constructXDIClientInternal() {
 
 		return new XDILocalClient(this.messagingTarget);
 	}
@@ -29,5 +39,10 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 	public MessagingTarget getMessagingTarget() {
 
 		return this.messagingTarget;
+	}
+
+	public void setMessagingTarget(MessagingTarget messagingTarget) {
+
+		this.messagingTarget = messagingTarget;
 	}
 }

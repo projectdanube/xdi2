@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.routing.XDIAgentRouter;
+import xdi2.agent.routing.impl.XDIAbstractAgentRouter;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.impl.local.XDILocalClient;
 import xdi2.client.impl.local.XDILocalClientRoute;
@@ -12,7 +13,7 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
-public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
+public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRoute, XDILocalClient> implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDILocalAgentRouter.class);
 
@@ -39,19 +40,28 @@ public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, 
 	}
 
 	@Override
-	public XDILocalClientRoute route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDILocalClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
+		if (toPeerRootXDIArc == null) {
+
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown peer root. Skipping.");
+			return null;
+		}
+
 		XDIArc ownerPeerRootXDIArc = this.getMessagingTarget().getOwnerPeerRootXDIArc();
 
-		if (ownerPeerRootXDIArc != null) {
+		if (ownerPeerRootXDIArc == null) {
 
-			if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) {
+			if (log.isDebugEnabled()) log.debug("Cannot route to unknown owner peer root. Skipping.");
+			return null;
+		}
 
-				if (log.isDebugEnabled()) log.debug("Local messaging target does not have target peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
-				return null;
-			}
+		if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) {
+
+			if (log.isDebugEnabled()) log.debug("Local messaging target " + this.getMessagingTarget().getClass().getSimpleName() + " is no route to peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
+			return null;
 		}
 
 		// construct the route

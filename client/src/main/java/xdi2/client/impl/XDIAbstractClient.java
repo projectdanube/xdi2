@@ -24,13 +24,11 @@ public abstract class XDIAbstractClient implements XDIClient {
 	protected static final Logger log = LoggerFactory.getLogger(XDIAbstractClient.class);
 
 	private ManipulatorList manipulators;
-
 	private final List<XDIClientListener> clientListeners;
 
 	public XDIAbstractClient() {
 
 		this.manipulators = new ManipulatorList();
-
 		this.clientListeners = new ArrayList<XDIClientListener> ();
 	}
 
@@ -89,9 +87,9 @@ public abstract class XDIAbstractClient implements XDIClient {
 		return this.manipulators;
 	}
 
-	public void setInterceptors(ManipulatorList interceptors) {
+	public void setManipulators(ManipulatorList manipulators) {
 
-		this.manipulators = interceptors;
+		this.manipulators = manipulators;
 	}
 
 	/*

@@ -30,9 +30,48 @@ public class XDIHttpClientRoute extends XDIAbstractClientRoute<XDIHttpClient> im
 		this(toPeerRootXDIArc, null, xdiEndpointUri);
 	}
 
+	public XDIHttpClientRoute(HttpURLConnection httpURLConnection) {
+
+		this(null, httpURLConnection, null);
+	}
+
+	public XDIHttpClientRoute(URI xdiEndpointUri) {
+
+		this(null, null, xdiEndpointUri);
+	}
+
+	public XDIHttpClientRoute() {
+
+		this(null, null, null);
+	}
+
 	@Override
-	public XDIHttpClient constructXDIClient() {
+	protected XDIHttpClient constructXDIClientInternal() {
 
 		return new XDIHttpClient(this.httpURLConnection, this.xdiEndpointUri);
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public HttpURLConnection getHttpURLConnection() {
+
+		return this.httpURLConnection;
+	}
+
+	public void setHttpURLConnection(HttpURLConnection httpURLConnection) {
+
+		this.httpURLConnection = httpURLConnection;
+	}
+
+	public URI getXdiEndpointUri() {
+
+		return this.xdiEndpointUri;
+	}
+
+	public void setXdiEndpointUri(URI xdiEndpointUri) {
+
+		this.xdiEndpointUri = xdiEndpointUri;
 	}
 }
