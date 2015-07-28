@@ -164,17 +164,17 @@ public class InverseOperationContributor extends AbstractContributor implements 
 
 		// find route to authorizing authority
 
-		XDIClientRoute<? extends XDIClient> route;
+		XDIClientRoute<? extends XDIClient> xdiClientRoute;
 
 		try {
 
-			route = this.getXdiAgent().route(recipientXDIAddress);
+			xdiClientRoute = this.getXdiAgent().route(recipientXDIAddress);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI routing failed on " + recipientXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (route == null) throw new Xdi2MessagingException("Could not find route to recipient at " + recipientXDIAddress, null, executionContext);
+		if (xdiClientRoute == null) throw new Xdi2MessagingException("Could not find route to recipient at " + recipientXDIAddress, null, executionContext);
 
 		// create connection request
 
@@ -182,9 +182,8 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
 		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress(operation.getMessage());
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(senderXDIAddress);
-		message.setToPeerRootXDIArc(route.getToPeerRootXDIArc());
+		MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
+		Message message = xdiClientRoute.createMessage(messageEnvelope, senderXDIAddress);
 		message.getLinkContractXDIAddress();
 		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
 		message.deleteOperations();
@@ -193,7 +192,7 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		if (targetXDIAddress != null) message.createOperation(inverseOperationXDIAddress, targetXDIAddress);
 		if (targetXDIStatement != null) message.createOperation(inverseOperationXDIAddress, targetXDIStatement);
 
-		XDIClient xdiClient = route.constructXDIClient();
+		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
 		MessagingResponse messagingResponse;
 
 		try {

@@ -6,11 +6,18 @@ import xdi2.client.manipulator.Manipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 
 public interface XDIClientRoute <CLIENT extends XDIClient> {
 
 	public XDIArc getToPeerRootXDIArc();
 	public CLIENT constructXDIClient();
+
+	public MessageEnvelope createMessageEnvelope();
+	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress, long index);
+	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress);
+	public Message createMessage(MessageEnvelope messageEnvelope);
 
 	/*
 	 * $get helper methods

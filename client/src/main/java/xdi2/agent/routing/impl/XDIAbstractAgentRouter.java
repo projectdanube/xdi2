@@ -19,13 +19,14 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIEN
 		this.manipulators = new ManipulatorList();
 	}
 
+	@Override
 	public final ROUTE route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		ROUTE route;
 
 		if (this.getOverrideToPeerRootXDIArc() != null) {
 
-			route = this.routeInternal(overrideToPeerRootXDIArc);
+			route = this.routeInternal(this.getOverrideToPeerRootXDIArc());
 		} else {
 
 			route = this.routeInternal(toPeerRootXDIArc);

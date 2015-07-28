@@ -65,9 +65,8 @@ public class BasicPushGateway implements PushGateway {
 
 				// message envelope construction step
 
-				MessageEnvelope messageEnvelope = new MessageEnvelope();
-				Message message = messageEnvelope.createMessage(null);
-				message.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
+				MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
+				Message message = xdiClientRoute.createMessage(messageEnvelope);
 
 				for (Operation pushOperation : pushOperations) {
 

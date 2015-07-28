@@ -141,6 +141,7 @@ public class XDIBasicAgent implements XDIAgent {
 	 * $get helper methods
 	 */
 
+	@Override
 	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
@@ -149,6 +150,7 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClientRoute.get(XDIaddress, senderXDIAddress, manipulators);
 	}
 
+	@Override
 	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
@@ -157,6 +159,7 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClientRoute.get(XDIaddress, senderXDIAddress);
 	}
 
+	@Override
 	public ContextNode get(XDIAddress XDIaddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
@@ -165,6 +168,7 @@ public class XDIBasicAgent implements XDIAgent {
 		return xdiClientRoute.get(XDIaddress, manipulators);
 	}
 
+	@Override
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);

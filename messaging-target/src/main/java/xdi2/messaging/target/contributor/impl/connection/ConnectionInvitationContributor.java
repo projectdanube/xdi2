@@ -113,23 +113,22 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		// find route to authorizing authority
 
-		XDIClientRoute<? extends XDIClient> route;
+		XDIClientRoute<? extends XDIClient> xdiClientRoute;
 
 		try {
 
-			route = this.getXdiAgent().route(authorizingAuthority);
+			xdiClientRoute = this.getXdiAgent().route(authorizingAuthority);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("XDI routing failed on " + authorizingAuthority + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (route == null) throw new Xdi2MessagingException("Could not find route to authorizing authority at " + authorizingAuthority, null, executionContext);
+		if (xdiClientRoute == null) throw new Xdi2MessagingException("Could not find route to authorizing authority at " + authorizingAuthority, null, executionContext);
 
 		// create connection request
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(requestingAuthority);
-		message.setToPeerRootXDIArc(route.getToPeerRootXDIArc());
+		MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
+		Message message = xdiClientRoute.createMessage(messageEnvelope, requestingAuthority);
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
 
@@ -144,7 +143,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		// send connection request
 
-		XDIClient xdiClient = route.constructXDIClient();
+		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
 		MessagingResponse messagingResponse;
 
 		try {

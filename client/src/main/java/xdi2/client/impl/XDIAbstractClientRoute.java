@@ -50,6 +50,39 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 	protected abstract CLIENT constructXDIClientInternal();
 
+	@Override
+	public MessageEnvelope createMessageEnvelope() {
+
+		return new MessageEnvelope();
+	}
+
+	@Override
+	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress, long index) {
+
+		Message message = messageEnvelope.createMessage(senderXDIAddress, index);
+		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		return message;
+	}
+
+	@Override
+	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress) {
+
+		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		return message;
+	}
+
+	@Override
+	public Message createMessage(MessageEnvelope messageEnvelope) {
+
+		Message message = messageEnvelope.createMessage();
+		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		return message;
+	}
+
 	/*
 	 * $get helper methods
 	 */
@@ -68,9 +101,8 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		// message envelope construction step
 
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(senderXDIAddress);
-		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+		MessageEnvelope messageEnvelope = this.createMessageEnvelope();
+		Message message = this.createMessage(messageEnvelope);
 		message.createGetOperation(XDIaddress);
 
 		// send the message envelope
