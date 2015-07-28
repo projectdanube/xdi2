@@ -51,9 +51,9 @@ public class BasicPushGateway implements PushGateway {
 
 				// find route to this target
 
-				XDIClientRoute<?> route = this.getXdiAgent().route(toPeerRootXDIArc);
+				XDIClientRoute<?> xdiClientRoute = this.getXdiAgent().route(toPeerRootXDIArc);
 
-				if (route == null) {
+				if (xdiClientRoute == null) {
 
 					log.warn("No route for " + toPeerRootXDIArc + ". Skipping push command.");
 					continue;
@@ -61,12 +61,13 @@ public class BasicPushGateway implements PushGateway {
 
 				// client construction step
 
-				XDIClient xdiClient = route.constructXDIClient();
+				XDIClient xdiClient = xdiClientRoute.constructXDIClient();
 
 				// message envelope construction step
 
-				MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
-				Message message = route.constructMessage(messageEnvelope);
+				MessageEnvelope messageEnvelope = new MessageEnvelope();
+				Message message = messageEnvelope.createMessage(null);
+				message.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
 
 				for (Operation pushOperation : pushOperations) {
 

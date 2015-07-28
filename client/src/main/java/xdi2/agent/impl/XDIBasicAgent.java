@@ -156,17 +156,18 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// route
 
-		XDIClientRoute<?> route = this.route(XDIaddress);
-		if (route == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
+		XDIClientRoute<? extends XDIClient> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
 
 		// client construction step
 
-		XDIClient xdiClient = route.constructXDIClient();
+		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
 
 		// message envelope construction step
 
-		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
-		Message message = route.constructMessage(messageEnvelope);
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(null);
+		message.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
 		if (this.linkContractXDIAddress != null)
 			message.setLinkContractXDIAddress(this.linkContractXDIAddress);
 		else

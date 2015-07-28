@@ -182,8 +182,9 @@ public class InverseOperationContributor extends AbstractContributor implements 
 		XDIAddress inverseOperationXDIAddress = XDIAddress.create(operation.getOperationXDIAddress().toString().replace("$is", ""));
 		XDIAddress inverseLinkContractXDIAddress = getInverseLinkContractXDIAddress(operation.getMessage());
 
-		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
-		Message message = route.constructMessage(messageEnvelope, senderXDIAddress);
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(senderXDIAddress);
+		message.setToPeerRootXDIArc(route.getToPeerRootXDIArc());
 		message.getLinkContractXDIAddress();
 		CopyUtil.copyContextNodeContents(operation.getMessage().getContextNode(), message.getContextNode(), null);
 		message.deleteOperations();

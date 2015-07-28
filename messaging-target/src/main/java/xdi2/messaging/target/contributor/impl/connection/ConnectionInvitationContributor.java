@@ -127,8 +127,9 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 
 		// create connection request
 
-		MessageEnvelope messageEnvelope = route.constructMessageEnvelope();
-		Message message = route.constructMessage(messageEnvelope, requestingAuthority);
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage(requestingAuthority);
+		message.setToPeerRootXDIArc(route.getToPeerRootXDIArc());
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
 		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
 
