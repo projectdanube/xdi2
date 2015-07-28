@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.agent.routing.impl.local.XDILocalAgentRouter;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.local.XDILocalClient;
@@ -33,7 +34,6 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.impl.FromInterceptor;
 import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
@@ -337,13 +337,11 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 			if ("on".equals(usePushCommandInterceptor)) {
 
-				List<MessagingTarget> messagingTargets = new ArrayList<MessagingTarget> ();
-				messagingTargets.add(messagingTarget1);
-				messagingTargets.add(messagingTarget2);
+				List<XDIAgentRouter<?, ?>> agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
+				agentRouters.add(new XDILocalAgentRouter(messagingTarget1));
+				agentRouters.add(new XDILocalAgentRouter(messagingTarget2));
 
-				XDILocalAgentRouter agentRouter = new XDILocalAgentRouter(messagingTargets);
-
-				XDIAgent xdiAgent = new XDIBasicAgent(agentRouter);
+				XDIAgent xdiAgent = new XDIBasicAgent(agentRouters);
 
 				PushGateway pushCommandExecutor = new BasicPushGateway(xdiAgent);
 

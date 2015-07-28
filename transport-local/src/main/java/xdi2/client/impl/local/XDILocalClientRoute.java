@@ -9,17 +9,11 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 
 	private MessagingTarget messagingTarget;
 
-	public XDILocalClientRoute(MessagingTarget messagingTarget) {
+	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingTarget messagingTarget) {
 
-		super(null);
+		super(toPeerRootXDIArc);
 
 		this.messagingTarget = messagingTarget;
-	}
-
-	@Override
-	public XDIArc getToPeerRootXDIArc() {
-
-		return this.getMessagingTarget().getOwnerPeerRootXDIArc();
 	}
 
 	@Override

@@ -1,8 +1,5 @@
 package xdi2.agent.routing.impl.local;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,27 +16,22 @@ public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, 
 
 	private static final Logger log = LoggerFactory.getLogger(XDILocalAgentRouter.class);
 
-	private List<MessagingTarget> messagingTargets;
-
-	public XDILocalAgentRouter(List<MessagingTarget> messagingTargets) {
-
-		this.messagingTargets = messagingTargets;
-	}
+	private MessagingTarget messagingTarget;
 
 	public XDILocalAgentRouter(MessagingTarget messagingTarget) {
 
-		this.messagingTargets = Collections.singletonList(messagingTarget);
+		this.messagingTarget = messagingTarget;
 	}
 
 	public XDILocalAgentRouter(Graph graph) {
 
 		try {
 
-			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
-			messagingTarget.setGraph(graph);
-			messagingTarget.init();
+			GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
+			graphMessagingTarget.setGraph(graph);
+			graphMessagingTarget.init();
 
-			this.messagingTargets = Collections.singletonList((MessagingTarget) messagingTarget);
+			this.messagingTarget = graphMessagingTarget;
 		} catch (Exception ex) {
 
 			throw new RuntimeException("Cannot initialize messaging target: " + ex.getMessage(), ex);
@@ -51,38 +43,37 @@ public class XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, 
 
 		// check if we can provide the TO peer root
 
-		for (MessagingTarget messagingTarget : this.getMessagingTargets()) {
+		XDIArc ownerPeerRootXDIArc = this.getMessagingTarget().getOwnerPeerRootXDIArc();
 
-			XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
+		if (ownerPeerRootXDIArc != null) {
 
-			if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) continue;
+			if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) {
 
-			// construct the route
-
-			XDILocalClientRoute route = new XDILocalClientRoute(messagingTarget);
-
-			// done
-
-			return route;
+				if (log.isDebugEnabled()) log.debug("Local messaging target does not have target peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
+				return null;
+			}
 		}
+
+		// construct the route
+
+		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingTarget());
 
 		// done
 
-		log.debug("No messaging target for target peer root " + toPeerRootXDIArc + ". Skipping.");
-		return null;
+		return route;
 	}
 
 	/*
 	 * Getters and setters
 	 */
 
-	public List<MessagingTarget> getMessagingTargets() {
+	public MessagingTarget getMessagingTarget() {
 
-		return this.messagingTargets;
+		return this.messagingTarget;
 	}
 
-	public void setMessagingTargets(List<MessagingTarget> messagingTargets) {
+	public void setMessagingTarget(MessagingTarget messagingTargets) {
 
-		this.messagingTargets = messagingTargets;
+		this.messagingTarget = messagingTargets;
 	}
 }

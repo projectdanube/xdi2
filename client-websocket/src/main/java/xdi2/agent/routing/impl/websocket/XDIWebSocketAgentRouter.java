@@ -41,15 +41,18 @@ public class XDIWebSocketAgentRouter implements XDIAgentRouter<XDIWebSocketClien
 			return null;
 		}
 
-		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+		if (this.getToPeerRootXDIArc() != null) {
 
-			if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + ". Skipping.");
-			return null;
+			if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+
+				if (log.isDebugEnabled()) log.debug("WS(S) URL " + this.getXdiWebSocketEndpointUri() + " does not have target peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
+				return null;
+			}
 		}
 
 		// construct the route
 
-		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(this.toPeerRootXDIArc, null, this.xdiWebSocketEndpointUri);
+		XDIWebSocketClientRoute route = new XDIWebSocketClientRoute(toPeerRootXDIArc, null, this.getXdiWebSocketEndpointUri());
 
 		// done
 

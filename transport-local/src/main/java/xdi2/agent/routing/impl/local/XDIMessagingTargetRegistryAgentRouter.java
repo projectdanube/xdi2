@@ -44,7 +44,7 @@ public class XDIMessagingTargetRegistryAgentRouter implements XDIAgentRouter<XDI
 
 		// construct the route
 
-		XDILocalClientRoute route = new XDILocalClientRoute(messagingTarget);
+		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, messagingTarget);
 
 		// done
 
