@@ -9,13 +9,11 @@ import org.slf4j.LoggerFactory;
 import xdi2.agent.XDIAgent;
 import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
-import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.manipulator.Manipulator;
 import xdi2.core.ContextNode;
-import xdi2.core.Graph;
-import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.CloudNumber;
@@ -24,9 +22,6 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.operations.GetOperation;
-import xdi2.messaging.operations.Operation;
-import xdi2.messaging.response.MessagingResponse;
 
 public class XDIBasicAgent implements XDIAgent {
 
@@ -142,58 +137,40 @@ public class XDIBasicAgent implements XDIAgent {
 		return route(toPeerRootXDIArc);
 	}
 
-	// TEMP HACK: replace this with a more generic mechanism
+	/*
+	 * $get helper methods
+	 */
 
-	private XDIAddress linkContractXDIAddress;
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
-	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
 
-		this.linkContractXDIAddress = linkContractXDIAddress;
+		return xdiClientRoute.get(XDIaddress, senderXDIAddress, manipulators);
 	}
 
-	@Override
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, senderXDIAddress);
+	}
+
+	public ContextNode get(XDIAddress XDIaddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, manipulators);
+	}
+
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
-		// route
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
 
-		XDIClientRoute<? extends XDIClient> xdiClientRoute = this.route(XDIaddress);
-		if (xdiClientRoute == null) throw new Xdi2AgentException("Unable to obtain a route for address " + XDIaddress);
-
-		// client construction step
-
-		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
-
-		// message envelope construction step
-
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage(null);
-		message.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
-		if (this.linkContractXDIAddress != null)
-			message.setLinkContractXDIAddress(this.linkContractXDIAddress);
-		else
-			message.setLinkContract(PublicLinkContract.class);
-		Operation operation = message.createGetOperation(XDIaddress);
-		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
-
-		// send the message envelope
-
-		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
-		Graph resultGraph = messagingResponse.getResultGraph();
-
-		// let's look for our XDI address in the message result
-
-		ContextNode contextNode = resultGraph.getDeepContextNode(XDIaddress);
-
-		if (contextNode == null) {
-
-			if (log.isDebugEnabled()) log.debug("Unable to find context node. Giving up for address " + XDIaddress);
-			return null;
-		}
-
-		// done
-
-		if (log.isDebugEnabled()) log.debug("Found context node in result graph for address " + XDIaddress);
-		return contextNode;
+		return xdiClientRoute.get(XDIaddress);
 	}
 
 	/*

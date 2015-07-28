@@ -2,6 +2,7 @@ package xdi2.client.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,16 @@ public class ManipulatorList implements Iterable<Manipulator>, Serializable {
 	public void addManipulator(Manipulator manipulator) {
 
 		this.manipulators.add(manipulator);
+	}
+
+	public void addManipulators(Collection<Manipulator> manipulators) {
+
+		this.manipulators.addAll(manipulators);
+	}
+
+	public void addManipulators(Manipulator... manipulators) {
+
+		this.manipulators.addAll(Arrays.asList(manipulators));
 	}
 
 	@SuppressWarnings("unchecked")

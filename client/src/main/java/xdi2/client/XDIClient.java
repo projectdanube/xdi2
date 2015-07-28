@@ -3,6 +3,8 @@ package xdi2.client;
 import xdi2.client.events.XDIDiscoverEvent;
 import xdi2.client.events.XDISendEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.core.ContextNode;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
 
@@ -19,6 +21,11 @@ public interface XDIClient {
 	 * @return The messaging response.
 	 */
 	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
+
+	/**
+	 * Convenience method
+	 */
+	public ContextNode get(XDIAddress XDIaddress) throws Xdi2ClientException;
 
 	/**
 	 * Shuts down the client.
