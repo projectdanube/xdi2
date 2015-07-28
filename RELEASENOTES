@@ -1,6 +1,14 @@
 release 0.8 ("Orșova")
 ========================
 
+* introducing PushLinkContractInterceptor
+
+* refactoring ProxyContributor into ForwardingContributor
+
+* support discovering cloud names in XDIDiscoveryResult
+
+* changed default discovery service to https://registry.xdi2.org/
+
 * use of URL class mostly replaced with URI
 
 * xdi2.transport.impl.http.registry.HttpMessagingTargetRegistry->
@@ -19,7 +27,8 @@ xdi2.messaging.target.factory.impl.uri.RegistryUriMessagingTargetFactory
 
 * use Java 1.7 by default, because 1.6. has a DH 1024 bit limitation for SSL connections 
 
-* major updates to XDI agent framework, now supports concepts "AgentTarget" and "AgentRoute".
+* major updates to XDI agent framework, now supports concepts "XDIAgentRouter" 
+and "XDIClientRoute".
 
 * removed class ErrorMessageResult. introduced class MessagingError.
 use MessagingResponse.getMessagingError() instead of class ErrorMessageResult.
