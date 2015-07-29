@@ -21,18 +21,15 @@ public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpC
 
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpDiscoveryAgentRouter.class);
 
-	private XDIArc toPeerRootXDIArc;
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public XDIHttpDiscoveryAgentRouter(XDIArc toPeerRootXDIArc, XDIDiscoveryClient xdiDiscoveryClient) {
+	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
-		this.toPeerRootXDIArc = toPeerRootXDIArc;
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
 	public XDIHttpDiscoveryAgentRouter() {
 
-		this.toPeerRootXDIArc = null;
 		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 	}
 
@@ -90,16 +87,6 @@ public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpC
 	/*
 	 * Getters and setters
 	 */
-
-	public XDIArc getToPeerRootXDIArc() {
-
-		return this.toPeerRootXDIArc;
-	}
-
-	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
-
-		this.toPeerRootXDIArc = toPeerRootXDIArc;
-	}
 
 	public XDIDiscoveryClient getXdiDiscoveryClient() {
 
