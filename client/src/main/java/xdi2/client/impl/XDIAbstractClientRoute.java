@@ -94,7 +94,7 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		XDIClient xdiClient = this.constructXDIClient();
 
-		if (xdiClient instanceof XDIAbstractClient) {
+		if (xdiClient instanceof XDIAbstractClient && manipulators != null) {
 
 			((XDIAbstractClient) xdiClient).getManipulators().addManipulators(manipulators);
 		}
