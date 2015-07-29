@@ -1,0 +1,26 @@
+<whirlycache>
+
+	<default-cache>default</default-cache>
+
+	<cache name="default">
+		<backend>com.whirlycott.cache.impl.ConcurrentHashMapImpl</backend>
+		<tuner-sleeptime>120</tuner-sleeptime>
+		<policy>com.whirlycott.cache.policy.LFUMaintenancePolicy</policy>
+		<maxsize>1000</maxsize>
+	</cache>
+
+	<cache name="registry-cache">
+		<backend>com.whirlycott.cache.impl.ConcurrentHashMapImpl</backend>	
+		<tuner-sleeptime>120</tuner-sleeptime>
+		<policy>com.whirlycott.cache.policy.LFUMaintenancePolicy</policy>
+		<maxsize>1000</maxsize>
+	</cache>
+
+	<cache name="authority-cache">
+		<backend>com.whirlycott.cache.impl.ConcurrentHashMapImpl</backend>
+		<tuner-sleeptime>120</tuner-sleeptime>
+		<policy>com.whirlycott.cache.policy.LFUMaintenancePolicy</policy>
+		<maxsize>1000</maxsize>
+	</cache>
+
+</whirlycache>

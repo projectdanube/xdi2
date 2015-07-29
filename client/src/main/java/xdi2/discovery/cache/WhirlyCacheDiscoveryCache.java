@@ -10,19 +10,31 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 
 public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
 
+	public static final long DEFAULT_TTL = 120 * 1000;
+
 	private Cache registryCache;
 	private Cache authorityCache;
+	private long ttl;
+
+	public WhirlyCacheDiscoveryCache(Cache registryCache, Cache authorityCache, long ttl) {
+
+		this.registryCache = registryCache;
+		this.authorityCache = authorityCache;
+		this.ttl = ttl;
+	}
 
 	public WhirlyCacheDiscoveryCache(Cache registryCache, Cache authorityCache) {
 
 		this.registryCache = registryCache;
 		this.authorityCache = authorityCache;
+		this.ttl = DEFAULT_TTL;
 	}
 
 	public WhirlyCacheDiscoveryCache() {
 
 		this.registryCache = null;
 		this.authorityCache = null;
+		this.ttl = DEFAULT_TTL;
 	}
 
 	private void initDefault() {
@@ -53,7 +65,7 @@ public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
 
 		if (this.registryCache == null) this.initDefault();
 
-		this.registryCache.store(discoveryCacheKey, value);
+		this.registryCache.store(discoveryCacheKey, value, this.getTtl());
 	}
 
 	@Override
@@ -72,7 +84,7 @@ public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
 
 		if (this.authorityCache == null) this.initDefault();
 
-		this.authorityCache.store(discoveryCacheKey, value);
+		this.authorityCache.store(discoveryCacheKey, value, this.getTtl());
 	}
 
 	/*
@@ -97,5 +109,15 @@ public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
 	public void setAuthorityCache(Cache authorityCache) {
 
 		this.authorityCache = authorityCache;
+	}
+
+	public long getTtl() {
+
+		return this.ttl;
+	}
+
+	public void setTtl(long ttl) {
+
+		this.ttl = ttl;
 	}
 }

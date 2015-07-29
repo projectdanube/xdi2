@@ -70,11 +70,11 @@ public class XDIDiscoveryClient {
 		boolean haveEhCache = false;
 		boolean haveWhirlyCache = false;
 
-		try {
+/*		try {
 
 			Class.forName("net.sf.ehcache.CacheManager");
 			haveEhCache = true;
-		} catch (ClassNotFoundException ex) { }
+		} catch (ClassNotFoundException ex) { }*/
 
 		try {
 
