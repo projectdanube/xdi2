@@ -35,8 +35,8 @@ public class SignaturesTest extends TestCase {
 		assertEquals(Signatures.getKeyAlgorithm(symmetricKeyXDIAddress), "aes");
 		assertEquals(Signatures.getKeyLength(symmetricKeyXDIAddress), Integer.valueOf(256));
 
-		assertEquals(Signatures.getDataTypeXDIAddress("sha", 256, "rsa", 1024), keyPairXDIAddress);
-		assertEquals(Signatures.getDataTypeXDIAddress("sha", 384, "aes", 256), symmetricKeyXDIAddress);
+		assertEquals(Signatures.getDataTypeXDIAddress("sha", Integer.valueOf(256), "rsa", Integer.valueOf(1024)), keyPairXDIAddress);
+		assertEquals(Signatures.getDataTypeXDIAddress("sha", Integer.valueOf(384), "aes", Integer.valueOf(256)), symmetricKeyXDIAddress);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {
@@ -53,7 +53,7 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
-		KeyPairSignature signature = (KeyPairSignature) Signatures.createSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, 256, KeyPairSignature.KEY_ALGORITHM_RSA, 1024, false);
+		KeyPairSignature signature = (KeyPairSignature) Signatures.createSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(256), KeyPairSignature.KEY_ALGORITHM_RSA, Integer.valueOf(1024), false);
 		signature.sign(privateKey);
 
 		signature = (KeyPairSignature) Signatures.getSignatures(contextNode).next();
@@ -88,7 +88,7 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
-		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.createSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, 384, SymmetricKeySignature.KEY_ALGORITHM_AES, 256, false);
+		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.createSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(384), SymmetricKeySignature.KEY_ALGORITHM_AES, Integer.valueOf(256), false);
 		signature.sign(secretKey);
 
 		signature = (SymmetricKeySignature) Signatures.getSignatures(contextNode).next();

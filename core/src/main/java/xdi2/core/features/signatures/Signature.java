@@ -2,7 +2,6 @@ package xdi2.core.features.signatures;
 
 import java.io.Serializable;
 import java.security.GeneralSecurityException;
-import java.security.Key;
 
 import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
