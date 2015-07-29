@@ -200,7 +200,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			if ("Sign!".equals(submit)) {
 
-				Signature<?, ?> signature = Signatures.createSignature(contextNode, digestAlgorithm, Integer.parseInt(digestLength), keyAlgorithm, Integer.parseInt(keyLength), "on".equals(singleton));
+				Signature<?, ?> signature = Signatures.createSignature(contextNode, digestAlgorithm, Integer.valueOf(digestLength), keyAlgorithm, Integer.valueOf(keyLength), "on".equals(singleton));
 
 				if (signature instanceof KeyPairSignature) {
 
