@@ -8,11 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
@@ -118,7 +120,9 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		try {
 
-			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress);
+			linkContractTemplateContextNode = this.getXdiAgent().get(
+					linkContractTemplateXDIaddress,
+					new SetLinkContractMessageManipulator(PublicLinkContract.class));
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + operation.getTargetXDIAddress() + ": " + ex.getMessage(), ex, executionContext);
