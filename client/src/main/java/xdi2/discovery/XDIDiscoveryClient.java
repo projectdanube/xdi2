@@ -41,13 +41,13 @@ public class XDIDiscoveryClient {
 
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
-	public static final XDIClient XDI2_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
-	public static final XDIClient LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient XDI2_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
+	public static final XDIHttpClient LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT;
 
 	public static final XDIDiscoveryClient XDI2_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
@@ -57,7 +57,7 @@ public class XDIDiscoveryClient {
 	public static final XDIDiscoveryClient NEUSTAR_STAGE_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient LEOLA_NYMBLE_DISCOVERY_CLIENT;
 
-	public static final XDIClient DEFAULT_XDI_CLIENT;
+	public static final XDIHttpClient DEFAULT_XDI_CLIENT;
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT;
 
 	public static final DiscoveryCache DEFAULT_DISCOVERY_CACHE;
