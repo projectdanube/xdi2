@@ -27,7 +27,7 @@ public class XDIClientUtil {
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
-		message.setLinkContract(RootLinkContract.class);
+		message.setLinkContractClass(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 
@@ -55,7 +55,7 @@ public class XDIClientUtil {
 		MessageEnvelope messageEnvelope = new MessageEnvelope();
 		Message message = messageEnvelope.createMessage(cloudNumber.getXDIAddress());
 		message.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
-		message.setLinkContract(RootLinkContract.class);
+		message.setLinkContractClass(RootLinkContract.class);
 		message.setSecretToken(secretToken);
 		message.createGetOperation(privateKeyAddress);
 

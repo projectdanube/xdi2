@@ -192,11 +192,32 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Return the FROM address of the message.
+	 */
+	public XDIAddress getFromXDIAddress() {
+
+		XDIArc fromPeerRootXDIArc = this.getFromPeerRootXDIArc();
+		if (fromPeerRootXDIArc == null) return null;
+
+		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(fromPeerRootXDIArc);
+	}
+
+	/**
 	 * Set the FROM peer root arc.
 	 */
 	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIArc) {
 
 		this.getMessageEnvelope().getGraph().setDeepContextNode(XDIAddress.fromComponent(fromPeerRootXDIArc)).setRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
+	}
+
+	/**
+	 * Set the FROM address of the message.
+	 */
+	public void setFromXDIAddress(XDIAddress fromXDIAddress) {
+
+		XDIArc fromPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(fromXDIAddress);
+
+		this.setFromPeerRootXDIArc(fromPeerRootXDIArc);
 	}
 
 	/**
@@ -288,7 +309,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	/**
 	 * Set a link contract class.
 	 */
-	public void setLinkContract(Class<? extends LinkContract> clazz) {
+	public void setLinkContractClass(Class<? extends LinkContract> clazz) {
 
 		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootXDIArc());
 		if (ownerXDIAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
@@ -488,19 +509,19 @@ public final class Message implements Serializable, Comparable<Message> {
 		return Dictionary.getContextNodeType(this.getContextNode());
 	}
 
-	public boolean isMessageType(XDIAddress type) {
+	public boolean isMessageType(XDIAddress messageType) {
 
-		return Dictionary.isContextNodeType(this.getContextNode(), type);
+		return Dictionary.isContextNodeType(this.getContextNode(), messageType);
 	}
 
-	public void setMessageType(XDIAddress type) {
+	public void setMessageType(XDIAddress messageType) {
 
-		Dictionary.setContextNodeType(this.getContextNode(), type);
+		Dictionary.setContextNodeType(this.getContextNode(), messageType);
 	}
 
-	public void delMessageType(XDIAddress type) {
+	public void delMessageType(XDIAddress messageType) {
 
-		Dictionary.delContextNodeType(this.getContextNode(), type);
+		Dictionary.delContextNodeType(this.getContextNode(), messageType);
 	}
 
 	public void delMessageTypes() {
@@ -508,9 +529,9 @@ public final class Message implements Serializable, Comparable<Message> {
 		Dictionary.delContextNodeTypes(this.getContextNode());
 	}
 
-	public void replaceMessageType(XDIAddress type) {
+	public void replaceMessageType(XDIAddress messageType) {
 
-		Dictionary.replaceContextNodeType(this.getContextNode(), type);
+		Dictionary.replaceContextNodeType(this.getContextNode(), messageType);
 	}
 
 	/*
