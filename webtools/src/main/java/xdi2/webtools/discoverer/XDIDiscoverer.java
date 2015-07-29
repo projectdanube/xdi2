@@ -138,8 +138,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			XDIDiscoveryClient discoveryClient = new XDIDiscoveryClient(endpoint);
 
-			discoveryClient.setRegistryCache(null);
-			discoveryClient.setAuthorityCache(null);
+			discoveryClient.setDiscoveryCache(null);
 
 			// from registry
 

@@ -25,6 +25,12 @@
 			<version>2.8.1</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.whirlycott</groupId>
+			<artifactId>whirlycache</artifactId>
+			<version>1.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 </project>

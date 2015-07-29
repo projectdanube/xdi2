@@ -1,18 +1,11 @@
 package xdi2.discovery;
 
-import java.io.Serializable;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.XDIClient;
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.events.XDIDiscoverFromAuthorityEvent;
 import xdi2.client.events.XDIDiscoverFromRegistryEvent;
@@ -29,6 +22,11 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.discovery.cache.DiscoveryCache;
+import xdi2.discovery.cache.DiscoveryCacheKey;
+import xdi2.discovery.cache.EhCacheDiscoveryCache;
+import xdi2.discovery.cache.NullDiscoveryCache;
+import xdi2.discovery.cache.WhirlyCacheDiscoveryCache;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
@@ -43,13 +41,13 @@ public class XDIDiscoveryClient {
 
 	private static Logger log = LoggerFactory.getLogger(XDIDiscoveryClient.class.getName());
 
-	public static final XDIHttpClient XDI2_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
-	public static final XDIHttpClient LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient XDI2_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient XDI2_NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient NEUSTAR_PROD_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient NEUSTAR_OTE_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient NEUSTAR_STAGE_DISCOVERY_XDI_CLIENT;
+	public static final XDIClient LEOLA_NYMBLE_DISCOVERY_XDI_CLIENT;
 
 	public static final XDIDiscoveryClient XDI2_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
@@ -59,22 +57,37 @@ public class XDIDiscoveryClient {
 	public static final XDIDiscoveryClient NEUSTAR_STAGE_DISCOVERY_CLIENT;
 	public static final XDIDiscoveryClient LEOLA_NYMBLE_DISCOVERY_CLIENT;
 
-	public static final XDIHttpClient DEFAULT_XDI_CLIENT;
+	public static final XDIClient DEFAULT_XDI_CLIENT;
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT;
-	public static final Cache DEFAULT_REGISTRY_CACHE;
-	public static final Cache DEFAULT_AUTHORITY_CACHE;
 
-	private XDIHttpClient registryXdiClient;
-	private Cache registryCache;
-	private Cache authorityCache;
+	public static final DiscoveryCache DEFAULT_DISCOVERY_CACHE;
+
+	private XDIClient registryXdiClient;
+	private DiscoveryCache discoveryCache;
 
 	static {
 
-		CacheManager cacheManager = CacheManager.create(XDIDiscoveryClient.class.getResourceAsStream("ehcache.xml"));
-		cacheManager.addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
-		cacheManager.addCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
-		DEFAULT_REGISTRY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-registry-cache");
-		DEFAULT_AUTHORITY_CACHE = cacheManager.getCache(XDIDiscoveryClient.class.getCanonicalName() + "-default-authority-cache");
+		boolean haveEhCache = false;
+		boolean haveWhirlyCache = false;
+
+		try {
+
+			Class.forName("net.sf.ehcache.CacheManager");
+			haveEhCache = true;
+		} catch (ClassNotFoundException ex) { }
+
+		try {
+
+			Class.forName("com.whirlycott.cache.CacheManager");
+			haveWhirlyCache = true;
+		} catch (ClassNotFoundException ex) { }
+
+		if (haveEhCache) 
+			DEFAULT_DISCOVERY_CACHE = new EhCacheDiscoveryCache();
+		else if (haveWhirlyCache)
+			DEFAULT_DISCOVERY_CACHE = new WhirlyCacheDiscoveryCache();
+		else
+			DEFAULT_DISCOVERY_CACHE = new NullDiscoveryCache();
 
 		XDI2_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://registry.xdi2.org/"));
 		XDI2_NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://discovery.xdi2.org/neustar-discovery-service-prod"));
@@ -96,21 +109,22 @@ public class XDIDiscoveryClient {
 		DEFAULT_DISCOVERY_CLIENT = XDI2_DISCOVERY_CLIENT;
 	}
 
-	public XDIDiscoveryClient(XDIHttpClient registryXdiClient, Cache registryCache, Cache authorityCache) {
+	public XDIDiscoveryClient(XDIClient registryXdiClient, DiscoveryCache discoveryCache) {
 
 		this.registryXdiClient = registryXdiClient;
-		this.registryCache = registryCache;
-		this.authorityCache = authorityCache;
+		this.discoveryCache = discoveryCache;
+
+		if (log.isDebugEnabled()) log.debug("Initializing discovery with client " + (registryXdiClient == null ? null : registryXdiClient.getClass().getSimpleName()) + " and cache " + (discoveryCache == null ? null : discoveryCache.getClass().getSimpleName()));
 	}
 
-	public XDIDiscoveryClient(XDIHttpClient registryXdiClient) {
+	public XDIDiscoveryClient(XDIClient registryXdiClient) {
 
-		this(registryXdiClient, DEFAULT_REGISTRY_CACHE, DEFAULT_AUTHORITY_CACHE);
+		this(registryXdiClient, DEFAULT_DISCOVERY_CACHE);
 	}
 
-	public XDIDiscoveryClient(URI registryEndpointUri, Cache registryCache, Cache authorityCache) {
+	public XDIDiscoveryClient(URI registryEndpointUri, DiscoveryCache discoveryCache) {
 
-		this(new XDIHttpClient(registryEndpointUri), registryCache, authorityCache);
+		this(new XDIHttpClient(registryEndpointUri), discoveryCache);
 	}
 
 	public XDIDiscoveryClient(URI registryEndpointUri) {
@@ -125,7 +139,7 @@ public class XDIDiscoveryClient {
 
 	public XDIDiscoveryClient() {
 
-		this(NEUSTAR_PROD_DISCOVERY_XDI_CLIENT);
+		this(DEFAULT_XDI_CLIENT);
 	}
 
 	public XDIDiscoveryResult discover(XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2DiscoveryException, Xdi2ClientException {
@@ -183,19 +197,17 @@ public class XDIDiscoveryClient {
 		MessagingResponse registryMessagingResponse = null;
 
 		DiscoveryCacheKey registryDiscoveryCacheKey = DiscoveryCacheKey.build(query, this.getRegistryXdiClient(), null);
-		Element registryMessageResultElement = null;
 
-		if (this.getRegistryCache() != null) registryMessageResultElement = this.getRegistryCache().get(registryDiscoveryCacheKey);
-		if (registryMessageResultElement != null) registryMessagingResponse = (MessagingResponse) registryMessageResultElement.getObjectValue();
+		if (this.getDiscoveryCache() != null) registryMessagingResponse = (MessagingResponse) this.getDiscoveryCache().getRegistry(registryDiscoveryCacheKey);
 
 		MessageEnvelope registryMessageEnvelope = null;
 
 		if (registryMessagingResponse != null) {
 
-			if (log.isDebugEnabled()) log.debug("Registry cache HIT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
+			if (log.isDebugEnabled()) log.debug("Registry cache HIT: " + registryDiscoveryCacheKey);
 		} else {
 
-			if (log.isDebugEnabled()) log.debug("Registry cache MISS: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
+			if (log.isDebugEnabled()) log.debug("Registry cache MISS: " + registryDiscoveryCacheKey);
 
 			// send the registry message
 
@@ -205,9 +217,9 @@ public class XDIDiscoveryClient {
 
 			try {
 
-				XDIHttpClient registryXdiHttpClient = this.getRegistryXdiClient();
+				XDIClient registryXdiClient = this.getRegistryXdiClient();
 
-				registryMessagingResponse = registryXdiHttpClient.send(registryMessageEnvelope);
+				registryMessagingResponse = registryXdiClient.send(registryMessageEnvelope);
 			} catch (Xdi2ClientException ex) {
 
 				xdiDiscoveryResult.initFromException(ex);
@@ -219,10 +231,10 @@ public class XDIDiscoveryClient {
 
 			// save in cache
 
-			if (this.getRegistryCache() != null) {
+			if (this.getDiscoveryCache() != null) {
 
-				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey + " (" + this.getRegistryCache() + ")");
-				this.getRegistryCache().put(new Element(registryDiscoveryCacheKey, registryMessagingResponse));
+				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey);
+				this.getDiscoveryCache().putRegistry(registryDiscoveryCacheKey, registryMessagingResponse);
 			}
 
 			// fire event
@@ -267,19 +279,17 @@ public class XDIDiscoveryClient {
 		MessagingResponse authorityMessagingResponse = null;
 
 		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUri, endpointUriTypes);
-		Element authorityMessageResultElement = null;
 
-		if (this.getAuthorityCache() != null) authorityMessageResultElement = this.getAuthorityCache().get(authorityDiscoveryCacheKey);
-		if (authorityMessageResultElement != null) authorityMessagingResponse = (MessagingResponse) authorityMessageResultElement.getObjectValue();
+		if (this.getDiscoveryCache() != null) authorityMessagingResponse = (MessagingResponse) this.getDiscoveryCache().getAuthority(authorityDiscoveryCacheKey);
 
 		MessageEnvelope authorityMessageEnvelope = null;
 
 		if (authorityMessagingResponse != null) {
 
-			if (log.isDebugEnabled()) log.debug("Authority cache HIT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
+			if (log.isDebugEnabled()) log.debug("Authority cache HIT: " + authorityDiscoveryCacheKey);
 		} else {
 
-			if (log.isDebugEnabled()) log.debug("Authority cache MISS: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
+			if (log.isDebugEnabled()) log.debug("Authority cache MISS: " + authorityDiscoveryCacheKey);
 
 			// send the authority message
 
@@ -316,10 +326,10 @@ public class XDIDiscoveryClient {
 
 			// save in cache
 
-			if (this.getAuthorityCache() != null) {
+			if (this.getDiscoveryCache() != null) {
 
-				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey + " (" + this.getAuthorityCache() + ")");
-				this.getAuthorityCache().put(new Element(authorityDiscoveryCacheKey, authorityMessagingResponse));
+				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey);
+				this.getDiscoveryCache().putAuthority(authorityDiscoveryCacheKey, authorityMessagingResponse);
 			}
 
 			// fire event
@@ -353,112 +363,26 @@ public class XDIDiscoveryClient {
 	}
 
 	/*
-	 * Helper classes and methods
-	 */
-
-	private static class DiscoveryCacheKey implements Serializable {
-
-		private static final long serialVersionUID = -2109761083423630152L;
-
-		private XDIAddress query;
-		private URI xdiEndpointUri;
-		private Set<XDIAddress> endpointUriTypes;
-
-		public DiscoveryCacheKey(XDIAddress query, URI xdiEndpointUri, Set<XDIAddress> endpointUriTypes) {
-
-			this.query = query;
-			this.xdiEndpointUri = xdiEndpointUri;
-			this.endpointUriTypes = endpointUriTypes;
-		}
-
-		private static DiscoveryCacheKey build(XDIAddress query, XDIHttpClient registryXdiHttpClient, XDIAddress[] endpointUriTypes) {
-
-			return new DiscoveryCacheKey(query, registryXdiHttpClient.getXdiEndpointUri(), endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
-		}
-
-		private static DiscoveryCacheKey build(CloudNumber cloudNumber, URI xdiEndpointUri, XDIAddress[] endpointUriTypes) {
-
-			return new DiscoveryCacheKey(cloudNumber.getXDIAddress(), xdiEndpointUri, endpointUriTypes == null ? null : new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes)));
-		}
-
-		@Override
-		public int hashCode() {
-
-			final int prime = 31;
-			int result = 1;
-
-			result = prime * result + ((this.query == null) ? 0 : this.query.hashCode());
-			result = prime * result + ((this.xdiEndpointUri == null) ? 0 : this.xdiEndpointUri.hashCode());
-			result = prime * result + ((this.endpointUriTypes == null) ? 0 : this.endpointUriTypes.hashCode());
-
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-
-			if (this == obj) return true;
-			if (obj == null) return false;
-			if (getClass() != obj.getClass()) return false;
-
-			DiscoveryCacheKey other = (DiscoveryCacheKey) obj;
-
-			if (this.query == null) {
-
-				if (other.query != null) return false;
-			} else if (! this.query.equals(other.query)) return false;
-
-			if (this.xdiEndpointUri == null) {
-
-				if (other.xdiEndpointUri != null) return false;
-			} else if (! this.xdiEndpointUri.equals(other.xdiEndpointUri)) return false;
-
-			if (this.endpointUriTypes == null) {
-
-				if (other.endpointUriTypes != null) return false;
-			} else if (! this.endpointUriTypes.equals(other.endpointUriTypes)) return false;
-
-			return true;
-		}
-
-		@Override
-		public String toString() {
-
-			return "DiscoveryCacheKey [query=" + this.query + ", xdiEndpointUri=" + this.xdiEndpointUri + ", endpointUriTypes=" + this.endpointUriTypes + "]";
-		}
-	}
-
-	/*
 	 * Getters and setters
 	 */
 
-	public XDIHttpClient getRegistryXdiClient() {
+	public XDIClient getRegistryXdiClient() {
 
 		return this.registryXdiClient;
 	}
 
-	public void setRegistryXdiClient(XDIHttpClient registryXdiClient) {
+	public void setRegistryXdiClient(XDIClient registryXdiClient) {
 
 		this.registryXdiClient = registryXdiClient;
 	}
 
-	public Cache getRegistryCache() {
+	public DiscoveryCache getDiscoveryCache() {
 
-		return this.registryCache;
+		return this.discoveryCache;
 	}
 
-	public void setRegistryCache(Cache registryCache) {
+	public void setDiscoveryCache(DiscoveryCache discoveryCache) {
 
-		this.registryCache = registryCache;
-	}
-
-	public Cache getAuthorityCache() {
-
-		return this.authorityCache;
-	}
-
-	public void setAuthorityCache(Cache authorityCache) {
-
-		this.authorityCache = authorityCache;
+		this.discoveryCache = discoveryCache;
 	}
 }
