@@ -29,7 +29,7 @@
 			<groupId>com.whirlycott</groupId>
 			<artifactId>whirlycache</artifactId>
 			<version>0.7.1</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
