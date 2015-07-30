@@ -112,7 +112,7 @@ public class XdiAttributeInstanceUnordered extends XdiAbstractAttribute implemen
 	@Override
 	public XdiAttributeCollection getXdiCollection() {
 
-		return new XdiAttributeCollection(this.getContextNode().getContextNode());
+		return XdiAttributeCollection.fromContextNode(this.getContextNode().getContextNode());
 	}
 
 	/*

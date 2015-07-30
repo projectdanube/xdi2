@@ -78,7 +78,7 @@ public class XdiEntityInstanceUnordered extends XdiAbstractEntity implements Xdi
 	@Override
 	public XdiEntityCollection getXdiCollection() {
 
-		return new XdiEntityCollection(this.getContextNode().getContextNode());
+		return XdiEntityCollection.fromContextNode(this.getContextNode().getContextNode());
 	}
 
 	/*

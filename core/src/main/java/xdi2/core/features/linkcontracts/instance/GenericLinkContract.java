@@ -50,7 +50,7 @@ public class GenericLinkContract extends LinkContract {
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 
 			return true;
-		} else if (xdiEntity instanceof XdiEntityInstance) {
+		} else if (xdiEntity instanceof XdiEntityInstance && ((XdiEntityInstance) xdiEntity).getXdiCollection() != null) {
 
 			if (! ((XdiEntityInstance) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
 
