@@ -307,7 +307,15 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set a link contract class.
+	 * Set the link contract.
+	 */
+	public void setLinkContract(LinkContract linkContract) {
+
+		this.setLinkContractXDIAddress(linkContract.getXdiEntity().getXDIAddress());
+	}
+
+	/**
+	 * Set the link contract class.
 	 */
 	public void setLinkContractClass(Class<? extends LinkContract> clazz) {
 

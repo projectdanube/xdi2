@@ -9,23 +9,34 @@ import xdi2.messaging.Message;
 public class SetLinkContractMessageManipulator extends AbstractMessageManipulator implements MessageManipulator {
 
 	private XDIAddress linkContractXDIAddress;
+	private LinkContract linkContract;
 	private Class<? extends LinkContract> linkContractClass;
 
 	public SetLinkContractMessageManipulator(XDIAddress linkContractXDIAddress) {
 
 		this.linkContractXDIAddress = linkContractXDIAddress;
+		this.linkContract = null;
+		this.linkContractClass = null;
+	}
+
+	public SetLinkContractMessageManipulator(LinkContract linkContract) {
+
+		this.linkContractXDIAddress = null;
+		this.linkContract = linkContract;
 		this.linkContractClass = null;
 	}
 
 	public SetLinkContractMessageManipulator(Class<? extends LinkContract> linkContractClass) {
 
 		this.linkContractXDIAddress = null;
+		this.linkContract = null;
 		this.linkContractClass = linkContractClass;
 	}
 
 	public SetLinkContractMessageManipulator() {
 
 		this.linkContractXDIAddress = null;
+		this.linkContract = null;
 		this.linkContractClass = null;
 	}
 
@@ -35,6 +46,9 @@ public class SetLinkContractMessageManipulator extends AbstractMessageManipulato
 		if (this.getLinkContractXDIAddress() != null) {
 
 			message.setLinkContractXDIAddress(this.getLinkContractXDIAddress());
+		} else if (this.getLinkContract() != null) {
+
+			message.setLinkContract(this.getLinkContract());
 		} else if (this.getLinkContractClass() != null) {
 
 			message.setLinkContractClass(this.getLinkContractClass());
@@ -53,6 +67,16 @@ public class SetLinkContractMessageManipulator extends AbstractMessageManipulato
 	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
 
 		this.linkContractXDIAddress = linkContractXDIAddress;
+	}
+
+	public LinkContract getLinkContract() {
+
+		return this.linkContract;
+	}
+
+	public void setLinkContract(LinkContract linkContract) {
+
+		this.linkContract = linkContract;
 	}
 
 	public Class<? extends LinkContract> getLinkContractClass() {
