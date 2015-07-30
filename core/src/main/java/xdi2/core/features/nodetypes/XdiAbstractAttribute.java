@@ -73,19 +73,19 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	}
 
 	@Override
-	public LiteralNode setLiteralDataString(String literalData) {
+	public LiteralNode setLiteralString(String literalData) {
 
 		return this.getContextNode().setLiteralString(literalData);
 	}
 
 	@Override
-	public LiteralNode setLiteralDataNumber(Double literalData) {
+	public LiteralNode setLiteralNumber(Double literalData) {
 
 		return this.getContextNode().setLiteralNumber(literalData);
 	}
 
 	@Override
-	public LiteralNode setLiteralDataBoolean(Boolean literalData) {
+	public LiteralNode setLiteralBoolean(Boolean literalData) {
 
 		return this.getContextNode().setLiteralBoolean(literalData);
 	}	
@@ -97,28 +97,53 @@ public abstract class XdiAbstractAttribute extends XdiAbstractSubGraph<XdiAttrib
 	}
 
 	@Override
-	public LiteralNode getLiteralData(Object literalData) {
+	public LiteralNode getLiteralNode(Object literalData) {
 
 		return this.getContextNode().getLiteralNode(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralDataString(String literalData) {
+	public LiteralNode getLiteralString(String literalData) {
 
 		return this.getContextNode().getLiteralString(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralDataNumber(Double literalData) {
+	public LiteralNode getLiteralNumber(Double literalData) {
 
 		return this.getContextNode().getLiteralNumber(literalData);
 	}
 
 	@Override
-	public LiteralNode getLiteralDataBoolean(Boolean literalData) {
+	public LiteralNode getLiteralBoolean(Boolean literalData) {
 
 		return this.getContextNode().getLiteralBoolean(literalData);
 	}
+
+	@Override
+	public Object getLiteralData() {
+
+		return this.getContextNode().getLiteralData();
+	}
+
+	@Override
+	public String getLiteralDataString() {
+
+		return this.getContextNode().getLiteralDataString();
+	}
+
+	@Override
+	public Double getLiteralDataNumber() {
+
+		return this.getContextNode().getLiteralDataNumber();
+	}
+
+	@Override
+	public Boolean getLiteralDataBoolean() {
+
+		return this.getContextNode().getLiteralDataBoolean();
+	}
+
 
 	/*
 	 * Methods for arcs

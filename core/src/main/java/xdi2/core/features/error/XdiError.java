@@ -130,7 +130,7 @@ public class XdiError implements Serializable {
 
 	public void setErrorString(String errorString) {
 
-		this.getXdiAttribute().setLiteralDataString(errorString);
+		this.getXdiAttribute().setLiteralString(errorString);
 	}
 
 	/*

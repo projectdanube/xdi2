@@ -95,7 +95,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 		}
 
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
-		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralDataBoolean(Boolean.valueOf(authenticated));
+		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(authenticated));
 
 		if (log.isDebugEnabled()) log.debug("Valid: " + signatureValidLiteral.getStatement());
 

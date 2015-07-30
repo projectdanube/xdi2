@@ -131,7 +131,7 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 	 */
 	public void setValue(String value) {
 
-		this.getXdiAttribute().setLiteralDataString(value);
+		this.getXdiAttribute().setLiteralString(value);
 	}
 
 	/**
