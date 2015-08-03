@@ -44,7 +44,7 @@ import xdi2.messaging.response.MessagingResponse;
  */
 public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
-	public static final String KEY_ENDPOINTURL = "endpointUrl";
+	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 	public static final String KEY_RECVMIMETYPE = "recvmimetype";
 	public static final String KEY_USERAGENT = "useragent";
@@ -109,7 +109,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 		if (parameters != null) {
 
-			if (parameters.containsKey(KEY_ENDPOINTURL)) this.xdiEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURL));
+			if (parameters.containsKey(KEY_ENDPOINTURI)) this.xdiEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURI));
 			if (parameters.containsKey(KEY_SENDMIMETYPE)) this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE));
 			if (parameters.containsKey(KEY_RECVMIMETYPE)) this.recvMimeType = new MimeType(parameters.getProperty(KEY_RECVMIMETYPE));
 			if (parameters.containsKey(KEY_USERAGENT)) this.userAgent = parameters.getProperty(KEY_USERAGENT);

@@ -39,7 +39,7 @@ import xdi2.messaging.response.MessagingResponse;
  */
 public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
-	public static final String KEY_ENDPOINTURL = "endpointUrl";
+	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0";
@@ -81,7 +81,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		if (parameters != null) {
 
-			if (parameters.containsKey(KEY_ENDPOINTURL)) this.xdiWebSocketEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURL));
+			if (parameters.containsKey(KEY_ENDPOINTURI)) this.xdiWebSocketEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURI));
 			if (parameters.containsKey(KEY_SENDMIMETYPE)) this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
