@@ -85,14 +85,19 @@ public class XDIArc extends XDIIdentifier {
 
 	public static String literalFromUuid(String uuid) {
 
-		String literal = ":uuid:" + uuid;
+		String literal = ":uuid:" + uuid.toLowerCase();
 
 		return literal;
 	}
 
+	public static String literalFromUuid(UUID uuid) {
+
+		return literalFromUuid(uuid.toString());
+	}
+
 	public static String literalFromRandomUuid() {
 
-		String uuid = UUID.randomUUID().toString().toLowerCase();
+		UUID uuid = UUID.randomUUID();
 
 		return literalFromUuid(uuid);
 	}
