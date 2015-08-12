@@ -13,6 +13,10 @@ import xdi2.server.impl.embedded.XDIEmbeddedServer;
 
 public class XDIStandaloneServer {
 
+	/*
+	 * Main and usage
+	 */
+	
 	public static void main(String[] args) throws Exception {
 
 		// check arguments
@@ -27,11 +31,11 @@ public class XDIStandaloneServer {
 		} else if (args.length == 1) {
 
 			applicationContextPath = args[0];
-			jettyApplicationContextPath = "jetty-applicationContext.xml";
+			jettyApplicationContextPath = "server-applicationContext.xml";
 		} else if (args.length == 0) {
 
 			applicationContextPath = "applicationContext.xml";
-			jettyApplicationContextPath = "jetty-applicationContext.xml";
+			jettyApplicationContextPath = "server-applicationContext.xml";
 		} else {
 
 			usage();
@@ -65,6 +69,6 @@ public class XDIStandaloneServer {
 
 	private static void usage() {
 
-		System.out.println("Usage: java -jar xdi2-server-standalone-XXX.one-jar.jar [path-to-applicationContext.xml] [path-to-jetty-applicationContext.xml]");
+		System.out.println("Usage: java -jar xdi2-server-standalone-XXX.one-jar.jar [path-to-applicationContext.xml] [path-to-server-applicationContext.xml]");
 	}
 }

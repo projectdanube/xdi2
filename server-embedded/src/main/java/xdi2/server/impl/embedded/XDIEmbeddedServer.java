@@ -12,7 +12,7 @@ import xdi2.transport.impl.http.impl.servlet.EndpointServlet;
 public class XDIEmbeddedServer extends Server implements XDIServer {
 
 	public static final String FALLBACK_APPLICATIONCONTEXT = "fallback-applicationContext.xml";
-	public static final String FALLBACK_JETTY_APPLICATIONCONTEXT = "fallback-jetty-applicationContext.xml";
+	public static final String FALLBACK_JETTY_APPLICATIONCONTEXT = "fallback-server-applicationContext.xml";
 
 	private EndpointServlet endpointServlet;
 
@@ -23,19 +23,10 @@ public class XDIEmbeddedServer extends Server implements XDIServer {
 		this.setStopAtShutdown(true);
 	}
 
-	public EndpointServlet getEndpointServlet() {
-
-		return this.endpointServlet;
-	}
-
-	public void setEndpointServlet(EndpointServlet endpointServlet) {
-
-		this.endpointServlet = endpointServlet;
-	}
-
-	/**
-	 * Generates a new XDI2 server from an application context.
+	/*
+	 * New server
 	 */
+
 	public static XDIEmbeddedServer newServer(ApplicationContext applicationContext) {
 
 		if (applicationContext == null) throw new NullPointerException();
@@ -62,6 +53,24 @@ public class XDIEmbeddedServer extends Server implements XDIServer {
 
 		return newServer(null, null);
 	}
+
+	/*
+	 * Instance methods
+	 */
+
+	public EndpointServlet getEndpointServlet() {
+
+		return this.endpointServlet;
+	}
+
+	public void setEndpointServlet(EndpointServlet endpointServlet) {
+
+		this.endpointServlet = endpointServlet;
+	}
+
+	/*
+	 * Spring configuration
+	 */
 
 	private static Resource fallbackApplicationContextResource() {
 
