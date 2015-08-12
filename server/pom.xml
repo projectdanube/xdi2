@@ -25,12 +25,6 @@
 			<artifactId>xdi2-transport-websocket</artifactId>
 			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.websocket</groupId>
-					<artifactId>javax.websocket-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>

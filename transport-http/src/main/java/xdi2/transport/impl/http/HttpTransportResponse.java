@@ -13,6 +13,7 @@ import xdi2.transport.TransportResponse;
 public interface HttpTransportResponse extends TransportResponse {
 
 	public static final int SC_OK = 200;
+	public static final int SC_FOUND = 302;
 	public static final int SC_NOT_FOUND = 404;
 	public static final int SC_INTERNAL_SERVER_ERROR = 500;
 
@@ -21,7 +22,7 @@ public interface HttpTransportResponse extends TransportResponse {
 	public void setContentLength(int contentLength);
 	public void setHeader(String name, String value);
 
-	public void sendRedirect(String location) throws IOException;
+	public void sendRedirect(int status, String location) throws IOException;
 	public void sendError(int status, String message) throws IOException;
 
 	public void writeBody(String string, boolean close) throws IOException;

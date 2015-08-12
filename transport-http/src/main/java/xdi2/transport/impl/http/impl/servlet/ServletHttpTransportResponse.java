@@ -61,7 +61,7 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 	}
 
 	@Override
-	public void sendRedirect(String location) throws IOException {
+	public void sendRedirect(int status, String location) throws IOException {
 
 		this.getHttpServletResponse().sendRedirect(location);
 	}
