@@ -8,8 +8,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 import xdi2.core.plugins.PluginsLoader;
+import xdi2.server.exceptions.Xdi2ServerException;
 import xdi2.server.impl.embedded.XDIEmbeddedServer;
-import xdi2.transport.exceptions.Xdi2TransportException;
 
 public class XDIStandaloneServer {
 
@@ -45,7 +45,7 @@ public class XDIStandaloneServer {
 			PluginsLoader.loadPlugins();
 		} catch (IOException ex) {
 
-			throw new Xdi2TransportException("Cannot load plugins: " + ex.getMessage(), ex);
+			throw new Xdi2ServerException("Cannot load plugins: " + ex.getMessage(), ex);
 		}
 
 		// start the server

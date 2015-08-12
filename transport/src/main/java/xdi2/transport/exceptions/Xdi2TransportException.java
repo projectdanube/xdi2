@@ -3,7 +3,7 @@ package xdi2.transport.exceptions;
 import xdi2.core.exceptions.Xdi2Exception;
 
 /**
- * An exception that is thrown during server operation.
+ * An exception that is thrown during transport operation.
  * 
  * @author markus
  */
