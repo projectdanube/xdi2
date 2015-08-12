@@ -23,20 +23,21 @@
 		<property name="contextPath" value="/" />
 	</bean>
 
-	<bean id="XDIEmbeddedServer" class="xdi2.server.impl.embedded.XDIEmbeddedServer">
-
-		<property name="endpointServlet" ref="EndpointServlet" />
-
+	<bean id="server" class="org.eclipse.jetty.server.Server">
 		<property name="connectors">
 			<util:list>
-				<bean id="Connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+				<bean id="Connector" class="org.eclipse.jetty.server.nio.NetworkTrafficSelectChannelConnector">
+					<constructor-arg ref="server" />
 					<property name="port" value="8080" />
 				</bean>
 			</util:list>
 		</property>
-
 		<property name="handler" ref="servletContextHandler" />
+	</bean>
 
+	<bean id="XDIStandaloneServer" class="xdi2.server.impl.standalone.XDIStandaloneServer">
+		<property name="server" ref="server" />
+		<property name="endpointServlet" ref="EndpointServlet" />
 	</bean>
 
 	<bean id="EndpointServlet" class="xdi2.transport.impl.http.impl.servlet.EndpointServlet" init-method="init" destroy-method="destroy" />

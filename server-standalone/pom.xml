@@ -62,8 +62,20 @@
 
 		<dependency>
 			<groupId>xdi2</groupId>
-			<artifactId>xdi2-server-embedded</artifactId>
+			<artifactId>xdi2-server</artifactId>
 			<version>0.8-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>9.2.12.M0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-server</artifactId>
+			<version>9.2.12.M0</version>
 			<scope>compile</scope>
 		</dependency>
 

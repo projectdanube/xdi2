@@ -39,7 +39,6 @@
 		<module>transport-websocket</module>
 		<module>transport-local</module>
 		<module>server</module>
-		<module>server-embedded</module>
 		<module>server-standalone</module>
 		<module>server-war</module>
 		<module>webtools</module>
