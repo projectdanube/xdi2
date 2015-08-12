@@ -22,7 +22,7 @@ public abstract class AbstractHttpTransportResponse extends AbstractTransportRes
 	@Override
 	public void sendRedirect(int status, String location) throws IOException {
 
-		this.setStatus(status, null);
+		this.setStatus(status);
 		this.setHeader("Location", location);
 		this.writeBody(location, true);
 	}
@@ -30,7 +30,7 @@ public abstract class AbstractHttpTransportResponse extends AbstractTransportRes
 	@Override
 	public void sendError(int status, String message) throws IOException {
 
-		this.setStatus(status, message);
+		this.setStatus(status);
 		this.writeBody(message, true);
 	}
 }

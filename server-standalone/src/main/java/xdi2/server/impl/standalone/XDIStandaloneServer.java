@@ -111,6 +111,10 @@ public class XDIStandaloneServer extends XDIAbstractServer implements XDIServer 
 		this.server.stop();
 		this.server = null;
 		this.cleanup();
+
+		// done
+
+		if (log.isInfoEnabled()) log.info("Server stopped.");
 	}
 
 	@Override

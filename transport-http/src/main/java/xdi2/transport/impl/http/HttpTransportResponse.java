@@ -17,7 +17,7 @@ public interface HttpTransportResponse extends TransportResponse {
 	public static final int SC_NOT_FOUND = 404;
 	public static final int SC_INTERNAL_SERVER_ERROR = 500;
 
-	public void setStatus(int status, String message);
+	public void setStatus(int status);
 	public void setContentType(String contentType);
 	public void setContentLength(int contentLength);
 	public void setHeader(String name, String value);

@@ -2,7 +2,6 @@ package xdi2.transport.impl.http;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.Future;
 
 import xdi2.transport.TransportRequest;
 
@@ -27,7 +26,6 @@ public interface HttpTransportRequest extends TransportRequest {
 	public String getHeader(String name);
 	public String getContentType();
 
-	public Future<InputStream> getBodyInputFuture() throws IOException;
 	public InputStream getBodyInputStream() throws IOException;
 
 	public String getRemoteAddr();
