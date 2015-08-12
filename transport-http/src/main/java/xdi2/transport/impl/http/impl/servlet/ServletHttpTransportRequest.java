@@ -18,19 +18,23 @@ public final class ServletHttpTransportRequest extends AbstractHttpTransportRequ
 	private static final Logger log = LoggerFactory.getLogger(ServletHttpTransportRequest.class);
 
 	private HttpServletRequest httpServletRequest;
-	private String method;
 	private String baseUri;
 	private String requestPath;
 
-	private ServletHttpTransportRequest(HttpServletRequest httpServletRequest, String method, String baseUri, String requestPath) { 
+	private ServletHttpTransportRequest(HttpServletRequest httpServletRequest, String baseUri, String requestPath) { 
 
 		this.httpServletRequest = httpServletRequest;
-		this.method = method;
 		this.baseUri = baseUri;
 		this.requestPath = requestPath;
 	}
 
+	/*
+	 * Static methods
+	 */
+
 	public static ServletHttpTransportRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
+
+		// determine request path
 
 		String requestUri = httpServletRequest.getRequestURI();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
@@ -52,13 +56,19 @@ public final class ServletHttpTransportRequest extends AbstractHttpTransportRequ
 			throw new RuntimeException(ex.getMessage(), ex);
 		}
 
-		String method = httpServletRequest.getMethod();
+		// determine base URI
 
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
 
-		return new ServletHttpTransportRequest(httpServletRequest, method, baseUri, requestPath);
+		// done
+
+		return new ServletHttpTransportRequest(httpServletRequest, baseUri, requestPath);
 	}
+
+	/*
+	 * Instance methods
+	 */
 
 	public HttpServletRequest getHttpServletRequest() {
 
@@ -68,7 +78,7 @@ public final class ServletHttpTransportRequest extends AbstractHttpTransportRequ
 	@Override
 	public String getMethod() {
 
-		return this.method;
+		return this.getHttpServletRequest().getMethod();
 	}
 
 	@Override
@@ -86,30 +96,30 @@ public final class ServletHttpTransportRequest extends AbstractHttpTransportRequ
 	@Override
 	public String getParameter(String name) {
 
-		return this.httpServletRequest.getParameter(name);
+		return this.getHttpServletRequest().getParameter(name);
 	}
 
 	@Override
 	public String getHeader(String name) {
 
-		return this.httpServletRequest.getHeader(name);
+		return this.getHttpServletRequest().getHeader(name);
 	}
 
 	@Override
 	public String getContentType() {
 
-		return this.httpServletRequest.getContentType();
+		return this.getHttpServletRequest().getContentType();
 	}
 
 	@Override
 	public InputStream getBodyInputStream() throws IOException {
 
-		return this.httpServletRequest.getInputStream();
+		return this.getHttpServletRequest().getInputStream();
 	}
 
 	@Override
 	public String getRemoteAddr() {
 
-		return this.httpServletRequest.getRemoteAddr();
+		return this.getHttpServletRequest().getRemoteAddr();
 	}
 }
