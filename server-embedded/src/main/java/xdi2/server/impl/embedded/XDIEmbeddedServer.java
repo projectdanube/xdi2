@@ -40,9 +40,9 @@ public class XDIEmbeddedServer extends Server implements XDIServer {
 
 		if (applicationContext == null) throw new NullPointerException();
 
-		XDIEmbeddedServer endpointServerEmbedded = (XDIEmbeddedServer) applicationContext.getBean("EndpointServerEmbedded");
+		XDIEmbeddedServer xdiEmbeddedServer = (XDIEmbeddedServer) applicationContext.getBean("XDIEmbeddedServer");
 
-		return endpointServerEmbedded;
+		return xdiEmbeddedServer;
 	}
 
 	public static XDIEmbeddedServer newServer(Resource... resources) {

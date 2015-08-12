@@ -23,7 +23,7 @@
 		<property name="contextPath" value="/" />
 	</bean>
 
-	<bean id="EndpointServerEmbedded" class="xdi2.transport.impl.http.embedded.EndpointServerEmbedded">
+	<bean id="XDIEmbeddedServer" class="xdi2.server.impl.embedded.XDIEmbeddedServer">
 
 		<property name="endpointServlet" ref="EndpointServlet" />
 
