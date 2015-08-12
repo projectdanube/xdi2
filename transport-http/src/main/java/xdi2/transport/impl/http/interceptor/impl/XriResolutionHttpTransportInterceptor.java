@@ -2,8 +2,8 @@ package xdi2.transport.impl.http.interceptor.impl;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
@@ -114,12 +114,12 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 		// send response
 
 		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-ok.vm"));
-		PrintWriter writer = new PrintWriter(response.getBodyWriter());
+		StringWriter stringWriter = new StringWriter();
+		this.velocityEngine.evaluate(context, stringWriter, "xrds-ok.vm", reader);
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");
-		this.velocityEngine.evaluate(context, writer, "xrds-ok.vm", reader);
-		writer.close();
+		response.writeBody(stringWriter.getBuffer().toString(), true);
 
 		// done
 
@@ -178,12 +178,12 @@ public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransport
 		// send response
 
 		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("xrds-notfound.vm"));
-		PrintWriter writer = new PrintWriter(response.getBodyWriter());
+		StringWriter stringWriter = new StringWriter();
+		this.velocityEngine.evaluate(context, stringWriter, "xrd.vm", reader);
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/xrd+xml");
-		this.velocityEngine.evaluate(context, writer, "xrd.vm", reader);
-		writer.close();
+		response.writeBody(stringWriter.getBuffer().toString(), true);
 	}
 
 	/*

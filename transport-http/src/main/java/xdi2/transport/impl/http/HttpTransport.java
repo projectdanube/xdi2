@@ -3,7 +3,6 @@ package xdi2.transport.impl.http;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -447,15 +446,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 			response.setContentType(writer.getMimeType().toString());
 			response.setContentLength(buffer.size());
 
-			if (buffer.size() > 0) {
-
-				OutputStream outputStream = response.getBodyOutputStream();
-
-				outputStream.write(buffer.toByteArray());
-				outputStream.flush();
-
-				outputStream.close();
-			}
+			response.writeBody(buffer.toByteArray(), true);
 		}
 
 		if (log.isDebugEnabled()) log.debug("Output complete.");

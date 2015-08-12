@@ -3,7 +3,6 @@ package xdi2.transport.impl.http.interceptor.impl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -175,9 +174,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			Graph graph = ((GraphMessagingTarget) cmdMessagingTarget).getGraph();
 
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
-			StringWriter stringWriter = new StringWriter();
-			xdiWriter.write(graph, stringWriter);
-			graphstring = stringWriter.getBuffer().toString();
+			StringWriter xdiStringWriter = new StringWriter();
+			xdiWriter.write(graph, xdiStringWriter);
+			graphstring = xdiStringWriter.getBuffer().toString();
 
 			String statementcount = Long.toString(graph.getRootContextNode().getAllStatementCount());
 
@@ -199,12 +198,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// send response
 
 			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-edit.vm"));
-			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+			StringWriter stringWriter = new StringWriter();
+			makeVelocityEngine().evaluate(context, stringWriter, "debug-edit.vm", reader);
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
-			writer.close();
+			response.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
@@ -243,9 +242,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			Graph graph = messageEnvelope.getGraph();
 
 			XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
-			StringWriter stringWriter = new StringWriter();
-			xdiWriter.write(graph, stringWriter);
-			graphstring = stringWriter.getBuffer().toString();
+			StringWriter xdiStringWriter = new StringWriter();
+			xdiWriter.write(graph, xdiStringWriter);
+			graphstring = xdiStringWriter.getBuffer().toString();
 
 			// prepare velocity
 
@@ -260,12 +259,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// send response
 
 			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-msg.vm"));
-			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+			StringWriter stringWriter = new StringWriter();
+			makeVelocityEngine().evaluate(context, stringWriter, "debug-msg.vm", reader);
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			makeVelocityEngine().evaluate(context, writer, "debug-msg.vm", reader);
-			writer.close();
+			response.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
@@ -314,12 +313,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// send response
 
 			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-edit.vm"));
-			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+			StringWriter stringWriter = new StringWriter();
+			makeVelocityEngine().evaluate(context, stringWriter, "debug-edit.vm", reader);
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			makeVelocityEngine().evaluate(context, writer, "debug-edit.vm", reader);
-			writer.close();
+			response.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
@@ -407,12 +406,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			// send response
 
 			Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug-msg.vm"));
-			PrintWriter writer = new PrintWriter(response.getBodyWriter());
+			StringWriter stringWriter = new StringWriter();
+			makeVelocityEngine().evaluate(context, stringWriter, "debug-msg.vm", reader);
 
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/html");
-			makeVelocityEngine().evaluate(context, writer, "debug-msg.vm", reader);
-			writer.close();
+			response.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
@@ -451,12 +450,12 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		// send response
 
 		Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("debug.vm"));
-		PrintWriter bodyWriter = new PrintWriter(response.getBodyWriter());
+		StringWriter stringWriter = new StringWriter();
+		makeVelocityEngine().evaluate(context, stringWriter, "debug.vm", reader);
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("text/html");
-		makeVelocityEngine().evaluate(context, bodyWriter, "debug.vm", reader);
-		bodyWriter.close();
+		response.writeBody(stringWriter.getBuffer().toString(), true);
 
 		// done
 

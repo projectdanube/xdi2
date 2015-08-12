@@ -1,8 +1,6 @@
 package xdi2.transport.impl.http;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
 
 import xdi2.transport.TransportResponse;
 
@@ -26,6 +24,6 @@ public interface HttpTransportResponse extends TransportResponse {
 	public void sendRedirect(String location) throws IOException;
 	public void sendError(int status, String message) throws IOException;
 
-	public Writer getBodyWriter() throws IOException;
-	public OutputStream getBodyOutputStream() throws IOException;
+	public void writeBody(String string, boolean close) throws IOException;
+	public void writeBody(byte[] bytes, boolean close) throws IOException;
 }

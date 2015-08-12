@@ -73,14 +73,22 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 	}
 
 	@Override
-	public Writer getBodyWriter() throws IOException {
+	@SuppressWarnings("resource")
+	public void writeBody(String string, boolean close) throws IOException {
 
-		return this.getHttpServletResponse().getWriter();
+		Writer writer = this.getHttpServletResponse().getWriter();
+
+		if (string.length() > 0) writer.write(string);
+		if (close) { writer.flush(); writer.close(); }
 	}
 
 	@Override
-	public OutputStream getBodyOutputStream() throws IOException {
+	@SuppressWarnings("resource")
+	public void writeBody(byte[] bytes, boolean close) throws IOException {
 
-		return this.getHttpServletResponse().getOutputStream();
+		OutputStream outputStream = this.getHttpServletResponse().getOutputStream();
+
+		if (bytes.length > 0) outputStream.write(bytes);
+		if (close) { outputStream.flush(); outputStream.close(); }
 	}
 }
