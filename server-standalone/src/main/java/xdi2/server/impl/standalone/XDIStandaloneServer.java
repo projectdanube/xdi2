@@ -22,20 +22,20 @@ public class XDIStandaloneServer {
 		// check arguments
 
 		String applicationContextPath;
-		String jettyApplicationContextPath;
+		String serverApplicationContextPath;
 
 		if (args.length == 2) {
 
 			applicationContextPath = args[0];
-			jettyApplicationContextPath = args[1];
+			serverApplicationContextPath = args[1];
 		} else if (args.length == 1) {
 
 			applicationContextPath = args[0];
-			jettyApplicationContextPath = "server-applicationContext.xml";
+			serverApplicationContextPath = "server-applicationContext.xml";
 		} else if (args.length == 0) {
 
 			applicationContextPath = "applicationContext.xml";
-			jettyApplicationContextPath = "server-applicationContext.xml";
+			serverApplicationContextPath = "server-applicationContext.xml";
 		} else {
 
 			usage();
@@ -57,13 +57,13 @@ public class XDIStandaloneServer {
 		File applicationContextFile = new File(applicationContextPath);
 		if (! applicationContextFile.exists()) throw new FileNotFoundException(applicationContextPath + " not found");
 
-		File jettyApplicationContextFile = new File(jettyApplicationContextPath);
-		if (! jettyApplicationContextFile.exists()) throw new FileNotFoundException(jettyApplicationContextPath + " not found");
+		File serverApplicationContextFile = new File(serverApplicationContextPath);
+		if (! serverApplicationContextFile.exists()) throw new FileNotFoundException(serverApplicationContextPath + " not found");
 
 		Resource applicationContextResource = new FileSystemResource(applicationContextFile);
-		Resource jettyApplicationContextResource = new FileSystemResource(jettyApplicationContextFile);
+		Resource serverApplicationContextResource = new FileSystemResource(serverApplicationContextFile);
 
-		XDIEmbeddedServer endpointServer = XDIEmbeddedServer.newServer(applicationContextResource, jettyApplicationContextResource);
+		XDIEmbeddedServer endpointServer = XDIEmbeddedServer.newServer(applicationContextResource, serverApplicationContextResource);
 		endpointServer.start();
 	}
 

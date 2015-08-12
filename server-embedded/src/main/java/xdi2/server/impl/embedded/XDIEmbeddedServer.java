@@ -41,12 +41,12 @@ public class XDIEmbeddedServer extends Server implements XDIServer {
 		return newServer(makeApplicationContext(resources));
 	}
 
-	public static XDIEmbeddedServer newServer(Resource applicationContextResource, Resource jettyApplicationContextResource) {
+	public static XDIEmbeddedServer newServer(Resource applicationContextResource, Resource serverApplicationContextResource) {
 
 		if (applicationContextResource == null) applicationContextResource = fallbackApplicationContextResource();
-		if (jettyApplicationContextResource == null) jettyApplicationContextResource = fallbackJettyApplicationContextResource();
+		if (serverApplicationContextResource == null) serverApplicationContextResource = fallbackJettyApplicationContextResource();
 
-		return newServer(new Resource[] { applicationContextResource, jettyApplicationContextResource });
+		return newServer(new Resource[] { applicationContextResource, serverApplicationContextResource });
 	}
 
 	public static XDIEmbeddedServer newServer() {
