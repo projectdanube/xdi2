@@ -450,12 +450,12 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		graph16.setStatement(XDIStatement.create("=markus/#friend/=animesh"));
 		graph16.setStatement(XDIStatement.create("=markus/#friend/=neustar=les"));
-		graph16.setStatement(XDIStatement.create("[=]*!1111[=]*!2222/$is/=markus"));
+		graph16.setStatement(XDIStatement.create("=!:uuid:1111=!:uuid:2222/$is/=markus"));
 
 		ContextNode markus = graph16.getDeepContextNode(XDIAddress.create("=markus"));
 		ContextNode animesh = graph16.getDeepContextNode(XDIAddress.create("=animesh"));
 		ContextNode les = graph16.getDeepContextNode(XDIAddress.create("=neustar=les"));
-		ContextNode inumber = graph16.getDeepContextNode(XDIAddress.create("[=]*!1111[=]*!2222"));
+		ContextNode inumber = graph16.getDeepContextNode(XDIAddress.create("=!:uuid:1111=!:uuid:2222"));
 
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 3);
 		assertEquals(new IteratorCounter(markus.getRelations()).count(), 2);
@@ -472,7 +472,7 @@ public abstract class AbstractGraphTest extends TestCase {
 
 		Relation friend1 = markus.getRelation(XDIAddress.create("#friend"), XDIAddress.create("=animesh"));
 		Relation friend2 = markus.getRelation(XDIAddress.create("#friend"), XDIAddress.create("=neustar=les"));
-		Relation is = graph16.getDeepContextNode(XDIAddress.create("[=]*!1111[=]*!2222")).getRelation(XDIAddress.create("$is"));
+		Relation is = graph16.getDeepContextNode(XDIAddress.create("=!:uuid:1111=!:uuid:2222")).getRelation(XDIAddress.create("$is"));
 
 		assertTrue(new IteratorContains<Relation> (graph16.getDeepContextNode(XDIAddress.create("=markus")).getRelations(XDIAddress.create("#friend")), friend1).contains());
 		assertTrue(new IteratorContains<Relation> (graph16.getDeepContextNode(XDIAddress.create("=markus")).getRelations(XDIAddress.create("#friend")), friend2).contains());
@@ -512,10 +512,10 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertEquals(new IteratorCounter(inumber.getRelations()).count(), 0);
 		assertEquals(new IteratorCounter(inumber.getIncomingRelations()).count(), 0);
 
-		assertEquals(graph16.getRootContextNode().getAllContextNodeCount(), 4);
+		assertEquals(graph16.getRootContextNode().getAllContextNodeCount(), 2);
 		assertEquals(graph16.getRootContextNode().getAllRelationCount(), 0);
 		assertEquals(graph16.getRootContextNode().getAllLiteralCount(), 0);
-		assertEquals(graph16.getRootContextNode().getAllStatementCount(), 4);
+		assertEquals(graph16.getRootContextNode().getAllStatementCount(), 2);
 
 		graph16.close();
 	}
