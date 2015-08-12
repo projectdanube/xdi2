@@ -37,21 +37,21 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 	}
 
 	@Override
-	public void setStatus(int sc) {
+	public void setStatus(int status) {
 
-		this.getHttpServletResponse().setStatus(sc);
+		this.getHttpServletResponse().setStatus(status);
 	}
 
 	@Override
-	public void setContentType(String type) {
+	public void setContentType(String contentType) {
 
-		this.getHttpServletResponse().setContentType(type);
+		this.getHttpServletResponse().setContentType(contentType);
 	}
 
 	@Override
-	public void setContentLength(int len) {
+	public void setContentLength(int contentLength) {
 
-		this.getHttpServletResponse().setContentLength(len);
+		this.getHttpServletResponse().setContentLength(contentLength);
 	}
 
 	@Override
@@ -67,9 +67,9 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 	}
 
 	@Override
-	public void sendError(int sc, String msg) throws IOException {
+	public void sendError(int status, String message) throws IOException {
 
-		this.getHttpServletResponse().sendError(sc, msg);
+		this.getHttpServletResponse().sendError(status, message);
 	}
 
 	@Override

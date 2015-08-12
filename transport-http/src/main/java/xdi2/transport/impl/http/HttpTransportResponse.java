@@ -18,13 +18,13 @@ public interface HttpTransportResponse extends TransportResponse {
 	public static final int SC_NOT_FOUND = 404;
 	public static final int SC_INTERNAL_SERVER_ERROR = 500;
 
-	public void setStatus(int sc);
-	public void setContentType(String type);
-	public void setContentLength(int len);
+	public void setStatus(int status);
+	public void setContentType(String contentType);
+	public void setContentLength(int contentLength);
 	public void setHeader(String name, String value);
 
 	public void sendRedirect(String location) throws IOException;
-	public void sendError(int sc, String msg) throws IOException;
+	public void sendError(int status, String message) throws IOException;
 
 	public Writer getBodyWriter() throws IOException;
 	public OutputStream getBodyOutputStream() throws IOException;
