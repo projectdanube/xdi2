@@ -12,7 +12,7 @@ import xdi2.transport.impl.http.impl.servlet.EndpointServlet;
 public class XDIEmbeddedServer extends Server implements XDIServer {
 
 	public static final String FALLBACK_APPLICATIONCONTEXT = "fallback-applicationContext.xml";
-	public static final String FALLBACK_JETTY_APPLICATIONCONTEXT = "fallback-server-applicationContext.xml";
+	public static final String FALLBACK_SERVER_APPLICATIONCONTEXT = "fallback-server-applicationContext.xml";
 
 	private EndpointServlet endpointServlet;
 
@@ -79,7 +79,7 @@ public class XDIEmbeddedServer extends Server implements XDIServer {
 
 	private static Resource fallbackJettyApplicationContextResource() {
 
-		return new UrlResource(XDIEmbeddedServer.class.getResource(FALLBACK_JETTY_APPLICATIONCONTEXT));
+		return new UrlResource(XDIEmbeddedServer.class.getResource(FALLBACK_SERVER_APPLICATIONCONTEXT));
 	}
 
 	private static ApplicationContext makeApplicationContext(Resource... resources) {
