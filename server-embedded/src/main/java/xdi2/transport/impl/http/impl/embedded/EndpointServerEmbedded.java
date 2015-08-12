@@ -1,4 +1,4 @@
-package xdi2.transport.impl.http.embedded;
+package xdi2.transport.impl.http.impl.embedded;
 
 import org.eclipse.jetty.server.Server;
 import org.springframework.context.ApplicationContext;
