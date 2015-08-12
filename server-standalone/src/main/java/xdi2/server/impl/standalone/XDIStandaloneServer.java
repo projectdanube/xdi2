@@ -13,7 +13,7 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 
 public class XDIStandaloneServer {
 
-	public static void main(String... args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
 		// check arguments
 
