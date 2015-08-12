@@ -18,10 +18,18 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 		this.httpServletResponse = httpServletResponse;
 	}
 
+	/*
+	 * Static methods
+	 */
+
 	public static ServletHttpTransportResponse fromHttpServletResponse(HttpServletResponse httpServletResponse) {
 
 		return new ServletHttpTransportResponse(httpServletResponse);
 	}
+
+	/*
+	 * Instance methods
+	 */
 
 	public HttpServletResponse getHttpServletResponse() {
 
@@ -31,48 +39,48 @@ public class ServletHttpTransportResponse extends AbstractHttpTransportResponse 
 	@Override
 	public void setStatus(int sc) {
 
-		this.httpServletResponse.setStatus(sc);
+		this.getHttpServletResponse().setStatus(sc);
 	}
 
 	@Override
 	public void setContentType(String type) {
 
-		this.httpServletResponse.setContentType(type);
+		this.getHttpServletResponse().setContentType(type);
 	}
 
 	@Override
 	public void setContentLength(int len) {
 
-		this.httpServletResponse.setContentLength(len);
+		this.getHttpServletResponse().setContentLength(len);
 	}
 
 	@Override
 	public void setHeader(String name, String value) {
 
-		this.httpServletResponse.setHeader(name, value);
+		this.getHttpServletResponse().setHeader(name, value);
 	}
 
 	@Override
 	public void sendRedirect(String location) throws IOException {
 
-		this.httpServletResponse.sendRedirect(location);
+		this.getHttpServletResponse().sendRedirect(location);
 	}
 
 	@Override
 	public void sendError(int sc, String msg) throws IOException {
 
-		this.httpServletResponse.sendError(sc, msg);
+		this.getHttpServletResponse().sendError(sc, msg);
 	}
 
 	@Override
 	public Writer getBodyWriter() throws IOException {
 
-		return this.httpServletResponse.getWriter();
+		return this.getHttpServletResponse().getWriter();
 	}
 
 	@Override
 	public OutputStream getBodyOutputStream() throws IOException {
 
-		return this.httpServletResponse.getOutputStream();
+		return this.getHttpServletResponse().getOutputStream();
 	}
 }
