@@ -1,4 +1,4 @@
-package xdi2.transport.impl.http.impl.standalone;
+package xdi2.server.impl.standalone;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,10 +8,10 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 import xdi2.core.plugins.PluginsLoader;
+import xdi2.server.impl.embedded.XDIEmbeddedServer;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.http.impl.embedded.EndpointServerEmbedded;
 
-public class EndpointServerStandalone {
+public class XDIStandaloneServer {
 
 	public static void main(String... args) throws Exception {
 
@@ -59,7 +59,7 @@ public class EndpointServerStandalone {
 		Resource applicationContextResource = new FileSystemResource(applicationContextFile);
 		Resource jettyApplicationContextResource = new FileSystemResource(jettyApplicationContextFile);
 
-		EndpointServerEmbedded endpointServer = EndpointServerEmbedded.newServer(applicationContextResource, jettyApplicationContextResource);
+		XDIEmbeddedServer endpointServer = XDIEmbeddedServer.newServer(applicationContextResource, jettyApplicationContextResource);
 		endpointServer.start();
 	}
 

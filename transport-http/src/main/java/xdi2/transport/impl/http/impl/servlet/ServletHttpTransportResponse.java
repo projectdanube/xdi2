@@ -7,20 +7,20 @@ import java.io.Writer;
 import javax.servlet.http.HttpServletResponse;
 
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.impl.AbstractHttpResponse;
+import xdi2.transport.impl.http.impl.AbstractHttpTransportResponse;
 
-public class ServletHttpResponse extends AbstractHttpResponse implements HttpTransportResponse {
+public class ServletHttpTransportResponse extends AbstractHttpTransportResponse implements HttpTransportResponse {
 
 	private HttpServletResponse httpServletResponse;
 
-	private ServletHttpResponse(HttpServletResponse httpServletResponse) { 
+	private ServletHttpTransportResponse(HttpServletResponse httpServletResponse) { 
 
 		this.httpServletResponse = httpServletResponse;
 	}
 
-	public static ServletHttpResponse fromHttpServletResponse(HttpServletResponse httpServletResponse) {
+	public static ServletHttpTransportResponse fromHttpServletResponse(HttpServletResponse httpServletResponse) {
 
-		return new ServletHttpResponse(httpServletResponse);
+		return new ServletHttpTransportResponse(httpServletResponse);
 	}
 
 	public HttpServletResponse getHttpServletResponse() {

@@ -75,8 +75,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		// execute the transport
 
-		HttpTransportRequest request = ServletHttpRequest.fromHttpServletRequest(httpServletRequest);
-		HttpTransportResponse response = ServletHttpResponse.fromHttpServletResponse(httpServletResponse);
+		HttpTransportRequest request = ServletHttpTransportRequest.fromHttpServletRequest(httpServletRequest);
+		HttpTransportResponse response = ServletHttpTransportResponse.fromHttpServletResponse(httpServletResponse);
 
 		this.httpTransport.execute(request, response);
 	}

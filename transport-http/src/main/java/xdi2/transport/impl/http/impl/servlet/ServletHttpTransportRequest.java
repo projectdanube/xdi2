@@ -11,18 +11,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.transport.impl.http.HttpTransportRequest;
-import xdi2.transport.impl.http.impl.AbstractHttpRequest;
+import xdi2.transport.impl.http.impl.AbstractHttpTransportRequest;
 
-public final class ServletHttpRequest extends AbstractHttpRequest implements HttpTransportRequest {
+public final class ServletHttpTransportRequest extends AbstractHttpTransportRequest implements HttpTransportRequest {
 
-	private static final Logger log = LoggerFactory.getLogger(ServletHttpRequest.class);
+	private static final Logger log = LoggerFactory.getLogger(ServletHttpTransportRequest.class);
 
 	private HttpServletRequest httpServletRequest;
 	private String method;
 	private String baseUri;
 	private String requestPath;
 
-	private ServletHttpRequest(HttpServletRequest httpServletRequest, String method, String baseUri, String requestPath) { 
+	private ServletHttpTransportRequest(HttpServletRequest httpServletRequest, String method, String baseUri, String requestPath) { 
 
 		this.httpServletRequest = httpServletRequest;
 		this.method = method;
@@ -30,7 +30,7 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		this.requestPath = requestPath;
 	}
 
-	public static ServletHttpRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
+	public static ServletHttpTransportRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
 
 		String requestUri = httpServletRequest.getRequestURI();
 		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
@@ -57,7 +57,7 @@ public final class ServletHttpRequest extends AbstractHttpRequest implements Htt
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
 
-		return new ServletHttpRequest(httpServletRequest, method, baseUri, requestPath);
+		return new ServletHttpTransportRequest(httpServletRequest, method, baseUri, requestPath);
 	}
 
 	public HttpServletRequest getHttpServletRequest() {
