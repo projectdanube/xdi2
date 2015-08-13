@@ -22,15 +22,7 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIEN
 	@Override
 	public final ROUTE route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
-		ROUTE route;
-
-		if (this.getOverrideToPeerRootXDIArc() != null) {
-
-			route = this.routeInternal(this.getOverrideToPeerRootXDIArc());
-		} else {
-
-			route = this.routeInternal(toPeerRootXDIArc);
-		}
+		ROUTE route = this.routeInternal(this.overrideToPeerRootXDIArc(toPeerRootXDIArc));
 
 		if (route instanceof XDIAbstractClientRoute) {
 
@@ -38,6 +30,14 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIEN
 		}
 
 		return route;
+	}
+
+	protected XDIArc overrideToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
+
+		XDIArc overrideToPeerRootXDIArc = getOverrideToPeerRootXDIArc();
+		if (overrideToPeerRootXDIArc != null) return overrideToPeerRootXDIArc;
+
+		return toPeerRootXDIArc;
 	}
 
 	protected abstract ROUTE routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException;

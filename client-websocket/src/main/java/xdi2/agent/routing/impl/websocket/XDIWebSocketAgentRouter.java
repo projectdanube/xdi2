@@ -42,7 +42,7 @@ public class XDIWebSocketAgentRouter extends XDIAbstractAgentRouter<XDIWebSocket
 			return null;
 		}
 
-		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+		if (! toPeerRootXDIArc.equals(this.getToPeerRootXDIArc())) {
 
 			if (log.isDebugEnabled()) log.debug("XDI WebSocket endpoint " + this.getXdiWebSocketEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
 			return null;

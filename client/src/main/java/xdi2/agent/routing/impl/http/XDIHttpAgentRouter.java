@@ -42,7 +42,7 @@ public class XDIHttpAgentRouter extends XDIAbstractAgentRouter<XDIHttpClientRout
 			return null;
 		}
 
-		if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+		if (! toPeerRootXDIArc.equals(this.getToPeerRootXDIArc())) {
 
 			if (log.isDebugEnabled()) log.debug("XDI endpoint " + this.getXdiEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
 			return null;

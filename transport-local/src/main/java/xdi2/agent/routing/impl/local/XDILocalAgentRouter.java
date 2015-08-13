@@ -58,7 +58,7 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 			return null;
 		}
 
-		if (! ownerPeerRootXDIArc.equals(toPeerRootXDIArc)) {
+		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) {
 
 			if (log.isDebugEnabled()) log.debug("Local messaging target " + this.getMessagingTarget().getClass().getSimpleName() + " is no route to peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
 			return null;

@@ -33,9 +33,9 @@ public class XDIStaticAgentRouter extends XDIAbstractAgentRouter<XDIClientRoute<
 
 		// check if we can provide the TO peer root
 
-		if (this.getToPeerRootXDIArc() != null) {
+		if (toPeerRootXDIArc != null && this.getToPeerRootXDIArc() != null) {
 
-			if (! this.getToPeerRootXDIArc().equals(toPeerRootXDIArc)) {
+			if (! toPeerRootXDIArc.equals(this.getToPeerRootXDIArc())) {
 
 				if (log.isDebugEnabled()) log.debug("Static route " + this.getXdiClientRoute() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
 				return null;
