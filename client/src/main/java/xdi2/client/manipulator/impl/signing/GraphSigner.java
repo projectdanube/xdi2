@@ -1,23 +1,15 @@
 package xdi2.client.manipulator.impl.signing;
 
-import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
 import java.security.PrivateKey;
-import java.security.spec.X509EncodedKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.LiteralNode;
-import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.features.nodetypes.XdiAttribute;
-import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
-import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 
@@ -48,38 +40,30 @@ public class GraphSigner extends PrivateKeySigner {
 	@Override
 	public PrivateKey getPrivateKey(Message message) {
 
+		// sender
+		
 		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 		if (senderXDIAddress == null) return null;
 
-		// sender peer root
+		// sender entity
 
-		XdiRoot senderXdiPeerRoot = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getPeerRoot(senderXDIAddress, false);
-		senderXdiPeerRoot = senderXdiPeerRoot == null ? null : senderXdiPeerRoot.dereference();
+		XdiEntity senderXdiEntity = XdiCommonRoot.findCommonRoot(this.getPrivateKeyGraph()).getXdiEntity(senderXDIAddress, false);
+		senderXdiEntity = senderXdiEntity == null ? null : senderXdiEntity.dereference();
 
-		if (log.isDebugEnabled()) log.debug("Sender peer root: " + senderXdiPeerRoot);
+		if (log.isDebugEnabled()) log.debug("Sender entity: " + senderXdiEntity);
 
-		// look for private key in the graph
+		if (senderXdiEntity == null) return null;
 
-		ContextNode signaturePrivateKeyContextNode = senderXdiPeerRoot.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY, true);
-		XdiAttribute signaturePrivateKeyXdiAttribute = signaturePrivateKeyContextNode == null ? null : XdiAttributeSingleton.fromContextNode(signaturePrivateKeyContextNode);
-		signaturePrivateKeyXdiAttribute = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.dereference();
-
-		LiteralNode privateKeyLiteral = signaturePrivateKeyXdiAttribute == null ? null : signaturePrivateKeyXdiAttribute.getLiteralNode();
-
-		String privateKeyString = privateKeyLiteral == null ? null : privateKeyLiteral.getLiteralDataString();
-		if (privateKeyString == null) return null;
+		// find signature private key
 
 		PrivateKey privateKey;
 
 		try {
 
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(Charset.forName("UTF-8"))));
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-			privateKey = keyFactory.generatePrivate(keySpec);
+			privateKey = Keys.getSignaturePrivateKey(senderXdiEntity);
 		} catch (GeneralSecurityException ex) {
 
-			if (log.isWarnEnabled()) log.warn("Invalid RSA private key " + privateKeyString + ": " + ex.getMessage(), ex);
+			if (log.isWarnEnabled()) log.warn("Invalid signature private key: " + ex.getMessage(), ex);
 
 			return null;
 		}
