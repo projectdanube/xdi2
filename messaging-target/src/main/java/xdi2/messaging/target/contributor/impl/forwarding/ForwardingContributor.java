@@ -95,7 +95,7 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 
 		// is the target our current messaging target (self) ?
 
-		if (this.isForwardIfSelf()) {
+		if (! this.isForwardIfSelf()) {
 
 			MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 			XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
