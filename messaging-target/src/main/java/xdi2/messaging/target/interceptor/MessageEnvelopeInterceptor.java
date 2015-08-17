@@ -19,7 +19,7 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param messageEnvelope The message envelope to process.
 	 * @param executionResult The executionResult.
 	 * @param executionContext The current execution context.
-	 * @return True, if the message envelope has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
 	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
@@ -28,7 +28,7 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param messageEnvelope The message envelope to process.
 	 * @param executionResult The executionResult.
 	 * @param executionContext The current execution context.
-	 * @return True, if the message envelope has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
 	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
 
