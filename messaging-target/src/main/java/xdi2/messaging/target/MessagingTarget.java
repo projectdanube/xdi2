@@ -1,5 +1,6 @@
 package xdi2.messaging.target;
 
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -33,8 +34,14 @@ public interface MessagingTarget {
 	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
-	 * Returns the owner peer root XRI of the messaging target.
+	 * Returns the owner peer root XDI arc of the messaging target.
 	 * This may be null.
 	 */
 	public XDIArc getOwnerPeerRootXDIArc();
+
+	/**
+	 * Returns the owner XDI address of the messaging target.
+	 * This may be null.
+	 */
+	public XDIAddress getOwnerXDIAddress();
 }

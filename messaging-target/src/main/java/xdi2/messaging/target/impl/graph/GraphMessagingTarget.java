@@ -68,6 +68,18 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
+	public XDIAddress getOwnerXDIAddress() {
+
+		return GraphUtil.getOwnerXDIAddress(this.getGraph());
+	}
+
+	@Override
+	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
+
+		GraphUtil.setOwnerXDIAddress(this.getGraph(), ownerXDIAddress);
+	}
+
+	@Override
 	public void before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		super.before(messageEnvelope, executionResult, executionContext);

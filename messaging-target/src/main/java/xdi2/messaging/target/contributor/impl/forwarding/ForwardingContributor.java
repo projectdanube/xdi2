@@ -10,6 +10,7 @@ import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.core.Graph;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -18,6 +19,7 @@ import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.XDIStatementUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -30,7 +32,6 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
-import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * This contributor can answer requests by forwarding them to another XDI endpoint.
@@ -143,6 +144,8 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	@Override
 	public ContributorResult executeOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		Message message = operation.getMessage();
+
 		// check route
 
 		XDIClientRoute<? extends XDIClient> xdiClientRoute = getXdiClientRoute(executionContext, this);
@@ -150,15 +153,42 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 
 		// prepare the forwarding message envelope
 
-		Message message = operation.getMessage();
-		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding: " + message);
+		Message forwardingMessage;
 
 		XDIAddress targetXDIAddress = XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeTargetAddress);
+		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_PROXY, false);
 
-		Message forwardingMessage = MessagingCloneUtil.cloneMessage(message);
-		forwardingMessage.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
+		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding " + operation.getOperationXDIAddress() + " operation on " + targetXDIAddress + " (using proxy? " + (proxyXdiInnerRoot != null) + "): " + message);
+
+		XDIAddress senderXDIAddress;
+
+		if (proxyXdiInnerRoot != null) {
+
+			senderXDIAddress = executionContext.getCurrentMessagingTarget().getOwnerXDIAddress();
+		} else {
+
+			senderXDIAddress = message.getSenderXDIAddress();
+		}
+
+		forwardingMessage = new MessageEnvelope().createMessage(senderXDIAddress);
+
+		if (proxyXdiInnerRoot != null) {
+
+			CopyUtil.copyContextNodeContents(proxyXdiInnerRoot.getContextNode(), forwardingMessage.getContextNode(), null);
+		} else {
+
+			CopyUtil.copyContextNodeContents(message.getContextNode(), forwardingMessage.getContextNode(), null);
+		}
+
+		XDIArc fromPeerRootXDIArc = executionContext.getCurrentMessagingTarget().getOwnerPeerRootXDIArc();
+		XDIArc toPeerRootXDIArc = xdiClientRoute.getToPeerRootXDIArc();
+
+		forwardingMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
+		forwardingMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXDIAddress(), targetXDIAddress);
+
 		if (log.isDebugEnabled()) log.debug("Prepared message for forwarding: " + forwardingMessage);
 
 		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();
@@ -184,6 +214,8 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	@Override
 	public ContributorResult executeOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		Message message = operation.getMessage();
+
 		// check route
 
 		XDIClientRoute<? extends XDIClient> xdiClientRoute = getXdiClientRoute(executionContext, this);
@@ -191,15 +223,42 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 
 		// prepare the forwarding message envelope
 
-		Message message = operation.getMessage();
-		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding: " + message);
+		Message forwardingMessage;
 
 		XDIStatement targetXDIStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
+		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_PROXY, false);
 
-		Message forwardingMessage = new MessageEnvelope().createMessage(message.getSenderXDIAddress());
-		forwardingMessage.setToPeerRootXDIArc(xdiClientRoute.getToPeerRootXDIArc());
+		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding " + operation.getOperationXDIAddress() + " operation on " + targetXDIStatement + " (using proxy? " + (proxyXdiInnerRoot != null) + "): " + message);
+
+		XDIAddress senderXDIAddress;
+
+		if (proxyXdiInnerRoot != null) {
+
+			senderXDIAddress = executionContext.getCurrentMessagingTarget().getOwnerXDIAddress();
+		} else {
+
+			senderXDIAddress = message.getSenderXDIAddress();
+		}
+
+		forwardingMessage = new MessageEnvelope().createMessage(senderXDIAddress);
+
+		if (proxyXdiInnerRoot != null) {
+
+			CopyUtil.copyContextNodeContents(proxyXdiInnerRoot.getContextNode(), forwardingMessage.getContextNode(), null);
+		} else {
+
+			CopyUtil.copyContextNodeContents(message.getContextNode(), forwardingMessage.getContextNode(), null);
+		}
+
+		XDIArc fromPeerRootXDIArc = executionContext.getCurrentMessagingTarget().getOwnerPeerRootXDIArc();
+		XDIArc toPeerRootXDIArc = xdiClientRoute.getToPeerRootXDIArc();
+
+		forwardingMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
+		forwardingMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+
 		forwardingMessage.deleteOperations();
 		forwardingMessage.createOperation(operation.getOperationXDIAddress(), targetXDIStatement);
+
 		if (log.isDebugEnabled()) log.debug("Prepared message for forwarding: " + forwardingMessage);
 
 		MessageEnvelope forwardingMessageEnvelope = forwardingMessage.getMessageEnvelope();

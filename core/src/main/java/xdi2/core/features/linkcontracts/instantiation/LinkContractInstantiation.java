@@ -24,7 +24,7 @@ public class LinkContractInstantiation {
 	private XDIAddress authorizingAuthority;
 	private XDIAddress requestingAuthority;
 
-	public GenericLinkContract execute(Graph targetGraph, Map<XDIArc, XDIAddress> customReplacements, boolean create) {
+	public GenericLinkContract execute(Graph targetGraph, Map<XDIArc, XDIAddress> variableValues, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
@@ -39,15 +39,15 @@ public class LinkContractInstantiation {
 		// set up permissions
 
 		Map<XDIArc, XDIAddress> replacements = new HashMap<XDIArc, XDIAddress> ();
-		replacements.putAll(customReplacements);
+		replacements.putAll(variableValues);
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		replacements.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
 
+		// instantiate
+
 		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(replacements);
 
-		CopyUtil.copyRelations(this.getLinkContractTemplate().getContextNode(), genericLinkContract.getContextNode(), copyStrategy);
-
-		// set up policy
+		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), genericLinkContract.getContextNode(), copyStrategy);
 
 		// done
 

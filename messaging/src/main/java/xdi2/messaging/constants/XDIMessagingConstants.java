@@ -33,6 +33,9 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_FROM_PEER_ROOT_ARC = XDIAddress.create("$set");
 	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 	public static final XDIAddress XDI_ADD_CORRELATION = XDIAddress.create("$is$msg");
+	public static final XDIAddress XDI_ADD_PROXY = XDIAddress.create("$proxy");
+
+	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEREF = XDIAddress.create("<$deref>");
 
 	private XDIMessagingConstants() { }
 }

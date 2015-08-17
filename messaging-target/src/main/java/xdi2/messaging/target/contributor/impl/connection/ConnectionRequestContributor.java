@@ -136,22 +136,22 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		LinkContractTemplate linkContractTemplate = LinkContractTemplate.fromXdiEntitySingletonVariable(linkContractTemplateXdiVariable);
 		if (linkContractTemplate == null) throw new Xdi2MessagingException("Invalid link contract template at address " + operation.getTargetXDIAddress(), null, executionContext);
 
-		// read custom replacements from message
+		// read variable values from message
 
-		Map<XDIArc, XDIAddress> customReplacements = new HashMap<XDIArc, XDIAddress> ();
+		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
 		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(operation.getMessage().getContextNode().getContextNodes());
 
 		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
 
-			XDIArc customReplacementXDIArc = xdiVariable.getXDIArc();
-			ContextNode customReplacementContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
-			XDIAddress customReplacementXDIAddress = customReplacementContextNode == null ? null : customReplacementContextNode.getXDIAddress();
+			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
+			ContextNode variableValueContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
+			XDIAddress variableValueXDIAddress = variableValueContextNode == null ? null : variableValueContextNode.getXDIAddress();
 
-			if (log.isDebugEnabled()) log.debug("Custom variable in connection request: " + customReplacementXDIArc + " --> " + customReplacementXDIAddress);
+			if (log.isDebugEnabled()) log.debug("Variable value in connection request: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
 
-			if (customReplacementXDIArc == null || customReplacementXDIAddress == null) continue;
+			if (variableValueXDIArc == null || variableValueXDIAddress == null) continue;
 
-			customReplacements.put(customReplacementXDIArc, customReplacementXDIAddress);
+			variableValues.put(variableValueXDIArc, variableValueXDIAddress);
 		}
 
 		// instantiate link contract
@@ -163,7 +163,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(
 				this.getTargetGraph(), 
-				customReplacements, 
+				variableValues, 
 				true);
 
 		// return link contract instance in result

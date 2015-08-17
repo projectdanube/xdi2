@@ -25,6 +25,7 @@ import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -188,8 +189,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			XDIAddress XDIaddress = refRepRelation.getXDIAddress();
 			XDIAddress targetXDIAddress = refRepRelation.getTargetXDIAddress();
 
-			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(XDIaddress) || (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
-			boolean doIncludeRefRelations = (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && ! Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(XDIaddress) || (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF)));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && ! Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF)));
 
 			// replace $ref/$rep relations?
 
@@ -449,7 +450,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
-		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
+		if (Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF))) feedbackOperation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
 
 		// prepare feedback execution result
 

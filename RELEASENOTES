@@ -1,6 +1,8 @@
 release 0.8 ("Orșova")
 ========================
 
+* GetOperation.XDI_ADD_PARAMETER_DEREF -> XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF
+
 * introducing PushLinkContractInterceptor
 
 * refactoring ProxyContributor into ForwardingContributor

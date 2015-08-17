@@ -2,8 +2,6 @@ package xdi2.core.features.linkcontracts.instance;
 
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
-import xdi2.core.features.linkcontracts.community.CommunityLinkContract;
-import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -38,7 +36,6 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		if (xdiEntity == null) return false;
 
 		return
-				RequesterLinkContract.isValid(xdiEntity) ||
 				RootLinkContract.isValid(xdiEntity) ||
 				PublicLinkContract.isValid(xdiEntity) ||
 				GenericLinkContract.isValid(xdiEntity);
@@ -55,8 +52,6 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = RequesterLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = CommunityLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;

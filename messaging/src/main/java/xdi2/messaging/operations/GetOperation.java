@@ -16,9 +16,6 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	public static final XDIAddress XDI_ADD_PARAMETER_DEREF = XDIAddress.create("<$deref>");
-	public static final XDIAddress XDI_ADD_PARAMETER_PROXY = XDIAddress.create("<$proxy>");
-
 	protected GetOperation(Message message, Relation relation) {
 
 		super(message, relation);

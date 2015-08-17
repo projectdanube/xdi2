@@ -19,7 +19,7 @@
 
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
 		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
-		<property name="endpointPath" value="/xdi/" />
+		<property name="endpointPath" value="/" />
 	</bean>
 
 	<!-- SPRING -->
@@ -69,8 +69,21 @@
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
+					<property name="bootstrapGraph">
+						<value>
+							({$self}/$public)$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
+							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
+						</value>
+					</property>
+					<property name="bootstrapMessageEnvelope">
+						<value>
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$encrypt$keypair/$is#/$rsa$2048
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$sig$keypair/$is#/$rsa$2048
+						</value>
+					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
@@ -81,7 +94,21 @@
 						</bean>
 					</property>
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+					<property name="signatureAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
+						</bean>
+					</property>
+				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
+							<property name="xdiAgent" ref="XdiAgent" />
+						</bean>
+					</property>
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -90,6 +117,12 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
+				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 			</util:list>
 		</property>
 	</bean>
@@ -132,8 +165,21 @@
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
+					<property name="bootstrapGraph">
+						<value>
+							({$self}/$public)$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
+							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
+						</value>
+					</property>
+					<property name="bootstrapMessageEnvelope">
+						<value>
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$encrypt$keypair/$is#/$rsa$2048
+							($anon[$msg]*!1$do/$do$keypair){$self}$msg$sig$keypair/$is#/$rsa$2048
+						</value>
+					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
@@ -148,7 +194,21 @@
 						</bean>
 					</property>
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+					<property name="signatureAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
+						</bean>
+					</property>
+				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
+							<property name="xdiAgent" ref="XdiAgent" />
+						</bean>
+					</property>
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -157,6 +217,12 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
+				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
+				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 			</util:list>
 		</property>
 	</bean>
@@ -173,18 +239,10 @@
 		<property name="graph" ref="graph1" />
 		<property name="interceptors">
 			<util:list>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.WriteListenerInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
-			<util:list>
-				<bean class="xdi2.messaging.target.contributor.impl.digest.GenerateDigestSecretTokenContributor">
-					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
-				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-			</util:list>
 		</property>
 	</bean>
 
@@ -227,7 +285,6 @@
 						</value>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.VariablesInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
@@ -239,6 +296,13 @@
 									<entry key="=!:uuid:1111" value="xdi2-digest:ec136367-5969-4e69-9c8a-483e330c317f:8a447e411ad21477b67b8793e5be16749416b996c61a40476c17231be4d9390a8e703b87cf8750b66fb541f208799d3b564ee6ed33cae8f9f84ce39c1527e62e" />
 								</util:map>
 							</property>
+						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+					<property name="signatureAuthenticator">
+						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
 				</bean>
@@ -261,7 +325,7 @@
 				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
 					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.connection.InverseOperationContributor">
+				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
 					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
 			</util:list>
