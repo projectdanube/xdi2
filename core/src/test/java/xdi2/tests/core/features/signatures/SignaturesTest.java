@@ -11,9 +11,9 @@ import javax.crypto.SecretKey;
 import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.signatures.KeyPairSignature;
+import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signatures;
-import xdi2.core.features.signatures.SymmetricKeySignature;
+import xdi2.core.features.signatures.AESSignature;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -35,8 +35,8 @@ public class SignaturesTest extends TestCase {
 		assertEquals(Signatures.getKeyAlgorithm(symmetricKeyXDIAddress), "aes");
 		assertEquals(Signatures.getKeyLength(symmetricKeyXDIAddress), Integer.valueOf(256));
 
-		assertEquals(Signatures.getDataTypeXDIAddress("sha", Integer.valueOf(256), "rsa", Integer.valueOf(1024)), keyPairXDIAddress);
-		assertEquals(Signatures.getDataTypeXDIAddress("sha", Integer.valueOf(384), "aes", Integer.valueOf(256)), symmetricKeyXDIAddress);
+		assertEquals(Signatures.createDataTypeXDIAddress("sha", Integer.valueOf(256), "rsa", Integer.valueOf(1024)), keyPairXDIAddress);
+		assertEquals(Signatures.createDataTypeXDIAddress("sha", Integer.valueOf(384), "aes", Integer.valueOf(256)), symmetricKeyXDIAddress);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {
@@ -53,25 +53,25 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
-		KeyPairSignature signature = (KeyPairSignature) Signatures.createSignature(contextNode, KeyPairSignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(256), KeyPairSignature.KEY_ALGORITHM_RSA, Integer.valueOf(1024), false);
-		signature.sign(privateKey);
+		RSASignature signature = (RSASignature) Signatures.createSignature(contextNode, RSASignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(256), RSASignature.KEY_ALGORITHM_RSA, Integer.valueOf(1024), false);
+		signature.setSignatureValue(privateKey);
 
-		signature = (KeyPairSignature) Signatures.getSignatures(contextNode).next();
+		signature = (RSASignature) Signatures.getSignatures(contextNode).next();
 
-		assertEquals(signature.getDigestAlgorithm(), KeyPairSignature.DIGEST_ALGORITHM_SHA);
+		assertEquals(signature.getDigestAlgorithm(), RSASignature.DIGEST_ALGORITHM_SHA);
 		assertEquals(signature.getDigestLength(), Integer.valueOf(256));
-		assertEquals(signature.getKeyAlgorithm(), KeyPairSignature.KEY_ALGORITHM_RSA);
+		assertEquals(signature.getKeyAlgorithm(), RSASignature.KEY_ALGORITHM_RSA);
 		assertEquals(signature.getKeyLength(), Integer.valueOf(1024));
 
 		assertEquals(signature.getAlgorithm(), "SHA256withRSA");
 
 		assertEquals(signature.getBaseContextNode(), contextNode);
 
-		assertTrue(signature.validate(publicKey));
+		assertTrue(signature.validateSignature(publicKey));
 
 		contextNode.setRelation(XDIAddress.create("#friend"), XDIAddress.create("=joseph"));
 
-		assertFalse(signature.validate(publicKey));
+		assertFalse(signature.validateSignature(publicKey));
 
 		graph.close();
 	}
@@ -88,25 +88,25 @@ public class SignaturesTest extends TestCase {
 
 		ContextNode contextNode = graph.getDeepContextNode(XDIAddress.create("=markus"));
 
-		SymmetricKeySignature signature = (SymmetricKeySignature) Signatures.createSignature(contextNode, SymmetricKeySignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(384), SymmetricKeySignature.KEY_ALGORITHM_AES, Integer.valueOf(256), false);
-		signature.sign(secretKey);
+		AESSignature signature = (AESSignature) Signatures.createSignature(contextNode, AESSignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(384), AESSignature.KEY_ALGORITHM_AES, Integer.valueOf(256), false);
+		signature.setSignatureValue(secretKey);
 
-		signature = (SymmetricKeySignature) Signatures.getSignatures(contextNode).next();
+		signature = (AESSignature) Signatures.getSignatures(contextNode).next();
 
-		assertEquals(signature.getDigestAlgorithm(), SymmetricKeySignature.DIGEST_ALGORITHM_SHA);
+		assertEquals(signature.getDigestAlgorithm(), AESSignature.DIGEST_ALGORITHM_SHA);
 		assertEquals(signature.getDigestLength(), Integer.valueOf(384));
-		assertEquals(signature.getKeyAlgorithm(), SymmetricKeySignature.KEY_ALGORITHM_AES);
+		assertEquals(signature.getKeyAlgorithm(), AESSignature.KEY_ALGORITHM_AES);
 		assertEquals(signature.getKeyLength(), Integer.valueOf(256));
 
 		assertEquals(signature.getAlgorithm(), "HmacSHA384");
 
 		assertEquals(signature.getBaseContextNode(), contextNode);
 
-		assertTrue(signature.validate(secretKey));
+		assertTrue(signature.validateSignature(secretKey));
 
 		contextNode.setRelation(XDIAddress.create("#friend"), XDIAddress.create("=joseph"));
 
-		assertFalse(signature.validate(secretKey));
+		assertFalse(signature.validateSignature(secretKey));
 
 		graph.close();
 	}

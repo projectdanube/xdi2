@@ -1,28 +1,25 @@
 package xdi2.core.features.signatures;
 
-import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
 
-import javax.crypto.Mac;
 import javax.crypto.SecretKey;
-
-import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
-import xdi2.core.io.Normalization;
+import xdi2.core.security.sign.AESSecretKeySignatureCreator;
+import xdi2.core.security.sign.AESStaticSecretKeySignatureCreator;
+import xdi2.core.security.validate.AESSecretKeySignatureValidator;
+import xdi2.core.security.validate.AESStaticSecretKeySignatureValidator;
 
 /**
  * An XDI signature, represented as an XDI attribute.
  * 
  * @author markus
  */
-public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey> {
+public final class AESSignature extends Signature {
 
 	private static final long serialVersionUID = 421543866460513859L;
 
@@ -30,7 +27,7 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 
 	public static final String DIGEST_ALGORITHM_SHA = "sha";
 
-	protected SymmetricKeySignature(XdiAttribute xdiAttribute) {
+	protected AESSignature(XdiAttribute xdiAttribute) {
 
 		super(xdiAttribute);
 	}
@@ -71,11 +68,11 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 	 * @param xdiAttribute The XDI attribute that is an XDI signature.
 	 * @return The XDI signature.
 	 */
-	public static SymmetricKeySignature fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static AESSignature fromXdiAttribute(XdiAttribute xdiAttribute) {
 
 		if (! isValid(xdiAttribute)) return null;
 
-		return new SymmetricKeySignature(xdiAttribute);
+		return new AESSignature(xdiAttribute);
 	}
 
 	/*
@@ -94,56 +91,17 @@ public final class SymmetricKeySignature extends Signature<SecretKey, SecretKey>
 		return builder.toString();
 	}
 
-	@Override
-	public void sign(SecretKey secretKey) throws GeneralSecurityException {
+	public void setSignatureValue(SecretKey secretKey) throws GeneralSecurityException {
 
-		byte[] normalizedSerialization;
+		AESSecretKeySignatureCreator signatureCreator = new AESStaticSecretKeySignatureCreator(secretKey);
 
-		try {
-
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes(Charset.forName("UTF-8"));
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
-
-		String algorithm = this.getAlgorithm();
-
-		Mac mac = Mac.getInstance(algorithm);
-		mac.init(secretKey);
-		mac.update(normalizedSerialization);
-
-		byte[] bytes = mac.doFinal();
-
-		this.setValue(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
+		signatureCreator.setSignatureValue(this);
 	}
 
-	@Override
-	public boolean validate(SecretKey secretKey) throws GeneralSecurityException {
+	public boolean validateSignature(SecretKey secretKey) throws GeneralSecurityException {
 
-		String literalString = this.getValue();
-		if (literalString == null) throw new GeneralSecurityException("No signature literal string.");
+		AESSecretKeySignatureValidator signatureValidator = new AESStaticSecretKeySignatureValidator(secretKey);
 
-		byte[] bytes = Base64.decodeBase64(literalString.getBytes(Charset.forName("UTF-8")));
-
-		byte[] normalizedSerialization;
-
-		try {
-
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoSignaturesCopyStrategy()).getBytes(Charset.forName("UTF-8"));
-		} catch (Exception ex) {
-
-			throw new RuntimeException(ex.getMessage(), ex);
-		}
-
-		String algorithm = this.getAlgorithm();
-
-		Mac mac = Mac.getInstance(algorithm);
-		mac.init(secretKey);
-		mac.update(normalizedSerialization);
-
-		boolean verify = Arrays.equals(bytes, mac.doFinal());
-		
-		return verify;
+		return signatureValidator.validateSignature(this);
 	}
 }

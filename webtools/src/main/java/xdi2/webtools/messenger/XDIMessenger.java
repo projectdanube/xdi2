@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -181,7 +183,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			String target = targetString;
 			XDIAddress messageType = messageTypeString == null ? null : XDIAddress.create(messageTypeString);
 			String secretToken = secretTokenString;
-			String signature = signatureString;
+			byte[] signature = Base64.decodeBase64(signatureString.getBytes(Charset.forName("UTF-8")));
 			String signatureDigestAlgorithm = signatureDigestAlgorithmString;
 			Integer signatureDigestLength = signatureDigestLengthString == null ? Integer.valueOf(-1) : Integer.valueOf(signatureDigestLengthString);
 			String signatureKeyAlgorithm = signatureKeyAlgorithmString;
@@ -194,7 +196,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			message.setLinkContractXDIAddress(linkContract);
 			if (messageType != null) message.setMessageType(messageType);
 			if (secretToken != null) message.setSecretToken(secretToken);
-			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength.intValue() > 0 && signatureKeyAlgorithm != null && signatureKeyLength.intValue() > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setValue(signature);
+			if (signature != null && signatureDigestAlgorithm != null && signatureDigestLength.intValue() > 0 && signatureKeyAlgorithm != null && signatureKeyLength.intValue() > 0) message.createSignature(signatureDigestAlgorithm, signatureDigestLength, signatureKeyAlgorithm, signatureKeyLength, true).setSignatureValue(signature);
 			message.createOperation(operation, target);
 
 			Properties parameters = new Properties();

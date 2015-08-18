@@ -95,8 +95,8 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
-					<property name="signatureAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+					<property name="signatureValidator">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
@@ -107,6 +107,11 @@
 						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
 							<property name="xdiAgent" ref="XdiAgent" />
 						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
+					<property name="signatureCreator">
+						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 			</util:list>
@@ -195,8 +200,8 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
-					<property name="signatureAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+					<property name="signatureValidator">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
@@ -207,6 +212,11 @@
 						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
 							<property name="xdiAgent" ref="XdiAgent" />
 						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
+					<property name="signatureCreator">
+						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 			</util:list>
@@ -300,8 +310,8 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
-					<property name="signatureAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.DiscoverySignatureAuthenticator">
+					<property name="signatureValidator">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
@@ -312,6 +322,11 @@
 						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
 							<property name="xdiAgent" ref="XdiAgent" />
 						</bean>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
+					<property name="signatureCreator">
+						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 			</util:list>

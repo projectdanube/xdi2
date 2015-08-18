@@ -5,37 +5,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
 import java.security.Key;
-import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.RSAKey;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.signatures.KeyPairSignature;
+import xdi2.core.features.keys.Keys;
+import xdi2.core.features.signatures.AESSignature;
+import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
-import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.Normalization;
 import xdi2.core.io.XDIReader;
@@ -200,42 +195,44 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			if ("Sign!".equals(submit)) {
 
-				Signature<?, ?> signature = Signatures.createSignature(contextNode, digestAlgorithm, Integer.valueOf(digestLength), keyAlgorithm, Integer.valueOf(keyLength), "on".equals(singleton));
+				Signature signature = Signatures.createSignature(
+						contextNode, 
+						digestAlgorithm, 
+						Integer.valueOf(digestLength), 
+						keyAlgorithm, 
+						Integer.valueOf(keyLength), 
+						"on".equals(singleton));
 
-				if (signature instanceof KeyPairSignature) {
+				if (signature instanceof RSASignature) {
 
-					PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
-					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-					k = keyFactory.generatePrivate(keySpec);
+					k = Keys.privateKeyFromPrivateKeyString(key);
 
-					((KeyPairSignature) signature).sign((PrivateKey) k);
-				} else if (signature instanceof SymmetricKeySignature) {
+					((RSASignature) signature).setSignatureValue((PrivateKey) k);
+				} else if (signature instanceof AESSignature) {
 
-					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
+					k = Keys.secretKeyFromSecretKeyString(key);
 
-					((SymmetricKeySignature) signature).sign((SecretKey) k);
+					((AESSignature) signature).setSignatureValue((SecretKey) k);
 				}
 
 				output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
 			} else if ("Validate!".equals(submit)) {
 
-				ReadOnlyIterator<Signature<?, ?>> signatures = Signatures.getSignatures(contextNode);
+				ReadOnlyIterator<Signature> signatures = Signatures.getSignatures(contextNode);
 				if (! signatures.hasNext()) throw new RuntimeException("No signature found at address " + address);
 
-				for (Signature<?, ?> signature : signatures) {
+				for (Signature signature : signatures) {
 
-					if (signature instanceof KeyPairSignature) {
+					if (signature instanceof RSASignature) {
 
-						X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
-						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-						k = keyFactory.generatePublic(keySpec);
+						k = Keys.publicKeyFromPublicKeyString(key);
 
-						valid.add(Boolean.valueOf(((KeyPairSignature) signature).validate((PublicKey) k)));
-					} else if (signature instanceof SymmetricKeySignature) {
+						valid.add(Boolean.valueOf(((RSASignature) signature).validateSignature((PublicKey) k)));
+					} else if (signature instanceof AESSignature) {
 
-						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
+						k = Keys.secretKeyFromSecretKeyString(key);
 
-						valid.add(Boolean.valueOf(((SymmetricKeySignature) signature).validate((SecretKey) k)));
+						valid.add(Boolean.valueOf(((AESSignature) signature).validateSignature((SecretKey) k)));
 					}
 				}
 

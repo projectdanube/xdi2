@@ -1,9 +1,6 @@
 package xdi2.core.features.signatures;
 
-import java.security.GeneralSecurityException;
-
 import xdi2.core.constants.XDIAuthenticationConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
@@ -14,7 +11,7 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
  * 
  * @author markus
  */
-public final class UnknownSignature extends Signature<Object, Object> {
+public final class UnknownSignature extends Signature {
 
 	private static final long serialVersionUID = -8222252937720290576L;
 
@@ -68,17 +65,5 @@ public final class UnknownSignature extends Signature<Object, Object> {
 	public String getAlgorithm() {
 
 		return "unknown";
-	}
-
-	@Override
-	public void sign(Object privateKey) throws GeneralSecurityException {
-
-		throw new Xdi2RuntimeException("Not suppoerted.");
-	}
-
-	@Override
-	public boolean validate(Object publicKey) throws GeneralSecurityException {
-
-		throw new Xdi2RuntimeException("Not supported.");
 	}
 }

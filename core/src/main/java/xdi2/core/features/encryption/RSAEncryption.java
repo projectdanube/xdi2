@@ -2,9 +2,10 @@ package xdi2.core.features.encryption;
 
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -24,13 +25,14 @@ import xdi2.core.util.CopyUtil;
  * 
  * @author markus
  */
-public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKey> {
+public final class RSAEncryption extends Encryption<PublicKey, PrivateKey> {
 
-	private static final long serialVersionUID = 8245580198671482543L;
+	private static final long serialVersionUID = 4642238801656414526L;
 
-	public static final String KEY_ALGORITHM_AES = "aes";
+	public static final String KEY_ALGORITHM_RSA = "rsa";
+	public static final String KEY_ALGORITHM_DSA = "dsa";
 
-	protected SymmetricKeyEncryption(XdiAttribute xdiAttribute) {
+	protected RSAEncryption(XdiAttribute xdiAttribute) {
 
 		super(xdiAttribute);
 	}
@@ -59,7 +61,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 
 		String keyAlgorithm = Encryptions.getKeyAlgorithm(xdiAttribute);
 
-		if (! KEY_ALGORITHM_AES.equalsIgnoreCase(keyAlgorithm)) return false;
+		if (! KEY_ALGORITHM_RSA.equalsIgnoreCase(keyAlgorithm) && ! KEY_ALGORITHM_DSA.equalsIgnoreCase(keyAlgorithm)) return false;
 
 		return true;
 	}
@@ -69,18 +71,16 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 	 * @param xdiAttribute The XDI attribute that is an XDI encryption.
 	 * @return The XDI encryption.
 	 */
-	public static SymmetricKeyEncryption fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static RSAEncryption fromXdiAttribute(XdiAttribute xdiAttribute) {
 
 		if (! isValid(xdiAttribute)) return null;
 
-		return new SymmetricKeyEncryption(xdiAttribute);
+		return new RSAEncryption(xdiAttribute);
 	}
 
 	/*
 	 * Instance methods
 	 */
-
-	// TODO: ECB is insecure. should switch to CBC and support an initialization vector
 
 	@Override
 	public String getTransformation() {
@@ -88,13 +88,12 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getKeyAlgorithm().toUpperCase());
-		builder.append("/ECB/PKCS5Padding");
 
 		return builder.toString();
 	}
 
 	@Override
-	public void encrypt(SecretKey secretKey) throws GeneralSecurityException {
+	public void encrypt(PublicKey publicKey) throws GeneralSecurityException {
 
 		byte[] normalizedSerialization;
 
@@ -109,7 +108,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 		String transformation = this.getTransformation();
 
 		Cipher cipher = Cipher.getInstance(transformation);
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
@@ -117,7 +116,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 	}
 
 	@Override
-	public void decrypt(SecretKey secretKey) throws GeneralSecurityException {
+	public void decrypt(PrivateKey privateKey) throws GeneralSecurityException {
 
 		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
 		if (literalNode == null) throw new GeneralSecurityException("No encryption literal node.");
@@ -130,7 +129,7 @@ public final class SymmetricKeyEncryption extends Encryption<SecretKey, SecretKe
 		String transformation = this.getTransformation();
 
 		Cipher cipher = Cipher.getInstance(transformation);
-		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
 
 		byte[] normalizedSerialization = cipher.doFinal(bytes);
 

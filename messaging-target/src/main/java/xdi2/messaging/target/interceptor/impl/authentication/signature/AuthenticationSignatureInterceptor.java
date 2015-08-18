@@ -1,5 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
+import java.security.GeneralSecurityException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,7 +9,13 @@ import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.signatures.AESSignature;
+import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.validate.AESSignatureValidator;
+import xdi2.core.security.validate.RSASignatureValidator;
+import xdi2.core.security.validate.SignatureValidator;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
@@ -22,13 +30,13 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
  * This interceptor looks for a signature on an incoming XDI message,
- * and invokes an instance of SignatureAuthenticator to authenticate the message.
+ * and invokes an instance of SignatureValidater to authenticate the message.
  */
 public class AuthenticationSignatureInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<AuthenticationSignatureInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private SignatureAuthenticator signatureAuthenticator;
+	private SignatureValidator<? extends Signature> signatureValidator;
 
 	/*
 	 * Prototype
@@ -41,33 +49,13 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		AuthenticationSignatureInterceptor interceptor = new AuthenticationSignatureInterceptor();
 
-		// set the authenticator
+		// set the validater
 
-		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator());
+		interceptor.setSignatureValidater(this.getSignatureValidator());
 
 		// done
 
 		return interceptor;
-	}
-
-	/*
-	 * Init and shutdown
-	 */
-
-	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
-
-		super.init(messagingTarget);
-
-		this.getSignatureAuthenticator().init(messagingTarget, this);
-	}
-
-	@Override
-	public void shutdown(MessagingTarget messagingTarget) throws Exception {
-
-		super.shutdown(messagingTarget);
-
-		this.getSignatureAuthenticator().shutdown(messagingTarget, this);
 	}
 
 	/*
@@ -79,25 +67,46 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		// look for signature on the message
 
-		ReadOnlyIterator<Signature<?, ?>> signatures = message.getSignatures();
+		ReadOnlyIterator<Signature> signatures = message.getSignatures();
 		if (! signatures.hasNext()) return InterceptorResult.DEFAULT;
 
-		// authenticate
+		// validate signatures
 
-		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
+		SignatureValidator<? extends Signature> signatureValidator = this.getSignatureValidator();
 
-		boolean authenticated = true;
+		if (log.isDebugEnabled()) log.debug("Authenticating via " + signatureValidator.getClass().getSimpleName());
 
-		for (Signature<?, ?> signature : signatures) {
+		boolean validated = true;
 
-			authenticated &= this.getSignatureAuthenticator().authenticate(message, signature);
-			if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
+		for (Signature signature : signatures) {
+
+			XDIAddress signerXDIAddress = message.getSenderXDIAddress();
+
+			try {
+
+				if (signatureValidator instanceof RSASignatureValidator && signature instanceof RSASignature) {
+
+					validated &= ((RSASignatureValidator) signatureValidator).validateSignature((RSASignature) signature, signerXDIAddress);
+				}
+
+				if (signatureValidator instanceof AESSignatureValidator && signature instanceof AESSignature) {
+
+					validated &= ((AESSignatureValidator) signatureValidator).validateSignature((AESSignature) signature, signerXDIAddress);
+				}
+			} catch (GeneralSecurityException ex) {
+
+				throw new Xdi2MessagingException("Unable to validate signature via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
+			}
 		}
 
+		// signature is valid?
+
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
-		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(authenticated));
+		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(validated));
 
 		if (log.isDebugEnabled()) log.debug("Valid: " + signatureValidLiteral.getStatement());
+
+		if (! validated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
 		// done
 
@@ -114,13 +123,13 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	 * Getters and setters
 	 */
 
-	public SignatureAuthenticator getSignatureAuthenticator() {
+	public SignatureValidator<? extends Signature> getSignatureValidator() {
 
-		return this.signatureAuthenticator;
+		return this.signatureValidator;
 	}
 
-	public void setSignatureAuthenticator(SignatureAuthenticator signatureAuthenticator) {
+	public void setSignatureValidater(SignatureValidator<? extends Signature> signatureValidator) {
 
-		this.signatureAuthenticator = signatureAuthenticator;
+		this.signatureValidator = signatureValidator;
 	}
 }
