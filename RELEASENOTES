@@ -1,6 +1,9 @@
 release 0.8 ("Orșova")
 ========================
 
+* CloudName.fromXDIAddress() and CloudNumber.fromXDIAddress() now return
+null instead of throwing exception if the cloud name / cloud number are invalid
+
 * introducing PushLinkContractInterceptor
 
 * refactoring ProxyContributor into ForwardingContributor
