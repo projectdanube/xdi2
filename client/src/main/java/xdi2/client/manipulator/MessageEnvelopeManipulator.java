@@ -4,8 +4,9 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.MessageEnvelope;
 
 /**
- * This is used to manipulate message envelopes before they are sent
- * by an XDIClient
+ * This is used to manipulate message envelopes e.g. before sending them or after receiving them.
+ * @see XDIAbstractClient
+ * @see ManipulatingInterceptor
  * 
  * @author markus
  */

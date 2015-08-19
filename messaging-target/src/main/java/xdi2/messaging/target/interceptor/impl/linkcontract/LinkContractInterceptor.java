@@ -46,18 +46,15 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
 	private Graph linkContractsGraph;
-	private XDIAddress defaultLinkContractXDIAddress;
 
 	public LinkContractInterceptor(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
-		this.defaultLinkContractXDIAddress = null;
 	}
 
 	public LinkContractInterceptor() {
 
 		this.linkContractsGraph = null;
-		this.defaultLinkContractXDIAddress = null;
 	}
 
 	/*
@@ -74,10 +71,6 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// set the graph
 
 		interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
-
-		// set the default link contract XRI
-
-		interceptor.setDefaultLinkContractXDIAddress(this.getDefaultLinkContractXDIAddress());
 
 		// done
 
@@ -104,8 +97,6 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// find the XDI link contract referenced by the message
 
 		XDIAddress linkContractXDIAddress = message.getLinkContractXDIAddress();
-
-		if (linkContractXDIAddress == null) linkContractXDIAddress = this.getDefaultLinkContractXDIAddress();
 
 		if (linkContractXDIAddress == null) {
 
@@ -318,16 +309,6 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	public void setLinkContractsGraph(Graph linkContractsGraph) {
 
 		this.linkContractsGraph = linkContractsGraph;
-	}
-
-	public XDIAddress getDefaultLinkContractXDIAddress() {
-
-		return this.defaultLinkContractXDIAddress;
-	}
-
-	public void setDefaultLinkContractXDIAddress(XDIAddress defaultLinkContractXDIAddress) {
-
-		this.defaultLinkContractXDIAddress = defaultLinkContractXDIAddress;
 	}
 
 	/*

@@ -4,8 +4,9 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.messaging.Message;
 
 /**
- * This is used to manipulate messages before they are sent
- * by an XDIClient
+ * This is used to manipulate messages e.g. before sending them or after receiving them.
+ * @see XDIAbstractClient
+ * @see ManipulatingInterceptor
  * 
  * @author markus
  */

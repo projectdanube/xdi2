@@ -22,11 +22,8 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
-	private XDIArc defaultToPeerRootXDIArc;
-
 	public ToInterceptor() {
 
-		this.defaultToPeerRootXDIArc = null;
 	}
 
 	/*
@@ -54,8 +51,6 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 		XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
 		XDIArc toPeerRootXDIArc = message.getToPeerRootXDIArc();
 
-		if (toPeerRootXDIArc == null) toPeerRootXDIArc = this.getDefaultToPeerRootXDIArc();
-
 		if (log.isDebugEnabled()) log.debug("ownerPeerRootXDIArc=" + ownerPeerRootXDIArc + ", toPeerRootXDIArc=" + toPeerRootXDIArc);
 
 		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root found in message.", null, executionContext);
@@ -71,19 +66,5 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
-	}
-
-	/*
-	 * Getters and setters
-	 */
-
-	public XDIArc getDefaultToPeerRootXDIArc() {
-
-		return this.defaultToPeerRootXDIArc;
-	}
-
-	public void setDefaultToPeerRootXDIArc(XDIArc defaultToPeerRootXDIArc) {
-
-		this.defaultToPeerRootXDIArc = defaultToPeerRootXDIArc;
 	}
 }
