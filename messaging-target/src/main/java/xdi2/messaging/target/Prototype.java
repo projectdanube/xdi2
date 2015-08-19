@@ -27,14 +27,14 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 
 		private MessagingTarget messagingTarget;
 		private XDIAddress ownerXDIAddress;
-		private XdiPeerRoot ownerPeerRoot;
+		private XdiPeerRoot ownerXdiPeerRoot;
 		private ContextNode ownerContextNode;
 
-		public PrototypingContext(XDIAddress ownerXDIAddress, XdiPeerRoot ownerPeerRoot, ContextNode ownerContextNode) {
+		public PrototypingContext(XDIAddress ownerXDIAddress, XdiPeerRoot ownerXdiPeerRoot, ContextNode ownerContextNode) {
 
 			this.messagingTarget = null;
 			this.ownerXDIAddress = ownerXDIAddress;
-			this.ownerPeerRoot = ownerPeerRoot;
+			this.ownerXdiPeerRoot = ownerXdiPeerRoot;
 			this.ownerContextNode = ownerContextNode;
 		}
 
@@ -71,9 +71,9 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 			return this.ownerXDIAddress;
 		}
 
-		public XdiPeerRoot getOwnerPeerRoot() {
+		public XdiPeerRoot getOwnerXdiPeerRoot() {
 
-			return this.ownerPeerRoot;
+			return this.ownerXdiPeerRoot;
 		}
 
 		public ContextNode getOwnerContextNode() {

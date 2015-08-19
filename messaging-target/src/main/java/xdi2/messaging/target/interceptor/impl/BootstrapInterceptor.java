@@ -98,9 +98,9 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		XDIAddress[] bootstrapOwnerSynonyms = null;
 
-		if (prototypingContext.getOwnerPeerRoot() != null) {
+		if (prototypingContext.getOwnerXdiPeerRoot() != null) {
 
-			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
+			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerXdiPeerRoot().getContextNode());
 			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
 			bootstrapOwnerSynonyms = new XDIAddress[ownerSynonymPeerRoots.length];

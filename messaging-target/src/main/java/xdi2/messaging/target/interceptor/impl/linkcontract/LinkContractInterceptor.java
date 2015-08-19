@@ -18,6 +18,7 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.messaging.Message;
@@ -29,7 +30,6 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
@@ -41,7 +41,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author animesh
  */
-public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
+public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
@@ -85,16 +85,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	/*
-	 * Init and shutdown
+	 * GraphAware
 	 */
 
 	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
+	public void setGraph(Graph graph) {
 
-		super.init(messagingTarget);
-
-		if (this.getLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
-		if (this.getLinkContractsGraph() == null) throw new Xdi2MessagingException("No link contracts graph.", null, null);
+		if (this.getLinkContractsGraph() == null) this.setLinkContractsGraph(graph);
 	}
 
 	/*

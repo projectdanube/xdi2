@@ -20,6 +20,7 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -28,7 +29,6 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
@@ -37,7 +37,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor executes push link contracts while a message is executed.
  */
-public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushLinkContractInterceptor> {
+public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushLinkContractInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushLinkContractInterceptor.class);
 
@@ -78,16 +78,13 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	}
 
 	/*
-	 * Init and shutdown
+	 * GraphAware
 	 */
 
 	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
+	public void setGraph(Graph graph) {
 
-		super.init(messagingTarget);
-
-		if (this.getPushLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPushLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
-		if (this.getPushLinkContractsGraph() == null) throw new Xdi2MessagingException("No push link contracts graph.", null, null);
+		if (this.getPushLinkContractsGraph() == null) this.setPushLinkContractsGraph(graph);
 	}
 
 	/*
