@@ -591,26 +591,29 @@ public final class XDIAddressUtil {
 					continue;
 				}
 
-				if (XDIarc.hasXRef() && XDIarc.getXRef().hasXDIAddress()) {
+				if (XDIarc.hasXRef() && XDIarc.getXRef().hasXDIArc()) {
 
-					XDIAddress xRefAddress = XDIarc.getXRef().getXDIAddress();
+					XDIArc xrefXDIArc = XDIarc.getXRef().getXDIArc();
 
-					xRefAddress = replaceXDIAddress(xRefAddress, oldXDIArc, newXDIAddress);
+					XDIAddress replacedXrefXDIAddress = replaceXDIAddress(xrefXDIArc, oldXDIArc, newXDIAddress);
 
-					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), XDIarc.isRelative(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), xRefAddress, null, null, null, null)));
+					for (XDIArc replacedXrefXDIArc : replacedXrefXDIAddress.getXDIArcs()) {
+
+						XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), XDIarc.isRelative(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), replacedXrefXDIArc, null, null, null, null)));
+					}
 
 					continue;
 				}
 
 				if (XDIarc.hasXRef() && XDIarc.getXRef().hasPartialSubjectAndPredicate()) {
 
-					XDIAddress xRefPartialSubject = XDIarc.getXRef().getPartialSubject();
-					XDIAddress xRefPartialPredicate = XDIarc.getXRef().getPartialPredicate();
+					XDIAddress xrefPartialSubject = XDIarc.getXRef().getPartialSubject();
+					XDIAddress xrefPartialPredicate = XDIarc.getXRef().getPartialPredicate();
 
-					xRefPartialSubject = replaceXDIAddress(xRefPartialSubject, oldXDIArc, newXDIAddress);
-					xRefPartialPredicate = replaceXDIAddress(xRefPartialPredicate, oldXDIArc, newXDIAddress);
+					XDIAddress replacedXrefPartialSubject = replaceXDIAddress(xrefPartialSubject, oldXDIArc, newXDIAddress);
+					XDIAddress replacedXrefPartialPredicate = replaceXDIAddress(xrefPartialPredicate, oldXDIArc, newXDIAddress);
 
-					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), XDIarc.isRelative(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), null, xRefPartialSubject, xRefPartialPredicate, null, null)));
+					XDIarcs.add(XDIArc.fromComponents(XDIarc.getCs(), XDIarc.isVariable(), XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), XDIarc.isRelative(), null, XDIXRef.fromComponents(XDIarc.getXRef().getXs(), null, replacedXrefPartialSubject, replacedXrefPartialPredicate, null, null)));
 
 					continue;
 				}
@@ -623,6 +626,16 @@ public final class XDIAddressUtil {
 
 			if (log.isTraceEnabled()) log.trace("replaceAddress(" + XDIaddress + "," + oldXDIArc + "," + newXDIAddress + ") --> " + result);
 		}
+	}
+
+	/**
+	 * Replaces all occurrences of an arc with an address.
+	 */
+	public static XDIAddress replaceXDIAddress(final XDIArc XDIarc, final XDIArc oldXDIArc, XDIAddress newXDIAddress) {
+
+		XDIAddress XDIaddress = XDIarc == null ? null : XDIAddress.fromComponent(XDIarc);
+
+		return replaceXDIAddress(XDIaddress, oldXDIArc, newXDIAddress);
 	}
 
 	/**

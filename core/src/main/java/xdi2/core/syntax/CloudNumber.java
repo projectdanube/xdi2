@@ -49,6 +49,15 @@ public class CloudNumber {
 		}
 	}
 
+	public static boolean isValid(final XDIArc peerRootXDIArc) {
+
+		if (peerRootXDIArc == null) return false;
+
+		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
+
+		return isValid(XDIaddress);
+	}
+
 	public static CloudNumber create(String string) {
 
 		return fromXDIAddress(XDIAddress.create(string));
@@ -69,23 +78,18 @@ public class CloudNumber {
 
 		if (! isValid(XDIaddress)) return null;
 
-		XDIArc peerRootAddress = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		return new CloudNumber(XDIaddress, peerRootAddress);
+		return new CloudNumber(XDIaddress, peerRootXDIArc);
 	}
 
 	public static CloudNumber fromPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
+		if (! isValid(peerRootXDIArc)) return null;
+
 		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
 
-		return fromXDIAddress(XDIaddress);
-	}
-
-	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
-
-		if (peerRootXDIArc.getNumXDIArcs() != 1) return null;
-
-		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
+		return new CloudNumber(XDIaddress, peerRootXDIArc);
 	}
 
 	public XDIAddress getXDIAddress() {

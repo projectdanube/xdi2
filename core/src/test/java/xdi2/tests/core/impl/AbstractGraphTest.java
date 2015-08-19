@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
@@ -38,12 +41,9 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorCounter;
+import xdi2.tests.AbstractTestCase;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-
-public abstract class AbstractGraphTest extends TestCase {
+public abstract class AbstractGraphTest extends AbstractTestCase {
 
 	protected abstract GraphFactory getGraphFactory() throws IOException;
 	protected abstract boolean supportsPersistence();
@@ -1693,15 +1693,5 @@ public abstract class AbstractGraphTest extends TestCase {
 		assertTrue(rootContextNode1.getAllContextNodeCount() == rootContextNode2.getAllContextNodeCount());
 		assertTrue(rootContextNode1.getAllRelationCount() == rootContextNode2.getAllRelationCount());
 		assertTrue(rootContextNode1.getAllLiteralCount() == rootContextNode2.getAllLiteralCount());
-	}
-
-	private static void assertNotEquals(Object o1, Object o2) throws Exception {
-
-		assertFalse(o1.equals(o2));
-	}
-
-	private static void assertNotEquals(int i1, int i2) throws Exception {
-
-		assertFalse(i1 == i2);
 	}
 }

@@ -22,7 +22,7 @@ public class XRI2UtilTest extends TestCase {
 
 	public void testTypeToXdiEntitySingletonXDIArc() throws Exception {
 
-		assertEquals(XRI2Util.typeToXDIArc("xri://+i-service*(+contact)*($v*1.0)"), "<#(#i-service*(#contact)*($v*1.0))>");
+		assertEquals(XRI2Util.typeToXDIArc("xri://+i-service*(+contact)*($v*1.0)"), "<#(%23i-service*%28%23contact%29*%28%24v*1.0%29)>");
 		assertEquals(XRI2Util.typeToXDIArc("http://openid.net/signon/1.0"), "<#(http://openid.net/signon/1.0)>");
 		assertEquals(XRI2Util.typeToXDIArc("describedby"), "<#(describedby)>");
 		assertEquals(XRI2Util.typeToXDIArc("xri://$xdi"), "<$xdi>");

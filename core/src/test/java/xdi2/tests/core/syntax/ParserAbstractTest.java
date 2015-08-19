@@ -146,7 +146,7 @@ public abstract class ParserAbstractTest extends TestCase {
 
 		xref = parser.parseXDIXRef("(=markus)");
 		assertFalse(xref.isEmpty());
-		assertEquals(parser.parseXDIAddress("=markus"), xref.getXDIAddress());
+		assertEquals(parser.parseXDIArc("=markus"), xref.getXDIArc());
 
 		xref = parser.parseXDIXRef("(=markus/$add)");
 		assertFalse(xref.isEmpty());
@@ -172,17 +172,16 @@ public abstract class ParserAbstractTest extends TestCase {
 		assertTrue(s.hasXRef());
 		assertEquals(s.getXRef(), parser.parseXDIXRef("({[<#(name)>]})"));
 		assertEquals(s.getXRef().getXs(), XDIConstants.XS_ROOT);
-		assertTrue(s.getXRef().hasXDIAddress());
-		assertEquals(s.getXRef().getXDIAddress(), parser.parseXDIAddress("{[<#(name)>]}"));
-		assertEquals(s.getXRef().getXDIAddress().getNumXDIArcs(), 1);
-		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc(), parser.parseXDIArc("{[<#(name)>]}"));
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isCollection());
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().isAttribute());
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().hasXRef());
-		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef(), parser.parseXDIXRef("(name)"));
-		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getXs(), XDIConstants.XS_ROOT);
-		assertTrue(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().hasLiteralNode());
-		assertEquals(s.getXRef().getXDIAddress().getFirstXDIArc().getXRef().getLiteralNode(), "name");
+		assertTrue(s.getXRef().hasXDIArc());
+		assertEquals(s.getXRef().getXDIArc(), parser.parseXDIArc("{[<#(name)>]}"));
+		assertEquals(s.getXRef().getXDIArc(), parser.parseXDIArc("{[<#(name)>]}"));
+		assertTrue(s.getXRef().getXDIArc().isCollection());
+		assertTrue(s.getXRef().getXDIArc().isAttribute());
+		assertTrue(s.getXRef().getXDIArc().hasXRef());
+		assertEquals(s.getXRef().getXDIArc().getXRef(), parser.parseXDIXRef("(name)"));
+		assertEquals(s.getXRef().getXDIArc().getXRef().getXs(), XDIConstants.XS_ROOT);
+		assertTrue(s.getXRef().getXDIArc().getXRef().hasLiteralNode());
+		assertEquals(s.getXRef().getXDIArc().getXRef().getLiteralNode(), "name");
 	}
 
 	public void testComponents() throws Exception {

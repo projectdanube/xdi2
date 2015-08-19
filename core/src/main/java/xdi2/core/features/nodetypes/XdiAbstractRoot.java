@@ -89,9 +89,9 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 
 		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + XDIaddress + "," + create + ")");
 
-		XDIArc peerRootarc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootarc) : this.getContextNode().getContextNode(peerRootarc, false);
+		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootXDIArc) : this.getContextNode().getContextNode(peerRootXDIArc, false);
 		if (peerRootContextNode == null) return null;
 
 		return new XdiPeerRoot(peerRootContextNode);

@@ -261,7 +261,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		String temp = stripXs(value);
 
-		XDIAddress XDIaddress = null;
+		XDIArc XDIarc = null;
 		XDIAddress partialSubject = null;
 		XDIAddress partialPredicate = null;
 		String iri = null;
@@ -284,7 +284,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 				partialPredicate = this.parseXDIAddress(value.substring(split0 + 1));
 			} else if (value.isEmpty() || cs(value.charAt(0)) != null || xsvariable(value.charAt(0)) != null || xsdefinition(value.charAt(0)) != null || xscollection(value.charAt(0)) != null || xsattribute(value.charAt(0)) != null || xsxref(value.charAt(0)) != null) {
 
-				XDIaddress = this.parseXDIAddress(value);
+				XDIarc = this.parseXDIArc(value);
 			} else {
 
 				literal = value;
@@ -293,7 +293,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 
 		// done
 
-		return this.newXDIXRef(string, xs, XDIaddress, partialSubject, partialPredicate, iri, literal);
+		return this.newXDIXRef(string, xs, XDIarc, partialSubject, partialPredicate, iri, literal);
 	}
 
 	public Object parseLiteralData(String string) {

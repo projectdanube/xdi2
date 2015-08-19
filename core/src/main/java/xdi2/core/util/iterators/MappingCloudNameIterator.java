@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * A MappingIterator that maps XDI addresses to Cloud Names.
@@ -30,7 +31,7 @@ public class MappingCloudNameIterator extends MappingIterator<XDIAddress, CloudN
 	public CloudName map(XDIAddress XDIaddress) {
 
 		if (this.peerRootXDIArc)
-			return CloudName.fromPeerRootXDIArc(XDIaddress);
+			return CloudName.fromPeerRootXDIArc(XDIArc.fromComponent(XDIaddress));
 		else
 			return CloudName.fromXDIAddress(XDIaddress);
 	}

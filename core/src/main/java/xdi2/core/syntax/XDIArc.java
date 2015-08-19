@@ -83,6 +83,13 @@ public class XDIArc extends XDIIdentifier {
 		return fromComponents(null, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
 
+	public static XDIArc fromComponent(XDIAddress XDIaddress) {
+
+		if (XDIaddress.getNumXDIArcs() > 1) return null;
+
+		return XDIaddress.getFirstXDIArc();
+	}
+
 	public static String literalFromUuid(String uuid) {
 
 		String literal = ":uuid:" + uuid.toLowerCase();

@@ -1,6 +1,10 @@
 release 0.8 ("Orșova")
 ========================
 
+* added XDIAddress.fromComponent(XDIArc) method
+
+* XDIXRef has a .getXDIArc() method instead of .getXDIAddress()
+
 * CloudName.fromXDIAddress() and CloudNumber.fromXDIAddress() now return
 null instead of throwing exception if the cloud name / cloud number are invalid
 
