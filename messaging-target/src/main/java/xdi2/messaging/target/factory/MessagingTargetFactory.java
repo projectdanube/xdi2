@@ -30,7 +30,7 @@ public interface MessagingTargetFactory {
 	 */
 
 	/**
-	 * Returns a list of all owner peer root XRIs of the MessagingTargets this
+	 * Returns a list of all owner peer roots of the MessagingTargets this
 	 * MessagingTargetFactory can create. Not all MessagingTargetFactorys may
 	 * support this.
 	 */

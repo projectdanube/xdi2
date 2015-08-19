@@ -122,16 +122,16 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				List<Deque<String>> stackDeques;
 				Set<Entry<String, Integer>> countEntrySet;
 
-				xdi2.core.xri3.parser.aparse.Rule rule = xdi2.core.syntax.aparse.Parser.parse(rulename, input);
+				xdi2.syntax.parser.aparse.Rule rule = xdi2.core.syntax.aparse.Parser.parse(rulename, input);
 
 				// tree
 
-				rule.accept(new xdi2.core.xri3.parser.aparse.TreeDisplayer(stream1));
+				rule.accept(new xdi2.syntax.parser.aparse.TreeDisplayer(stream1));
 				output1 = html(new String(buffer1.toByteArray(), Charset.forName("UTF-8")));
 
 				// stack
 
-				xdi2.core.xri3.parser.aparse.DequesVisitor dequesVisitor = new xdi2.core.xri3.parser.aparse.DequesVisitor();
+				xdi2.syntax.parser.aparse.DequesVisitor dequesVisitor = new xdi2.syntax.parser.aparse.DequesVisitor();
 				rule.accept(dequesVisitor);
 				stackDeques = dequesVisitor.getDeques();
 
@@ -139,12 +139,12 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 
 				PrintStream out = System.out;
 				System.setOut(stream3);
-				rule.accept(new xdi2.core.xri3.parser.aparse.XmlDisplayer());
+				rule.accept(new xdi2.syntax.parser.aparse.XmlDisplayer());
 				System.setOut(out);
 
 				// count
 
-				xdi2.core.xri3.parser.aparse.CountVisitor countVisitor = new xdi2.core.xri3.parser.aparse.CountVisitor();
+				xdi2.syntax.parser.aparse.CountVisitor countVisitor = new xdi2.syntax.parser.aparse.CountVisitor();
 				rule.accept(countVisitor);
 				countEntrySet = countVisitor.getCount().entrySet();
 
@@ -174,8 +174,8 @@ public class XDIParser extends javax.servlet.http.HttpServlet implements javax.s
 				com.coasttocoastresearch.apg.Grammar g;
 				int r = -1;
 
-				g = xdi2.core.xri3.parser.apg.XDI3Grammar.getInstance();
-				for (xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames rule : xdi2.core.xri3.parser.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
+				g = xdi2.syntax.parser.apg.XDI3Grammar.getInstance();
+				for (xdi2.syntax.parser.apg.XDI3Grammar.RuleNames rule : xdi2.syntax.parser.apg.XDI3Grammar.RuleNames.values()) if (rule.ruleName().equals(rulename)) r = rule.ruleID();
 
 				com.coasttocoastresearch.apg.Parser p = new com.coasttocoastresearch.apg.Parser(g);
 

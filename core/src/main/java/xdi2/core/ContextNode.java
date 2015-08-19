@@ -145,7 +145,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	/**
 	 * Returns a relation at this context node. 
 	 * @param arc The arc to look for. 
-	 * @param targetXDIAddress The target context node XRI of the relation.
+	 * @param targetXDIAddress The target context node address of the relation.
 	 * @return The relation with the given arc, or null.
 	 */
 	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
@@ -196,10 +196,10 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getAllIncomingRelations();
 
 	/**
-	 * Checks if a relation with a given arc and target context node XRI exists in this context node.
+	 * Checks if a relation with a given arc and target context node address exists in this context node.
 	 * @param arc The arc of the relations. 
-	 * @param targetXDIAddress The target context node XRI of the relation.
-	 * @return True if this context node has a relation with the given arc and target context node XRI.
+	 * @param targetXDIAddress The target context node address of the relation.
+	 * @return True if this context node has a relation with the given arc and target context node address.
 	 */
 	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 
@@ -232,7 +232,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	/**
 	 * Deletes the relation with a given arc from this context node.
 	 * @param arc The arc of the relation.
-	 * @param targetXDIAddress The target context node XRI of the relation.
+	 * @param targetXDIAddress The target context node address of the relation.
 	 */
 	public void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 

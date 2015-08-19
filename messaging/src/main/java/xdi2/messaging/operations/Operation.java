@@ -113,8 +113,8 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/**
-	 * Returns the operation XRI of the XDI operation (e.g. $get, $mod).
-	 * @return The operation XRI of the XDI operation.
+	 * Returns the operation identifier of the XDI operation (e.g. $get, $mod).
+	 * @return The operation identifier of the XDI operation.
 	 */
 	public XDIAddress getOperationXDIAddress() {
 
@@ -211,25 +211,25 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Sets a parameter value of this operation.
-	 * @param parameterAddress The parameter XRI.
+	 * @param parameterXDIAddress The parameter identifier.
 	 * @param parameterValue The parameter value.
 	 */
-	public void setParameter(XDIAddress parameterAddress, Object parameterValue) {
+	public void setParameter(XDIAddress parameterXDIAddress, Object parameterValue) {
 
 		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
-		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterAddress, true);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, true);
 
 		parameterXdiAttribute.setLiteralData(parameterValue);
 	}
 
 	/**
 	 * Returns a parameter value of this operation.
-	 * @param parameterAddress The parameter XRI.
+	 * @param parameterXDIAddress The parameter identifier.
 	 * @return The parameter value.
 	 */
-	public Object getParameter(XDIAddress parameterAddress) {
+	public Object getParameter(XDIAddress parameterXDIAddress) {
 
-		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterAddress);
+		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterXDIAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralData();
@@ -237,12 +237,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value string of this operation.
-	 * @param parameterAddress The parameter XRI.
+	 * @param parameterXDIAddress The parameter identifier.
 	 * @return The parameter value string.
 	 */
-	public String getParameterString(XDIAddress parameterAddress) {
+	public String getParameterString(XDIAddress parameterXDIAddress) {
 
-		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterAddress);
+		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterXDIAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataString();
@@ -250,12 +250,12 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value number of this operation.
-	 * @param parameterAddress The parameter XRI.
+	 * @param parameterXDIAddress The parameter identifier.
 	 * @return The parameter value number.
 	 */
-	public Number getParameterNumber(XDIAddress parameterAddress) {
+	public Number getParameterNumber(XDIAddress parameterXDIAddress) {
 
-		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterAddress);
+		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterXDIAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataNumber();
@@ -263,23 +263,23 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Returns a parameter value boolean of this operation.
-	 * @param parameterAddress The parameter XRI.
+	 * @param parameterXDIAddress The parameter identifier.
 	 * @return The parameter value boolean.
 	 */
-	public Boolean getParameterBoolean(XDIAddress parameterAddress) {
+	public Boolean getParameterBoolean(XDIAddress parameterXDIAddress) {
 
-		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterAddress);
+		LiteralNode parameterLiteral = this.getParameterLiteralNode(parameterXDIAddress);
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral.getLiteralDataBoolean();
 	}
 
-	private LiteralNode getParameterLiteralNode(XDIAddress parameterAddress) {
+	private LiteralNode getParameterLiteralNode(XDIAddress parameterXDIAddress) {
 
 		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (parameterXdiEntity == null) return null;
 
-		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterAddress, false);
+		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, false);
 		if (parameterXdiAttribute == null) return null;
 
 		LiteralNode parameterLiteral = parameterXdiAttribute.getLiteralNode();

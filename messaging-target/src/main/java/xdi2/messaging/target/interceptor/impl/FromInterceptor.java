@@ -11,7 +11,7 @@ import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the source peer root XRI of a message matches the sender of the message.
+ * This interceptor checks if the source peer root of a message matches the sender of the message.
  * 
  * @author markus
  */

@@ -6,7 +6,7 @@ import xdi2.core.Statement;
 import xdi2.core.syntax.XDIStatement;
 
 /**
- * A MappingIterator that maps XDI statements to their statement XRIs.
+ * A MappingIterator that maps XDI statements.
  * 
  * @author markus
  */

@@ -417,7 +417,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 				}
 			}
 
-			// continue with parent context node XRI
+			// continue with parent context node address
 
 			localAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.localXDIAddress(contextNodeXDIAddress, 1), localAddress);
 			contextNodeXDIAddress = XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1);

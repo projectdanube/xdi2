@@ -344,7 +344,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
 
-		// set the TO peer root XRI to the owner peer root XRI of the messaging target
+		// set the TO peer root to the owner peer root of the messaging target
 
 		XDIArc ownerPeerRootXDIArc = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXDIArc();
 

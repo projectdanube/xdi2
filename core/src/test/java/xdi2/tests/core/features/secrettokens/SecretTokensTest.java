@@ -16,9 +16,7 @@ public class SecretTokensTest extends TestCase {
 	public static String[] VALID_SALTS = new String[] { GLOBAL_SALT, LOCAL_SALT };
 	public static String[] INVALID_SALTS = new String[] { "3b97782d:b130:4906:b41d:f83b6968765f", "0-0-0-0-0" };
 
-	public static XDIAddress SENDER_XRI = XDIAddress.create("=sender");
-
-	public void testDigestSecretTokenAuthenticatorWithChosenLocalSalt() throws Exception {
+	public void testDigestSecretTokenWithChosenLocalSalt() throws Exception {
 
 		String localSaltAndDigestSecretToken = SecretTokens.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT, LOCAL_SALT);
 		assertEquals(localSaltAndDigestSecretToken, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN);
@@ -33,7 +31,7 @@ public class SecretTokensTest extends TestCase {
 		assertEquals(parts[2], DIGEST_SECRET_TOKEN);
 	}
 
-	public void testDigestSecretTokenAuthenticatorWithRandomLocalSalt() throws Exception {
+	public void testDigestSecretTokenWithRandomLocalSalt() throws Exception {
 
 		String localSaltAndDigestSecretToken = SecretTokens.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT);
 

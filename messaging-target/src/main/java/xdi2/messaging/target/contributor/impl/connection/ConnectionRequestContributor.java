@@ -102,7 +102,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 	 */
 
 	@Override
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXris, XDIAddress contributorsXri, XDIAddress relativeTargetAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		XDIAddress linkContractTemplateXDIaddress = operation.getTargetXDIAddress();
 

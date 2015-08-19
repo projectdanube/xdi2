@@ -340,7 +340,7 @@ public class UriMessagingTargetRegistry extends AbstractMessagingTargetRegistry 
 	@Override
 	public synchronized UriMessagingTargetMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root XRI " + ownerPeerRootXDIArc);
+		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root " + ownerPeerRootXDIArc);
 
 		// look at messaging targets
 

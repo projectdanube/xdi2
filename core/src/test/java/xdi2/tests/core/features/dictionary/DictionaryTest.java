@@ -12,7 +12,7 @@ import xdi2.core.util.iterators.IteratorCounter;
 
 public class DictionaryTest extends TestCase {
 
-	public void testXRIs() throws Exception {
+	public void testXDIArcs() throws Exception {
 
 		assertEquals(Dictionary.instanceXDIArcToDictionaryXDIArc(XDIArc.create("#friend")), XDIArc.create("#(#friend)"));
 		assertEquals(Dictionary.dictionaryXDIArcToInstanceXDIArc(XDIArc.create("#(#friend)")), XDIArc.create("#friend"));

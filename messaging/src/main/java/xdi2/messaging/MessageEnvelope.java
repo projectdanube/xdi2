@@ -73,7 +73,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param operationXDIAddress The operation identifier to use for the new operation.
 	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
@@ -90,7 +90,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param operationXDIAddress The operation identifier to use for the new operation.
 	 * @param targetXDIStatements The target statements to which the operation applies.
 	 * @return The XDI message envelope.
 	 */
@@ -107,7 +107,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Factory method that creates an XDI message envelope bound to a given graph.
-	 * @param operationXDIAddress The operation XRI to use for the new operation.
+	 * @param operationXDIAddress The operation identifier to use for the new operation.
 	 * @param targetXDIAddressOrTargetStatement The target address or target statement to which the operation applies.
 	 * @return The XDI message envelope.
 	 */

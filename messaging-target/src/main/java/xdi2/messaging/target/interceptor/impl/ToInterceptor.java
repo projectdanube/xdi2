@@ -14,7 +14,7 @@ import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the target peer root XRI of a message matches the owner peer root XRI of the messaging target.
+ * This interceptor checks if the target peer root of a message matches the owner peer root of the messaging target.
  * 
  * @author markus
  */
@@ -45,7 +45,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	@Override
 	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// check if the owner peer root XRI matches the TO peer root XRI
+		// check if the owner peer root matches the TO peer root
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 		XDIArc ownerPeerRootXDIArc = messagingTarget.getOwnerPeerRootXDIArc();
@@ -55,7 +55,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root found in message.", null, executionContext);
 
-		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root XRI: " + toPeerRootXDIArc, null, executionContext);
+		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root: " + toPeerRootXDIArc, null, executionContext);
 
 		// done
 
