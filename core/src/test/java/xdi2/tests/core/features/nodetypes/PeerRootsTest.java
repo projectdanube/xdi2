@@ -13,7 +13,7 @@ public class PeerRootsTest extends TestCase {
 	public void testPeerRootXDIArces() throws Exception {
 		
 		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("")));
-		assertTrue(XdiPeerRoot.isValidXDIArc(XDIArc.create("(=!1111*!23)")));
+		assertTrue(XdiPeerRoot.isValidXDIArc(XDIArc.create("(=!1111)")));
 		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("(=a*b/+c*d)")));
 
 		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("[<+c>]")));
@@ -23,15 +23,15 @@ public class PeerRootsTest extends TestCase {
 		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("[+(name)]")));
 		assertFalse(XdiPeerRoot.isValidXDIArc(XDIArc.create("+(name)")));
 
-		assertEquals(XdiPeerRoot.createPeerRootXDIArc(XDIAddress.create("=!1111*!23")), XDIArc.create("(=!1111*!23)"));
-		assertEquals(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(XDIArc.create("(=!1111*!23)")), XDIAddress.create("=!1111*!23"));
+		assertEquals(XdiPeerRoot.createPeerRootXDIArc(XDIAddress.create("=!1111")), XDIArc.create("(=!1111)"));
+		assertEquals(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(XDIArc.create("(=!1111)")), XDIAddress.create("=!1111"));
 	}
 
 	public void testPeerRoots() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("=!1111*!23"), true).getContextNode().getXDIAddress(), XDIArc.create("(=!1111*!23)"));
+		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("=!1111"), true).getContextNode().getXDIAddress(), XDIArc.create("(=!1111)"));
 		
 		graph.close();
 	}
@@ -39,12 +39,12 @@ public class PeerRootsTest extends TestCase {
 	public void testSelfPeerRoots() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
-		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(XDIAddress.create("=!1111*!23"));
+		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(XDIAddress.create("=!1111"));
 
 		XdiPeerRoot selfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
 
-		assertEquals(selfPeerRoot.getContextNode().getXDIAddress(), XDIAddress.create("(=!1111*!23)"));
-		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("=!1111*!23"), false), selfPeerRoot);
+		assertEquals(selfPeerRoot.getContextNode().getXDIAddress(), XDIAddress.create("(=!1111)"));
+		assertEquals(XdiCommonRoot.findCommonRoot(graph).getPeerRoot(XDIAddress.create("=!1111"), false), selfPeerRoot);
 		assertTrue(selfPeerRoot.isSelfPeerRoot());
 
 		graph.close();

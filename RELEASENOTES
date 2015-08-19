@@ -3,6 +3,13 @@ release 0.8 ("Orșova")
 
 * GetOperation.XDI_ADD_PARAMETER_DEREF -> XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF
 
+* added XDIAddress.fromComponent(XDIArc) method
+
+* XDIXRef has a .getXDIArc() method instead of .getXDIAddress()
+
+* CloudName.fromXDIAddress() and CloudNumber.fromXDIAddress() now return
+null instead of throwing exception if the cloud name / cloud number are invalid
+
 * introducing PushLinkContractInterceptor
 
 * refactoring ProxyContributor into ForwardingContributor

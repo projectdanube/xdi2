@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 
@@ -50,6 +49,15 @@ public class CloudNumber {
 		}
 	}
 
+	public static boolean isValid(final XDIArc peerRootXDIArc) {
+
+		if (peerRootXDIArc == null) return false;
+
+		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
+
+		return isValid(XDIaddress);
+	}
+
 	public static CloudNumber create(String string) {
 
 		return fromXDIAddress(XDIAddress.create(string));
@@ -68,27 +76,20 @@ public class CloudNumber {
 
 	public static CloudNumber fromXDIAddress(XDIAddress XDIaddress) {
 
-		if (XDIaddress.getNumXDIArcs() != 1) throw new Xdi2RuntimeException("Invalid cloud number length: " + XDIaddress);
+		if (! isValid(XDIaddress)) return null;
 
-		if (! isValid(XDIaddress)) throw new Xdi2RuntimeException("Invalid cloud number: " + XDIaddress);
+		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
-		XDIArc peerRootAddress = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
-
-		return new CloudNumber(XDIaddress, peerRootAddress);
+		return new CloudNumber(XDIaddress, peerRootXDIArc);
 	}
 
 	public static CloudNumber fromPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
+		if (! isValid(peerRootXDIArc)) return null;
+
 		XDIAddress XDIaddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(peerRootXDIArc);
 
-		return fromXDIAddress(XDIaddress);
-	}
-
-	public static CloudNumber fromPeerRootXDIArc(XDIAddress peerRootXDIArc) {
-
-		if (peerRootXDIArc.getNumXDIArcs() != 1) return null;
-
-		return fromPeerRootXDIArc(peerRootXDIArc.getFirstXDIArc());
+		return new CloudNumber(XDIaddress, peerRootXDIArc);
 	}
 
 	public XDIAddress getXDIAddress() {

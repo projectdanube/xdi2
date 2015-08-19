@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import xdi2.core.syntax.CloudName;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 
 /**
  * A MappingIterator that maps XDI addresses to Cloud Names.
@@ -12,18 +13,26 @@ import xdi2.core.syntax.XDIAddress;
  */
 public class MappingCloudNameIterator extends MappingIterator<XDIAddress, CloudName> {
 
-	public MappingCloudNameIterator(Iterator<XDIAddress> XDIaddresses) {
+	private boolean peerRootXDIArc;
+
+	public MappingCloudNameIterator(Iterator<XDIAddress> XDIaddresses, boolean peerRootXDIArc) {
 
 		super(XDIaddresses);
+
+		this.peerRootXDIArc = peerRootXDIArc;
+	}
+
+	public MappingCloudNameIterator(Iterator<XDIAddress> XDIaddresses) {
+
+		this(XDIaddresses, false);
 	}
 
 	@Override
 	public CloudName map(XDIAddress XDIaddress) {
 
-		CloudName cloudName = CloudName.fromXDIAddress(XDIaddress);
-		if (cloudName == null) cloudName = CloudName.fromPeerRootXDIArc(XDIaddress);
-		if (cloudName == null) return null;
-		
-		return cloudName;
+		if (this.peerRootXDIArc)
+			return CloudName.fromPeerRootXDIArc(XDIArc.fromComponent(XDIaddress));
+		else
+			return CloudName.fromXDIAddress(XDIaddress);
 	}
 }

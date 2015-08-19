@@ -201,9 +201,9 @@ public class XDIJSONPARSEWriter extends AbstractXDIWriter {
 			gom.add(makeGom(xref.getPartialSubject()));
 			gom.add(makeGom(xref.getPartialPredicate()));
 			return gom;
-		} else if (xref.hasXDIAddress()) {
+		} else if (xref.hasXDIArc()) {
 
-			return makeGom(xref.getXDIAddress());
+			return makeGom(xref.getXDIArc());
 		} else {
 
 			return xref.getValue() == null ? new JsonPrimitive("") : new JsonPrimitive(xref.getValue());

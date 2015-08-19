@@ -126,9 +126,9 @@ public class XdiPeerRoot extends XdiAbstractRoot {
 
 		XDIXRef xref = XDIarc.getXRef();
 		if (! XDIConstants.XS_ROOT.equals(xref.getXs())) return null;
-		if (! xref.hasXDIAddress()) return null;
+		if (! xref.hasXDIArc()) return null;
 
-		return xref.getXDIAddress();
+		return XDIAddress.fromComponent(xref.getXDIArc());
 	}
 
 	/**
