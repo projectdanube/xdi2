@@ -3,7 +3,9 @@ package xdi2.transport.impl.websocket;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.websocket.CloseReason;
@@ -66,18 +68,35 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 	@Override
 	public void shutdown() throws Exception {
 
-		super.shutdown();
+		List<Exception> exs = new ArrayList<Exception> ();
+
+		try {
+
+			super.shutdown();
+		} catch (Exception ex) {
+
+			exs.add(ex);
+		}
 
 		// unregister sessions
 
-		for (Session session : this.sessionIdToSessions.values()) {
+		try {
 
-			session.close(new CloseReason(CloseCodes.GOING_AWAY, "Shuttind down."));
+			for (Session session : this.sessionIdToSessions.values()) {
+
+				session.close(new CloseReason(CloseCodes.GOING_AWAY, "Shutting down."));
+			}
+
+			this.sessionIdToSessions.clear();
+			this.toPeerRootXDIArcSessions.clear();
+			this.sessionIdToPeerRootXDIArcs.clear();
+		} catch (Exception ex) {
+
+			exs.add(ex);
 		}
 
-		this.sessionIdToSessions.clear();
-		this.toPeerRootXDIArcSessions.clear();
-		this.sessionIdToPeerRootXDIArcs.clear();
+		if (exs.size() > 1) throw new Exception("Multiple exceptions while shutting down: " + exs);
+		if (exs.size() > 0) throw exs.get(0);
 	}
 
 	@Override
@@ -237,7 +256,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageEnvelope.getMessageCount() + " messages). Executing...");
 
 		// done
-		
+
 		return messageEnvelope;
 	}
 

@@ -1,5 +1,8 @@
 package xdi2.transport.impl.local;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
@@ -34,16 +37,43 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 		}
 	}
 
+	/*
+	 * Init and shutdown
+	 */
+
 	@Override
-	public void shutdown() {
+	public void init() throws Exception {
+
+		super.init();
+	}
+
+	@Override
+	public void shutdown() throws Exception{
+
+		List<Exception> exs = new ArrayList<Exception> ();
+
+		try {
+
+			super.shutdown();
+		} catch (Exception ex) {
+
+			exs.add(ex);
+		}
+
+		// shut down messaging target
 
 		try {
 
 			this.messagingTarget.shutdown();
+
+			super.shutdown();
 		} catch (Exception ex) {
 
-			throw new RuntimeException(ex);
+			exs.add(ex);
 		}
+
+		if (exs.size() > 1) throw new Exception("Multiple exceptions while shutting down: " + exs);
+		if (exs.size() > 0) throw exs.get(0);
 	}
 
 	@Override
