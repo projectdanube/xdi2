@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 
 public class CloudName {
@@ -72,11 +71,9 @@ public class CloudName {
 
 	public static CloudName fromXDIAddress(XDIAddress XDIaddress) {
 
-		if (XDIaddress.getNumXDIArcs() != 1) throw new Xdi2RuntimeException("Invalid cloud name length: " + XDIaddress);
+		if (! isValid(XDIaddress)) return null;
 
 		XDIaddress = XDIAddress.create(XDIaddress.toString().toLowerCase());
-
-		if (! isValid(XDIaddress)) throw new Xdi2RuntimeException("Invalid cloud name: " + XDIaddress);
 
 		XDIArc peerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
 
