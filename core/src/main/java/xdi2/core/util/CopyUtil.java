@@ -477,7 +477,7 @@ public final class CopyUtil {
 
 			replacedContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1), replacedContextNodeXDIAddress);
 
-			if (log.isDebugEnabled()) log.debug("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
+			if (log.isTraceEnabled()) log.trace("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
 
 			if (contextNodeXDIAddress.equals(replacedContextNodeXDIAddress)) return super.replaceContextNode(contextNode);
 
@@ -508,7 +508,7 @@ public final class CopyUtil {
 						replacement.getValue());
 			}
 
-			if (log.isDebugEnabled()) log.debug("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
+			if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
 
 			if (targetXDIAddress.equals(replacedTargetXDIAddress)) return super.replaceRelation(relation);
 
