@@ -11,14 +11,14 @@ import xdi2.core.syntax.XDIAddress;
 
 public class XDIBootstrap {
 
-	public static XDIAddress ALL_LINK_CONTRACT_ADDRESS = XDIAddress.create("$all{$do}");
-	public static XDIAddress GET_LINK_CONTRACT_ADDRESS = XDIAddress.create("$get{$do}");
-	public static XDIAddress PUSH_LINK_CONTRACT_ADDRESS = XDIAddress.create("$push{$do}");
+	public static final XDIAddress ALL_LINK_CONTRACT_ADDRESS = XDIAddress.create("$all{$do}");
+	public static final XDIAddress GET_LINK_CONTRACT_ADDRESS = XDIAddress.create("$get{$do}");
+	public static final XDIAddress PUSH_LINK_CONTRACT_ADDRESS = XDIAddress.create("$push{$do}");
 
-	private static Graph BOOTSTRAP_GRAPH;
-	private static LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
-	private static LinkContractTemplate GET_LINK_CONTRACT_TEMPLATE;
-	private static LinkContractTemplate PUSH_LINK_CONTRACT_TEMPLATE;
+	public static final Graph BOOTSTRAP_GRAPH;
+	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
+	public static final LinkContractTemplate GET_LINK_CONTRACT_TEMPLATE;
+	public static final LinkContractTemplate PUSH_LINK_CONTRACT_TEMPLATE;
 
 	static {
 
@@ -43,25 +43,5 @@ public class XDIBootstrap {
 
 	private XDIBootstrap() {
 
-	}
-
-	public Graph getBootstrapGraph() {
-
-		return BOOTSTRAP_GRAPH;
-	}
-
-	public LinkContractTemplate getAllLinkContractTemplate() {
-
-		return ALL_LINK_CONTRACT_TEMPLATE;
-	}
-
-	public LinkContractTemplate getGetLinkContractTemplate() {
-
-		return GET_LINK_CONTRACT_TEMPLATE;
-	}
-
-	public LinkContractTemplate getPushLinkContractTemplate() {
-
-		return PUSH_LINK_CONTRACT_TEMPLATE;
 	}
 }

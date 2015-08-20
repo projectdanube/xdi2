@@ -24,6 +24,23 @@ public class LinkContractInstantiation {
 	private XDIAddress authorizingAuthority;
 	private XDIAddress requestingAuthority;
 
+	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority) {
+
+		this.linkContractTemplate = linkContractTemplate;
+		this.authorizingAuthority = authorizingAuthority;
+		this.requestingAuthority = requestingAuthority;
+	}
+
+	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate) {
+
+		this(linkContractTemplate, null, null);
+	}
+
+	public LinkContractInstantiation() {
+
+		this(null, null, null);
+	}
+
 	public GenericLinkContract execute(Graph targetGraph, Map<XDIArc, XDIAddress> variableValues, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();

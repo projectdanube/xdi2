@@ -1,6 +1,5 @@
 package xdi2.client.impl.websocket;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
 import java.util.Properties;
@@ -47,9 +46,9 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	protected static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
 
 	private Session session;
+	private URI xdiWebSocketEndpointUri;
 
-	protected URI xdiWebSocketEndpointUri;
-	protected MimeType sendMimeType;
+	private MimeType sendMimeType;
 
 	private Callback callback;
 
@@ -58,8 +57,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		super();
 
 		this.session = session;
-
 		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 
 		this.callback = null;
@@ -121,8 +120,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	@SuppressWarnings("resource")
 	@Override
 	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
-
-		if (this.xdiWebSocketEndpointUri == null) throw new Xdi2ClientException("No URI set.");
 
 		// find out which XDIWriter we want to use
 
@@ -196,6 +193,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		if (this.getSession() != null) return this.getSession();
 
+		if (this.getXdiWebSocketEndpointUri() == null) throw new Xdi2ClientException("No URL to connect to.");
+
 		// connect
 
 		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUri());
@@ -210,21 +209,21 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	private void disconnect(CloseReason closeReason) {
 
-		if (this.getSession() != null) {
+		try {
 
-			try {
+			if (this.getSession() != null) {
 
 				if (this.getSession().isOpen()) {
 
 					this.getSession().close(closeReason);
 				}
-			} catch (IOException ex) {
-
-				log.error("Cannot close session: " + ex.getMessage(), ex);
-			} finally {
-
-				this.setSession(null);
 			}
+		} catch (Exception ex) {
+
+			log.error("Cannot disconnect: " + ex.getMessage(), ex);
+		} finally {
+
+			this.setSession(null);
 		}
 	}
 
