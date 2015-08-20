@@ -2,14 +2,18 @@ package xdi2.messaging.target.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.bootstrap.XDIBootstrap;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -27,6 +31,7 @@ import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.contributor.ContributorMap;
 import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -363,17 +368,23 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			XDIAddress targetAddress = operation.getTargetXDIAddress();
 			Iterator<XDIStatement> targetStatementAddresses = operation.getTargetXDIStatements();
 
-			if (targetAddress != null) {
+			try {
 
-				this.execute(targetAddress, operation, operationResultGraph, executionContext);
-			} else if (targetStatementAddresses != null) {
+				if (targetAddress != null) {
 
-				while (targetStatementAddresses.hasNext()) {
+					this.execute(targetAddress, operation, operationResultGraph, executionContext);
+				} else if (targetStatementAddresses != null) {
 
-					XDIStatement targetStatementAddress = targetStatementAddresses.next();
+					while (targetStatementAddresses.hasNext()) {
 
-					this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
+						XDIStatement targetStatementAddress = targetStatementAddresses.next();
+
+						this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
+					}
 				}
+			} catch (Xdi2PushRequiredException ex) {
+
+				this.pushRequired(ex, operationResultGraph);
 			}
 
 			// execute operation interceptors (after)
@@ -417,7 +428,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		if (targetAddress == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
@@ -458,6 +469,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
 
 			addressHandler.executeOnAddress(targetAddress, operation, operationResultGraph, executionContext);
+		} catch (Xdi2PushRequiredException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -483,7 +497,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		if (targetStatement == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
@@ -524,6 +538,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
 
 			statementHandler.executeOnStatement(targetStatement, operation, operationResultGraph, executionContext);
+		} catch (Xdi2PushRequiredException ex) {
+
+			throw ex;
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -539,6 +556,31 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				log.warn("Error while popping target statement: " + ex.getMessage(), ex);
 			}
 		}
+	}
+
+	/*
+	 * Push contract required, if an operation result is not available
+	 */
+
+	private void pushRequired(Xdi2PushRequiredException ex, Graph operationResultGraph) {
+
+		XDIAddress authorizingAuthority = this.getOwnerXDIAddress();
+		XDIAddress requestingAuthority = ex.getOperation().getMessage().getSenderXDIAddress();
+
+		XDIAddress target = null;
+		if (target == null && ex.getXDIaddress() != null) target = ex.getXDIaddress();
+		if (target == null && ex.getXDIstatement() != null) target = ex.getXDIstatement().getContextNodeXDIAddress();
+
+		if (target == null) throw new NullPointerException();
+
+		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
+		variableValues.put(XDIArc.create("{$target}"), target);
+
+		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.PUSH_LINK_CONTRACT_TEMPLATE);
+		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
+		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
+
+		linkContractInstantiation.execute(operationResultGraph, variableValues, true);
 	}
 
 	/*

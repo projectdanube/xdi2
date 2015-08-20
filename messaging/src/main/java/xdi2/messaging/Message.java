@@ -13,6 +13,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
@@ -328,6 +329,9 @@ public final class Message implements Serializable, Comparable<Message> {
 		} else if (PublicLinkContract.class.isAssignableFrom(clazz)) {
 
 			this.setLinkContractXDIAddress(PublicLinkContract.createPublicLinkContractXDIAddress(ownerXDIAddress));
+		} else if (ConnectLinkContract.class.isAssignableFrom(clazz)) {
+
+			this.setLinkContractXDIAddress(ConnectLinkContract.createConnectLinkContractXDIAddress(ownerXDIAddress));
 		} else {
 
 			throw new Xdi2RuntimeException("Cannot automatically set link contract of type " + clazz.getSimpleName());

@@ -163,7 +163,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			// insert exception into execution result
 
-			ExecutionResult exceptionExecutionResult = ExecutionResult.createExecutionResult(executionResult, ex);
+			ExecutionResult exceptionExecutionResult = ExecutionResult.createExceptionExecutionResult(executionResult, ex);
 
 			// make messaging response
 

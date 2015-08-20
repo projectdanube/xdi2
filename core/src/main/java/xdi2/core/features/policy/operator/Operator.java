@@ -95,7 +95,7 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getRelation());
 		boolean[] result = this.evaluateInternal(policyEvaluationContext);
-		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + Arrays.asList(result));
+		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + result);
 
 		return result;
 	}

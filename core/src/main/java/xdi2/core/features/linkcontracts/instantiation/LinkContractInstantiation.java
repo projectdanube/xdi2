@@ -53,16 +53,20 @@ public class LinkContractInstantiation {
 
 		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + genericLinkContract + " from link contract template " + this.getLinkContractTemplate());
 
-		// set up permissions
+		// set up variable values
 
-		Map<XDIArc, XDIAddress> replacements = new HashMap<XDIArc, XDIAddress> ();
-		replacements.putAll(variableValues);
-		replacements.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
-		replacements.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
+		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
+		allVariableValues.putAll(variableValues);
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
+
+		if (log.isDebugEnabled()) log.debug("Variable values: " + allVariableValues);
+
+		// TODO: make sure all variables in the link contract template have assigned values
 
 		// instantiate
 
-		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(replacements);
+		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(allVariableValues);
 
 		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), genericLinkContract.getContextNode(), copyStrategy);
 

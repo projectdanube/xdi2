@@ -156,10 +156,10 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// instantiate link contract
 
-		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation();
+		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(linkContractTemplate);
+
 		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
-		linkContractInstantiation.setLinkContractTemplate(linkContractTemplate);
 
 		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(
 				this.getTargetGraph(), 

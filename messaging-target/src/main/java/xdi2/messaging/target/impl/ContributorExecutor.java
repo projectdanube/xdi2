@@ -23,6 +23,7 @@ import xdi2.messaging.target.contributor.ContributorMap.ContributorFound;
 import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 
 public class ContributorExecutor {
@@ -37,7 +38,7 @@ public class ContributorExecutor {
 	 * Methods for executing contributors
 	 */
 
-	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		ContributorResult contributorResultXDIAddress = ContributorResult.DEFAULT;
 
@@ -126,6 +127,9 @@ public class ContributorExecutor {
 					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (address) according to " + contributor.getClass().getSimpleName() + ".");
 					return contributorResultXDIAddress;
 				}
+			} catch (Xdi2PushRequiredException ex) {
+
+				throw ex;
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);
@@ -140,7 +144,7 @@ public class ContributorExecutor {
 		return contributorResultXDIAddress;
 	}
 
-	public static ContributorResult executeContributorsStatement(ContributorMap contributorMap, XDIAddress contributorAddresses[], XDIAddress contributorsAddress, XDIStatement relativeTargetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static ContributorResult executeContributorsStatement(ContributorMap contributorMap, XDIAddress contributorAddresses[], XDIAddress contributorsAddress, XDIStatement relativeTargetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		ContributorResult contributorResultXDIStatement = ContributorResult.DEFAULT;
 
@@ -270,6 +274,9 @@ public class ContributorExecutor {
 					if (log.isDebugEnabled()) log.debug("Skipping sibling contributors (statement) according to " + contributor.getClass().getSimpleName() + ".");
 					return contributorResultXDIStatement;
 				}
+			} catch (Xdi2PushRequiredException ex) {
+
+				throw ex;
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);

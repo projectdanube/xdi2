@@ -5,6 +5,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
@@ -118,6 +119,26 @@ public class LinkContractsTest extends TestCase {
 		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof PublicLinkContract);
 
 		assertEquals(l.getRequestingAuthority(), XDILinkContractConstants.XDI_ADD_PUBLIC);
+		assertEquals(l.getAuthorizingAuthority(), XDIAddress.create("=markus"));
+		assertNull(l.getTemplateAuthorityAndId());
+
+		graph.close();
+	}
+
+	public void testConnectLinkContract() throws Exception {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+		GraphUtil.setOwnerXDIAddress(graph, XDIAddress.create("=markus"));
+		assertEquals(GraphUtil.getOwnerXDIAddress(graph), XDIAddress.create("=markus"));
+
+		ConnectLinkContract l = ConnectLinkContract.findConnectLinkContract(graph, true);
+		assertNotNull(l);
+		assertEquals(l.getXdiEntity().getXDIAddress(), XDIAddress.create("(=markus/{$do})$do"));
+
+		assertNotNull(ConnectLinkContract.findConnectLinkContract(graph, false));
+		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof ConnectLinkContract);
+
+		assertEquals(l.getRequestingAuthority(), XDILinkContractConstants.XDI_ARC_V_DO);
 		assertEquals(l.getAuthorizingAuthority(), XDIAddress.create("=markus"));
 		assertNull(l.getTemplateAuthorityAndId());
 

@@ -111,7 +111,7 @@ public class GenericLinkContract extends LinkContract {
 
 		XDIAddress genericLinkContractXDIArc = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId);
 
-		ContextNode genericLinkContractContextNode = create ? (ContextNode) graph.setDeepNode(genericLinkContractXDIArc) : (ContextNode) graph.getDeepNode(genericLinkContractXDIArc, true);
+		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXDIArc) : graph.getDeepContextNode(genericLinkContractXDIArc, true);
 		if (genericLinkContractContextNode == null) return null;
 
 		return new GenericLinkContract(XdiAbstractEntity.fromContextNode(genericLinkContractContextNode));

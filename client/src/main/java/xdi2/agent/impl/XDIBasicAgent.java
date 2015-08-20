@@ -60,28 +60,30 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find a route
 
-		XDIClientRoute<?> route = null;
+		XDIClientRoute<?> foundRoute = null;
+		XDIAgentRouter<?, ?> foundAgentRouter = null;
 
 		for (XDIAgentRouter<?, ?> agentRouter : this.getAgentRouters()) {
 
 			if (log.isDebugEnabled()) log.debug("Trying router " + agentRouter.getClass().getSimpleName() + " to route to " + toPeerRootXDIArc);
 
-			route = agentRouter.route(toPeerRootXDIArc);
-			if (route != null) break;
+			foundRoute = agentRouter.route(toPeerRootXDIArc);
+			if (foundRoute != null) foundAgentRouter = agentRouter;
+			if (foundRoute != null) break;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + route);
+		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + foundRoute + " via router " + foundAgentRouter.getClass().getSimpleName());
 
 		// add manipulators if supported
 
-		if (route instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
+		if (foundRoute instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
 
-			((XDIAbstractClientRoute<?>) route).getManipulators().addManipulators(this.getManipulators());
+			((XDIAbstractClientRoute<?>) foundRoute).getManipulators().addManipulators(this.getManipulators());
 		}
 
 		// done
 
-		return route;
+		return foundRoute;
 	}
 
 	@Override

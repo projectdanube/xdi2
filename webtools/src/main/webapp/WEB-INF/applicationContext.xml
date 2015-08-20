@@ -41,6 +41,7 @@
 	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">
 		<property name="agentRouters">
 			<list>
+				<bean class="xdi2.agent.routing.impl.bootstrap.XDIBootstrapLocalAgentRouter" />
 				<bean class="xdi2.agent.routing.impl.local.XDIMessagingTargetRegistryAgentRouter">
 					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 				</bean>
@@ -68,6 +69,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.BootstrapInterceptor">
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
+					<property name="bootstrapConnectLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
@@ -169,6 +171,7 @@
 					</property>
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
+					<property name="bootstrapConnectLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
@@ -252,8 +255,6 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 			</util:list>
 		</property>
-		<property name="contributors">
-		</property>
 	</bean>
 
 	<!-- MESSAGING TARGET at /=alice -->
@@ -279,6 +280,7 @@
 					</property>
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
+					<property name="bootstrapConnectLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>

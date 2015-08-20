@@ -28,6 +28,7 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.exceptions.Xdi2NotAuthorizedException;
+import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -132,18 +133,30 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// evaluate the XDI policy against this message
 
 		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
-		if (policyRoot == null) return InterceptorResult.DEFAULT;
+		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " policy evaluated to " + policyRootResult);
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getLinkContractsGraph());
+		if (policyRootResult) {
 
-		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
+			putPushRequired(executionContext, Boolean.FALSE);
+			return InterceptorResult.DEFAULT;
+		}
 
-			throw new Xdi2NotAuthorizedException("Link contract policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
+		// evaluate the XDI push policy against this message
+
+		PolicyRoot pushPolicyRoot = linkContract.getPushPolicyRoot(false);
+		boolean pushPolicyRootResult = pushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, pushPolicyRoot);
+		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " push policy evaluated to " + pushPolicyRootResult);
+
+		if (pushPolicyRootResult) {
+
+			putPushRequired(executionContext, Boolean.TRUE);
+			return InterceptorResult.DEFAULT;
 		}
 
 		// done
 
-		return InterceptorResult.DEFAULT;
+		throw new Xdi2NotAuthorizedException("Link contract policy violation for message " + message.toString() + " in link contract " + linkContract.toString() + ".", null, executionContext);
 	}
 
 	@Override
@@ -159,12 +172,15 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
-		// read the referenced link contract from the execution context
+		// read the referenced link contract and push required flag from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
+
+		Boolean pushRequired = getPushRequired(executionContext);
+		if (pushRequired == null) throw new Xdi2MessagingException("No push required flag.", null, executionContext);
 
 		// check permission on target address
 
@@ -205,18 +221,28 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target address: " + targetXDIAddress, null, executionContext);
 		}
 
+		// push required?
+
+		if (Boolean.TRUE.equals(pushRequired)) {
+
+			throw new Xdi2PushRequiredException(targetXDIAddress, operation);
+		}
+
 		// done
 
 		return targetXDIAddress;
 	}
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		// read the referenced link contract from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
+
+		Boolean pushRequired = getPushRequired(executionContext);
+		if (pushRequired == null) throw new Xdi2MessagingException("No push required flag.", null, executionContext);
 
 		// check permission on target statement
 
@@ -292,6 +318,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target statement: " + targetXDIStatement, null, executionContext);
 		}
 
+		// push required?
+
+		if (! Boolean.TRUE.equals(pushRequired)) {
+
+			throw new Xdi2PushRequiredException(targetXDIStatement, operation);
+		}
+
 		// done
 
 		return targetXDIStatement;
@@ -314,6 +347,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	/*
 	 * Helper methods
 	 */
+
+	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot) {
+
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getLinkContractsGraph());
+
+		return policyRoot.evaluate(policyEvaluationContext);
+	}
 
 	private static boolean isSetOnDoAddress(XDIAddress targetAddress, Operation operation) {
 
@@ -420,6 +460,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
+	private static final String EXECUTIONCONTEXT_KEY_PUSHREQUIRED_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#pushrequiredpermessage";
 
 	public static LinkContract getLinkContract(ExecutionContext executionContext) {
 
@@ -429,5 +470,15 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	public static void putLinkContract(ExecutionContext executionContext, LinkContract linkContract) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
+	}
+
+	public static Boolean getPushRequired(ExecutionContext executionContext) {
+
+		return (Boolean) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_PUSHREQUIRED_PER_MESSAGE);
+	}
+
+	public static void putPushRequired(ExecutionContext executionContext, Boolean pushRequired) {
+
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_PUSHREQUIRED_PER_MESSAGE, pushRequired);
 	}
 }

@@ -64,7 +64,7 @@ public final class ExecutionResult {
 		return new ExecutionResult(operationResultGraphs);
 	}
 
-	public static ExecutionResult createExecutionResult(ExecutionResult executionResult, Exception ex) {
+	public static ExecutionResult createExceptionExecutionResult(ExecutionResult executionResult, Exception ex) {
 
 		if (executionResult == null) throw new NullPointerException();
 		if (ex == null) throw new NullPointerException();
@@ -72,7 +72,7 @@ public final class ExecutionResult {
 		// error string
 
 		String errorString = ex.getMessage();
-		if (errorString == null) errorString = ex.getClass().getName();
+		if (errorString == null) errorString = ex.getClass().getSimpleName();
 
 		log.info("Error string: " + errorString);
 

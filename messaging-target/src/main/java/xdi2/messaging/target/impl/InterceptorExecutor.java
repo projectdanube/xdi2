@@ -13,6 +13,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.InterceptorList;
@@ -304,7 +305,7 @@ public class InterceptorExecutor {
 		return interceptorResultAfter;
 	}
 
-	public static XDIAddress executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIAddress executeTargetInterceptorsAddress(InterceptorList<MessagingTarget> interceptorList, XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -331,6 +332,9 @@ public class InterceptorExecutor {
 				}
 
 				if (log.isDebugEnabled()) log.debug("Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned address: " + targetAddress + ".");
+			} catch (Xdi2PushRequiredException ex) {
+
+				throw ex;
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);
@@ -343,7 +347,7 @@ public class InterceptorExecutor {
 		return targetAddress;
 	}
 
-	public static XDIStatement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static XDIStatement executeTargetInterceptorsStatement(InterceptorList<MessagingTarget> interceptorList, XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		for (Iterator<TargetInterceptor> targetInterceptors = findTargetInterceptors(interceptorList); targetInterceptors.hasNext(); ) {
 
@@ -370,6 +374,9 @@ public class InterceptorExecutor {
 				}
 
 				if (log.isDebugEnabled()) log.debug("Interceptor " + targetInterceptor.getClass().getSimpleName() + " returned statement: " + targetStatement + ".");
+			} catch (Xdi2PushRequiredException ex) {
+
+				throw ex;
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);
