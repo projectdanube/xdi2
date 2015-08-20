@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.routing.XDIAgentRouter;
-import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -47,6 +46,12 @@ public class XDIBasicAgent implements XDIAgent {
 
 		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
 		this.agentRouters.add(agentRouter);
+		this.manipulators = new ManipulatorList();
+	}
+
+	public XDIBasicAgent() {
+
+		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
 		this.manipulators = new ManipulatorList();
 	}
 
