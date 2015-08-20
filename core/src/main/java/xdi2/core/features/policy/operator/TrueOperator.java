@@ -87,7 +87,7 @@ public class TrueOperator extends ConditionOperator {
 		while (conditions.hasNext()) values.add(Boolean.valueOf(true == conditions.next().evaluate(policyEvaluationContext)));
 
 		boolean[] result = new boolean[values.size()];
-		for (int i=0; i<values.size(); i++) result[i] = values.get(0).booleanValue();
+		for (int i=0; i<values.size(); i++) result[i] = values.get(i).booleanValue();
 
 		return result;
 	}
