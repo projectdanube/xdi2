@@ -12,6 +12,7 @@ import xdi2.messaging.target.tests.impl.graph.MemoryGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.impl.graph.MemoryJSONGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.impl.graph.PropertiesKeyValueGraphMessagingTargetTest;
 import xdi2.messaging.target.tests.interceptor.impl.linkcontract.LinkContractInterceptorTest;
+import xdi2.messaging.tests.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptorTest;
 
 public class AllTests {
 
@@ -28,6 +29,7 @@ public class AllTests {
 		suite.addTestSuite(FileWrapperGraphMessagingTargetTest.class);
 		suite.addTestSuite(LinkContractInterceptorTest.class);
 		suite.addTestSuite(ContributorTest.class);
+		suite.addTestSuite(AuthenticationSecretTokenInterceptorTest.class);
 		//$JUnit-END$
 		return suite;
 	}
