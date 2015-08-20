@@ -72,7 +72,7 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 		return this.signatureCreator;
 	}
 
-	public void setSigner(SignatureCreator<? extends Signature> signatureCreator) {
+	public void setSignatureCreator(SignatureCreator<? extends Signature> signatureCreator) {
 
 		this.signatureCreator = signatureCreator;
 	}
