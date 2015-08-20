@@ -49,9 +49,9 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		AuthenticationSignatureInterceptor interceptor = new AuthenticationSignatureInterceptor();
 
-		// set the validater
+		// set the validator
 
-		interceptor.setSignatureValidater(this.getSignatureValidator());
+		interceptor.setSignatureValidator(this.getSignatureValidator());
 
 		// done
 
@@ -128,7 +128,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 		return this.signatureValidator;
 	}
 
-	public void setSignatureValidater(SignatureValidator<? extends Signature> signatureValidator) {
+	public void setSignatureValidator(SignatureValidator<? extends Signature> signatureValidator) {
 
 		this.signatureValidator = signatureValidator;
 	}
