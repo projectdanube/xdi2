@@ -42,6 +42,11 @@ public class XDIHttpAgentRouter extends XDIAbstractAgentRouter<XDIHttpClientRout
 			return null;
 		}
 
+		if (this.getToPeerRootXDIArc() == null) {
+
+			throw new Xdi2AgentException("Invalid route has no associated peer root. Aborting.");
+		}
+
 		if (! toPeerRootXDIArc.equals(this.getToPeerRootXDIArc())) {
 
 			if (log.isDebugEnabled()) log.debug("XDI endpoint " + this.getXdiEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");

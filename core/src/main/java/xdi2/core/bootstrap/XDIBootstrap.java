@@ -23,8 +23,18 @@ public class XDIBootstrap {
 	static {
 
 		String bootstrapGraphString = "" +
-				"($)/$ref/\n" +
-				"/$is$ref/($)\n" +
+
+				// identity statements
+
+				"($xdi)/$ref/\n" +
+				"/$is$ref/($xdi)\n" +
+
+				// public link contract
+
+				"($xdi/$public)$do/$get/\n" +
+
+				// standard link contract templates
+
 				"$all{$do}/$all/\n" +
 				"$get{$do}/$get/{$target}\n" +
 				"$push{$do}/$push/{$target}\n";

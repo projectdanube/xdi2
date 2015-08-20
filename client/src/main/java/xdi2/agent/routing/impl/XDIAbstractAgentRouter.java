@@ -1,5 +1,8 @@
 package xdi2.agent.routing.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
@@ -9,6 +12,8 @@ import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.syntax.XDIArc;
 
 public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIENT>, CLIENT extends XDIClient> implements XDIAgentRouter<ROUTE, CLIENT> {
+
+	private static final Logger log = LoggerFactory.getLogger(XDIAbstractAgentRouter.class);
 
 	private XDIArc overrideToPeerRootXDIArc;
 	private ManipulatorList manipulators;
@@ -27,20 +32,32 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIEN
 
 		toPeerRootXDIArc = this.overrideToPeerRootXDIArc(toPeerRootXDIArc);
 
+		// routing step
+
 		ROUTE route = this.routeInternal(toPeerRootXDIArc);
 
-		if (route instanceof XDIAbstractClientRoute) {
+		// add manipulators if supported
 
-			((XDIAbstractClientRoute<?>) route).setManipulators(this.getManipulators());
+		if (route instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
+
+			((XDIAbstractClientRoute<?>) route).getManipulators().addManipulators(this.getManipulators());
 		}
+
+		// done
 
 		return route;
 	}
 
-	protected XDIArc overrideToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
+	protected XDIArc overrideToPeerRootXDIArc(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		XDIArc overrideToPeerRootXDIArc = this.getOverrideToPeerRootXDIArc();
-		if (overrideToPeerRootXDIArc != null) return overrideToPeerRootXDIArc;
+
+		if (overrideToPeerRootXDIArc != null) {
+
+			if (log.isDebugEnabled()) log.debug("TO peer root " + toPeerRootXDIArc + " overridden to " + overrideToPeerRootXDIArc);
+
+			return overrideToPeerRootXDIArc;
+		}
 
 		return toPeerRootXDIArc;
 	}
