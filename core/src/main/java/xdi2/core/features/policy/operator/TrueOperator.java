@@ -78,14 +78,17 @@ public class TrueOperator extends ConditionOperator {
 	 */
 
 	@Override
-	public Boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		Iterator<Condition> conditions = this.getConditions();
 		if (conditions == null) throw new Xdi2RuntimeException("Missing or invalid condition in $true operator.");
 
 		List<Boolean> values = new ArrayList<Boolean> ();
-		while (conditions.hasNext()) values.add(Boolean.valueOf(Boolean.TRUE.equals(conditions.next().evaluate(policyEvaluationContext))));
+		while (conditions.hasNext()) values.add(Boolean.valueOf(true == conditions.next().evaluate(policyEvaluationContext)));
 
-		return values.toArray(new Boolean[values.size()]);
+		boolean[] result = new boolean[values.size()];
+		for (int i=0; i<values.size(); i++) result[i] = values.get(0).booleanValue();
+
+		return result;
 	}
 }

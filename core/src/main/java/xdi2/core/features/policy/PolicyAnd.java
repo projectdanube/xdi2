@@ -62,20 +62,20 @@ public class PolicyAnd extends Policy {
 	 */
 
 	@Override
-	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		for (Iterator<Policy> policies = this.getPolicies(); policies.hasNext(); ) {
 
 			Policy policy = policies.next();
-			if (Boolean.FALSE.equals(policy.evaluate(policyEvaluationContext))) return Boolean.FALSE;
+			if (! policy.evaluate(policyEvaluationContext)) return false;
 		}
 
 		for (Iterator<Operator> operators = this.getOperators(); operators.hasNext(); ) {
 
 			Operator operator = operators.next();
-			for (Boolean result : operator.evaluate(policyEvaluationContext)) if (Boolean.FALSE.equals(result)) return Boolean.FALSE;
+			for (boolean result : operator.evaluate(policyEvaluationContext)) if (! result) return false;
 		}
 
-		return Boolean.TRUE;
+		return true;
 	}
 }

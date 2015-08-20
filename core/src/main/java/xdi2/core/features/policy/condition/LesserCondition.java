@@ -61,25 +61,25 @@ public class LesserCondition extends Condition {
 	 */
 
 	@Override
-	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getXDIStatement().getSubject());
 		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getXDIStatement().getObject());
 
-		if (subject == null || object == null) return Boolean.FALSE;
+		if (subject == null || object == null) return false;
 
 		if (subject.containsLiteralNode()) {
 
-			if (! (object.containsLiteralNode())) return Boolean.FALSE;
+			if (! (object.containsLiteralNode())) return false;
 
 			Object subjectLiteralData = subject.getLiteralNode().getLiteralData();
 			Object objectLiteralData = object.getLiteralNode().getLiteralData();
 
-			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
+			if (subjectLiteralData == null || objectLiteralData == null) return false;
 
-			return Boolean.valueOf(AbstractLiteralNode.LITERALDATACOMPARATOR.compare(subjectLiteralData, objectLiteralData) < 0);
+			return AbstractLiteralNode.LITERALDATACOMPARATOR.compare(subjectLiteralData, objectLiteralData) < 0;
 		}
 
-		return Boolean.FALSE;
+		return false;
 	}
 }

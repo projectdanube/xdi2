@@ -62,25 +62,25 @@ public class MatchesCondition extends Condition {
 	 */
 
 	@Override
-	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		ContextNode subject = policyEvaluationContext.getContextNode(this.getXDIStatement().getSubject());
 		ContextNode object = policyEvaluationContext.getContextNode((XDIAddress) this.getXDIStatement().getObject());
 
-		if (subject == null || object == null) return Boolean.FALSE;
+		if (subject == null || object == null) return false;
 
 		if (subject.containsLiteralNode()) {
 
-			if (! (object.containsLiteralNode())) return Boolean.FALSE;
+			if (! (object.containsLiteralNode())) return false;
 
 			String subjectLiteralData = subject.getLiteralNode().getLiteralDataString();
 			String objectLiteralData = object.getLiteralNode().getLiteralDataString();
 
-			if (subjectLiteralData == null || objectLiteralData == null) return Boolean.FALSE;
+			if (subjectLiteralData == null || objectLiteralData == null) return false;
 
-			return Boolean.valueOf(Pattern.matches(objectLiteralData, subjectLiteralData));
+			return Pattern.matches(objectLiteralData, subjectLiteralData);
 		}
 
-		return Boolean.FALSE;
+		return false;
 	}
 }
