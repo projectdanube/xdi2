@@ -9,6 +9,7 @@ import xdi2.core.security.sign.SignatureCreator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -19,11 +20,31 @@ import xdi2.messaging.target.interceptor.impl.AbstractOperationInterceptor;
  * This interceptor can sign an inner graph. 
  * Warning: This is experimental, do not use for serious applications.
  */
-public class SigningInterceptor extends AbstractOperationInterceptor implements OperationInterceptor {
+public class SigningInterceptor extends AbstractOperationInterceptor implements OperationInterceptor, Prototype<SigningInterceptor> {
 
 	public static final XDIAddress XDI_ADD_DO_SIG = XDIAddress.create("$do$sig");
 
 	private SignatureCreator<? extends Signature> signatureCreator;
+
+	/*
+	 * Prototype
+	 */
+
+	@Override
+	public SigningInterceptor instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
+
+		// create new interceptor
+
+		SigningInterceptor interceptor = new SigningInterceptor();
+
+		// set the signature creator
+
+		interceptor.setSignatureCreator(this.getSignatureCreator());
+
+		// done
+
+		return interceptor;
+	}
 
 	/*
 	 * OperationInterceptor
