@@ -1,10 +1,6 @@
 package xdi2.messaging.target.contributor.impl.connection;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
@@ -12,14 +8,11 @@ import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -43,8 +36,6 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 		operationXDIAddresses={"$do{}"}
 		)
 public class ConnectionRequestContributor extends AbstractContributor implements Prototype<ConnectionRequestContributor> {
-
-	private static final Logger log = LoggerFactory.getLogger(ConnectionRequestContributor.class);
 
 	private Graph targetGraph;
 	private XDIAgent xdiAgent;
@@ -109,10 +100,12 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 		// determine requesting authority
 
 		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
+		if (requestingAuthority == null) throw new Xdi2MessagingException("No requesting authority for link contract instantiation.", null, executionContext);
 
 		// determine authorizing authority
 
 		XDIAddress authorizingAuthority = operation.getMessage().getToXDIAddress();
+		if (authorizingAuthority == null) throw new Xdi2MessagingException("No authorizing authority for link contract instantiation.", null, executionContext);
 
 		// use agent to obtain link contract template
 
@@ -138,21 +131,7 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		// read variable values from message
 
-		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
-		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(operation.getMessage().getContextNode().getContextNodes());
-
-		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
-
-			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
-			ContextNode variableValueContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
-			XDIAddress variableValueXDIAddress = variableValueContextNode == null ? null : variableValueContextNode.getXDIAddress();
-
-			if (log.isDebugEnabled()) log.debug("Variable value in connection request: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
-
-			if (variableValueXDIArc == null || variableValueXDIAddress == null) continue;
-
-			variableValues.put(variableValueXDIArc, variableValueXDIAddress);
-		}
+		Map<XDIArc, XDIAddress> variableValues = operation.getVariableValues();
 
 		// instantiate link contract
 

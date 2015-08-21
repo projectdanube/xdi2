@@ -1,16 +1,25 @@
 package xdi2.messaging.operations;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
+import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
+import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
@@ -26,6 +35,8 @@ import xdi2.messaging.MessageEnvelope;
 public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private static final long serialVersionUID = 8816045435464636862L;
+
+	private static final Logger log = LoggerFactory.getLogger(Operation.class);
 
 	protected Message message;
 	protected Relation relation;
@@ -206,7 +217,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	}
 
 	/*
-	 * Operation parameters
+	 * Operation parameters and variable values
 	 */
 
 	/**
@@ -286,6 +297,30 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (parameterLiteral == null) return null;
 
 		return parameterLiteral;
+	}
+
+	public Map<XDIArc, XDIAddress> getVariableValues() {
+
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
+		if (variableValuesXdiEntity == null) return null;
+
+		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
+		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(variableValuesXdiEntity.getContextNode().getContextNodes());
+
+		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
+
+			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
+			ContextNode variableValueContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
+			XDIAddress variableValueXDIAddress = variableValueContextNode == null ? null : variableValueContextNode.getXDIAddress();
+
+			if (log.isDebugEnabled()) log.debug("Variable value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
+
+			if (variableValueXDIArc == null || variableValueXDIAddress == null) continue;
+
+			variableValues.put(variableValueXDIArc, variableValueXDIAddress);
+		}
+		
+		return variableValues;
 	}
 
 	/*
