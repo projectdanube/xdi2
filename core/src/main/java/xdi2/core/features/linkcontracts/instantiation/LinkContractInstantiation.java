@@ -55,7 +55,7 @@ public class LinkContractInstantiation {
 		if (genericLinkContract != null && ! create) return genericLinkContract;
 
 		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + genericLinkContract + " from link contract template " + this.getLinkContractTemplate());
-
+		
 		// set up variable values
 
 		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
