@@ -155,7 +155,7 @@ public final class ExecutionResult {
 		return this.resultGraph != null;
 	}
 
-	private void finish() {
+	public void finish() {
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
 
