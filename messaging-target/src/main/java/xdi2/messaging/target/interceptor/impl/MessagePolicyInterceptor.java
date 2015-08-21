@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.core.Graph;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
@@ -21,6 +24,8 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * @author markus
  */
 public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageInterceptor, Prototype<MessagePolicyInterceptor> {
+
+	private static Logger log = LoggerFactory.getLogger(MessagePolicyInterceptor.class.getName());
 
 	private Graph messagePolicyGraph; 
 
@@ -74,18 +79,17 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 		// evaluate the XDI policy of this message
 
 		PolicyRoot policyRoot = message.getPolicyRoot(false);
-		if (policyRoot == null) return InterceptorResult.DEFAULT;
+		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot);
+		if (policyRoot != null) if (log.isDebugEnabled()) log.debug("Message " + message + " policy evaluated to " + policyRootResult);
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph());
+		if (policyRootResult) {
 
-		if (! Boolean.TRUE.equals(policyRoot.evaluate(policyEvaluationContext))) {
-
-			throw new Xdi2NotAuthorizedException("Message policy violation for message " + message.toString() + ".", null, executionContext);
+			return InterceptorResult.DEFAULT;
 		}
 
 		// done
 
-		return InterceptorResult.DEFAULT;
+		throw new Xdi2NotAuthorizedException("Message policy violation for message " + message.toString() + ".", null, executionContext);
 	}
 
 	@Override
@@ -94,6 +98,17 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 		// done
 
 		return InterceptorResult.DEFAULT;
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot) {
+
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph());
+
+		return policyRoot.evaluate(policyEvaluationContext);
 	}
 
 	/*

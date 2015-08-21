@@ -134,7 +134,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
 		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot);
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " policy evaluated to " + policyRootResult);
+		if (policyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " policy evaluated to " + policyRootResult);
 
 		if (policyRootResult) {
 
@@ -146,7 +146,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		PolicyRoot pushPolicyRoot = linkContract.getPushPolicyRoot(false);
 		boolean pushPolicyRootResult = pushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, pushPolicyRoot);
-		if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " push policy evaluated to " + pushPolicyRootResult);
+		if (pushPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " push policy evaluated to " + pushPolicyRootResult);
 
 		if (pushPolicyRootResult) {
 
