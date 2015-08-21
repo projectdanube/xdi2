@@ -74,7 +74,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		SignatureValidator<? extends Signature> signatureValidator = this.getSignatureValidator();
 
-		if (log.isDebugEnabled()) log.debug("Authenticating via " + signatureValidator.getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Validating via " + signatureValidator.getClass().getSimpleName());
 
 		boolean validated = true;
 
@@ -84,19 +84,26 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 			try {
 
+				// TODO: find a way to not have to enumerate this
+
 				if (signatureValidator instanceof RSASignatureValidator && signature instanceof RSASignature) {
 
 					validated &= ((RSASignatureValidator) signatureValidator).validateSignature((RSASignature) signature, signerXDIAddress);
+					continue;
 				}
 
 				if (signatureValidator instanceof AESSignatureValidator && signature instanceof AESSignature) {
 
 					validated &= ((AESSignatureValidator) signatureValidator).validateSignature((AESSignature) signature, signerXDIAddress);
+					continue;
 				}
 			} catch (GeneralSecurityException ex) {
 
 				throw new Xdi2MessagingException("Unable to validate signature via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
 			}
+
+			validated = false;
+			break;
 		}
 
 		// signature is valid?

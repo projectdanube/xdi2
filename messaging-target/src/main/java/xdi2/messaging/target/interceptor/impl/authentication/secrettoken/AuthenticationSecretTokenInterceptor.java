@@ -84,9 +84,11 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor<Me
 
 		SecretTokenAuthenticator secretTokenAuthenticator = this.getSecretTokenAuthenticator();
 
-		if (log.isDebugEnabled()) log.debug("Authenticating via " + secretTokenAuthenticator.getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Validating via " + secretTokenAuthenticator.getClass().getSimpleName());
 
-		boolean validated = secretTokenAuthenticator.authenticate(message, secretToken);
+		boolean validated = true;
+
+		validated &= secretTokenAuthenticator.authenticate(message, secretToken);
 
 		// secret token is valid?
 
