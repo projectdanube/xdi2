@@ -35,6 +35,7 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_CORRELATION = XDIAddress.create("$is$msg");
 	public static final XDIAddress XDI_ADD_PROXY = XDIAddress.create("$proxy");
 
+	public static final XDIAddress XDI_ADD_MESSAGE_PARAMETER_FULL = XDIAddress.create("<$full>");
 	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEREF = XDIAddress.create("<$deref>");
 
 	private XDIMessagingConstants() { }

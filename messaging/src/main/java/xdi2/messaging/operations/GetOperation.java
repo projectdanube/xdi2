@@ -2,7 +2,6 @@ package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
