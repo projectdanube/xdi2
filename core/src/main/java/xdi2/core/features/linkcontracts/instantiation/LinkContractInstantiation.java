@@ -47,6 +47,9 @@ public class LinkContractInstantiation {
 
 		// create generic link contract
 
+		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known authorizing authority.");
+		if (this.getRequestingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known requesting authority.");
+
 		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(targetGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, create);
 		if (genericLinkContract == null) return null;
 		if (genericLinkContract != null && ! create) return genericLinkContract;
