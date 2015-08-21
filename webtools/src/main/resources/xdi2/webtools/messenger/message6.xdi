@@ -1,0 +1,5 @@
+=!:uuid:2222[$msg]*!1/$is()/(=!:uuid:1111)
+=!:uuid:2222[$msg]*!1/$do/(=!:uuid:1111/{$do})$do
+=!:uuid:2222[$msg]*!1$do/{$do}/$get{$do}
+=!:uuid:2222[$msg]*!1<$full>/&/true
+=!:uuid:2222[$msg]*!1{$do}{$target}/$is/=!:uuid:1111<#email>
