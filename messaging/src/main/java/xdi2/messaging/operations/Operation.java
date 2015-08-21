@@ -1,6 +1,7 @@
 package xdi2.messaging.operations;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -64,7 +65,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 				GetOperation.isValid(relation) ||
 				SetOperation.isValid(relation) ||
 				DelOperation.isValid(relation) ||
-				DoOperation.isValid(relation);
+				DoOperation.isValid(relation) ||
+				ConnectOperation.isValid(relation) ||
+				SendOperation.isValid(relation) ||
+				PushOperation.isValid(relation);
 	}
 
 	/**
@@ -79,6 +83,9 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
 		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
 		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
+		if (ConnectOperation.isValid(relation)) return new ConnectOperation(message, relation);
+		if (SendOperation.isValid(relation)) return new SendOperation(message, relation);
+		if (PushOperation.isValid(relation)) return new PushOperation(message, relation);
 
 		return null;
 	}
@@ -302,7 +309,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	public Map<XDIArc, XDIAddress> getVariableValues() {
 
 		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
-		if (variableValuesXdiEntity == null) return null;
+		if (variableValuesXdiEntity == null) return Collections.emptyMap();
 
 		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
 		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(variableValuesXdiEntity.getContextNode().getContextNodes());
@@ -319,7 +326,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 			variableValues.put(variableValueXDIArc, variableValueXDIAddress);
 		}
-		
+
 		return variableValues;
 	}
 
