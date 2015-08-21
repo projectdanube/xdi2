@@ -148,7 +148,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
 			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
-			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult: " + executionResult);
+			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult Graph: " + executionResult.getResultGraph());
 
 			// make messaging response
 
