@@ -312,8 +312,6 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		List<Operation> operations = getWriteOperationsPerMessageEnvelope(executionContext);
 
 		operations.add(operation);
-
-		if (log.isDebugEnabled()) log.debug("Set operation: " + operation);
 	}
 
 	private static void resetWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {
