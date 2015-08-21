@@ -239,8 +239,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
-			executionResult.finish();
-
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + " finished execution. Trace: " + executionContext.getTraceBlock());
 		}
 	}
@@ -290,7 +288,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 				Operation operation = operations.next();
 
-				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+				Graph operationResultGraph = executionResult.createOperationResultGraph(operation);
 
 				this.execute(operation, executionContext, operationResultGraph);
 			}

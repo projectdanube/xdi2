@@ -106,25 +106,10 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		}
 
 		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXDIAddress, true);
-		if (linkContractContextNode == null) {
+		XdiEntity xdiEntity = linkContractContextNode == null ? null : XdiAbstractEntity.fromContextNode(linkContractContextNode);
+		LinkContract linkContract = xdiEntity == null ? null : LinkContract.fromXdiEntity(xdiEntity);
 
-			if (log.isDebugEnabled()) log.debug("No link contract context node found in graph.");
-			return InterceptorResult.DEFAULT;
-		}
-
-		XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(linkContractContextNode);
-		if (xdiEntity == null) {
-
-			if (log.isDebugEnabled()) log.debug("No link contract entity found in graph.");
-			return InterceptorResult.DEFAULT;
-		}
-
-		LinkContract linkContract = LinkContract.fromXdiEntity(xdiEntity);
-		if (linkContract == null) {
-
-			if (log.isDebugEnabled()) log.debug("No link contract found in graph.");
-			return InterceptorResult.DEFAULT;
-		}
+		if (linkContract == null) throw new Xdi2MessagingException("Invalid link contract: " + linkContractXDIAddress, null, executionContext);
 
 		if (log.isDebugEnabled()) log.debug("Found link contract " + linkContract);
 

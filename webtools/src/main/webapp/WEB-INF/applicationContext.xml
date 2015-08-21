@@ -116,6 +116,12 @@
 						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -124,12 +130,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
 			</util:list>
 		</property>
 	</bean>
@@ -222,6 +222,12 @@
 						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -230,12 +236,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
 			</util:list>
 		</property>
 	</bean>
@@ -331,6 +331,12 @@
 						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
+					<property name="xdiAgent" ref="XdiAgent" />
+				</bean>
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -339,12 +345,6 @@
 					<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 				</bean>
 				<bean class="xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor" />
-				<bean class="xdi2.messaging.target.contributor.impl.connection.ConnectionRequestContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
-				<bean class="xdi2.messaging.target.contributor.impl.forwarding.ForwardingContributor">
-					<property name="xdiAgent" ref="XdiAgent" />
-				</bean>
 			</util:list>
 		</property>
 	</bean>

@@ -18,21 +18,21 @@ public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
 	 * Replaces or skips the target address before it is executed.
-	 * @param targetAddress The target address.
+	 * @param targetXDIAddress The target address.
 	 * @param operation The operation to process.
 	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
 	 * @return The new target address, or the original target address, or null to skip.
 	 */
-	public XDIAddress targetAddress(XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
 
 	/**
 	 * Replaces or skips the target statement before it is executed.
-	 * @param targetStatement The target statement.
+	 * @param targetXDIStatement The target statement.
 	 * @param operation The operation to process.
 	 * @param messageResult The message result.
 	 * @param executionContext The current execution context.
 	 * @return The new target statement, or the original target statement, or null to skip.
 	 */
-	public XDIStatement targetStatement(XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
 }

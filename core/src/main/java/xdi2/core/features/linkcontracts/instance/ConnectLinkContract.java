@@ -41,7 +41,7 @@ public class ConnectLinkContract extends GenericLinkContract {
 			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXDIAddress()) != null) return false;
 
-			if (! XDILinkContractConstants.XDI_ADD_V_DO.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
+			if (! XDILinkContractConstants.XDI_ADD_CONNECT.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityInstance) {
@@ -67,7 +67,7 @@ public class ConnectLinkContract extends GenericLinkContract {
 
 	public static XDIAddress createConnectLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_V_DO, null);
+		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ConnectLinkContract extends GenericLinkContract {
 		XDIAddress ownerXDIAddress = GraphUtil.getOwnerXDIAddress(graph);
 		if (ownerXDIAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_V_DO, null, true);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null, true);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());

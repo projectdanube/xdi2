@@ -1,4 +1,4 @@
-package xdi2.messaging.target.contributor.impl.forwarding;
+package xdi2.messaging.target.interceptor.impl.forwarding;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,33 +15,27 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XDIAddressUtil;
-import xdi2.core.util.XDIStatementUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
-import xdi2.messaging.target.contributor.ContributorMount;
-import xdi2.messaging.target.contributor.ContributorResult;
-import xdi2.messaging.target.contributor.impl.AbstractContributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageInterceptor;
+import xdi2.messaging.target.interceptor.TargetInterceptor;
+import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
- * This contributor can answer requests by forwarding them to another XDI endpoint.
+ * This interceptor can answer requests by forwarding them to another XDI endpoint.
  */
-@ContributorMount(
-		contributorXDIAddresses={""}
-		)
-public class ForwardingContributor extends AbstractContributor implements MessageInterceptor, Prototype<ForwardingContributor> {
+public class ForwardingInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, TargetInterceptor, Prototype<ForwardingInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(ForwardingContributor.class);
+	private static final Logger log = LoggerFactory.getLogger(ForwardingInterceptor.class);
 
 	public static final boolean DEFAULT_FORWARD_IF_SELF = false;
 	public static final XDIAgent DEFAULT_XDI_AGENT = new XDIBasicAgent();
@@ -49,17 +43,15 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	private boolean forwardIfSelf;
 	private XDIAgent xdiAgent;
 
-	private boolean skipParentContributors;
-	private boolean skipSiblingContributors;
+	private boolean skipSiblingInterceptors;
 	private boolean skipMessagingTarget;
 
-	public ForwardingContributor() {
+	public ForwardingInterceptor() {
 
 		this.forwardIfSelf = DEFAULT_FORWARD_IF_SELF;
 		this.xdiAgent = DEFAULT_XDI_AGENT;
 
-		this.skipParentContributors = false;
-		this.skipSiblingContributors = false;
+		this.skipSiblingInterceptors = false;
 		this.skipMessagingTarget = true;
 	}
 
@@ -68,7 +60,7 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	 */
 
 	@Override
-	public ForwardingContributor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public ForwardingInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// done
 
@@ -138,25 +130,24 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	}
 
 	/*
-	 * Contributor methods
+	 * TargetInterceptor
 	 */
 
 	@Override
-	public ContributorResult executeOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		Message message = operation.getMessage();
 
 		// check route
 
 		XDIClientRoute<? extends XDIClient> xdiClientRoute = getXdiClientRoute(executionContext, this);
-		if (xdiClientRoute == null) return ContributorResult.DEFAULT;
+		if (xdiClientRoute == null) return targetXDIAddress;
 
 		// prepare the forwarding message envelope
 
 		Message forwardingMessage;
 
-		XDIAddress targetXDIAddress = XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeTargetAddress);
-		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_PROXY, false);
+		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIAddress.create("$proxy"), false);
 
 		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding " + operation.getOperationXDIAddress() + " operation on " + targetXDIAddress + " (using proxy? " + (proxyXdiInnerRoot != null) + "): " + message);
 
@@ -208,25 +199,24 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 
 		// done
 
-		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
+		return null;
 	}
 
 	@Override
-	public ContributorResult executeOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext)  throws Xdi2MessagingException, Xdi2PushRequiredException {
 
 		Message message = operation.getMessage();
 
 		// check route
 
 		XDIClientRoute<? extends XDIClient> xdiClientRoute = getXdiClientRoute(executionContext, this);
-		if (xdiClientRoute == null) return ContributorResult.DEFAULT;
+		if (xdiClientRoute == null) return targetXDIStatement;
 
 		// prepare the forwarding message envelope
 
 		Message forwardingMessage;
 
-		XDIStatement targetXDIStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
-		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_PROXY, false);
+		XdiInnerRoot proxyXdiInnerRoot = message.getXdiEntity().getXdiInnerRoot(XDIAddress.create("$proxy"), false);
 
 		if (log.isDebugEnabled()) log.debug("Preparing message for forwarding " + operation.getOperationXDIAddress() + " operation on " + targetXDIStatement + " (using proxy? " + (proxyXdiInnerRoot != null) + "): " + message);
 
@@ -278,7 +268,7 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 
 		// done
 
-		return new ContributorResult(this.isSkipParentContributors(), this.isSkipSiblingContributors(), this.isSkipMessagingTarget());
+		return null;
 	}
 
 	/*
@@ -305,24 +295,14 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 		this.xdiAgent = xdiAgent;
 	}
 
-	public boolean isSkipParentContributors() {
+	public boolean isSkipSiblingInterceptors() {
 
-		return this.skipParentContributors;
+		return this.skipSiblingInterceptors;
 	}
 
-	public void setSkipParentContributors(boolean skipParentContributors) {
+	public void setSkipSiblingInterceptors(boolean skipSiblingContributors) {
 
-		this.skipParentContributors = skipParentContributors;
-	}
-
-	public boolean isSkipSiblingContributors() {
-
-		return this.skipSiblingContributors;
-	}
-
-	public void setSkipSiblingContributors(boolean skipSiblingContributors) {
-
-		this.skipSiblingContributors = skipSiblingContributors;
+		this.skipSiblingInterceptors = skipSiblingContributors;
 	}
 
 	public boolean isSkipMessagingTarget() {
@@ -339,14 +319,14 @@ public class ForwardingContributor extends AbstractContributor implements Messag
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_ROUTE_PER_MESSAGE = ForwardingContributor.class.getCanonicalName() + "#xdiclientroutepermessage";
+	private static final String EXECUTIONCONTEXT_KEY_XDI_CLIENT_ROUTE_PER_MESSAGE = ForwardingInterceptor.class.getCanonicalName() + "#xdiclientroutepermessage";
 
-	public static XDIClientRoute<? extends XDIClient> getXdiClientRoute(ExecutionContext executionContext, ForwardingContributor forwardingContributor) {
+	public static XDIClientRoute<? extends XDIClient> getXdiClientRoute(ExecutionContext executionContext, ForwardingInterceptor forwardingContributor) {
 
 		return (XDIClientRoute<?>) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_ROUTE_PER_MESSAGE + Integer.toString(System.identityHashCode(forwardingContributor)));
 	}
 
-	public static void putXdiClientRoute(ExecutionContext executionContext, XDIClientRoute<? extends XDIClient> xdiClientRoute, ForwardingContributor forwardingContributor) {
+	public static void putXdiClientRoute(ExecutionContext executionContext, XDIClientRoute<? extends XDIClient> xdiClientRoute, ForwardingInterceptor forwardingContributor) {
 
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_XDI_CLIENT_ROUTE_PER_MESSAGE + Integer.toString(System.identityHashCode(forwardingContributor)), xdiClientRoute);
 	}

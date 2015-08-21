@@ -94,6 +94,10 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetXDIAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DO, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_CONNECT, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SEND, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_PUSH, targetXDIAddress);
 		}
 
 		// set the permission arc

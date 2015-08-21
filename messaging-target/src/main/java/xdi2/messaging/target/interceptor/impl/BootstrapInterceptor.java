@@ -246,7 +246,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap connect link contract.");
 
 			ConnectLinkContract bootstrapConnectLinkContract = ConnectLinkContract.findConnectLinkContract(graph, true);
-			bootstrapConnectLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_V_DO, XDIConstants.XDI_ADD_ROOT);
+			bootstrapConnectLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_CONNECT, XDIConstants.XDI_ADD_ROOT);
 
 			PolicyRoot policyRoot = bootstrapConnectLinkContract.getPolicyRoot(true);
 			policyRoot.createNotPolicy(true);

@@ -13,6 +13,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -232,11 +233,13 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		for (Message message : messageEnvelope.getMessages()) {
 
+			XDIArc toPeerRootXDIArc = message.getFromPeerRootXDIArc();
+			XDIArc fromPeerRootXDIArc = message.getToPeerRootXDIArc();
 			XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
-			XDIAddress toXDIAddress = message.getSenderXDIAddress();
 
 			Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
-			responseMessage.setToXDIAddress(toXDIAddress);
+			responseMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
+			responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 			responseMessage.setTimestamp(new Date());
 			responseMessage.setCorrelationXDIAddress(message.getXDIAddress());
 

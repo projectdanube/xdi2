@@ -14,6 +14,7 @@ import xdi2.core.features.error.XdiError;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -35,11 +36,13 @@ public final class ExecutionResult {
 
 	private Map<Operation, Graph> operationResultGraphs;
 	private Graph resultGraph;
+	private Exception resultGraphFinishedEx;
 
 	private ExecutionResult(Map<Operation, Graph> operationResultGraphs) {
 
 		this.operationResultGraphs = operationResultGraphs;
 		this.resultGraph = null;
+		this.resultGraphFinishedEx = null;
 	}
 
 	/*
@@ -49,19 +52,23 @@ public final class ExecutionResult {
 	public static ExecutionResult createExecutionResult(MessageEnvelope messageEnvelope) {
 
 		if (messageEnvelope == null) throw new NullPointerException();
-		
+
 		// set up operation result graphs
 
 		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
 
 		for (Operation operation : messageEnvelope.getOperations()) {
 
-			operationResultGraphs.put(operation, MemoryGraphFactory.getInstance().openGraph());
+			operationResultGraphs.put(operation, null);
 		}
 
 		// create execution result
 
-		return new ExecutionResult(operationResultGraphs);
+		ExecutionResult executionResult = new ExecutionResult(operationResultGraphs);
+
+		// done
+
+		return executionResult;
 	}
 
 	public static ExecutionResult createExceptionExecutionResult(ExecutionResult executionResult, Exception ex) {
@@ -78,34 +85,41 @@ public final class ExecutionResult {
 
 		// look for exception operation
 
+		Message exceptionMessage = null;
 		Operation exceptionOperation = null;
 
 		if (ex instanceof Xdi2MessagingException) {
 
 			ExecutionContext executionContext = ((Xdi2MessagingException) ex).getExecutionContext();
+			exceptionMessage = executionContext == null ? null : executionContext.getExceptionMessage();
 			exceptionOperation = executionContext == null ? null : executionContext.getExceptionOperation();
-			if (! executionResult.getOperationResultGraphs().containsKey(exceptionOperation)) exceptionOperation = null;
+			if (! executionResult.operationResultGraphs.containsKey(exceptionOperation)) exceptionOperation = null;
 		}
 
-		log.info("Exception operation: " + exceptionOperation);
+		if (log.isInfoEnabled()) log.info("Exception message: " + exceptionMessage + " - Exception operation: " + exceptionOperation);
 
 		// set up operation result graphs
 
 		Map<Operation, Graph> exceptionOperationResultGraphs = new HashMap<Operation, Graph> ();
 
-		for (Entry<Operation, Graph> entry : executionResult.getOperationResultGraphs().entrySet()) {
+		for (Entry<Operation, Graph> entry : executionResult.operationResultGraphs.entrySet()) {
 
 			Operation operation = entry.getKey();
 			Graph operationResultGraph = entry.getValue();
 
 			Graph exceptionOperationResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-			if (exceptionOperation == null || exceptionOperation.equals(operation)) {
+			boolean setErrorForThisOperation = false;
+			
+			if (exceptionOperation != null && exceptionOperation.equals(operation)) setErrorForThisOperation = true;
+			if (exceptionOperation == null && exceptionMessage != null && exceptionMessage.equals(operation.getMessage())) setErrorForThisOperation = true;
+			
+			if (setErrorForThisOperation) {
 
 				XdiError xdiError = XdiError.findXdiError(XdiCommonRoot.findCommonRoot(exceptionOperationResultGraph), true);
 				xdiError.setErrorString(errorString);
 				xdiError.setErrorTimestamp(new Date());
-			} else {
+			} else if (operationResultGraph != null) {
 
 				CopyUtil.copyGraph(operationResultGraph, exceptionOperationResultGraph, null);
 			}
@@ -118,6 +132,7 @@ public final class ExecutionResult {
 		// create execution result
 
 		ExecutionResult exceptionExecutionResult = new ExecutionResult(exceptionOperationResultGraphs);
+		exceptionExecutionResult.finish();
 
 		// done
 
@@ -128,19 +143,28 @@ public final class ExecutionResult {
 	 * Instance methods
 	 */
 
+	public Graph createOperationResultGraph(Operation operation) {
+
+		if (operation == null) throw new NullPointerException();
+
+		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.", this.resultGraphFinishedEx);
+		if (! this.operationResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation result graph for operation " + operation);
+		if (this.operationResultGraphs.get(operation) != null) throw new Xdi2RuntimeException("Operation result graph for operation " + operation + " has already been created.");
+
+		Graph operationResultGraph = MemoryGraphFactory.getInstance().openGraph();
+		this.operationResultGraphs.put(operation, operationResultGraph);
+
+		return operationResultGraph;
+	}
+
 	public Graph getOperationResultGraph(Operation operation) {
 
 		if (operation == null) throw new NullPointerException();
 
-		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
 		if (! this.operationResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation result graph for operation " + operation);
+		if (this.operationResultGraphs.get(operation) == null) throw new Xdi2RuntimeException("Operation result graph for operation " + operation + " has not been created.");
 
 		return this.operationResultGraphs.get(operation);
-	}
-
-	public Map<Operation, Graph> getOperationResultGraphs() {
-
-		return this.operationResultGraphs;
 	}
 
 	public Graph getResultGraph() {
@@ -155,12 +179,13 @@ public final class ExecutionResult {
 		return this.resultGraph != null;
 	}
 
-	public void finish() {
+	private void finish() {
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Result graph has already been finished.");
 
 		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
+		this.resultGraphFinishedEx = new Exception();
 
-		for (Graph operationResultGraph : this.getOperationResultGraphs().values()) CopyUtil.copyGraph(operationResultGraph, this.resultGraph, null);
+		for (Graph operationResultGraph : this.operationResultGraphs.values()) CopyUtil.copyGraph(operationResultGraph, this.resultGraph, null);
 	}
 }

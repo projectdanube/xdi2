@@ -78,9 +78,9 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 
 		try {
 
-			if (this.messagingTarget != null) {
+			if (this.getMessagingTarget() != null) {
 
-				this.messagingTarget.shutdown();
+				this.getMessagingTarget().shutdown();
 			}
 		} catch (Exception ex) {
 

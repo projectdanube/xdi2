@@ -17,6 +17,7 @@ import xdi2.core.util.GraphUtil;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -130,7 +131,7 @@ public class ConnectionInvitationContributor extends AbstractContributor impleme
 		MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
 		Message message = xdiClientRoute.createMessage(messageEnvelope, requestingAuthority);
 		message.setLinkContractXDIAddress(operation.getMessage().getLinkContractXDIAddress());
-		message.createOperation(XDIAddress.create("$do{}"), linkContractTemplateXDIaddress);
+		message.createOperation(XDIMessagingConstants.XDI_ADD_CONNECT, linkContractTemplateXDIaddress);
 
 		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(operation.getMessage().getContextNode().getContextNodes());
 

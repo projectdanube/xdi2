@@ -114,8 +114,9 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 		Graph resultGraph = messagingResponse.getResultGraph();
 
 		// close the client
+		// TODO: when do we close the client?
 
-		xdiClient.close();
+		if (xdiClient == null) xdiClient.close();
 
 		// let's look for our XDI address in the message result
 
