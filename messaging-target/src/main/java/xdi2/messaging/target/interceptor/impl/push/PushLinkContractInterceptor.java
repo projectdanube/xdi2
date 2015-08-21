@@ -118,8 +118,6 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 			if (targetXDIAddress != null) {
 
-				if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target address " + targetXDIAddress);
-
 				List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
 				if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
@@ -141,8 +139,6 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 				while (targetXDIStatements.hasNext()) {
 
 					XDIStatement targetXDIStatement = targetXDIStatements.next();
-
-					if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target statement " + targetXDIStatement);
 
 					List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIStatement);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
