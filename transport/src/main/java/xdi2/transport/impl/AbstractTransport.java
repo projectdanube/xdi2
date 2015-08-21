@@ -16,6 +16,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.LightMessagingResponse;
@@ -307,8 +308,8 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			Boolean async = message.getParameterBoolean(Message.XDI_ADD_PARAMETER_FULL);
-			if (Boolean.TRUE.equals(async)) return true;
+			Boolean full = message.getParameterBoolean(XDIMessagingConstants.XDI_ADD_MESSAGE_PARAMETER_FULL);
+			if (Boolean.TRUE.equals(full)) return true;
 		}
 
 		return false;
