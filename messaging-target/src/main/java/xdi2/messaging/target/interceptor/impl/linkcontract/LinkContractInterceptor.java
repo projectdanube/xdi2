@@ -320,7 +320,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// push required?
 
-		if (! Boolean.TRUE.equals(pushRequired)) {
+		if (Boolean.TRUE.equals(pushRequired)) {
 
 			throw new Xdi2PushRequiredException(targetXDIStatement, operation);
 		}
