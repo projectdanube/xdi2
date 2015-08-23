@@ -17,7 +17,7 @@ public interface XDIClient extends Closeable {
 
 	/**
 	 * Sends an XDI messaging request to an XDI endpoint.
-	 * @param messageEnvelope The XDI messaging request to send.
+	 * @param messageEnvelope The XDI messaging envelope to send.
 	 * @return The messaging response.
 	 */
 	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
