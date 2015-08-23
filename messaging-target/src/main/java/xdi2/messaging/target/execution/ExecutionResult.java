@@ -22,13 +22,13 @@ import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 /**
  * This class represent a result of a message envelope that has been executed
  * against a messaging target. Basically this encapsulates the results of all
- * the individual individuals in the message envelope.
+ * the individual operations in the message envelope.
  * 
- * The result graph of the individual operations constitute the overall result
- * graph.
+ * The merged result graphs of the individual operations constitute the
+ * overall result graph.
  * 
- * This is not yet a complete messaging response which a responder would return
- * to a requester.
+ * This can be used to create a messaging response which a responder would
+ * return to a requester.
  */
 public final class ExecutionResult {
 
