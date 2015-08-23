@@ -219,11 +219,11 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			SendInterceptor sendInterceptor = messagingTarget.getInterceptors().getInterceptor(SendInterceptor.class);
 			if (sendInterceptor == null) return InterceptorResult.DEFAULT;
 
-			List<Message> messages = sendInterceptor.getMessages(operation, executionContext);
+			List<Message> forwardingMessages = sendInterceptor.getForwardingMessages(operation, executionContext);
 
-			for (Message message : messages) {
+			for (Message forwardingMessage : forwardingMessages) {
 
-				XDIAddress targetXDIAddress = message.getContextNode().getXDIAddress();
+				XDIAddress targetXDIAddress = forwardingMessage.getContextNode().getXDIAddress();
 
 				// check permission on target address
 

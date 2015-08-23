@@ -1,6 +1,7 @@
 package xdi2.agent.impl;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -30,9 +31,9 @@ public class XDIBasicAgent implements XDIAgent {
 	private Deque<XDIAgentRouter<?, ?>> agentRouters;
 	private ManipulatorList manipulators;
 
-	public XDIBasicAgent(Deque<XDIAgentRouter<?, ?>> agentRouters) {
+	public XDIBasicAgent(Collection<XDIAgentRouter<?, ?>> agentRouters) {
 
-		this.agentRouters = agentRouters;
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (agentRouters);
 		this.manipulators = new ManipulatorList();
 	}
 
