@@ -62,24 +62,30 @@ public final class MessagingCloneUtil {
 	 * @param message The message to clone.
 	 * @return The cloned message.
 	 */
-	public static Message cloneMessage(Message message) {
+	public static Message cloneMessage(Message message, boolean newId) {
 
 		MessageCollection clonedMessageCollection = cloneMessageCollection(message.getMessageCollection());
 		clonedMessageCollection.deleteMessages();
 
 		XdiEntity xdiEntity = message.getXdiEntity();
 
-		if (xdiEntity instanceof XdiEntityInstanceUnordered) {
+		if (newId) {
 
-			XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceUnordered(true, false);
-			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
-		} else if (xdiEntity instanceof XdiEntityInstanceOrdered) {
+			if (xdiEntity instanceof XdiEntityInstanceUnordered) {
 
-			XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceOrdered(false, false);
-			CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
+				XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceUnordered(true, false);
+				CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
+			} else if (xdiEntity instanceof XdiEntityInstanceOrdered) {
+
+				XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceOrdered(false, false);
+				CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
+			} else {
+
+				throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
+			}
 		} else {
 
-			throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
+			CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
 		}
 
 		Message clonedMessage = clonedMessageCollection.getMessages().next();
@@ -93,9 +99,9 @@ public final class MessagingCloneUtil {
 	 * @param operation The operation to clone.
 	 * @return The cloned operation.
 	 */
-	public static Operation cloneOperation(Operation operation) {
+	public static Operation cloneOperation(Operation operation, boolean newId) {
 
-		Message clonedMessage = cloneMessage(operation.getMessage());
+		Message clonedMessage = cloneMessage(operation.getMessage(), newId);
 		clonedMessage.deleteOperations();
 
 		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);
