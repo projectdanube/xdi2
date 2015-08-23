@@ -2,7 +2,6 @@ package xdi2.agent.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Deque;
 import java.util.LinkedList;
 
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
-	private Deque<XDIAgentRouter<?, ?>> agentRouters;
+	private LinkedList<XDIAgentRouter<?, ?>> agentRouters;
 	private ManipulatorList manipulators;
 
 	public XDIBasicAgent(Collection<XDIAgentRouter<?, ?>> agentRouters) {
@@ -198,12 +197,12 @@ public class XDIBasicAgent implements XDIAgent {
 	 * Getters and setters
 	 */
 
-	public Deque<XDIAgentRouter<?, ?>> getAgentRouters() {
+	public LinkedList<XDIAgentRouter<?, ?>> getAgentRouters() {
 
 		return this.agentRouters;
 	}
 
-	public void setAgentRouters(Deque<XDIAgentRouter<?, ?>> agentRouters) {
+	public void setAgentRouters(LinkedList<XDIAgentRouter<?, ?>> agentRouters) {
 
 		this.agentRouters = agentRouters;
 	}
