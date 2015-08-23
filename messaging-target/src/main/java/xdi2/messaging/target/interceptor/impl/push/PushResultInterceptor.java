@@ -130,14 +130,14 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// write link contract into operation result graph
 
-				CopyUtil.copyContextNode(linkContract.getContextNode(), pushResultOperationResultGraph, null);
+				CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
 
 				// write operation and link contract into target graph
 
 				if (this.getTargetGraph() != null) {
 
 					CopyUtil.copyRelation(operation.getRelation(), this.getTargetGraph(), null);
-					CopyUtil.copyContextNode(linkContract.getContextNode(), this.getTargetGraph(), null);
+					CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
 				}
 			}
 

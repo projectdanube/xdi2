@@ -35,7 +35,7 @@
 	<!-- XDI DISCOVERY CLIENT AND AGENT -->
 
 	<bean id="XdiDiscoveryClient" class="xdi2.discovery.XDIDiscoveryClient">
-		<property name="registryXdiClient" value="https://discovery.xdi2.org/neustar-discovery-service-prod/" />
+		<property name="registryXdiClient" value="https://registry.xdi2.org/" />
 	</bean>
 
 	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">
@@ -122,6 +122,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
 					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -228,6 +229,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
 					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">

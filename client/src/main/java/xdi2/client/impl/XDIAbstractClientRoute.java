@@ -84,6 +84,18 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 		return message;
 	}
 
+	@Override
+	public Message createMessage(XDIAddress senderXDIAddress) {
+
+		return this.createMessage(this.createMessageEnvelope(), senderXDIAddress);
+	}
+
+	@Override
+	public Message createMessage() {
+
+		return this.createMessage(this.createMessageEnvelope());
+	}
+
 	/*
 	 * $get helper methods
 	 */
