@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
@@ -53,16 +54,31 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	}
 
 	/**
-	 * Factory method that creates an XDI message collection bound to a given XDI entity class.
+	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
 	 * @param messageEnvelope The XDI message envelope to which this XDI message collection belongs.
 	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiEntityClass(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
+	public static MessageCollection fromMessageEnvelopeAndXdiEntityCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
 
 		if (! isValid(xdiEntityCollection)) return null;
 
 		return new MessageCollection(messageEnvelope, xdiEntityCollection);
+	}
+
+	/**
+	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
+	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
+	 * @return The XDI message collection.
+	 */
+	public static MessageCollection fromXdiEntityCollection(XdiEntityCollection xdiEntityCollection) {
+
+		Graph graph = xdiEntityCollection.getGraph();
+
+		MessageEnvelope messageEnvelope = graph == null ? null : MessageEnvelope.fromGraph(graph);
+		if (messageEnvelope == null) return null;
+
+		return fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
 	}
 
 	/*

@@ -354,7 +354,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 				@Override
 				public MessageCollection map(XdiEntityCollection xdiEntityCollection) {
 
-					return MessageCollection.fromMessageEnvelopeAndXdiEntityClass(messageEnvelope, xdiEntityCollection);
+					return MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
 				}
 			});
 		}

@@ -13,8 +13,10 @@ import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
@@ -90,6 +92,21 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return null;
 	}
 
+	/**
+	 * Factory method that creates an XDI operation bound to a given relation.
+	 * @param relation The relation that is an XDI operation.
+	 * @return The XDI operation.
+	 */
+	public static Operation fromRelation(Relation relation) {
+
+		XdiEntity xdiEntity = XdiAbstractEntity.fromContextNode(relation.getContextNode());
+
+		Message message = xdiEntity == null ? null : Message.fromXdiEntity(xdiEntity);
+		if (xdiEntity == null) return null;
+
+		return fromMessageAndRelation(message, relation);
+	}
+
 	/*
 	 * Instance methods
 	 */
@@ -143,7 +160,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target inner root of the operation.
 	 * @return The target inner root of the operation.
 	 */
-	public XdiInnerRoot getTargetInnerRoot() {
+	public XdiInnerRoot getTargetXdiInnerRoot() {
 
 		ContextNode targetContextNode = this.getRelation().followContextNode();
 		if (targetContextNode == null) return null;
@@ -163,7 +180,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public XDIAddress getTargetXDIAddress() {
 
-		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
+		XdiInnerRoot targetInnerRoot = this.getTargetXdiInnerRoot();
 
 		if (targetInnerRoot != null) {
 
@@ -180,7 +197,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public Iterator<XDIStatement> getTargetXDIStatements() {
 
-		XdiInnerRoot targetInnerRoot = this.getTargetInnerRoot();
+		XdiInnerRoot targetInnerRoot = this.getTargetXdiInnerRoot();
 
 		if (targetInnerRoot != null) {
 

@@ -21,6 +21,7 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -92,6 +93,21 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (! isValid(xdiEntity)) return null;
 
 		return new Message(messageCollection, xdiEntity);
+	}
+
+	/**
+	 * Factory method that creates an XDI message bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI message.
+	 * @return The XDI message.
+	 */
+	public static Message fromXdiEntity(XdiEntity xdiEntity) {
+
+		XdiEntityCollection xdiEntityCollection = XdiEntityCollection.fromContextNode(xdiEntity.getContextNode().getContextNode());
+
+		MessageCollection messageCollection = xdiEntityCollection == null ? null : MessageCollection.fromXdiEntityCollection(xdiEntityCollection);
+		if (messageCollection == null) return null;
+
+		return fromMessageCollectionAndXdiEntity(messageCollection, xdiEntity);
 	}
 
 	/*
@@ -955,7 +971,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
 
-			XdiInnerRoot targetInnerRoot = operation.getTargetInnerRoot();
+			XdiInnerRoot targetInnerRoot = operation.getTargetXdiInnerRoot();
 
 			if (targetInnerRoot != null) {
 
