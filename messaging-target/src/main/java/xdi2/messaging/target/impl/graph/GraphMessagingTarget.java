@@ -80,19 +80,19 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public void before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		super.before(messageEnvelope, executionResult, executionContext);
+	public boolean before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		this.graph.beginTransaction();
+
+		return super.before(messageEnvelope, executionResult, executionContext);
 	}
 
 	@Override
 	public void after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		super.after(messageEnvelope, executionResult, executionContext);
-
 		this.graph.commitTransaction();
+
+		super.after(messageEnvelope, executionResult, executionContext);
 	}
 
 	@Override
