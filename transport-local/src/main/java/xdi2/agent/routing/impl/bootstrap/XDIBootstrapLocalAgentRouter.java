@@ -10,6 +10,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
 
+// TODO: it would be nice if this was accessible from xdi2-client
 public class XDIBootstrapLocalAgentRouter extends XDILocalAgentRouter implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
 
 	private static XDIArc BOOTSTRAP_OWNER_PEER_ROOT_XDI_ARC;
