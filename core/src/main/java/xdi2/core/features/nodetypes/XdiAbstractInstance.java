@@ -5,6 +5,7 @@ import java.util.Iterator;
 import xdi2.core.ContextNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -62,6 +63,20 @@ public abstract class XdiAbstractInstance<EQC extends XdiCollection<EQC, EQI, C,
 	/*
 	 * Methods for arcs
 	 */
+
+	public static XDIArc createXDIArc(Character cs, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
+
+		return XDIArc.fromComponents(
+				cs, 
+				false, 
+				false, 
+				false, 
+				attribute, 
+				immutable, 
+				relative, 
+				literal, 
+				xref);
+	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc, boolean attribute) {
 

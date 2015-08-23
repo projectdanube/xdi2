@@ -11,6 +11,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered.MappingContextNodeXdiInstanceUnorderedIterator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.CastingIterator;
 import xdi2.core.util.iterators.CompositeIterator;
@@ -111,9 +112,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 	public U setXdiInstanceUnordered(boolean attribute, boolean immutable, boolean relative, String literal) {
 
-		if (literal == null) literal = XDIArc.literalFromRandomUuid();
-
-		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal);
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal, null);
 
 		ContextNode instanceContextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -128,7 +127,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		if (literal == null) throw new NullPointerException();
 
-		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal);
+		XDIArc XDIarc = XdiAbstractInstanceUnordered.createXDIArc(attribute, immutable, relative, literal, null);
 
 		ContextNode instanceContextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (instanceContextNode == null) return null;
@@ -179,11 +178,9 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 	public O setXdiInstanceOrdered(boolean attribute, boolean immutable, boolean relative, long index) {
 
-		if (index < 0) index = this.getXdiInstancesOrderedCount();
+		String literal = index >= 0 ? Long.toString(index) : Long.toString(this.getXdiInstancesOrderedCount());
 
-		String literal = Long.toString(index);
-
-		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal);
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal, null);
 
 		ContextNode contextNode = this.getContextNode().setContextNode(XDIarc);
 
@@ -200,7 +197,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 		String literal = Long.toString(index);
 
-		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal);
+		XDIArc XDIarc = XdiAbstractInstanceOrdered.createXDIArc(attribute, immutable, relative, literal, null);
 
 		ContextNode contextNode = this.getContextNode().getContextNode(XDIarc, false);
 		if (contextNode == null) return null;
@@ -281,6 +278,20 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	/*
 	 * Methods for arcs
 	 */
+
+	public static XDIArc createXDIArc(Character cs, boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
+
+		return XDIArc.fromComponents(
+				cs, 
+				false, 
+				false, 
+				true, 
+				attribute, 
+				immutable, 
+				relative, 
+				literal, 
+				xref);
+	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc) {
 

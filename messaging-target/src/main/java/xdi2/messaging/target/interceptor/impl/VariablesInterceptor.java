@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -180,11 +180,11 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (newArc == null) {
 
-			newArc = XdiAbstractInstanceUnordered.createXDIArc(false, true, false, XDIArc.literalFromRandomUuid());
+			newArc = XdiEntityInstanceUnordered.createXDIArc();
 			putVariable(executionContext, XDIarc, newArc);
 		}
 
-			// done
+		// done
 
 		return newArc;
 	}

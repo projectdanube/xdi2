@@ -6,6 +6,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.XDIXRef;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
@@ -64,18 +65,26 @@ public abstract class XdiAbstractInstanceOrdered<EQC extends XdiCollection<EQC, 
 	 * Methods for arcs
 	 */
 
+	public static XDIArc createXDIArc(boolean attribute, boolean immutable, boolean relative, String literal, XDIXRef xref) {
+
+		if (literal == null && xref == null) literal = Long.toString(0);
+
+		return XdiAbstractInstance.createXDIArc(XDIConstants.CS_INSTANCE_ORDERED, attribute, immutable, relative, literal, xref);
+	}
+
 	public static XDIArc createXDIArc(boolean attribute, boolean immutable, boolean relative, String literal) {
 
-		return XDIArc.fromComponents(
-				XDIConstants.CS_INSTANCE_ORDERED, 
-				false, 
-				false, 
-				false, 
-				attribute, 
-				immutable, 
-				relative, 
-				literal, 
-				null);
+		return createXDIArc(attribute, immutable, relative, literal, null);
+	}
+
+	public static XDIArc createXDIArc(boolean attribute, String literal) {
+
+		return createXDIArc(attribute, true, false, literal);
+	}
+
+	public static XDIArc createXDIArc(boolean attribute) {
+
+		return createXDIArc(attribute, (String) null);
 	}
 
 	public static boolean isValidXDIArc(XDIArc XDIarc, boolean attribute) {
