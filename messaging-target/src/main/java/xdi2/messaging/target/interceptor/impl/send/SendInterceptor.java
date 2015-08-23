@@ -30,9 +30,11 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
@@ -83,15 +85,15 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		if (! (operation instanceof SendOperation)) return InterceptorResult.DEFAULT;
 
-		// get link contract template(s)
+		// get forwarding message(s)
 
-		List<Message> messages = this.getMessages(operation, executionContext);
+		List<Message> forwardingMessages = this.getForwardingMessages(operation, executionContext);
 
 		// send
 
-		for (Message message : messages) {
+		for (Message forwardingMessage : forwardingMessages) {
 
-			this.send(message, operation, operationResultGraph, executionContext);
+			this.send(forwardingMessage, operation, operationResultGraph, executionContext);
 		}
 
 		// done
@@ -111,80 +113,80 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 	 * Helper methods
 	 */
 
-	public List<Message> getMessages(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public List<Message> getForwardingMessages(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		List<Message> messages = SendInterceptor.getMessages(executionContext);
-		if (messages != null) return messages;
+		List<Message> forwardingMessages = SendInterceptor.getForwardingMessages(executionContext);
+		if (forwardingMessages != null) return forwardingMessages;
 
-		if (messages == null && operation.getTargetXDIAddress() != null) messages = this.messageFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext);
-		if (messages == null && operation.getTargetXdiInnerRoot() != null) messages = this.messagesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext);
-		if (messages == null) throw new Xdi2MessagingException("No messages(s) in operation " + operation, null, executionContext);
+		if (forwardingMessages == null && operation.getTargetXDIAddress() != null) forwardingMessages = this.forwardingMessageFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext);
+		if (forwardingMessages == null && operation.getTargetXdiInnerRoot() != null) forwardingMessages = this.forwardingMessagesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext);
+		if (forwardingMessages == null) throw new Xdi2MessagingException("No forwarding messages(s) in operation " + operation, null, executionContext);
 
-		SendInterceptor.putMessages(executionContext, messages);
+		SendInterceptor.putForwardingMessages(executionContext, forwardingMessages);
 
-		return messages;
+		return forwardingMessages;
 	}
 
-	private List<Message> messageFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private List<Message> forwardingMessageFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// use agent to obtain message
+		// use agent to obtain forwarding message
 
-		XDIAddress messageXDIaddress = targetXDIAddress;
+		XDIAddress forwardingMessageXDIaddress = targetXDIAddress;
 
-		ContextNode messageContextNode;
+		ContextNode forwardingMessageContextNode;
 
 		try {
 
-			messageContextNode = this.getXdiAgent().get(
-					messageXDIaddress,
+			forwardingMessageContextNode = this.getXdiAgent().get(
+					forwardingMessageXDIaddress,
 					new SetLinkContractMessageManipulator(PublicLinkContract.class));
 		} catch (Exception ex) {
 
-			throw new Xdi2MessagingException("Unable to obtain message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("Unable to obtain forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (messageContextNode == null) throw new Xdi2MessagingException("Cannot find message at address " + targetXDIAddress, null, executionContext);
+		if (forwardingMessageContextNode == null) throw new Xdi2MessagingException("Cannot find forwarding message at address " + targetXDIAddress, null, executionContext);
 
-		XdiEntity messageXdiEntity = XdiAbstractEntity.fromContextNode(messageContextNode);
-		if (messageXdiEntity == null) throw new Xdi2MessagingException("Invalid message context node at address " + targetXDIAddress, null, executionContext);
+		XdiEntity forwardingMessageXdiEntity = XdiAbstractEntity.fromContextNode(forwardingMessageContextNode);
+		if (forwardingMessageXdiEntity == null) throw new Xdi2MessagingException("Invalid forwarding message context node at address " + targetXDIAddress, null, executionContext);
 
-		Message message = Message.fromXdiEntity(messageXdiEntity);
-		if (message == null) throw new Xdi2MessagingException("Invalid message at address " + targetXDIAddress, null, executionContext);
+		Message forwardingMessage = Message.fromXdiEntity(forwardingMessageXdiEntity);
+		if (forwardingMessage == null) throw new Xdi2MessagingException("Invalid forwarding message at address " + targetXDIAddress, null, executionContext);
 
-		// clone message with new ID
+		// clone forwarding message with new ID
 
-		message = MessagingCloneUtil.cloneMessage(message, true);
+		forwardingMessage = MessagingCloneUtil.cloneMessage(forwardingMessage, true);
 
 		// done
 
-		return Collections.singletonList(message);
+		return Collections.singletonList(forwardingMessage);
 	}
 
-	private List<Message> messagesFromTargetXdiInnerRoot(XdiInnerRoot targetXdiInnerRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private List<Message> forwardingMessagesFromTargetXdiInnerRoot(XdiInnerRoot targetXdiInnerRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// get the inner graph
 
 		Graph innerGraph = targetXdiInnerRoot.getInnerGraph();
 
-		// clone messages without new ID
+		// clone forwarding messages without new ID
 
-		List<Message> messages = new ArrayList<Message> ();
+		List<Message> forwardingMessages = new ArrayList<Message> ();
 
 		for (Message message : MessageEnvelope.fromGraph(innerGraph).getMessages()) {
 
-			messages.add(MessagingCloneUtil.cloneMessage(message, true));
+			forwardingMessages.add(MessagingCloneUtil.cloneMessage(message, true));
 		}
 
-		// return messages
+		// return forwarding messages
 
 		return new IteratorListMaker<Message> (MessageEnvelope.fromGraph(innerGraph).getMessages()).list();
 	}
 
-	private void send(Message message, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void send(Message forwardingMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// find route for message
+		// find route for forwarding message
 
-		XDIArc toPeerRootXDIArc = message.getToPeerRootXDIArc();
+		XDIArc toPeerRootXDIArc = forwardingMessage.getToPeerRootXDIArc();
 
 		XDIClientRoute<? extends XDIClient> xdiClientRoute;
 
@@ -199,17 +201,24 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 			throw new Xdi2MessagingException("Client problem while routing to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		// send the message
+		// disable link contracts in case the forwarding message is routed back to us
+
+		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
+
+		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
+		if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(forwardingMessage);
+
+		// send the forwarding message
 
 		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
 
 		try {
 
-			MessagingResponse forwardingMessagingResponse = xdiClient.send(message.getMessageEnvelope());
+			MessagingResponse forwardingMessagingResponse = xdiClient.send(forwardingMessage.getMessageEnvelope());
 			CopyUtil.copyGraph(forwardingMessagingResponse.getResultGraph(), operationResultGraph, null);
 		} catch (Xdi2ClientException ex) {
 
-			throw new Xdi2MessagingException("Problem while sending message " + message + " to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("Problem while sending forwarding message " + forwardingMessage + " to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
 		}
 	}
 
@@ -231,18 +240,18 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_MESSAGES_PER_OPERATION = SendInterceptor.class.getCanonicalName() + "#messagesperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_FORWARDINGMESSAGES_PER_OPERATION = SendInterceptor.class.getCanonicalName() + "#forwardingmessagesperoperation";
 	private static final String EXECUTIONCONTEXT_KEY_NEWID_PER_OPERATION = SendInterceptor.class.getCanonicalName() + "#newidperoperation";
 
 	@SuppressWarnings("unchecked")
-	public static List<Message> getMessages(ExecutionContext executionContext) {
+	public static List<Message> getForwardingMessages(ExecutionContext executionContext) {
 
-		return (List<Message>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_MESSAGES_PER_OPERATION);
+		return (List<Message>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_FORWARDINGMESSAGES_PER_OPERATION);
 	}
 
-	public static void putMessages(ExecutionContext executionContext, List<Message> messages) {
+	public static void putForwardingMessages(ExecutionContext executionContext, List<Message> forwardingMessages) {
 
-		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_MESSAGES_PER_OPERATION, messages);
+		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_FORWARDINGMESSAGES_PER_OPERATION, forwardingMessages);
 	}
 
 	public static Boolean getNewId(ExecutionContext executionContext) {

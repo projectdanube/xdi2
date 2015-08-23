@@ -1,8 +1,8 @@
 package xdi2.agent.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +27,10 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
-	private Collection<XDIAgentRouter<?, ?>> agentRouters;
+	private Deque<XDIAgentRouter<?, ?>> agentRouters;
 	private ManipulatorList manipulators;
 
-	public XDIBasicAgent(Collection<XDIAgentRouter<?, ?>> agentRouters) {
+	public XDIBasicAgent(Deque<XDIAgentRouter<?, ?>> agentRouters) {
 
 		this.agentRouters = agentRouters;
 		this.manipulators = new ManipulatorList();
@@ -38,20 +38,20 @@ public class XDIBasicAgent implements XDIAgent {
 
 	public XDIBasicAgent(XDIAgentRouter<?, ?>... agentRouters) {
 
-		this.agentRouters = Arrays.asList(agentRouters);
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (Arrays.asList(agentRouters));
 		this.manipulators = new ManipulatorList();
 	}
 
 	public XDIBasicAgent(XDIAgentRouter<?, ?> agentRouter) {
 
-		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
 		this.agentRouters.add(agentRouter);
 		this.manipulators = new ManipulatorList();
 	}
 
 	public XDIBasicAgent() {
 
-		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
 		this.manipulators = new ManipulatorList();
 	}
 
@@ -197,12 +197,12 @@ public class XDIBasicAgent implements XDIAgent {
 	 * Getters and setters
 	 */
 
-	public Collection<XDIAgentRouter<?, ?>> getAgentRouters() {
+	public Deque<XDIAgentRouter<?, ?>> getAgentRouters() {
 
 		return this.agentRouters;
 	}
 
-	public void setAgentRouters(Collection<XDIAgentRouter<?, ?>> agentRouters) {
+	public void setAgentRouters(Deque<XDIAgentRouter<?, ?>> agentRouters) {
 
 		this.agentRouters = agentRouters;
 	}

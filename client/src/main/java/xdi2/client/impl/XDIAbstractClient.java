@@ -35,6 +35,8 @@ public abstract class XDIAbstractClient implements XDIClient {
 	@Override
 	public final MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Preparing to send.");
+
 		// timestamp
 
 		Date beginTimestamp = new Date();
@@ -70,6 +72,8 @@ public abstract class XDIAbstractClient implements XDIClient {
 		}
 
 		// done
+
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Sent and received successfully.");
 
 		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 

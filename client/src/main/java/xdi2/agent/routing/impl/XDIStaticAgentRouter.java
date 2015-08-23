@@ -9,14 +9,14 @@ import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.core.syntax.XDIArc;
 
-public class XDIStaticAgentRouter extends XDIAbstractAgentRouter<XDIClientRoute<XDIClient>, XDIClient> implements XDIAgentRouter<XDIClientRoute<XDIClient>, XDIClient> {
+public class XDIStaticAgentRouter extends XDIAbstractAgentRouter<XDIClientRoute<? extends XDIClient>, XDIClient> implements XDIAgentRouter<XDIClientRoute<? extends XDIClient>, XDIClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIStaticAgentRouter.class);
 
 	private XDIArc toPeerRootXDIArc;
-	private XDIClientRoute<XDIClient> xdiClientRoute;
+	private XDIClientRoute<? extends XDIClient> xdiClientRoute;
 
-	public XDIStaticAgentRouter(XDIArc toPeerRootXDIArc, XDIClientRoute<XDIClient> xdiClientRoute) {
+	public XDIStaticAgentRouter(XDIArc toPeerRootXDIArc, XDIClientRoute<? extends XDIClient> xdiClientRoute) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 		this.xdiClientRoute = xdiClientRoute;
@@ -29,7 +29,7 @@ public class XDIStaticAgentRouter extends XDIAbstractAgentRouter<XDIClientRoute<
 	}
 
 	@Override
-	protected XDIClientRoute<XDIClient> routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
+	protected XDIClientRoute<? extends XDIClient> routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
 
 		// check if we can provide the TO peer root
 
@@ -67,12 +67,12 @@ public class XDIStaticAgentRouter extends XDIAbstractAgentRouter<XDIClientRoute<
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
-	public XDIClientRoute<XDIClient> getXdiClientRoute() {
+	public XDIClientRoute<? extends XDIClient> getXdiClientRoute() {
 
 		return this.xdiClientRoute;
 	}
 
-	public void setXdiClientRoute(XDIClientRoute<XDIClient> xdiClientRoute) {
+	public void setXdiClientRoute(XDIClientRoute<? extends XDIClient> xdiClientRoute) {
 
 		this.xdiClientRoute = xdiClientRoute;
 	}

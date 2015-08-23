@@ -11,7 +11,7 @@ import xdi2.client.impl.ManipulatorList;
 import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.syntax.XDIArc;
 
-public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<CLIENT>, CLIENT extends XDIClient> implements XDIAgentRouter<ROUTE, CLIENT> {
+public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? extends CLIENT>, CLIENT extends XDIClient> implements XDIAgentRouter<ROUTE, CLIENT> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractAgentRouter.class);
 
