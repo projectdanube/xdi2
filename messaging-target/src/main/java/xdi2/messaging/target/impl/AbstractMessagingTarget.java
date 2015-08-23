@@ -384,7 +384,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				}
 			} catch (Xdi2PushRequiredException ex) {
 
-				this.pushRequired(ex, operationResultGraph);
+				this.instantiatePushLinkContract(ex, operationResultGraph);
 			}
 
 			// execute operation interceptors (after)
@@ -562,7 +562,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * Push contract required, if an operation result is not available
 	 */
 
-	private void pushRequired(Xdi2PushRequiredException ex, Graph operationResultGraph) {
+	private void instantiatePushLinkContract(Xdi2PushRequiredException ex, Graph operationResultGraph) {
 
 		XDIAddress authorizingAuthority = this.getOwnerXDIAddress();
 		XDIAddress requestingAuthority = ex.getOperation().getMessage().getSenderXDIAddress();
@@ -579,8 +579,9 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.PUSH_LINK_CONTRACT_TEMPLATE);
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
+		linkContractInstantiation.setVariableValues(variableValues);
 
-		linkContractInstantiation.execute(operationResultGraph, variableValues, true);
+		linkContractInstantiation.execute(operationResultGraph, true, true);
 	}
 
 	/*

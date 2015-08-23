@@ -139,10 +139,11 @@ public class ConnectionRequestContributor extends AbstractContributor implements
 
 		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
+		linkContractInstantiation.setVariableValues(variableValues);
 
 		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(
 				this.getTargetGraph(), 
-				variableValues, 
+				true,
 				true);
 
 		// return link contract instance in result

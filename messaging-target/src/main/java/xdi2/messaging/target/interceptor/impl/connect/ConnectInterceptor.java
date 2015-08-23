@@ -25,7 +25,6 @@ import xdi2.messaging.target.contributor.ContributorMount;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
@@ -138,10 +137,11 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
+		linkContractInstantiation.setVariableValues(variableValues);
 
 		GenericLinkContract genericLinkContract = linkContractInstantiation.execute(
 				this.getTargetGraph(), 
-				variableValues, 
+				true,
 				true);
 
 		// return link contract instance in result

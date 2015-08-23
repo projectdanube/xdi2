@@ -23,25 +23,27 @@ public class LinkContractInstantiation {
 	private LinkContractTemplate linkContractTemplate;
 	private XDIAddress authorizingAuthority;
 	private XDIAddress requestingAuthority;
+	private Map<XDIArc, XDIAddress> variableValues;
 
-	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority) {
+	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, Map<XDIArc, XDIAddress> variableValues) {
 
 		this.linkContractTemplate = linkContractTemplate;
 		this.authorizingAuthority = authorizingAuthority;
 		this.requestingAuthority = requestingAuthority;
+		this.variableValues = variableValues;
 	}
 
 	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate) {
 
-		this(linkContractTemplate, null, null);
+		this(linkContractTemplate, null, null, null);
 	}
 
 	public LinkContractInstantiation() {
 
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 
-	public GenericLinkContract execute(Graph targetGraph, Map<XDIArc, XDIAddress> variableValues, boolean create) {
+	public GenericLinkContract execute(Graph targetGraph, boolean singleton, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
@@ -50,12 +52,12 @@ public class LinkContractInstantiation {
 		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known authorizing authority.");
 		if (this.getRequestingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known requesting authority.");
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(targetGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, create);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(targetGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, singleton, create);
 		if (genericLinkContract == null) return null;
 		if (genericLinkContract != null && ! create) return genericLinkContract;
 
 		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + genericLinkContract + " from link contract template " + this.getLinkContractTemplate());
-		
+
 		// set up variable values
 
 		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
@@ -110,5 +112,15 @@ public class LinkContractInstantiation {
 	public void setRequestingAuthority(XDIAddress requestingAuthority) {
 
 		this.requestingAuthority = requestingAuthority;
+	}
+
+	public Map<XDIArc, XDIAddress> getVariableValues() {
+
+		return this.variableValues;
+	}
+
+	public void setVariableValues(Map<XDIArc, XDIAddress> variableValues) {
+
+		this.variableValues = variableValues;
 	}
 }
