@@ -47,7 +47,7 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 
 		for (Operation operation : messageEnvelope.getOperations()) {
 
-			XdiInnerRoot xdiInnerRoot = operation.getTargetInnerRoot();
+			XdiInnerRoot xdiInnerRoot = operation.getTargetXdiInnerRoot();
 			if (xdiInnerRoot == null) continue;
 
 			CopyUtil.copyContextNodeContents(xdiInnerRoot.getContextNode(), resultGraph, null);
