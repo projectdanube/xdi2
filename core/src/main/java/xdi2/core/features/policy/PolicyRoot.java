@@ -72,15 +72,15 @@ public final class PolicyRoot extends Policy {
 		while (policies.hasNext()) {
 
 			Policy policy = policies.next();
-			if (! policy.evaluate(policyEvaluationContext)) return false;
+			if (policy.evaluate(policyEvaluationContext)) return true;
 		}
 
 		while (operators.hasNext()) {
 
 			Operator operator = operators.next();
-			for (boolean result : operator.evaluate(policyEvaluationContext)) if (! result) return false;
+			for (boolean result : operator.evaluate(policyEvaluationContext)) if (result) return true;
 		}
 
-		return true;
+		return false;
 	}
 }
