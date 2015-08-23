@@ -67,7 +67,7 @@ public class ConnectLinkContract extends GenericLinkContract {
 
 	public static XDIAddress createConnectLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null);
+		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null, true);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ConnectLinkContract extends GenericLinkContract {
 		XDIAddress ownerXDIAddress = GraphUtil.getOwnerXDIAddress(graph);
 		if (ownerXDIAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null, true);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_CONNECT, null, true, create);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());
