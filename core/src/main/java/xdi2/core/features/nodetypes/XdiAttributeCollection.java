@@ -123,7 +123,7 @@ public class XdiAttributeCollection extends XdiAbstractCollection<XdiAttributeCo
 
 	public static XDIArc createXDIArc(Character cs, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return XdiAbstractCollection.createXDIArc(cs, false, immutable, relative, literal, xref);
+		return XdiAbstractCollection.createXDIArc(cs, true, immutable, relative, literal, xref);
 	}
 
 	public static XDIArc createXDIArc(XDIArc XDIarc) {
