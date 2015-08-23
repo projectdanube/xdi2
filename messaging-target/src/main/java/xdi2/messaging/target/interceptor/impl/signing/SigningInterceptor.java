@@ -4,7 +4,6 @@ import java.security.GeneralSecurityException;
 
 import xdi2.core.Graph;
 import xdi2.core.features.signatures.Signature;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.security.sign.SignatureCreator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
@@ -56,12 +55,11 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 		// check parameters
 
 		if (! XDI_ADD_DO_SIG.equals(operation.getOperationXDIAddress())) return InterceptorResult.DEFAULT;
-		if (operation.getTargetInnerRoot() == null) return InterceptorResult.DEFAULT;
+		if (operation.getTargetXdiInnerRoot() == null) return InterceptorResult.DEFAULT;
 
-		// construct inner graph to sign
+		// get the inner graph
 
-		Graph innerGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNodeContents(operation.getTargetInnerRoot().getContextNode(), innerGraph, null);
+		Graph innerGraph = operation.getTargetXdiInnerRoot().getInnerGraph();
 
 		// sign inner graph
 

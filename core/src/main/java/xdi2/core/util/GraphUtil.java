@@ -85,4 +85,17 @@ public final class GraphUtil {
 
 		return graph.setDeepContextNode(contextNodeXDIAddress).setLiteralNode(literalData);
 	}
+
+	/**
+	 * Creates a relative graph in which a given context node is the root context node.
+	 * @param contextNode A context node in a graph.
+	 * @return The relative graph.
+	 */
+	public static Graph relativeGraph(ContextNode contextNode) {
+
+		Graph relativeGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNodeContents(contextNode, relativeGraph, null);
+
+		return relativeGraph;
+	}
 }
