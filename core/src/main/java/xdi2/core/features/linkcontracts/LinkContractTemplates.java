@@ -8,6 +8,7 @@ import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.NotNullIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public class LinkContractTemplates {
 
@@ -18,7 +19,7 @@ public class LinkContractTemplates {
 	 * @param graph The graph.
 	 * @return An iterator over link contract templates.
 	 */
-	public static Iterator<LinkContractTemplate> getAllLinkContractTemplates(Graph graph) {
+	public static ReadOnlyIterator<LinkContractTemplate> getAllLinkContractTemplates(Graph graph) {
 
 		ContextNode root = graph.getRootContextNode(true);
 		Iterator<ContextNode> allContextNodes = root.getAllContextNodes();
