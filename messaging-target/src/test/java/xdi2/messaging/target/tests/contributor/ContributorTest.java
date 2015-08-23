@@ -1,10 +1,9 @@
 package xdi2.messaging.target.tests.contributor;
 
-import junit.framework.TestCase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.Node;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -76,7 +75,7 @@ public class ContributorTest extends TestCase {
 
 			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
 
- 			log.info("Result: " + executionResult.getResultGraph().toString());
+ 			log.info("Result: " + executionResult.getFinishedResultGraph().toString());
 
 			// validate result
 
@@ -84,7 +83,7 @@ public class ContributorTest extends TestCase {
 			Node referenceNode = referenceGraph.getDeepNode(target);
 			CopyUtil.copyNode(referenceNode, tempGraph, null);
 
-			assertEquals(executionResult.getResultGraph(), tempGraph);
+			assertEquals(executionResult.getFinishedResultGraph(), tempGraph);
 
 			tempGraph.close();
 		}

@@ -58,6 +58,13 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 	 * Instance methods
 	 */
 
+	public void onMessagingResponse(MessagingResponse messagingResponse) {
+
+		this.messagingResponse = messagingResponse;
+
+		this.getCallback().onMessagingResponse(this, messagingResponse);
+	}
+
 	public MessageEnvelope getMessageEnvelope() {
 
 		return this.messageEnvelope;
@@ -67,6 +74,10 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 
 		return this.messagingResponse;
 	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public Callback getCallback() {
 
@@ -84,6 +95,6 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 
 	public interface Callback {
 
-		public void onMessagingResponse(MessagingResponse messagingResponse);
+		public void onMessagingResponse(FutureMessagingResponse futureMessagingResponse, MessagingResponse messagingResponse);
 	}
 }

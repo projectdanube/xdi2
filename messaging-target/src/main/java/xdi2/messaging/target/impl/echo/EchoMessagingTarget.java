@@ -1,5 +1,7 @@
 package xdi2.messaging.target.impl.echo;
 
+import xdi2.core.Graph;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
@@ -20,7 +22,10 @@ public class EchoMessagingTarget extends AbstractMessagingTarget {
 	@Override
 	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		CopyUtil.copyGraph(messageEnvelope.getGraph(), executionResult.getResultGraph(), null);
+		Graph finishedResultGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyGraph(messageEnvelope.getGraph(), finishedResultGraph, null);
+
+		executionResult.finish(finishedResultGraph);
 	}
 
 	@Override

@@ -150,7 +150,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
 			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
-			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult Graph: " + executionResult.getResultGraph());
+			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult: " + executionResult);
 
 			// make messaging response
 
@@ -163,13 +163,9 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 
-			// insert exception into execution result
-
-			ExecutionResult exceptionExecutionResult = ExecutionResult.createExceptionExecutionResult(executionResult, ex);
-
 			// make messaging response
 
-			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, exceptionExecutionResult);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
 
 			// execute interceptors (exception)
 
@@ -214,7 +210,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// result graph
 
-		Graph resultGraph = executionResult.getResultGraph();
+		Graph resultGraph = executionResult.getFinishedResultGraph();
 
 		// create messaging response
 
@@ -245,7 +241,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			for (Operation operation : message.getOperations()) {
 
-				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+				Graph operationResultGraph = executionResult.getFinishedOperationResultGraph(operation);
 				if (operationResultGraph == null) continue;
 
 				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);

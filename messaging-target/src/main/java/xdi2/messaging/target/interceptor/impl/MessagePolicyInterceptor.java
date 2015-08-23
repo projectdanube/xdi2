@@ -74,7 +74,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// evaluate the XDI policy of this message
 
@@ -93,7 +93,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// done
 

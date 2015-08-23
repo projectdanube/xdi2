@@ -36,8 +36,13 @@ public class XDIBootstrap {
 				// standard link contract templates
 
 				"$all{$do}/$all/\n" +
+				"($all{$do}$if/$true){$_from}/$is/{$from}\n" +
+
 				"$get{$do}/$get/{$target}\n" +
-				"$push{$do}/$push/{$target}\n";
+				"($get{$do}$if/$true){$_from}/$is/{$from}\n" +
+
+				"$push{$do}/$push/{$target}\n" +
+				"$push{$do}/$is()/{($from)}\n";
 
 		try {
 

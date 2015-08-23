@@ -6,7 +6,6 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 
 /**
@@ -24,7 +23,7 @@ public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 	 * @param executionContext The current execution context.
 	 * @return The new target address, or the original target address, or null to skip.
 	 */
-	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 
 	/**
 	 * Replaces or skips the target statement before it is executed.
@@ -34,5 +33,5 @@ public interface TargetInterceptor extends Interceptor<MessagingTarget> {
 	 * @param executionContext The current execution context.
 	 * @return The new target statement, or the original target statement, or null to skip.
 	 */
-	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException;
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

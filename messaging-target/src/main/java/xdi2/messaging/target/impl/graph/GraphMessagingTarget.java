@@ -80,25 +80,25 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public boolean before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public boolean before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		this.graph.beginTransaction();
 
-		return super.before(messageEnvelope, executionResult, executionContext);
+		return super.before(messageEnvelope, executionContext, executionResult);
 	}
 
 	@Override
-	public void after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		this.graph.commitTransaction();
 
-		super.after(messageEnvelope, executionResult, executionContext);
+		super.after(messageEnvelope, executionContext, executionResult);
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
-		super.exception(messageEnvelope, executionResult, executionContext, ex);
+		super.exception(messageEnvelope, executionContext, executionResult, ex);
 
 		this.graph.rollbackTransaction();
 	}

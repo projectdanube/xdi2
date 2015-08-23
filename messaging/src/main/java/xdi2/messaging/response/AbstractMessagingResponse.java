@@ -1,8 +1,13 @@
 package xdi2.messaging.response;
 
+import java.util.Iterator;
+
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
+import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.util.iterators.EmptyIterator;
 
 public abstract class AbstractMessagingResponse implements MessagingResponse {
 
@@ -61,6 +66,22 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 		if (resultGraph == null) return null;
 
 		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(resultGraph), false);
+	}
+
+	@Override
+	public boolean hasPushLinkContracts() {
+
+		return this.getPushLinkContracts().hasNext();
+	}
+
+	@Override
+	public Iterator<LinkContract> getPushLinkContracts() {
+
+		Graph resultGraph = this.getResultGraph();
+		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
+
+		// TODO: fix this, not all link contracts are push link contracts
+		return LinkContracts.getAllLinkContracts(resultGraph);
 	}
 
 	/*

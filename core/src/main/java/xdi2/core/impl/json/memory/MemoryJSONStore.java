@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonObject;
+
 import xdi2.core.impl.json.AbstractJSONStore;
 import xdi2.core.impl.json.JSONStore;
-
-import com.google.gson.JsonObject;
 
 public class MemoryJSONStore extends AbstractJSONStore implements JSONStore {
 

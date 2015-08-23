@@ -2,11 +2,10 @@ package xdi2.messaging.target.tests.impl.graph;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -46,7 +45,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		ExecutionResult executionResult2 = ExecutionResult.createExecutionResult(messageEnvelope2);
 		graphMessagingTarget.execute(messageEnvelope2, executionContext2, executionResult2);
 
-		assertEquals(executionResult2.getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
+		assertEquals(executionResult2.getFinishedResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		graphMessagingTarget.shutdown();
 	}
@@ -125,7 +124,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 						positive.close();
 					}
 
-					assertFalse(executionResult.getResultGraph().isEmpty());
+					assertFalse(executionResult.getFinishedResultGraph().isEmpty());
 
 					ii++;
 				}
@@ -155,7 +154,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 						negative.close();
 					}
 
-					assertTrue(executionResult.getResultGraph().isEmpty());
+					assertTrue(executionResult.getFinishedResultGraph().isEmpty());
 
 					ii++;
 				}

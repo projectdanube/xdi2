@@ -21,7 +21,7 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param executionContext The current execution context.
 	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
 	 * Run after a message envelope is executed.
@@ -30,7 +30,7 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param executionContext The current execution context.
 	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
 	 * Run if an exception occurs while a message envelope is executed.
@@ -38,5 +38,5 @@ public interface MessageEnvelopeInterceptor extends Interceptor<MessagingTarget>
 	 * @param executionContext The current execution context.
 	 * @param ex The exception that occurred.
 	 */
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex);
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex);
 }

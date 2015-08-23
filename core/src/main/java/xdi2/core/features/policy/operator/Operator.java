@@ -1,7 +1,6 @@
 package xdi2.core.features.policy.operator;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;

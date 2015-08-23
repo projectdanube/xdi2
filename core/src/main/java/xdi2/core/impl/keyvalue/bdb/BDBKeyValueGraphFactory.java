@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import xdi2.core.GraphFactory;
-import xdi2.core.impl.keyvalue.AbstractKeyValueGraphFactory;
-import xdi2.core.impl.keyvalue.KeyValueStore;
-
 import com.sleepycat.collections.CurrentTransaction;
 import com.sleepycat.je.Cursor;
 import com.sleepycat.je.Database;
@@ -17,6 +13,10 @@ import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.OperationStatus;
 import com.sleepycat.je.Transaction;
+
+import xdi2.core.GraphFactory;
+import xdi2.core.impl.keyvalue.AbstractKeyValueGraphFactory;
+import xdi2.core.impl.keyvalue.KeyValueStore;
 
 /**
  * GraphFactory that creates BDB graphs.

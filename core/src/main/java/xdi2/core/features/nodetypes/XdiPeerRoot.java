@@ -289,4 +289,60 @@ public class XdiPeerRoot extends XdiAbstractRoot {
 			});
 		}
 	}
+
+	public static class MappingXDIAddressPeerRootXDIArcIterator extends MappingIterator<XDIAddress, XDIArc> {
+
+		public MappingXDIAddressPeerRootXDIArcIterator(Iterator<? extends XDIAddress> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDIArc map(XDIAddress XDIaddress) {
+
+			return XdiPeerRoot.createPeerRootXDIArc(XDIaddress);
+		}
+	}
+
+	public static class MappingPeerRootXDIArcXDIAddressIterator extends MappingIterator<XDIArc, XDIAddress> {
+
+		public MappingPeerRootXDIArcXDIAddressIterator(Iterator<? extends XDIArc> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public XDIAddress map(XDIArc XDIarc) {
+
+			return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(XDIarc);
+		}
+	}
+
+	public static class MappingPeerRootXDIArcIriIterator extends MappingIterator<XDIArc, String> {
+
+		public MappingPeerRootXDIArcIriIterator(Iterator<? extends XDIArc> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public String map(XDIArc XDIarc) {
+
+			return XdiPeerRoot.getIriOfPeerRootXDIArc(XDIarc);
+		}
+	}
+
+	public static class MappingPeerRootXDIArcLiteralIterator extends MappingIterator<XDIArc, String> {
+
+		public MappingPeerRootXDIArcLiteralIterator(Iterator<? extends XDIArc> iterator) {
+
+			super(iterator);
+		}
+
+		@Override
+		public String map(XDIArc XDIarc) {
+
+			return XdiPeerRoot.getLiteralOfPeerRootXDIArc(XDIarc);
+		}
+	}
 }

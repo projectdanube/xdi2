@@ -31,11 +31,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.encryption.AESEncryption;
 import xdi2.core.features.encryption.Encryption;
 import xdi2.core.features.encryption.Encryptions;
 import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
 import xdi2.core.features.encryption.RSAEncryption;
-import xdi2.core.features.encryption.AESEncryption;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.Normalization;
 import xdi2.core.io.XDIReader;

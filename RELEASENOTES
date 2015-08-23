@@ -1,6 +1,17 @@
 release 0.8 ("Orșova")
 ========================
 
+* A MessagingResponse may contain one or more PushLinkContract instances, if the result of 
+an operation is "deferred".
+
+* link contract now have two policies, the "main" $do$if policy, and the "push" $do$push$if policy.
+if the "main" policy evaluates to false, but the "push" policy evaluates to true, then the result of
+an operation will be "deferred".
+
+* introducing XDI "system" graph with pre-defined link contract templates.
+
+* link contracts may be singletons $do or collection instances [$do]!:uuid:1234
+
 * introducing standard ConnectLinkContract and "bootstrapConnectLinkContract" setting in BootstrapInterceptor
 
 * GetOperation.XDI_ADD_PARAMETER_DEREF -> XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF

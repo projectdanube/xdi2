@@ -92,19 +92,18 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		resetWriteOperationsPerMessageEnvelope(executionContext);
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// create the push maps
 
 		List<Operation> writeOperations = getWriteOperationsPerMessageEnvelope(executionContext);
+		if (writeOperations == null) return InterceptorResult.DEFAULT;
 
 		Map<LinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<LinkContract, Map<Operation, XDIAddress>> ();
 		Map<LinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<LinkContract, Map<Operation, List<XDIStatement>>> ();
@@ -191,7 +190,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -206,7 +205,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
 
-		// add the write address
+		// add the write operation
 
 		addWriteOperationPerMessageEnvelope(executionContext, operation);
 
@@ -307,16 +306,13 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		return (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void addWriteOperationPerMessageEnvelope(ExecutionContext executionContext, Operation operation) {
 
-		List<Operation> operations = getWriteOperationsPerMessageEnvelope(executionContext);
+		List<Operation> writeOperations = (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
+		if (writeOperations == null) { writeOperations = new ArrayList<Operation> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, writeOperations); }
 
-		operations.add(operation);
-	}
-
-	private static void resetWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {
-
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, new ArrayList<Operation> ());
+		writeOperations.add(operation);
 	}
 
 	/*

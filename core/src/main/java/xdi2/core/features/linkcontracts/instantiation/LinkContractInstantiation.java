@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
@@ -43,7 +47,7 @@ public class LinkContractInstantiation {
 		this(null, null, null, null);
 	}
 
-	public GenericLinkContract execute(Graph targetGraph, boolean singleton, boolean create) {
+	public LinkContract execute(boolean singleton, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
@@ -52,18 +56,24 @@ public class LinkContractInstantiation {
 		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known authorizing authority.");
 		if (this.getRequestingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known requesting authority.");
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(targetGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, singleton, create);
-		if (genericLinkContract == null) return null;
-		if (genericLinkContract != null && ! create) return genericLinkContract;
+		Graph linkContractGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + genericLinkContract + " from link contract template " + this.getLinkContractTemplate());
+		LinkContract linkContract = GenericLinkContract.findGenericLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, singleton, create);
+		if (linkContract == null) return null;
+		if (linkContract != null && ! create) return linkContract;
+
+		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + linkContract + " from link contract template " + this.getLinkContractTemplate());
 
 		// set up variable values
 
 		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
-		allVariableValues.putAll(variableValues);
+		allVariableValues.putAll(this.getVariableValues());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getRequestingAuthority())));
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getAuthorizingAuthority())));
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM_RELATIVE, XDILinkContractConstants.XDI_ADD_V_FROM);
+		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_RELATIVE, XDILinkContractConstants.XDI_ADD_V_TO);
 
 		if (log.isDebugEnabled()) log.debug("Variable values: " + allVariableValues);
 
@@ -72,12 +82,19 @@ public class LinkContractInstantiation {
 		// instantiate
 
 		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(allVariableValues);
+		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), linkContract.getContextNode(), copyStrategy);
 
-		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), genericLinkContract.getContextNode(), copyStrategy);
+		// add push permission inverse relations
+
+		linkContract.addPushPermissionInverseRelations();
+
+		// add type statement
+
+		Dictionary.setContextNodeType(linkContract.getContextNode(), this.getLinkContractTemplate().getContextNode().getXDIAddress());
 
 		// done
 
-		return genericLinkContract;
+		return linkContract;
 	}
 
 	/*

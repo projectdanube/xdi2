@@ -12,6 +12,11 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.GraphFactory;
@@ -20,11 +25,6 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractGraph;
 import xdi2.core.util.iterators.IteratorContains;
 import xdi2.core.util.iterators.IteratorRemover;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class JSONGraph extends AbstractGraph implements Graph {
 

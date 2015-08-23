@@ -13,14 +13,14 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.codec.binary.Hex;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.impl.json.AbstractJSONStore;
-import xdi2.core.impl.json.JSONStore;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
+
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.impl.json.AbstractJSONStore;
+import xdi2.core.impl.json.JSONStore;
 
 public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 

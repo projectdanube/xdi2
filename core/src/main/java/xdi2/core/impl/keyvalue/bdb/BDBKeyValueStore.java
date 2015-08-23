@@ -8,12 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.impl.keyvalue.AbstractKeyValueStore;
-import xdi2.core.impl.keyvalue.KeyValueStore;
-import xdi2.core.util.iterators.IteratorListMaker;
-import xdi2.core.util.iterators.ReadOnlyIterator;
-
 import com.sleepycat.je.Cursor;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.DatabaseConfig;
@@ -23,6 +17,12 @@ import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.OperationStatus;
 import com.sleepycat.je.Transaction;
+
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.impl.keyvalue.AbstractKeyValueStore;
+import xdi2.core.impl.keyvalue.KeyValueStore;
+import xdi2.core.util.iterators.IteratorListMaker;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 /**
  * This class is used by the BDBKeyValueGraphFactory class

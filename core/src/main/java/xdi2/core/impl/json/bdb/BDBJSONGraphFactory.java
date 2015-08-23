@@ -3,12 +3,12 @@ package xdi2.core.impl.json.bdb;
 import java.io.File;
 import java.io.IOException;
 
+import com.sleepycat.je.DatabaseConfig;
+import com.sleepycat.je.EnvironmentConfig;
+
 import xdi2.core.GraphFactory;
 import xdi2.core.impl.json.AbstractJSONGraphFactory;
 import xdi2.core.impl.json.JSONStore;
-
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.EnvironmentConfig;
 
 /**
  * GraphFactory that creates BDB JSON graphs.

@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import xdi2.core.util.iterators.IteratorContains;
-import xdi2.core.util.iterators.IteratorRemover;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
+import xdi2.core.util.iterators.IteratorContains;
+import xdi2.core.util.iterators.IteratorRemover;
 
 public abstract class AbstractJSONStore implements JSONStore {
 

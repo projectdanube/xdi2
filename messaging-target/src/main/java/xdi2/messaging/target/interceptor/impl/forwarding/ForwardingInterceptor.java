@@ -22,7 +22,6 @@ import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.exceptions.Xdi2PushRequiredException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -82,7 +81,7 @@ public class ForwardingInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		XDIArc toPeerRootXDIArc = message.getToPeerRootXDIArc();
 
@@ -124,7 +123,7 @@ public class ForwardingInterceptor extends AbstractInterceptor<MessagingTarget> 
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -134,7 +133,7 @@ public class ForwardingInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 */
 
 	@Override
-	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException, Xdi2PushRequiredException {
+	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		Message message = operation.getMessage();
 
@@ -203,7 +202,7 @@ public class ForwardingInterceptor extends AbstractInterceptor<MessagingTarget> 
 	}
 
 	@Override
-	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext)  throws Xdi2MessagingException, Xdi2PushRequiredException {
+	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext)  throws Xdi2MessagingException {
 
 		Message message = operation.getMessage();
 

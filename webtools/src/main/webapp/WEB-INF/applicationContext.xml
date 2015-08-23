@@ -337,6 +337,7 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.send.SendInterceptor">
 					<property name="xdiAgent" ref="XdiAgent" />
 				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">

@@ -78,7 +78,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		resetRefRepRelationsPerMessageEnvelope(executionContext);
 		resetCompletedAddresses(executionContext);
@@ -87,13 +87,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -482,11 +482,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
 
+		// finish feedback execution result
+
+		feedbackExecutionResult.finish();
+
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getResultGraph();
+		return feedbackExecutionResult.getFinishedResultGraph();
 	}
 
 	private static Graph feedbackFindRefRepRelationsInContext(XDIAddress contextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -549,11 +553,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
 
+		// finish feedback execution result
+
+		feedbackExecutionResult.finish();
+
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getResultGraph();
+		return feedbackExecutionResult.getFinishedResultGraph();
 	}
 
 	/*

@@ -1,5 +1,6 @@
 package xdi2.core.features.linkcontracts.instance;
 
+import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.nodetypes.XdiContext;
@@ -78,7 +79,17 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		return this.xdiEntity;
 	}
 
-	public ReadOnlyIterator<XDIArc> getToPeerRootXDIArcs() {
+	public void addPushPermissionInverseRelations() {
+
+		ReadOnlyIterator<Relation> pushPermissionRelations = this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_PUSH);
+
+		for (Relation pushPermissionRelation : pushPermissionRelations) {
+
+			pushPermissionRelation.followContextNode().setRelation(XDILinkContractConstants.XDI_ADD_IS_PUSH, pushPermissionRelation.getContextNode().getXDIAddress());
+		}
+	}
+
+	public ReadOnlyIterator<XDIArc> getPushToPeerRootXDIArcs() {
 
 		return new NotNullIterator<XDIArc> (
 				new MappingContextNodeXDIArcIterator (
