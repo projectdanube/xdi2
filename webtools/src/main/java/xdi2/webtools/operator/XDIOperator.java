@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
@@ -586,7 +585,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// send the message envelope and read result
 
-			XDIClient client = new XDIHttpClient(sessionXdiEndpointUri);
+			XDIHttpClient client = new XDIHttpClient(sessionXdiEndpointUri);
 
 			try {
 

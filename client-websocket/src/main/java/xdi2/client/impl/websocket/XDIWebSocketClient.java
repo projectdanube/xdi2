@@ -2,6 +2,8 @@ package xdi2.client.impl.websocket;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.websocket.CloseReason;
@@ -22,9 +24,11 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.FutureMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 /**
  * An XDI client that can send XDI messages over WebSocket and receive results.
@@ -36,7 +40,7 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
+public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingResponse> implements XDIClient<FutureMessagingResponse> {
 
 	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
@@ -51,6 +55,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	private MimeType sendMimeType;
 
 	private Callback callback;
+	private Map<XDIAddress, FutureMessagingResponse> futureMessagingResponses;
 
 	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
 
@@ -62,6 +67,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 
 		this.callback = null;
+		this.futureMessagingResponses = new HashMap<XDIAddress, FutureMessagingResponse> ();
 	}
 
 	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri) {
@@ -119,7 +125,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	@SuppressWarnings("resource")
 	@Override
-	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	protected FutureMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// find out which XDIWriter we want to use
 
@@ -176,11 +182,16 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// we return a future messaging response
 
-		MessagingResponse messagingResponse = FutureMessagingResponse.create(messageEnvelope);
+		FutureMessagingResponse futureMessagingResponse = FutureMessagingResponse.fromMessageEnvelope(messageEnvelope);
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			this.getFutureMessagingResponses().put(message.getXDIAddress(), futureMessagingResponse);
+		}
 
 		// done
 
-		return messagingResponse;
+		return futureMessagingResponse;
 	}
 
 	@Override
@@ -271,6 +282,16 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.callback = callback;
 	}
 
+	public Map<XDIAddress, FutureMessagingResponse> getFutureMessagingResponses() {
+
+		return this.futureMessagingResponses;
+	}
+
+	public void setFutureMessagingResponses(Map<XDIAddress, FutureMessagingResponse> futureMessagingResponses) {
+
+		this.futureMessagingResponses = futureMessagingResponses;
+	}
+
 	/*
 	 * Object methods
 	 */
@@ -288,6 +309,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	public static interface Callback {
 
 		public void onMessageEnvelope(MessageEnvelope messageEnvelope);
-		public void onMessagingResponse(MessagingResponse messagingResponse);
+		public void onMessagingResponse(TransportMessagingResponse messagingResponse);
 	}
 }

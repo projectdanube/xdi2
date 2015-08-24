@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -277,7 +276,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 
 			// send the message envelope and read result
 
-			XDIClient client = new XDIHttpClient(endpoint);
+			XDIHttpClient client = new XDIHttpClient(endpoint);
 
 			messagingResponse = client.send(messageEnvelope);
 

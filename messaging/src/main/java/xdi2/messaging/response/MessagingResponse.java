@@ -1,13 +1,12 @@
 package xdi2.messaging.response;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 
-public interface MessagingResponse extends Serializable, Comparable<MessagingResponse> {
+public interface MessagingResponse {
 
 	/**
 	 * Returns the underlying graph of this messaging response.
@@ -20,16 +19,6 @@ public interface MessagingResponse extends Serializable, Comparable<MessagingRes
 	public Graph getResultGraph();
 
 	/**
-	 * Returns whether the messaging response has an associated error.
-	 */
-	public boolean hasXdiError();
-
-	/**
-	 * Returns the error associated with this messaging response, if any.
-	 */
-	public XdiError getXdiError();
-
-	/**
 	 * Returns whether the messaging response has one or more push link contracts.
 	 */
 	public boolean hasPushLinkContracts();
@@ -38,4 +27,14 @@ public interface MessagingResponse extends Serializable, Comparable<MessagingRes
 	 * Returns the push link contracts;
 	 */
 	public Iterator<LinkContract> getPushLinkContracts();
+
+	/**
+	 * Returns whether the messaging response has an associated error.
+	 */
+	public boolean hasXdiError();
+
+	/**
+	 * Returns the error associated with this messaging response, if any.
+	 */
+	public XdiError getXdiError();
 }

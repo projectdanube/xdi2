@@ -12,7 +12,7 @@ import xdi2.messaging.operations.Operation;
  * 
  * @author markus
  */
-public class FullMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class FullMessagingResponse extends TransportMessagingResponse implements MessagingResponse {
 
 	private static final long serialVersionUID = -150908814464607155L;
 

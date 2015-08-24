@@ -8,7 +8,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
@@ -21,7 +21,7 @@ import xdi2.transport.impl.local.LocalTransportResponse;
  * 
  * @author markus
  */
-public class XDILocalClient extends XDIAbstractClient implements XDIClient {
+public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse> implements XDIClient<TransportMessagingResponse> {
 
 	protected static final Logger log = LoggerFactory.getLogger(XDILocalClient.class);
 
@@ -92,7 +92,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	protected TransportMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// connect
 
@@ -119,7 +119,7 @@ public class XDILocalClient extends XDIAbstractClient implements XDIClient {
 			throw new Xdi2ClientException("Unable to send message envelope to local messaging target: " + ex.getMessage(), ex);
 		}
 
-		MessagingResponse messagingResponse = response.getMessagingResponse();
+		TransportMessagingResponse messagingResponse = response.getMessagingResponse();
 
 		// done
 

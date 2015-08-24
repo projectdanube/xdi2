@@ -10,8 +10,9 @@ import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.impl.ManipulatorList;
 import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.syntax.XDIArc;
+import xdi2.messaging.response.MessagingResponse;
 
-public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? extends CLIENT>, CLIENT extends XDIClient> implements XDIAgentRouter<ROUTE, CLIENT> {
+public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? extends CLIENT>, CLIENT extends XDIClient<? extends MessagingResponse>> implements XDIAgentRouter<ROUTE, CLIENT> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractAgentRouter.class);
 
@@ -40,7 +41,7 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? ext
 
 		if (route instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
 
-			((XDIAbstractClientRoute<?>) route).getManipulators().addManipulators(this.getManipulators());
+			((XDIAbstractClientRoute<? extends XDIClient<? extends MessagingResponse>>) route).getManipulators().addManipulators(this.getManipulators());
 		}
 
 		// done

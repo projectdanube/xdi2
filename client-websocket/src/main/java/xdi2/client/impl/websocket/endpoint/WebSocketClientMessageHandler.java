@@ -2,6 +2,10 @@ package xdi2.client.impl.websocket.endpoint;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.websocket.CloseReason;
 import javax.websocket.CloseReason.CloseCodes;
@@ -17,7 +21,15 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.CopyUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.FullMessagingResponse;
+import xdi2.messaging.response.FutureMessagingResponse;
+import xdi2.messaging.response.LightMessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
+import xdi2.messaging.util.MessagingCloneUtil;
 
 public class WebSocketClientMessageHandler implements javax.websocket.MessageHandler.Whole<Reader> {
 
@@ -33,20 +45,20 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 	@Override
 	public void onMessage(Reader reader) {
 
-		if (log.isDebugEnabled()) log.debug("Incoming message on session " + this.getSession().getId());
+		if (log.isDebugEnabled()) log.debug("Incoming WebSocket message on session " + this.getSession().getId());
 
 		// read properties
 
 		XDIWebSocketClient webSocketClient = (XDIWebSocketClient) this.getSession().getUserProperties().get("xdiWebSocketClient");
 
-		// construct message envelope from reader
+		// construct graph from reader
 
-		MessageEnvelope messageEnvelope;
+		Graph graph;
 
 		try {
 
-			messageEnvelope = read(this.getSession(), reader);
-			if (messageEnvelope == null) return;
+			graph = read(this.getSession(), reader);
+			if (graph == null) return;
 		} catch (IOException ex) {
 
 			try {
@@ -61,10 +73,84 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 			}
 		}
 
-		// callback
+		// message envelope? messaging response?
+
+		MessageEnvelope graphMessageEnvelope = MessageEnvelope.fromGraph(graph);
+
+		MessageEnvelope callbackMessageEnvelope = null;
+		TransportMessagingResponse callbackMessagingResponse = null;
+		List<FutureMessagingResponse> callbackFutureMessagingResponses = new ArrayList<FutureMessagingResponse> ();
+		Map<FutureMessagingResponse, XDIAddress> callbackFutureMessageXDIAddresses = new HashMap<FutureMessagingResponse, XDIAddress> ();
+		Map<FutureMessagingResponse, FullMessagingResponse> callbackFutureFullMessagingResponses = new HashMap<FutureMessagingResponse, FullMessagingResponse> ();
+
+		if (graphMessageEnvelope.getMessageCount() > 0) {
+
+			Graph callbackMessageEnvelopeGraph = MemoryGraphFactory.getInstance().openGraph();
+			Graph callbackFullMessagingResponseGraph = MemoryGraphFactory.getInstance().openGraph();
+
+			for (Message message : graphMessageEnvelope.getMessages()) {
+
+				if (message.getCorrelationXDIAddress() == null) {
+
+					// this message should be sent to WebSocketClient.onMessageEnvelope() callback
+
+					CopyUtil.copyContextNode(message.getContextNode(), callbackMessageEnvelopeGraph, null);
+				} else {
+
+					// this message should be sent to WebSocketClient.onMessagingResponse() callback
+
+					CopyUtil.copyContextNode(message.getContextNode(), callbackFullMessagingResponseGraph, null);
+
+					FutureMessagingResponse futureMessagingResponse = webSocketClient.getFutureMessagingResponses().get(message.getCorrelationXDIAddress());
+
+					if (futureMessagingResponse != null) {
+
+						webSocketClient.getFutureMessagingResponses().remove(message.getCorrelationXDIAddress());
+
+						// this message should be sent to FutureMessagingResponse.onMessagingResponse() callback
+
+						FullMessagingResponse fullMessagingResponse = FullMessagingResponse.fromMessageEnvelope(MessagingCloneUtil.cloneMessage(message, false).getMessageEnvelope());
+
+						callbackFutureMessagingResponses.add(futureMessagingResponse);
+						callbackFutureMessageXDIAddresses.put(futureMessagingResponse, message.getCorrelationXDIAddress());
+						callbackFutureFullMessagingResponses.put(futureMessagingResponse, fullMessagingResponse);
+					}
+				}
+			}
+
+			if (! callbackMessageEnvelopeGraph.isEmpty()) callbackMessageEnvelope = MessageEnvelope.fromGraph(callbackMessageEnvelopeGraph);
+			if (! callbackFullMessagingResponseGraph.isEmpty()) callbackMessagingResponse = FullMessagingResponse.fromGraph(callbackFullMessagingResponseGraph);
+		} else {
+
+			// this graph should be sent to WebSocketClient.onMessagingResponse() callback
+
+			callbackMessagingResponse = LightMessagingResponse.fromGraph(graph);
+		}
+
+		// callbacks
 
 		Callback callback = webSocketClient.getCallback();
-		if (callback != null) callback.onMessageEnvelope(messageEnvelope);
+
+		if (callback != null && callbackMessageEnvelope != null) {
+
+			if (log.isDebugEnabled()) log.debug("Calling WebSocketClient.onMessageEnvelope() with " + callbackMessageEnvelope);
+			callback.onMessageEnvelope(callbackMessageEnvelope);
+		}
+
+		if (callback != null && callbackMessagingResponse != null) {
+
+			if (log.isDebugEnabled()) log.debug("Calling WebSocketClient.onMessagingResponse() with " + callbackMessagingResponse.getClass().getSimpleName() + ": " + callbackMessagingResponse.getGraph());
+			callback.onMessagingResponse(callbackMessagingResponse);
+		}
+
+		for (FutureMessagingResponse callbackFutureMessagingResponse : callbackFutureMessagingResponses) {
+
+			XDIAddress callbackFutureMessageXDIAddress = callbackFutureMessageXDIAddresses.get(callbackFutureMessagingResponse);
+			FullMessagingResponse callbackFutureFullMessagingResponse = callbackFutureFullMessagingResponses.get(callbackFutureMessagingResponse);
+
+			if (log.isDebugEnabled()) log.debug("Calling FutureMessagingResponse.onMessagingResponse() with " + callbackFutureMessageXDIAddress + " and " + callbackFutureFullMessagingResponse.getClass().getSimpleName() + ": " + callbackFutureFullMessagingResponse.getGraph());
+			callbackFutureMessagingResponse.onMessagingResponse(callbackFutureMessageXDIAddress, callbackFutureFullMessagingResponse);
+		}
 	}
 
 	/*
@@ -80,7 +166,7 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 	 * Helper methods
 	 */
 
-	private static MessageEnvelope read(Session session, Reader reader) throws IOException {
+	private static Graph read(Session session, Reader reader) throws IOException {
 
 		// try to find an appropriate reader for the provided mime type
 
@@ -96,14 +182,13 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 
 		if (log.isDebugEnabled()) log.debug("Reading message in " + recvMimeType + " with reader " + xdiReader.getClass().getSimpleName() + ".");
 
-		MessageEnvelope messageEnvelope;
+		Graph graph;
 
 		try {
 
-			Graph graph = MemoryGraphFactory.getInstance().openGraph();
+			graph = MemoryGraphFactory.getInstance().openGraph();
 
 			xdiReader.read(graph, reader);
-			messageEnvelope = MessageEnvelope.fromGraph(graph);
 		} catch (IOException ex) {
 
 			throw ex;
@@ -116,10 +201,10 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 			reader.close();
 		}
 
-		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageEnvelope.getMessageCount() + " messages). Executing...");
+		if (log.isDebugEnabled()) log.debug("Graph received: " + graph);
 
 		// done
 
-		return messageEnvelope;
+		return graph;
 	}
 }

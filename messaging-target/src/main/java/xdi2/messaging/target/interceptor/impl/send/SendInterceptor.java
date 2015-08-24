@@ -188,7 +188,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		XDIArc toPeerRootXDIArc = forwardingMessage.getToPeerRootXDIArc();
 
-		XDIClientRoute<? extends XDIClient> xdiClientRoute;
+		XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> xdiClientRoute;
 
 		try {
 
@@ -210,11 +210,14 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		// send the forwarding message
 
-		XDIClient xdiClient = xdiClientRoute.constructXDIClient();
+		XDIClient<? extends MessagingResponse> xdiClient = xdiClientRoute.constructXDIClient();
 
 		try {
 
 			MessagingResponse forwardingMessagingResponse = xdiClient.send(forwardingMessage.getMessageEnvelope());
+
+			// TODO: what if we get a FutureMessagingResponse from an XDIWebSocketClient?
+
 			CopyUtil.copyGraph(forwardingMessagingResponse.getResultGraph(), operationResultGraph, null);
 		} catch (Xdi2ClientException ex) {
 

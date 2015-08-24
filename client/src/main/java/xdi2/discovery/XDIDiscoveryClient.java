@@ -29,7 +29,7 @@ import xdi2.discovery.cache.NullDiscoveryCache;
 import xdi2.discovery.cache.WhirlyCacheDiscoveryCache;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 /**
  * Given a Cloud Name or discovery key, useful information such a Cloud Number, 
@@ -62,7 +62,7 @@ public class XDIDiscoveryClient {
 
 	public static final DiscoveryCache DEFAULT_DISCOVERY_CACHE;
 
-	private XDIClient registryXdiClient;
+	private XDIClient<? extends TransportMessagingResponse> registryXdiClient;
 	private DiscoveryCache discoveryCache;
 
 	static {
@@ -109,7 +109,7 @@ public class XDIDiscoveryClient {
 		DEFAULT_DISCOVERY_CLIENT = XDI2_DISCOVERY_CLIENT;
 	}
 
-	public XDIDiscoveryClient(XDIClient registryXdiClient, DiscoveryCache discoveryCache) {
+	public XDIDiscoveryClient(XDIClient<TransportMessagingResponse> registryXdiClient, DiscoveryCache discoveryCache) {
 
 		this.registryXdiClient = registryXdiClient;
 		this.discoveryCache = discoveryCache;
@@ -117,7 +117,7 @@ public class XDIDiscoveryClient {
 		if (log.isDebugEnabled()) log.debug("Initializing discovery with client " + (registryXdiClient == null ? null : registryXdiClient.getClass().getSimpleName()) + " and cache " + (discoveryCache == null ? null : discoveryCache.getClass().getSimpleName()));
 	}
 
-	public XDIDiscoveryClient(XDIClient registryXdiClient) {
+	public XDIDiscoveryClient(XDIClient<TransportMessagingResponse> registryXdiClient) {
 
 		this(registryXdiClient, DEFAULT_DISCOVERY_CACHE);
 	}
@@ -194,11 +194,11 @@ public class XDIDiscoveryClient {
 
 		// check registry cache
 
-		MessagingResponse registryMessagingResponse = null;
+		TransportMessagingResponse registryMessagingResponse = null;
 
 		DiscoveryCacheKey registryDiscoveryCacheKey = DiscoveryCacheKey.build(query, this.getRegistryXdiClient(), null);
 
-		if (this.getDiscoveryCache() != null) registryMessagingResponse = (MessagingResponse) this.getDiscoveryCache().getRegistry(registryDiscoveryCacheKey);
+		if (this.getDiscoveryCache() != null) registryMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCache().getRegistry(registryDiscoveryCacheKey);
 
 		MessageEnvelope registryMessageEnvelope = null;
 
@@ -217,7 +217,7 @@ public class XDIDiscoveryClient {
 
 			try {
 
-				XDIClient registryXdiClient = this.getRegistryXdiClient();
+				XDIClient<? extends TransportMessagingResponse> registryXdiClient = this.getRegistryXdiClient();
 
 				registryMessagingResponse = registryXdiClient.send(registryMessageEnvelope);
 			} catch (Xdi2ClientException ex) {
@@ -276,11 +276,11 @@ public class XDIDiscoveryClient {
 
 		// check authority cache
 
-		MessagingResponse authorityMessagingResponse = null;
+		TransportMessagingResponse authorityMessagingResponse = null;
 
 		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUri, endpointUriTypes);
 
-		if (this.getDiscoveryCache() != null) authorityMessagingResponse = (MessagingResponse) this.getDiscoveryCache().getAuthority(authorityDiscoveryCacheKey);
+		if (this.getDiscoveryCache() != null) authorityMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCache().getAuthority(authorityDiscoveryCacheKey);
 
 		MessageEnvelope authorityMessageEnvelope = null;
 
@@ -363,15 +363,25 @@ public class XDIDiscoveryClient {
 	}
 
 	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return String.valueOf(this.getRegistryXdiClient());
+	}
+
+	/*
 	 * Getters and setters
 	 */
 
-	public XDIClient getRegistryXdiClient() {
+	public XDIClient<? extends TransportMessagingResponse> getRegistryXdiClient() {
 
 		return this.registryXdiClient;
 	}
 
-	public void setRegistryXdiClient(XDIClient registryXdiClient) {
+	public void setRegistryXdiClient(XDIClient<? extends TransportMessagingResponse> registryXdiClient) {
 
 		this.registryXdiClient = registryXdiClient;
 	}

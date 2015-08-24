@@ -13,14 +13,14 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public interface XDIClient extends Closeable {
+public interface XDIClient <MESSAGINGRESPONSE extends MessagingResponse> extends Closeable {
 
 	/**
 	 * Sends an XDI messaging request to an XDI endpoint.
 	 * @param messageEnvelope The XDI messaging envelope to send.
 	 * @return The messaging response.
 	 */
-	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
+	public MESSAGINGRESPONSE send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
 
 	/**
 	 * Shuts down the client.

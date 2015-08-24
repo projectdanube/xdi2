@@ -8,8 +8,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.MessagingResponse;
 
-public interface XDIClientRoute <CLIENT extends XDIClient> {
+public interface XDIClientRoute <CLIENT extends XDIClient<? extends MessagingResponse>> {
 
 	public XDIArc getToPeerRootXDIArc();
 	public CLIENT constructXDIClient();

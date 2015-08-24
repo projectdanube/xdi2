@@ -1,5 +1,6 @@
 package xdi2.messaging.response;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.Graph;
@@ -9,11 +10,13 @@ import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.util.iterators.EmptyIterator;
 
-public abstract class AbstractMessagingResponse implements MessagingResponse {
+public abstract class TransportMessagingResponse implements MessagingResponse, Serializable, Comparable<MessagingResponse> {
 
 	/*
 	 * Static methods
 	 */
+
+	private static final long serialVersionUID = 9000799040158882358L;
 
 	/**
 	 * Checks if a graph is a valid messaging response.
@@ -35,11 +38,11 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	 * @param graph The graph that is a messaging response.
 	 * @return The messaging response.
 	 */
-	public static MessagingResponse fromGraph(Graph graph) {
+	public static TransportMessagingResponse fromGraph(Graph graph) {
 
 		if (graph == null) throw new NullPointerException();
 
-		MessagingResponse messagingResponse = null;
+		TransportMessagingResponse messagingResponse = null;
 
 		if ((messagingResponse = FullMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
 		if ((messagingResponse = LightMessagingResponse.fromGraph(graph)) != null) return messagingResponse;
@@ -80,5 +83,50 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 
 		// TODO: fix this, not all link contracts are push link contracts
 		return LinkContracts.getAllLinkContracts(resultGraph);
+	}
+
+	/*
+	 * Object methods
+	 */
+
+	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		if (this.getGraph() == null) return super.toString();
+
+		return String.valueOf(this.getGraph());
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object == null || ! (object instanceof MessagingResponse)) return false;
+		if (object == this) return true;
+
+		MessagingResponse other = (MessagingResponse) object;
+
+		return this.getGraph().equals(other.getGraph());
+	}
+
+	@Override
+	public int hashCode() {
+
+		int hashCode = 1;
+
+		hashCode = (hashCode * 31) + this.getGraph().hashCode();
+
+		return hashCode;
+	}
+
+	@Override
+	public int compareTo(MessagingResponse other) {
+
+		if (other == this || other == null) return(0);
+
+		return this.getGraph().compareTo(other.getGraph());
 	}
 }

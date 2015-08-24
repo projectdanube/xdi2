@@ -18,8 +18,9 @@ import xdi2.core.features.error.XdiError;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
-public abstract class XDIAbstractClient implements XDIClient {
+public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResponse> implements XDIClient<MESSAGINGRESPONSE> {
 
 	protected static final Logger log = LoggerFactory.getLogger(XDIAbstractClient.class);
 
@@ -33,7 +34,7 @@ public abstract class XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	public final MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	public final MESSAGINGRESPONSE send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Preparing to send.");
 
@@ -53,7 +54,7 @@ public abstract class XDIAbstractClient implements XDIClient {
 		// send the messaging request and retrieve the messaging response
 
 		if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
-		MessagingResponse messagingResponse = this.sendInternal(messageEnvelope);
+		MESSAGINGRESPONSE messagingResponse = this.sendInternal(messageEnvelope);
 		if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessagingResponse: " + messagingResponse);
 
 		// timestamp
@@ -62,13 +63,16 @@ public abstract class XDIAbstractClient implements XDIClient {
 
 		// see if the messaging response has an associated error
 
-		if (messagingResponse.hasXdiError()) {
+		if (messagingResponse instanceof TransportMessagingResponse) {
 
-			XdiError xdiError = messagingResponse.getXdiError();
+			if (((TransportMessagingResponse) messagingResponse).hasXdiError()) {
 
-			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
+				XdiError xdiError = messagingResponse.getXdiError();
 
-			throw new Xdi2ClientException("Error messaging response: " + xdiError.getErrorString(), messagingResponse);
+				this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
+
+				throw new Xdi2ClientException("Error messaging response: " + xdiError.getErrorString(), messagingResponse);
+			}
 		}
 
 		// done
@@ -80,7 +84,7 @@ public abstract class XDIAbstractClient implements XDIClient {
 		return messagingResponse;
 	}
 
-	protected abstract MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
+	protected abstract MESSAGINGRESPONSE sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
 
 	/*
 	 * Getters and setters

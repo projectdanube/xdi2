@@ -20,6 +20,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
@@ -70,6 +71,12 @@ public class XDIBasicAgent implements XDIAgent {
 			foundRoute = agentRouter.route(toPeerRootXDIArc);
 			if (foundRoute != null) foundAgentRouter = agentRouter;
 			if (foundRoute != null) break;
+		}
+
+		if (foundRoute == null) {
+
+			if (log.isDebugEnabled()) log.debug("No route found for " + toPeerRootXDIArc);
+			return null;
 		}
 
 		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + foundRoute + " via router " + foundAgentRouter.getClass().getSimpleName());

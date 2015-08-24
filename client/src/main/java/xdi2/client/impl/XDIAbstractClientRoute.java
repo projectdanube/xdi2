@@ -14,9 +14,10 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 
-public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implements XDIClientRoute<CLIENT> {
+public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends MessagingResponse>> implements XDIClientRoute<CLIENT> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractClientRoute.class);
 
@@ -40,7 +41,7 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		if (xdiClient instanceof XDIAbstractClient && this.getManipulators() != null) {
 
-			((XDIAbstractClient) xdiClient).getManipulators().addManipulators(this.getManipulators());
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(this.getManipulators());
 		}
 
 		// done
@@ -105,13 +106,13 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		// client construction step
 
-		XDIClient xdiClient = this.constructXDIClient();
+		CLIENT xdiClient = this.constructXDIClient();
 
 		// add manipulators if supported
 
 		if (xdiClient instanceof XDIAbstractClient && manipulators != null) {
 
-			((XDIAbstractClient) xdiClient).getManipulators().addManipulators(manipulators);
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(manipulators);
 		}
 
 		// message envelope construction step
@@ -122,7 +123,10 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		// send the message envelope
 
+		// TODO: what if we are using WebSocket here?
 		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
+		if (! (messagingResponse instanceof TransportMessagingResponse)) throw new Xdi2ClientException("Messaging response not available (using WebSocket?)");
+
 		Graph resultGraph = messagingResponse.getResultGraph();
 
 		// close the client

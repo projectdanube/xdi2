@@ -226,6 +226,23 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	}
 
 	/**
+	 * Finds a message by its XDI address.
+	 * @param messageXDIAddress The message to look for.
+	 * @return The message.
+	 */
+	public Message getMessage(XDIAddress messageXDIAddress) {
+
+		if (messageXDIAddress == null) throw new NullPointerException();
+
+		for (Message message : this.getMessages()) {
+
+			if (messageXDIAddress.equals(message.getXDIAddress())) return message;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Returns all operations in this message envelope.
 	 * @return All messages contained in the envelope.
 	 */

@@ -31,7 +31,7 @@ public class XDIWebSocketDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDI
 
 	public XDIWebSocketDiscoveryAgentRouter() {
 
-		this.xdiDiscoveryClient = null;
+		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 	}
 
 	@Override

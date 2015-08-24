@@ -26,8 +26,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.response.AbstractMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 /**
  * An XDI client that can send XDI messages over HTTP and receive results.
@@ -42,7 +41,7 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
+public class XDIHttpClient extends XDIAbstractClient<TransportMessagingResponse> implements XDIClient<TransportMessagingResponse> {
 
 	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
@@ -160,7 +159,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	protected TransportMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// find out which XDIWriter we want to use
 
@@ -272,7 +271,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			this.disconnect();
 		}
 
-		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
+		TransportMessagingResponse messagingResponse = TransportMessagingResponse.fromGraph(messagingResponseGraph);
 
 		// done
 

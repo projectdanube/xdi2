@@ -24,7 +24,7 @@ import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
@@ -106,7 +106,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 
 		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -237,11 +237,11 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 		if (log.isDebugEnabled()) log.debug("Message envelope received (" + messageEnvelope.getMessageCount() + " messages). Executing...");
 
 		// done
-		
+
 		return messageEnvelope;
 	}
 
-	private static void sendText(WebSocketTransportRequest request, WebSocketTransportResponse response, MessagingResponse messagingResponse) throws IOException {
+	private static void sendText(WebSocketTransportRequest request, WebSocketTransportResponse response, TransportMessagingResponse messagingResponse) throws IOException {
 
 		// use default writer
 

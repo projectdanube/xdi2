@@ -21,7 +21,7 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.LightMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
@@ -126,7 +126,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		log.info("Shutting down complete.");
 	}
 
-	protected MessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
+	protected TransportMessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
 		// create an execution context and execution result
 
@@ -135,7 +135,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// execution result and messaging response
 
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// go
 
@@ -191,9 +191,9 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		return executionContext;
 	}
 
-	private final MessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
+	private final TransportMessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
 
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		if (isFull(messageEnvelope)) {
 
