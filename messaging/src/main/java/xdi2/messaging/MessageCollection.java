@@ -9,7 +9,10 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -50,7 +53,10 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public static boolean isValid(XdiEntityCollection xdiEntityCollection) {
 
-		return xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
+		if (! xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG))) return false;
+		if (XDIAddressUtil.extractXDIAddress(xdiEntityCollection.getContextNode().getXDIAddress(), XdiInnerRoot.class, false, false) != null) return false;
+
+		return true;
 	}
 
 	/**

@@ -179,7 +179,10 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode(true).getAllContextNodes();
 
-		return new MappingXdiEntityCollectionMessageCollectionIterator(this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
+		return new MappingXdiEntityCollectionMessageCollectionIterator(
+				this, 
+				new MappingContextNodeXdiEntityCollectionIterator(
+						contextNodes));
 	}
 
 	/**
