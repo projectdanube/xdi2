@@ -1,7 +1,10 @@
 package xdi2.core.util;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,6 +17,7 @@ import xdi2.core.LiteralNode;
 import xdi2.core.Node;
 import xdi2.core.Relation;
 import xdi2.core.Statement;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -103,7 +107,7 @@ public final class CopyUtil {
 		if ((contextNode = copyStrategy.replaceContextNode(contextNode)) == null) return null;
 
 		if (contextNode.isRootContextNode()) throw new IllegalArgumentException("Cannot copy root context node.");
-		
+
 		XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
 		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
@@ -393,16 +397,24 @@ public final class CopyUtil {
 	 * Helper classes
 	 */
 
+	public interface CopyStrategy {
+
+		public ContextNode replaceContextNode(ContextNode contextNode);
+		public Relation replaceRelation(Relation relation);
+		public LiteralNode replaceLiteralNode(LiteralNode literalNode);
+	}
+
 	/**
-	 * An interface that can determine what to copy and what not.
+	 * Just copy everything without change.
 	 */
-	public static abstract class CopyStrategy {
+	public static abstract class AbstractCopyStrategy implements CopyStrategy {
 
 		/**
 		 * Strategies can replace a context node that is being copied.
 		 * @param contextNode The original context node.
 		 * @return The replacement (or null if it should not be copied).
 		 */
+		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
 			if (log.isTraceEnabled()) log.trace("Copying context node " + contextNode);
@@ -415,6 +427,7 @@ public final class CopyUtil {
 		 * @param relation The original relation.
 		 * @return The replacement (or null if it should not be copied).
 		 */
+		@Override
 		public Relation replaceRelation(Relation relation) {
 
 			if (log.isTraceEnabled()) log.trace("Copying relation " + relation);
@@ -424,30 +437,31 @@ public final class CopyUtil {
 
 		/**
 		 * Strategies can replace a literal that is being copied.
-		 * @param literal The original literal.
+		 * @param literalNode The original literal node.
 		 * @return The replacement (or null if it should not be copied).
 		 */
-		public LiteralNode replaceLiteralNode(LiteralNode literal) {
+		@Override
+		public LiteralNode replaceLiteralNode(LiteralNode literalNode) {
 
-			if (log.isTraceEnabled()) log.trace("Copying literal " + literal);
+			if (log.isTraceEnabled()) log.trace("Copying literal node " + literalNode);
 
-			return literal;
+			return literalNode;
 		}
 	}
 
 	/**
 	 * The default strategy that copies everything.
 	 */
-	public static class AllCopyStrategy extends CopyStrategy {
+	public static class AllCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 	}
 
 	/**
 	 * A strategy that replaces certain XDI identifiers.
 	 */
-	public static class ReplaceXDIAddressCopyStrategy extends CopyStrategy {
+	public static class ReplaceXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
-		Map<XDIArc, XDIAddress> replacements;
+		private Map<XDIArc, XDIAddress> replacements;
 
 		public ReplaceXDIAddressCopyStrategy(Map<XDIArc, XDIAddress> replacements) {
 
@@ -459,6 +473,11 @@ public final class CopyUtil {
 			this(Collections.singletonMap(oldXDIArc, newXDIArc));
 		}
 
+		protected ReplaceXDIAddressCopyStrategy() {
+
+			this(null);
+		}
+
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
 
@@ -467,7 +486,10 @@ public final class CopyUtil {
 
 			XDIAddress replacedContextNodeXDIAddress = XDIAddress.fromComponent(contextNodeXDIArc);
 
-			for (Entry<XDIArc, XDIAddress> replacement : this.replacements.entrySet()) {
+			Map<XDIArc, XDIAddress> replacements = this.getReplacements(replacedContextNodeXDIAddress);
+			if (replacements == null) return super.replaceContextNode(contextNode);
+
+			for (Entry<XDIArc, XDIAddress> replacement : replacements.entrySet()) {
 
 				replacedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
 						replacedContextNodeXDIAddress, 
@@ -485,7 +507,6 @@ public final class CopyUtil {
 			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
 
 			int additionalArcs = replacedContextNodeXDIAddress.getNumXDIArcs() - contextNodeXDIAddress.getNumXDIArcs();
-
 			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
 
 			return replacedContextNode;
@@ -500,7 +521,10 @@ public final class CopyUtil {
 
 			XDIAddress replacedTargetXDIAddress = targetXDIAddress;
 
-			for (Entry<XDIArc, XDIAddress> replacement : this.replacements.entrySet()) {
+			Map<XDIArc, XDIAddress> replacements = this.getReplacements(replacedTargetXDIAddress);
+			if (replacements == null) return super.replaceRelation(relation);
+
+			for (Entry<XDIArc, XDIAddress> replacement : replacements.entrySet()) {
 
 				replacedTargetXDIAddress = XDIAddressUtil.replaceXDIAddress(
 						replacedTargetXDIAddress, 
@@ -516,5 +540,90 @@ public final class CopyUtil {
 
 			return replacedRelation;
 		}
+
+		protected Map<XDIArc, XDIAddress> getReplacements(XDIAddress XDIaddress) {
+
+			Map<XDIArc, XDIAddress> replacements = null;
+
+			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
+
+				if (! this.replacements.containsKey(XDIarc)) continue;
+
+				if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+
+				XDIAddress replacementXDIAddress = this.replacements.get(XDIarc);
+
+				replacements.put(XDIarc, replacementXDIAddress);
+			}
+
+			return replacements;
+		}
+	}
+
+	/**
+	 * A strategy for replacing escaped variables.
+	 */
+
+	public static class ReplaceEscapedVariablesCopyStrategy extends ReplaceXDIAddressCopyStrategy implements CopyStrategy {
+
+		@Override
+		protected Map<XDIArc, XDIAddress> getReplacements(XDIAddress XDIaddress) {
+
+			Map<XDIArc, XDIAddress> replacements = null;
+
+			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
+
+				if (! XDIConstants.CS_CLASS_RESERVED.equals(XDIarc.getCs())) continue;
+				if (! XDIarc.isVariable()) continue;
+				if (! XDIarc.isRelative()) continue;
+
+				if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+
+				XDIAddress replacementXDIAddress = XDIAddress.fromComponent(XDIArc.fromComponents(XDIarc.getCs(), true, XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), false, XDIarc.getLiteral(), XDIarc.getXRef()));
+
+				replacements.put(XDIarc, replacementXDIAddress);
+			}
+
+			return replacements;
+		}
+	}
+
+	/**
+	 * A compound strategy.
+	 */
+
+	public static class CompoundCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+
+		private List<CopyStrategy> copyStrategies;
+
+		public CompoundCopyStrategy(CopyStrategy... copyStrategies) {
+
+			this.copyStrategies = Arrays.asList(copyStrategies);
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			for (CopyStrategy copyStrategy : this.copyStrategies) contextNode = copyStrategy.replaceContextNode(contextNode);
+
+			return contextNode;
+		}
+
+		@Override
+		public Relation replaceRelation(Relation relation) {
+
+			for (CopyStrategy copyStrategy : this.copyStrategies) relation = copyStrategy.replaceRelation(relation);
+
+			return relation;
+		}
+
+		@Override
+		public LiteralNode replaceLiteralNode(LiteralNode literalNode) {
+
+			for (CopyStrategy copyStrategy : this.copyStrategies) literalNode = copyStrategy.replaceLiteralNode(literalNode);
+
+			return literalNode;
+		}
+
 	}
 }

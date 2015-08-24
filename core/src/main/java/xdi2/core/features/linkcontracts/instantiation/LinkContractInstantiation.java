@@ -17,7 +17,9 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CompoundCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
+import xdi2.core.util.CopyUtil.ReplaceEscapedVariablesCopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 
 public class LinkContractInstantiation {
@@ -67,13 +69,11 @@ public class LinkContractInstantiation {
 		// set up variable values
 
 		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
-		allVariableValues.putAll(this.getVariableValues());
+		if (this.getVariableValues() != null) allVariableValues.putAll(this.getVariableValues());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getRequestingAuthority())));
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getAuthorizingAuthority())));
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM_RELATIVE, XDILinkContractConstants.XDI_ADD_V_FROM);
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_RELATIVE, XDILinkContractConstants.XDI_ADD_V_TO);
 
 		if (log.isDebugEnabled()) log.debug("Variable values: " + allVariableValues);
 
@@ -81,7 +81,9 @@ public class LinkContractInstantiation {
 
 		// instantiate
 
-		CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(allVariableValues);
+		CopyStrategy copyStrategy = new CompoundCopyStrategy(
+				new ReplaceXDIAddressCopyStrategy(allVariableValues),
+				new ReplaceEscapedVariablesCopyStrategy());
 		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), linkContract.getContextNode(), copyStrategy);
 
 		// add push permission inverse relations

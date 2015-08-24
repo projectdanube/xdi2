@@ -32,15 +32,11 @@ public final class XDILinkContractConstants {
 	public static final XDIArc XDI_ARC_V_TO = XDIArc.create("{$to}");
 	public static final XDIArc XDI_ARC_V_FROM_ROOT = XDIArc.create("{($from)}");
 	public static final XDIArc XDI_ARC_V_TO_ROOT = XDIArc.create("{($to)}");
-	public static final XDIArc XDI_ARC_V_FROM_RELATIVE = XDIArc.create("{$_from}");
-	public static final XDIArc XDI_ARC_V_TO_RELATIVE = XDIArc.create("{$_to}");
 
 	public static final XDIAddress XDI_ADD_V_FROM = XDIAddress.fromComponent(XDI_ARC_V_FROM);
 	public static final XDIAddress XDI_ADD_V_TO = XDIAddress.fromComponent(XDI_ARC_V_TO);
 	public static final XDIAddress XDI_ADD_V_FROM_ROOT = XDIAddress.fromComponent(XDI_ARC_V_FROM_ROOT);
 	public static final XDIAddress XDI_ADD_V_TO_ROOT = XDIAddress.fromComponent(XDI_ARC_V_TO_ROOT);
-	public static final XDIAddress XDI_ADD_V_FROM_RELATIVE = XDIAddress.fromComponent(XDI_ARC_V_FROM_RELATIVE);
-	public static final XDIAddress XDI_ADD_V_TO_RELATIVE = XDIAddress.fromComponent(XDI_ARC_V_TO_RELATIVE);
 
 	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 

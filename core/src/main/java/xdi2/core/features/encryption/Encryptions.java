@@ -19,6 +19,7 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.CopyUtil.AbstractCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -143,7 +144,7 @@ public class Encryptions {
 	 * Helper classes
 	 */
 
-	public static class NoEncryptionsCopyStrategy extends CopyStrategy {
+	public static class NoEncryptionsCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {

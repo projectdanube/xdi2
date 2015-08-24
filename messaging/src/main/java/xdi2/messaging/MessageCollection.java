@@ -10,7 +10,6 @@ import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.DescendingIterator;

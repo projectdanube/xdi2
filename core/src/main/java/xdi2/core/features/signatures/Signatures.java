@@ -18,6 +18,7 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.CopyUtil.AbstractCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.MappingIterator;
@@ -184,7 +185,7 @@ public class Signatures {
 	 * Helper classes
 	 */
 
-	public static class NoSignaturesCopyStrategy extends CopyStrategy {
+	public static class NoSignaturesCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {

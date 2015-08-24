@@ -3,9 +3,10 @@ package xdi2.webtools.util;
 import xdi2.core.ContextNode;
 import xdi2.core.impl.DummyContextNode;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.CopyUtil.AbstractCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 
-public class MessageUuidShorteningCopyStrategy extends CopyStrategy {
+public class MessageUuidShorteningCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 	@Override
 	public ContextNode replaceContextNode(ContextNode contextNode) {

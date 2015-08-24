@@ -3,9 +3,10 @@ package xdi2.webtools.util;
 import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.impl.DummyLiteralNode;
+import xdi2.core.util.CopyUtil.AbstractCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 
-public class SecretTokenCensoringCopyStrategy extends CopyStrategy {
+public class SecretTokenCensoringCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 	@Override
 	public LiteralNode replaceLiteralNode(LiteralNode literal) {
