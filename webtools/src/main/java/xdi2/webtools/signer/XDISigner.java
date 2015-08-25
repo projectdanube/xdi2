@@ -37,6 +37,10 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.security.sign.AESStaticSecretKeySignatureCreator;
+import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
+import xdi2.core.security.validate.AESStaticSecretKeySignatureValidator;
+import xdi2.core.security.validate.RSAStaticPublicKeySignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
@@ -207,12 +211,12 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 					k = Keys.privateKeyFromPrivateKeyString(key);
 
-					((RSASignature) signature).setSignatureValue((PrivateKey) k);
+					new RSAStaticPrivateKeySignatureCreator((PrivateKey) k).createSignature((RSASignature) signature);
 				} else if (signature instanceof AESSignature) {
 
 					k = Keys.secretKeyFromSecretKeyString(key);
 
-					((AESSignature) signature).setSignatureValue((SecretKey) k);
+					new AESStaticSecretKeySignatureCreator((SecretKey) k).createSignature((AESSignature) signature);
 				}
 
 				output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
@@ -227,12 +231,14 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 						k = Keys.publicKeyFromPublicKeyString(key);
 
-						valid.add(Boolean.valueOf(((RSASignature) signature).validateSignature((PublicKey) k)));
+						boolean validated = new RSAStaticPublicKeySignatureValidator((PublicKey) k).validateSignature((RSASignature) signature);
+						valid.add(Boolean.valueOf(validated));
 					} else if (signature instanceof AESSignature) {
 
 						k = Keys.secretKeyFromSecretKeyString(key);
 
-						valid.add(Boolean.valueOf(((AESSignature) signature).validateSignature((SecretKey) k)));
+						boolean validated = new AESStaticSecretKeySignatureValidator((SecretKey) k).validateSignature((AESSignature) signature);
+						valid.add(Boolean.valueOf(validated));
 					}
 				}
 
