@@ -15,22 +15,22 @@ import xdi2.discovery.XDIDiscoveryResult;
  * This is an RSAPublicKeySignatureValidater that validate an XDI RSASignature by
  * obtaining public keys using XDI discovery.
  */
-public class RSADiscoveryPublicKeySignatureValidater extends RSAPublicKeySignatureValidator {
+public class RSADiscoveryPublicKeySignatureValidator extends RSAPublicKeySignatureValidator {
 
-	private static Logger log = LoggerFactory.getLogger(RSADiscoveryPublicKeySignatureValidater.class.getName());
+	private static Logger log = LoggerFactory.getLogger(RSADiscoveryPublicKeySignatureValidator.class.getName());
 
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
 
-	public RSADiscoveryPublicKeySignatureValidater(XDIDiscoveryClient xdiDiscoveryClient) {
+	public RSADiscoveryPublicKeySignatureValidator(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		super();
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 
-	public RSADiscoveryPublicKeySignatureValidater() {
+	public RSADiscoveryPublicKeySignatureValidator() {
 
 		this(DEFAULT_DISCOVERY_CLIENT);
 	}

@@ -100,7 +100,7 @@ public class Signatures {
 
 	public static String getDigestAlgorithm(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc digestAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 0 ? dataTypeXDIAddress.getXDIArc(0) : null;
+		XDIArc digestAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(0) : null;
 		if (digestAlgorithmAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestAlgorithmAddress.getCs())) return null;
@@ -119,7 +119,7 @@ public class Signatures {
 
 	public static Integer getDigestLength(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc digestLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 1 ? dataTypeXDIAddress.getXDIArc(1) : null;
+		XDIArc digestLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(1) : null;
 		if (digestLengthAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthAddress.getCs())) return null;
@@ -138,7 +138,7 @@ public class Signatures {
 
 	public static String getKeyAlgorithm(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 2 ? dataTypeXDIAddress.getXDIArc(2) : null;
+		XDIArc keyAlgorithmAddress = dataTypeXDIAddress.getNumXDIArcs() > 2 ? dataTypeXDIAddress.getXDIArc(2) : dataTypeXDIAddress.getXDIArc(0);
 		if (keyAlgorithmAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyAlgorithmAddress.getCs())) return null;
@@ -157,7 +157,7 @@ public class Signatures {
 
 	public static Integer getKeyLength(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc keyLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(3) : null;
+		XDIArc keyLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(3) : dataTypeXDIAddress.getXDIArc(1);
 		if (keyLengthAddress == null) return null;
 
 		if (! XDIConstants.CS_CLASS_RESERVED.equals(keyLengthAddress.getCs())) return null;

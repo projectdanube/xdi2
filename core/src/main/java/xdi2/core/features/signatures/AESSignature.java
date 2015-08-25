@@ -1,18 +1,10 @@
 package xdi2.core.features.signatures;
 
-import java.security.GeneralSecurityException;
-
-import javax.crypto.SecretKey;
-
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.security.sign.AESSecretKeySignatureCreator;
-import xdi2.core.security.sign.AESStaticSecretKeySignatureCreator;
-import xdi2.core.security.validate.AESSecretKeySignatureValidator;
-import xdi2.core.security.validate.AESStaticSecretKeySignatureValidator;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -79,7 +71,6 @@ public final class AESSignature extends Signature {
 	 * Instance methods
 	 */
 
-	@Override
 	public String getAlgorithm() {
 
 		StringBuilder builder = new StringBuilder();
@@ -89,19 +80,5 @@ public final class AESSignature extends Signature {
 		builder.append(this.getDigestLength());
 
 		return builder.toString();
-	}
-
-	public void setSignatureValue(SecretKey secretKey) throws GeneralSecurityException {
-
-		AESSecretKeySignatureCreator signatureCreator = new AESStaticSecretKeySignatureCreator(secretKey);
-
-		signatureCreator.createSignature(this);
-	}
-
-	public boolean validateSignature(SecretKey secretKey) throws GeneralSecurityException {
-
-		AESSecretKeySignatureValidator signatureValidator = new AESStaticSecretKeySignatureValidator(secretKey);
-
-		return signatureValidator.validateSignature(this);
 	}
 }

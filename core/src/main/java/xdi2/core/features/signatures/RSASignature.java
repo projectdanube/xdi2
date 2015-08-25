@@ -1,18 +1,10 @@
 package xdi2.core.features.signatures;
 
-import java.security.GeneralSecurityException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.security.sign.RSAPrivateKeySignatureCreator;
-import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
-import xdi2.core.security.validate.RSAPublicKeySignatureValidator;
-import xdi2.core.security.validate.RSAStaticPublicKeySignatureValidator;
 
 /**
  * An XDI signature, represented as an XDI attribute.
@@ -80,7 +72,6 @@ public final class RSASignature extends Signature {
 	 * Instance methods
 	 */
 
-	@Override
 	public String getAlgorithm() {
 
 		StringBuilder builder = new StringBuilder();
@@ -91,19 +82,5 @@ public final class RSASignature extends Signature {
 		builder.append(this.getKeyAlgorithm().toUpperCase());
 
 		return builder.toString();
-	}
-
-	public void setSignatureValue(PrivateKey privateKey) throws GeneralSecurityException {
-
-		RSAPrivateKeySignatureCreator signatureCreator = new RSAStaticPrivateKeySignatureCreator(privateKey);
-
-		signatureCreator.createSignature(this);
-	}
-
-	public boolean validateSignature(PublicKey publicKey) throws GeneralSecurityException {
-
-		RSAPublicKeySignatureValidator signatureValidator = new RSAStaticPublicKeySignatureValidator(publicKey);
-
-		return signatureValidator.validateSignature(this);
 	}
 }

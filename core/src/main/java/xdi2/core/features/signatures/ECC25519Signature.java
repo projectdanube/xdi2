@@ -11,11 +11,13 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
  * 
  * @author markus
  */
-public final class UnknownSignature extends Signature {
+public final class ECC25519Signature extends Signature {
 
-	private static final long serialVersionUID = -8222252937720290576L;
+	private static final long serialVersionUID = -5809066928136679213L;
 
-	protected UnknownSignature(XdiAttribute xdiAttribute) {
+	public static final String KEY_ALGORITHM_ECC25519 = "ecc25519";
+
+	protected ECC25519Signature(XdiAttribute xdiAttribute) {
 
 		super(xdiAttribute);
 	}
@@ -42,6 +44,10 @@ public final class UnknownSignature extends Signature {
 			return false;
 		}
 
+		String keyAlgorithm = Signatures.getKeyAlgorithm(xdiAttribute);
+
+		if (! KEY_ALGORITHM_ECC25519.equalsIgnoreCase(keyAlgorithm)) return false;
+
 		return true;
 	}
 
@@ -50,20 +56,10 @@ public final class UnknownSignature extends Signature {
 	 * @param xdiAttribute The XDI attribute that is an XDI signature.
 	 * @return The XDI signature.
 	 */
-	public static UnknownSignature fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static ECC25519Signature fromXdiAttribute(XdiAttribute xdiAttribute) {
 
 		if (! isValid(xdiAttribute)) return null;
 
-		return new UnknownSignature(xdiAttribute);
-	}
-
-	/*
-	 * Instance methods
-	 */
-
-	@Override
-	public String getAlgorithm() {
-
-		return "unknown";
+		return new ECC25519Signature(xdiAttribute);
 	}
 }
