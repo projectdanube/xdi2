@@ -1,6 +1,10 @@
 release 0.8 ("Orșova")
 ========================
 
+* The relativity symbol has changed from _ to ~
+
+* The DebugHttpTransportInterceptor now shows better Transport information.
+
 * A MessagingResponse may contain one or more PushLinkContract instances, if the result of 
 an operation is "deferred".
 

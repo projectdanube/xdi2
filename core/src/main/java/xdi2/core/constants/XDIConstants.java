@@ -21,7 +21,7 @@ public class XDIConstants {
 	public static final Character[] CS_ARRAY = new Character[] { CS_AUTHORITY_PERSONAL, CS_AUTHORITY_LEGAL, CS_CLASS_RESERVED, CS_CLASS_UNRESERVED, CS_INSTANCE_ORDERED, CS_INSTANCE_UNORDERED, CS_LITERAL };
 
 	public static final Character S_IMMUTABLE = Character.valueOf('!');
-	public static final Character S_RELATIVE = Character.valueOf('_');
+	public static final Character S_RELATIVE = Character.valueOf('~');
 
 	public static final String XS_ROOT = "()";
 	public static final String XS_VARIABLE = "{}";

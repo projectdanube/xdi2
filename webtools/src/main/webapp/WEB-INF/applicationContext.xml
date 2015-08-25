@@ -7,12 +7,13 @@
 
 	<bean id="UriMessagingTargetRegistry" class="xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
 
+	<bean id="DebugHttpTransportInterceptor" class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />
+
 	<bean id="HttpTransport" class="xdi2.transport.impl.http.HttpTransport" init-method="init" destroy-method="shutdown">
 		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 		<property name="interceptors">
 			<util:list>
-				<bean class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />
-				<bean class="xdi2.transport.impl.http.interceptor.impl.StatusHttpTransportInterceptor" />
+				<ref bean="DebugHttpTransportInterceptor" />
 			</util:list>
 		</property>
 	</bean>
@@ -20,6 +21,11 @@
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
 		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
 		<property name="endpointPath" value="/" />
+		<property name="interceptors">
+			<util:list>
+				<ref bean="DebugHttpTransportInterceptor" />
+			</util:list>
+		</property>
 	</bean>
 
 	<!-- SPRING -->

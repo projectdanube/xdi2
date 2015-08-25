@@ -27,7 +27,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 <table style="float: right">
 <tr>
 <td>
-<h1 style="margin-right: 20px;">$request.baseUri</h1>
+<h1 style="margin-right: 20px;">$httprequest.baseUri</h1>
 </td>
 </tr>
 </table>
@@ -43,16 +43,20 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 <h1>General Information:</h1>
 <table class="pretty">
-	<tr><th style="width: 200px">XDI2 Version:</th><td>$xdi2properties["project.version"] ($xdi2properties["project.build.timestamp"])</td></tr>
-	<tr><th style="width: 200px">Git Commit:</th><td>$xdi2properties["git.branch"] $xdi2properties["git.commit.id"] ($xdi2properties["git.commit.time"])</td></tr>
-	<tr><th style="width: 200px">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
-	<tr><th style="width: 200px">Transport Class:</th><td>$httptransport.class.canonicalName</td></tr>
-	<tr><th style="width: 200px">Request Class:</th><td>$request.class.canonicalName</td></tr>
-	<tr><th style="width: 200px">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
-	<tr><th style="width: 200px">Current Time:</th><td>$httptransport.getCurrentAsString()</td></tr>
-	<tr><th style="width: 200px">Startup Time:</th><td>$httptransport.getStartupAsString() ($httptransport.getStartupAsSeconds() seconds)</td></tr>
-	<tr><th style="width: 200px">Request Path:</th><td>$request.requestPath</td></tr>
-	<tr><th style="width: 200px">Transport Interceptors:</th><td>
+	<tr><th style="width: 200px" valign="top">XDI2 Version:</th><td>$xdi2properties["project.version"] ($xdi2properties["project.build.timestamp"])</td></tr>
+	<tr><th style="width: 200px" valign="top">Git Commit:</th><td>$xdi2properties["git.branch"] $xdi2properties["git.commit.id"] ($xdi2properties["git.commit.time"])</td></tr>
+	<tr><th style="width: 200px" valign="top">OS and Java:</th><td>$systemproperties["os.name"] $systemproperties["os.arch"] $systemproperties["os.version"] / $systemproperties["java.vendor"] $systemproperties["java.version"]</td></tr>
+	<tr><th style="width: 200px" valign="top">Parser Class:</th><td>$parser.class.canonicalName</td></tr>
+	<tr><th style="width: 200px" valign="top">Transport Classes:</th><td>
+		#if($transports.size()==0)
+			(none)
+		#else
+		#foreach($transport in $transports)
+			$transport.class.canonicalName<br>
+		#end
+		#end
+	</td></tr>
+	<tr><th style="width: 200px" valign="top">Transport Interceptors:</th><td>
 		#if($httptransport.interceptors.size()==0)
 			(none)
 		#else
@@ -61,7 +65,10 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 		#end
 		#end
 	</td></tr>
-	<tr><th style="width: 200px">Dynamic Plugins:</th><td>
+	<tr><th style="width: 200px" valign="top">Startup/Current Time:</th><td>$httptransport.getStartupAsString() - $httptransport.getCurrentAsString() - $httptransport.getStartupAsSeconds() seconds - initialized: $httptransport.isInitialized()</td></tr>
+	<tr><th style="width: 200px" valign="top">Request Path:</th><td>$httprequest.requestPath</td></tr>
+	<tr><th style="width: 200px" valign="top">Request Class:</th><td>$httprequest.class.canonicalName</td></tr>
+	<tr><th style="width: 200px" valign="top">Dynamic Plugins:</th><td>
 		#if(! $pluginfiles)
 			(none)
 		#else
@@ -86,7 +93,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 #foreach($messagingtargetmount in $messagingtargetmounts)
 	<tr>
     <td valign="top">
-    	<a href="$request.baseUri$messagingtargetmount.messagingTargetPath">
+    	<a href="$httprequest.baseUri$messagingtargetmount.messagingTargetPath">
     		$messagingtargetmount.messagingTargetPath
     	</a>
 		<p><form action="" method="post">
@@ -204,7 +211,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 #foreach($messagingtargetfactorymount in $messagingtargetfactorymounts)
 	<tr>
     <td valign="top">
-    	<a href="$request.baseUri$messagingtargetfactorymount.messagingTargetFactoryPath">
+    	<a href="$httprequest.baseUri$messagingtargetfactorymount.messagingTargetFactoryPath">
     		$messagingtargetfactorymount.messagingTargetFactoryPath
     	</a>
 		<p><form action="" method="post">
@@ -248,6 +255,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	    	<br><b>$logentry.request.getRemoteAddr()</b>
 		#else
 	    #end
+    	<br>$logentry.transport.class.simpleName
     </td>
     <td valign="top">
     	<textarea>$logentry.messageEnvelope</textarea>
