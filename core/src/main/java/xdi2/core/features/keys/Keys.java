@@ -152,7 +152,7 @@ public class Keys {
 	public static PublicKey publicKeyFromPublicKeyString(String publicKeyString) throws GeneralSecurityException {
 
 		if (publicKeyString == null) return null;
-
+// TODO: don't hardcode "RSA" here
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString.getBytes(Charset.forName("UTF-8"))));
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
