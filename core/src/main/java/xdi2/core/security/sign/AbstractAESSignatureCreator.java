@@ -13,11 +13,15 @@ public abstract class AbstractAESSignatureCreator extends AbstractSignatureCreat
 
 	public AbstractAESSignatureCreator(String digestAlgorithm, Integer digestLength) {
 
+		super(AESSignature.class);
+
 		this.digestAlgorithm = digestAlgorithm;
 		this.digestLength = digestLength;
 	}
 
 	public AbstractAESSignatureCreator() {
+
+		super(AESSignature.class);
 
 		this.digestLength = DEFAULT_DIGEST_LENGTH;
 		this.digestAlgorithm = DEFAULT_DIGEST_ALGORITHM;
@@ -26,7 +30,7 @@ public abstract class AbstractAESSignatureCreator extends AbstractSignatureCreat
 	/*
 	 * Getters and setters
 	 */
-	
+
 	@Override
 	public String getDigestAlgorithm() {
 

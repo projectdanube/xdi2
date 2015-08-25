@@ -11,6 +11,8 @@ import xdi2.core.syntax.XDIAddress;
  */
 public interface SignatureValidator <SIGNATURE extends Signature> {
 
+	public boolean canValidate(Class<? extends SIGNATURE> clazz);
+
 	/**
 	 * Validate a signature.
 	 */

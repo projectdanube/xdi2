@@ -10,6 +10,19 @@ import xdi2.core.syntax.XDIAddress;
 
 public abstract class AbstractSignatureValidator <SIGNATURE extends Signature> implements SignatureValidator<SIGNATURE> {
 
+	private Class<SIGNATURE> clazz;
+
+	protected AbstractSignatureValidator(Class<SIGNATURE> clazz) {
+
+		this.clazz = clazz;
+	}
+
+	@Override
+	public boolean canValidate(Class<? extends SIGNATURE> clazz) {
+
+		return this.clazz.isAssignableFrom(clazz);
+	}
+
 	@Override
 	public final boolean validateSignature(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException {
 

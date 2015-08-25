@@ -81,6 +81,8 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 				try {
 
+					if (! signatureValidator.canValidate(signature.getClass())) continue;
+
 					validated |= signatureValidator.validateSignature(signature, senderXDIAddress);
 					if (validated) break;
 				} catch (GeneralSecurityException ex) {

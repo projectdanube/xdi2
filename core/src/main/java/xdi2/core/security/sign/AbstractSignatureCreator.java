@@ -11,6 +11,19 @@ import xdi2.core.syntax.XDIAddress;
 
 public abstract class AbstractSignatureCreator <SIGNATURE extends Signature> implements SignatureCreator<SIGNATURE> {
 
+	private Class<SIGNATURE> clazz;
+
+	protected AbstractSignatureCreator(Class<SIGNATURE> clazz) {
+
+		this.clazz = clazz;
+	}
+
+	@Override
+	public boolean canCreate(Class<? extends SIGNATURE> clazz) {
+
+		return this.clazz.isAssignableFrom(clazz);
+	}
+
 	@Override
 	public final SIGNATURE createSignature(ContextNode contextNode, XDIAddress signerXDIAddress) throws GeneralSecurityException {
 

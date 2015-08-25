@@ -12,11 +12,15 @@ public abstract class AbstractRSASignatureCreator extends AbstractSignatureCreat
 
 	public AbstractRSASignatureCreator(String digestAlgorithm, Integer digestLength) {
 
+		super(RSASignature.class);
+
 		this.digestAlgorithm = digestAlgorithm;
 		this.digestLength = digestLength;
 	}
 
 	public AbstractRSASignatureCreator() {
+
+		super(RSASignature.class);
 
 		this.digestLength = DEFAULT_DIGEST_LENGTH;
 		this.digestAlgorithm = DEFAULT_DIGEST_ALGORITHM;
@@ -25,7 +29,7 @@ public abstract class AbstractRSASignatureCreator extends AbstractSignatureCreat
 	/*
 	 * Getters and setters
 	 */
-	
+
 	@Override
 	public String getDigestAlgorithm() {
 

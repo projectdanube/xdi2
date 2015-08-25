@@ -12,6 +12,8 @@ import xdi2.core.syntax.XDIAddress;
  */
 public interface SignatureCreator <SIGNATURE extends Signature> {
 
+	public boolean canCreate(Class<? extends SIGNATURE> clazz);
+
 	/**
 	 * Create a signature.
 	 */
