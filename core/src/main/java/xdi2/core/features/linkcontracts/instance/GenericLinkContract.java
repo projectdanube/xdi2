@@ -111,6 +111,11 @@ public class GenericLinkContract extends LinkContract {
 		return XDIAddress.fromComponents(genericLinkContractXDIArcs);
 	}
 
+	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
+
+		return createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, true);
+	}
+
 	/**
 	 * Factory method that finds or creates an XDI generic link contract for a graph.
 	 * @return The XDI generic link contract.
