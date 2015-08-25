@@ -7,4 +7,6 @@ import xdi2.core.features.signatures.RSASignature;
  */
 public interface RSASignatureCreator extends SignatureCreator<RSASignature> {
 
+	public String getDigestAlgorithm();
+	public Integer getDigestLength();
 }

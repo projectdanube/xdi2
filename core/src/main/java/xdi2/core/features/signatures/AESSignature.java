@@ -95,7 +95,7 @@ public final class AESSignature extends Signature {
 
 		AESSecretKeySignatureCreator signatureCreator = new AESStaticSecretKeySignatureCreator(secretKey);
 
-		signatureCreator.setSignatureValue(this);
+		signatureCreator.createSignature(this);
 	}
 
 	public boolean validateSignature(SecretKey secretKey) throws GeneralSecurityException {

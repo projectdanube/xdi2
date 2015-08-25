@@ -14,6 +14,27 @@ public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureC
 
 	private Map<XDIAddress, PrivateKey> privateKeys;
 
+	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, Map<XDIAddress, PrivateKey> privateKeys) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.privateKeys = privateKeys;
+	}
+
+	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, PrivateKey privateKey) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.privateKeys = Collections.singletonMap(null, privateKey);
+	}
+
+	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.privateKeys = Collections.emptyMap();
+	}
+
 	public RSAStaticPrivateKeySignatureCreator(Map<XDIAddress, PrivateKey> privateKeys) {
 
 		super();
@@ -31,6 +52,8 @@ public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureC
 	public RSAStaticPrivateKeySignatureCreator() {
 
 		super();
+
+		this.privateKeys = Collections.emptyMap();
 	}
 
 	@Override

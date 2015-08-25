@@ -20,11 +20,14 @@ public abstract class RSAPrivateKeySignatureCreator extends AbstractRSASignature
 
 	private static Logger log = LoggerFactory.getLogger(RSAPrivateKeySignatureCreator.class.getName());
 
-	private String digestAlgorithm;
-	private Integer digestLength;
+	public RSAPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+	}
 
 	public RSAPrivateKeySignatureCreator() {
 
+		super();
 	}
 
 	@Override
@@ -121,29 +124,5 @@ public abstract class RSAPrivateKeySignatureCreator extends AbstractRSASignature
 		}
 
 		throw new IllegalArgumentException("Cannot determine key length for private key.");
-	}
-
-	/*
-	 * Getters and setters
-	 */
-
-	public String getDigestAlgorithm() {
-
-		return this.digestAlgorithm;
-	}
-
-	public void setDigestAlgorithm(String digestAlgorithm) {
-
-		this.digestAlgorithm = digestAlgorithm;
-	}
-
-	public Integer getDigestLength() {
-
-		return this.digestLength;
-	}
-
-	public void setDigestLength(Integer digestLength) {
-
-		this.digestLength = digestLength;
 	}
 }

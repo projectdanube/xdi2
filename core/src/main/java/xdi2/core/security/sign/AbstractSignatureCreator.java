@@ -30,7 +30,7 @@ public abstract class AbstractSignatureCreator <SIGNATURE extends Signature> imp
 	}
 
 	@Override
-	public final void setSignatureValue(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	public final void createSignature(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		// get normalized serialization
 
@@ -42,9 +42,9 @@ public abstract class AbstractSignatureCreator <SIGNATURE extends Signature> imp
 	}
 
 	@Override
-	public final void setSignatureValue(SIGNATURE signature) throws GeneralSecurityException {
+	public final void createSignature(SIGNATURE signature) throws GeneralSecurityException {
 
-		this.setSignatureValue(signature, null);
+		this.createSignature(signature, null);
 	}
 
 	public abstract SIGNATURE create(byte[] normalizedSerialization, ContextNode contextNode, XDIAddress signerXDIAddress) throws GeneralSecurityException;

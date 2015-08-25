@@ -97,7 +97,7 @@ public final class RSASignature extends Signature {
 
 		RSAPrivateKeySignatureCreator signatureCreator = new RSAStaticPrivateKeySignatureCreator(privateKey);
 
-		signatureCreator.setSignatureValue(this);
+		signatureCreator.createSignature(this);
 	}
 
 	public boolean validateSignature(PublicKey publicKey) throws GeneralSecurityException {

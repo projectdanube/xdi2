@@ -32,6 +32,8 @@ public class AESStaticSecretKeySignatureValidator extends AESSecretKeySignatureV
 	public AESStaticSecretKeySignatureValidator() {
 
 		super();
+
+		this.secretKeys = Collections.emptyMap();
 	}
 
 	@Override

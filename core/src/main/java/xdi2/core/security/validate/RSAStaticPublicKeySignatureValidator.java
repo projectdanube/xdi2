@@ -31,6 +31,8 @@ public class RSAStaticPublicKeySignatureValidator extends RSAPublicKeySignatureV
 	public RSAStaticPublicKeySignatureValidator() {
 
 		super();
+
+		this.publicKeys = Collections.emptyMap();
 	}
 
 	@Override

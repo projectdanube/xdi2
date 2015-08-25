@@ -32,6 +32,8 @@ public class AESStaticSecretKeySignatureCreator extends AESSecretKeySignatureCre
 	public AESStaticSecretKeySignatureCreator() {
 
 		super();
+
+		this.secretKeys = Collections.emptyMap();
 	}
 
 	@Override

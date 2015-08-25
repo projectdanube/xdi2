@@ -24,6 +24,20 @@ public class RSAGraphPrivateKeySignatureCreator extends RSAPrivateKeySignatureCr
 
 	private Graph privateKeyGraph;
 
+	public RSAGraphPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, Graph privateKeyGraph) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.privateKeyGraph = privateKeyGraph;
+	}
+
+	public RSAGraphPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.privateKeyGraph = null;
+	}
+
 	public RSAGraphPrivateKeySignatureCreator(Graph privateKeyGraph) {
 
 		super();

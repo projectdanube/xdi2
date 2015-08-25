@@ -23,12 +23,12 @@ public interface SignatureCreator <SIGNATURE extends Signature> {
 	public SIGNATURE createSignature(ContextNode contextNode) throws GeneralSecurityException;
 
 	/**
-	 * Set a signature value.
+	 * Create a signature.
 	 */
-	public void setSignatureValue(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException;
+	public void createSignature(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException;
 
 	/**
-	 * Set a signature value.
+	 * Create a signature.
 	 */
-	public void setSignatureValue(SIGNATURE signature) throws GeneralSecurityException;
+	public void createSignature(SIGNATURE signature) throws GeneralSecurityException;
 }
