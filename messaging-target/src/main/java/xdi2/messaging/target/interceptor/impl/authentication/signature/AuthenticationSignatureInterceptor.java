@@ -73,11 +73,11 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		boolean validated = false;
 
-		for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
+		for (Signature signature : signatures) {
 
-			if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
+			for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
 
-			for (Signature signature : signatures) {
+				if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
 
 				try {
 
