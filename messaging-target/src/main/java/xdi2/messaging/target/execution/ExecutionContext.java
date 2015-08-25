@@ -214,7 +214,7 @@ public final class ExecutionContext implements Serializable {
 		return this.ex;
 	}
 
-	public Xdi2MessagingException processException(Exception ex) {
+	public Xdi2MessagingException processException(Throwable ex) {
 
 		assert(ex != null);
 

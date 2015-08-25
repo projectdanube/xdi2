@@ -183,7 +183,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			// execute result interceptors (finish)
 
 			InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 
 			// process exception
 

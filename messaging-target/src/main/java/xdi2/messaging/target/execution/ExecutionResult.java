@@ -34,7 +34,7 @@ public final class ExecutionResult {
 	private static final Logger log = LoggerFactory.getLogger(ExecutionResult.class);
 
 	private Map<Operation, Graph> operationResultGraphs;
-	private Exception ex;
+	private Throwable ex;
 	private Graph resultGraph;
 	private Exception resultGraphFinishedEx;
 
@@ -97,7 +97,7 @@ public final class ExecutionResult {
 		return this.operationResultGraphs;
 	}
 
-	public void addException(Exception ex) {
+	public void addException(Throwable ex) {
 
 		if (ex == null) throw new NullPointerException();
 
