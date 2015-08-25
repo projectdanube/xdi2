@@ -94,18 +94,18 @@ public class WebSocketClientMessageHandler implements javax.websocket.MessageHan
 
 					// this message should be sent to WebSocketClient.onMessageEnvelope() callback
 
-					CopyUtil.copyContextNode(message.getContextNode(), callbackMessageEnvelopeGraph, null);
+					CopyUtil.copyGraph(MessagingCloneUtil.cloneMessage(message, false).getMessageEnvelope().getGraph(), callbackMessageEnvelopeGraph, null);
 				} else {
 
 					// this message should be sent to WebSocketClient.onMessagingResponse() callback
 
-					CopyUtil.copyContextNode(message.getContextNode(), callbackFullMessagingResponseGraph, null);
+					CopyUtil.copyGraph(MessagingCloneUtil.cloneMessage(message, false).getMessageEnvelope().getGraph(), callbackFullMessagingResponseGraph, null);
 
 					FutureMessagingResponse futureMessagingResponse = webSocketClient.getFutureMessagingResponses().get(message.getCorrelationXDIAddress());
 
 					if (futureMessagingResponse != null) {
 
-						webSocketClient.getFutureMessagingResponses().remove(message.getCorrelationXDIAddress());
+						webSocketClient.removeFutureMessagingResponse(message.getCorrelationXDIAddress());
 
 						// this message should be sent to FutureMessagingResponse.onMessagingResponse() callback
 

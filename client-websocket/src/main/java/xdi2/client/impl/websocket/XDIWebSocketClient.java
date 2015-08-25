@@ -47,7 +47,7 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0";
 
-	protected static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
 
 	private Session session;
 	private URI xdiWebSocketEndpointUri;
@@ -186,7 +186,7 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			this.getFutureMessagingResponses().put(message.getXDIAddress(), futureMessagingResponse);
+			this.putFutureMessagingResponse(message.getXDIAddress(), futureMessagingResponse);
 		}
 
 		// done
@@ -287,9 +287,18 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 		return this.futureMessagingResponses;
 	}
 
-	public void setFutureMessagingResponses(Map<XDIAddress, FutureMessagingResponse> futureMessagingResponses) {
+	public void putFutureMessagingResponse(XDIAddress messageXDIaddress, FutureMessagingResponse futureMessagingResponse) {
 
-		this.futureMessagingResponses = futureMessagingResponses;
+		if (log.isDebugEnabled()) log.debug("Putting future messaging response for message " + messageXDIaddress);
+
+		this.futureMessagingResponses.put(messageXDIaddress, futureMessagingResponse);
+	}
+
+	public void removeFutureMessagingResponse(XDIAddress messageXDIaddress) {
+
+		if (log.isDebugEnabled()) log.debug("Removing future messaging response for message " + messageXDIaddress);
+
+		this.futureMessagingResponses.remove(messageXDIaddress);
 	}
 
 	/*
