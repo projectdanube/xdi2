@@ -36,7 +36,6 @@ public abstract class AESSecretKeySignatureValidator extends AbstractAESSignatur
 		if (secretKey == null) {
 
 			if (log.isDebugEnabled()) log.debug("No secret key found for " + signerXDIAddress);
-
 			return false;
 		}
 

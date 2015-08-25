@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +10,7 @@ import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.signatures.AESSignature;
-import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signature;
-import xdi2.core.security.validate.AESSignatureValidator;
-import xdi2.core.security.validate.RSASignatureValidator;
 import xdi2.core.security.validate.SignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -36,7 +33,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private SignatureValidator<? extends Signature> signatureValidator;
+	private List<SignatureValidator<? super Signature>> signatureValidators;
 
 	/*
 	 * Prototype
@@ -51,7 +48,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		// set the signature validator
 
-		interceptor.setSignatureValidator(this.getSignatureValidator());
+		interceptor.setSignatureValidator(this.getSignatureValidators());
 
 		// done
 
@@ -72,38 +69,25 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		// validate signatures
 
-		SignatureValidator<? extends Signature> signatureValidator = this.getSignatureValidator();
+		boolean validated = false;
 
-		if (log.isDebugEnabled()) log.debug("Validating via " + signatureValidator.getClass().getSimpleName());
+		for (SignatureValidator<? super Signature> signatureValidator : this.getSignatureValidators()) {
 
-		boolean validated = true;
+			if (log.isDebugEnabled()) log.debug("Validating via " + signatureValidator.getClass().getSimpleName());
 
-		for (Signature signature : signatures) {
+			for (Signature signature : signatures) {
 
-			XDIAddress signerXDIAddress = message.getSenderXDIAddress();
+				XDIAddress signerXDIAddress = message.getSenderXDIAddress();
 
-			try {
+				try {
 
-				// TODO: find a way to not have to enumerate this
+					validated |= signatureValidator.validateSignature(signature);
+					if (validated) break;
+				} catch (GeneralSecurityException ex) {
 
-				if (signatureValidator instanceof RSASignatureValidator && signature instanceof RSASignature) {
-
-					validated &= ((RSASignatureValidator) signatureValidator).validateSignature((RSASignature) signature, signerXDIAddress);
-					continue;
+					throw new Xdi2MessagingException("Unable to validate signature via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
 				}
-
-				if (signatureValidator instanceof AESSignatureValidator && signature instanceof AESSignature) {
-
-					validated &= ((AESSignatureValidator) signatureValidator).validateSignature((AESSignature) signature, signerXDIAddress);
-					continue;
-				}
-			} catch (GeneralSecurityException ex) {
-
-				throw new Xdi2MessagingException("Unable to validate signature via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
 			}
-
-			validated = false;
-			break;
 		}
 
 		// signature is valid?
@@ -130,13 +114,13 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	 * Getters and setters
 	 */
 
-	public SignatureValidator<? extends Signature> getSignatureValidator() {
+	public List<SignatureValidator<? super Signature>> getSignatureValidators() {
 
-		return this.signatureValidator;
+		return this.signatureValidators;
 	}
 
-	public void setSignatureValidator(SignatureValidator<? extends Signature> signatureValidator) {
+	public void setSignatureValidator(List<SignatureValidator<? super Signature>> signatureValidators) {
 
-		this.signatureValidator = signatureValidator;
+		this.signatureValidators = signatureValidators;
 	}
 }

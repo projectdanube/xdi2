@@ -1,6 +1,9 @@
 release 0.8 ("Orșova")
 ========================
 
+* AuthenticationSignatureInterceptor now takes a list of SignatureValidator objects.
+It is enough for one of them to be able to validate a signature.
+
 * The relativity symbol has changed from _ to ~
 
 * The DebugHttpTransportInterceptor now shows better Transport information.

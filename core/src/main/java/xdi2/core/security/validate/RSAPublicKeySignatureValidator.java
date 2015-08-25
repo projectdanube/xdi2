@@ -33,7 +33,6 @@ public abstract class RSAPublicKeySignatureValidator extends AbstractRSASignatur
 		if (publicKey == null) {
 
 			if (log.isDebugEnabled()) log.debug("No public key found for " + signerXDIAddress);
-
 			return false;
 		}
 

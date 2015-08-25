@@ -96,7 +96,7 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
 					<property name="signatureValidator">
-						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
@@ -201,7 +201,7 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
 					<property name="signatureValidator">
-						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
@@ -311,7 +311,7 @@
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
 					<property name="signatureValidator">
-						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidater">
+						<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
 							<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 						</bean>
 					</property>
