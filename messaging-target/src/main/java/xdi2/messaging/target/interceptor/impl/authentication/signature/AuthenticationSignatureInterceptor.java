@@ -75,9 +75,11 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		for (Signature signature : signatures) {
 
+			boolean validatedSignature = false;
+
 			for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
 
-				if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
+				if (log.isDebugEnabled()) log.debug("Validating " + signature.getClass().getSimpleName() + " for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
 
 				try {
 
@@ -85,14 +87,17 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 					if (log.isDebugEnabled()) log.debug("Signature validator " + signatureValidator.getClass().getSimpleName() + " can validate signature " + signature.getClass().getSimpleName() + "? " + canValidate);
 					if (! canValidate) continue;
 
-					validated |= signatureValidator.validateSignature(signature, senderXDIAddress);
-					if (log.isDebugEnabled()) log.debug("Validated for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + validated);
-					if (validated) break;
+					validatedSignature |= signatureValidator.validateSignature(signature, senderXDIAddress);
+					if (log.isDebugEnabled()) log.debug("Validated " + signature.getClass().getSimpleName() + " for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + validatedSignature);
+					if (validatedSignature) break;
 				} catch (GeneralSecurityException ex) {
 
 					throw new Xdi2MessagingException("Unable to validate signature for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
 				}
 			}
+
+			validated = validatedSignature;
+			if (! validated) break;
 		}
 
 		// signature is valid?
