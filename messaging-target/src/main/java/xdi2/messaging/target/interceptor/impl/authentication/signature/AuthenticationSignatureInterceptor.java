@@ -33,7 +33,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private List<SignatureValidator<? super Signature>> signatureValidators;
+	private List<SignatureValidator<Signature>> signatureValidators;
 
 	/*
 	 * Prototype
@@ -73,7 +73,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		boolean validated = false;
 
-		for (SignatureValidator<? super Signature> signatureValidator : this.getSignatureValidators()) {
+		for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
 
 			if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
 
@@ -81,9 +81,12 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 				try {
 
-					if (! signatureValidator.canValidate(signature.getClass())) continue;
+					boolean canValidate = signatureValidator.canValidate(signature.getClass());
+					if (log.isDebugEnabled()) log.debug("Signature validator " + signatureValidator.getClass().getSimpleName() + " can validate signature " + signature.getClass().getSimpleName() + "? " + canValidate);
+					if (! canValidate) continue;
 
 					validated |= signatureValidator.validateSignature(signature, senderXDIAddress);
+					if (log.isDebugEnabled()) log.debug("Validated for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + validated);
 					if (validated) break;
 				} catch (GeneralSecurityException ex) {
 
@@ -116,12 +119,12 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	 * Getters and setters
 	 */
 
-	public List<SignatureValidator<? super Signature>> getSignatureValidators() {
+	public List<SignatureValidator<Signature>> getSignatureValidators() {
 
 		return this.signatureValidators;
 	}
 
-	public void setSignatureValidators(List<SignatureValidator<? super Signature>> signatureValidators) {
+	public void setSignatureValidators(List<SignatureValidator<Signature>> signatureValidators) {
 
 		this.signatureValidators = signatureValidators;
 	}
