@@ -42,7 +42,7 @@ public abstract class Signature implements Serializable, Comparable<Signature> {
 		return
 				RSASignature.isValid(xdiAttribute) ||
 				AESSignature.isValid(xdiAttribute) ||
-				ECC25519Signature.isValid(xdiAttribute);
+				EC25519Signature.isValid(xdiAttribute);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public abstract class Signature implements Serializable, Comparable<Signature> {
 
 		if ((signature = RSASignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
 		if ((signature = AESSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
-		if ((signature = ECC25519Signature.fromXdiAttribute(xdiAttribute)) != null) return signature;
+		if ((signature = EC25519Signature.fromXdiAttribute(xdiAttribute)) != null) return signature;
 
 		return null;
 	}

@@ -21,8 +21,10 @@ public abstract class AESSecretKeySignatureCreator extends AbstractAESSignatureC
 
 	private static Logger log = LoggerFactory.getLogger(AESSecretKeySignatureCreator.class.getName());
 
-	private String digestAlgorithm;
-	private Integer digestLength;
+	public AESSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+	}
 
 	public AESSecretKeySignatureCreator() {
 
@@ -116,30 +118,6 @@ public abstract class AESSecretKeySignatureCreator extends AbstractAESSignatureC
 
 	public static Integer getSecretKeyLength(SecretKey secretKey) {
 
-		return Integer.valueOf(secretKey.getEncoded().length);
-	}
-
-	/*
-	 * Getters and setters
-	 */
-
-	public String getDigestAlgorithm() {
-
-		return this.digestAlgorithm;
-	}
-
-	public void setDigestAlgorithm(String digestAlgorithm) {
-
-		this.digestAlgorithm = digestAlgorithm;
-	}
-
-	public Integer getDigestLength() {
-
-		return this.digestLength;
-	}
-
-	public void setDigestLength(Integer digestLength) {
-
-		this.digestLength = digestLength;
+		return Integer.valueOf(secretKey.getEncoded().length * 8);
 	}
 }

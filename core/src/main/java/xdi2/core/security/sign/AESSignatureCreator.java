@@ -7,4 +7,6 @@ import xdi2.core.features.signatures.AESSignature;
  */
 public interface AESSignatureCreator extends SignatureCreator<AESSignature> {
 
+	public String getDigestAlgorithm();
+	public Integer getDigestLength();
 }

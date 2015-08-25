@@ -25,6 +25,20 @@ public class AESGraphSecretKeySignatureCreator extends AESSecretKeySignatureCrea
 
 	private Graph secretKeyGraph;
 
+	public AESGraphSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength, Graph secretKeyGraph) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.secretKeyGraph = secretKeyGraph;
+	}
+
+	public AESGraphSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.secretKeyGraph = null;
+	}
+
 	public AESGraphSecretKeySignatureCreator(Graph secretKeyGraph) {
 
 		super();

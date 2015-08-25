@@ -15,6 +15,27 @@ public class AESStaticSecretKeySignatureCreator extends AESSecretKeySignatureCre
 
 	private Map<XDIAddress, SecretKey> secretKeys;
 
+	public AESStaticSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength, Map<XDIAddress, SecretKey> secretKeys) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.secretKeys = secretKeys;
+	}
+
+	public AESStaticSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength, SecretKey secretKey) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.secretKeys = Collections.singletonMap(null, secretKey);
+	}
+
+	public AESStaticSecretKeySignatureCreator(String digestAlgorithm, Integer digestLength) {
+
+		super(digestAlgorithm, digestLength);
+
+		this.secretKeys = Collections.emptyMap();
+	}
+
 	public AESStaticSecretKeySignatureCreator(Map<XDIAddress, SecretKey> secretKeys) {
 
 		super();

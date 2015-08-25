@@ -11,13 +11,13 @@ import xdi2.core.features.nodetypes.XdiAttributeSingleton;
  * 
  * @author markus
  */
-public final class ECC25519Signature extends Signature {
+public final class EC25519Signature extends Signature {
 
 	private static final long serialVersionUID = -5809066928136679213L;
 
-	public static final String KEY_ALGORITHM_ECC25519 = "ecc25519";
+	public static final String KEY_ALGORITHM_EC25519 = "ec25519";
 
-	protected ECC25519Signature(XdiAttribute xdiAttribute) {
+	protected EC25519Signature(XdiAttribute xdiAttribute) {
 
 		super(xdiAttribute);
 	}
@@ -46,7 +46,7 @@ public final class ECC25519Signature extends Signature {
 
 		String keyAlgorithm = Signatures.getKeyAlgorithm(xdiAttribute);
 
-		if (! KEY_ALGORITHM_ECC25519.equalsIgnoreCase(keyAlgorithm)) return false;
+		if (! KEY_ALGORITHM_EC25519.equalsIgnoreCase(keyAlgorithm)) return false;
 
 		return true;
 	}
@@ -56,10 +56,10 @@ public final class ECC25519Signature extends Signature {
 	 * @param xdiAttribute The XDI attribute that is an XDI signature.
 	 * @return The XDI signature.
 	 */
-	public static ECC25519Signature fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static EC25519Signature fromXdiAttribute(XdiAttribute xdiAttribute) {
 
 		if (! isValid(xdiAttribute)) return null;
 
-		return new ECC25519Signature(xdiAttribute);
+		return new EC25519Signature(xdiAttribute);
 	}
 }
