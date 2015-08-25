@@ -76,19 +76,19 @@ public final class CopyUtil {
 
 		XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
 
-		ContextNode targetContextNode;
+		ContextNode targetCopiedContextNode;
 
 		if (contextNode.isRootContextNode()) {
 
-			targetContextNode = targetGraph.getRootContextNode(false);
+			targetCopiedContextNode = targetGraph.getRootContextNode(false);
 		} else {
 
-			targetContextNode = targetGraph.setDeepContextNode(contextNodeXDIAddress);
+			targetCopiedContextNode = targetGraph.setDeepContextNode(contextNodeXDIAddress);
 		}
 
-		copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
+		copyContextNodeContents(contextNode, targetCopiedContextNode, copyStrategy);
 
-		return targetContextNode;
+		return targetCopiedContextNode;
 	}
 
 	/**
@@ -110,11 +110,11 @@ public final class CopyUtil {
 
 		XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
-		ContextNode targetInnerContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
+		ContextNode targetCopiedContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
 
-		copyContextNodeContents(contextNode, targetInnerContextNode, copyStrategy);
+		copyContextNodeContents(contextNode, targetCopiedContextNode, copyStrategy);
 
-		return targetContextNode;
+		return targetCopiedContextNode;
 	}
 
 	/**

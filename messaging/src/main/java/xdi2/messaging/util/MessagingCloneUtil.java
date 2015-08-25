@@ -3,9 +3,13 @@ package xdi2.messaging.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.util.CloneUtil;
@@ -49,9 +53,10 @@ public final class MessagingCloneUtil {
 		MessageEnvelope clonedMessageEnvelope = cloneMessageEnvelope(messageCollection.getMessageEnvelope());
 		clonedMessageEnvelope.deleteMessageCollections();
 
-		CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
+		ContextNode copiedContextNode = CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
 
-		MessageCollection clonedMessageCollection = clonedMessageEnvelope.getMessageCollections().next();
+		XdiEntityCollection clonedXdiEntityCollection = XdiEntityCollection.fromContextNode(copiedContextNode);
+		MessageCollection clonedMessageCollection = MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(clonedMessageEnvelope, clonedXdiEntityCollection);
 		if (log.isTraceEnabled()) log.trace("Cloned message collection: " + clonedMessageCollection.getMessageEnvelope());
 
 		return clonedMessageCollection;
@@ -69,26 +74,31 @@ public final class MessagingCloneUtil {
 
 		XdiEntity xdiEntity = message.getXdiEntity();
 
+		ContextNode copiedContextNode;
+
 		if (newId) {
 
 			if (xdiEntity instanceof XdiEntityInstanceUnordered) {
 
-				XdiEntityInstanceUnordered xdiEntityMemberUnordered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceUnordered(true, false);
-				CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberUnordered.getContextNode(), null);
+				copiedContextNode = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceUnordered(true, false).getContextNode();
+				CopyUtil.copyContextNodeContents(message.getContextNode(), copiedContextNode, null);
 			} else if (xdiEntity instanceof XdiEntityInstanceOrdered) {
 
-				XdiEntityInstanceOrdered xdiEntityMemberOrdered = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceOrdered(false, false);
-				CopyUtil.copyContextNodeContents(message.getContextNode(), xdiEntityMemberOrdered.getContextNode(), null);
+				copiedContextNode = clonedMessageCollection.getXdiEntityCollection().setXdiInstanceOrdered(false, false).getContextNode();
+				CopyUtil.copyContextNodeContents(message.getContextNode(), copiedContextNode, null);
 			} else {
 
 				throw new Xdi2RuntimeException("Unexpected message entity: " + xdiEntity + " (" + xdiEntity.getClass().getSimpleName() + ")");
 			}
 		} else {
 
-			CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
+			copiedContextNode = CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
 		}
 
-		Message clonedMessage = clonedMessageCollection.getMessages().next();
+		for (Relation incomingRelation : message.getContextNode().getIncomingRelations()) CopyUtil.copyRelation(incomingRelation, copiedContextNode.getGraph(), null);
+
+		XdiEntity clonedXdiEntity = XdiAbstractEntity.fromContextNode(copiedContextNode);
+		Message clonedMessage = Message.fromMessageCollectionAndXdiEntity(clonedMessageCollection, clonedXdiEntity);
 		if (log.isTraceEnabled()) log.trace("Cloned message: " + clonedMessage.getMessageEnvelope());
 
 		return clonedMessage;
