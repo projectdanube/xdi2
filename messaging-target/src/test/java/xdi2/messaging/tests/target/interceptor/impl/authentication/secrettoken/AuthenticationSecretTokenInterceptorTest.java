@@ -31,6 +31,6 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 		Message message = new MessageEnvelope().createMessage(SENDER_XRI);
 		message.setSecretToken(SECRET_TOKEN);
 
-		assertTrue(staticSecretTokenAuthenticator.authenticate(message, message.getSecretToken()));
+		assertTrue(staticSecretTokenAuthenticator.authenticate(message.getSecretToken(), message.getSenderXDIAddress()));
 	}
 }

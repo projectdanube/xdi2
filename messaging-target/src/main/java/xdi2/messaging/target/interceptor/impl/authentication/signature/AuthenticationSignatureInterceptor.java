@@ -69,23 +69,23 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		// validate signatures
 
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+
 		boolean validated = false;
 
 		for (SignatureValidator<? super Signature> signatureValidator : this.getSignatureValidators()) {
 
-			if (log.isDebugEnabled()) log.debug("Validating via " + signatureValidator.getClass().getSimpleName());
+			if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
 
 			for (Signature signature : signatures) {
 
-				XDIAddress signerXDIAddress = message.getSenderXDIAddress();
-
 				try {
 
-					validated |= signatureValidator.validateSignature(signature);
+					validated |= signatureValidator.validateSignature(signature, senderXDIAddress);
 					if (validated) break;
 				} catch (GeneralSecurityException ex) {
 
-					throw new Xdi2MessagingException("Unable to validate signature via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
+					throw new Xdi2MessagingException("Unable to validate signature for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
 				}
 			}
 		}
@@ -95,7 +95,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
 		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(validated));
 
-		if (log.isDebugEnabled()) log.debug("Valid: " + signatureValidLiteral.getStatement());
+		if (log.isDebugEnabled()) log.debug("Valid for " + senderXDIAddress + ": " + signatureValidLiteral.getStatement());
 
 		if (! validated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 

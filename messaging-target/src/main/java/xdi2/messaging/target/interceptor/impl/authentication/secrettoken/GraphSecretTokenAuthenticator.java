@@ -9,7 +9,6 @@ import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphAware;
-import xdi2.messaging.Message;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a "secret token graph",
@@ -50,12 +49,7 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 	 */
 
 	@Override
-	public String getLocalSaltAndDigestSecretToken(Message message) {
-
-		// sender
-
-		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
-		if (senderXDIAddress == null) return null;
+	public String getLocalSaltAndDigestSecretToken(XDIAddress senderXDIAddress) {
 
 		// sender peer root
 

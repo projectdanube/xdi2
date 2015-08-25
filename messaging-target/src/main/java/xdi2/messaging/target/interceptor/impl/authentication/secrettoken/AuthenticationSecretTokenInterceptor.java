@@ -7,6 +7,7 @@ import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -82,20 +83,22 @@ public class AuthenticationSecretTokenInterceptor extends AbstractInterceptor<Me
 
 		// validate secret token
 
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
+
 		SecretTokenAuthenticator secretTokenAuthenticator = this.getSecretTokenAuthenticator();
 
-		if (log.isDebugEnabled()) log.debug("Validating via " + secretTokenAuthenticator.getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Validating for " + senderXDIAddress + " via " + secretTokenAuthenticator.getClass().getSimpleName());
 
 		boolean validated = true;
 
-		validated &= secretTokenAuthenticator.authenticate(message, secretToken);
+		validated &= secretTokenAuthenticator.authenticate(secretToken, senderXDIAddress);
 
 		// secret token is valid?
 
 		XdiAttribute secretTokenValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN_VALID));
 		LiteralNode secretTokenValidLiteral = secretTokenValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(validated));
 
-		if (log.isDebugEnabled()) log.debug("Valid: " + secretTokenValidLiteral.getStatement());
+		if (log.isDebugEnabled()) log.debug("Valid for " + senderXDIAddress + ": " + secretTokenValidLiteral.getStatement());
 
 		if (! validated) throw new Xdi2AuthenticationException("Invalid secret token.", null, executionContext);
 

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.messaging.Message;
+import xdi2.core.syntax.XDIAddress;
 
 /**
  * A SecretTokenAuthenticator that can authenticate a secret token against
@@ -28,18 +28,18 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 	}
 
 	@Override
-	public final boolean authenticate(Message message, String secretToken) {
+	public final boolean authenticate(String secretToken, XDIAddress senderXDIAddress) {
 
-		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretToken(message);
+		String localSaltAndDigestSecretToken = this.getLocalSaltAndDigestSecretToken(senderXDIAddress);
 
 		if (localSaltAndDigestSecretToken == null) {
 
-			if (log.isDebugEnabled()) log.debug("No local salt and digest secret token found for sender: " + message.getSenderXDIAddress());
+			if (log.isDebugEnabled()) log.debug("No local salt and digest secret token found for sender: " + senderXDIAddress);
 
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Local salt and digest secret token found for sender " + message.getSenderXDIAddress() + ": " + localSaltAndDigestSecretToken);
+		if (log.isDebugEnabled()) log.debug("Local salt and digest secret token found for sender " + senderXDIAddress + ": " + localSaltAndDigestSecretToken);
 
 		// prepare authentication
 
@@ -69,7 +69,7 @@ public abstract class DigestSecretTokenAuthenticator extends AbstractSecretToken
 		return authenticated;
 	}
 
-	protected abstract String getLocalSaltAndDigestSecretToken(Message message);
+	protected abstract String getLocalSaltAndDigestSecretToken(XDIAddress senderXDIAddress);
 
 	/*
 	 * Getters and setters
