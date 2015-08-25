@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
@@ -60,7 +63,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements TransportInterceptor, HttpTransportInterceptor {
+public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements ApplicationContextAware, TransportInterceptor, HttpTransportInterceptor {
 
 	public static final String DEFAULT_PATH = "/";
 	public static final int DEFAULT_LOG_CAPACITY = 10;
@@ -68,6 +71,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	private String path = DEFAULT_PATH;
 	private int logCapacity;
 
+	private ApplicationContext applicationContext;
 	private LinkedList<LogEntry> log;
 
 	public DebugHttpTransportInterceptor() {
@@ -75,6 +79,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		this.path = DEFAULT_PATH;
 		this.logCapacity = DEFAULT_LOG_CAPACITY;
 
+		this.applicationContext = null;
 		this.log = new LinkedList<LogEntry> ();
 	}
 
@@ -98,7 +103,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		long stop = System.currentTimeMillis();
 		long duration = start == null ? -1 : stop - start.getTime();
 
-		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, null));
+		this.getLog().addFirst(new LogEntry(start, duration, transport, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, null));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 
 		return false;
@@ -111,7 +116,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		long stop = System.currentTimeMillis();
 		long duration = start == null ? -1 : stop - start.getTime();
 
-		this.getLog().addFirst(new LogEntry(start, duration, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, ex));
+		this.getLog().addFirst(new LogEntry(start, duration, transport, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext, ex));
 		if (this.getLog().size() > this.getLogCapacity()) this.getLog().removeLast();
 	}
 
@@ -120,25 +125,25 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	 */
 
 	@Override
-	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processPostRequest(HttpTransport httpTransport, HttpTransportRequest httpTransportRequest, HttpTransportResponse httpTransportResponse, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 
-		if (! request.getRequestPath().equals(this.getPath())) return false;
+		if (! httpTransportRequest.getRequestPath().equals(this.getPath())) return false;
 
-		String cmd = request.getParameter("cmd");
-		String cmdMessagingTargetPath = request.getParameter("messagingtargetpath");
-		String cmdMessagingTargetFactoryPath = request.getParameter("messagingtargetfactorypath");
-		String format = request.getParameter("format");
-		String writeImplied = request.getParameter("writeImplied");
-		String writeOrdered = request.getParameter("writeOrdered");
-		String writePretty = request.getParameter("writePretty");
-		String graphstring = request.getParameter("graphstring");
+		String cmd = httpTransportRequest.getParameter("cmd");
+		String cmdMessagingTargetPath = httpTransportRequest.getParameter("messagingtargetpath");
+		String cmdMessagingTargetFactoryPath = httpTransportRequest.getParameter("messagingtargetfactorypath");
+		String format = httpTransportRequest.getParameter("format");
+		String writeImplied = httpTransportRequest.getParameter("writeImplied");
+		String writeOrdered = httpTransportRequest.getParameter("writeOrdered");
+		String writePretty = httpTransportRequest.getParameter("writePretty");
+		String graphstring = httpTransportRequest.getParameter("graphstring");
 
 		if ("unmount_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
 
 			MessagingTarget cmdMessagingTarget = httpTransport.getUriMessagingTargetRegistry().getMessagingTarget(cmdMessagingTargetPath);
 			if (cmdMessagingTarget != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTarget(cmdMessagingTarget);
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingTargetFactoryPath != null) {
@@ -146,7 +151,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			UriMessagingTargetFactory cmdMessagingTargetFactory = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactory(cmdMessagingTargetFactoryPath);
 			if (cmdMessagingTargetFactory != null) httpTransport.getUriMessagingTargetRegistry().unmountMessagingTargetFactory(cmdMessagingTargetFactory);
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		if ("edit_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -185,7 +190,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			VelocityContext context = new VelocityContext();
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
-			context.put("request", request);
+			context.put("httprequest", httpTransportRequest);
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("format", format);
@@ -201,13 +206,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			StringWriter stringWriter = new StringWriter();
 			makeVelocityEngine().evaluate(context, stringWriter, "debug-edit.vm", reader);
 
-			response.setStatus(HttpServletResponse.SC_OK);
-			response.setContentType("text/html");
-			response.writeBody(stringWriter.getBuffer().toString(), true);
+			httpTransportResponse.setStatus(HttpServletResponse.SC_OK);
+			httpTransportResponse.setContentType("text/html");
+			httpTransportResponse.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		if ("msg_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -251,7 +256,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			VelocityContext context = new VelocityContext();
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
-			context.put("request", request);
+			context.put("httprequest", httpTransportRequest);
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("graphstring", graphstring);
@@ -262,13 +267,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			StringWriter stringWriter = new StringWriter();
 			makeVelocityEngine().evaluate(context, stringWriter, "debug-msg.vm", reader);
 
-			response.setStatus(HttpServletResponse.SC_OK);
-			response.setContentType("text/html");
-			response.writeBody(stringWriter.getBuffer().toString(), true);
+			httpTransportResponse.setStatus(HttpServletResponse.SC_OK);
+			httpTransportResponse.setContentType("text/html");
+			httpTransportResponse.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		if ("save_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -299,7 +304,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			VelocityContext context = new VelocityContext();
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
-			context.put("request", request);
+			context.put("httprequest", httpTransportRequest);
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("format", format);
@@ -316,13 +321,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			StringWriter stringWriter = new StringWriter();
 			makeVelocityEngine().evaluate(context, stringWriter, "debug-edit.vm", reader);
 
-			response.setStatus(HttpServletResponse.SC_OK);
-			response.setContentType("text/html");
-			response.writeBody(stringWriter.getBuffer().toString(), true);
+			httpTransportResponse.setStatus(HttpServletResponse.SC_OK);
+			httpTransportResponse.setContentType("text/html");
+			httpTransportResponse.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		if ("exec_messaging_target".equals(cmd) && cmdMessagingTargetPath != null) {
@@ -380,7 +385,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			if (executionResult != null) {
 
-				Graph resultGraph = executionResult.getResultGraph();
+				Graph resultGraph = executionResult.getFinishedResultGraph();
 
 				XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 				StringWriter stringWriter = new StringWriter();
@@ -396,7 +401,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			VelocityContext context = new VelocityContext();
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
-			context.put("request", request);
+			context.put("httprequest", httpTransportRequest);
 			context.put("messagingtarget", cmdMessagingTarget);
 			context.put("messagingtargetpath", cmdMessagingTargetPath);
 			context.put("graphstring", graphstring);
@@ -409,13 +414,13 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			StringWriter stringWriter = new StringWriter();
 			makeVelocityEngine().evaluate(context, stringWriter, "debug-msg.vm", reader);
 
-			response.setStatus(HttpServletResponse.SC_OK);
-			response.setContentType("text/html");
-			response.writeBody(stringWriter.getBuffer().toString(), true);
+			httpTransportResponse.setStatus(HttpServletResponse.SC_OK);
+			httpTransportResponse.setContentType("text/html");
+			httpTransportResponse.writeBody(stringWriter.getBuffer().toString(), true);
 
 			// done
 
-			return this.processGetRequest(httpTransport, request, response, messagingTargetMount);
+			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingTargetMount);
 		}
 
 		// done
@@ -435,16 +440,18 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		Properties systemProperties = System.getProperties();
 		List<UriMessagingTargetMount> messagingTargetMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetMounts();
 		List<UriMessagingTargetFactoryMount> messagingTargetFactoryMounts = httpTransport.getUriMessagingTargetRegistry().getMessagingTargetFactoryMounts();
+		Collection<?> transports = this.getApplicationContext().getBeansOfType(Transport.class).values();
 
 		VelocityContext context = new VelocityContext();
-		context.put("httptransport", httpTransport);
-		context.put("request", request);
 		context.put("parser", ParserRegistry.getInstance().getParser());
+		context.put("httptransport", httpTransport);
+		context.put("httprequest", request);
 		context.put("pluginfiles", pluginFiles);
 		context.put("xdi2properties", xdi2Properties);
 		context.put("systemproperties", systemProperties);
 		context.put("messagingtargetmounts", messagingTargetMounts);
 		context.put("messagingtargetfactorymounts", messagingTargetFactoryMounts);
+		context.put("transports", transports);
 		context.put("log", this.getLog());
 
 		// send response
@@ -498,6 +505,17 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		this.logCapacity = logCapacity;
 	}
 
+	public ApplicationContext getApplicationContext() {
+
+		return this.applicationContext;
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) {
+
+		this.applicationContext = applicationContext;
+	}
+
 	public LinkedList<LogEntry> getLog() {
 
 		return this.log;
@@ -546,6 +564,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 		private Date start;
 		private long duration;
+		private Transport<?, ?> transport;
 		private TransportRequest request;
 		private TransportResponse response;
 		private MessagingTarget messagingTarget;
@@ -554,10 +573,11 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		private ExecutionContext executionContext;
 		private Exception ex;
 
-		public LogEntry(Date start, long duration, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext, Exception ex) {
+		public LogEntry(Date start, long duration, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext, Exception ex) {
 
 			this.start = start;
 			this.duration = duration;
+			this.transport = transport;
 			this.request = request;
 			this.response = response;
 			this.messagingTarget = messagingTarget;
@@ -585,6 +605,16 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		public void setDuration(long duration) {
 
 			this.duration = duration;
+		}
+
+		public Transport<?, ?> getTransport() {
+
+			return this.transport;
+		}
+
+		public void setTransport(Transport<?, ?> transport) {
+
+			this.transport = transport;
 		}
 
 		public TransportRequest getRequest() {

@@ -4,6 +4,14 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Properties;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonWriter;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
@@ -24,14 +32,6 @@ import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.XDIAddressUtil;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.stream.JsonWriter;
 
 public class XDIJSONQuadWriter extends AbstractXDIWriter {
 

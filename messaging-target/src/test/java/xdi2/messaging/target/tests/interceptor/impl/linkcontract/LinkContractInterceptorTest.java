@@ -1,10 +1,9 @@
 package xdi2.messaging.target.tests.interceptor.impl.linkcontract;
 
-import junit.framework.TestCase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;

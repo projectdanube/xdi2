@@ -2,7 +2,6 @@ package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
-import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -15,9 +14,6 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
-
-	public static final XDIAddress XDI_ADD_PARAMETER_DEREF = XDIAddress.create("<$deref>");
-	public static final XDIAddress XDI_ADD_PARAMETER_PROXY = XDIAddress.create("<$proxy>");
 
 	protected GetOperation(Message message, Relation relation) {
 

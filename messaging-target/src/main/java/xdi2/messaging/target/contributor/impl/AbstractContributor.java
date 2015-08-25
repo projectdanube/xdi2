@@ -56,8 +56,8 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 			return this.executeDelOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
 			return this.executeDoOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (DoOperation) operation, operationResultGraph, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
+
+		return ContributorResult.DEFAULT;
 	}
 
 	public ContributorResult executeGetOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {

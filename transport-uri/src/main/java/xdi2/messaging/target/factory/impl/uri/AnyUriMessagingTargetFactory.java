@@ -1,12 +1,8 @@
 package xdi2.messaging.target.factory.impl.uri;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -55,16 +51,10 @@ public class AnyUriMessagingTargetFactory extends PrototypingUriMessagingTargetF
 
 		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(ownerPeerRootXDIArc);
 
-		String ownerString;
+		String requestPath = messagingTargetFactoryPath + "/" + ownerXDIAddress.toString();
 
-		try {
+		if (log.isDebugEnabled()) log.debug("requestPath for ownerPeerRootXDIArc " + ownerPeerRootXDIArc + " is " + requestPath);
 
-			ownerString = URLEncoder.encode(ownerXDIAddress.toString(), "UTF-8");
-		} catch (UnsupportedEncodingException ex) { 
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
-
-		return messagingTargetFactoryPath + "/" + ownerString;
+		return requestPath;
 	}
 }

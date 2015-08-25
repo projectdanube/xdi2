@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
@@ -460,12 +459,12 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			if ("Get generic link contract".equals(submit)) {
 
-				message.createGetOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null));
+				message.createGetOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true));
 			} else if ("Set generic link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-				GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true);
+				GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true, true);
 				genericLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));
 
 				PolicyAnd policyAnd = genericLinkContract.getPolicyRoot(true).createAndPolicy(true);
@@ -477,7 +476,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createSetOperation(graph);
 			} else if ("Del generic link contract".equals(submit)) {
 
-				message.createDelOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null));
+				message.createDelOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);
@@ -586,9 +585,18 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			// send the message envelope and read result
 
-			XDIClient client = new XDIHttpClient(sessionXdiEndpointUri);
+			XDIHttpClient client = new XDIHttpClient(sessionXdiEndpointUri);
 
-			messageResponse = client.send(messageEnvelope);
+			try {
+
+				messageResponse = client.send(messageEnvelope);
+			} catch (Exception ex) {
+
+				throw ex;
+			} finally {
+
+				client.close();
+			}
 
 			// output the message result
 

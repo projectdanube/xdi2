@@ -31,7 +31,7 @@ public class PushOperation extends Operation {
 	 */
 	public static boolean isValid(Relation relation) {
 
-		if (XDIAddressUtil.startsWithXDIAddress(relation.getXDIAddress(), XDIMessagingConstants.XDI_ADD_GET) == null) return false;
+		if (XDIAddressUtil.startsWithXDIAddress(relation.getXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH) == null) return false;
 		if (! XdiEntitySingleton.createXDIArc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getXDIArc())) return false;
 
 		return true;

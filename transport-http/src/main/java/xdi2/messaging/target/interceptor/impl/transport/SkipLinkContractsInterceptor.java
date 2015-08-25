@@ -46,7 +46,7 @@ public class SkipLinkContractsInterceptor extends AbstractMessageEnvelopeInterce
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 

@@ -10,33 +10,35 @@ import xdi2.client.impl.local.XDILocalClient;
 import xdi2.client.impl.local.XDILocalClientRoute;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.util.GraphUtil;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 
 public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRoute, XDILocalClient> implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDILocalAgentRouter.class);
 
 	private MessagingTarget messagingTarget;
+	private Graph graph;
+
+	public XDILocalAgentRouter(MessagingTarget messagingTarget, Graph graph) {
+
+		this.messagingTarget = messagingTarget;
+		this.graph = graph;
+	}
 
 	public XDILocalAgentRouter(MessagingTarget messagingTarget) {
 
-		this.messagingTarget = messagingTarget;
+		this(messagingTarget, null);
 	}
 
 	public XDILocalAgentRouter(Graph graph) {
 
-		try {
+		this(null, graph);
+	}
 
-			GraphMessagingTarget graphMessagingTarget = new GraphMessagingTarget();
-			graphMessagingTarget.setGraph(graph);
-			graphMessagingTarget.init();
+	public XDILocalAgentRouter() {
 
-			this.messagingTarget = graphMessagingTarget;
-		} catch (Exception ex) {
-
-			throw new RuntimeException("Cannot initialize messaging target: " + ex.getMessage(), ex);
-		}
+		this(null, null);
 	}
 
 	@Override
@@ -50,7 +52,9 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 			return null;
 		}
 
-		XDIArc ownerPeerRootXDIArc = this.getMessagingTarget().getOwnerPeerRootXDIArc();
+		XDIArc ownerPeerRootXDIArc = null;
+		if (ownerPeerRootXDIArc == null && this.getMessagingTarget() != null) ownerPeerRootXDIArc = this.getMessagingTarget().getOwnerPeerRootXDIArc();
+		if (ownerPeerRootXDIArc == null && this.getGraph() != null) ownerPeerRootXDIArc = GraphUtil.getOwnerPeerRootXDIArc(this.getGraph());
 
 		if (ownerPeerRootXDIArc == null) {
 
@@ -66,7 +70,7 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 
 		// construct the route
 
-		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingTarget());
+		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingTarget(), this.getGraph());
 
 		// done
 
@@ -85,5 +89,15 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 	public void setMessagingTarget(MessagingTarget messagingTargets) {
 
 		this.messagingTarget = messagingTargets;
+	}
+
+	public Graph getGraph() {
+
+		return this.graph;
+	}
+
+	public void setGraph(Graph graph) {
+
+		this.graph = graph;
 	}
 }

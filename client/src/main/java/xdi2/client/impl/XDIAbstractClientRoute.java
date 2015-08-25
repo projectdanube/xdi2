@@ -14,9 +14,10 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 
-public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implements XDIClientRoute<CLIENT> {
+public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends MessagingResponse>> implements XDIClientRoute<CLIENT> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractClientRoute.class);
 
@@ -30,22 +31,22 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	}
 
 	@Override
-	public XDIArc getToPeerRootXDIArc() {
-
-		return this.toPeerRootXDIArc;
-	}
-
-	@Override
 	public final CLIENT constructXDIClient() {
 
-		CLIENT client = this.constructXDIClientInternal();
+		// client construction step
 
-		if (client instanceof XDIAbstractClient) {
+		CLIENT xdiClient = this.constructXDIClientInternal();
 
-			((XDIAbstractClient) client).setManipulators(this.getManipulators());
+		// add manipulators if supported
+
+		if (xdiClient instanceof XDIAbstractClient && this.getManipulators() != null) {
+
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(this.getManipulators());
 		}
 
-		return client;
+		// done
+
+		return xdiClient;
 	}
 
 	protected abstract CLIENT constructXDIClientInternal();
@@ -60,7 +61,7 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress, long index) {
 
 		Message message = messageEnvelope.createMessage(senderXDIAddress, index);
-		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+		if (this.getToPeerRootXDIArc() != null) message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
 
 		return message;
 	}
@@ -69,7 +70,8 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress) {
 
 		Message message = messageEnvelope.createMessage(senderXDIAddress);
-		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		if (this.getToPeerRootXDIArc() != null) message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
 
 		return message;
 	}
@@ -78,9 +80,21 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	public Message createMessage(MessageEnvelope messageEnvelope) {
 
 		Message message = messageEnvelope.createMessage();
-		message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+		if (this.getToPeerRootXDIArc() != null) message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
 
 		return message;
+	}
+
+	@Override
+	public Message createMessage(XDIAddress senderXDIAddress) {
+
+		return this.createMessage(this.createMessageEnvelope(), senderXDIAddress);
+	}
+
+	@Override
+	public Message createMessage() {
+
+		return this.createMessage(this.createMessageEnvelope());
 	}
 
 	/*
@@ -92,11 +106,13 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		// client construction step
 
-		XDIClient xdiClient = this.constructXDIClient();
+		CLIENT xdiClient = this.constructXDIClient();
+
+		// add manipulators if supported
 
 		if (xdiClient instanceof XDIAbstractClient && manipulators != null) {
 
-			((XDIAbstractClient) xdiClient).getManipulators().addManipulators(manipulators);
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(manipulators);
 		}
 
 		// message envelope construction step
@@ -107,8 +123,16 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 
 		// send the message envelope
 
+		// TODO: what if we are using WebSocket here?
 		MessagingResponse messagingResponse = xdiClient.send(messageEnvelope);
+		if (! (messagingResponse instanceof TransportMessagingResponse)) throw new Xdi2ClientException("Messaging response not available (using WebSocket?)");
+
 		Graph resultGraph = messagingResponse.getResultGraph();
+
+		// close the client
+		// TODO: when do we close the client?
+
+		if (xdiClient == null) xdiClient.close();
 
 		// let's look for our XDI address in the message result
 
@@ -145,8 +169,29 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient> implemen
 	}
 
 	/*
+	 * Object methods
+	 */
+
+	@Override
+	public String toString() {
+
+		return this.getToPeerRootXDIArc() + " -> " + this.getClass().getSimpleName();
+	}
+
+	/*
 	 * Getters and setters
 	 */
+
+	@Override
+	public XDIArc getToPeerRootXDIArc() {
+
+		return this.toPeerRootXDIArc;
+	}
+
+	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
+
+		this.toPeerRootXDIArc = toPeerRootXDIArc;
+	}
 
 	public ManipulatorList getManipulators() {
 

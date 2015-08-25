@@ -8,10 +8,9 @@ import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.impl.memory.MemoryGraphFactory;

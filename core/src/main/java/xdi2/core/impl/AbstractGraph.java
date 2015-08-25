@@ -89,6 +89,12 @@ public abstract class AbstractGraph implements Graph {
 	}
 
 	@Override
+	public String toString(String format) {
+
+		return this.toString(format, null);
+	}
+
+	@Override
 	public String toString(MimeType mimeType) {
 
 		if (mimeType == null) throw new NullPointerException();

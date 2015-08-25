@@ -48,7 +48,7 @@ public class XDIHttpClientRoute extends XDIAbstractClientRoute<XDIHttpClient> im
 	@Override
 	protected XDIHttpClient constructXDIClientInternal() {
 
-		return new XDIHttpClient(this.httpURLConnection, this.xdiEndpointUri);
+		return new XDIHttpClient(this.getHttpURLConnection(), this.getXdiEndpointUri());
 	}
 
 	/*

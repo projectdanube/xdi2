@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphAware;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -27,6 +29,7 @@ import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -84,6 +87,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (log.isDebugEnabled()) log.debug("Initializing extension " + extension.getClass().getSimpleName() + ".");
 
 			extension.init(this);
+
+			if (this instanceof GraphMessagingTarget && extension instanceof GraphAware) {
+
+				((GraphAware) extension).setGraph(((GraphMessagingTarget) this).getGraph());
+			}
 		}
 	}
 
@@ -124,6 +132,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message envelope (" + messageEnvelope.getMessageCount() + " messages).");
 
+		boolean skipMessagingTarget = false;
+
 		try {
 
 			executionContext.pushMessagingTarget(this, null);
@@ -136,46 +146,43 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before message envelope
 
-			this.before(messageEnvelope, executionResult, executionContext);
+			skipMessagingTarget |= this.before(messageEnvelope, executionContext, executionResult);
 
 			// execute message envelope interceptors (before)
 
-			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageEnvelopeInterceptorsBefore(this.getInterceptors(), messageEnvelope, executionResult, executionContext);
+			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageEnvelopeInterceptorsBefore(this.getInterceptors(), messageEnvelope, executionContext, executionResult);
 
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message envelope interceptors (before).");
-				return;
+				skipMessagingTarget |= true;
 			}
 
 			// execute the messages in the message envelope
 
-			Iterator<Message> messages = messageEnvelope.getMessages();
+			if (! skipMessagingTarget) {
 
-			while (messages.hasNext()) {
+				Iterator<Message> messages = messageEnvelope.getMessages();
 
-				Message message = messages.next();
+				while (messages.hasNext()) {
 
-				this.execute(message, executionContext, executionResult);
+					Message message = messages.next();
+
+					this.execute(message, executionContext, executionResult);
+				}
 			}
 
 			// execute message envelope interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageEnvelopeInterceptorsAfter(this.getInterceptors(), messageEnvelope, executionResult, executionContext);
-
-			if (interceptorResultAfter.isSkipMessagingTarget()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message envelope interceptors (after).");
-				return;
-			}
+			InterceptorExecutor.executeMessageEnvelopeInterceptorsAfter(this.getInterceptors(), messageEnvelope, executionContext, executionResult);
 
 			// after message envelope
 
-			this.after(messageEnvelope, executionResult, executionContext);
+			this.after(messageEnvelope, executionContext, executionResult);
 
 			// execute result interceptors (finish)
 
-			InterceptorExecutor.executeResultGraphInterceptorsFinish(this.getInterceptors(), executionResult, executionContext);
+			InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
 		} catch (Exception ex) {
 
 			// process exception
@@ -186,7 +193,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			try {
 
-				InterceptorExecutor.executeMessageEnvelopeInterceptorsException(this.getInterceptors(), messageEnvelope, executionResult, executionContext, (Xdi2MessagingException) ex);
+				InterceptorExecutor.executeMessageEnvelopeInterceptorsException(this.getInterceptors(), messageEnvelope, executionContext, executionResult, (Xdi2MessagingException) ex);
 			} catch (Exception ex2) {
 
 				log.warn("Error while messaging envelope interceptor tried to handle exception: " + ex2.getMessage(), ex2);
@@ -196,11 +203,15 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			try {
 
-				this.exception(messageEnvelope, executionResult, executionContext, (Xdi2MessagingException) ex);
+				this.exception(messageEnvelope, executionContext, executionResult, (Xdi2MessagingException) ex);
 			} catch (Exception ex2) {
 
 				log.warn("Error while messaging envelope target tried to handle exception: " + ex2.getMessage(), ex2);
 			}
+
+			// add exception to execution result
+
+			executionResult.addException(ex);
 
 			// re-throw it
 
@@ -226,6 +237,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
+			executionResult.finish();
+
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + " finished execution. Trace: " + executionContext.getTraceBlock());
 		}
 	}
@@ -245,6 +258,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing message (" + message.getContextNode().getXDIAddress().toString() + ") (" + message.getOperationCount() + " operations).");
 
+		boolean skipMessagingTarget = false;
+
 		try {
 
 			executionContext.pushMessage(message, message.getContextNode().getXDIAddress().toString());
@@ -255,44 +270,41 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before message
 
-			this.before(message, executionResult, executionContext);
+			skipMessagingTarget |= this.before(message, executionContext, executionResult);
 
 			// execute message interceptors (before)
 
-			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageInterceptorsBefore(this.getInterceptors(), message, executionResult, executionContext);
+			InterceptorResult interceptorResultBefore = InterceptorExecutor.executeMessageInterceptorsBefore(this.getInterceptors(), message, executionContext, executionResult);
 
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message interceptors (before).");
-				return;
+				skipMessagingTarget |= true;
 			}
 
 			// execute the operations in the message
 
-			Iterator<Operation> operations = message.getOperations();
+			if (! skipMessagingTarget) {
 
-			while (operations.hasNext()) {
+				Iterator<Operation> operations = message.getOperations();
 
-				Operation operation = operations.next();
+				while (operations.hasNext()) {
 
-				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+					Operation operation = operations.next();
 
-				this.execute(operation, executionContext, operationResultGraph);
+					Graph operationResultGraph = executionResult.createOperationResultGraph(operation);
+
+					this.execute(operation, operationResultGraph, executionContext);
+				}
 			}
 
 			// execute message interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeMessageInterceptorsAfter(this.getInterceptors(), message, executionResult, executionContext);
-
-			if (interceptorResultAfter.isSkipMessagingTarget()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message interceptors (after).");
-				return;
-			}
+			InterceptorExecutor.executeMessageInterceptorsAfter(this.getInterceptors(), message, executionContext, executionResult);
 
 			// after message
 
-			this.after(message, executionResult, executionContext);
+			this.after(message, executionContext, executionResult);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -318,15 +330,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * @param operation The XDI operation.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
-	 * @param operationResultGraph The operation's result graph.
+	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
-	public void execute(Operation operation, ExecutionContext executionContext, Graph operationResultGraph) throws Xdi2MessagingException {
+	public void execute(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (operation == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
-		if (operationResultGraph == null) throw new NullPointerException();
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing operation (" + operation.getOperationXDIAddress() + ").");
+
+		boolean skipMessagingTarget = false;
 
 		try {
 
@@ -338,7 +351,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// before operation
 
-			this.before(operation, operationResultGraph, executionContext);
+			skipMessagingTarget |= this.before(operation, operationResultGraph, executionContext);
 
 			// execute operation interceptors (before)
 
@@ -347,36 +360,33 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (interceptorResultBefore.isSkipMessagingTarget()) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to operation interceptors (before).");
-				return;
+				skipMessagingTarget |= true;
 			}
 
 			// execute the address or statements in the operation
 
-			XDIAddress targetAddress = operation.getTargetXDIAddress();
-			Iterator<XDIStatement> targetStatementAddresses = operation.getTargetXDIStatements();
+			if (! skipMessagingTarget) {
 
-			if (targetAddress != null) {
+				XDIAddress targetAddress = operation.getTargetXDIAddress();
+				Iterator<XDIStatement> targetStatementAddresses = operation.getTargetXDIStatements();
 
-				this.execute(targetAddress, operation, operationResultGraph, executionContext);
-			} else if (targetStatementAddresses != null) {
+				if (targetAddress != null) {
 
-				while (targetStatementAddresses.hasNext()) {
+					this.execute(targetAddress, operation, operationResultGraph, executionContext);
+				} else if (targetStatementAddresses != null) {
 
-					XDIStatement targetStatementAddress = targetStatementAddresses.next();
+					while (targetStatementAddresses.hasNext()) {
 
-					this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
+						XDIStatement targetStatementAddress = targetStatementAddresses.next();
+
+						this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
+					}
 				}
 			}
 
 			// execute operation interceptors (after)
 
-			InterceptorResult interceptorResultAfter = InterceptorExecutor.executeOperationInterceptorsAfter(this.getInterceptors(), operation, operationResultGraph, executionContext);
-
-			if (interceptorResultAfter.isSkipMessagingTarget()) {
-
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to operation interceptors (after).");
-				return;
-			}
+			InterceptorExecutor.executeOperationInterceptorsAfter(this.getInterceptors(), operation, operationResultGraph, executionContext);
 
 			// after operation
 
@@ -424,6 +434,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if ((targetAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetAddress, operation, operationResultGraph, executionContext)) == null) {
 
+				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (address).");
 				return;
 			}
 
@@ -490,6 +501,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			if ((targetStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetStatement, operation, operationResultGraph, executionContext)) == null) {
 
+				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (statement).");
 				return;
 			}
 
@@ -537,31 +549,34 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	 * These are for being overridden by subclasses
 	 */
 
-	protected void before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected boolean before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	protected boolean before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	protected boolean before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return false;
+	}
+
+	protected void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 	}
 
-	protected void before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 	}
 
-	protected void before(Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	protected void after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
-	protected void after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	protected void after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	protected void after(Operation operation, Graph resultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-	}
-
-	protected void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	protected void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
 	}
 
@@ -588,6 +603,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 	public void setOwnerPeerRootXDIArc(XDIArc ownerPeerRootXDIArc) {
 
 		this.ownerPeerRootXDIArc = ownerPeerRootXDIArc;
+	}
+
+	@Override
+	public XDIAddress getOwnerXDIAddress() {
+
+		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getOwnerPeerRootXDIArc());
+	}
+
+	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
+
+		this.setOwnerPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(ownerXDIAddress));
 	}
 
 	public InterceptorList<MessagingTarget> getInterceptors() {

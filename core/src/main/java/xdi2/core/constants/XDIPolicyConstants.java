@@ -14,6 +14,8 @@ public final class XDIPolicyConstants {
 
 	public static final XDIArc XDI_ARC_IF = XDIArc.create("$if");
 
+	public static final XDIArc XDI_ARC_PUSH = XDIArc.create("$push");
+
 	public static final XDIArc XDI_ARC_AND = XDIArc.create("$and");
 	public static final XDIArc XDI_ARC_OR = XDIArc.create("$or");
 	public static final XDIArc XDI_ARC_NOT = XDIArc.create("$not");

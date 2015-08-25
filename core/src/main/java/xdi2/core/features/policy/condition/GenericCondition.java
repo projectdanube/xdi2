@@ -49,10 +49,10 @@ public class GenericCondition extends Condition {
 	 */
 
 	@Override
-	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		Statement statement = policyEvaluationContext.getStatement(this.getXDIStatement());
 
-		return Boolean.valueOf(statement != null);
+		return statement != null;
 	}
 }

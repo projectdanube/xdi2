@@ -118,23 +118,14 @@ public class XdiEntityCollection extends XdiAbstractCollection<XdiEntityCollecti
 
 		return super.getXdiInstanceOrdered(false, immutable, relative, index);
 	}
-	
+
 	/*
 	 * Methods for arcs
 	 */
 
 	public static XDIArc createXDIArc(Character cs, boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return XDIArc.fromComponents(
-				cs, 
-				false, 
-				false, 
-				true, 
-				false, 
-				immutable, 
-				relative, 
-				literal, 
-				xref);
+		return XdiAbstractCollection.createXDIArc(cs, false, immutable, relative, literal, xref);
 	}
 
 	public static XDIArc createXDIArc(XDIArc XDIarc) {

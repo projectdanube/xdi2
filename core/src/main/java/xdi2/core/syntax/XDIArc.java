@@ -63,7 +63,7 @@ public class XDIArc extends XDIIdentifier {
 			if (attribute) buffer.append(XDIConstants.XS_ATTRIBUTE.charAt(1));
 			if (collection) buffer.append(XDIConstants.XS_COLLECTION.charAt(1));
 			if (definition) buffer.append(XDIConstants.XS_DEFINITION.charAt(1));
-			if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(0));
+			if (variable) buffer.append(XDIConstants.XS_VARIABLE.charAt(1));
 
 			string = buffer.toString();
 		}

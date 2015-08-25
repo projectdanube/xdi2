@@ -18,16 +18,16 @@ public interface MessageInterceptor extends Interceptor<MessagingTarget> {
 	 * @param message The message to process.
 	 * @param executionResult The execution result.
 	 * @param executionContext The current execution context.
-	 * @return True, if the message has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
 	 * Run after a message is executed.
 	 * @param message The message to process.
 	 * @param executionResult The execution result.
 	 * @param executionContext The current execution context.
-	 * @return True, if the message has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 }

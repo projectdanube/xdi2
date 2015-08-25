@@ -44,7 +44,7 @@ public class ManipulatingInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		try {
 
@@ -58,13 +58,13 @@ public class ManipulatingInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -73,7 +73,7 @@ public class ManipulatingInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		try {
 
@@ -87,7 +87,7 @@ public class ManipulatingInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

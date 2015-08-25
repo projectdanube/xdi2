@@ -1,8 +1,9 @@
 package xdi2.client.impl.websocket;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.websocket.CloseReason;
@@ -23,9 +24,11 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.FutureMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 /**
  * An XDI client that can send XDI messages over WebSocket and receive results.
@@ -37,32 +40,34 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
+public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingResponse> implements XDIClient<FutureMessagingResponse> {
 
 	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0";
 
-	protected static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketClient.class);
 
 	private Session session;
+	private URI xdiWebSocketEndpointUri;
 
-	protected URI xdiWebSocketEndpointUri;
-	protected MimeType sendMimeType;
+	private MimeType sendMimeType;
 
 	private Callback callback;
+	private Map<XDIAddress, FutureMessagingResponse> futureMessagingResponses;
 
 	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
 
 		super();
 
 		this.session = session;
-
 		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 
 		this.callback = null;
+		this.futureMessagingResponses = new HashMap<XDIAddress, FutureMessagingResponse> ();
 	}
 
 	public XDIWebSocketClient(Session session, URI xdiWebSocketEndpointUri) {
@@ -120,9 +125,7 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	@SuppressWarnings("resource")
 	@Override
-	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
-
-		if (this.xdiWebSocketEndpointUri == null) throw new Xdi2ClientException("No URI set.");
+	protected FutureMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// find out which XDIWriter we want to use
 
@@ -179,11 +182,16 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 		// we return a future messaging response
 
-		MessagingResponse messagingResponse = FutureMessagingResponse.create(messageEnvelope);
+		FutureMessagingResponse futureMessagingResponse = FutureMessagingResponse.fromMessageEnvelope(messageEnvelope);
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			this.putFutureMessagingResponse(message.getXDIAddress(), futureMessagingResponse);
+		}
 
 		// done
 
-		return messagingResponse;
+		return futureMessagingResponse;
 	}
 
 	@Override
@@ -195,6 +203,8 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	private Session connect() throws Exception {
 
 		if (this.getSession() != null) return this.getSession();
+
+		if (this.getXdiWebSocketEndpointUri() == null) throw new Xdi2ClientException("No URL to connect to.");
 
 		// connect
 
@@ -210,21 +220,21 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 
 	private void disconnect(CloseReason closeReason) {
 
-		if (this.getSession() != null) {
+		try {
 
-			try {
+			if (this.getSession() != null) {
 
 				if (this.getSession().isOpen()) {
 
 					this.getSession().close(closeReason);
 				}
-			} catch (IOException ex) {
-
-				log.error("Cannot close session: " + ex.getMessage(), ex);
-			} finally {
-
-				this.setSession(null);
 			}
+		} catch (Exception ex) {
+
+			log.error("Cannot disconnect: " + ex.getMessage(), ex);
+		} finally {
+
+			this.setSession(null);
 		}
 	}
 
@@ -272,6 +282,25 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 		this.callback = callback;
 	}
 
+	public Map<XDIAddress, FutureMessagingResponse> getFutureMessagingResponses() {
+
+		return this.futureMessagingResponses;
+	}
+
+	public void putFutureMessagingResponse(XDIAddress messageXDIaddress, FutureMessagingResponse futureMessagingResponse) {
+
+		if (log.isDebugEnabled()) log.debug("Putting future messaging response for message " + messageXDIaddress);
+
+		this.futureMessagingResponses.put(messageXDIaddress, futureMessagingResponse);
+	}
+
+	public void removeFutureMessagingResponse(XDIAddress messageXDIaddress) {
+
+		if (log.isDebugEnabled()) log.debug("Removing future messaging response for message " + messageXDIaddress);
+
+		this.futureMessagingResponses.remove(messageXDIaddress);
+	}
+
 	/*
 	 * Object methods
 	 */
@@ -289,6 +318,6 @@ public class XDIWebSocketClient extends XDIAbstractClient implements XDIClient {
 	public static interface Callback {
 
 		public void onMessageEnvelope(MessageEnvelope messageEnvelope);
-		public void onMessagingResponse(MessagingResponse messagingResponse);
+		public void onMessagingResponse(TransportMessagingResponse messagingResponse);
 	}
 }

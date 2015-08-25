@@ -68,25 +68,37 @@ public class GraphMessagingTarget extends AbstractMessagingTarget implements Pro
 	}
 
 	@Override
-	public void before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public XDIAddress getOwnerXDIAddress() {
 
-		super.before(messageEnvelope, executionResult, executionContext);
+		return GraphUtil.getOwnerXDIAddress(this.getGraph());
+	}
+
+	@Override
+	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
+
+		GraphUtil.setOwnerXDIAddress(this.getGraph(), ownerXDIAddress);
+	}
+
+	@Override
+	public boolean before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		this.graph.beginTransaction();
+
+		return super.before(messageEnvelope, executionContext, executionResult);
 	}
 
 	@Override
-	public void after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		super.after(messageEnvelope, executionResult, executionContext);
+	public void after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		this.graph.commitTransaction();
+
+		super.after(messageEnvelope, executionContext, executionResult);
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Xdi2MessagingException ex) throws Xdi2MessagingException {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Xdi2MessagingException ex) throws Xdi2MessagingException {
 
-		super.exception(messageEnvelope, executionResult, executionContext, ex);
+		super.exception(messageEnvelope, executionContext, executionResult, ex);
 
 		this.graph.rollbackTransaction();
 	}

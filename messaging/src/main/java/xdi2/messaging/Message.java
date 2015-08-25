@@ -13,6 +13,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
@@ -20,6 +21,7 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -54,8 +56,6 @@ import xdi2.messaging.operations.SetOperation;
 public final class Message implements Serializable, Comparable<Message> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
-
-	public static final XDIAddress XDI_ADD_PARAMETER_FULL = XDIAddress.create("<$full>");
 
 	private MessageCollection messageCollection;
 	private XdiEntity xdiEntity;
@@ -93,6 +93,21 @@ public final class Message implements Serializable, Comparable<Message> {
 		if (! isValid(xdiEntity)) return null;
 
 		return new Message(messageCollection, xdiEntity);
+	}
+
+	/**
+	 * Factory method that creates an XDI message bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI message.
+	 * @return The XDI message.
+	 */
+	public static Message fromXdiEntity(XdiEntity xdiEntity) {
+
+		XdiEntityCollection xdiEntityCollection = XdiEntityCollection.fromContextNode(xdiEntity.getContextNode().getContextNode());
+
+		MessageCollection messageCollection = xdiEntityCollection == null ? null : MessageCollection.fromXdiEntityCollection(xdiEntityCollection);
+		if (messageCollection == null) return null;
+
+		return fromMessageCollectionAndXdiEntity(messageCollection, xdiEntity);
 	}
 
 	/*
@@ -328,6 +343,9 @@ public final class Message implements Serializable, Comparable<Message> {
 		} else if (PublicLinkContract.class.isAssignableFrom(clazz)) {
 
 			this.setLinkContractXDIAddress(PublicLinkContract.createPublicLinkContractXDIAddress(ownerXDIAddress));
+		} else if (ConnectLinkContract.class.isAssignableFrom(clazz)) {
+
+			this.setLinkContractXDIAddress(ConnectLinkContract.createConnectLinkContractXDIAddress(ownerXDIAddress));
 		} else {
 
 			throw new Xdi2RuntimeException("Cannot automatically set link contract of type " + clazz.getSimpleName());
@@ -489,7 +507,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Returns the signature from the message.
 	 * @return The signature.
 	 */
-	public ReadOnlyIterator<Signature<?, ?>> getSignatures() {
+	public ReadOnlyIterator<Signature> getSignatures() {
 
 		return Signatures.getSignatures(this.getContextNode());
 	}
@@ -498,7 +516,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * Sets a signature on the message.
 	 * @return The signature.
 	 */
-	public Signature<?, ?> createSignature(String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength, boolean singleton) {
+	public Signature createSignature(String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength, boolean singleton) {
 
 		return Signatures.createSignature(this.getContextNode(), digestAlgorithm, digestLength, keyAlgorithm, keyLength, singleton);
 	}
@@ -953,7 +971,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		for (Operation operation : new IteratorListMaker<Operation> (this.getOperations()).list()) {
 
-			XdiInnerRoot targetInnerRoot = operation.getTargetInnerRoot();
+			XdiInnerRoot targetInnerRoot = operation.getTargetXdiInnerRoot();
 
 			if (targetInnerRoot != null) {
 

@@ -179,7 +179,10 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		Iterator<ContextNode> contextNodes = this.getGraph().getRootContextNode(true).getAllContextNodes();
 
-		return new MappingXdiEntityCollectionMessageCollectionIterator(this, new MappingContextNodeXdiEntityCollectionIterator(contextNodes));
+		return new MappingXdiEntityCollectionMessageCollectionIterator(
+				this, 
+				new MappingContextNodeXdiEntityCollectionIterator(
+						contextNodes));
 	}
 
 	/**
@@ -220,6 +223,23 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		if (messageCollection == null) return new EmptyIterator<Message> ();
 
 		return messageCollection.getMessages();
+	}
+
+	/**
+	 * Finds a message by its XDI address.
+	 * @param messageXDIAddress The message to look for.
+	 * @return The message.
+	 */
+	public Message getMessage(XDIAddress messageXDIAddress) {
+
+		if (messageXDIAddress == null) throw new NullPointerException();
+
+		for (Message message : this.getMessages()) {
+
+			if (messageXDIAddress.equals(message.getXDIAddress())) return message;
+		}
+
+		return null;
 	}
 
 	/**
@@ -354,7 +374,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 				@Override
 				public MessageCollection map(XdiEntityCollection xdiEntityCollection) {
 
-					return MessageCollection.fromMessageEnvelopeAndXdiEntityClass(messageEnvelope, xdiEntityCollection);
+					return MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
 				}
 			});
 		}

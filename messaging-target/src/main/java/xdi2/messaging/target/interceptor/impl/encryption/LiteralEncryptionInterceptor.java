@@ -15,7 +15,7 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
+import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
@@ -24,7 +24,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, ResultGraphInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, ExecutionResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
@@ -121,9 +121,9 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	 */
 
 	@Override
-	public void finish(ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		for (LiteralNode literal : executionResult.getResultGraph().getRootContextNode(true).getAllLiterals()) {
+		for (LiteralNode literal : executionResult.getFinishedResultGraph().getRootContextNode(true).getAllLiterals()) {
 
 			String encryptedLiteralDataString = literal.getLiteralDataString();
 			if (encryptedLiteralDataString == null) continue;

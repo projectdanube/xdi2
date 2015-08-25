@@ -3,7 +3,6 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIXRef;
@@ -71,16 +70,22 @@ public class XdiAttributeInstanceOrdered extends XdiAbstractAttribute implements
 
 	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal, XDIXRef xref) {
 
-		return XDIArc.fromComponents(
-				XDIConstants.CS_INSTANCE_ORDERED, 
-				false, 
-				false, 
-				false, 
-				true, 
-				immutable, 
-				relative, 
-				literal, 
-				xref);
+		return XdiAbstractInstanceOrdered.createXDIArc(true, immutable, relative, literal, xref);
+	}
+
+	public static XDIArc createXDIArc(boolean immutable, boolean relative, String literal) {
+
+		return createXDIArc(immutable, relative, literal, null);
+	}
+
+	public static XDIArc createXDIArc(String literal) {
+
+		return createXDIArc(false, false, literal);
+	}
+
+	public static XDIArc createXDIArc() {
+
+		return createXDIArc((String) null);
 	}
 
 	public static XDIArc createXDIArc(XDIArc XDIarc) {

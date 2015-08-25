@@ -6,6 +6,13 @@ import java.io.Reader;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
@@ -22,13 +29,6 @@ import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.syntax.XDIArc;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class XDIRawJSONReader extends AbstractXDIReader {
 

@@ -1,13 +1,13 @@
 package xdi2.tests.core.impl;
 
 
-import junit.framework.TestCase;
-import xdi2.core.impl.AbstractLiteralNode;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
+import junit.framework.TestCase;
+import xdi2.core.impl.AbstractLiteralNode;
 
 public class AbstractLiteralTest extends TestCase {
 

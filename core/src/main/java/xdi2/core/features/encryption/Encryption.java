@@ -40,8 +40,8 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 		if (xdiAttribute == null) return false;
 
 		return
-				KeyPairEncryption.isValid(xdiAttribute) ||
-				SymmetricKeyEncryption.isValid(xdiAttribute);
+				RSAEncryption.isValid(xdiAttribute) ||
+				AESEncryption.isValid(xdiAttribute);
 	}
 
 	/**
@@ -53,8 +53,8 @@ public abstract class Encryption <EKEY extends Key, DKEY extends Key> implements
 
 		Encryption<? extends Key, ? extends Key> encryption;
 
-		if ((encryption = KeyPairEncryption.fromXdiAttribute(xdiAttribute)) != null) return encryption;
-		if ((encryption = SymmetricKeyEncryption.fromXdiAttribute(xdiAttribute)) != null) return encryption;
+		if ((encryption = RSAEncryption.fromXdiAttribute(xdiAttribute)) != null) return encryption;
+		if ((encryption = AESEncryption.fromXdiAttribute(xdiAttribute)) != null) return encryption;
 
 		return null;
 	}

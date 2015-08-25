@@ -1,12 +1,15 @@
 package xdi2.messaging.response;
 
+import java.util.Iterator;
+
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
+import xdi2.core.features.linkcontracts.LinkContracts;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.util.iterators.EmptyIterator;
 
 public abstract class AbstractMessagingResponse implements MessagingResponse {
-
-	private static final long serialVersionUID = -6307483543411797001L;
 
 	/*
 	 * Static methods
@@ -28,9 +31,9 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 	}
 
 	/**
-	 * Factory method that creates a message response bound to a given graph.
-	 * @param contextNode The graph that is a message response.
-	 * @return The message response.
+	 * Factory method that creates a messaging response bound to a given graph.
+	 * @param graph The graph that is a messaging response.
+	 * @return The messaging response.
 	 */
 	public static MessagingResponse fromGraph(Graph graph) {
 
@@ -63,42 +66,19 @@ public abstract class AbstractMessagingResponse implements MessagingResponse {
 		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(resultGraph), false);
 	}
 
-	/*
-	 * Object methods
-	 */
-
 	@Override
-	public String toString() {
+	public boolean hasPushLinkContracts() {
 
-		return this.getGraph().toString();
+		return this.getPushLinkContracts().hasNext();
 	}
 
 	@Override
-	public boolean equals(Object object) {
+	public Iterator<LinkContract> getPushLinkContracts() {
 
-		if (object == null || ! (object instanceof FullMessagingResponse)) return false;
-		if (object == this) return true;
+		Graph resultGraph = this.getResultGraph();
+		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
 
-		FullMessagingResponse other = (FullMessagingResponse) object;
-
-		return this.getGraph().equals(other.getGraph());
-	}
-
-	@Override
-	public int hashCode() {
-
-		int hashCode = 1;
-
-		hashCode = (hashCode * 31) + this.getGraph().hashCode();
-
-		return hashCode;
-	}
-
-	@Override
-	public int compareTo(MessagingResponse other) {
-
-		if (other == this || other == null) return(0);
-
-		return this.getGraph().compareTo(other.getGraph());
+		// TODO: fix this, not all link contracts are push link contracts
+		return LinkContracts.getAllLinkContracts(resultGraph);
 	}
 }

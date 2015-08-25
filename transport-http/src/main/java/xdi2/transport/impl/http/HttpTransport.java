@@ -22,7 +22,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
@@ -122,7 +122,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -167,7 +167,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -212,7 +212,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -257,7 +257,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 
 		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
 		MessageEnvelope messageEnvelope;
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
@@ -404,7 +404,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 		return messageEnvelope;
 	}
 
-	private void sendOk(HttpTransportRequest request, HttpTransportResponse response, MessagingResponse messagingResponse) throws IOException {
+	private void sendOk(HttpTransportRequest request, HttpTransportResponse response, TransportMessagingResponse messagingResponse) throws IOException {
 
 		response.setStatus(HttpTransportResponse.SC_OK);
 

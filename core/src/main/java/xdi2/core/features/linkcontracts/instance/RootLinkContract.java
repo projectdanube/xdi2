@@ -66,7 +66,7 @@ public class RootLinkContract extends GenericLinkContract {
 
 	public static XDIAddress createRootLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, ownerXDIAddress, null);
+		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, ownerXDIAddress, null, true);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class RootLinkContract extends GenericLinkContract {
 		XDIAddress ownerXDIAddress = GraphUtil.getOwnerXDIAddress(graph);
 		if (ownerXDIAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, ownerXDIAddress, null, create);
+		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, ownerXDIAddress, null, true, create);
 		if (genericLinkContract == null) return null;
 
 		return fromXdiEntity(genericLinkContract.getXdiEntity());

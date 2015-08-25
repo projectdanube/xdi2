@@ -1,7 +1,9 @@
 package xdi2.core.features.signatures;
 
 import java.io.Serializable;
-import java.security.GeneralSecurityException;
+import java.nio.charset.Charset;
+
+import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
@@ -13,7 +15,7 @@ import xdi2.core.features.nodetypes.XdiAttributeInstance;
  * 
  * @author markus
  */
-public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable<Signature<SKEY, VKEY>> {
+public abstract class Signature implements Serializable, Comparable<Signature> {
 
 	private static final long serialVersionUID = -6984622275903043863L;
 
@@ -38,9 +40,9 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 		if (xdiAttribute == null) return false;
 
 		return
-				KeyPairSignature.isValid(xdiAttribute) ||
-				SymmetricKeySignature.isValid(xdiAttribute) ||
-				UnknownSignature.isValid(xdiAttribute);
+				RSASignature.isValid(xdiAttribute) ||
+				AESSignature.isValid(xdiAttribute) ||
+				EC25519Signature.isValid(xdiAttribute);
 	}
 
 	/**
@@ -48,13 +50,13 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 	 * @param xdiAttribute The XDI signature that is an XDI signature.
 	 * @return The XDI signature.
 	 */
-	public static Signature<?, ?> fromXdiAttribute(XdiAttribute xdiAttribute) {
+	public static Signature fromXdiAttribute(XdiAttribute xdiAttribute) {
 
-		Signature<?, ?> signature;
+		Signature signature;
 
-		if ((signature = KeyPairSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
-		if ((signature = SymmetricKeySignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
-		if ((signature = UnknownSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
+		if ((signature = RSASignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
+		if ((signature = AESSignature.fromXdiAttribute(xdiAttribute)) != null) return signature;
+		if ((signature = EC25519Signature.fromXdiAttribute(xdiAttribute)) != null) return signature;
 
 		return null;
 	}
@@ -109,40 +111,31 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 		return Signatures.getKeyLength(this.getXdiAttribute());
 	}
 
-	public abstract String getAlgorithm();
-
 	/*
-	 * Signing and validating
+	 * Signature value
 	 */
 
 	/**
 	 * Get the value
 	 */
-	public String getValue() {
+	public byte[] getSignatureValue() {
 
 		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
-		String value = literalNode == null ? null : literalNode.getLiteralDataString();
+		String literalDataString = literalNode == null ? null : literalNode.getLiteralDataString();
+		if (literalDataString == null) return null;
 
-		return value;
+		byte[] signatureValue = Base64.decodeBase64(literalDataString.getBytes(Charset.forName("UTF-8")));
+
+		return signatureValue;
 	}
 
 	/**
 	 * Set the value
 	 */
-	public void setValue(String value) {
+	public void setSignatureValue(byte[] signatureValue) {
 
-		this.getXdiAttribute().setLiteralString(value);
+		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(signatureValue), Charset.forName("UTF-8")));
 	}
-
-	/**
-	 * Create the signature value.
-	 */
-	public abstract void sign(SKEY key) throws GeneralSecurityException;
-
-	/**
-	 * Validate the signature value.
-	 */
-	public abstract boolean validate(VKEY key) throws GeneralSecurityException;
 
 	/*
 	 * Object methods
@@ -160,7 +153,7 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 		if (object == null || !(object instanceof Signature)) return false;
 		if (object == this) return true;
 
-		Signature<?, ?> other = (Signature<?, ?>) object;
+		Signature other = (Signature) object;
 
 		return this.getContextNode().equals(other.getContextNode());
 	}
@@ -176,7 +169,7 @@ public abstract class Signature <SKEY, VKEY> implements Serializable, Comparable
 	}
 
 	@Override
-	public int compareTo(Signature<SKEY, VKEY> other) {
+	public int compareTo(Signature other) {
 
 		if (other == this || other == null) return 0;
 

@@ -33,7 +33,7 @@ import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 public class XDIDiscoveryResult implements Serializable {
 
@@ -46,7 +46,7 @@ public class XDIDiscoveryResult implements Serializable {
 	private Map<XDIAddress, URI> endpointUris;
 
 	private MessageEnvelope messageEnvelope;
-	private MessagingResponse messagingResponse;
+	private TransportMessagingResponse messagingResponse;
 
 	public XDIDiscoveryResult() {
 
@@ -66,7 +66,7 @@ public class XDIDiscoveryResult implements Serializable {
 		this.initFromAuthorityMessagingResponse(xdiDiscoveryResultAuthority.getMessageEnvelope(), xdiDiscoveryResultAuthority.getMessagingResponse(), endpointUriTypes);
 	}
 
-	void initFromRegistryMessagingResponse(MessageEnvelope registryMessageEnvelope, MessagingResponse registryMessagingResponse, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromRegistryMessagingResponse(MessageEnvelope registryMessageEnvelope, TransportMessagingResponse registryMessagingResponse, XDIAddress query, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = registryMessageEnvelope;
 		this.messagingResponse = registryMessagingResponse;
@@ -108,7 +108,7 @@ public class XDIDiscoveryResult implements Serializable {
 		initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
-	void initFromAuthorityMessagingResponse(MessageEnvelope authorityMessageEnvelope, MessagingResponse authorityMessagingResponse, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
+	void initFromAuthorityMessagingResponse(MessageEnvelope authorityMessageEnvelope, TransportMessagingResponse authorityMessagingResponse, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
 
 		this.messageEnvelope = authorityMessageEnvelope;
 		this.messagingResponse = authorityMessagingResponse;
@@ -177,7 +177,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// done
 
-		this.messagingResponse = ex.getMessagingResponse();
+		this.messagingResponse = ex.getMessagingResponse() instanceof TransportMessagingResponse ? (TransportMessagingResponse) ex.getMessagingResponse() : null;
 	}
 
 	/*
@@ -234,7 +234,7 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.messageEnvelope;
 	}
 
-	public MessagingResponse getMessagingResponse() {
+	public TransportMessagingResponse getMessagingResponse() {
 
 		return this.messagingResponse;
 	}

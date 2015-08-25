@@ -219,16 +219,16 @@ public abstract class Policy implements Serializable, Comparable<Policy> {
 	 * @param policyEvaluationContext An object that can locate context nodes.
 	 * @return True or false.
 	 */
-	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
+	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getContextNode());
-		Boolean result = this.evaluateInternal(policyEvaluationContext);
+		boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getContextNode() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
+	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

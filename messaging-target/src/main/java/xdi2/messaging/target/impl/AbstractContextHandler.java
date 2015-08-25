@@ -26,7 +26,7 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	 */
 
 	@Override
-	public void executeOnAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public final void executeOnAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute on address
 
@@ -38,8 +38,6 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeDelOnAddress(targetXDIAddress, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
 			this.executeDoOnAddress(targetXDIAddress, (DoOperation) operation, operationResultGraph, executionContext);
-		else
-			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
 	public void executeGetOnAddress(XDIAddress targetXDIAddress, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {

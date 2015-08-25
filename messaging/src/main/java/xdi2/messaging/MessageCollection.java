@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -49,20 +52,38 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public static boolean isValid(XdiEntityCollection xdiEntityCollection) {
 
-		return xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG));
+		if (! xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG))) return false;
+		if (XDIAddressUtil.extractXDIAddress(xdiEntityCollection.getContextNode().getXDIAddress(), XdiInnerRoot.class, false, false) != null) return false;
+
+		return true;
 	}
 
 	/**
-	 * Factory method that creates an XDI message collection bound to a given XDI entity class.
+	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
 	 * @param messageEnvelope The XDI message envelope to which this XDI message collection belongs.
 	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
-	public static MessageCollection fromMessageEnvelopeAndXdiEntityClass(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
+	public static MessageCollection fromMessageEnvelopeAndXdiEntityCollection(MessageEnvelope messageEnvelope, XdiEntityCollection xdiEntityCollection) {
 
 		if (! isValid(xdiEntityCollection)) return null;
 
 		return new MessageCollection(messageEnvelope, xdiEntityCollection);
+	}
+
+	/**
+	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
+	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
+	 * @return The XDI message collection.
+	 */
+	public static MessageCollection fromXdiEntityCollection(XdiEntityCollection xdiEntityCollection) {
+
+		Graph graph = xdiEntityCollection.getGraph();
+
+		MessageEnvelope messageEnvelope = graph == null ? null : MessageEnvelope.fromGraph(graph);
+		if (messageEnvelope == null) return null;
+
+		return fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
 	}
 
 	/*

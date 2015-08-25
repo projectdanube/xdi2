@@ -49,7 +49,7 @@ public class XDIWebSocketClientRoute extends XDIAbstractClientRoute<XDIWebSocket
 	@Override
 	public XDIWebSocketClient constructXDIClientInternal() {
 
-		return new XDIWebSocketClient(this.session, this.xdiWebSocketEndpointUri);
+		return new XDIWebSocketClient(this.getSession(), this.getXdiWebSocketEndpointUri());
 	}
 
 	/*

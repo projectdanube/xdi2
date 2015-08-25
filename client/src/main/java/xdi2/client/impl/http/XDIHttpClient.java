@@ -26,8 +26,7 @@ import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.http.AcceptHeader;
-import xdi2.messaging.response.AbstractMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 /**
  * An XDI client that can send XDI messages over HTTP and receive results.
@@ -42,7 +41,7 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
+public class XDIHttpClient extends XDIAbstractClient<TransportMessagingResponse> implements XDIClient<TransportMessagingResponse> {
 
 	public static final String KEY_ENDPOINTURI = "endpointUri";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
@@ -55,15 +54,15 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	public static final String DEFAULT_USERAGENT = "XDI2 Java Library";
 	public static final String DEFAULT_FOLLOWREDIRECTS = "false";
 
-	protected static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIHttpClient.class);
 
 	private HttpURLConnection httpURLConnection;
+	private URI xdiEndpointUri;
 
-	protected URI xdiEndpointUri;
-	protected MimeType sendMimeType;
-	protected MimeType recvMimeType;
-	protected String userAgent;
-	protected boolean followRedirects;
+	private MimeType sendMimeType;
+	private MimeType recvMimeType;
+	private String userAgent;
+	private boolean followRedirects;
 
 	static {
 
@@ -75,8 +74,8 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		super();
 
 		this.httpURLConnection = httpURLConnection;
-
 		this.xdiEndpointUri = xdiEndpointUri;
+
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 		this.recvMimeType = (recvMimeType != null) ? recvMimeType : new MimeType(DEFAULT_RECVMIMETYPE);
 		this.userAgent = (userAgent != null) ? userAgent : DEFAULT_USERAGENT;
@@ -160,9 +159,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 	}
 
 	@Override
-	protected MessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
-
-		if (this.xdiEndpointUri == null) throw new Xdi2ClientException("No URI set.");
+	protected TransportMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
 		// find out which XDIWriter we want to use
 
@@ -200,7 +197,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			httpURLConnection = this.connect();
 		} catch (Xdi2ClientException ex) {
-			
+
 			throw ex;
 		} catch (Exception ex) {
 
@@ -274,7 +271,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 			this.disconnect();
 		}
 
-		MessagingResponse messagingResponse = AbstractMessagingResponse.fromGraph(messagingResponseGraph);
+		TransportMessagingResponse messagingResponse = TransportMessagingResponse.fromGraph(messagingResponseGraph);
 
 		// done
 
@@ -300,7 +297,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		if (log.isDebugEnabled()) log.debug("Using Accept header " + acceptHeader.toString() + ".");
 
 		// connect
-		
+
 		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiEndpointUri());
 
 		URL url = URLURIUtil.URItoURL(this.getXdiEndpointUri());
@@ -320,16 +317,23 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 		httpURLConnection.setRequestMethod("POST");
 
 		// done
-		
+
 		this.setHttpURLConnection(httpURLConnection);
 		return httpURLConnection;
 	}
 
 	private void disconnect() {
 
-		if (this.getHttpURLConnection() != null) {
+		try {
 
-			this.getHttpURLConnection().disconnect();
+			if (this.getHttpURLConnection() != null) {
+
+				this.getHttpURLConnection().disconnect();
+			}
+		} catch (Exception ex) {
+
+			log.error("Cannot disconnect: " + ex.getMessage(), ex);
+		} finally {
 
 			this.setHttpURLConnection(null);
 		}

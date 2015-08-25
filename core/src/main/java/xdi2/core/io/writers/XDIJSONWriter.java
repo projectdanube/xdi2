@@ -7,6 +7,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonWriter;
+
 import xdi2.core.Graph;
 import xdi2.core.Statement;
 import xdi2.core.impl.AbstractLiteralNode;
@@ -24,14 +32,6 @@ import xdi2.core.util.iterators.MappingContextNodeStatementIterator;
 import xdi2.core.util.iterators.MappingLiteralNodeStatementIterator;
 import xdi2.core.util.iterators.MappingRelationStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.stream.JsonWriter;
 
 public class XDIJSONWriter extends AbstractXDIWriter {
 

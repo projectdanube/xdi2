@@ -37,6 +37,11 @@ public class ManipulatorList implements Iterable<Manipulator>, Serializable {
 		this.manipulators.add(manipulator);
 	}
 
+	public void addManipulators(ManipulatorList manipulatorList) {
+
+		this.manipulators.addAll(manipulatorList.manipulators);
+	}
+
 	public void addManipulators(Collection<Manipulator> manipulators) {
 
 		this.manipulators.addAll(manipulators);

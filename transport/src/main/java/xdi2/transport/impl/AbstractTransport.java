@@ -13,13 +13,15 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.properties.XDI2Properties;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.LightMessagingResponse;
-import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.execution.ExecutionContext;
@@ -124,7 +126,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		log.info("Shutting down complete.");
 	}
 
-	protected MessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
+	protected TransportMessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
 		// create an execution context and execution result
 
@@ -133,7 +135,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// execution result and messaging response
 
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		// go
 
@@ -161,13 +163,9 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 
-			// insert exception into execution result
-
-			ExecutionResult exceptionExecutionResult = ExecutionResult.createExecutionResult(executionResult, ex);
-
 			// make messaging response
 
-			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, exceptionExecutionResult);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
 
 			// execute interceptors (exception)
 
@@ -193,9 +191,9 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		return executionContext;
 	}
 
-	private final MessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
+	private final TransportMessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
 
-		MessagingResponse messagingResponse;
+		TransportMessagingResponse messagingResponse;
 
 		if (isFull(messageEnvelope)) {
 
@@ -212,7 +210,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		// result graph
 
-		Graph resultGraph = executionResult.getResultGraph();
+		Graph resultGraph = executionResult.getFinishedResultGraph();
 
 		// create messaging response
 
@@ -231,17 +229,19 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		for (Message message : messageEnvelope.getMessages()) {
 
+			XDIArc toPeerRootXDIArc = message.getFromPeerRootXDIArc();
+			XDIArc fromPeerRootXDIArc = message.getToPeerRootXDIArc();
 			XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
-			XDIAddress toXDIAddress = message.getSenderXDIAddress();
 
 			Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
-			responseMessage.setToXDIAddress(toXDIAddress);
+			responseMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
+			responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 			responseMessage.setTimestamp(new Date());
 			responseMessage.setCorrelationXDIAddress(message.getXDIAddress());
 
 			for (Operation operation : message.getOperations()) {
 
-				Graph operationResultGraph = executionResult.getOperationResultGraph(operation);
+				Graph operationResultGraph = executionResult.getFinishedOperationResultGraph(operation);
 				if (operationResultGraph == null) continue;
 
 				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);
@@ -307,8 +307,8 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			Boolean async = message.getParameterBoolean(Message.XDI_ADD_PARAMETER_FULL);
-			if (Boolean.TRUE.equals(async)) return true;
+			Boolean full = message.getParameterBoolean(XDIMessagingConstants.XDI_ADD_MESSAGE_PARAMETER_FULL);
+			if (Boolean.TRUE.equals(full)) return true;
 		}
 
 		return false;

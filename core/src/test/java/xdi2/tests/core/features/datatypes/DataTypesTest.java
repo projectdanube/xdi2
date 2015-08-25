@@ -2,10 +2,9 @@ package xdi2.tests.core.features.datatypes;
 
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import xdi2.core.Graph;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.impl.memory.MemoryGraphFactory;

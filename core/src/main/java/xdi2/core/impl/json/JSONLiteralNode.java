@@ -1,11 +1,11 @@
 package xdi2.core.impl.json;
 
+import com.google.gson.JsonObject;
+
 import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteralNode;
-
-import com.google.gson.JsonObject;
 
 public class JSONLiteralNode extends AbstractLiteralNode implements LiteralNode {
 

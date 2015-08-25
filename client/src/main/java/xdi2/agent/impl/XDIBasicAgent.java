@@ -1,25 +1,26 @@
 package xdi2.agent.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.routing.XDIAgentRouter;
-import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.ManipulatorList;
+import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.syntax.CloudName;
-import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
@@ -27,22 +28,32 @@ public class XDIBasicAgent implements XDIAgent {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
-	private List<XDIAgentRouter<?, ?>> agentRouters;
+	private LinkedList<XDIAgentRouter<?, ?>> agentRouters;
+	private ManipulatorList manipulators;
 
-	public XDIBasicAgent(List<XDIAgentRouter<?, ?>> agentRouters) {
+	public XDIBasicAgent(Collection<XDIAgentRouter<?, ?>> agentRouters) {
 
-		this.agentRouters = agentRouters;
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (agentRouters);
+		this.manipulators = new ManipulatorList();
+	}
+
+	public XDIBasicAgent(XDIAgentRouter<?, ?>... agentRouters) {
+
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (Arrays.asList(agentRouters));
+		this.manipulators = new ManipulatorList();
 	}
 
 	public XDIBasicAgent(XDIAgentRouter<?, ?> agentRouter) {
 
-		this.agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
 		this.agentRouters.add(agentRouter);
+		this.manipulators = new ManipulatorList();
 	}
 
 	public XDIBasicAgent() {
 
-		this(new XDIHttpDiscoveryAgentRouter());
+		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
+		this.manipulators = new ManipulatorList();
 	}
 
 	@Override
@@ -50,21 +61,36 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find a route
 
-		XDIClientRoute<?> route = null;
+		XDIClientRoute<?> foundRoute = null;
+		XDIAgentRouter<?, ?> foundAgentRouter = null;
 
 		for (XDIAgentRouter<?, ?> agentRouter : this.getAgentRouters()) {
 
 			if (log.isDebugEnabled()) log.debug("Trying router " + agentRouter.getClass().getSimpleName() + " to route to " + toPeerRootXDIArc);
 
-			route = agentRouter.route(toPeerRootXDIArc);
-			if (route != null) break;
+			foundRoute = agentRouter.route(toPeerRootXDIArc);
+			if (foundRoute != null) foundAgentRouter = agentRouter;
+			if (foundRoute != null) break;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + route);
+		if (foundRoute == null) {
+
+			if (log.isDebugEnabled()) log.debug("No route found for " + toPeerRootXDIArc);
+			return null;
+		}
+
+		if (log.isDebugEnabled()) log.debug("Route for " + toPeerRootXDIArc + " is " + foundRoute + " via router " + foundAgentRouter.getClass().getSimpleName());
+
+		// add manipulators if supported
+
+		if (foundRoute instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
+
+			((XDIAbstractClientRoute<?>) foundRoute).getManipulators().addManipulators(this.getManipulators());
+		}
 
 		// done
 
-		return route;
+		return foundRoute;
 	}
 
 	@Override
@@ -72,19 +98,16 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find out the TO peer root of the address
 
+		XDIAddress peerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false);
+		XDIArc peerRootFirstXDIArc = peerRootXDIAddress == null ? null : peerRootXDIAddress.getFirstXDIArc();
+
 		XDIArc firstXDIArc = XDIaddress.getFirstXDIArc();
-		XDIAddress firstXDIArcXDIAddress = XDIAddress.fromComponent(firstXDIArc);
 
-		XDIAddress toPeerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false);
-		CloudNumber toCloudNumber = CloudNumber.isValid(firstXDIArcXDIAddress) ? CloudNumber.fromXDIAddress(firstXDIArcXDIAddress) : null;
-		CloudName toCloudName = CloudName.isValid(firstXDIArcXDIAddress) ? CloudName.fromXDIAddress(firstXDIArcXDIAddress) : null;
-
-		if (log.isDebugEnabled()) log.debug("Peer root: " + toPeerRootXDIAddress + ", Cloud Number: " + toCloudNumber + ", Cloud Name: " + toCloudName);
+		if (log.isDebugEnabled()) log.debug("Peer root first arc: " + peerRootFirstXDIArc + ", First arc: " + firstXDIArc);
 
 		XDIArc toPeerRootXDIArc = null;
-		if (toPeerRootXDIAddress != null) toPeerRootXDIArc = toPeerRootXDIAddress.getLastXDIArc();
-		if (toCloudNumber != null) toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(toCloudNumber.getXDIAddress());
-		if (toCloudName != null) toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(toCloudName.getXDIAddress());
+		if (toPeerRootXDIArc == null && peerRootFirstXDIArc != null) toPeerRootXDIArc = peerRootFirstXDIArc;
+		if (toPeerRootXDIArc == null && firstXDIArc != null) toPeerRootXDIArc = XdiPeerRoot.createPeerRootXDIArc(XDIAddress.fromComponent(firstXDIArc));
 
 		if (log.isDebugEnabled()) log.debug("Determined TO peer root: " + toPeerRootXDIArc);
 
@@ -181,13 +204,23 @@ public class XDIBasicAgent implements XDIAgent {
 	 * Getters and setters
 	 */
 
-	public List<XDIAgentRouter<?, ?>> getAgentRouters() {
+	public LinkedList<XDIAgentRouter<?, ?>> getAgentRouters() {
 
 		return this.agentRouters;
 	}
 
-	public void setAgentRouters(List<XDIAgentRouter<?, ?>> agentRouters) {
+	public void setAgentRouters(LinkedList<XDIAgentRouter<?, ?>> agentRouters) {
 
 		this.agentRouters = agentRouters;
+	}
+
+	public ManipulatorList getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(ManipulatorList manipulators) {
+
+		this.manipulators = manipulators;
 	}
 }

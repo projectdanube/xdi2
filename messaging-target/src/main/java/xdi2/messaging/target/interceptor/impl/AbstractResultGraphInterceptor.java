@@ -4,12 +4,12 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
+import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 
-public abstract class AbstractResultGraphInterceptor extends AbstractInterceptor<MessagingTarget> implements ResultGraphInterceptor {
+public abstract class AbstractResultGraphInterceptor extends AbstractInterceptor<MessagingTarget> implements ExecutionResultInterceptor {
 
 	@Override
-	public void finish(ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 	}
 }

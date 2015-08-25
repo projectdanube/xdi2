@@ -47,7 +47,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// look for HttpTransport, HttpRequest, HttpResponse
 
@@ -71,7 +71,7 @@ public class HttpTransportDataInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

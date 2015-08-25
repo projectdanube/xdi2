@@ -43,7 +43,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// check if the owner peer root matches the TO peer root
 
@@ -63,7 +63,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}

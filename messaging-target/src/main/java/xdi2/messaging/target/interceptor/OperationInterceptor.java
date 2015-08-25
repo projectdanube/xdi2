@@ -18,16 +18,16 @@ public interface OperationInterceptor extends Interceptor<MessagingTarget> {
 	 * @param operation The operation to process.
 	 * @param operationResultGraph The operation's message result.
 	 * @param executionContext The current execution context.
-	 * @return True, if the operation has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
-	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
+	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException ;
 
 	/**
 	 * Run after an operation is executed.
 	 * @param operation The operation to process.
 	 * @param operationResultGraph The operation's message result.
 	 * @param executionContext The current execution context.
-	 * @return True, if the operation has been fully handled and the server should stop processing it.
+	 * @return Interceptor result that specifies how the operation should be further processed.
 	 */
 	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException;
 }

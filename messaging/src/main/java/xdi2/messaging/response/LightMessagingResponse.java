@@ -7,15 +7,15 @@ import xdi2.core.Graph;
  * 
  * @author markus
  */
-public class LightMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class LightMessagingResponse extends TransportMessagingResponse implements MessagingResponse {
 
 	private static final long serialVersionUID = -518357785421448783L;
 
-	private Graph resultGraph;
+	private Graph graph;
 
-	private LightMessagingResponse(Graph resultGraph) {
+	private LightMessagingResponse(Graph graph) {
 
-		this.resultGraph = resultGraph;
+		this.graph = graph;
 	}
 
 	/*
@@ -31,10 +31,12 @@ public class LightMessagingResponse extends AbstractMessagingResponse implements
 
 		if (! isValid(graph)) return(null);
 
-		return fromResultGraph(graph);
+		return new LightMessagingResponse(graph);
 	}
 
 	public static LightMessagingResponse fromResultGraph(Graph resultGraph) {
+
+		if (! isValid(resultGraph)) return(null);
 
 		return new LightMessagingResponse(resultGraph);
 	}
@@ -46,12 +48,12 @@ public class LightMessagingResponse extends AbstractMessagingResponse implements
 	@Override
 	public Graph getGraph() {
 
-		return this.resultGraph;
+		return this.graph;
 	}
 
 	@Override
 	public Graph getResultGraph() {
 
-		return this.resultGraph;
+		return this.graph;
 	}
 }

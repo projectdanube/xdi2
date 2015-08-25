@@ -8,10 +8,6 @@ import java.io.InputStreamReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.impl.json.AbstractJSONStore;
-import xdi2.core.impl.json.JSONStore;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -24,6 +20,10 @@ import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.OperationStatus;
 import com.sleepycat.je.Transaction;
+
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.impl.json.AbstractJSONStore;
+import xdi2.core.impl.json.JSONStore;
 
 /**
  * This class is used by the BDBJSONGraphFactory class

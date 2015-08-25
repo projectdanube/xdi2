@@ -43,7 +43,7 @@ public class BasicPushGateway implements PushGateway {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
-		for (XDIArc toPeerRootXDIArc : linkContract.getToPeerRootXDIArcs()) {
+		for (XDIArc toPeerRootXDIArc : linkContract.getPushToPeerRootXDIArcs()) {
 
 			if (log.isDebugEnabled()) log.debug("Trying to push to " + toPeerRootXDIArc);
 

@@ -1,9 +1,8 @@
 package xdi2.core.features.linkcontracts.instance;
 
+import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
-import xdi2.core.features.linkcontracts.community.CommunityLinkContract;
-import xdi2.core.features.linkcontracts.requester.RequesterLinkContract;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -38,9 +37,9 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		if (xdiEntity == null) return false;
 
 		return
-				RequesterLinkContract.isValid(xdiEntity) ||
 				RootLinkContract.isValid(xdiEntity) ||
 				PublicLinkContract.isValid(xdiEntity) ||
+				ConnectLinkContract.isValid(xdiEntity) ||
 				GenericLinkContract.isValid(xdiEntity);
 	}
 
@@ -55,8 +54,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = RequesterLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = CommunityLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = ConnectLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
@@ -81,7 +79,17 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		return this.xdiEntity;
 	}
 
-	public ReadOnlyIterator<XDIArc> getToPeerRootXDIArcs() {
+	public void addPushPermissionInverseRelations() {
+
+		ReadOnlyIterator<Relation> pushPermissionRelations = this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_PUSH);
+
+		for (Relation pushPermissionRelation : pushPermissionRelations) {
+
+			pushPermissionRelation.followContextNode().setRelation(XDILinkContractConstants.XDI_ADD_IS_PUSH, pushPermissionRelation.getContextNode().getXDIAddress());
+		}
+	}
+
+	public ReadOnlyIterator<XDIArc> getPushToPeerRootXDIArcs() {
 
 		return new NotNullIterator<XDIArc> (
 				new MappingContextNodeXDIArcIterator (

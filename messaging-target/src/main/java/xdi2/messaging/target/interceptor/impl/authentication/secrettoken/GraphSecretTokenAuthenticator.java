@@ -8,16 +8,13 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.Message;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.exceptions.Xdi2MessagingException;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.core.util.GraphAware;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a "secret token graph",
  * which contains sender addresses and secret tokens in digest form.
  */
-public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticator {
+public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticator implements GraphAware {
 
 	private static Logger log = LoggerFactory.getLogger(GraphSecretTokenAuthenticator.class.getName());
 
@@ -37,22 +34,22 @@ public class GraphSecretTokenAuthenticator extends DigestSecretTokenAuthenticato
 		this.secretTokenGraph = null;
 	}
 
+	/*
+	 * GraphAware
+	 */
+
 	@Override
-	public void init(MessagingTarget messagingTarget, AuthenticationSecretTokenInterceptor authenticationSecretTokenInterceptor) throws Exception {
+	public void setGraph(Graph graph) {
 
-		super.init(messagingTarget, authenticationSecretTokenInterceptor);
-
-		if (this.getSecretTokenGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setSecretTokenGraph(((GraphMessagingTarget) messagingTarget).getGraph());
-		if (this.getSecretTokenGraph() == null) throw new Xdi2MessagingException("No secret token graph.", null, null);
+		if (this.getSecretTokenGraph() == null) this.setSecretTokenGraph(graph);
 	}
 
+	/*
+	 * Instance methods
+	 */
+
 	@Override
-	public String getLocalSaltAndDigestSecretToken(Message message) {
-
-		// sender
-
-		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
-		if (senderXDIAddress == null) return null;
+	public String getLocalSaltAndDigestSecretToken(XDIAddress senderXDIAddress) {
 
 		// sender peer root
 

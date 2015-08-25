@@ -1,5 +1,8 @@
 package xdi2.messaging.target.interceptor.impl.authentication.signature;
 
+import java.security.GeneralSecurityException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +11,8 @@ import xdi2.core.constants.XDIAuthenticationConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.validate.SignatureValidator;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
@@ -22,13 +27,13 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
  * This interceptor looks for a signature on an incoming XDI message,
- * and invokes an instance of SignatureAuthenticator to authenticate the message.
+ * and invokes an instance of SignatureValidater to authenticate the message.
  */
 public class AuthenticationSignatureInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<AuthenticationSignatureInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(AuthenticationSignatureInterceptor.class.getName());
 
-	private SignatureAuthenticator signatureAuthenticator;
+	private List<SignatureValidator<Signature>> signatureValidators;
 
 	/*
 	 * Prototype
@@ -41,9 +46,9 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 
 		AuthenticationSignatureInterceptor interceptor = new AuthenticationSignatureInterceptor();
 
-		// set the authenticator
+		// set the signature validator
 
-		interceptor.setSignatureAuthenticator(this.getSignatureAuthenticator());
+		interceptor.setSignatureValidators(this.getSignatureValidators());
 
 		// done
 
@@ -51,53 +56,58 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	}
 
 	/*
-	 * Init and shutdown
-	 */
-
-	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
-
-		super.init(messagingTarget);
-
-		this.getSignatureAuthenticator().init(messagingTarget, this);
-	}
-
-	@Override
-	public void shutdown(MessagingTarget messagingTarget) throws Exception {
-
-		super.shutdown(messagingTarget);
-
-		this.getSignatureAuthenticator().shutdown(messagingTarget, this);
-	}
-
-	/*
 	 * MessageInterceptor
 	 */
 
 	@Override
-	public InterceptorResult before(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// look for signature on the message
 
-		ReadOnlyIterator<Signature<?, ?>> signatures = message.getSignatures();
+		ReadOnlyIterator<Signature> signatures = message.getSignatures();
 		if (! signatures.hasNext()) return InterceptorResult.DEFAULT;
 
-		// authenticate
+		// validate signatures
 
-		if (log.isDebugEnabled()) log.debug("Authenticating via " + this.getSignatureAuthenticator().getClass().getSimpleName());
+		XDIAddress senderXDIAddress = message.getSenderXDIAddress();
 
-		boolean authenticated = true;
+		boolean validated = false;
 
-		for (Signature<?, ?> signature : signatures) {
+		for (Signature signature : signatures) {
 
-			authenticated &= this.getSignatureAuthenticator().authenticate(message, signature);
-			if (! authenticated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
+			boolean validatedSignature = false;
+
+			for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
+
+				if (log.isDebugEnabled()) log.debug("Validating " + signature.getClass().getSimpleName() + " for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
+
+				try {
+
+					boolean canValidate = signatureValidator.canValidate(signature.getClass());
+					if (log.isDebugEnabled()) log.debug("Signature validator " + signatureValidator.getClass().getSimpleName() + " can validate signature " + signature.getClass().getSimpleName() + "? " + canValidate);
+					if (! canValidate) continue;
+
+					validatedSignature |= signatureValidator.validateSignature(signature, senderXDIAddress);
+					if (log.isDebugEnabled()) log.debug("Validated " + signature.getClass().getSimpleName() + " for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + validatedSignature);
+					if (validatedSignature) break;
+				} catch (GeneralSecurityException ex) {
+
+					throw new Xdi2MessagingException("Unable to validate signature for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName() + ": " + ex.getMessage(), ex, executionContext);
+				}
+			}
+
+			validated = validatedSignature;
+			if (! validated) break;
 		}
 
-		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
-		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(authenticated));
+		// signature is valid?
 
-		if (log.isDebugEnabled()) log.debug("Valid: " + signatureValidLiteral.getStatement());
+		XdiAttribute signatureValidXdiAttribute = XdiAttributeSingleton.fromContextNode(message.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SIGNATURE_VALID));
+		LiteralNode signatureValidLiteral = signatureValidXdiAttribute.setLiteralBoolean(Boolean.valueOf(validated));
+
+		if (log.isDebugEnabled()) log.debug("Valid for " + senderXDIAddress + ": " + signatureValidLiteral.getStatement());
+
+		if (! validated) throw new Xdi2AuthenticationException("Invalid signature.", null, executionContext);
 
 		// done
 
@@ -105,7 +115,7 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	}
 
 	@Override
-	public InterceptorResult after(Message message, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -114,13 +124,13 @@ public class AuthenticationSignatureInterceptor extends AbstractInterceptor<Mess
 	 * Getters and setters
 	 */
 
-	public SignatureAuthenticator getSignatureAuthenticator() {
+	public List<SignatureValidator<Signature>> getSignatureValidators() {
 
-		return this.signatureAuthenticator;
+		return this.signatureValidators;
 	}
 
-	public void setSignatureAuthenticator(SignatureAuthenticator signatureAuthenticator) {
+	public void setSignatureValidators(List<SignatureValidator<Signature>> signatureValidators) {
 
-		this.signatureAuthenticator = signatureAuthenticator;
+		this.signatureValidators = signatureValidators;
 	}
 }

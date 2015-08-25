@@ -31,11 +31,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.encryption.AESEncryption;
 import xdi2.core.features.encryption.Encryption;
 import xdi2.core.features.encryption.Encryptions;
 import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
-import xdi2.core.features.encryption.KeyPairEncryption;
-import xdi2.core.features.encryption.SymmetricKeyEncryption;
+import xdi2.core.features.encryption.RSAEncryption;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.Normalization;
 import xdi2.core.io.XDIReader;
@@ -195,18 +195,18 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 				Encryption<?, ?> encryption = Encryptions.createEncryption(contextNode, keyAlgorithm, Integer.parseInt(keyLength), "on".equals(singleton));
 
-				if (encryption instanceof KeyPairEncryption) {
+				if (encryption instanceof RSAEncryption) {
 
 					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					k = keyFactory.generatePublic(keySpec);
 
-					((KeyPairEncryption) encryption).encrypt((PublicKey) k);
-				} else if (encryption instanceof SymmetricKeyEncryption) {
+					((RSAEncryption) encryption).encrypt((PublicKey) k);
+				} else if (encryption instanceof AESEncryption) {
 
 					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
-					((SymmetricKeyEncryption) encryption).encrypt((SecretKey) k);
+					((AESEncryption) encryption).encrypt((SecretKey) k);
 				}
 
 				output2 = Normalization.serialize(contextNode, new NoEncryptionsCopyStrategy());
@@ -219,18 +219,18 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 				for (Encryption<?, ?> encryption : encryptions) {
 
-					if (encryption instanceof KeyPairEncryption) {
+					if (encryption instanceof RSAEncryption) {
 
 						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 						k = keyFactory.generatePrivate(keySpec);
 
-						((KeyPairEncryption) encryption).decrypt((PrivateKey) k);
-					} else if (encryption instanceof SymmetricKeyEncryption) {
+						((RSAEncryption) encryption).decrypt((PrivateKey) k);
+					} else if (encryption instanceof AESEncryption) {
 
 						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
-						((SymmetricKeyEncryption) encryption).decrypt((SecretKey) k);
+						((AESEncryption) encryption).decrypt((SecretKey) k);
 					}
 
 					encryption.clearAfterDecrypt();

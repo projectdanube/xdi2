@@ -45,20 +45,35 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	}
 
 	/**
-	 * Returns an existing XDI root policy in this XDI link contract (template), or creates a new one.
-	 * @param create Whether to create an XDI root policy if it does not exist.
-	 * @return The existing or newly created XDI root policy.
+	 * Returns an existing XDI policy root in this XDI link contract (template), or creates a new one.
+	 * @param create Whether to create an XDI policy root if it does not exist.
+	 * @return The existing or newly created XDI policy root.
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XdiEntitySingleton.createXDIArc(XDIPolicyConstants.XDI_ARC_IF), create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
 	/**
-	 * Adds a permission (one of $get, $set, $del, $copy, $move, $all) from this XDI link contract (template) to a target context node address.
+	 * Returns an existing XDI push policy root in this XDI link contract (template), or creates a new one.
+	 * @param create Whether to create an XDI push policy root if it does not exist.
+	 * @return The existing or newly created XDI push policy root.
+	 */
+	public PolicyRoot getPushPolicyRoot(boolean create) {
+
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_PUSH, create);
+		if (xdiEntitySingleton == null) return null;
+		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
+		if (xdiEntitySingleton == null) return null;
+
+		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
+	/**
+	 * Adds a permission (one of $get, $set, $del, $all) from this XDI link contract (template) to a target context node address.
 	 * @param permissionXDIAddress The permission address.
 	 * @param targetXDIAddress The target context node address of the permission.
 	 */
@@ -79,6 +94,10 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetXDIAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIAddress);
 			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DO, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_CONNECT, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SEND, targetXDIAddress);
+			this.getContextNode().delRelation(XDILinkContractConstants.XDI_ADD_PUSH, targetXDIAddress);
 		}
 
 		// set the permission arc
@@ -151,7 +170,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 		// return the target addresses
 
 		return new MappingRelationTargetXDIAddressIterator(
-						this.getContextNode().getRelations(permissionAddress));
+				this.getContextNode().getRelations(permissionAddress));
 	}
 
 	public IterableIterator<XDIAddress> getNegativePermissionTargetXDIAddresses(XDIAddress permissionAddress) {

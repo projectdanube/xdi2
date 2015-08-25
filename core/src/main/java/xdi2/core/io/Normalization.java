@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.writers.XDIJSONWriter;
@@ -21,8 +22,8 @@ public class Normalization {
 
 	private static Logger log = LoggerFactory.getLogger(Normalization.class.getName());
 
-	private static final XDIWriter XDIWRITER;
-	private static final XDIReader XDIREADER;
+	public static final XDIWriter XDIWRITER;
+	public static final XDIReader XDIREADER;
 
 	static {
 
@@ -39,9 +40,8 @@ public class Normalization {
 	/**
 	 * Returns the normalized serialization string of a context node, to be used
 	 * e.g. for signatures and encryptions.
-	 * @throws IOException 
 	 */
-	public static String serialize(ContextNode contextNode, CopyStrategy copyStrategy) throws IOException {
+	public static String serialize(ContextNode contextNode, CopyStrategy copyStrategy) {
 
 		Graph tempGraph;
 
@@ -57,7 +57,7 @@ public class Normalization {
 			string = buffer.toString();
 		} catch (IOException ex) {
 
-			throw ex;
+			throw new Xdi2RuntimeException("Cannot serialize " + contextNode + ": " + ex.getMessage(), ex);
 		} finally {
 
 			try { buffer.close(); } catch (Exception ex) { }
@@ -70,6 +70,36 @@ public class Normalization {
 		return string;
 	}
 
+	/**
+	 * Returns the normalized serialization string of a context node, to be used
+	 * e.g. for signatures and encryptions.
+	 */
+	public static String serialize(ContextNode contextNode) {
+
+		return serialize(contextNode, null);
+	}
+
+	/**
+	 * Returns the normalized serialization string of a graph, to be used
+	 * e.g. for signatures and encryptions.
+	 */
+	public static String serialize(Graph graph, CopyStrategy copyStrategy) {
+
+		return serialize(graph.getRootContextNode(), copyStrategy);
+	}
+
+	/**
+	 * Returns the normalized serialization string of a graph, to be used
+	 * e.g. for signatures and encryptions.
+	 */
+	public static String serialize(Graph graph) {
+
+		return serialize(graph, null);
+	}
+
+	/**
+	 * Returns the graph from a normalized string.
+	 */
 	public static Graph deserialize(String string) throws Xdi2ParseException, IOException {
 
 		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();

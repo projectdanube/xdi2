@@ -12,16 +12,6 @@ import java.util.Iterator;
 
 import org.apache.commons.collections15.Transformer;
 
-import xdi2.core.ContextNode;
-import xdi2.core.LiteralNode;
-import xdi2.core.Statement;
-import xdi2.core.Statement.ContextNodeStatement;
-import xdi2.core.Statement.LiteralStatement;
-import xdi2.core.Statement.RelationStatement;
-import xdi2.core.features.policy.Policy;
-import xdi2.core.features.policy.PolicyRoot;
-import xdi2.core.features.policy.operator.Operator;
-import xdi2.core.impl.AbstractLiteralNode;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -32,6 +22,16 @@ import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
+import xdi2.core.ContextNode;
+import xdi2.core.LiteralNode;
+import xdi2.core.Statement;
+import xdi2.core.Statement.ContextNodeStatement;
+import xdi2.core.Statement.LiteralStatement;
+import xdi2.core.Statement.RelationStatement;
+import xdi2.core.features.policy.Policy;
+import xdi2.core.features.policy.PolicyRoot;
+import xdi2.core.features.policy.operator.Operator;
+import xdi2.core.impl.AbstractLiteralNode;
 
 public abstract class AbstractJUNGDrawer implements Drawer {
 

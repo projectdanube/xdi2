@@ -1,5 +1,7 @@
 package xdi2.client.manipulator.impl.signing;
 
+import java.security.GeneralSecurityException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +9,8 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.manipulator.MessageManipulator;
 import xdi2.client.manipulator.impl.AbstractMessageManipulator;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.sign.SignatureCreator;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 
@@ -14,7 +18,7 @@ public class SigningManipulator extends AbstractMessageManipulator implements Me
 
 	private static Logger log = LoggerFactory.getLogger(SigningManipulator.class.getName());
 
-	private Signer signer;
+	private SignatureCreator<? extends Signature> signatureCreator;
 
 	/*
 	 * ProxyManipulator
@@ -25,7 +29,7 @@ public class SigningManipulator extends AbstractMessageManipulator implements Me
 
 		// check if the message already has a signature
 
-		ReadOnlyIterator<Signature<?, ?>> signatures = message.getSignatures();
+		ReadOnlyIterator<Signature> signatures = message.getSignatures();
 
 		if (signatures.hasNext()) {
 
@@ -36,29 +40,32 @@ public class SigningManipulator extends AbstractMessageManipulator implements Me
 
 		// sign the message
 
-		Signature<?, ?> signature = this.getSigner().sign(message);
+		XDIAddress signerXDIAddress = message.getSenderXDIAddress();
 
-		if (signature == null) {
+		Signature signature;
 
-			if (log.isWarnEnabled()) log.warn("Could not create signature for message " + message + " via " + this.getSigner().getClass().getSimpleName());
+		try {
 
-			return;
+			signature = this.getSignatureCreator().createSignature(message.getContextNode(), signerXDIAddress);
+		} catch (GeneralSecurityException ex) {
+
+			throw new Xdi2ClientException("Could not create signature for message " + message + " via " + this.getSignatureCreator().getClass().getSimpleName() + ": " + ex.getMessage(), ex);
 		}
 
-		if (log.isDebugEnabled()) log.debug("Created signature " + signature + " for message " + message + " via " + this.getSigner().getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Created signature " + signature + " for message " + message + " via " + this.getSignatureCreator().getClass().getSimpleName());
 	}
 
 	/*
 	 * Getters and setters
 	 */
 
-	public Signer getSigner() {
+	public SignatureCreator<? extends Signature> getSignatureCreator() {
 
-		return this.signer;
+		return this.signatureCreator;
 	}
 
-	public void setSigner(Signer signer) {
+	public void setSignatureCreator(SignatureCreator<? extends Signature> signatureCreator) {
 
-		this.signer = signer;
+		this.signatureCreator = signatureCreator;
 	}
 }

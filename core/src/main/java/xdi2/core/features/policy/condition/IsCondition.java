@@ -59,19 +59,19 @@ public class IsCondition extends Condition {
 	 */
 
 	@Override
-	public Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
+	public boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext) {
 
 		// check if subject address and object address are the same
 
 		XDIAddress subject = policyEvaluationContext.resolveXDIAddress(this.getXDIStatement().getSubject());
 		XDIAddress object = policyEvaluationContext.resolveXDIAddress((XDIAddress) this.getXDIStatement().getObject());
 
-		if (subject == null || object == null) return Boolean.FALSE;
+		if (subject == null || object == null) return false;
 
-		if (subject.equals(object)) return Boolean.TRUE;
+		if (subject.equals(object)) return true;
 
 		// done
 
-		return Boolean.FALSE;
+		return false;
 	}
 }

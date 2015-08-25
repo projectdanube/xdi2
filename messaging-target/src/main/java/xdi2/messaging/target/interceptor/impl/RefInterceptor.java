@@ -25,6 +25,7 @@ import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -77,7 +78,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		resetRefRepRelationsPerMessageEnvelope(executionContext);
 		resetCompletedAddresses(executionContext);
@@ -86,13 +87,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -188,8 +189,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			XDIAddress XDIaddress = refRepRelation.getXDIAddress();
 			XDIAddress targetXDIAddress = refRepRelation.getTargetXDIAddress();
 
-			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(XDIaddress) || (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
-			boolean doIncludeRefRelations = (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && ! Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF)));
+			boolean doReplaceRefRepRelations = XDIDictionaryConstants.XDI_ADD_REP.equals(XDIaddress) || (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF)));
+			boolean doIncludeRefRelations = (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress) && ! Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF)));
 
 			// replace $ref/$rep relations?
 
@@ -449,7 +450,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
-		if (Boolean.TRUE.equals(operation.getParameterBoolean(GetOperation.XDI_ADD_PARAMETER_DEREF))) feedbackOperation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
+		if (Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF))) feedbackOperation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
 
 		// prepare feedback execution result
 
@@ -481,11 +482,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
 
+		// finish feedback execution result
+
+		feedbackExecutionResult.finish();
+
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getResultGraph();
+		return feedbackExecutionResult.getFinishedResultGraph();
 	}
 
 	private static Graph feedbackFindRefRepRelationsInContext(XDIAddress contextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -548,11 +553,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
 
+		// finish feedback execution result
+
+		feedbackExecutionResult.finish();
+
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getResultGraph();
+		return feedbackExecutionResult.getFinishedResultGraph();
 	}
 
 	/*

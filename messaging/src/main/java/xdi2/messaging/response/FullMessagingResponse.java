@@ -12,7 +12,7 @@ import xdi2.messaging.operations.Operation;
  * 
  * @author markus
  */
-public class FullMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class FullMessagingResponse extends TransportMessagingResponse implements MessagingResponse {
 
 	private static final long serialVersionUID = -150908814464607155L;
 
@@ -47,7 +47,7 @@ public class FullMessagingResponse extends AbstractMessagingResponse implements 
 
 		for (Operation operation : messageEnvelope.getOperations()) {
 
-			XdiInnerRoot xdiInnerRoot = operation.getTargetInnerRoot();
+			XdiInnerRoot xdiInnerRoot = operation.getTargetXdiInnerRoot();
 			if (xdiInnerRoot == null) continue;
 
 			CopyUtil.copyContextNodeContents(xdiInnerRoot.getContextNode(), resultGraph, null);

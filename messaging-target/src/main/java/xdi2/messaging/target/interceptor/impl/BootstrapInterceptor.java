@@ -14,6 +14,7 @@ import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDITimestampsConstants;
 import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -21,6 +22,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
 import xdi2.core.features.policy.PolicyAnd;
 import xdi2.core.features.policy.PolicyOr;
+import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.PolicyUtil;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -60,6 +62,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private XDIAddress[] bootstrapOwnerSynonyms;
 	private boolean bootstrapRootLinkContract;
 	private boolean bootstrapPublicLinkContract;
+	private boolean bootstrapConnectLinkContract;
 	private boolean bootstrapTimestamp;
 	private Graph bootstrapGraph;
 	private MessageEnvelope bootstrapMessageEnvelope;
@@ -72,6 +75,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		this.bootstrapOwnerSynonyms = null;
 		this.bootstrapRootLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
+		this.bootstrapConnectLinkContract = false;
 		this.bootstrapTimestamp = false;
 		this.bootstrapGraph = null;
 		this.bootstrapMessageEnvelope = null;
@@ -98,9 +102,9 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		XDIAddress[] bootstrapOwnerSynonyms = null;
 
-		if (prototypingContext.getOwnerPeerRoot() != null) {
+		if (prototypingContext.getOwnerXdiPeerRoot() != null) {
 
-			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerPeerRoot().getContextNode());
+			Iterator<ContextNode> ownerSynonymPeerRootContextNodes = Equivalence.getIncomingReferenceContextNodes(prototypingContext.getOwnerXdiPeerRoot().getContextNode());
 			XdiPeerRoot[] ownerSynonymPeerRoots = (new IteratorArrayMaker<XdiPeerRoot> (new MappingContextNodePeerRootIterator(ownerSynonymPeerRootContextNodes))).array(XdiPeerRoot.class);
 
 			bootstrapOwnerSynonyms = new XDIAddress[ownerSynonymPeerRoots.length];
@@ -186,12 +190,12 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap root link contract.");
 
-			bootstrapOwnerContextNode = graph.setDeepContextNode(this.getBootstrapOwner());
-
 			RootLinkContract bootstrapRootLinkContract = RootLinkContract.findRootLinkContract(graph, true);
 			bootstrapRootLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_ALL, XDIConstants.XDI_ADD_ROOT);
 
-			PolicyAnd policyAnd = bootstrapRootLinkContract.getPolicyRoot(true).createAndPolicy(true);
+			PolicyRoot policyRoot = bootstrapRootLinkContract.getPolicyRoot(true);
+
+			PolicyAnd policyAnd = policyRoot.createAndPolicy(true);
 			PolicyUtil.createSenderIsOperator(policyAnd, this.getBootstrapOwner());
 
 			PolicyOr policyOr = policyAnd.createOrPolicy(true);
@@ -202,6 +206,11 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		// create bootstrap public link contract
 
 		if (this.getBootstrapPublicLinkContract()) {
+
+			if (this.getBootstrapOwner() == null) {
+
+				throw new Xdi2MessagingException("Can only create the bootstrap public link contract if a bootstrap owner is given.", null, null);
+			}
 
 			if (log.isDebugEnabled()) log.debug("Creating bootstrap public link contract.");
 
@@ -223,6 +232,29 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 					bootstrapPublicLinkContract.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, bootstrapOwnerSynonymRefStatement);
 				}
 			}
+		}
+
+		// create bootstrap connect link contract
+
+		if (this.getBootstrapConnectLinkContract()) {
+
+			if (this.getBootstrapOwner() == null) {
+
+				throw new Xdi2MessagingException("Can only create the bootstrap connect link contract if a bootstrap owner is given.", null, null);
+			}
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap connect link contract.");
+
+			ConnectLinkContract bootstrapConnectLinkContract = ConnectLinkContract.findConnectLinkContract(graph, true);
+			bootstrapConnectLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_CONNECT, XDIConstants.XDI_ADD_ROOT);
+
+			PolicyRoot policyRoot = bootstrapConnectLinkContract.getPolicyRoot(true);
+			policyRoot.createNotPolicy(true);
+
+			PolicyRoot pushPolicyRoot = bootstrapConnectLinkContract.getPushPolicyRoot(true);
+
+			PolicyAnd pushPolicyAnd = pushPolicyRoot.createAndPolicy(true);
+			PolicyUtil.createSignatureValidOperator(pushPolicyAnd);
 		}
 
 		// create bootstrap timestamp
@@ -329,6 +361,16 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	public void setBootstrapPublicLinkContract(boolean bootstrapPublicLinkContract) {
 
 		this.bootstrapPublicLinkContract = bootstrapPublicLinkContract;
+	}
+
+	public boolean getBootstrapConnectLinkContract() {
+
+		return this.bootstrapConnectLinkContract;
+	}
+
+	public void setBootstrapConnectLinkContract(boolean bootstrapConnectLinkContract) {
+
+		this.bootstrapConnectLinkContract = bootstrapConnectLinkContract;
 	}
 
 	public boolean getBootstrapTimestamp() {

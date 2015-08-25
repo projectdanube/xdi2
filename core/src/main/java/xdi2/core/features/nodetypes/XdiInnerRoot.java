@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
@@ -106,6 +107,15 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 	public XDIAddress getPredicateOfInnerRoot() {
 
 		return getPredicateOfInnerRootXDIArc(this.getContextNode().getXDIArc());
+	}
+
+	/**
+	 * Return the relative inner graph of this XDI inner root.
+	 * @return The relative inner graph.
+	 */
+	public Graph getInnerGraph() {
+
+		return GraphUtil.relativeGraph(this.getContextNode());
 	}
 
 	/*

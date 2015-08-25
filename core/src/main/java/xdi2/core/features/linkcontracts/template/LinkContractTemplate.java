@@ -25,7 +25,18 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 
 	private static final long serialVersionUID = 1373222090414868359L;
 
+	public static final LinkContractTemplate LINK_CONTRACT_TEMPLATE_ROOT;
+	public static final LinkContractTemplate LINK_CONTRACT_TEMPLATE_SET;
+	public static final LinkContractTemplate LINK_CONTRACT_TEMPLATE_PUSH;
+
 	private XdiEntitySingleton.Variable xdiEntitySingletonVariable;
+
+	static {
+
+		LINK_CONTRACT_TEMPLATE_ROOT = null;
+		LINK_CONTRACT_TEMPLATE_SET = null;
+		LINK_CONTRACT_TEMPLATE_PUSH = null;
+	}
 
 	protected LinkContractTemplate(XdiEntitySingleton.Variable xdiEntitySingletonVariable) {
 

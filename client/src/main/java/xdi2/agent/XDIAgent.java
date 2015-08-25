@@ -10,6 +10,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.response.MessagingResponse;
 
 /**
  * An XDIAgent can intelligently construct and send XDI messages to obtain
@@ -19,10 +20,10 @@ import xdi2.messaging.MessageEnvelope;
  */
 public interface XDIAgent {
 
-	public XDIClientRoute<? extends XDIClient> route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<? extends XDIClient> route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<? extends XDIClient> route(MessageEnvelope messageEnvelope) throws Xdi2AgentException, Xdi2ClientException;
-	public XDIClientRoute<? extends XDIClient> route(Message message) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> route(XDIArc toPeerRootXDIArc) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> route(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> route(MessageEnvelope messageEnvelope) throws Xdi2AgentException, Xdi2ClientException;
+	public XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> route(Message message) throws Xdi2AgentException, Xdi2ClientException;
 
 	/*
 	 * $get helper methods

@@ -20,6 +20,7 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -28,7 +29,6 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
@@ -37,7 +37,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor executes push link contracts while a message is executed.
  */
-public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushLinkContractInterceptor> {
+public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushLinkContractInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushLinkContractInterceptor.class);
 
@@ -78,16 +78,13 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	}
 
 	/*
-	 * Init and shutdown
+	 * GraphAware
 	 */
 
 	@Override
-	public void init(MessagingTarget messagingTarget) throws Exception {
+	public void setGraph(Graph graph) {
 
-		super.init(messagingTarget);
-
-		if (this.getPushLinkContractsGraph() == null && messagingTarget instanceof GraphMessagingTarget) this.setPushLinkContractsGraph(((GraphMessagingTarget) messagingTarget).getGraph()); 
-		if (this.getPushLinkContractsGraph() == null) throw new Xdi2MessagingException("No push link contracts graph.", null, null);
+		if (this.getPushLinkContractsGraph() == null) this.setPushLinkContractsGraph(graph);
 	}
 
 	/*
@@ -95,19 +92,18 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		resetWriteOperationsPerMessageEnvelope(executionContext);
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// create the push maps
 
 		List<Operation> writeOperations = getWriteOperationsPerMessageEnvelope(executionContext);
+		if (writeOperations == null) return InterceptorResult.DEFAULT;
 
 		Map<LinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<LinkContract, Map<Operation, XDIAddress>> ();
 		Map<LinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<LinkContract, Map<Operation, List<XDIStatement>>> ();
@@ -120,8 +116,6 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 			// look for push link contracts for the operation's target address
 
 			if (targetXDIAddress != null) {
-
-				if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target address " + targetXDIAddress);
 
 				List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
 				if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
@@ -144,8 +138,6 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 				while (targetXDIStatements.hasNext()) {
 
 					XDIStatement targetXDIStatement = targetXDIStatements.next();
-
-					if (log.isDebugEnabled()) log.debug("For write operation " + writeOperation + " found target statement " + targetXDIStatement);
 
 					List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIStatement);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
@@ -198,7 +190,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -213,7 +205,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
 
-		// add the write address
+		// add the write operation
 
 		addWriteOperationPerMessageEnvelope(executionContext, operation);
 
@@ -314,18 +306,13 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		return (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void addWriteOperationPerMessageEnvelope(ExecutionContext executionContext, Operation operation) {
 
-		List<Operation> operations = getWriteOperationsPerMessageEnvelope(executionContext);
+		List<Operation> writeOperations = (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
+		if (writeOperations == null) { writeOperations = new ArrayList<Operation> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, writeOperations); }
 
-		operations.add(operation);
-
-		if (log.isDebugEnabled()) log.debug("Set operation: " + operation);
-	}
-
-	private static void resetWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {
-
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, new ArrayList<Operation> ());
+		writeOperations.add(operation);
 	}
 
 	/*

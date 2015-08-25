@@ -1,5 +1,7 @@
 package xdi2.client;
 
+import java.io.Closeable;
+
 import xdi2.client.events.XDIDiscoverEvent;
 import xdi2.client.events.XDISendEvent;
 import xdi2.client.exceptions.Xdi2ClientException;
@@ -11,18 +13,19 @@ import xdi2.messaging.response.MessagingResponse;
  * 
  * @author markus
  */
-public interface XDIClient {
+public interface XDIClient <MESSAGINGRESPONSE extends MessagingResponse> extends Closeable {
 
 	/**
 	 * Sends an XDI messaging request to an XDI endpoint.
-	 * @param messageEnvelope The XDI messaging request to send.
+	 * @param messageEnvelope The XDI messaging envelope to send.
 	 * @return The messaging response.
 	 */
-	public MessagingResponse send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
+	public MESSAGINGRESPONSE send(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
 
 	/**
 	 * Shuts down the client.
 	 */
+	@Override
 	public void close();
 
 	/**

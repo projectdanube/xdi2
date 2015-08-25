@@ -1,7 +1,6 @@
 package xdi2.core.features.policy.operator;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -91,16 +90,16 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 	 * @param policyEvaluationContext An object that can locate context nodes.
 	 * @return True or false.
 	 */
-	public final Boolean[] evaluate(PolicyEvaluationContext policyEvaluationContext) {
+	public final boolean[] evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getRelation());
-		Boolean[] result = this.evaluateInternal(policyEvaluationContext);
-		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + Arrays.asList(result));
+		boolean[] result = this.evaluateInternal(policyEvaluationContext);
+		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract Boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
+	protected abstract boolean[] evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

@@ -3,6 +3,14 @@ package xdi2.core.impl;
 import java.io.IOException;
 import java.util.Comparator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
@@ -12,14 +20,6 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.impl.AbstractStatement.AbstractLiteralStatement;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public abstract class AbstractLiteralNode extends AbstractNode implements LiteralNode {
 

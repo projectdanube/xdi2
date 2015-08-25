@@ -95,16 +95,16 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 	 * @param policyEvaluationContext A context for evaluating an XDI policy.
 	 * @return True or false.
 	 */
-	public final Boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
+	public final boolean evaluate(PolicyEvaluationContext policyEvaluationContext) {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getXDIStatement());
-		Boolean result = this.evaluateInternal(policyEvaluationContext);
+		boolean result = this.evaluateInternal(policyEvaluationContext);
 		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getXDIStatement() + ": " + result);
 
 		return result;
 	}
 
-	protected abstract Boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
+	protected abstract boolean evaluateInternal(PolicyEvaluationContext policyEvaluationContext);
 
 	/*
 	 * Object methods

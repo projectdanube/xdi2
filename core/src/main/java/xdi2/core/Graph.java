@@ -73,6 +73,12 @@ public interface Graph extends Serializable, Comparable<Graph> {
 	public String toString(String format, Properties parameters);
 
 	/**
+	 * Converts the graph to a string in the given serialization format.
+	 * @param format The serialization format.
+	 */
+	public String toString(String format);
+
+	/**
 	 * Converts the graph to a string in the given MIME type.
 	 * @param mimeType The MIME type.
 	 */

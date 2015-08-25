@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
-import xdi2.core.features.nodetypes.XdiAbstractInstanceUnordered;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -24,9 +24,9 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
+import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
-import xdi2.messaging.target.interceptor.ResultGraphInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -34,7 +34,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author markus
  */
-public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, TargetInterceptor, ResultGraphInterceptor, Prototype<VariablesInterceptor> {
+public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, TargetInterceptor, ExecutionResultInterceptor, Prototype<VariablesInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(VariablesInterceptor.class);
 
@@ -55,7 +55,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		resetVariables(executionContext);
 
@@ -63,13 +63,13 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionResult executionResult, ExecutionContext executionContext, Exception ex) {
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
 	}
 
@@ -104,7 +104,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	@Override
-	public void finish(ExecutionResult executionResult, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// add $is statements for all the substituted variables
 
@@ -116,7 +116,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			XDIStatement statement = XDIStatement.fromComponents(subject, predicate, object);
 
-			executionResult.getResultGraph().setStatement(statement);
+			executionResult.getFinishedResultGraph().setStatement(statement);
 		}
 	}
 
@@ -180,11 +180,11 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (newArc == null) {
 
-			newArc = XdiAbstractInstanceUnordered.createXDIArc(false, true, false, XDIArc.literalFromRandomUuid());
+			newArc = XdiEntityInstanceUnordered.createXDIArc();
 			putVariable(executionContext, XDIarc, newArc);
 		}
 
-			// done
+		// done
 
 		return newArc;
 	}
