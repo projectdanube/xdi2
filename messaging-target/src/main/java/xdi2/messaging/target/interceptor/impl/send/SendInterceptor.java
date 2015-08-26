@@ -5,12 +5,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
@@ -43,6 +47,8 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * This interceptor can process $send operations.
  */
 public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<SendInterceptor> {
+
+	private static final Logger log = LoggerFactory.getLogger(SendInterceptor.class);
 
 	private XDIAgent xdiAgent;
 	private Collection<Manipulator> manipulators;
@@ -141,15 +147,21 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		try {
 
+			// add manipulators
+
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
 			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
+
+			// get
 
 			forwardingMessageContextNode = this.getXdiAgent().get(forwardingMessageXDIaddress, manipulators);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
+
+		// read forwarding message
 
 		if (forwardingMessageContextNode == null) throw new Xdi2MessagingException("Cannot find forwarding message at address " + targetXDIAddress, null, executionContext);
 
@@ -190,6 +202,8 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 	private void send(Message forwardingMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
+		if (log.isDebugEnabled()) log.debug("Preparing to send forwarding message " + forwardingMessage);
+
 		// find route for forwarding message
 
 		XDIArc toPeerRootXDIArc = forwardingMessage.getToPeerRootXDIArc();
@@ -209,16 +223,31 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		// disable link contracts in case the forwarding message is routed back to us
 
-		AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
+		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-		if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(forwardingMessage);
+		if (messagingTarget instanceof AbstractMessagingTarget) {
+
+			LinkContractInterceptor linkContractInterceptor = ((AbstractMessagingTarget) messagingTarget).getInterceptors().getInterceptor(LinkContractInterceptor.class);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(forwardingMessage);
+		}
 
 		// send the forwarding message
 
 		XDIClient<? extends MessagingResponse> xdiClient = xdiClientRoute.constructXDIClient();
 
 		try {
+
+			// add manipulators
+
+			if (xdiClient instanceof XDIAbstractClient) {
+
+				Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
+				if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
+
+				((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(manipulators);
+			}
+
+			// send
 
 			MessagingResponse forwardingMessagingResponse = xdiClient.send(forwardingMessage.getMessageEnvelope());
 

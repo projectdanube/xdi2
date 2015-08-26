@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
 import xdi2.client.manipulator.Manipulator;
@@ -38,6 +41,8 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
  * This interceptor can process {$do} operations.
  */
 public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, OperationInterceptor, Prototype<ConnectInterceptor> {
+
+	private static final Logger log = LoggerFactory.getLogger(ConnectInterceptor.class);
 
 	private Graph targetGraph;
 	private XDIAgent xdiAgent;
@@ -152,15 +157,21 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		try {
 
+			// add manipulators
+
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
 			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
+
+			// get
 
 			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress, manipulators);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
+
+		// read link contract template
 
 		if (linkContractTemplateContextNode == null) throw new Xdi2MessagingException("Cannot find link contract template at address " + targetXDIAddress, null, executionContext);
 
@@ -187,6 +198,8 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	}
 
 	private void connect(LinkContractTemplate linkContractTemplate, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (log.isDebugEnabled()) log.debug("Preparing to instantiate link contract template " + linkContractTemplate);
 
 		// determine requesting and authorizing authorities
 

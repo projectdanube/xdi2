@@ -43,7 +43,6 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 		return connect(clientContainer, xdiWebSocketClient, xdiWebSocketEndpointUri);
 	}
 
-	@SuppressWarnings("resource")
 	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
 
 		// init websocket endpoint
@@ -116,12 +115,21 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 	public void onClose(Session session, CloseReason closeReason) {
 
 		log.info("WebSocket session " + session.getId() + " closed.");
+
+		XDIWebSocketClient xdiWebSocketClient = (XDIWebSocketClient) session.getUserProperties().get("xdiWebSocketClient");
+		xdiWebSocketClient.close();
 	}
 
 	@Override
 	public void onError(Session session, Throwable throwable) {
 
-		log.error("WebSocket session " + session.getId() + " problem: " + throwable.getMessage(), throwable);
+		log.error("WebSocket session " + (session != null ? session.getId() : session) + " problem: " + throwable.getMessage(), throwable);
+
+		if (session != null) {
+
+			XDIWebSocketClient xdiWebSocketClient = (XDIWebSocketClient) session.getUserProperties().get("xdiWebSocketClient");
+			xdiWebSocketClient.close();
+		}
 	}
 
 	/*

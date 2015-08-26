@@ -123,7 +123,6 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 		this((Session) null);
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	protected FutureMessagingResponse sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 

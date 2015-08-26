@@ -22,7 +22,7 @@ import xdi2.messaging.response.TransportMessagingResponse;
 
 public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResponse> implements XDIClient<MESSAGINGRESPONSE> {
 
-	protected static final Logger log = LoggerFactory.getLogger(XDIAbstractClient.class);
+	private static final Logger log = LoggerFactory.getLogger(XDIAbstractClient.class);
 
 	private ManipulatorList manipulators;
 	private final List<XDIClientListener> clientListeners;
@@ -36,7 +36,7 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 	@Override
 	public final MESSAGINGRESPONSE send(MessageEnvelope messageEnvelope) throws Xdi2ClientException {
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Preparing to send.");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Preparing to send " + messageEnvelope.getMessageCount() + " message(s).");
 
 		// timestamp
 
@@ -77,7 +77,7 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Sent and received successfully.");
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Sent successfully and got " + messagingResponse.getClass().getSimpleName());
 
 		this.fireSendEvent(new XDISendSuccessEvent(this, messageEnvelope, messagingResponse, beginTimestamp, endTimestamp));
 
