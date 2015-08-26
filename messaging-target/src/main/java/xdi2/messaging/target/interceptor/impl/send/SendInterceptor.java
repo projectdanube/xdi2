@@ -143,7 +143,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
-			manipulators.addAll(this.getManipulators());
+			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
 
 			forwardingMessageContextNode = this.getXdiAgent().get(forwardingMessageXDIaddress, manipulators);
 		} catch (Exception ex) {

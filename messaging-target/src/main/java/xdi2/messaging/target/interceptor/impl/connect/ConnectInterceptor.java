@@ -154,7 +154,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
-			manipulators.addAll(this.getManipulators());
+			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
 
 			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress, manipulators);
 		} catch (Exception ex) {
