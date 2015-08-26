@@ -318,6 +318,8 @@ public class XDIHttpClient extends XDIAbstractClient<TransportMessagingResponse>
 
 		// done
 
+		if (log.isDebugEnabled()) log.debug("Connected successfully.");
+
 		this.setHttpURLConnection(httpURLConnection);
 		return httpURLConnection;
 	}
@@ -337,6 +339,8 @@ public class XDIHttpClient extends XDIAbstractClient<TransportMessagingResponse>
 
 			this.setHttpURLConnection(null);
 		}
+
+		if (log.isDebugEnabled()) log.debug("Disconnected successfully.");
 	}
 
 	/*

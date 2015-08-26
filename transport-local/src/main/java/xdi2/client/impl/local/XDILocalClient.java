@@ -70,6 +70,8 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		// done
 
+		if (log.isDebugEnabled()) log.debug("Connected successfully.");
+
 		this.setMessagingTarget(messagingTarget);
 		return messagingTarget;
 	}
@@ -89,6 +91,8 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 			this.setMessagingTarget(null);
 		}
+
+		if (log.isDebugEnabled()) log.debug("Disconnected successfully.");
 	}
 
 	@Override
