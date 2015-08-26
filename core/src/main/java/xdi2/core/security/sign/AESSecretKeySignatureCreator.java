@@ -39,7 +39,8 @@ public abstract class AESSecretKeySignatureCreator extends AbstractAESSignatureC
 
 		if (secretKey == null) {
 
-			throw new GeneralSecurityException("No secret key found for " + signerXDIAddress);
+			if (log.isDebugEnabled()) log.debug("No private key found for " + signerXDIAddress);
+			return null;
 		}
 
 		if (log.isDebugEnabled()) log.debug("Secret key found for " + signerXDIAddress + ".");
