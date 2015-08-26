@@ -30,19 +30,29 @@ public class ContributorMap  implements Iterable<Contributor>, Prototype<Contrib
 
 	private Map<XDIAddress, List<Contributor>> contributors;
 
-	public ContributorMap(Map<XDIAddress, List<Contributor>> contributors) {
-
-		this.contributors = new LinkedHashMap<XDIAddress, List<Contributor>> (contributors);
-	}
-
 	public ContributorMap(ContributorMap contributorMap) {
 
 		this.contributors = new LinkedHashMap<XDIAddress, List<Contributor>> (contributorMap.contributors);
 	}
 
+	public ContributorMap(Map<XDIAddress, List<Contributor>> contributors) {
+
+		this.contributors = new LinkedHashMap<XDIAddress, List<Contributor>> (contributors);
+	}
+
 	public ContributorMap() {
 
 		this.contributors = new LinkedHashMap<XDIAddress, List<Contributor>> ();
+	}
+
+	public void addContributors(ContributorMap contributorMap) {
+
+		this.contributors.putAll(contributorMap.contributors);
+	}
+
+	public void addContributors(Map<XDIAddress, List<Contributor>> contributors) {
+
+		this.contributors.putAll(contributors);
 	}
 
 	public void addContributor(XDIAddress contextNodeXDIAddress, Contributor contributor) {

@@ -167,7 +167,9 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	#foreach($interceptor in $messagingtargetmount.messagingTarget.interceptors) 
 		$interceptor.class.simpleName
     	#if($interceptor.class.canonicalName=="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor")
-    		<br><span class="light">$interceptor.signatureValidator.class.simpleName</span>
+			#foreach($signatureValidator in $interceptor.signatureValidators) 
+	    		<br><span class="light">$signatureValidator.class.simpleName</span>
+			#end
     	#end
     	#if($interceptor.class.canonicalName=="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor")
     		<br><span class="light">$interceptor.secretTokenAuthenticator.class.simpleName</span>

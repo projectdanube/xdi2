@@ -1,5 +1,10 @@
 package xdi2.client.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,20 +19,20 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 
 public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends MessagingResponse>> implements XDIClientRoute<CLIENT> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractClientRoute.class);
 
 	private XDIArc toPeerRootXDIArc;
-	private ManipulatorList manipulators;
+	private Collection<Manipulator> manipulators;
 
 	protected XDIAbstractClientRoute(XDIArc toPeerRootXDIArc) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
 	@Override
@@ -102,7 +107,7 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 	 */
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Collection<Manipulator> s) throws Xdi2AgentException, Xdi2ClientException {
 
 		// client construction step
 
@@ -110,9 +115,9 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 
 		// add manipulators if supported
 
-		if (xdiClient instanceof XDIAbstractClient && manipulators != null) {
+		if (xdiClient instanceof XDIAbstractClient && s != null) {
 
-			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(manipulators);
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(s);
 		}
 
 		// message envelope construction step
@@ -151,21 +156,45 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 	}
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
-		return this.get(XDIaddress, senderXDIAddress, (Manipulator[]) null);
+		return this.get(XDIaddress, senderXDIAddress, Arrays.asList(manipulators));
 	}
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException {
+
+		return this.get(XDIaddress, senderXDIAddress, Collections.singletonList(manipulator));
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress) throws Xdi2AgentException, Xdi2ClientException {
+
+		return this.get(XDIaddress, senderXDIAddress, (Collection<Manipulator>) null);
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		return this.get(XDIaddress, null, manipulators);
 	}
 
 	@Override
+	public ContextNode get(XDIAddress XDIaddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException {
+
+		return this.get(XDIaddress, null, Arrays.asList(manipulators));
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException {
+
+		return this.get(XDIaddress, null, Collections.singletonList(manipulator));
+	}
+
+	@Override
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException {
 
-		return this.get(XDIaddress, null, (Manipulator[]) null);
+		return this.get(XDIaddress, null, (Collection<Manipulator>) null);
 	}
 
 	/*
@@ -193,12 +222,12 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
-	public ManipulatorList getManipulators() {
+	public Collection<Manipulator> getManipulators() {
 
 		return this.manipulators;
 	}
 
-	public void setManipulators(ManipulatorList manipulators) {
+	public void setManipulators(Collection<Manipulator> manipulators) {
 
 		this.manipulators = manipulators;
 	}

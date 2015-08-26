@@ -2,6 +2,7 @@ package xdi2.messaging.target.interceptor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -20,19 +21,39 @@ public class InterceptorList <CONTAINER> implements Iterable<Interceptor<CONTAIN
 
 	private List<Interceptor<CONTAINER>> interceptors;
 
-	public InterceptorList(Collection<Interceptor<CONTAINER>> interceptors) {
-
-		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (interceptors);
-	}
-
 	public InterceptorList(InterceptorList<CONTAINER> interceptorList) {
 
 		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (interceptorList.interceptors);
 	}
 
+	public InterceptorList(Collection<Interceptor<CONTAINER>> interceptors) {
+
+		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (interceptors);
+	}
+
+	public InterceptorList(Interceptor<CONTAINER>[] interceptors) {
+
+		this.interceptors = new ArrayList<Interceptor<CONTAINER>> (Arrays.asList(interceptors));
+	}
+
 	public InterceptorList() {
 
 		this.interceptors = new ArrayList<Interceptor<CONTAINER>> ();
+	}
+
+	public void addInterceptors(InterceptorList<CONTAINER> interceptorList) {
+
+		this.interceptors.addAll(interceptorList.interceptors);
+	}
+
+	public void addInterceptors(Collection<Interceptor<CONTAINER>> interceptors) {
+
+		this.interceptors.addAll(interceptors);
+	}
+
+	public void addInterceptors(Interceptor<CONTAINER>[] interceptors) {
+
+		this.interceptors.addAll(Arrays.asList(interceptors));
 	}
 
 	public void addInterceptor(Interceptor<CONTAINER> interceptor) {

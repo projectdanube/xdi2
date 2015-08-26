@@ -17,24 +17,24 @@ public class ManipulatorList implements Iterable<Manipulator>, Serializable {
 
 	private List<Manipulator> manipulators;
 
-	public ManipulatorList(Collection<Manipulator> manipulators) {
-
-		this.manipulators = new ArrayList<Manipulator> (manipulators);
-	}
-
 	public ManipulatorList(ManipulatorList manipulatorList) {
 
 		this.manipulators = new ArrayList<Manipulator> (manipulatorList.manipulators);
 	}
 
+	public ManipulatorList(Collection<Manipulator> manipulators) {
+
+		this.manipulators = new ArrayList<Manipulator> (manipulators);
+	}
+
+	public ManipulatorList(Manipulator[] manipulators) {
+
+		this.manipulators = new ArrayList<Manipulator> (Arrays.asList(manipulators));
+	}
+
 	public ManipulatorList() {
 
 		this.manipulators = new ArrayList<Manipulator> ();
-	}
-
-	public void addManipulator(Manipulator manipulator) {
-
-		this.manipulators.add(manipulator);
 	}
 
 	public void addManipulators(ManipulatorList manipulatorList) {
@@ -47,9 +47,14 @@ public class ManipulatorList implements Iterable<Manipulator>, Serializable {
 		this.manipulators.addAll(manipulators);
 	}
 
-	public void addManipulators(Manipulator... manipulators) {
+	public void addManipulators(Manipulator[] manipulators) {
 
 		this.manipulators.addAll(Arrays.asList(manipulators));
+	}
+
+	public void addManipulator(Manipulator manipulator) {
+
+		this.manipulators.add(manipulator);
 	}
 
 	@SuppressWarnings("unchecked")

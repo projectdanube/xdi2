@@ -1,11 +1,14 @@
 package xdi2.messaging.target.interceptor.impl.connect;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -38,16 +41,18 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 	private Graph targetGraph;
 	private XDIAgent xdiAgent;
+	private Collection<Manipulator> manipulators;
 
-	public ConnectInterceptor(Graph targetGraph, XDIAgent xdiAgent) {
+	public ConnectInterceptor(Graph targetGraph, XDIAgent xdiAgent, Collection<Manipulator> manipulators) {
 
 		this.targetGraph = targetGraph;
 		this.xdiAgent = xdiAgent;
+		this.manipulators = manipulators;
 	}
 
 	public ConnectInterceptor() {
 
-		this(null, new XDIBasicAgent());
+		this(null, new XDIBasicAgent(), null);
 	}
 
 	/*
@@ -147,9 +152,11 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		try {
 
-			linkContractTemplateContextNode = this.getXdiAgent().get(
-					linkContractTemplateXDIaddress,
-					new SetLinkContractMessageManipulator(PublicLinkContract.class));
+			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
+			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
+			manipulators.addAll(this.getManipulators());
+
+			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress, manipulators);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
@@ -253,5 +260,15 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	public static void putLinkContractTemplates(ExecutionContext executionContext, List<LinkContractTemplate> linkContractTemplates) {
 
 		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACTTEMPLATES_PER_OPERATION, linkContractTemplates);
+	}
+
+	public Collection<Manipulator> getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(Collection<Manipulator> manipulators) {
+
+		this.manipulators = manipulators;
 	}
 }

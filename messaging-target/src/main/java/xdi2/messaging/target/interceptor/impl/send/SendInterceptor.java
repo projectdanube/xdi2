@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.send;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -43,15 +45,17 @@ import xdi2.messaging.util.MessagingCloneUtil;
 public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<SendInterceptor> {
 
 	private XDIAgent xdiAgent;
+	private Collection<Manipulator> manipulators;
 
-	public SendInterceptor(XDIAgent xdiAgent) {
+	public SendInterceptor(XDIAgent xdiAgent, Collection<Manipulator> manipulators) {
 
 		this.xdiAgent = xdiAgent;
+		this.manipulators = manipulators;
 	}
 
 	public SendInterceptor() {
 
-		this(new XDIBasicAgent());
+		this(new XDIBasicAgent(), null);
 	}
 
 	/*
@@ -137,9 +141,11 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		try {
 
-			forwardingMessageContextNode = this.getXdiAgent().get(
-					forwardingMessageXDIaddress,
-					new SetLinkContractMessageManipulator(PublicLinkContract.class));
+			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
+			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
+			manipulators.addAll(this.getManipulators());
+
+			forwardingMessageContextNode = this.getXdiAgent().get(forwardingMessageXDIaddress, manipulators);
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Unable to obtain forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
@@ -237,6 +243,16 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 	public void setXdiAgent(XDIAgent xdiAgent) {
 
 		this.xdiAgent = xdiAgent;
+	}
+
+	public Collection<Manipulator> getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(Collection<Manipulator> manipulators) {
+
+		this.manipulators = manipulators;
 	}
 
 	/*

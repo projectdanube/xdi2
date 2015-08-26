@@ -1,5 +1,7 @@
 package xdi2.agent;
 
+import java.util.Collection;
+
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
@@ -29,8 +31,12 @@ public interface XDIAgent {
 	 * $get helper methods
 	 */
 
-	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException;
 	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress) throws Xdi2AgentException, Xdi2ClientException;
-	public ContextNode get(XDIAddress XDIaddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException;
+	public ContextNode get(XDIAddress XDIaddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException;
 	public ContextNode get(XDIAddress XDIaddress) throws Xdi2AgentException, Xdi2ClientException;
 }

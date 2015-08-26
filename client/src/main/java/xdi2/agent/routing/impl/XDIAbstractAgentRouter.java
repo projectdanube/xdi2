@@ -1,5 +1,8 @@
 package xdi2.agent.routing.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,8 +10,8 @@ import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
-import xdi2.client.impl.ManipulatorList;
 import xdi2.client.impl.XDIAbstractClientRoute;
+import xdi2.client.manipulator.Manipulator;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.response.MessagingResponse;
 
@@ -17,12 +20,12 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? ext
 	private static final Logger log = LoggerFactory.getLogger(XDIAbstractAgentRouter.class);
 
 	private XDIArc overrideToPeerRootXDIArc;
-	private ManipulatorList manipulators;
+	private Collection<Manipulator> manipulators;
 
 	protected XDIAbstractAgentRouter() {
 
 		this.overrideToPeerRootXDIArc = null;
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? ext
 
 		if (route instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
 
-			((XDIAbstractClientRoute<? extends XDIClient<? extends MessagingResponse>>) route).getManipulators().addManipulators(this.getManipulators());
+			((XDIAbstractClientRoute<? extends XDIClient<? extends MessagingResponse>>) route).getManipulators().addAll(this.getManipulators());
 		}
 
 		// done
@@ -79,12 +82,12 @@ public abstract class XDIAbstractAgentRouter <ROUTE extends XDIClientRoute<? ext
 		this.overrideToPeerRootXDIArc = overrideToPeerRootXDIArc;
 	}
 
-	public ManipulatorList getManipulators() {
+	public Collection<Manipulator> getManipulators() {
 
 		return this.manipulators;
 	}
 
-	public void setManipulators(ManipulatorList manipulators) {
+	public void setManipulators(Collection<Manipulator> manipulators) {
 
 		this.manipulators = manipulators;
 	}

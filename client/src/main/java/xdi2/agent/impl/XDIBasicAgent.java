@@ -1,5 +1,6 @@
 package xdi2.agent.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -12,7 +13,6 @@ import xdi2.agent.routing.XDIAgentRouter;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.ManipulatorList;
 import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.core.ContextNode;
@@ -20,7 +20,6 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 
@@ -29,31 +28,31 @@ public class XDIBasicAgent implements XDIAgent {
 	private static final Logger log = LoggerFactory.getLogger(XDIBasicAgent.class);
 
 	private LinkedList<XDIAgentRouter<?, ?>> agentRouters;
-	private ManipulatorList manipulators;
+	private Collection<Manipulator> manipulators;
 
 	public XDIBasicAgent(Collection<XDIAgentRouter<?, ?>> agentRouters) {
 
 		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (agentRouters);
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
-	public XDIBasicAgent(XDIAgentRouter<?, ?>... agentRouters) {
+	public XDIBasicAgent(XDIAgentRouter<?, ?>[] agentRouters) {
 
 		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> (Arrays.asList(agentRouters));
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
 	public XDIBasicAgent(XDIAgentRouter<?, ?> agentRouter) {
 
 		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
 		this.agentRouters.add(agentRouter);
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
 	public XDIBasicAgent() {
 
 		this.agentRouters = new LinkedList<XDIAgentRouter<?, ?>> ();
-		this.manipulators = new ManipulatorList();
+		this.manipulators = new ArrayList<Manipulator> ();
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		if (foundRoute instanceof XDIAbstractClientRoute && this.getManipulators() != null) {
 
-			((XDIAbstractClientRoute<?>) foundRoute).getManipulators().addManipulators(this.getManipulators());
+			((XDIAbstractClientRoute<?>) foundRoute).getManipulators().addAll(this.getManipulators());
 		}
 
 		// done
@@ -165,12 +164,30 @@ public class XDIBasicAgent implements XDIAgent {
 	 */
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
 		if (xdiClientRoute == null) return null;
 
 		return xdiClientRoute.get(XDIaddress, senderXDIAddress, manipulators);
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, senderXDIAddress, manipulators);
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, senderXDIAddress, manipulator);
 	}
 
 	@Override
@@ -183,12 +200,30 @@ public class XDIBasicAgent implements XDIAgent {
 	}
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, Manipulator... manipulators) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
 		if (xdiClientRoute == null) return null;
 
 		return xdiClientRoute.get(XDIaddress, manipulators);
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, Manipulator[] manipulators) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, manipulators);
+	}
+
+	@Override
+	public ContextNode get(XDIAddress XDIaddress, Manipulator manipulator) throws Xdi2AgentException, Xdi2ClientException {
+
+		XDIClientRoute<?> xdiClientRoute = this.route(XDIaddress);
+		if (xdiClientRoute == null) return null;
+
+		return xdiClientRoute.get(XDIaddress, manipulator);
 	}
 
 	@Override
@@ -214,12 +249,12 @@ public class XDIBasicAgent implements XDIAgent {
 		this.agentRouters = agentRouters;
 	}
 
-	public ManipulatorList getManipulators() {
+	public Collection<Manipulator> getManipulators() {
 
 		return this.manipulators;
 	}
 
-	public void setManipulators(ManipulatorList manipulators) {
+	public void setManipulators(Collection<Manipulator> manipulators) {
 
 		this.manipulators = manipulators;
 	}
