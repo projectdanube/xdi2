@@ -41,11 +41,13 @@ import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.ConnectOperation;
 import xdi2.messaging.operations.DelOperation;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.PushOperation;
+import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.operations.SetOperation;
 
 /**
@@ -782,6 +784,102 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		return this.createDelOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
 	}
+
+	/**
+	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * @param targetXDIAddress The target address to which the operation applies.
+	 * @return The newly created {$do} operation.
+	 */
+	public ConnectOperation createConnectOperation(XDIAddress targetXDIAddress) {
+
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_CONNECT, targetXDIAddress);
+
+		return ConnectOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @return The newly created {$do} operation.
+	 */
+	public ConnectOperation createConnectOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_CONNECT, true);
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+
+		return ConnectOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * @param targetXDIStatement The target statement to which the operation applies.
+	 * @return The newly created {$do} operation.
+	 */
+	public ConnectOperation createConnectOperation(XDIStatement targetXDIStatement) {
+
+		return this.createConnectOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
+	}
+
+	/**
+	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created {$do} operation.
+	 */
+	public ConnectOperation createConnectOperation(Graph targetGraph) {
+
+		return this.createConnectOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
+	 * Creates a new $send operation and adds it to this XDI message.
+	 * @param targetXDIAddress The target address to which the operation applies.
+	 * @return The newly created $send operation.
+	 */
+	public SendOperation createSendOperation(XDIAddress targetXDIAddress) {
+
+		Relation relation = this.getOperationsContextNode().setRelation(XDIMessagingConstants.XDI_ADD_SEND, targetXDIAddress);
+
+		return SendOperation.fromMessageAndRelation(this, relation);
+	}
+
+	/**
+	 * Creates a new $send operation and adds it to this XDI message.
+	 * @param targetXDIStatementAddresses The target statements to which the operation applies.
+	 * @return The newly created $send operation.
+	 */
+	public SendOperation createSendOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
+
+		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_SEND, true);
+		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
+
+		return SendOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
+	}
+
+	/**
+	 * Creates a new $send operation and adds it to this XDI message.
+	 * @param targetXDIStatement The target statement to which the operation applies.
+	 * @return The newly created $send operation.
+	 */
+	public SendOperation createSendOperation(XDIStatement targetXDIStatement) {
+
+		return this.createSendOperation(new SingleItemIterator<XDIStatement> (targetXDIStatement));
+	}
+
+	/**
+	 * Creates a new $send operation and adds it to this XDI message.
+	 * @param targetGraph The target graph with statements to which this operation applies.
+	 * @return The newly created $send operation.
+	 */
+	public SendOperation createSendOperation(Graph targetGraph) {
+
+		return this.createSendOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+
+
+
+
+
 
 	/**
 	 * Creates a new $push operation and adds it to this XDI message.
