@@ -236,7 +236,7 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 		for (Message message : this.getMessages()) {
 
-			if (messageXDIAddress.equals(message.getXDIAddress())) return message;
+			if (messageXDIAddress.equals(message.getContextNode().getXDIAddress())) return message;
 		}
 
 		return null;

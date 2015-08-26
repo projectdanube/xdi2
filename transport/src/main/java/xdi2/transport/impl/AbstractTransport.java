@@ -237,7 +237,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 			responseMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
 			responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 			responseMessage.setTimestamp(new Date());
-			responseMessage.setCorrelationXDIAddress(message.getXDIAddress());
+			responseMessage.setCorrelationXDIAddress(message.getContextNode().getXDIAddress());
 
 			for (Operation operation : message.getOperations()) {
 

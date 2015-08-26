@@ -19,6 +19,7 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphAware;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -119,25 +120,31 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
 				variableValues.put(XDIArc.create("{$target}"), target);
 
-				// instantiate link contract
+				// instantiate push contract
 
 				LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.PUSH_LINK_CONTRACT_TEMPLATE);
 				linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 				linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 				linkContractInstantiation.setVariableValues(variableValues);
 
-				LinkContract linkContract = linkContractInstantiation.execute(false, true);
+				LinkContract pushContract = linkContractInstantiation.execute(false, true);
 
-				// write link contract into operation result graph
+				// write push contract into operation result graph
 
-				CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
+				CopyUtil.copyGraph(pushContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
 
-				// write operation and link contract into target graph
+				// write message and push contract into target graph
 
 				if (this.getTargetGraph() != null) {
 
-					CopyUtil.copyRelation(operation.getRelation(), this.getTargetGraph(), null);
-					CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
+					CopyUtil.copyContextNode(operation.getMessage().getContextNode(), this.getTargetGraph(), null);
+					CopyUtil.copyGraph(pushContract.getContextNode().getGraph(), this.getTargetGraph(), null);
+
+					XDIAddress pushContractXDIAddress = pushContract.getContextNode().getXDIAddress();
+					XDIAddress messageXDIAddress = operation.getMessage().getContextNode().getXDIAddress();
+
+					// TODO: the push contract should reference just the operation rather than the message?
+					this.getTargetGraph().setStatement(XDIStatement.fromRelationComponents(pushContractXDIAddress, XDIMessagingConstants.XDI_ADD_MSG, messageXDIAddress));
 				}
 			}
 

@@ -322,8 +322,8 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		Boolean pushRequired = getPushFlag(executionContext);
-		if (pushRequired == null) throw new Xdi2MessagingException("No push required flag.", null, executionContext);
+		Boolean pushFlag = getPushFlag(executionContext);
+		if (pushFlag == null) throw new Xdi2MessagingException("No push flag.", null, executionContext);
 
 		// check permission on target statement
 
@@ -396,7 +396,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// handle result
 
-		handleEvaluationResult(authorized, pushRequired, targetXDIStatement, operation, executionContext);
+		handleEvaluationResult(authorized, pushFlag, targetXDIStatement, operation, executionContext);
 
 		// done
 
@@ -446,7 +446,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		}
 	}
 
-	private static void handleEvaluationResult(Boolean authorized, Boolean pushRequired, XDIStatement targetXDIStatement, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
+	private static void handleEvaluationResult(Boolean authorized, Boolean pushFlag, XDIStatement targetXDIStatement, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
 
 		// authorized?
 
@@ -455,9 +455,9 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target statement: " + targetXDIStatement, null, executionContext);
 		}
 
-		// push required?
+		// push flag?
 
-		if (Boolean.TRUE.equals(pushRequired)) {
+		if (Boolean.TRUE.equals(pushFlag)) {
 
 			PushResult pushResult = new PushResult(targetXDIStatement);
 			PushResultInterceptor.addOperationPushResult(executionContext, operation, pushResult);

@@ -153,15 +153,6 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the message's XDI address.
-	 * @return The message's XDI address.
-	 */
-	public XDIAddress getXDIAddress() {
-
-		return this.getContextNode().getXDIAddress();
-	}
-
-	/**
 	 * Returns the ID of the message.
 	 * @return The ID of the message.
 	 */

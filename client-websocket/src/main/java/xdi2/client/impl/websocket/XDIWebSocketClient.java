@@ -185,7 +185,7 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			this.putFutureMessagingResponse(message.getXDIAddress(), futureMessagingResponse);
+			this.putFutureMessagingResponse(message.getContextNode().getXDIAddress(), futureMessagingResponse);
 		}
 
 		// done
