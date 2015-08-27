@@ -86,6 +86,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 * ResultGraphInterceptor
 	 */
 
+	// TODO: maybe better to implement this as OperationInterceptor rather than ResultGraphInterceptor
 	@Override
 	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
