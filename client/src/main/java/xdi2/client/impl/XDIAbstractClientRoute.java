@@ -107,7 +107,7 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 	 */
 
 	@Override
-	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Collection<Manipulator> s) throws Xdi2AgentException, Xdi2ClientException {
+	public ContextNode get(XDIAddress XDIaddress, XDIAddress senderXDIAddress, Collection<Manipulator> manipulators) throws Xdi2AgentException, Xdi2ClientException {
 
 		// client construction step
 
@@ -115,9 +115,9 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 
 		// add manipulators if supported
 
-		if (xdiClient instanceof XDIAbstractClient && s != null) {
+		if (xdiClient instanceof XDIAbstractClient && manipulators != null) {
 
-			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(s);
+			((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(manipulators);
 		}
 
 		// message envelope construction step

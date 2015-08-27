@@ -1,6 +1,7 @@
 package xdi2.messaging.target.interceptor.impl.push;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +15,8 @@ import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
+import xdi2.client.impl.XDIAbstractClient;
+import xdi2.client.manipulator.Manipulator;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -21,6 +24,7 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 
 public class BasicPushGateway implements PushGateway {
@@ -28,10 +32,12 @@ public class BasicPushGateway implements PushGateway {
 	private static final Logger log = LoggerFactory.getLogger(BasicPushGateway.class);
 
 	private XDIAgent xdiAgent;
+	private Collection<Manipulator> manipulators;
 
-	public BasicPushGateway(XDIAgent xdiAgent) {
+	public BasicPushGateway(XDIAgent xdiAgent, Collection<Manipulator> manipulators) {
 
 		this.xdiAgent = xdiAgent;
+		this.manipulators = manipulators;
 	}
 
 	public BasicPushGateway() {
@@ -52,17 +58,39 @@ public class BasicPushGateway implements PushGateway {
 
 				// find route to this target
 
-				XDIClientRoute<?> xdiClientRoute = this.getXdiAgent().route(toPeerRootXDIArc);
+				XDIClientRoute<?> xdiClientRoute;
 
-				if (xdiClientRoute == null) {
- 
-					log.warn("No route for " + toPeerRootXDIArc + ". Skipping push command.");
+				try {
+
+					xdiClientRoute = this.getXdiAgent().route(toPeerRootXDIArc);
+
+					if (xdiClientRoute == null) {
+
+						log.warn("No route for " + toPeerRootXDIArc + ". Skipping push command.");
+						continue;
+					}
+				} catch (Xdi2AgentException ex) {
+
+					log.error("Agent problem while routing to target " + toPeerRootXDIArc + ": " + ex.getMessage() + ". Skipping", ex);
+					exs.add(ex);
+					continue;
+				} catch (Xdi2ClientException ex) {
+
+					log.error("Client problem while routing to target " + toPeerRootXDIArc + ": " + ex.getMessage() + ". Skipping.", ex);
+					exs.add(ex);
 					continue;
 				}
 
 				// client construction step
 
 				XDIClient<?> xdiClient = xdiClientRoute.constructXDIClient();
+
+				// add manipulators if supported
+
+				if (xdiClient instanceof XDIAbstractClient && this.getManipulators() != null) {
+
+					((XDIAbstractClient<? extends MessagingResponse>) xdiClient).getManipulators().addManipulators(this.getManipulators());
+				}
 
 				// message envelope construction step
 
@@ -85,12 +113,17 @@ public class BasicPushGateway implements PushGateway {
 
 				xdiClient.send(messageEnvelope);
 
+				// close the client
+				// TODO: when do we close the client?
+
+				if (xdiClient == null) xdiClient.close();
+
 				// done
 
 				if (log.isDebugEnabled()) log.debug("Successfully pushed to " + toPeerRootXDIArc);
 			} catch (Exception ex) {
 
-				log.warn("Failed to push to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex);
+				log.warn("Failed to push to " + toPeerRootXDIArc + ": " + ex.getMessage() + ". Skipping.", ex);
 				exs.add(ex);
 			}
 		}
@@ -117,5 +150,15 @@ public class BasicPushGateway implements PushGateway {
 	public void setXdiAgent(XDIAgent xdiAgent) {
 
 		this.xdiAgent = xdiAgent;
+	}
+
+	public Collection<Manipulator> getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(Collection<Manipulator> manipulators) {
+
+		this.manipulators = manipulators;
 	}
 }

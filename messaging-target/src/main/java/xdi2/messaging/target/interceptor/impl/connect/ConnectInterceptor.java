@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.agent.XDIAgent;
 import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.client.exceptions.Xdi2AgentException;
+import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
@@ -166,14 +168,17 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			// get
 
 			linkContractTemplateContextNode = this.getXdiAgent().get(linkContractTemplateXDIaddress, manipulators);
-		} catch (Exception ex) {
+		} catch (Xdi2AgentException ex) {
 
-			throw new Xdi2MessagingException("Unable to obtain link contract template at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("Agent problem while getting link contract template at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("Client problem while getting link contract template at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
 
 		// read link contract template
 
-		if (linkContractTemplateContextNode == null) throw new Xdi2MessagingException("Cannot find link contract template at address " + targetXDIAddress, null, executionContext);
+		if (linkContractTemplateContextNode == null) throw new Xdi2MessagingException("Cannot get link contract template at address " + targetXDIAddress, null, executionContext);
 
 		XdiEntitySingleton.Variable linkContractTemplateXdiVariable = XdiEntitySingleton.Variable.fromContextNode(linkContractTemplateContextNode);
 		if (linkContractTemplateXdiVariable == null) throw new Xdi2MessagingException("Invalid link contract template context node at address " + targetXDIAddress, null, executionContext);

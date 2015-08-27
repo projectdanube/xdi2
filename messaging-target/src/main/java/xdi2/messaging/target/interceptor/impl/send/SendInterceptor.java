@@ -156,14 +156,17 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 			// get
 
 			forwardingMessageContextNode = this.getXdiAgent().get(forwardingMessageXDIaddress, manipulators);
-		} catch (Exception ex) {
+		} catch (Xdi2AgentException ex) {
 
-			throw new Xdi2MessagingException("Unable to obtain forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("Agent problem while getting forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
+		} catch (Xdi2ClientException ex) {
+
+			throw new Xdi2MessagingException("Client problem while getting forwarding message at address " + targetXDIAddress + ": " + ex.getMessage(), ex, executionContext);
 		}
 
 		// read forwarding message
 
-		if (forwardingMessageContextNode == null) throw new Xdi2MessagingException("Cannot find forwarding message at address " + targetXDIAddress, null, executionContext);
+		if (forwardingMessageContextNode == null) throw new Xdi2MessagingException("Cannot get forwarding message at address " + targetXDIAddress, null, executionContext);
 
 		XdiEntity forwardingMessageXdiEntity = XdiAbstractEntity.fromContextNode(forwardingMessageContextNode);
 		if (forwardingMessageXdiEntity == null) throw new Xdi2MessagingException("Invalid forwarding message context node at address " + targetXDIAddress, null, executionContext);
@@ -220,6 +223,8 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 			throw new Xdi2MessagingException("Client problem while routing to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
 		}
+
+		if (xdiClientRoute == null) throw new Xdi2MessagingException("No route for " + toPeerRootXDIArc, null, executionContext);
 
 		// disable link contracts in case the forwarding message is routed back to us
 
