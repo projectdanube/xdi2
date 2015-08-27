@@ -15,7 +15,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
@@ -105,8 +105,8 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		List<Operation> writeOperations = getWriteOperationsPerMessageEnvelope(executionContext);
 		if (writeOperations == null) return InterceptorResult.DEFAULT;
 
-		Map<LinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<LinkContract, Map<Operation, XDIAddress>> ();
-		Map<LinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<LinkContract, Map<Operation, List<XDIStatement>>> ();
+		Map<GenericLinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<GenericLinkContract, Map<Operation, XDIAddress>> ();
+		Map<GenericLinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<GenericLinkContract, Map<Operation, List<XDIStatement>>> ();
 
 		for (Operation writeOperation : writeOperations) {
 
@@ -117,10 +117,10 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 			if (targetXDIAddress != null) {
 
-				List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
+				List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
 				if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
-				for (LinkContract pushLinkContract : pushLinkContracts) {
+				for (GenericLinkContract pushLinkContract : pushLinkContracts) {
 
 					if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target address " + targetXDIAddress);
 
@@ -139,10 +139,10 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 					XDIStatement targetXDIStatement = targetXDIStatements.next();
 
-					List<LinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIStatement);
+					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIStatement);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
-					for (LinkContract pushLinkContract : pushLinkContracts) {
+					for (GenericLinkContract pushLinkContract : pushLinkContracts) {
 
 						if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target statement " + targetXDIStatement);
 
@@ -160,11 +160,13 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 		// execute the push link contracts
 
-		Set<LinkContract> pushLinkContracts = new HashSet<LinkContract> ();
+		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
+		
+		Set<GenericLinkContract> pushLinkContracts = new HashSet<GenericLinkContract> ();
 		pushLinkContracts.addAll(pushLinkContractsXDIAddressMap.keySet());
 		pushLinkContracts.addAll(pushLinkContractsXDIStatementMap.keySet());
 
-		for (LinkContract pushLinkContract : pushLinkContracts) {
+		for (GenericLinkContract pushLinkContract : pushLinkContracts) {
 
 			Map<Operation, XDIAddress> pushLinkContractXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
 			Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
@@ -177,7 +179,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 
 				if (log.isDebugEnabled()) log.debug("Executing push link contract " + pushLinkContract);
 
-				this.getPushGateway().executePush(pushLinkContract, pushLinkContractOperations, pushLinkContractXDIAddressMap, pushLinkContractXDIStatementMap);
+				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushLinkContractOperations, pushLinkContractXDIAddressMap, pushLinkContractXDIStatementMap);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
@@ -250,9 +252,9 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	 * Helper methods
 	 */
 
-	private static List<LinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIAddress XDIaddress) {
+	private static List<GenericLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIAddress XDIaddress) {
 
-		List<LinkContract> pushLinkContracts = new ArrayList<LinkContract> ();
+		List<GenericLinkContract> pushLinkContracts = new ArrayList<GenericLinkContract> ();
 
 		while (true) {
 
@@ -268,7 +270,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 					XdiEntity pushLinkContractXdiEntity = XdiAbstractEntity.fromContextNode(pushLinkContractContextNode);
 					if (pushLinkContractXdiEntity == null) continue;
 
-					LinkContract pushLinkContract = LinkContract.fromXdiEntity(pushLinkContractXdiEntity);
+					GenericLinkContract pushLinkContract = GenericLinkContract.fromXdiEntity(pushLinkContractXdiEntity);
 					if (pushLinkContract == null) continue;
 
 					for (XDIAddress pushTargetXDIAddress : pushLinkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH)) {
@@ -289,7 +291,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		return pushLinkContracts;
 	}
 
-	private static List<LinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIStatement XDIstatement) {
+	private static List<GenericLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIStatement XDIstatement) {
 
 		return findPushLinkContracts(pushLinkContractsGraph, XDIstatement.getContextNodeXDIAddress());
 	}

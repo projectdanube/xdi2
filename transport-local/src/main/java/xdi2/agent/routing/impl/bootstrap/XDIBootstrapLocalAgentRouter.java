@@ -33,7 +33,7 @@ public class XDIBootstrapLocalAgentRouter extends XDILocalAgentRouter implements
 			throw new Xdi2AgentException("TO peer root is not a peer root: " + toPeerRootXDIArc);
 		}
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(toPeerRootXDIArc.getXRef().getXDIArc().getCs())) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(toPeerRootXDIArc.getXRef().getXDIArc().getCs())) return toPeerRootXDIArc;
 
 		return BOOTSTRAP_OWNER_PEER_ROOT_XDI_ARC;
 	}

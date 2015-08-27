@@ -44,6 +44,8 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 
 		// manipulate
 
+		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Applying " + this.getManipulators().size() + " manipulator(s).");
+
 		ManipulatorExecutor.executeMessageEnvelopeManipulators(this.getManipulators(), messageEnvelope);
 
 		for (Message message : messageEnvelope.getMessages()) {

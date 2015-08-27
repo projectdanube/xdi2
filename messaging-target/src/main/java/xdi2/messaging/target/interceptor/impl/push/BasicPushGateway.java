@@ -14,13 +14,14 @@ import xdi2.client.XDIClient;
 import xdi2.client.XDIClientRoute;
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.target.MessagingTarget;
 
 public class BasicPushGateway implements PushGateway {
 
@@ -39,11 +40,11 @@ public class BasicPushGateway implements PushGateway {
 	}
 
 	@Override
-	public void executePush(LinkContract linkContract, Set<Operation> pushOperations, Map<Operation, XDIAddress> pushXDIAddressMap, Map<Operation, List<XDIStatement>> pushXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
+	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
-		for (XDIArc toPeerRootXDIArc : linkContract.getPushToPeerRootXDIArcs()) {
+		for (XDIArc toPeerRootXDIArc : pushLinkContract.getPushToPeerRootXDIArcs()) {
 
 			if (log.isDebugEnabled()) log.debug("Trying to push to " + toPeerRootXDIArc);
 
@@ -54,24 +55,27 @@ public class BasicPushGateway implements PushGateway {
 				XDIClientRoute<?> xdiClientRoute = this.getXdiAgent().route(toPeerRootXDIArc);
 
 				if (xdiClientRoute == null) {
-
+ 
 					log.warn("No route for " + toPeerRootXDIArc + ". Skipping push command.");
 					continue;
 				}
 
 				// client construction step
 
-				XDIClient xdiClient = xdiClientRoute.constructXDIClient();
+				XDIClient<?> xdiClient = xdiClientRoute.constructXDIClient();
 
 				// message envelope construction step
 
 				MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
-				Message message = xdiClientRoute.createMessage(messageEnvelope);
+				Message message = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
+				message.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+				message.setToPeerRootXDIArc(toPeerRootXDIArc);
+				message.setLinkContract(pushLinkContract);
 
-				for (Operation pushOperation : pushOperations) {
+				for (Operation pushOperation : pushLinkContractOperations) {
 
-					XDIAddress pushXDIAddress = pushXDIAddressMap == null ? null : pushXDIAddressMap.get(pushOperation);
-					List<XDIStatement> pushXDIStatements = pushXDIStatementMap == null ? null : pushXDIStatementMap.get(pushOperation);
+					XDIAddress pushXDIAddress = pushLinkContractXDIAddressMap == null ? null : pushLinkContractXDIAddressMap.get(pushOperation);
+					List<XDIStatement> pushXDIStatements = pushLinkContractXDIStatementMap == null ? null : pushLinkContractXDIStatementMap.get(pushOperation);
 
 					if (pushXDIAddress != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIAddress);
 					if (pushXDIStatements != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIStatements.iterator());
@@ -95,9 +99,9 @@ public class BasicPushGateway implements PushGateway {
 
 		if (exs.size() > 0) {
 
-			if (exs.size() == 1) throw new Xdi2ClientException("Push failed: " + exs.get(0).getMessage(), exs.get(0));
+			if (exs.size() == 1) throw new Xdi2ClientException("Push " + pushLinkContractXDIAddressMap + " failed: " + exs.get(0).getMessage(), exs.get(0));
 
-			throw new Xdi2ClientException("Multiple pushes failed. First failed push is: " + exs.get(0), exs.get(0));
+			throw new Xdi2ClientException("Multiple pushes " + pushLinkContractXDIAddressMap + " failed. First failed push is: " + exs.get(0), exs.get(0));
 		}
 	}
 

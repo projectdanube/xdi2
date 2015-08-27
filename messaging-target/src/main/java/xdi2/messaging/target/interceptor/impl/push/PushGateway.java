@@ -6,12 +6,13 @@ import java.util.Set;
 
 import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.target.MessagingTarget;
 
 public interface PushGateway {
 
-	public void executePush(LinkContract linkContract, Set<Operation> pushOperations, Map<Operation, XDIAddress> pushXDIAddressMap, Map<Operation, List<XDIStatement>> pushXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException;
+	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException;
 }
