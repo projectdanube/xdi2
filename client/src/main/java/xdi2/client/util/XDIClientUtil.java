@@ -44,6 +44,7 @@ public class XDIClientUtil {
 		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
+	// TODO: deprecate this, or at least use XdiAgent?
 	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken, XDIAddress privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
 
 		// request the private key from the graph
