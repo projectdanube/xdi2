@@ -42,7 +42,7 @@ public class BasicPushGateway implements PushGateway {
 
 	public BasicPushGateway() {
 
-		this.xdiAgent = new XDIBasicAgent();
+		this(new XDIBasicAgent(), null);
 	}
 
 	@Override

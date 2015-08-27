@@ -343,7 +343,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 				XDIAgent xdiAgent = new XDIBasicAgent(agentRouters);
 
-				PushGateway pushCommandExecutor = new BasicPushGateway(xdiAgent);
+				PushGateway pushCommandExecutor = new BasicPushGateway(xdiAgent, null);
 
 				PushLinkContractInterceptor pushCommandInterceptor1 = new PushLinkContractInterceptor();
 				PushLinkContractInterceptor pushCommandInterceptor2 = new PushLinkContractInterceptor();
