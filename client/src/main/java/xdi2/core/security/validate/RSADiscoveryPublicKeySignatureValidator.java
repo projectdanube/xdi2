@@ -73,3 +73,70 @@ public class RSADiscoveryPublicKeySignatureValidator extends RSAPublicKeySignatu
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
 	}
 }
+
+
+// TODO. use XdiAgent??
+/*public class RSADiscoveryPublicKeySignatureValidator extends RSAPublicKeySignatureValidator {
+
+	private static Logger log = LoggerFactory.getLogger(RSADiscoveryPublicKeySignatureValidator.class.getName());
+
+	public static final XDIAgent DEFAULT_XDI_AGENT = new XDIBasicAgent();
+	
+	private XDIAgent xdiAgent;
+
+	public RSADiscoveryPublicKeySignatureValidator(XDIAgent xdiAgent) {
+
+		super();
+
+		this.xdiAgent = xdiAgent;
+	}
+
+	public RSADiscoveryPublicKeySignatureValidator() {
+
+		this(DEFAULT_XDI_AGENT);
+	}
+
+	@Override
+	public PublicKey getPublicKey(XDIAddress signerXDIAddress) {
+
+		// perform discovery
+
+		PublicKey publicKey = null;
+
+		try {
+
+			XDIAddress signaturePublicKeyAddress = XDIAddressUtil.concatXDIAddresses(signerXDIAddress, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+
+			ContextNode contextNode = this.getXdiAgent().get(signaturePublicKeyAddress, new SetLinkContractMessageManipulator(PublicLinkContract.class));
+			if (contextNode == null) return null;
+
+			String publicKeyString = contextNode.getLiteralDataString();
+			if (publicKeyString == null) return null;
+
+			publicKey = Keys.publicKeyFromPublicKeyString(publicKeyString);
+		} catch (Xdi2ClientException | GeneralSecurityException ex) {
+
+			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + signerXDIAddress + ": " + ex.getMessage(), ex);
+			return null;
+		}
+
+		// done
+
+		return publicKey;
+	}
+
+	/*
+	 * Getters and setters
+	 *
+
+	public XDIAgent getXdiAgent() {
+
+		return this.xdiAgent;
+	}
+
+	public void setXdiDiscoveryClient(XDIAgent xdiAgent) {
+
+		this.xdiAgent = xdiAgent;
+	}
+}
+*/
