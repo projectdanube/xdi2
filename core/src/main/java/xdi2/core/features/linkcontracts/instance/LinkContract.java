@@ -6,6 +6,7 @@ import xdi2.core.features.linkcontracts.LinkContractBase;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.MappingContextNodeXDIArcIterator;
 import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
@@ -79,7 +80,11 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		return this.xdiEntity;
 	}
 
-	public void addPushPermissionInverseRelations() {
+	/*
+	 * Specific to push link contracts
+	 */
+
+	public void setupPushPermissionInverseRelations() {
 
 		ReadOnlyIterator<Relation> pushPermissionRelations = this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_PUSH);
 
@@ -87,6 +92,11 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 			pushPermissionRelation.followContextNode().setRelation(XDILinkContractConstants.XDI_ADD_IS_PUSH, pushPermissionRelation.getContextNode().getXDIAddress());
 		}
+	}
+
+	public void setPushToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
+
+		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIArc));
 	}
 
 	public ReadOnlyIterator<XDIArc> getPushToPeerRootXDIArcs() {
@@ -97,5 +107,19 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 								new XdiPeerRoot.MappingContextNodePeerRootIterator(
 										new MappingRelationTargetContextNodeIterator(
 												this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_TO_PEER_ROOT_ARC))))));
+	}
+
+	// TODO: the push link contract should reference just the operation rather than the message?
+	public void setMessageXDIAddress(XDIAddress messageXDIAddress) {
+
+		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_MSG, messageXDIAddress);
+	}
+
+	public XDIAddress getMessageXDIAddress() {
+
+		Relation relation = this.getContextNode().getRelation(XDILinkContractConstants.XDI_ADD_MSG);
+		if (relation == null) return null;
+
+		return relation.getTargetXDIAddress();
 	}
 }

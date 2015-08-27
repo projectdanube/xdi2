@@ -183,6 +183,58 @@ public class Equivalence {
 	}
 
 	/*
+	 * Methods for aggregation links ($has).
+	 */
+
+	public static ReadOnlyIterator<Relation> getAggregationRelations(ContextNode contextNode) {
+
+		ReadOnlyIterator<Relation> relations = contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_HAS);
+
+		return relations;
+	}
+
+	public static ReadOnlyIterator<ContextNode> getAggregationContextNodes(ContextNode contextNode) {
+
+		ReadOnlyIterator<Relation> relations = getAggregationRelations(contextNode);
+
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationTargetContextNodeIterator(relations));
+	}
+
+	public static ContextNode getAggregationContextNode(ContextNode contextNode) {
+
+		Relation relation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_HAS);
+
+		return relation == null ? null : relation.followContextNode();
+	}
+
+	public static void setAggregationContextNode(ContextNode contextNode, ContextNode identityContextNode) {
+
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, identityContextNode);
+	}
+
+	public static void setAggregationContextNode(ContextNode contextNode, XDIAddress identitycontextNodeXDIAddress) {
+
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, identitycontextNodeXDIAddress);
+	}
+
+	public static ReadOnlyIterator<Relation> getIncomingAggregationRelations(ContextNode contextNode) {
+
+		ReadOnlyIterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_HAS);
+
+		List<Iterator<? extends Relation>> iterators = new ArrayList<Iterator<? extends Relation>> ();
+		iterators.add(identityRelations);
+
+		return new CompositeIterator<Relation> (iterators.iterator());
+	}
+
+	public static ReadOnlyIterator<ContextNode> getIncomingAggregationContextNodes(ContextNode contextNode) {
+
+		ReadOnlyIterator<Relation> incomingAggregationRelations = getIncomingAggregationRelations(contextNode);
+
+		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingAggregationRelations));
+	}
+
+	/*
 	 * Methods for reference and replacement links ($ref, $rep).
 	 */
 

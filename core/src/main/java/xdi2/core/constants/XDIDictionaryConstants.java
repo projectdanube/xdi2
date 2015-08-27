@@ -20,6 +20,9 @@ public final class XDIDictionaryConstants {
 	public static final XDIAddress XDI_ADD_REP = XDIAddress.create("$rep");
 	public static final XDIAddress XDI_ADD_IS_REP = XDIAddress.create("$is$rep");
 
+	public static final XDIAddress XDI_ADD_HAS = XDIAddress.create("$has");
+	public static final XDIAddress XDI_ADD_IS_HAS = XDIAddress.create("$is$has");
+
 	public static final XDIAddress XDI_ADD_BOOLEAN = XDIAddress.create("$b");
 	public static final XDIAddress XDI_ADD_NUMBER = XDIAddress.create("$n");
 

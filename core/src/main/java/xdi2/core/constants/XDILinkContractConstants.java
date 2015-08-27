@@ -40,6 +40,8 @@ public final class XDILinkContractConstants {
 
 	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 
+	public static final XDIAddress XDI_ADD_MSG = XDIAddress.create("$msg");
+
 	public static final XDIAddress XDI_ADD_IS_PUSH = XDIAddress.create("$is$push");
 
 	private XDILinkContractConstants() { }

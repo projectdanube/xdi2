@@ -11,14 +11,18 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.bootstrap.XDIBootstrap;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphAware;
+import xdi2.messaging.Message;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -97,6 +101,8 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 			if (pushResults.isEmpty()) continue;
 
+			Message message = operation.getMessage();
+
 			Map<Operation, Graph> operationResultGraphs = executionResult.getOperationResultGraphs();
 
 			Graph operationResultGraph = operationResultGraphs.get(operation);
@@ -107,7 +113,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				// determine requesting and authorizing authorities
 
 				XDIAddress authorizingAuthority = executionContext.getCurrentMessagingTarget().getOwnerXDIAddress();
-				XDIAddress requestingAuthority = operation.getMessage().getSenderXDIAddress();
+				XDIAddress requestingAuthority = message.getSenderXDIAddress();
 
 				// determine variable values
 
@@ -120,31 +126,35 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
 				variableValues.put(XDIArc.create("{$target}"), target);
 
-				// instantiate push contract
+				// instantiate push link contract
 
 				LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.PUSH_LINK_CONTRACT_TEMPLATE);
 				linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 				linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 				linkContractInstantiation.setVariableValues(variableValues);
 
-				LinkContract pushContract = linkContractInstantiation.execute(false, true);
+				LinkContract pushLinkContract = linkContractInstantiation.execute(false, true);
 
-				// write push contract into operation result graph
+				// associate push link contract with message
 
-				CopyUtil.copyGraph(pushContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
+				pushLinkContract.setMessageXDIAddress(message.getContextNode().getXDIAddress());
 
-				// write message and push contract into target graph
+				// write push link contract into operation result graph
+
+				CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
+
+				// write message, push link contract, and indices into target graph
 
 				if (this.getTargetGraph() != null) {
 
-					CopyUtil.copyContextNode(operation.getMessage().getContextNode(), this.getTargetGraph(), null);
-					CopyUtil.copyGraph(pushContract.getContextNode().getGraph(), this.getTargetGraph(), null);
+					CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(), null);
+					CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
 
-					XDIAddress pushContractXDIAddress = pushContract.getContextNode().getXDIAddress();
-					XDIAddress messageXDIAddress = operation.getMessage().getContextNode().getXDIAddress();
+					XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(), XDIMessagingConstants.XDI_ARC_MSG, true);
+					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
 
-					// TODO: the push contract should reference just the operation rather than the message?
-					this.getTargetGraph().setStatement(XDIStatement.fromRelationComponents(pushContractXDIAddress, XDIMessagingConstants.XDI_ADD_MSG, messageXDIAddress));
+					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity());
+					Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
 				}
 			}
 

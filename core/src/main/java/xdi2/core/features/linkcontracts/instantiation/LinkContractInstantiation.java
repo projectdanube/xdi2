@@ -88,7 +88,7 @@ public class LinkContractInstantiation {
 
 		// add push permission inverse relations
 
-		linkContract.addPushPermissionInverseRelations();
+		linkContract.setupPushPermissionInverseRelations();
 
 		// add type statement
 
