@@ -35,8 +35,9 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
 		if (messageEnvelope == null) return false;
 
+		if (! messageEnvelope.getMessages().hasNext()) return false;
+
 		Message message = messageEnvelope.getMessages().next();
-		if (message == null) return false;
 
 		if (message.getOperationsContextNode() == null) return false;
 		if (message.getFromPeerRootXDIArc() == null) return false;
