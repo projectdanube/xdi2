@@ -4,6 +4,7 @@ import xdi2.core.Graph;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 
@@ -31,7 +32,17 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 
 	public static boolean isValid(Graph graph) {
 
-		return MessageEnvelope.isValid(graph) && MessageEnvelope.fromGraph(graph).getMessageCollectionCount() > 0;
+		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
+		if (messageEnvelope == null) return false;
+
+		Message message = messageEnvelope.getMessages().next();
+		if (message == null) return false;
+
+		if (message.getOperationsContextNode() == null) return false;
+		if (message.getFromPeerRootXDIArc() == null) return false;
+		if (message.getToPeerRootXDIArc() == null) return false;
+
+		return true;
 	}
 
 	public static FullMessagingResponse fromGraph(Graph graph) {
