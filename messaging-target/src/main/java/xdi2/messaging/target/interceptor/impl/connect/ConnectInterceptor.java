@@ -258,6 +258,16 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		this.xdiAgent = xdiAgent;
 	}
 
+	public Collection<Manipulator> getManipulators() {
+
+		return this.manipulators;
+	}
+
+	public void setManipulators(Collection<Manipulator> manipulators) {
+
+		this.manipulators = manipulators;
+	}
+
 	/*
 	 * ExecutionContext helper methods
 	 */
@@ -273,15 +283,5 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	public static void putLinkContractTemplates(ExecutionContext executionContext, List<LinkContractTemplate> linkContractTemplates) {
 
 		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACTTEMPLATES_PER_OPERATION, linkContractTemplates);
-	}
-
-	public Collection<Manipulator> getManipulators() {
-
-		return this.manipulators;
-	}
-
-	public void setManipulators(Collection<Manipulator> manipulators) {
-
-		this.manipulators = manipulators;
 	}
 }
