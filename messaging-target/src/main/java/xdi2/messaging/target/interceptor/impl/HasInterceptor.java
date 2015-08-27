@@ -77,7 +77,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (operation instanceof GetOperation && operation.getTargetXDIAddress() != null) {
 
-			List<Relation> hasRelations = new IteratorListMaker<Relation> (Equivalence.getAllReferenceAndReplacementRelations(operationResultGraph.getRootContextNode(true))).list();
+			List<Relation> hasRelations = new IteratorListMaker<Relation> (Equivalence.getAllAggregationRelations(operationResultGraph.getRootContextNode(true))).list();
 
 			for (Relation hasRelation : hasRelations) {
 
@@ -124,7 +124,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(hasTargetXDIAddress);
-		if (Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF))) feedbackOperation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
+		if (Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEHAS))) feedbackOperation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEHAS, Boolean.TRUE);
 
 		// prepare feedback execution result
 
@@ -162,7 +162,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback on target of $ref/$rep relation: " + hasTargetXDIAddress + ", execution result: " + feedbackExecutionResult);
+		if (log.isDebugEnabled()) log.debug("Completed $get feedback on target of $has relation: " + hasTargetXDIAddress + ", execution result: " + feedbackExecutionResult);
 
 		return feedbackExecutionResult.getFinishedResultGraph();
 	}

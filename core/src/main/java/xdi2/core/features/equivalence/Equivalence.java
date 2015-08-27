@@ -70,6 +70,18 @@ public class Equivalence {
 		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingIdentityRelations));
 	}
 
+	public static Iterator<Relation> getAllIdentityRelations(ContextNode contextNode) {
+
+		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getXDIAddress().equals(XDIDictionaryConstants.XDI_ADD_IS);
+			}
+		};
+	}
+
 	/*
 	 * Methods for reference links ($ref).
 	 */
@@ -124,6 +136,18 @@ public class Equivalence {
 		Iterator<Relation> incomingReferenceRelations = getIncomingReferenceRelations(contextNode);
 
 		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReferenceRelations));
+	}
+
+	public static Iterator<Relation> getAllReferenceRelations(ContextNode contextNode) {
+
+		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getXDIAddress().equals(XDIDictionaryConstants.XDI_ADD_REF);
+			}
+		};
 	}
 
 	/*
@@ -182,6 +206,18 @@ public class Equivalence {
 		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingReplacementRelations));
 	}
 
+	public static Iterator<Relation> getAllReplacementRelations(ContextNode contextNode) {
+
+		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getXDIAddress().equals(XDIDictionaryConstants.XDI_ADD_REP);
+			}
+		};
+	}
+
 	/*
 	 * Methods for aggregation links ($has).
 	 */
@@ -232,6 +268,18 @@ public class Equivalence {
 		ReadOnlyIterator<Relation> incomingAggregationRelations = getIncomingAggregationRelations(contextNode);
 
 		return new ReadOnlyIterator<ContextNode> (new MappingRelationContextNodeIterator(incomingAggregationRelations));
+	}
+
+	public static Iterator<Relation> getAllAggregationRelations(ContextNode contextNode) {
+
+		return new SelectingIterator<Relation> (contextNode.getAllRelations()) {
+
+			@Override
+			public boolean select(Relation relation) {
+
+				return relation.getXDIAddress().equals(XDIDictionaryConstants.XDI_ADD_HAS);
+			}
+		};
 	}
 
 	/*

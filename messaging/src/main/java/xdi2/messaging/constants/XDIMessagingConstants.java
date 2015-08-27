@@ -40,6 +40,7 @@ public final class XDIMessagingConstants {
 
 	public static final XDIAddress XDI_ADD_MESSAGE_PARAMETER_FULL = XDIAddress.create("<$full>");
 	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEREF = XDIAddress.create("<$deref>");
+	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEHAS = XDIAddress.create("<$dehas>");
 
 	private XDIMessagingConstants() { }
 }
