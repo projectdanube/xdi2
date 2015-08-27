@@ -122,13 +122,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				if (log.isDebugEnabled()) log.debug("In message result: Found $ref/$rep relation: " + refRepRelation);
 
+				XDIAddress refRepContextNodeXDIAddress = refRepRelation.getContextNode().getXDIAddress();
+
 				// don't follow $ref/$rep relations to target we covered already
 
 				boolean skip = false;
 
 				for (XDIAddress completedAddress : getCompletedAddresses(executionContext)) {
 
-					if (refRepRelation.getContextNode().getXDIAddress().equals(completedAddress)) {
+					if (refRepContextNodeXDIAddress.equals(completedAddress)) {
 
 						if (log.isDebugEnabled()) log.debug("In message result: Skipping $ref/$rep relation " + refRepRelation + " because of already completed address " + completedAddress);
 
@@ -150,8 +152,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				// delete the $ref/$rep relation
 
-				ContextNode refRepContextNode = refRepRelation.getContextNode();
-
 				if (XDIDictionaryConstants.XDI_ADD_REF.equals(refRepRelation.getXDIAddress()) || XDIDictionaryConstants.XDI_ADD_REP.equals(refRepRelation.getXDIAddress())) { 
 
 					ContextNode refRepTargetContextNode = refRepRelation.followContextNode();
@@ -165,7 +165,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				// $get feedback on the source of the $ref/$rep relation
 
-				Graph feedbackResultGraph = feedbackGetSourceOfRefRepRelation(refRepContextNode, operation, executionContext);
+				Graph feedbackResultGraph = feedbackGetSourceOfRefRepRelation(refRepContextNodeXDIAddress, operation, executionContext);
 
 				// merge the message result
 
@@ -434,9 +434,9 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 * Feedback methods
 	 */
 
-	private static Graph feedbackGetSourceOfRefRepRelation(ContextNode refRepContextNode, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private static Graph feedbackGetSourceOfRefRepRelation(XDIAddress refRepContextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get source of $ref/$rep relation: " + refRepContextNode);
+		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get source of $ref/$rep relation: " + refRepContextNodeXDIAddress);
 
 		// prepare messaging target
 
@@ -449,7 +449,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
-		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNode.getXDIAddress());
+		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNodeXDIAddress);
 		if (Boolean.TRUE.equals(operation.getParameterBoolean(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF))) feedbackOperation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
 
 		// prepare feedback execution result
@@ -488,7 +488,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNode + ", execution result: " + feedbackExecutionResult);
+		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNodeXDIAddress + ", execution result: " + feedbackExecutionResult);
 
 		return feedbackExecutionResult.getFinishedResultGraph();
 	}
