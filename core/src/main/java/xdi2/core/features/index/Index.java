@@ -18,7 +18,9 @@ public class Index {
 
 	public static XdiEntityCollection getEntityIndex(Graph graph, XDIArc indexXDIArc, boolean create) {
 
-		ContextNode contextNode = graph.getRootContextNode().getContextNode(XdiEntityCollection.createXDIArc(indexXDIArc));
+		XDIArc xdiEntityCollectionXDIArc = XdiEntityCollection.createXDIArc(indexXDIArc);
+
+		ContextNode contextNode = create ? graph.getRootContextNode().setContextNode(xdiEntityCollectionXDIArc) : graph.getRootContextNode().getContextNode(xdiEntityCollectionXDIArc);
 		if (contextNode == null) return null;
 
 		return XdiEntityCollection.fromContextNode(contextNode);
@@ -26,7 +28,9 @@ public class Index {
 
 	public static XdiAttributeCollection getAttributeIndex(Graph graph, XDIArc indexXDIArc, boolean create) {
 
-		ContextNode contextNode = graph.getRootContextNode().getContextNode(XdiAttributeCollection.createXDIArc(indexXDIArc));
+		XDIArc xdiAttributeCollectionXDIArc = XdiAttributeCollection.createXDIArc(indexXDIArc);
+
+		ContextNode contextNode = create ? graph.getRootContextNode().getContextNode(xdiAttributeCollectionXDIArc) : graph.getRootContextNode().getContextNode(xdiAttributeCollectionXDIArc);
 		if (contextNode == null) return null;
 
 		return XdiAttributeCollection.fromContextNode(contextNode);
