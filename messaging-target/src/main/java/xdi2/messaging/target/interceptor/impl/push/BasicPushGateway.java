@@ -17,10 +17,12 @@ import xdi2.client.exceptions.Xdi2AgentException;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.manipulator.Manipulator;
+import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -46,7 +48,7 @@ public class BasicPushGateway implements PushGateway {
 	}
 
 	@Override
-	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
+	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, Graph> pushLinkContractOperationResultGraphs, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
@@ -95,18 +97,32 @@ public class BasicPushGateway implements PushGateway {
 				// message envelope construction step
 
 				MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
-				Message message = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
-				message.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
-				message.setToPeerRootXDIArc(toPeerRootXDIArc);
-				message.setLinkContract(pushLinkContract);
+
+				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
+				requestMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+				requestMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+				requestMessage.setLinkContract(pushLinkContract);
 
 				for (Operation pushOperation : pushLinkContractOperations) {
 
 					XDIAddress pushXDIAddress = pushLinkContractXDIAddressMap == null ? null : pushLinkContractXDIAddressMap.get(pushOperation);
 					List<XDIStatement> pushXDIStatements = pushLinkContractXDIStatementMap == null ? null : pushLinkContractXDIStatementMap.get(pushOperation);
 
-					if (pushXDIAddress != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIAddress);
-					if (pushXDIStatements != null) message.createOperation(pushOperation.getOperationXDIAddress(), pushXDIStatements.iterator());
+					if (pushXDIAddress != null) requestMessage.createOperation(pushOperation.getOperationXDIAddress(), pushXDIAddress);
+					if (pushXDIStatements != null) requestMessage.createOperation(pushOperation.getOperationXDIAddress(), pushXDIStatements.iterator());
+				}
+
+				Message responseMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
+				responseMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+				responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+				responseMessage.setLinkContract(pushLinkContract);
+				responseMessage.setCorrelationXDIAddress(requestMessage.getContextNode().getXDIAddress());
+
+				for (Operation pushOperation : pushLinkContractOperations) {
+
+					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushOperation);
+
+					if (pushLinkContractOperationResultGraph != null) responseMessage.createOperation(pushOperation.getOperationXDIAddress(), new MappingXDIStatementIterator(pushLinkContractOperationResultGraph.getAllStatements()));
 				}
 
 				// send the message envelope

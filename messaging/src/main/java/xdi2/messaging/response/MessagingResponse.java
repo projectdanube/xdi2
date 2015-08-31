@@ -1,10 +1,9 @@
 package xdi2.messaging.response;
 
-import java.util.Iterator;
-
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public interface MessagingResponse {
 
@@ -26,7 +25,7 @@ public interface MessagingResponse {
 	/**
 	 * Returns the push link contracts;
 	 */
-	public Iterator<LinkContract> getPushLinkContracts();
+	public ReadOnlyIterator<LinkContract> getPushLinkContracts();
 
 	/**
 	 * Returns whether the messaging response has an associated error.

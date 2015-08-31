@@ -1,7 +1,10 @@
 package xdi2.messaging.response;
 
 import xdi2.core.Graph;
+import xdi2.core.features.error.XdiError;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.MessageEnvelope;
 
 /**
@@ -9,7 +12,7 @@ import xdi2.messaging.MessageEnvelope;
  * 
  * @author markus
  */
-public class FutureMessagingResponse extends AbstractMessagingResponse implements MessagingResponse {
+public class FutureMessagingResponse implements MessagingResponse {
 
 	private MessageEnvelope messageEnvelope;
 
@@ -43,6 +46,30 @@ public class FutureMessagingResponse extends AbstractMessagingResponse implement
 
 	@Override
 	public Graph getResultGraph() {
+
+		throw new IllegalStateException("Result graph is not available in future messaging response.");
+	}
+
+	@Override
+	public boolean hasPushLinkContracts() {
+
+		throw new IllegalStateException("Result graph is not available in future messaging response.");
+	}
+
+	@Override
+	public ReadOnlyIterator<LinkContract> getPushLinkContracts() {
+
+		throw new IllegalStateException("Result graph is not available in future messaging response.");
+	}
+
+	@Override
+	public boolean hasXdiError() {
+
+		throw new IllegalStateException("Result graph is not available in future messaging response.");
+	}
+
+	@Override
+	public XdiError getXdiError() {
 
 		throw new IllegalStateException("Result graph is not available in future messaging response.");
 	}

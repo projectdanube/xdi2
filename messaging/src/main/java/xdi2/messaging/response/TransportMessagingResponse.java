@@ -1,14 +1,16 @@
 package xdi2.messaging.response;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.util.iterators.EmptyIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SelectingIterator;
 
 public abstract class TransportMessagingResponse implements MessagingResponse, Serializable, Comparable<MessagingResponse> {
 
@@ -76,18 +78,25 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 	}
 
 	@Override
-	public Iterator<LinkContract> getPushLinkContracts() {
+	public ReadOnlyIterator<LinkContract> getPushLinkContracts() {
 
 		Graph resultGraph = this.getResultGraph();
 		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
 
 		// TODO: fix this, not all link contracts are push link contracts
-		return LinkContracts.getAllLinkContracts(resultGraph);
-	}
+		// maybe also need strict criteria, e.g. only return contract from/to the correct peers
+		return new SelectingIterator<LinkContract> (LinkContracts.getAllLinkContracts(resultGraph)) {
 
-	/*
-	 * Object methods
-	 */
+			@Override
+			public boolean select(LinkContract linkContract) {
+
+				if (linkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;
+				if (linkContract.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;
+
+				return false;
+			}
+		};
+	}
 
 	/*
 	 * Object methods

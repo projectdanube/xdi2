@@ -161,7 +161,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 		// execute the push link contracts
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		
+
 		Set<GenericLinkContract> pushLinkContracts = new HashSet<GenericLinkContract> ();
 		pushLinkContracts.addAll(pushLinkContractsXDIAddressMap.keySet());
 		pushLinkContracts.addAll(pushLinkContractsXDIStatementMap.keySet());
@@ -175,11 +175,21 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 			if (pushLinkContractXDIAddressMap != null) pushLinkContractOperations.addAll(pushLinkContractXDIAddressMap.keySet());
 			if (pushLinkContractXDIStatementMap != null) pushLinkContractOperations.addAll(pushLinkContractXDIStatementMap.keySet());
 
+			Map<Operation, Graph> pushLinkContractOperationResultGraphs = new HashMap<Operation, Graph> ();
+
+			for (Operation pushLinkContractOperation : pushLinkContractOperations) {
+
+				// TODO maybe dont push the ENTIRE operation result graph for all operations that trigger push contract?
+
+				Graph pushLinkContractOperationResultGraph = executionResult.getOperationResultGraphs().get(pushLinkContractOperation);
+				pushLinkContractOperationResultGraphs.put(pushLinkContractOperation, pushLinkContractOperationResultGraph);
+			}
+
 			try {
 
 				if (log.isDebugEnabled()) log.debug("Executing push link contract " + pushLinkContract);
 
-				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushLinkContractOperations, pushLinkContractXDIAddressMap, pushLinkContractXDIStatementMap);
+				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushLinkContractOperations, pushLinkContractOperationResultGraphs, pushLinkContractXDIAddressMap, pushLinkContractXDIStatementMap);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);

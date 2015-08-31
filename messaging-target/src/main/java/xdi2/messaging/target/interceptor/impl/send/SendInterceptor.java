@@ -19,6 +19,7 @@ import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -37,6 +38,7 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
@@ -255,6 +257,19 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 			// send
 
 			MessagingResponse forwardingMessagingResponse = xdiClient.send(forwardingMessage.getMessageEnvelope());
+
+			// TODO: correctly store any push contracts we got? 
+			// TODO: use feedback message? or have member field private Graph targetGraph; ?
+
+			if ((executionContext.getCurrentMessagingTarget() instanceof GraphMessagingTarget)) {
+
+				GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
+
+				for (LinkContract pushLinkContract : forwardingMessagingResponse.getPushLinkContracts()) {
+
+					CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
+				}
+			}
 
 			// TODO: what if we get a FutureMessagingResponse from an XDIWebSocketClient?
 
