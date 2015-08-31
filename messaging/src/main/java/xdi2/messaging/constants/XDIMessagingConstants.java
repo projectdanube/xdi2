@@ -19,7 +19,7 @@ public final class XDIMessagingConstants {
 	public static final XDIArc XDI_ARC_SET = XDIArc.create("$set");
 	public static final XDIArc XDI_ARC_DEL = XDIArc.create("$del");
 	public static final XDIArc XDI_ARC_DO = XDIArc.create("$do");
-	public static final XDIArc XDI_ARC_CONNECT = XDIArc.create("{$do}");
+	public static final XDIArc XDI_ARC_CONNECT = XDIArc.create("$connect");
 	public static final XDIArc XDI_ARC_SEND = XDIArc.create("$send");
 	public static final XDIArc XDI_ARC_PUSH = XDIArc.create("$push");
 

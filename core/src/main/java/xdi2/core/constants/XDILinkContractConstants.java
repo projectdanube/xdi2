@@ -24,7 +24,7 @@ public final class XDILinkContractConstants {
 	public static final XDIAddress XDI_ADD_SET_REF = XDIAddress.create("$set{$ref}");
 	public static final XDIAddress XDI_ADD_DEL = XDIAddress.create("$del");
 	public static final XDIAddress XDI_ADD_DO = XDIAddress.create("$do");
-	public static final XDIAddress XDI_ADD_CONNECT = XDIAddress.create("{$do}");
+	public static final XDIAddress XDI_ADD_CONNECT = XDIAddress.create("$connect");
 	public static final XDIAddress XDI_ADD_SEND = XDIAddress.create("$send");
 	public static final XDIAddress XDI_ADD_PUSH = XDIAddress.create("$push");
 
