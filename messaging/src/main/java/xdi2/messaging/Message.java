@@ -19,7 +19,6 @@ import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
@@ -32,6 +31,7 @@ import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
@@ -596,7 +596,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public Operation createOperation(XDIAddress operationXDIAddress, Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), operationXDIAddress, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(operationXDIAddress, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return Operation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -660,7 +660,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public GetOperation createGetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_GET, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_GET, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return GetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -705,7 +705,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public SetOperation createSetOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_SET, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_SET, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return SetOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -750,7 +750,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DelOperation createDelOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DEL, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_DEL, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return DelOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -795,7 +795,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public ConnectOperation createConnectOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_CONNECT, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_CONNECT, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return ConnectOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -840,7 +840,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public SendOperation createSendOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_SEND, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_SEND, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return SendOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -866,12 +866,6 @@ public final class Message implements Serializable, Comparable<Message> {
 		return this.createSendOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
 	}
 
-
-
-
-
-
-
 	/**
 	 * Creates a new $push operation and adds it to this XDI message.
 	 * @param targetXDIAddress The target address to which the operation applies.
@@ -891,7 +885,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PushOperation createPushOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_PUSH, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return PushOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -936,7 +930,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public DoOperation createDoOperation(Iterator<XDIStatement> targetXDIStatementAddresses) {
 
-		XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getContextNode().getGraph()).getInnerRoot(this.getOperationsContextNode().getXDIAddress(), XDIMessagingConstants.XDI_ADD_DO, true);
+		XdiInnerRoot xdiInnerRoot = XdiEntitySingleton.fromContextNode(this.getOperationsContextNode()).getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_DO, true);
 		if (targetXDIStatementAddresses != null) while (targetXDIStatementAddresses.hasNext()) xdiInnerRoot.getContextNode().setStatement(targetXDIStatementAddresses.next());
 
 		return DoOperation.fromMessageAndRelation(this, xdiInnerRoot.getPredicateRelation());
@@ -960,6 +954,27 @@ public final class Message implements Serializable, Comparable<Message> {
 	public DoOperation createDoOperation(Graph targetGraph) {
 
 		return this.createDoOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
+	 * Creates a new operation result and adds it to this XDI message.
+	 * @param operationXDIAddress The operation address to use for the new operation result.
+	 * @param resultGraph The result graph to add to this XDI message.
+	 * @return The newly created operation result represented as an XDI inner root.
+	 */
+	public XdiInnerRoot createOperationResult(XDIAddress operationXDIAddress, Graph resultGraph) {
+
+		if (resultGraph == null) throw new NullPointerException();
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(operationXDIAddress, true);
+		CopyUtil.copyContextNodeContents(resultGraph.getRootContextNode(), xdiInnerRoot.getContextNode(), null);
+
+		return xdiInnerRoot;
+	}
+
+	public ReadOnlyIterator<XdiInnerRoot> getOperationResults() {
+
+		return new XdiInnerRoot.MappingRelationInnerRootIterator(this.getContextNode().getAllRelations());
 	}
 
 	/**

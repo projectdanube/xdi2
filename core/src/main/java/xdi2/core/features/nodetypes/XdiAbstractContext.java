@@ -325,7 +325,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public XdiEntity getXdiEntity(XDIAddress XDIaddress, boolean create) {
 
 		if (XDIaddress.isLiteralNodeXDIAddress()) return null;
-		
+
 		ContextNode entityContextNode = create ? (ContextNode) this.getContextNode().setDeepNode(XDIaddress) : (ContextNode) this.getContextNode().getDeepNode(XDIaddress, false);
 		if (entityContextNode == null) return null;
 

@@ -348,4 +348,22 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 			});
 		}
 	}
+
+	public static class MappingRelationInnerRootIterator extends NotNullIterator<XdiInnerRoot> {
+
+		public MappingRelationInnerRootIterator(Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, XdiInnerRoot> (relations) {
+
+				@Override
+				public XdiInnerRoot map(Relation relation) {
+
+					ContextNode contextNode = relation.followContextNode();
+					if (contextNode == null) return null;
+
+					return XdiInnerRoot.fromContextNode(contextNode);
+				}
+			});
+		}
+	}
 }

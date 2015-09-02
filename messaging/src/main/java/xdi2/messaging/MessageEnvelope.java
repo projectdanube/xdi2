@@ -8,6 +8,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityCollection.MappingContextNodeXdiEntityCollectionIterator;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -244,16 +245,32 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 
 	/**
 	 * Returns all operations in this message envelope.
-	 * @return All messages contained in the envelope.
+	 * @return All operations contained in the envelope.
 	 */
 	public ReadOnlyIterator<Operation> getOperations() {
 
-		return new DescendingIterator<Message, Operation>(this.getMessages()) {
+		return new DescendingIterator<Message, Operation> (this.getMessages()) {
 
 			@Override
 			public Iterator<Operation> descend(Message item) {
 
 				return item.getOperations();
+			}
+		};
+	}
+
+	/**
+	 * Returns all operation results in this message envelope.
+	 * @return All operation results contained in the envelope.
+	 */
+	public ReadOnlyIterator<XdiInnerRoot> getOperationResults() {
+
+		return new DescendingIterator<Message, XdiInnerRoot> (this.getMessages()) {
+
+			@Override
+			public Iterator<XdiInnerRoot> descend(Message item) {
+
+				return item.getOperationResults();
 			}
 		};
 	}

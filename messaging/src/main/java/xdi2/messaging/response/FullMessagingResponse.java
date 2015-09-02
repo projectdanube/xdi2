@@ -6,7 +6,6 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.operations.Operation;
 
 /**
  * A message envelope as an XDI messaging response.
@@ -57,10 +56,7 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 
 		Graph resultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		for (Operation operation : messageEnvelope.getOperations()) {
-
-			XdiInnerRoot xdiInnerRoot = operation.getTargetXdiInnerRoot();
-			if (xdiInnerRoot == null) continue;
+		for (XdiInnerRoot xdiInnerRoot : messageEnvelope.getOperationResults()) {
 
 			CopyUtil.copyContextNodeContents(xdiInnerRoot.getContextNode(), resultGraph, null);
 		}

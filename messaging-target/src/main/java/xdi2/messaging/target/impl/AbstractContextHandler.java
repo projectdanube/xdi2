@@ -5,10 +5,13 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.operations.ConnectOperation;
 import xdi2.messaging.operations.DelOperation;
 import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.PushOperation;
+import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.target.ContextHandler;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -38,6 +41,14 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeDelOnAddress(targetXDIAddress, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
 			this.executeDoOnAddress(targetXDIAddress, (DoOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof ConnectOperation)
+			this.executeConnectOnAddress(targetXDIAddress, (ConnectOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof SendOperation)
+			this.executeSendOnAddress(targetXDIAddress, (SendOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof PushOperation)
+			this.executePushOnAddress(targetXDIAddress, (PushOperation) operation, operationResultGraph, executionContext);
+		else
+			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
 	public void executeGetOnAddress(XDIAddress targetXDIAddress, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -53,6 +64,18 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	}
 
 	public void executeDoOnAddress(XDIAddress targetXDIAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeConnectOnAddress(XDIAddress targetXDIAddress, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeSendOnAddress(XDIAddress targetXDIAddress, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executePushOnAddress(XDIAddress targetXDIAddress, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 
@@ -73,6 +96,12 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			this.executeDelOnStatement(targetStatement, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
 			this.executeDoOnStatement(targetStatement, (DoOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof ConnectOperation)
+			this.executeConnectOnStatement(targetStatement, (ConnectOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof SendOperation)
+			this.executeSendOnStatement(targetStatement, (SendOperation) operation, operationResultGraph, executionContext);
+		else if (operation instanceof PushOperation)
+			this.executePushOnStatement(targetStatement, (PushOperation) operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
@@ -125,6 +154,42 @@ public abstract class AbstractContextHandler implements ContextHandler {
 			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
 	}
 
+	public void executeConnectOnStatement(XDIStatement targetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeConnectOnContextNodeStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeConnectOnRelationStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeConnectOnLiteralStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
+	}
+
+	public void executeSendOnStatement(XDIStatement targetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executeSendOnContextNodeStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executeSendOnRelationStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executeSendOnLiteralStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
+	}
+
+	public void executePushOnStatement(XDIStatement targetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		if (targetStatement.isContextNodeStatement())
+			this.executePushOnContextNodeStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isRelationStatement())
+			this.executePushOnRelationStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else if (targetStatement.isLiteralStatement())
+			this.executePushOnLiteralStatement(targetStatement, operation, operationResultGraph, executionContext);
+		else
+			throw new Xdi2MessagingException("Invalid statement: " + targetStatement, null, executionContext);
+	}
+
 	/*
 	 * Operations on context node statements
 	 */
@@ -158,6 +223,18 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	}
 
+	public void executeConnectOnContextNodeStatement(XDIStatement targetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeSendOnContextNodeStatement(XDIStatement targetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executePushOnContextNodeStatement(XDIStatement targetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	/*
 	 * Operations on relation statements
 	 */
@@ -185,6 +262,18 @@ public abstract class AbstractContextHandler implements ContextHandler {
 
 	}
 
+	public void executeConnectOnRelationStatement(XDIStatement targetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeSendOnRelationStatement(XDIStatement targetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executePushOnRelationStatement(XDIStatement targetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
 	/*
 	 * Operations on literal statements
 	 */
@@ -209,6 +298,18 @@ public abstract class AbstractContextHandler implements ContextHandler {
 	}
 
 	public void executeDoOnLiteralStatement(XDIStatement targetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeConnectOnLiteralStatement(XDIStatement targetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executeSendOnLiteralStatement(XDIStatement targetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+	}
+
+	public void executePushOnLiteralStatement(XDIStatement targetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 	}
 }
