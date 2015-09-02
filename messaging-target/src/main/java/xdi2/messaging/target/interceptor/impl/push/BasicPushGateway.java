@@ -23,6 +23,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
+import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -109,14 +110,14 @@ public class BasicPushGateway implements PushGateway {
 
 					if (pushLinkContractOperationResultGraph.isEmpty()) {
 
-						pushMessage.createPushOperation(new MappingXDIStatementIterator(pushLinkConractOperation.getMessage().getContextNode().getAllStatements()));
+						pushMessage.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(pushLinkConractOperation.getMessage().getContextNode().getAllStatements())));
 					} else {
-						
-						pushMessage.createPushOperation(new MappingXDIStatementIterator(pushLinkContractOperationResultGraph.getAllStatements()));
+
+						pushMessage.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(pushLinkContractOperationResultGraph.getAllStatements())));
 					}
 				}
-				
-/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
+
+				/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
 				requestMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
 				requestMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 				requestMessage.setLinkContract(pushLinkContract);
