@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.bootstrap.XDIBootstrap;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
@@ -125,7 +126,8 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				if (target == null) throw new NullPointerException();
 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
-				variableValues.put(XDIArc.create("{$target}"), target);
+				//variableValues.put(XDIArc.create("{$target}"), target);	// TODO: should a push contract cover a specific target?
+				variableValues.put(XDIArc.create("{$target}"), XDIConstants.XDI_ADD_ROOT);
 
 				// instantiate push link contract
 
