@@ -96,9 +96,27 @@ public class BasicPushGateway implements PushGateway {
 
 				// message envelope construction step
 
-				MessageEnvelope messageEnvelope = xdiClientRoute.createMessageEnvelope();
+				MessageEnvelope pushMessageEnvelope = xdiClientRoute.createMessageEnvelope();
 
-				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
+				for (Operation pushLinkConractOperation : pushLinkContractOperations) {
+
+					Message pushMessage = xdiClientRoute.createMessage(pushMessageEnvelope, pushLinkContract.getAuthorizingAuthority());
+					pushMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+					pushMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+					pushMessage.setLinkContract(pushLinkContract);
+
+					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushLinkConractOperation);
+
+					if (pushLinkContractOperationResultGraph.isEmpty()) {
+
+						pushMessage.createPushOperation(new MappingXDIStatementIterator(pushLinkConractOperation.getMessage().getContextNode().getAllStatements()));
+					} else {
+						
+						pushMessage.createPushOperation(new MappingXDIStatementIterator(pushLinkContractOperationResultGraph.getAllStatements()));
+					}
+				}
+				
+/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
 				requestMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
 				requestMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 				requestMessage.setLinkContract(pushLinkContract);
@@ -123,11 +141,11 @@ public class BasicPushGateway implements PushGateway {
 					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushOperation);
 
 					if (pushLinkContractOperationResultGraph != null) responseMessage.createOperation(pushOperation.getOperationXDIAddress(), new MappingXDIStatementIterator(pushLinkContractOperationResultGraph.getAllStatements()));
-				}
+				}*/
 
 				// send the message envelope
 
-				xdiClient.send(messageEnvelope);
+				xdiClient.send(pushMessageEnvelope);
 
 				// close the client
 				// TODO: when do we close the client?
@@ -148,9 +166,9 @@ public class BasicPushGateway implements PushGateway {
 
 		if (exs.size() > 0) {
 
-			if (exs.size() == 1) throw new Xdi2ClientException("Push " + pushLinkContractXDIAddressMap + " failed: " + exs.get(0).getMessage(), exs.get(0));
+			if (exs.size() == 1) throw new Xdi2ClientException("Push " + pushLinkContractOperations + " failed: " + exs.get(0).getMessage(), exs.get(0));
 
-			throw new Xdi2ClientException("Multiple pushes " + pushLinkContractXDIAddressMap + " failed. First failed push is: " + exs.get(0), exs.get(0));
+			throw new Xdi2ClientException("Multiple pushes " + pushLinkContractOperations + " failed. First failed push is: " + exs.get(0), exs.get(0));
 		}
 	}
 
