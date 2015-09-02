@@ -974,7 +974,7 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public ReadOnlyIterator<XdiInnerRoot> getOperationResults() {
 
-		return new XdiInnerRoot.MappingRelationInnerRootIterator(this.getContextNode().getAllRelations());
+		return new XdiInnerRoot.MappingRelationInnerRootIterator(this.getContextNode().getRelations());
 	}
 
 	/**

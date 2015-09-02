@@ -244,7 +244,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 				Graph operationResultGraph = executionResult.getFinishedOperationResultGraph(operation);
 				if (operationResultGraph == null) continue;
 
-				responseMessage.createOperation(operation.getOperationXDIAddress(), operationResultGraph);
+				responseMessage.createOperationResult(operation.getOperationXDIAddress(), operationResultGraph);
 			}
 		}
 
