@@ -8,18 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.PushOperation;
+import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
@@ -157,6 +161,24 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 	private void processPush(Message pushMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Preparing to process push message " + pushMessage);
+
+		// TODO: how exactly is the $push message a response, and to what?
+
+		FullMessagingResponse pushMessagingResponse = FullMessagingResponse.fromMessageEnvelope(pushMessage.getMessageEnvelope());
+
+		// TODO: correctly store any push contracts we got? 
+		// TODO: use feedback message? or have member field private Graph targetGraph; ?
+		// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
+
+		if ((executionContext.getCurrentMessagingTarget() instanceof GraphMessagingTarget)) {
+
+			GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
+
+			for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
+
+				CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
+			}
+		}
 	}
 
 	/*
