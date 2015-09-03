@@ -866,6 +866,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new $send operation and adds it to this XDI message.
+	 * @param message The nested message of this operation.
+	 * @return The newly created $send operation.
+	 */
+	public SendOperation createNestedSendOperation(Message message) {
+
+		return this.createSendOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(message.getContextNode().getAllStatements())));
+	}
+
+	/**
 	 * Creates a new $push operation and adds it to this XDI message.
 	 * @param targetXDIAddress The target address to which the operation applies.
 	 * @return The newly created $push operation.
@@ -908,6 +918,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	public PushOperation createPushOperation(Graph targetGraph) {
 
 		return this.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(targetGraph.getAllStatements())));
+	}
+
+	/**
+	 * Creates a new $push operation and adds it to this XDI message.
+	 * @param message The nested message of this operation.
+	 * @return The newly created $push operation.
+	 */
+	public PushOperation createNestedPushOperation(Message message) {
+
+		return this.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(message.getContextNode().getAllStatements())));
 	}
 
 	/**

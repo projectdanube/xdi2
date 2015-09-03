@@ -15,6 +15,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -363,23 +364,23 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				skipMessagingTarget |= true;
 			}
 
-			// execute the address or statements in the operation
+			// execute the target address or statements in the operation
 
 			if (! skipMessagingTarget) {
 
-				XDIAddress targetAddress = operation.getTargetXDIAddress();
-				Iterator<XDIStatement> targetStatementAddresses = operation.getTargetXDIStatements();
+				XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
+				IterableIterator<XDIStatement> targetXDIStatements = operation.getTargetXDIStatements();
 
-				if (targetAddress != null) {
+				if (targetXDIAddress != null) {
 
-					this.execute(targetAddress, operation, operationResultGraph, executionContext);
-				} else if (targetStatementAddresses != null) {
+					this.execute(targetXDIAddress, operation, operationResultGraph, executionContext);
+				}
 
-					while (targetStatementAddresses.hasNext()) {
+				if (targetXDIStatements != null) {
 
-						XDIStatement targetStatementAddress = targetStatementAddresses.next();
+					for (XDIStatement targetXDIStatement : targetXDIStatements) {
 
-						this.execute(targetStatementAddress, operation, operationResultGraph, executionContext);
+						this.execute(targetXDIStatement, operation, operationResultGraph, executionContext);
 					}
 				}
 			}
@@ -413,26 +414,26 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	/**
 	 * Executes a target address.
-	 * @param targetAddress The target address.
+	 * @param targetXDIAddress The target address.
 	 * @param operation The XDI operation.
 	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIAddress targetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (targetAddress == null) throw new NullPointerException();
+		if (targetXDIAddress == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
 		if (operationResultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
-			executionContext.pushTargetAddress(targetAddress, "" + targetAddress);
+			executionContext.pushTargetAddress(targetXDIAddress, "" + targetXDIAddress);
 
 			// execute target interceptors (address)
 
-			if ((targetAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetAddress, operation, operationResultGraph, executionContext)) == null) {
+			if ((targetXDIAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetXDIAddress, operation, operationResultGraph, executionContext)) == null) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (address).");
 				return;
@@ -440,7 +441,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (address)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetAddress, operation, operationResultGraph, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsAddress(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetXDIAddress, operation, operationResultGraph, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -450,17 +451,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// get an address handler, and execute on the address
 
-			AddressHandler addressHandler = this.getAddressHandler(targetAddress);
+			AddressHandler addressHandler = this.getAddressHandler(targetXDIAddress);
 
 			if (addressHandler == null) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No address handler for target address " + targetAddress + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No address handler for target address " + targetXDIAddress + ".");
 				return;
 			}
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target address " + targetAddress + " (" + addressHandler.getClass().getName() + ").");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target address " + targetXDIAddress + " (" + addressHandler.getClass().getName() + ").");
 
-			addressHandler.executeOnAddress(targetAddress, operation, operationResultGraph, executionContext);
+			addressHandler.executeOnAddress(targetXDIAddress, operation, operationResultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it
@@ -480,26 +481,26 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 	/**
 	 * Executes a target statement.
-	 * @param targetStatement The target statement.
+	 * @param targetXDIStatement The target statement.
 	 * @param operation The XDI operation.
 	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
 	 */
-	public void execute(XDIStatement targetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public void execute(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (targetStatement == null) throw new NullPointerException();
+		if (targetXDIStatement == null) throw new NullPointerException();
 		if (operation == null) throw new NullPointerException();
 		if (operationResultGraph == null) throw new NullPointerException();
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
 
-			executionContext.pushTargetStatement(targetStatement, "" + targetStatement);
+			executionContext.pushTargetStatement(targetXDIStatement, "" + targetXDIStatement);
 
 			// execute target interceptors (statement)
 
-			if ((targetStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetStatement, operation, operationResultGraph, executionContext)) == null) {
+			if ((targetXDIStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetXDIStatement, operation, operationResultGraph, executionContext)) == null) {
 
 				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (statement).");
 				return;
@@ -507,7 +508,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// execute contributors (statement)
 
-			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetStatement, operation, operationResultGraph, executionContext);
+			ContributorResult contributorResultAddress = ContributorExecutor.executeContributorsStatement(this.getContributors(), new XDIAddress[0], XDIConstants.XDI_ADD_ROOT, targetXDIStatement, operation, operationResultGraph, executionContext);
 
 			if (contributorResultAddress.isSkipMessagingTarget()) {
 
@@ -517,17 +518,17 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			// get a statement handler, and execute on the statement
 
-			StatementHandler statementHandler = this.getStatementHandler(targetStatement);
+			StatementHandler statementHandler = this.getStatementHandler(targetXDIStatement);
 
 			if (statementHandler == null) {
 
-				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No statement handler for target statement " + targetStatement + ".");
+				if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": No statement handler for target statement " + targetXDIStatement + ".");
 				return;
 			}
 
-			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target statement " + targetStatement + " (" + statementHandler.getClass().getName() + ").");
+			if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Executing " + operation.getOperationXDIAddress() + " on target statement " + targetXDIStatement + " (" + statementHandler.getClass().getName() + ").");
 
-			statementHandler.executeOnStatement(targetStatement, operation, operationResultGraph, executionContext);
+			statementHandler.executeOnStatement(targetXDIStatement, operation, operationResultGraph, executionContext);
 		} catch (Exception ex) {
 
 			// process exception and re-throw it

@@ -37,20 +37,20 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor executes push link contracts while a message is executed.
  */
-public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushLinkContractInterceptor> {
+public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushOutInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(PushLinkContractInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(PushOutInterceptor.class);
 
 	private Graph pushLinkContractsGraph;
 	private PushGateway pushGateway;
 
-	public PushLinkContractInterceptor(Graph pushLinkContractsGraph, PushGateway pushGateway) {
+	public PushOutInterceptor(Graph pushLinkContractsGraph, PushGateway pushGateway) {
 
 		this.pushLinkContractsGraph = pushLinkContractsGraph;
 		this.pushGateway = pushGateway;
 	}
 
-	public PushLinkContractInterceptor() {
+	public PushOutInterceptor() {
 
 		this.pushLinkContractsGraph = null;
 		this.pushGateway = new BasicPushGateway();
@@ -61,11 +61,11 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	 */
 
 	@Override
-	public PushLinkContractInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public PushOutInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// create new interceptor
 
-		PushLinkContractInterceptor interceptor = new PushLinkContractInterceptor();
+		PushOutInterceptor interceptor = new PushOutInterceptor();
 
 		// set the graph
 
@@ -310,7 +310,7 @@ public class PushLinkContractInterceptor extends AbstractInterceptor<MessagingTa
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE = PushLinkContractInterceptor.class.getCanonicalName() + "#writeoperationspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE = PushOutInterceptor.class.getCanonicalName() + "#writeoperationspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
 	private static List<Operation> getWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {

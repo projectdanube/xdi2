@@ -44,7 +44,7 @@ import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.BasicPushGateway;
 import xdi2.messaging.target.interceptor.impl.push.PushGateway;
-import xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor;
+import xdi2.messaging.target.interceptor.impl.push.PushOutInterceptor;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -345,8 +345,8 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 				PushGateway pushCommandExecutor = new BasicPushGateway(xdiAgent, null);
 
-				PushLinkContractInterceptor pushCommandInterceptor1 = new PushLinkContractInterceptor();
-				PushLinkContractInterceptor pushCommandInterceptor2 = new PushLinkContractInterceptor();
+				PushOutInterceptor pushCommandInterceptor1 = new PushOutInterceptor();
+				PushOutInterceptor pushCommandInterceptor2 = new PushOutInterceptor();
 				pushCommandInterceptor1.setPushLinkContractsGraph(graphInput1);
 				pushCommandInterceptor2.setPushLinkContractsGraph(graphInput2);
 				pushCommandInterceptor1.setPushGateway(pushCommandExecutor);

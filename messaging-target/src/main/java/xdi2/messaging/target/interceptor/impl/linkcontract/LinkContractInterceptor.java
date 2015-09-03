@@ -22,9 +22,11 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.operations.ConnectOperation;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.PushOperation;
 import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.target.MessagingTarget;
@@ -40,6 +42,7 @@ import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor;
+import xdi2.messaging.target.interceptor.impl.push.PushInInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor.PushResult;
 import xdi2.messaging.target.interceptor.impl.send.SendInterceptor;
@@ -160,6 +163,10 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		return InterceptorResult.DEFAULT;
 	}
 
+	/*
+	 * OperationInterceptor
+	 */
+
 	@Override
 	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -171,7 +178,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		Boolean pushFlag = getPushFlag(executionContext);
 		if (pushFlag == null) throw new Xdi2MessagingException("No push flag.", null, executionContext);
 
-		// check permission on {$do} operation
+		// check permission on $connect operation
 
 		if (isConnect(operation)) {
 
@@ -242,6 +249,78 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 				// handle result
 
 				handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
+			}
+		}
+
+		// check permission on $push operation
+
+		if (isPush(operation)) {
+
+			// TODO: how exactly are incoming $push operations authorized?
+
+			// look at messages for PushInInterceptor
+
+			AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
+
+			PushInInterceptor pushInInterceptor = messagingTarget.getInterceptors().getInterceptor(PushInInterceptor.class);
+			if (pushInInterceptor == null) return InterceptorResult.DEFAULT;
+
+			List<Message> pushMessages = pushInInterceptor.getPushMessages(operation, executionContext);
+
+			for (Message pushMessage : pushMessages) {
+
+				for (Operation pushOperation : pushMessage.getOperations()) {
+
+					XDIAddress targetXDIAddress = pushOperation.getTargetXDIAddress();
+					IterableIterator<XDIStatement> targetXDIStatements = pushOperation.getTargetXDIStatements();
+
+					// check permission on target address
+
+					if (targetXDIAddress != null) {
+
+						Boolean authorized = null;
+
+						if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
+
+							authorized = Boolean.TRUE;
+							if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
+						} else {
+
+							authorized = Boolean.FALSE;
+							if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
+						}
+
+						// handle result
+
+						handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
+					}
+
+					// check permissions on target statements
+
+					if (targetXDIStatements != null) {
+
+						for (XDIStatement targetXDIStatement : targetXDIStatements) {
+
+							targetXDIAddress = targetXDIAddressForTargetXDIStatement(targetXDIStatement);
+
+							Boolean authorized = null;
+
+							if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
+
+								authorized = Boolean.TRUE;
+								if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
+							} else {
+
+								authorized = Boolean.FALSE;
+								if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
+							}
+
+							// handle result
+
+							handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
+						}
+					}
+				}
 			}
 		}
 
@@ -325,17 +404,11 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		Boolean pushFlag = getPushFlag(executionContext);
 		if (pushFlag == null) throw new Xdi2MessagingException("No push flag.", null, executionContext);
 
-		// check permission on target statement
+		// determine target address
 
-		XDIAddress targetXDIAddress;
+		XDIAddress targetXDIAddress = targetXDIAddressForTargetXDIStatement(targetXDIStatement);
 
-		if (targetXDIStatement.isContextNodeStatement()) {
-
-			targetXDIAddress = targetXDIStatement.getTargetXDIAddress();
-		} else {
-
-			targetXDIAddress = targetXDIStatement.getContextNodeXDIAddress();
-		}
+		// check permission on target address
 
 		Boolean authorized = null;
 
@@ -428,6 +501,17 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		return policyRoot.evaluate(policyEvaluationContext);
 	}
 
+	private static XDIAddress targetXDIAddressForTargetXDIStatement(XDIStatement targetXDIStatement) {
+
+		if (targetXDIStatement.isContextNodeStatement()) {
+
+			return targetXDIStatement.getTargetXDIAddress();
+		} else {
+
+			return targetXDIStatement.getContextNodeXDIAddress();
+		}
+	}
+
 	private static void handleEvaluationResult(Boolean authorized, Boolean pushRequired, XDIAddress targetXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
 
 		// authorized?
@@ -472,6 +556,11 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static boolean isSend(Operation operation) {
 
 		return operation instanceof SendOperation;
+	}
+
+	private static boolean isPush(Operation operation) {
+
+		return operation instanceof PushOperation;
 	}
 
 	private static boolean isSetOnDoAddress(XDIAddress targetAddress, Operation operation) {

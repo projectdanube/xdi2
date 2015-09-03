@@ -22,8 +22,6 @@ import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.iterators.MappingXDIStatementIterator;
-import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -99,22 +97,17 @@ public class BasicPushGateway implements PushGateway {
 
 				MessageEnvelope pushMessageEnvelope = xdiClientRoute.createMessageEnvelope();
 
-				for (Operation pushLinkConractOperation : pushLinkContractOperations) {
+				for (Operation pushLinkContractOperation : pushLinkContractOperations) {
 
 					Message pushMessage = xdiClientRoute.createMessage(pushMessageEnvelope, pushLinkContract.getAuthorizingAuthority());
 					pushMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
 					pushMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 					pushMessage.setLinkContract(pushLinkContract);
 
-					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushLinkConractOperation);
+					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushLinkContractOperation);
 
-					if (pushLinkContractOperationResultGraph.isEmpty()) {
-
-						pushMessage.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(pushLinkConractOperation.getMessage().getContextNode().getAllStatements())));
-					} else {
-
-						pushMessage.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(pushLinkContractOperationResultGraph.getAllStatements())));
-					}
+					pushMessage.createNestedPushOperation(pushLinkContractOperation.getMessage());
+					pushMessage.createOperationResult(pushLinkContractOperation.getOperationXDIAddress(), pushLinkContractOperationResultGraph);
 				}
 
 				/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());

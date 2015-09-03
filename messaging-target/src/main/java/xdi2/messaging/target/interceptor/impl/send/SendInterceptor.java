@@ -73,17 +73,17 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 	@Override
 	public SendInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new contributor
+		// create new interceptor
 
-		SendInterceptor contributor = new SendInterceptor();
+		SendInterceptor interceptor = new SendInterceptor();
 
 		// set the agent
 
-		contributor.setXdiAgent(this.getXdiAgent());
+		interceptor.setXdiAgent(this.getXdiAgent());
 
 		// done
 
-		return contributor;
+		return interceptor;
 	}
 
 	/*
@@ -105,7 +105,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		for (Message forwardingMessage : forwardingMessages) {
 
-			this.send(forwardingMessage, operation, operationResultGraph, executionContext);
+			this.processSend(forwardingMessage, operation, operationResultGraph, executionContext);
 		}
 
 		// done
@@ -205,7 +205,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		return new IteratorListMaker<Message> (MessageEnvelope.fromGraph(innerGraph).getMessages()).list();
 	}
 
-	private void send(Message forwardingMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void processSend(Message forwardingMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Preparing to send forwarding message " + forwardingMessage);
 

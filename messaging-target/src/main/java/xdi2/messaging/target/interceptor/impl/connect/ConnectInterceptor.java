@@ -40,7 +40,7 @@ import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
- * This interceptor can process {$do} operations.
+ * This interceptor can process $connect operations.
  */
 public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, OperationInterceptor, Prototype<ConnectInterceptor> {
 
@@ -67,23 +67,23 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 */
 
 	@Override
-	public ConnectInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public ConnectInterceptor instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new contributor
+		// create new interceptor
 
-		ConnectInterceptor contributor = new ConnectInterceptor();
+		ConnectInterceptor interceptor = new ConnectInterceptor();
 
 		// set the graph
 
-		contributor.setTargetGraph(this.getTargetGraph());
+		interceptor.setTargetGraph(this.getTargetGraph());
 
 		// set the agent
 
-		contributor.setXdiAgent(this.getXdiAgent());
+		interceptor.setXdiAgent(this.getXdiAgent());
 
 		// done
 
-		return contributor;
+		return interceptor;
 	}
 
 	/*
@@ -115,7 +115,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		for (LinkContractTemplate linkContractTemplate : linkContractTemplates) {
 
-			this.connect(linkContractTemplate, operation, operationResultGraph, executionContext);
+			this.processConnect(linkContractTemplate, operation, operationResultGraph, executionContext);
 		}
 
 		// done
@@ -202,7 +202,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		return new IteratorListMaker<LinkContractTemplate> (LinkContractTemplates.getAllLinkContractTemplates(innerGraph)).list();
 	}
 
-	private void connect(LinkContractTemplate linkContractTemplate, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void processConnect(LinkContractTemplate linkContractTemplate, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Preparing to instantiate link contract template " + linkContractTemplate);
 

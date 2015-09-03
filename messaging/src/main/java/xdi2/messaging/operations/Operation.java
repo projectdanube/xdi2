@@ -3,7 +3,6 @@ package xdi2.messaging.operations;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -24,6 +23,7 @@ import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
@@ -195,7 +195,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 * Returns the target statements of the operation.
 	 * @return The target statements of the operation.
 	 */
-	public Iterator<XDIStatement> getTargetXDIStatements() {
+	public IterableIterator<XDIStatement> getTargetXDIStatements() {
 
 		XdiInnerRoot targetInnerRoot = this.getTargetXdiInnerRoot();
 
