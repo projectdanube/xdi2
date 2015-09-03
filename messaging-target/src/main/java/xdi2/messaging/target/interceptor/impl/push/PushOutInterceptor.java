@@ -3,7 +3,6 @@ package xdi2.messaging.target.interceptor.impl.push;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +21,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -111,7 +111,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		for (Operation writeOperation : writeOperations) {
 
 			XDIAddress targetXDIAddress = writeOperation.getTargetXDIAddress();
-			Iterator<XDIStatement> targetXDIStatements = writeOperation.getTargetXDIStatements();
+			IterableIterator<XDIStatement> targetXDIStatements = writeOperation.getTargetXDIStatements();
 
 			// look for push link contracts for the operation's target address
 
@@ -135,11 +135,11 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			if (targetXDIStatements != null) {
 
-				while (targetXDIStatements.hasNext()) {
+				for (XDIStatement targetXDIStatement : targetXDIStatements) {
 
-					XDIStatement targetXDIStatement = targetXDIStatements.next();
+					targetXDIAddress = targetXDIAddressForTargetXDIStatement(targetXDIStatement);
 
-					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIStatement);
+					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
 					for (GenericLinkContract pushLinkContract : pushLinkContracts) {
@@ -262,6 +262,17 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 * Helper methods
 	 */
 
+	private static XDIAddress targetXDIAddressForTargetXDIStatement(XDIStatement targetXDIStatement) {
+
+		if (targetXDIStatement.isContextNodeStatement()) {
+
+			return targetXDIStatement.getTargetXDIAddress();
+		} else {
+
+			return targetXDIStatement.getContextNodeXDIAddress();
+		}
+	}
+
 	private static List<GenericLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIAddress XDIaddress) {
 
 		List<GenericLinkContract> pushLinkContracts = new ArrayList<GenericLinkContract> ();
@@ -299,11 +310,6 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		}
 
 		return pushLinkContracts;
-	}
-
-	private static List<GenericLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIStatement XDIstatement) {
-
-		return findPushLinkContracts(pushLinkContractsGraph, XDIstatement.getContextNodeXDIAddress());
 	}
 
 	/*

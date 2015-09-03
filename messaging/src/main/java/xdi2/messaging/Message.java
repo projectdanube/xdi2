@@ -28,9 +28,11 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.timestamps.Timestamps;
+import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
@@ -872,7 +874,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public SendOperation createNestedSendOperation(Message message) {
 
-		return this.createSendOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(message.getContextNode().getAllStatements())));
+		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);
+
+		return this.createSendOperation(tempGraph);
 	}
 
 	/**
@@ -927,7 +932,10 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PushOperation createNestedPushOperation(Message message) {
 
-		return this.createPushOperation(new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(message.getContextNode().getAllStatements())));
+		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);
+
+		return this.createPushOperation(tempGraph);
 	}
 
 	/**

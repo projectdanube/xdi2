@@ -260,6 +260,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 			// TODO: correctly store any push contracts we got? 
 			// TODO: use feedback message? or have member field private Graph targetGraph; ?
+			// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
 
 			if ((executionContext.getCurrentMessagingTarget() instanceof GraphMessagingTarget)) {
 
@@ -273,7 +274,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 			// TODO: what if we get a FutureMessagingResponse from an XDIWebSocketClient?
 
-			CopyUtil.copyGraph(forwardingMessagingResponse.getResultGraph(), operationResultGraph, null);
+			CopyUtil.copyGraph(forwardingMessagingResponse.getGraph(), operationResultGraph, null);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2MessagingException("Problem while sending forwarding message " + forwardingMessage + " to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);

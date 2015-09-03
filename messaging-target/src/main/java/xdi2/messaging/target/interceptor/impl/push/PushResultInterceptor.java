@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.bootstrap.XDIBootstrap;
-import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
@@ -119,15 +118,14 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// determine variable values
 
-				XDIAddress target = null;
-				if (target == null && pushResult.getXDIAddress() != null) target = pushResult.getXDIAddress();
-				if (target == null && pushResult.getXDIStatement() != null) target = pushResult.getXDIStatement().getContextNodeXDIAddress();
+				XDIAddress targetVariableValue = null;
+				if (targetVariableValue == null && pushResult.getXDIAddress() != null) targetVariableValue = pushResult.getXDIAddress();
+				if (targetVariableValue == null && pushResult.getXDIStatement() != null) targetVariableValue = targetXDIAddressForTargetXDIStatement(pushResult.getXDIStatement());
 
-				if (target == null) throw new NullPointerException();
+				if (targetVariableValue == null) throw new NullPointerException();
 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
-				//variableValues.put(XDIArc.create("{$target}"), target);	// TODO: should a push contract cover a specific target?
-				variableValues.put(XDIArc.create("{$target}"), XDIConstants.XDI_ADD_ROOT);
+				variableValues.put(XDIArc.create("{$target}"), targetVariableValue);
 
 				// instantiate push link contract
 
@@ -182,6 +180,21 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	public void setTargetGraph(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
+	}
+	
+	/*
+	 * Helper methods
+	 */
+
+	private static XDIAddress targetXDIAddressForTargetXDIStatement(XDIStatement targetXDIStatement) {
+
+		if (targetXDIStatement.isContextNodeStatement()) {
+
+			return targetXDIStatement.getTargetXDIAddress();
+		} else {
+
+			return targetXDIStatement.getContextNodeXDIAddress();
+		}
 	}
 
 	/*
