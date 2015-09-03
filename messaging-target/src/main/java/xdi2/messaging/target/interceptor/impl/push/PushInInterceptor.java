@@ -89,15 +89,15 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		if (! (operation instanceof PushOperation)) return InterceptorResult.DEFAULT;
 
-		// get forwarding message(s)
+		// get pushed message(s)
 
-		List<Message> pushMessages = this.getPushMessages(operation, executionContext);
+		List<Message> pushedMessages = this.getPushedMessages(operation, executionContext);
 
 		// send
 
-		for (Message pushMessage : pushMessages) {
+		for (Message pushedMessage : pushedMessages) {
 
-			this.processPush(pushMessage, operation, operationResultGraph, executionContext);
+			this.processPush(pushedMessage, operation, operationResultGraph, executionContext);
 		}
 
 		// done
@@ -117,54 +117,54 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 	 * Helper methods
 	 */
 
-	public List<Message> getPushMessages(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public List<Message> getPushedMessages(Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		List<Message> pushMessages = PushInInterceptor.getPushMessages(executionContext);
-		if (pushMessages != null) return pushMessages;
+		List<Message> pushedMessages = PushInInterceptor.getPushedMessages(executionContext);
+		if (pushedMessages != null) return pushedMessages;
 
-		if (pushMessages == null && operation.getTargetXDIAddress() != null) pushMessages = this.pushMessageFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext);
-		if (pushMessages == null && operation.getTargetXdiInnerRoot() != null) pushMessages = this.pushMessagesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext);
-		if (pushMessages == null) throw new Xdi2MessagingException("No push messages(s) in operation " + operation, null, executionContext);
+		if (pushedMessages == null && operation.getTargetXDIAddress() != null) pushedMessages = this.pushedMessageFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext);
+		if (pushedMessages == null && operation.getTargetXdiInnerRoot() != null) pushedMessages = this.pushedMessagesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext);
+		if (pushedMessages == null) throw new Xdi2MessagingException("No pushed messages(s) in operation " + operation, null, executionContext);
 
-		PushInInterceptor.putPushMessages(executionContext, pushMessages);
+		PushInInterceptor.putPushedMessages(executionContext, pushedMessages);
 
-		return pushMessages;
+		return pushedMessages;
 	}
 
-	private List<Message> pushMessageFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private List<Message> pushedMessageFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// TODO: can't obtain push message from target address
+		// TODO: can't obtain pushed message from target address
 
 		return Collections.emptyList();
 	}
 
-	private List<Message> pushMessagesFromTargetXdiInnerRoot(XdiInnerRoot targetXdiInnerRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private List<Message> pushedMessagesFromTargetXdiInnerRoot(XdiInnerRoot targetXdiInnerRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// get the inner graph
 
 		Graph innerGraph = targetXdiInnerRoot.getInnerGraph();
 
-		// clone push messages without new ID
+		// clone pushed messages without new ID
 
-		List<Message> pushMessages = new ArrayList<Message> ();
+		List<Message> pushedMessages = new ArrayList<Message> ();
 
 		for (Message message : MessageEnvelope.fromGraph(innerGraph).getMessages()) {
 
-			pushMessages.add(MessagingCloneUtil.cloneMessage(message, true));
+			pushedMessages.add(MessagingCloneUtil.cloneMessage(message, false));
 		}
 
-		// return forwarding messages
+		// return pushed messages
 
 		return new IteratorListMaker<Message> (MessageEnvelope.fromGraph(innerGraph).getMessages()).list();
 	}
 
-	private void processPush(Message pushMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void processPush(Message pushedMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Preparing to process push message " + pushMessage);
+		if (log.isDebugEnabled()) log.debug("Preparing to process pushed message " + pushedMessage);
 
 		// TODO: how exactly is the $push message a response, and to what?
 
-		FullMessagingResponse pushMessagingResponse = FullMessagingResponse.fromMessageEnvelope(pushMessage.getMessageEnvelope());
+		FullMessagingResponse pushMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessageEnvelope());
 
 		// TODO: correctly store any push contracts we got? 
 		// TODO: use feedback message? or have member field private Graph targetGraph; ?
@@ -199,16 +199,16 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_PUSHMESSAGES_PER_OPERATION = PushInInterceptor.class.getCanonicalName() + "#pushmessagesperoperation";
+	private static final String EXECUTIONCONTEXT_KEY_PUSHEDMESSAGES_PER_OPERATION = PushInInterceptor.class.getCanonicalName() + "#pushedmessagesperoperation";
 
 	@SuppressWarnings("unchecked")
-	public static List<Message> getPushMessages(ExecutionContext executionContext) {
+	public static List<Message> getPushedMessages(ExecutionContext executionContext) {
 
-		return (List<Message>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_PUSHMESSAGES_PER_OPERATION);
+		return (List<Message>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_PUSHEDMESSAGES_PER_OPERATION);
 	}
 
-	public static void putPushMessages(ExecutionContext executionContext, List<Message> pushMessages) {
+	public static void putPushedMessages(ExecutionContext executionContext, List<Message> pushedMessages) {
 
-		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_PUSHMESSAGES_PER_OPERATION, pushMessages);
+		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_PUSHEDMESSAGES_PER_OPERATION, pushedMessages);
 	}
 }

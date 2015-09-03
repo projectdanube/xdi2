@@ -265,14 +265,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			PushInInterceptor pushInInterceptor = messagingTarget.getInterceptors().getInterceptor(PushInInterceptor.class);
 			if (pushInInterceptor == null) return InterceptorResult.DEFAULT;
 
-			List<Message> pushMessages = pushInInterceptor.getPushMessages(operation, executionContext);
+			List<Message> pushedMessages = pushInInterceptor.getPushedMessages(operation, executionContext);
 
-			for (Message pushMessage : pushMessages) {
+			for (Message pushedMessage : pushedMessages) {
 
-				for (Operation pushOperation : pushMessage.getOperations()) {
+				for (Operation pushedOperation : pushedMessage.getOperations()) {
 
-					XDIAddress targetXDIAddress = pushOperation.getTargetXDIAddress();
-					IterableIterator<XDIStatement> targetXDIStatements = pushOperation.getTargetXDIStatements();
+					XDIAddress targetXDIAddress = pushedOperation.getTargetXDIAddress();
+					IterableIterator<XDIStatement> targetXDIStatements = pushedOperation.getTargetXDIStatements();
 
 					// check permission on target address
 
