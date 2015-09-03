@@ -168,28 +168,28 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		for (GenericLinkContract pushLinkContract : pushLinkContracts) {
 
-			Map<Operation, XDIAddress> pushLinkContractXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
-			Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
+			Map<Operation, XDIAddress> pushedXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
+			Map<Operation, List<XDIStatement>> pushedXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
 
-			Set<Operation> pushLinkContractOperations = new HashSet<Operation> ();
-			if (pushLinkContractXDIAddressMap != null) pushLinkContractOperations.addAll(pushLinkContractXDIAddressMap.keySet());
-			if (pushLinkContractXDIStatementMap != null) pushLinkContractOperations.addAll(pushLinkContractXDIStatementMap.keySet());
+			Set<Operation> pushedOperations = new HashSet<Operation> ();
+			if (pushedXDIAddressMap != null) pushedOperations.addAll(pushedXDIAddressMap.keySet());
+			if (pushedXDIStatementMap != null) pushedOperations.addAll(pushedXDIStatementMap.keySet());
 
-			Map<Operation, Graph> pushLinkContractOperationResultGraphs = new HashMap<Operation, Graph> ();
+			Map<Operation, Graph> pushedOperationResultGraphs = new HashMap<Operation, Graph> ();
 
-			for (Operation pushLinkContractOperation : pushLinkContractOperations) {
+			for (Operation pushLinkContractOperation : pushedOperations) {
 
 				// TODO maybe dont push the ENTIRE operation result graph for all operations that trigger push contract?
 
 				Graph pushLinkContractOperationResultGraph = executionResult.getOperationResultGraphs().get(pushLinkContractOperation);
-				pushLinkContractOperationResultGraphs.put(pushLinkContractOperation, pushLinkContractOperationResultGraph);
+				pushedOperationResultGraphs.put(pushLinkContractOperation, pushLinkContractOperationResultGraph);
 			}
 
 			try {
 
 				if (log.isDebugEnabled()) log.debug("Executing push link contract " + pushLinkContract);
 
-				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushLinkContractOperations, pushLinkContractOperationResultGraphs, pushLinkContractXDIAddressMap, pushLinkContractXDIStatementMap);
+				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushedOperations, pushedOperationResultGraphs, pushedXDIAddressMap, pushedXDIStatementMap);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);

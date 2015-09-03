@@ -14,5 +14,5 @@ import xdi2.messaging.target.MessagingTarget;
 
 public interface PushGateway {
 
-	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, Graph> pushLinkContractOperationResultGraphs, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2ClientException;
+	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushedOperations, Map<Operation, Graph> pushedOperationResultGraphs, Map<Operation, XDIAddress> pushedXDIAddressMap, Map<Operation, List<XDIStatement>> pushedXDIStatementMap) throws Xdi2ClientException;
 }

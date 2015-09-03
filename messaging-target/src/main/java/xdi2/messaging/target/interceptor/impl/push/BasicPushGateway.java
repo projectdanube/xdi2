@@ -47,7 +47,7 @@ public class BasicPushGateway implements PushGateway {
 	}
 
 	@Override
-	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushLinkContractOperations, Map<Operation, Graph> pushLinkContractOperationResultGraphs, Map<Operation, XDIAddress> pushLinkContractXDIAddressMap, Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
+	public void executePush(MessagingTarget messagingTarget, GenericLinkContract pushLinkContract, Set<Operation> pushedOperations, Map<Operation, Graph> pushedOperationResultGraphs, Map<Operation, XDIAddress> pushedXDIAddressMap, Map<Operation, List<XDIStatement>> pushedXDIStatementMap) throws Xdi2AgentException, Xdi2ClientException {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
@@ -97,17 +97,30 @@ public class BasicPushGateway implements PushGateway {
 
 				MessageEnvelope pushMessageEnvelope = xdiClientRoute.createMessageEnvelope();
 
-				for (Operation pushLinkContractOperation : pushLinkContractOperations) {
+				for (Operation pushedOperation : pushedOperations) {
 
 					Message pushMessage = xdiClientRoute.createMessage(pushMessageEnvelope, pushLinkContract.getAuthorizingAuthority());
 					pushMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
 					pushMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 					pushMessage.setLinkContract(pushLinkContract);
 
-					Graph pushLinkContractOperationResultGraph = pushLinkContractOperationResultGraphs.get(pushLinkContractOperation);
+					if (pushLinkContract.getMessageXDIAddress() != null) {
 
-					pushMessage.createNestedPushOperation(pushLinkContractOperation.getMessage());
-					pushMessage.createOperationResult(pushLinkContractOperation.getOperationXDIAddress(), pushLinkContractOperationResultGraph);
+						pushMessage.setCorrelationXDIAddress(pushLinkContract.getMessageXDIAddress());
+					}
+
+					Graph pushedOperationResultGraph = pushedOperationResultGraphs.get(pushedOperation);
+
+					// the $push message contains the nested pushed operation
+
+					pushMessage.createNestedPushOperation(pushedOperation.getMessage());
+
+					// and the result graph of that pushed operation
+
+					if (! pushedOperationResultGraph.isEmpty()) {
+
+						pushMessage.createOperationResult(pushedOperation.getOperationXDIAddress(), pushedOperationResultGraph);
+					}
 				}
 
 				/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
@@ -160,9 +173,9 @@ public class BasicPushGateway implements PushGateway {
 
 		if (exs.size() > 0) {
 
-			if (exs.size() == 1) throw new Xdi2ClientException("Push " + pushLinkContractOperations + " failed: " + exs.get(0).getMessage(), exs.get(0));
+			if (exs.size() == 1) throw new Xdi2ClientException("Push " + pushedOperations + " failed: " + exs.get(0).getMessage(), exs.get(0));
 
-			throw new Xdi2ClientException("Multiple pushes " + pushLinkContractOperations + " failed. First failed push is: " + exs.get(0), exs.get(0));
+			throw new Xdi2ClientException("Multiple pushes " + pushedOperations + " failed. First failed push is: " + exs.get(0), exs.get(0));
 		}
 	}
 
