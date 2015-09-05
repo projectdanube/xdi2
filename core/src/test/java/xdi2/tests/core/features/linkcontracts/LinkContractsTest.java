@@ -133,12 +133,12 @@ public class LinkContractsTest extends TestCase {
 
 		ConnectLinkContract l = ConnectLinkContract.findConnectLinkContract(graph, true);
 		assertNotNull(l);
-		assertEquals(l.getXdiEntity().getXDIAddress(), XDIAddress.create("(=markus/{$do})$do"));
+		assertEquals(l.getXdiEntity().getXDIAddress(), XDIAddress.create("(=markus/$connect)$do"));
 
 		assertNotNull(ConnectLinkContract.findConnectLinkContract(graph, false));
 		assertTrue(LinkContract.fromXdiEntity(l.getXdiEntity()) instanceof ConnectLinkContract);
 
-		assertEquals(l.getRequestingAuthority(), XDILinkContractConstants.XDI_ARC_V_DO);
+		assertEquals(l.getRequestingAuthority(), XDILinkContractConstants.XDI_ADD_CONNECT);
 		assertEquals(l.getAuthorizingAuthority(), XDIAddress.create("=markus"));
 		assertNull(l.getTemplateAuthorityAndId());
 

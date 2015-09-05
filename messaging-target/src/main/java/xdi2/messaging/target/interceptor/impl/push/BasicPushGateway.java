@@ -117,10 +117,7 @@ public class BasicPushGateway implements PushGateway {
 
 					// and the result graph of that pushed operation
 
-					if (! pushedOperationResultGraph.isEmpty()) {
-
-						pushMessage.createOperationResult(pushedOperation.getOperationXDIAddress(), pushedOperationResultGraph);
-					}
+					pushMessage.createOperationResult(pushedOperation.getOperationXDIAddress(), pushedOperationResultGraph);
 				}
 
 				/*				Message requestMessage = xdiClientRoute.createMessage(messageEnvelope, pushLinkContract.getAuthorizingAuthority());
