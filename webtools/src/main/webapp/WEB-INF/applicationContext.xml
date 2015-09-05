@@ -113,13 +113,6 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
-					<property name="pushGateway">
-						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
-							<property name="xdiAgent" ref="XdiAgent" />
-						</bean>
-					</property>
-				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
 					<property name="signatureCreator">
 						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
@@ -151,6 +144,14 @@
 								</property>
 							</bean>
 						</util:list>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushInInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushOutInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
+							<property name="xdiAgent" ref="XdiAgent" />
+						</bean>
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
@@ -245,13 +246,6 @@
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushLinkContractInterceptor">
-					<property name="pushGateway">
-						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
-							<property name="xdiAgent" ref="XdiAgent" />
-						</bean>
-					</property>
-				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
 					<property name="signatureCreator">
 						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
@@ -283,6 +277,14 @@
 								</property>
 							</bean>
 						</util:list>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushInInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.push.PushOutInterceptor">
+					<property name="pushGateway">
+						<bean class="xdi2.messaging.target.interceptor.impl.push.BasicPushGateway">
+							<property name="xdiAgent" ref="XdiAgent" />
+						</bean>
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
