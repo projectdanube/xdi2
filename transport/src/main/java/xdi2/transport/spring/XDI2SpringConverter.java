@@ -34,7 +34,8 @@ public class XDI2SpringConverter implements GenericConverter {
 			new StringXDIDiscoveryClientConverter(),
 			new ListInterceptorListConverter(),
 			new MapContributorMapConverter(),
-			new ListContributorMapConverter()
+			new ListContributorMapConverter(),
+			new ListManipulatorListConverter()
 	});
 
 	private static Map<ConvertiblePair, Converter<?, ?>> convertibleTypes;
