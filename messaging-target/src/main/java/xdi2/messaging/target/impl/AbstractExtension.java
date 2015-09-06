@@ -1,7 +1,7 @@
 package xdi2.messaging.target.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +23,18 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 	private int initPriority;
 	private int shutdownPriority;
 	private boolean disabled;
-	private Set<MessageEnvelope> disabledForMessageEnvelope;
-	private Set<Message> disabledForMessage;
-	private Set<Operation> disabledForOperation;
+	private List<MessageEnvelope> disabledForMessageEnvelope;	// TODO need list to make sure equals() is not used?
+	private List<Message> disabledForMessage;				// because ManipulatingInterceptor can change
+	private List<Operation> disabledForOperation;			// message envelopes and messages, and then the hashCode can't find it!!!! 
 
 	public AbstractExtension(int initPriority, int shutdownPriority) {
 
 		this.initPriority = initPriority;
 		this.shutdownPriority = shutdownPriority;
 		this.disabled = false;
-		this.disabledForMessageEnvelope = new HashSet<MessageEnvelope> ();
-		this.disabledForMessage = new HashSet<Message> ();
-		this.disabledForOperation = new HashSet<Operation> ();
+		this.disabledForMessageEnvelope = new ArrayList<MessageEnvelope> ();
+		this.disabledForMessage = new ArrayList<Message> ();
+		this.disabledForOperation = new ArrayList<Operation> ();
 	}
 
 	public AbstractExtension() {
