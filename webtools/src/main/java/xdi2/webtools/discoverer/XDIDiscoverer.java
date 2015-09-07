@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -54,7 +55,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 		sampleEndpoint = XDIDiscoveryClient.DEFAULT_XDI_CLIENT.getXdiEndpointUri().toString();
 
-		sampleServices = "<$https><$connect><$xdi>";
+		sampleServices = XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE.toString() + " " + XDIClientConstants.CONNECT_ENDPOINT_URI_TYPE.toString();
 	}
 
 	@Override
