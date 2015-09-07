@@ -251,7 +251,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public void setParameter(XDIAddress parameterXDIAddress, Object parameterValue) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, true);
 
 		parameterXdiAttribute.setLiteralData(parameterValue);
@@ -311,7 +311,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private LiteralNode getParameterLiteralNode(XDIAddress parameterXDIAddress) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
+		XdiEntitySingleton parameterXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (parameterXdiEntity == null) return null;
 
 		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, false);
@@ -325,7 +325,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	public Map<XDIArc, XDIAddress> getVariableValues() {
 
-		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (variableValuesXdiEntity == null) return Collections.emptyMap();
 
 		Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();

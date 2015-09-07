@@ -1,6 +1,8 @@
 release 0.8 ("Orșova")
 ========================
 
+* Operation parameters and variable values are now on the $do context instead of the message context.
+
 * AuthenticationSignatureInterceptor now takes a list of SignatureValidator objects.
 It is enough for one of them to be able to validate a signature.
 
