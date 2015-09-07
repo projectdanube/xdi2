@@ -11,9 +11,9 @@ import xdi2.core.syntax.XDIAddress;
 
 public class XDIBootstrap {
 
-	public static final XDIAddress ALL_LINK_CONTRACT_ADDRESS = XDIAddress.create("$all{$do}");
-	public static final XDIAddress GET_LINK_CONTRACT_ADDRESS = XDIAddress.create("$get{$do}");
-	public static final XDIAddress PUSH_LINK_CONTRACT_ADDRESS = XDIAddress.create("$push{$do}");
+	public static final XDIAddress ALL_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$all{$do}");
+	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$do}");
+	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$do}");
 
 	public static final Graph BOOTSTRAP_GRAPH;
 	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
@@ -51,9 +51,9 @@ public class XDIBootstrap {
 		try {
 
 			BOOTSTRAP_GRAPH = MemoryGraphFactory.getInstance().parseGraph(bootstrapGraphString, "XDI DISPLAY", null);
-			ALL_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(ALL_LINK_CONTRACT_ADDRESS)));
-			GET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(GET_LINK_CONTRACT_ADDRESS)));
-			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_ADDRESS)));
+			ALL_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(ALL_LINK_CONTRACT_TEMPLATE_ADDRESS)));
+			GET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(GET_LINK_CONTRACT_TEMPLATE_ADDRESS)));
+			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 		} catch (Xdi2ParseException | IOException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
