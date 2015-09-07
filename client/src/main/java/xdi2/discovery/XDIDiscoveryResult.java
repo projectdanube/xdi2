@@ -170,7 +170,7 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// init endpoint uris
 
-		this.initEndpointUris(authorityXdiEntity, endpointUriTypes);
+		this.initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
 	void initFromException(Xdi2ClientException ex) {

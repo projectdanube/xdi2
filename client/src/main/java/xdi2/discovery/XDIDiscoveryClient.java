@@ -298,7 +298,7 @@ public class XDIDiscoveryClient {
 
 				for (XDIAddress endpointUriType : endpointUriTypes) {
 
-					authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), endpointUriType, XDIClientConstants.XDI_ADD_AS_URI));
+					authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(XDIAddress.fromComponent(cloudNumber.getPeerRootXDIArc()), endpointUriType, XDIClientConstants.XDI_ADD_AS_URI));
 				}
 			}
 
