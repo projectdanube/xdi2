@@ -11,7 +11,7 @@ XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implemen
 
 Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
 
-### Components
+### Information
 
 * [xdi2-core](https://github.com/projectdanube/xdi2/wiki/xdi2-core) - Implementation of the XDI graph model and basic features [.jar]
 * [xdi2-rdf](https://github.com/projectdanube/xdi2/wiki/xdi2-rdf) - Implementation of the XDI/RDF compatibility layer [.jar]
@@ -46,9 +46,48 @@ Then go to:
 
     http://localhost:8080/
 
-### Maven and Gradle
+### How to use
 
-See https://bintray.com/projectdanube/maven/xdi2/view
+Maven repository for releases:
+
+	<repositories>
+		<repository>
+			<id>XDI2</id>
+			<name>XDI2-releases</name>
+			<url>https://artifactory.xdi2.org/xdi2-releases-local</url>
+		</repository>
+	</repositories>
+
+Maven repository for snapshots:
+
+	<repositories>
+		<repository>
+			<id>XDI2</id>
+			<name>XDI2-releases</name>
+			<url>https://artifactory.xdi2.org/xdi2-snapshot-local</url>
+		</repository>
+	</repositories>
+
+Maven dependencies:
+
+	<dependencies>
+		<dependency>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-client</artifactId>
+			<version>... version here ...</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+See also https://bintray.com/projectdanube/maven/xdi2/view
+
+### Plugins
+
+See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
+
+### Tests
+
+See [here](https://github.com/projectdanube/xdi2/wiki/Testing) for a description of unit tests.
 
 ### Community
 
@@ -67,11 +106,3 @@ Javadoc: http://projectdanube.github.io/xdi2/apidocs/
 * XDI Graph Editor by Neustar: https://github.com/neustar/xdi-grapheditor.git
 * REST Wrapper for XDI2 signature creation and validation: https://github.com/Meeco/rest-xdi
 * XDI authentication for spring-security: https://github.com/andre-pt/xdi-springsecurity
-
-### Plugins
-
-See [here](https://github.com/projectdanube/xdi2/wiki/XDI2-plugins) for information about XDI2 plugins.
-
-### Tests
-
-See [here](https://github.com/projectdanube/xdi2/wiki/Testing) for a description of unit tests.
