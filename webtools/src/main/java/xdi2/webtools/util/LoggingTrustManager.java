@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -68,9 +69,11 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 		try {
 
 			defaultX509TrustManager.checkClientTrusted(certs, authType);
+
+			this.printWriter.println("--- TLS: Client trusted: " + Arrays.asList(certSubjects(certs)));
 		} catch (Exception ex) {
 
-			this.printWriter.println("!!! TLS ERROR: " + ex.getMessage());
+			this.printWriter.println("!!! TLS ERROR: Client not trusted: " + ex.getMessage() + " (client " + authType + "): " + Arrays.asList(certSubjects(certs)));
 		}
 	}
 
@@ -80,9 +83,11 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 		try {
 
 			defaultX509TrustManager.checkServerTrusted(certs, authType);
+
+			this.printWriter.println("--- TLS: Server trusted: " + Arrays.asList(certSubjects(certs)));
 		} catch (Exception ex) {
 
-			this.printWriter.println("!!! TLS ERROR: " + ex.getMessage());
+			this.printWriter.println("!!! TLS ERROR: Server not trusted: " + ex.getMessage() + " (server " + authType + "): " + Arrays.asList(certSubjects(certs)));
 		}
 	}
 
@@ -92,9 +97,20 @@ public class LoggingTrustManager implements X509TrustManager, HostnameVerifier {
 		if (! defaultHostnameVerifier.verify(hostname, session)) {
 
 			this.printWriter.println("!!! TLS ERROR: Unable to verify: " + hostname);
+		} else {
+
+			this.printWriter.println("--- TLS: Verified: " + hostname);
 		}
 
 		return true;
+	}
+	
+	private static String[] certSubjects(X509Certificate[] certs) {
+		
+		String[] subjects = new String[certs.length];
+		for (int i=0; i<certs.length; i++) subjects[i] = certs[i].getSubjectX500Principal().getName();
+
+		return subjects;
 	}
 
 	public static void disable() {
