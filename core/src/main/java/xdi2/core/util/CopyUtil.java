@@ -22,6 +22,7 @@ import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
+import xdi2.core.impl.DummyLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 
@@ -457,7 +458,44 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * A strategy that replaces certain XDI identifiers.
+	 * A strategy that replaces literal strings.
+	 */
+	public static class ReplaceRegexLiteralStringCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+
+		private Map<String, String> replacements;
+
+		public ReplaceRegexLiteralStringCopyStrategy(Map<String, String> replacements) {
+
+			this.replacements = replacements;
+		}
+
+		public ReplaceRegexLiteralStringCopyStrategy(String regex, String replacement) {
+
+			this(Collections.singletonMap(regex, replacement));
+		}
+
+		protected ReplaceRegexLiteralStringCopyStrategy() {
+
+			this(null);
+		}
+
+		@Override
+		public LiteralNode replaceLiteralNode(LiteralNode literalNode) {
+
+			String literalDataString = literalNode.getLiteralDataString();
+			if (literalDataString == null) return literalNode;
+
+			for (Map.Entry<String, String> replacement : this.replacements.entrySet()) {
+
+				literalDataString = literalDataString.replaceAll(replacement.getKey(), replacement.getValue());
+			}
+
+			return new DummyLiteralNode(literalNode.getContextNode(), literalDataString);
+		}
+	}
+
+	/**
+	 * A strategy that replaces certain XDI adresses.
 	 */
 	public static class ReplaceXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
@@ -624,6 +662,5 @@ public final class CopyUtil {
 
 			return literalNode;
 		}
-
 	}
 }

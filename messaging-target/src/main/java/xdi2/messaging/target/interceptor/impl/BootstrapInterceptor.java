@@ -3,6 +3,7 @@ package xdi2.messaging.target.interceptor.impl;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CompoundCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
+import xdi2.core.util.CopyUtil.ReplaceRegexLiteralStringCopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
@@ -268,7 +271,9 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		if (this.getBootstrapGraph() != null) {
 
-			CopyStrategy copyStrategy = new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, BootstrapInterceptor.this.getBootstrapOwner());
+			CopyStrategy copyStrategy = new CompoundCopyStrategy(
+					new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, this.getBootstrapOwner()),
+							new ReplaceRegexLiteralStringCopyStrategy(Pattern.quote(XDI_ARC_SELF.toString()), this.getBootstrapOwner().toString()));
 
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, copyStrategy);
