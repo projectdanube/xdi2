@@ -585,13 +585,30 @@ public final class CopyUtil {
 
 			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
 
-				if (! this.replacements.containsKey(XDIarc)) continue;
+				if (this.replacements.containsKey(XDIarc)) {
 
-				if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+					if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+					replacements.put(XDIarc, this.replacements.get(XDIarc));
+				} else if (XDIarc.hasXRef() && XDIarc.getXRef().hasPartialSubjectAndPredicate()) {
 
-				XDIAddress replacementXDIAddress = this.replacements.get(XDIarc);
+					for (XDIArc partialSubjectXDIArc : XDIarc.getXRef().getPartialSubject().getXDIArcs()) {
 
-				replacements.put(XDIarc, replacementXDIAddress);
+						if (this.replacements.containsKey(partialSubjectXDIArc)) {
+
+							if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+							replacements.put(partialSubjectXDIArc, this.replacements.get(partialSubjectXDIArc));
+						}
+					}
+
+					for (XDIArc partialPredicateXDIArc : XDIarc.getXRef().getPartialSubject().getXDIArcs()) {
+
+						if (this.replacements.containsKey(partialPredicateXDIArc)) {
+
+							if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+							replacements.put(partialPredicateXDIArc, this.replacements.get(partialPredicateXDIArc));
+						}
+					}
+				}
 			}
 
 			return replacements;
