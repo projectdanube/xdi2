@@ -15,8 +15,8 @@
 
 	<servlet-mapping>
 		<servlet-name>EndpointServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/xdi/*</url-pattern>
+		<url-pattern>/xdi/</url-pattern>
 	</servlet-mapping>
 
 	<!-- LISTENERS -->

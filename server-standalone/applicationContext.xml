@@ -83,6 +83,8 @@
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
 							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
+							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"wss://localhost:8080/xdi/users/{$self}"
+							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"https://localhost:9202/auth"
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
@@ -212,6 +214,8 @@
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
 							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
+							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"wss://localhost:8080/xdi/registry"
+							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"https://localhost:9202/auth"
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
@@ -349,6 +353,8 @@
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
 							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
+							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"wss://localhost:8080/xdi/=alice"
+							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"https://localhost:9202/auth"
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
