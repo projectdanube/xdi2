@@ -9,11 +9,15 @@
 
 XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
 
-Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
+Website: https://xdi2.org/. Sample deployment: https://server.xdi2.org/.
+
+Jenkins: https://jenkins.xdi2.org/. Artifactory: https://artifactory.xdi2.org/.
 
 ### Information
 
-For examples, see [xdi2-example-core](https://github.com/projectdanube/xdi2-example-core), [xdi2-example-client](https://github.com/projectdanube/xdi2-example-client), [xdi2-example-messaging](https://github.com/projectdanube/xdi2-example-messaging), [xdi2-example-server](https://github.com/projectdanube/xdi2-example-server).
+Examples:
+
+[xdi2-example-core](https://github.com/projectdanube/xdi2-example-core), [xdi2-example-client](https://github.com/projectdanube/xdi2-example-client), [xdi2-example-messaging](https://github.com/projectdanube/xdi2-example-messaging), [xdi2-example-server](https://github.com/projectdanube/xdi2-example-server).
 
 Components:
 
