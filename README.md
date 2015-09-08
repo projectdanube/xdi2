@@ -7,7 +7,7 @@
 | Current stable release: [0.7.4](https://github.com/projectdanube/xdi2/wiki/release-0.7) | Next release: [0.8](https://github.com/projectdanube/xdi2/wiki/release-0.8) | [More about releases and branches](https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches) |
 | ---- | ---- | ---- |
 
-XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.
+XDI2 (“XDI Two”) is a general-purpose and modular Java implementation of XDI technology.
 
 Website: https://xdi2.org/. Sample deployment: https://server.xdi2.org/.
 
