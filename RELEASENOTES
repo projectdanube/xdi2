@@ -1,6 +1,10 @@
 release 0.8 ("Orșova")
 ========================
 
+* BootstrapInterceptor can now create "connect link contract"
+
+* BootstrapInterceptor can be used to store WebSocket and Connect Auth service endpoints
+
 * Operation parameters and variable values are now on the $do context instead of the message context.
 
 * AuthenticationSignatureInterceptor now takes a list of SignatureValidator objects.
