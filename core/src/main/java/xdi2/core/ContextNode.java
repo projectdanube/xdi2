@@ -46,14 +46,14 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Creates a new context node and adds it to this context node, or returns an existing context node.
-	 * @param arc The arc of the new or existing context node.
+	 * @param XDIarc The arc of the new or existing context node.
 	 * @return The newly created or existing context node.
 	 */
 	public ContextNode setContextNode(XDIArc XDIarc);
 
 	/**
 	 * Returns the context node with a given arc.
-	 * @param arc The arc of the context node.
+	 * @param XDIarc The arc of the context node.
 	 * @param subgraph This is simply a hint to the implementation whether 
 	 * child context nodes will subsequently be requested. Implementations may 
 	 * or may not actually use this parameter.
@@ -63,7 +63,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Returns the context node with a given arc.
-	 * @param arc The arc of the context node.
+	 * @param XDIarc The arc of the context node.
 	 * @return The context node with the given arc, or null.
 	 */
 	public ContextNode getContextNode(XDIArc XDIarc);
@@ -88,7 +88,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Checks if a context node with a given arc exists under this context node.
-	 * @param arc The arc to look for. 
+	 * @param XDIarc The arc to look for. 
 	 * @return True if this context node has a context node with the given arc.
 	 */
 	public boolean containsContextNode(XDIArc XDIarc);
@@ -101,7 +101,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Deletes the context node with a given arc.
-	 * @param arc The arc of the context node.
+	 * @param XDIarc The arc of the context node.
 	 */
 	public void delContextNode(XDIArc XDIarc);
 
@@ -128,39 +128,39 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Creates a new relation and adds it to this context node, or returns an existing relation.
-	 * @param XDIarc The arc of the relation.
-	 * @param targetXDIAddress The target context node address of the relation.
+	 * @param XDIaddress The address of the relation.
+	 * @param targetXDIAddress The target node address of the relation.
 	 * @return The newly created or existing relation.
 	 */
-	public Relation setRelation(XDIAddress XDIarc, XDIAddress targetXDIAddress);
+	public Relation setRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 
 	/**
 	 * Creates a new relation and adds it to this context node, or returns an existing relation.
-	 * @param arc The arc of the relation.
-	 * @param targetContextNode The target context node of the relation.
+	 * @param XDIaddress The address of the relation.
+	 * @param targetNode The target node of the relation.
 	 * @return The newly created or existing relation.
 	 */
 	public Relation setRelation(XDIAddress XDIaddress, Node targetNode);
 
 	/**
 	 * Returns a relation at this context node. 
-	 * @param arc The arc to look for. 
-	 * @param targetXDIAddress The target context node address of the relation.
+	 * @param XDIaddress The address of the relation. 
+	 * @param targetXDIAddress The target node address of the relation.
 	 * @return The relation with the given arc, or null.
 	 */
 	public Relation getRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 
 	/**
 	 * Returns a relation at this context node. 
-	 * @param arc The arc to look for. 
-	 * @return The relation with the given arc, or null.
+	 * @param XDIaddress The address of the relation. 
+	 * @return The relation with the given address, or null.
 	 */
 	public Relation getRelation(XDIAddress XDIaddress);
 
 	/**
 	 * Returns relations at this context node. 
-	 * @param arc The arc to look for. 
-	 * @return An iterator over relations with the given arc, or null.
+	 * @param XDIaddress The address of the relations. 
+	 * @return An iterator over relations with the given address, or null.
 	 */
 	public ReadOnlyIterator<Relation> getRelations(XDIAddress XDIaddress);
 
@@ -172,8 +172,8 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Returns the incoming relations with a given arc.
-	 * @param arc The arc to look for. 
-	 * @return An iterator over relations with the given arc, or null.
+	 * @param XDIaddress The address of the relations. 
+	 * @return An iterator over relations with the given address, or null.
 	 */
 	public ReadOnlyIterator<Relation> getIncomingRelations(XDIAddress XDIaddress);
 
@@ -196,16 +196,16 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	public ReadOnlyIterator<Relation> getAllIncomingRelations();
 
 	/**
-	 * Checks if a relation with a given arc and target context node address exists in this context node.
-	 * @param arc The arc of the relations. 
-	 * @param targetXDIAddress The target context node address of the relation.
-	 * @return True if this context node has a relation with the given arc and target context node address.
+	 * Checks if a relation with a given arc and target node address exists in this context node.
+	 * @param XDIaddress The address of the relations. 
+	 * @param targetXDIAddress The target node address of the relation.
+	 * @return True if this context node has a relation with the given address and target node address.
 	 */
 	public boolean containsRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 
 	/**
 	 * Checks if relations with a given arc exist in this context node.
-	 * @param arc The arc of the relations. 
+	 * @param XDIaddress The address of the relations. 
 	 * @return True if this context node has relations with the given arc.
 	 */
 	public boolean containsRelations(XDIAddress XDIaddress);
@@ -218,7 +218,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Checks if incoming relations with a given arc exist in this context node.
-	 * @param arc The arc of the incoming relations. 
+	 * @param XDIarc The arc of the incoming relations. 
 	 * @return True if this context node has incoming relations with the given arc.
 	 */
 	public boolean containsIncomingRelations(XDIAddress XDIaddress);
@@ -231,14 +231,14 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Deletes the relation with a given arc from this context node.
-	 * @param arc The arc of the relation.
-	 * @param targetXDIAddress The target context node address of the relation.
+	 * @param XDIaddress The address of the relation.
+	 * @param targetXDIAddress The target node address of the relation.
 	 */
 	public void delRelation(XDIAddress XDIaddress, XDIAddress targetXDIAddress);
 
 	/**
-	 * Deletes the relation with a given arc from this context node.
-	 * @param arc The arc of the relation.
+	 * Deletes the relations with a given address from this context node.
+	 * @param XDIaddress The address of the relations.
 	 */
 	public void delRelations(XDIAddress XDIaddress);
 
@@ -254,7 +254,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 
 	/**
 	 * Returns the number of relations of this context node.
-	 * @param arc The arc to look for. 
+	 * @param XDIaddress The address of the relations. 
 	 * @return The number of relations.
 	 */
 	public long getRelationCount(XDIAddress XDIaddress);
