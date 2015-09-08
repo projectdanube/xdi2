@@ -13,6 +13,8 @@ Website: https://xdi2.org/, sample deployment: https://server.xdi2.org/
 
 ### Information
 
+For examples, see [xdi2-example-core](https://github.com/projectdanube/xdi2-example-core), [xdi2-example-client](https://github.com/projectdanube/xdi2-example-client), [xdi2-example-messaging](https://github.com/projectdanube/xdi2-example-messaging), [xdi2-example-server](https://github.com/projectdanube/xdi2-example-server).
+
 * [xdi2-core](https://github.com/projectdanube/xdi2/wiki/xdi2-core) - Implementation of the XDI graph model and basic features [.jar]
 * [xdi2-rdf](https://github.com/projectdanube/xdi2/wiki/xdi2-rdf) - Implementation of the XDI/RDF compatibility layer [.jar]
 * [xdi2-messaging](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
