@@ -109,8 +109,8 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// determine requesting and authorizing authorities
 
-				XDIAddress authorizingAuthority = executionContext.getCurrentMessagingTarget().getOwnerXDIAddress();
-				XDIAddress requestingAuthority = message.getSenderXDIAddress();
+				XDIAddress authorizingAuthority = message.getToXDIAddress();
+				XDIAddress requestingAuthority = message.getFromXDIAddress();
 
 				// determine variable values
 
