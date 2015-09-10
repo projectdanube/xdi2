@@ -154,7 +154,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	 */
 	public Message createMessage(long index) {
 
-		XdiEntityInstanceOrdered xdiEntityMember = this.xdiEntityCollection.setXdiInstanceOrdered(false, false, index);
+		XdiEntityInstanceOrdered xdiEntityMember = this.xdiEntityCollection.setXdiInstanceOrdered(index);
 		xdiEntityMember.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, true);
 
 		return new Message(this, xdiEntityMember);

@@ -334,6 +334,15 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 	 * Creates a new XDI message in this XDI message envelope.
 	 * @return The newly created XDI message.
 	 */
+	public Message createMessage(long index) {
+
+		return this.getMessageCollection(true).createMessage(index);
+	}
+
+	/**
+	 * Creates a new XDI message in this XDI message envelope.
+	 * @return The newly created XDI message.
+	 */
 	public Message createMessage() {
 
 		return this.getMessageCollection(true).createMessage();

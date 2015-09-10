@@ -94,7 +94,16 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 	public U setXdiInstanceUnordered(boolean attribute) {
 
-		return this.setXdiInstanceUnordered(attribute, true, false, null);
+		return this.setXdiInstanceUnordered(attribute, null);
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
+	public U setXdiInstanceUnordered(boolean attribute, String literal) {
+
+		return this.setXdiInstanceUnordered(attribute, true, false, literal);
 	}
 
 	/**
@@ -160,7 +169,16 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 */
 	public O setXdiInstanceOrdered(boolean attribute) {
 
-		return this.setXdiInstanceOrdered(attribute, false, false, -1);
+		return this.setXdiInstanceOrdered(attribute, -1);
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
+	public O setXdiInstanceOrdered(boolean attribute, long index) {
+
+		return this.setXdiInstanceOrdered(attribute, false, true, index);
 	}
 
 	/**

@@ -1,5 +1,7 @@
 release 0.8 ("Orșova")
-========================
+======================
+
+* using relativity symbol ~ by default for ordered instances, e.g. [$msg]@~0
 
 * BootstrapInterceptor can now create "connect link contract"
 
