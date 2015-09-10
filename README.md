@@ -17,7 +17,13 @@ Jenkins: https://jenkins.xdi2.org/. Artifactory: https://artifactory.xdi2.org/.
 
 Examples:
 
-[xdi2-example-core](https://github.com/projectdanube/xdi2-example-core), [xdi2-example-client](https://github.com/projectdanube/xdi2-example-client), [xdi2-example-messaging](https://github.com/projectdanube/xdi2-example-messaging), [xdi2-example-server](https://github.com/projectdanube/xdi2-example-server).
+[xdi2-example-core](https://github.com/projectdanube/xdi2-example-core),
+[xdi2-example-client](https://github.com/projectdanube/xdi2-example-client),
+[xdi2-example-messaging](https://github.com/projectdanube/xdi2-example-messaging),
+[xdi2-selfhosted](https://github.com/projectdanube/xdi2-selfhosted),
+[xdi2-csp](https://github.com/projectdanube/xdi2-csp),
+[xdi2-registry](https://github.com/projectdanube/xdi2-registry),
+[xdi2-example-advanced-server](https://github.com/projectdanube/xdi2-example-advanced-server)
 
 Components:
 
