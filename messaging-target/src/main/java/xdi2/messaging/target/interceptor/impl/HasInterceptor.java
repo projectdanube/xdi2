@@ -164,6 +164,6 @@ public class HasInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback on target of $has relation: " + hasTargetXDIAddress + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getFinishedResultGraph();
+		return feedbackExecutionResult.makeLightMessagingResponse().getResultGraph();
 	}
 }

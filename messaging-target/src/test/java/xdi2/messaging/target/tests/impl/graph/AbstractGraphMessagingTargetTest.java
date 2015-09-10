@@ -45,7 +45,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 		ExecutionResult executionResult2 = ExecutionResult.createExecutionResult(messageEnvelope2);
 		graphMessagingTarget.execute(messageEnvelope2, executionContext2, executionResult2);
 
-		assertEquals(executionResult2.getFinishedResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
+		assertEquals(executionResult2.makeLightMessagingResponse().getResultGraph().getDeepContextNode(XDIAddress.create("=markus")).getRelation(XDIAddress.create("#friend")).getTargetXDIAddress(), XDIAddress.create("=giovanni"));
 
 		graphMessagingTarget.shutdown();
 	}
@@ -124,7 +124,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 						positive.close();
 					}
 
-					assertFalse(executionResult.getFinishedResultGraph().isEmpty());
+					assertFalse(executionResult.makeLightMessagingResponse().getResultGraph().isEmpty());
 
 					ii++;
 				}
@@ -154,7 +154,7 @@ public abstract class AbstractGraphMessagingTargetTest extends TestCase {
 						negative.close();
 					}
 
-					assertTrue(executionResult.getFinishedResultGraph().isEmpty());
+					assertTrue(executionResult.makeLightMessagingResponse().getResultGraph().isEmpty());
 
 					ii++;
 				}

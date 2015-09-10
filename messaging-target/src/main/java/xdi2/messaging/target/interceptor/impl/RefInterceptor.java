@@ -493,7 +493,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback on source of $ref/$rep relation: " + refRepContextNodeXDIAddress + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getFinishedResultGraph();
+		return feedbackExecutionResult.getFinishedOperationResultGraph(feedbackOperation);
 	}
 
 	private static Graph feedbackFindRefRepRelationsInContext(XDIAddress contextNodeXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -564,7 +564,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		if (log.isDebugEnabled()) log.debug("Completed $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress + ", execution result: " + feedbackExecutionResult);
 
-		return feedbackExecutionResult.getFinishedResultGraph();
+		return feedbackExecutionResult.makeLightMessagingResponse().getResultGraph();
 	}
 
 	/*

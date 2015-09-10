@@ -14,8 +14,8 @@ import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
+import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
@@ -24,7 +24,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
  * in the XDI message result. It invokes an instance of LiteralCryptoService to
  * perform encryption and decryption. 
  */
-public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements TargetInterceptor, ExecutionResultInterceptor, Prototype<LiteralEncryptionInterceptor> {
+public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, TargetInterceptor, Prototype<LiteralEncryptionInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(LiteralEncryptionInterceptor.class);
 
@@ -71,6 +71,46 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	}
 
 	/*
+	 * OperationInterceptor
+	 */
+
+	@Override
+	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		return InterceptorResult.DEFAULT;
+	}
+
+	@Override
+	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		for (LiteralNode literal : operationResultGraph.getRootContextNode(true).getAllLiterals()) {
+
+			String encryptedLiteralDataString = literal.getLiteralDataString();
+			if (encryptedLiteralDataString == null) continue;
+
+			String literalDataString;
+
+			try {
+
+				literalDataString = this.getLiteralCryptoService().decryptLiteralDataString(encryptedLiteralDataString);
+			} catch (Exception ex) {
+
+				if (log.isDebugEnabled()) log.debug("Problem while decrypting literal string: " + ex.getMessage(), ex);
+
+				continue;
+			}
+
+			Object literalData = AbstractLiteralNode.stringToLiteralData(literalDataString);
+
+			literal.setLiteralData(literalData);
+		}
+
+		// done
+		
+		return InterceptorResult.DEFAULT;
+	}
+
+	/*
 	 * TargetInterceptor
 	 */
 
@@ -114,36 +154,6 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 		// done
 
 		return targetAddress;
-	}
-
-	/*
-	 * ResultGraphInterceptor
-	 */
-
-	@Override
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
-
-		for (LiteralNode literal : executionResult.getFinishedResultGraph().getRootContextNode(true).getAllLiterals()) {
-
-			String encryptedLiteralDataString = literal.getLiteralDataString();
-			if (encryptedLiteralDataString == null) continue;
-
-			String literalDataString;
-
-			try {
-
-				literalDataString = this.getLiteralCryptoService().decryptLiteralDataString(encryptedLiteralDataString);
-			} catch (Exception ex) {
-
-				if (log.isDebugEnabled()) log.debug("Problem while decrypting literal string: " + ex.getMessage(), ex);
-
-				continue;
-			}
-
-			Object literalData = AbstractLiteralNode.stringToLiteralData(literalDataString);
-
-			literal.setLiteralData(literalData);
-		}
 	}
 
 	/*

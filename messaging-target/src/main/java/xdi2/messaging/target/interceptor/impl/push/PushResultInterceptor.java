@@ -16,7 +16,6 @@ import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -86,7 +85,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 * ResultGraphInterceptor
 	 */
 
-	// TODO: maybe better to implement this as OperationInterceptor rather than ResultGraphInterceptor
+	// TODO: maybe move some of this directly into the ExecutionResult
 	@Override
 	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
@@ -102,12 +101,9 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 			if (pushResults.isEmpty()) continue;
 
+			Graph operationPushResultGraph = executionResult.createOperationPushResultGraph(operation);
+
 			Message message = operation.getMessage();
-
-			Map<Operation, Graph> operationResultGraphs = executionResult.getOperationResultGraphs();
-
-			Graph operationResultGraph = operationResultGraphs.get(operation);
-			Graph pushResultOperationResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 			for (PushResult pushResult : pushResults) {
 
@@ -125,7 +121,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				if (targetVariableValue == null) throw new NullPointerException();
 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
-				variableValues.put(XDIArc.create("{$target}"), targetVariableValue);
+				variableValues.put(XDIArc.create("{$push}"), targetVariableValue);
 
 				// instantiate push link contract
 
@@ -142,7 +138,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// write push link contract into operation result graph
 
-				CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), pushResultOperationResultGraph, null);
+				CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), operationPushResultGraph, null);
 
 				// write message, push link contract, and indices into target graph
 
@@ -159,12 +155,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				}
 			}
 
-			if (log.isDebugEnabled()) log.debug("For operation " + operation + " we have push result operation result graph " + pushResultOperationResultGraph);
-
-			if (operationResultGraph != null)
-				CopyUtil.copyGraph(pushResultOperationResultGraph, operationResultGraph, null);
-			else
-				operationResultGraphs.put(operation, pushResultOperationResultGraph);
+			if (log.isDebugEnabled()) log.debug("For operation " + operation + " we have operation push result graph " + operationPushResultGraph);
 		}
 	}
 

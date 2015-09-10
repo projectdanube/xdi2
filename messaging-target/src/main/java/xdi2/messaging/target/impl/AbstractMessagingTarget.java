@@ -180,10 +180,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			// after message envelope
 
 			this.after(messageEnvelope, executionContext, executionResult);
-
-			// execute result interceptors (finish)
-
-			InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
 		} catch (Throwable ex) {
 
 			// process exception
@@ -238,7 +234,27 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
-			executionResult.finish();
+			// execute result interceptors (finish)
+
+			try {
+
+				InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
+			} catch (Exception ex) {
+
+				log.warn("Error while execution result interceptors: " + ex.getMessage(), ex);
+			}
+
+			// finish execution result
+
+			try {
+
+				executionResult.finish();
+			} catch (Exception ex) {
+
+				log.warn("Error while finishing execution context: " + ex.getMessage(), ex);
+			}
+
+			// done
 
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + " finished execution. Trace: " + executionContext.getTraceBlock());
 		}

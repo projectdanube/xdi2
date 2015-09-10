@@ -22,22 +22,21 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
-import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
+import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
-import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
  * This interceptor executes push link contracts while a message is executed.
  */
-public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, OperationInterceptor, Prototype<PushOutInterceptor> {
+public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, ExecutionResultInterceptor, OperationInterceptor, Prototype<PushOutInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushOutInterceptor.class);
 
@@ -88,22 +87,17 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	}
 
 	/*
-	 * MessageEnvelopeInterceptor
+	 * ExecutionResultInterceptor
 	 */
 
-	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
-
-		return InterceptorResult.DEFAULT;
-	}
 
 	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// create the push maps
 
 		List<Operation> writeOperations = getWriteOperationsPerMessageEnvelope(executionContext);
-		if (writeOperations == null) return InterceptorResult.DEFAULT;
+		if (writeOperations == null) return;
 
 		Map<GenericLinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<GenericLinkContract, Map<Operation, XDIAddress>> ();
 		Map<GenericLinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<GenericLinkContract, Map<Operation, List<XDIStatement>>> ();
@@ -177,17 +171,17 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			Map<Operation, Graph> pushedOperationResultGraphs = new HashMap<Operation, Graph> ();
 
-			for (Operation pushLinkContractOperation : pushedOperations) {
+			for (Operation pushedOperation : pushedOperations) {
 
 				// TODO maybe dont push the ENTIRE operation result graph for all operations that trigger push contract?
 
-				Graph pushLinkContractOperationResultGraph = executionResult.getOperationResultGraphs().get(pushLinkContractOperation);
-				pushedOperationResultGraphs.put(pushLinkContractOperation, pushLinkContractOperationResultGraph);
+				Graph pushedOperationResultGraph = executionResult.getFinishedOperationResultGraph(pushedOperation);
+				pushedOperationResultGraphs.put(pushedOperation, pushedOperationResultGraph);
 			}
 
 			try {
 
-				if (log.isDebugEnabled()) log.debug("Executing push link contract " + pushLinkContract);
+				if (log.isDebugEnabled()) log.debug("Executing push " + pushLinkContract);
 
 				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushedOperations, pushedOperationResultGraphs, pushedXDIAddressMap, pushedXDIStatementMap);
 			} catch (Exception ex) {
@@ -195,15 +189,6 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
 			}
 		}
-
-		// done
-
-		return InterceptorResult.DEFAULT;
-	}
-
-	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
-
 	}
 
 	/*

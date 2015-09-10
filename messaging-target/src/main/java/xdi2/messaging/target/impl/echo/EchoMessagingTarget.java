@@ -1,11 +1,11 @@
 package xdi2.messaging.target.impl.echo;
 
 import xdi2.core.Graph;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.AddressHandler;
 import xdi2.messaging.target.StatementHandler;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -22,10 +22,14 @@ public class EchoMessagingTarget extends AbstractMessagingTarget {
 	@Override
 	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		Graph finishedResultGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyGraph(messageEnvelope.getGraph(), finishedResultGraph, null);
+		for (Operation operation : messageEnvelope.getOperations()) {
 
-		executionResult.finish(finishedResultGraph);
+			Graph operationResultGraph = executionResult.createOperationResultGraph(operation);
+
+			CopyUtil.copyContextNode(operation.getMessage().getContextNode(), operationResultGraph, null);
+		}
+
+		executionResult.finish();
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public class ContributorTest extends TestCase {
 
 			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
 
- 			log.info("Result: " + executionResult.getFinishedResultGraph().toString());
+ 			log.info("Result: " + executionResult.makeLightMessagingResponse().getResultGraph().toString());
 
 			// validate result
 
@@ -83,7 +83,7 @@ public class ContributorTest extends TestCase {
 			Node referenceNode = referenceGraph.getDeepNode(target);
 			CopyUtil.copyNode(referenceNode, tempGraph, null);
 
-			assertEquals(executionResult.getFinishedResultGraph(), tempGraph);
+			assertEquals(executionResult.makeLightMessagingResponse().getResultGraph(), tempGraph);
 
 			tempGraph.close();
 		}

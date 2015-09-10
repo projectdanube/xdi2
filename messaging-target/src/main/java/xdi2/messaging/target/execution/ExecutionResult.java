@@ -11,11 +11,19 @@ import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.response.FullMessagingResponse;
+import xdi2.messaging.response.LightMessagingResponse;
+import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 
 /**
@@ -34,15 +42,15 @@ public final class ExecutionResult {
 	private static final Logger log = LoggerFactory.getLogger(ExecutionResult.class);
 
 	private Map<Operation, Graph> operationResultGraphs;
+	private Map<Operation, Graph> operationPushResultGraphs;
 	private Throwable ex;
-	private Graph resultGraph;
 	private Exception resultGraphFinishedEx;
 
-	private ExecutionResult(Map<Operation, Graph> operationResultGraphs) {
+	private ExecutionResult(Map<Operation, Graph> operationResultGraphs, Map<Operation, Graph> operationPushResultGraphs) {
 
 		this.operationResultGraphs = operationResultGraphs;
+		this.operationPushResultGraphs = operationPushResultGraphs;
 		this.ex = null;
-		this.resultGraph = null;
 		this.resultGraphFinishedEx = null;
 	}
 
@@ -57,15 +65,16 @@ public final class ExecutionResult {
 		// set up operation result graphs
 
 		Map<Operation, Graph> operationResultGraphs = new HashMap<Operation, Graph> ();
+		for (Operation operation : messageEnvelope.getOperations()) operationResultGraphs.put(operation, null);
 
-		for (Operation operation : messageEnvelope.getOperations()) {
+		// set up operation push result graphs
 
-			operationResultGraphs.put(operation, null);
-		}
+		Map<Operation, Graph> operationPushResultGraphs = new HashMap<Operation, Graph> ();
+		for (Operation operation : messageEnvelope.getOperations()) operationPushResultGraphs.put(operation, null);
 
 		// create execution result
 
-		ExecutionResult executionResult = new ExecutionResult(operationResultGraphs);
+		ExecutionResult executionResult = new ExecutionResult(operationResultGraphs, operationPushResultGraphs);
 
 		// done
 
@@ -90,11 +99,18 @@ public final class ExecutionResult {
 		return operationResultGraph;
 	}
 
-	public Map<Operation, Graph> getOperationResultGraphs() {
+	public Graph createOperationPushResultGraph(Operation operation) {
+
+		if (operation == null) throw new NullPointerException();
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Execution result has already been finished.", this.resultGraphFinishedEx);
+		if (! this.operationPushResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation push result graph for operation " + operation);
+		if (this.operationPushResultGraphs.get(operation) != null) throw new Xdi2RuntimeException("Operation push result graph for operation " + operation + " has already been created.");
 
-		return this.operationResultGraphs;
+		Graph operationPushResultGraph = MemoryGraphFactory.getInstance().openGraph();
+		this.operationPushResultGraphs.put(operation, operationPushResultGraph);
+
+		return operationPushResultGraph;
 	}
 
 	public void addException(Throwable ex) {
@@ -105,13 +121,6 @@ public final class ExecutionResult {
 		if (this.ex != null) throw new Xdi2RuntimeException("Already have an exception.");
 
 		this.ex = ex;
-	}
-
-	public Graph getFinishedResultGraph() {
-
-		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
-
-		return this.resultGraph;
 	}
 
 	public Graph getFinishedOperationResultGraph(Operation operation) {
@@ -125,46 +134,105 @@ public final class ExecutionResult {
 		return this.operationResultGraphs.get(operation);
 	}
 
+	public Graph getFinishedOperationPushResultGraph(Operation operation) {
+
+		if (operation == null) throw new NullPointerException();
+
+		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
+		if (! this.operationPushResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation push result graph for operation " + operation);
+
+		return this.operationPushResultGraphs.get(operation);
+	}
+
 	public boolean isFinished() {
 
-		return this.resultGraph != null;
+		return this.resultGraphFinishedEx != null;
 	}
 
 	/*
 	 * Helper methods
 	 */
 
-	public void finish() {
+	public final LightMessagingResponse makeLightMessagingResponse() {
 
-		if (this.isFinished()) throw new Xdi2RuntimeException("Execution result has already been finished.");
+		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
 
-		this.resultGraph = MemoryGraphFactory.getInstance().openGraph();
-		this.resultGraphFinishedEx = new Exception();
+		// result graph
 
-		// finish exception
-
-		this.finishException();
-
-		// finish operation result graphs
+		Graph resultGraph = MemoryGraphFactory.getInstance().openGraph();
 
 		for (Graph operationResultGraph : this.operationResultGraphs.values()) {
 
 			if (operationResultGraph == null) continue;
 
-			CopyUtil.copyGraph(operationResultGraph, this.resultGraph, null);
+			CopyUtil.copyGraph(operationResultGraph, resultGraph, null);
 		}
+
+		// create messaging response
+
+		LightMessagingResponse lightMessagingResponse = LightMessagingResponse.fromResultGraph(resultGraph);
 
 		// done
 
-		if (log.isInfoEnabled()) log.info("Execution result finished.");
+		return lightMessagingResponse;
 	}
 
-	public void finish(Graph finishedResultGraph) {
+	public final FullMessagingResponse makeFullMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget) {
+
+		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
+
+		// create messaging response
+
+		MessageEnvelope responseMessageEnvelope = new MessageEnvelope();
+
+		for (Message message : messageEnvelope.getMessages()) {
+
+			XDIArc toPeerRootXDIArc = message.getFromPeerRootXDIArc();
+			XDIArc fromPeerRootXDIArc = message.getToPeerRootXDIArc();
+			XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
+
+			Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
+			responseMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
+			responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
+			responseMessage.setTimestamp(new Date());
+			responseMessage.setCorrelationXDIAddress(message.getContextNode().getXDIAddress());
+
+			for (Operation operation : message.getOperations()) {
+
+				Graph operationResultGraph = this.getFinishedOperationResultGraph(operation);
+				Graph operationPushResultGraph = this.getFinishedOperationPushResultGraph(operation);
+
+				if (operationResultGraph != null) {
+
+					responseMessage.createOperationResult(operation.getOperationXDIAddress(), operationResultGraph);
+				}
+
+				if (operationPushResultGraph != null) {
+
+					responseMessage.createOperationResult(XDIAddressUtil.concatXDIAddresses(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH), operationResultGraph);
+				}
+			}
+		}
+
+		FullMessagingResponse fullMessagingResponse = FullMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);
+
+		// done
+
+		return fullMessagingResponse;
+	}
+
+	public void finish() {
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Execution result has already been finished.");
 
-		this.resultGraph = finishedResultGraph;
+		// finish exception
+
+		this.finishException();
+
+		// done
+
 		this.resultGraphFinishedEx = new Exception();
+		if (log.isInfoEnabled()) log.info("Execution result finished.");
 	}
 
 	private void finishException() {

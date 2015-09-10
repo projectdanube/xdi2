@@ -385,7 +385,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			if (executionResult != null) {
 
-				Graph resultGraph = executionResult.getFinishedResultGraph();
+				Graph resultGraph = executionResult.makeLightMessagingResponse().getResultGraph();
 
 				XDIWriter xdiWriter = XDIWriterRegistry.forFormat(format, xdiWriterParameters);
 				StringWriter stringWriter = new StringWriter();

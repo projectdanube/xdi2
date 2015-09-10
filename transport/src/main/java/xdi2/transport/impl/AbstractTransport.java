@@ -9,18 +9,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.Graph;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.properties.XDI2Properties;
-import xdi2.core.syntax.XDIAddress;
-import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import xdi2.messaging.operations.Operation;
-import xdi2.messaging.response.FullMessagingResponse;
-import xdi2.messaging.response.LightMessagingResponse;
 import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.Extension;
 import xdi2.messaging.target.MessagingTarget;
@@ -197,62 +190,13 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		if (isFull(messageEnvelope)) {
 
-			messagingResponse = this.makeFullMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+			messagingResponse = executionResult.makeFullMessagingResponse(messageEnvelope, messagingTarget);
 		} else {
 
-			messagingResponse = this.makeLightMessagingResponse(executionResult);
+			messagingResponse = executionResult.makeLightMessagingResponse();
 		}
 
 		return messagingResponse;
-	}
-
-	private final LightMessagingResponse makeLightMessagingResponse(ExecutionResult executionResult) {
-
-		// result graph
-
-		Graph resultGraph = executionResult.getFinishedResultGraph();
-
-		// create messaging response
-
-		LightMessagingResponse lightMessagingResponse = LightMessagingResponse.fromResultGraph(resultGraph);
-
-		// done
-
-		return lightMessagingResponse;
-	}
-
-	private final FullMessagingResponse makeFullMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) {
-
-		// create messaging response
-
-		MessageEnvelope responseMessageEnvelope = new MessageEnvelope();
-
-		for (Message message : messageEnvelope.getMessages()) {
-
-			XDIArc toPeerRootXDIArc = message.getFromPeerRootXDIArc();
-			XDIArc fromPeerRootXDIArc = message.getToPeerRootXDIArc();
-			XDIAddress senderXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
-
-			Message responseMessage = responseMessageEnvelope.createMessage(senderXDIAddress);
-			responseMessage.setFromPeerRootXDIArc(fromPeerRootXDIArc);
-			responseMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
-			responseMessage.setTimestamp(new Date());
-			responseMessage.setCorrelationXDIAddress(message.getContextNode().getXDIAddress());
-
-			for (Operation operation : message.getOperations()) {
-
-				Graph operationResultGraph = executionResult.getFinishedOperationResultGraph(operation);
-				if (operationResultGraph == null) continue;
-
-				responseMessage.createOperationResult(operation.getOperationXDIAddress(), operationResultGraph);
-			}
-		}
-
-		FullMessagingResponse fullMessagingResponse = FullMessagingResponse.fromMessageEnvelope(responseMessageEnvelope);
-
-		// done
-
-		return fullMessagingResponse;
 	}
 
 	/*

@@ -24,9 +24,9 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
+import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 
 /**
@@ -34,7 +34,7 @@ import xdi2.messaging.target.interceptor.TargetInterceptor;
  * 
  * @author markus
  */
-public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, TargetInterceptor, ExecutionResultInterceptor, Prototype<VariablesInterceptor> {
+public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, OperationInterceptor, TargetInterceptor, Prototype<VariablesInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(VariablesInterceptor.class);
 
@@ -57,7 +57,7 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	@Override
 	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		resetVariables(executionContext);
+		resetVariablesPerMessageEnvelope(executionContext);
 
 		return InterceptorResult.DEFAULT;
 	}
@@ -71,6 +71,39 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	@Override
 	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
 
+	}
+
+	/*
+	 * OperationInterceptor
+	 */
+
+	@Override
+	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		resetVariablesPerOperation(executionContext);
+		
+		return InterceptorResult.DEFAULT;
+	}
+
+	@Override
+	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// add $is statements for all the substituted variables
+
+		for (Entry<XDIArc, XDIArc> entry : getVariablesPerOperation(executionContext).entrySet()) {
+
+			XDIAddress subject = XDIAddress.create(entry.getKey().toString());
+			XDIAddress predicate = XDIDictionaryConstants.XDI_ADD_IS;
+			XDIAddress object = XDIAddress.create(entry.getValue().toString());
+
+			XDIStatement statement = XDIStatement.fromComponents(subject, predicate, object);
+
+			operationResultGraph.setStatement(statement);
+		}
+
+		// done
+		
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*
@@ -97,27 +130,6 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 		if (! (operation instanceof SetOperation)) return targetAddress;
 
 		return substituteAddress(targetAddress, executionContext);
-	}
-
-	/*
-	 * ResultGraphInterceptor
-	 */
-
-	@Override
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
-
-		// add $is statements for all the substituted variables
-
-		for (Entry<XDIArc, XDIArc> entry : getVariables(executionContext).entrySet()) {
-
-			XDIAddress subject = XDIAddress.create(entry.getKey().toString());
-			XDIAddress predicate = XDIDictionaryConstants.XDI_ADD_IS;
-			XDIAddress object = XDIAddress.create(entry.getValue().toString());
-
-			XDIStatement statement = XDIStatement.fromComponents(subject, predicate, object);
-
-			executionResult.getFinishedResultGraph().setStatement(statement);
-		}
 	}
 
 	/*
@@ -176,12 +188,13 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		// substitute the arc
 
-		XDIArc newArc = getVariable(executionContext, XDIarc);
+		XDIArc newArc = getVariablesPerMessageEnvelope(executionContext).get(XDIarc);
 
 		if (newArc == null) {
 
 			newArc = XdiEntityInstanceUnordered.createXDIArc();
-			putVariable(executionContext, XDIarc, newArc);
+			putVariablePerMessageEnvelope(executionContext, XDIarc, newArc);
+			putVariablePerOperation(executionContext, XDIarc, newArc);
 		}
 
 		// done
@@ -194,25 +207,37 @@ public class VariablesInterceptor extends AbstractInterceptor<MessagingTarget> i
 	 */
 
 	private static final String EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE = VariablesInterceptor.class.getCanonicalName() + "#variablespermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_VARIABLES_PER_OPERATION = VariablesInterceptor.class.getCanonicalName() + "#variablesperoperation";
 
 	@SuppressWarnings("unchecked")
-	private static Map<XDIArc, XDIArc> getVariables(ExecutionContext executionContext) {
+	private static Map<XDIArc, XDIArc> getVariablesPerMessageEnvelope(ExecutionContext executionContext) {
 
 		return (Map<XDIArc, XDIArc>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE);
 	}
 
-	private static XDIArc getVariable(ExecutionContext executionContext, XDIArc key) {
+	private static void putVariablePerMessageEnvelope(ExecutionContext executionContext, XDIArc key, XDIArc value) {
 
-		return getVariables(executionContext).get(key);
+		getVariablesPerMessageEnvelope(executionContext).put(key, value);
 	}
 
-	private static void putVariable(ExecutionContext executionContext, XDIArc key, XDIArc value) {
-
-		getVariables(executionContext).put(key, value);
-	}
-
-	private static void resetVariables(ExecutionContext executionContext) {
+	private static void resetVariablesPerMessageEnvelope(ExecutionContext executionContext) {
 
 		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_MESSAGEENVELOPE, new HashMap<XDIArc, String> ());
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Map<XDIArc, XDIArc> getVariablesPerOperation(ExecutionContext executionContext) {
+
+		return (Map<XDIArc, XDIArc>) executionContext.getOperationAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_OPERATION);
+	}
+
+	private static void putVariablePerOperation(ExecutionContext executionContext, XDIArc key, XDIArc value) {
+
+		getVariablesPerOperation(executionContext).put(key, value);
+	}
+
+	private static void resetVariablesPerOperation(ExecutionContext executionContext) {
+
+		executionContext.putOperationAttribute(EXECUTIONCONTEXT_KEY_VARIABLES_PER_OPERATION, new HashMap<XDIArc, String> ());
 	}
 }
