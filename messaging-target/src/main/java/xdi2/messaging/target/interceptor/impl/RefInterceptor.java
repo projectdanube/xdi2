@@ -35,7 +35,7 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
-import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
+import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
@@ -45,7 +45,7 @@ import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractIntercept
  * 
  * @author markus
  */
-public class RefInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, OperationInterceptor, TargetInterceptor, Prototype<RefInterceptor> {
+public class RefInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, OperationInterceptor, TargetInterceptor, Prototype<RefInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(RefInterceptor.class);
 
@@ -74,27 +74,22 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	/*
-	 * MessageEnvelopeInterceptor
+	 * MessageInterceptor
 	 */
 
 	@Override
-	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		resetRefRepRelationsPerMessageEnvelope(executionContext);
-		resetCompletedAddresses(executionContext);
-
-		return InterceptorResult.DEFAULT;
-	}
-
-	@Override
-	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+		resetRefRepRelationsPerMessage(executionContext);
+		resetCompletedAddressesPerMessage(executionContext);
 
 		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
-	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
+	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
+		return InterceptorResult.DEFAULT;
 	}
 
 	/*
@@ -128,7 +123,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 				boolean skip = false;
 
-				for (XDIAddress completedAddress : getCompletedAddresses(executionContext)) {
+				for (XDIAddress completedAddress : getCompletedAddressesPerMessage(executionContext)) {
 
 					if (refRepContextNodeXDIAddress.equals(completedAddress)) {
 
@@ -260,7 +255,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			XDIAddress contextNodeXDIAddress = targetAddress;
 
-			addCompletedAddress(executionContext, contextNodeXDIAddress);
+			addCompletedAddressPerMessage(executionContext, contextNodeXDIAddress);
 		}
 
 		// follow any $ref and $rep arcs
@@ -327,6 +322,14 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			targetStatement = XDIStatement.fromComponents(followedTargetSubject, targetStatement.getPredicate(), followedTargetObject);
 		}
 
+		// $ref/$rep relations may have been added now, so let's "forget" them 
+
+		if (XDIDictionaryConstants.XDI_ADD_REF.equals(targetStatement.getRelationXDIAddress()) ||
+				XDIDictionaryConstants.XDI_ADD_REP.equals(targetStatement.getRelationXDIAddress())) {
+
+			setRefRepRelationPerMessage(executionContext, followedTargetSubject, null);
+		}
+
 		// done
 
 		return targetStatement;
@@ -361,7 +364,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 			// look up $ref/$rep relations
 
-			Relation[] refRepRelation = getRefRepRelationPerMessageEnvelope(executionContext, contextNodeXDIAddress);
+			Relation[] refRepRelation = getRefRepRelationPerMessage(executionContext, contextNodeXDIAddress);
 			Relation refRelation;
 			Relation repRelation;
 
@@ -383,7 +386,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 				refRepRelation[0] = refRelation;
 				refRepRelation[1] = repRelation;
 
-				setRefRepRelationPerMessageEnvelope(executionContext, contextNodeXDIAddress, refRepRelation);
+				setRefRepRelationPerMessage(executionContext, contextNodeXDIAddress, refRepRelation);
 			} else {
 
 				refRelation = refRepRelation[0];
@@ -585,19 +588,19 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#refreprelationspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGE = RefInterceptor.class.getCanonicalName() + "#refreprelationspermessage";
 	private static final String EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_OPERATION = RefInterceptor.class.getCanonicalName() + "#refreprelationsperoperation";
-	private static final String EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE = RefInterceptor.class.getCanonicalName() + "#completedaddressespermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGE = RefInterceptor.class.getCanonicalName() + "#completedaddressespermessage";
 
 	@SuppressWarnings("unchecked")
-	private static Map<XDIAddress, Relation[]> getRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
+	private static Map<XDIAddress, Relation[]> getRefRepRelationsPerMessage(ExecutionContext executionContext) {
 
-		return (Map<XDIAddress, Relation[]>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE);
+		return (Map<XDIAddress, Relation[]>) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGE);
 	}
 
-	private static Relation[] getRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress) {
+	private static Relation[] getRefRepRelationPerMessage(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress) {
 
-		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessage(executionContext);
 
 		Relation[] refRepRelation = refRepRelations.get(contextNodeXDIAddress);
 
@@ -606,18 +609,18 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		return refRepRelation;
 	}
 
-	private static void setRefRepRelationPerMessageEnvelope(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress, Relation[] refRepRelation) {
+	private static void setRefRepRelationPerMessage(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress, Relation[] refRepRelation) {
 
-		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessageEnvelope(executionContext);
+		Map<XDIAddress, Relation[]> refRepRelations = getRefRepRelationsPerMessage(executionContext);
 
 		refRepRelations.put(contextNodeXDIAddress, refRepRelation);
 
 		if (log.isDebugEnabled()) log.debug("Set $ref/$rep relation for " + contextNodeXDIAddress + ": " + refRepRelation);
 	}
 
-	private static void resetRefRepRelationsPerMessageEnvelope(ExecutionContext executionContext) {
+	private static void resetRefRepRelationsPerMessage(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGEENVELOPE, new HashMap<XDIAddress, Relation[]> ());
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_REFREPRELATIONS_PER_MESSAGE, new HashMap<XDIAddress, Relation[]> ());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -651,20 +654,20 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Set<XDIAddress> getCompletedAddresses(ExecutionContext executionContext) {
+	private static Set<XDIAddress> getCompletedAddressesPerMessage(ExecutionContext executionContext) {
 
-		return (Set<XDIAddress>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE);
+		return (Set<XDIAddress>) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGE);
 	}
 
-	private static void addCompletedAddress(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress) {
+	private static void addCompletedAddressPerMessage(ExecutionContext executionContext, XDIAddress contextNodeXDIAddress) {
 
-		getCompletedAddresses(executionContext).add(contextNodeXDIAddress);
+		getCompletedAddressesPerMessage(executionContext).add(contextNodeXDIAddress);
 
 		if (log.isDebugEnabled()) log.debug("Added completed address: " + contextNodeXDIAddress);
 	}
 
-	private static void resetCompletedAddresses(ExecutionContext executionContext) {
+	private static void resetCompletedAddressesPerMessage(ExecutionContext executionContext) {
 
-		executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGEENVELOPE, new HashSet<XDIAddress> ());
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_COMPLETEDADDRESSES_PER_MESSAGE, new HashSet<XDIAddress> ());
 	}
 }
