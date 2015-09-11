@@ -263,9 +263,10 @@ public final class ExecutionResult {
 
 		// look at all operations
 
-		for (Operation operation : this.operationResultGraphs.keySet()) {
+		for (Map.Entry<Operation, Graph> entry : this.operationResultGraphs.entrySet()) {
 
-			Graph operationResultGraph = this.operationResultGraphs.get(operation);
+			Operation operation = entry.getKey();
+			Graph operationResultGraph = entry.getValue();
 
 			boolean setErrorForThisOperation = false;
 
