@@ -162,7 +162,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			if ("OTE".equals(endpoint)) discoveryClient = XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_CLIENT;
 			if (discoveryClient == null) throw new NullPointerException();
 
-			discoveryClient.setDiscoveryCache(null);
+			discoveryClient.setDiscoveryCacheProvider(null);
 
 			// discover
 
