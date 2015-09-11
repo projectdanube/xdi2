@@ -1,4 +1,4 @@
-package xdi2.discovery.cache;
+package xdi2.discovery.cache.impl;
 
 import java.io.Serializable;
 
@@ -7,8 +7,10 @@ import com.whirlycott.cache.CacheException;
 import com.whirlycott.cache.CacheManager;
 
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.discovery.cache.DiscoveryCacheKey;
+import xdi2.discovery.cache.DiscoveryCacheProvider;
 
-public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
+public class WhirlyCacheDiscoveryCacheProvider extends DiscoveryCacheProvider {
 
 	public static final long DEFAULT_TTL = 120 * 1000;
 
@@ -16,21 +18,21 @@ public class WhirlyCacheDiscoveryCache implements DiscoveryCache {
 	private Cache authorityCache;
 	private long ttl;
 
-	public WhirlyCacheDiscoveryCache(Cache registryCache, Cache authorityCache, long ttl) {
+	public WhirlyCacheDiscoveryCacheProvider(Cache registryCache, Cache authorityCache, long ttl) {
 
 		this.registryCache = registryCache;
 		this.authorityCache = authorityCache;
 		this.ttl = ttl;
 	}
 
-	public WhirlyCacheDiscoveryCache(Cache registryCache, Cache authorityCache) {
+	public WhirlyCacheDiscoveryCacheProvider(Cache registryCache, Cache authorityCache) {
 
 		this.registryCache = registryCache;
 		this.authorityCache = authorityCache;
 		this.ttl = DEFAULT_TTL;
 	}
 
-	public WhirlyCacheDiscoveryCache() {
+	public WhirlyCacheDiscoveryCacheProvider() {
 
 		this.registryCache = null;
 		this.authorityCache = null;

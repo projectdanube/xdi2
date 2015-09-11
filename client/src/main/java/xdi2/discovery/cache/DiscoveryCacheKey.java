@@ -26,7 +26,7 @@ public class DiscoveryCacheKey implements Serializable {
 		this.endpointUriTypes = endpointUriTypes;
 	}
 
-	public static DiscoveryCacheKey build(XDIAddress query, XDIClient registryXdiClient, XDIAddress[] endpointUriTypes) {
+	public static DiscoveryCacheKey build(XDIAddress query, XDIClient<?> registryXdiClient, XDIAddress[] endpointUriTypes) {
 
 		if (! (registryXdiClient instanceof XDIHttpClient)) return null;
 

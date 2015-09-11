@@ -22,11 +22,8 @@ import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.discovery.cache.DiscoveryCache;
 import xdi2.discovery.cache.DiscoveryCacheKey;
-import xdi2.discovery.cache.EhCacheDiscoveryCache;
-import xdi2.discovery.cache.NullDiscoveryCache;
-import xdi2.discovery.cache.WhirlyCacheDiscoveryCache;
+import xdi2.discovery.cache.DiscoveryCacheProvider;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
@@ -56,34 +53,14 @@ public class XDIDiscoveryClient {
 	public static final XDIHttpClient DEFAULT_XDI_CLIENT;
 	public static final XDIDiscoveryClient DEFAULT_DISCOVERY_CLIENT;
 
-	public static final DiscoveryCache DEFAULT_DISCOVERY_CACHE;
+	public static final DiscoveryCacheProvider DEFAULT_DISCOVERY_CACHE_PROVIDER;
 
 	private XDIClient<? extends TransportMessagingResponse> registryXdiClient;
-	private DiscoveryCache discoveryCache;
+	private DiscoveryCacheProvider discoveryCacheProvider;
 
 	static {
 
-		boolean haveEhCache = false;
-		boolean haveWhirlyCache = false;
-
-		try {
-
-			Class.forName("net.sf.ehcache.CacheManager");
-			haveEhCache = true;
-		} catch (ClassNotFoundException ex) { }
-
-		try {
-
-			Class.forName("com.whirlycott.cache.CacheManager");
-			haveWhirlyCache = true;
-		} catch (ClassNotFoundException ex) { }
-
-		if (haveEhCache) 
-			DEFAULT_DISCOVERY_CACHE = new EhCacheDiscoveryCache();
-		else if (haveWhirlyCache)
-			DEFAULT_DISCOVERY_CACHE = new WhirlyCacheDiscoveryCache();
-		else
-			DEFAULT_DISCOVERY_CACHE = new NullDiscoveryCache();
+		DEFAULT_DISCOVERY_CACHE_PROVIDER = DiscoveryCacheProvider.get();
 
 		XDI2_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://registry.xdi2.org/"));
 		NEUSTAR_PROD_DISCOVERY_XDI_CLIENT = new XDIHttpClient(URLURIUtil.URI("https://xdidiscoveryservice.xdi.net/"));
@@ -101,22 +78,22 @@ public class XDIDiscoveryClient {
 		DEFAULT_DISCOVERY_CLIENT = XDI2_DISCOVERY_CLIENT;
 	}
 
-	public XDIDiscoveryClient(XDIClient<TransportMessagingResponse> registryXdiClient, DiscoveryCache discoveryCache) {
+	public XDIDiscoveryClient(XDIClient<TransportMessagingResponse> registryXdiClient, DiscoveryCacheProvider discoveryCacheProvider) {
 
 		this.registryXdiClient = registryXdiClient;
-		this.discoveryCache = discoveryCache;
+		this.discoveryCacheProvider = discoveryCacheProvider;
 
-		if (log.isDebugEnabled()) log.debug("Initializing discovery with client " + (registryXdiClient == null ? null : registryXdiClient.getClass().getSimpleName()) + " and cache " + (discoveryCache == null ? null : discoveryCache.getClass().getSimpleName()));
+		if (log.isDebugEnabled()) log.debug("Initializing discovery with client " + (registryXdiClient == null ? null : registryXdiClient.getClass().getSimpleName()) + " and cache " + (discoveryCacheProvider == null ? null : discoveryCacheProvider.getClass().getSimpleName()));
 	}
 
 	public XDIDiscoveryClient(XDIClient<TransportMessagingResponse> registryXdiClient) {
 
-		this(registryXdiClient, DEFAULT_DISCOVERY_CACHE);
+		this(registryXdiClient, DEFAULT_DISCOVERY_CACHE_PROVIDER);
 	}
 
-	public XDIDiscoveryClient(URI registryEndpointUri, DiscoveryCache discoveryCache) {
+	public XDIDiscoveryClient(URI registryEndpointUri, DiscoveryCacheProvider discoveryCacheProvider) {
 
-		this(new XDIHttpClient(registryEndpointUri), discoveryCache);
+		this(new XDIHttpClient(registryEndpointUri), discoveryCacheProvider);
 	}
 
 	public XDIDiscoveryClient(URI registryEndpointUri) {
@@ -190,7 +167,7 @@ public class XDIDiscoveryClient {
 
 		DiscoveryCacheKey registryDiscoveryCacheKey = DiscoveryCacheKey.build(query, this.getRegistryXdiClient(), null);
 
-		if (this.getDiscoveryCache() != null) registryMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCache().getRegistry(registryDiscoveryCacheKey);
+		if (this.getDiscoveryCacheProvider() != null) registryMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getRegistry(registryDiscoveryCacheKey);
 
 		MessageEnvelope registryMessageEnvelope = null;
 
@@ -223,10 +200,10 @@ public class XDIDiscoveryClient {
 
 			// save in cache
 
-			if (this.getDiscoveryCache() != null) {
+			if (this.getDiscoveryCacheProvider() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Registry cache PUT: " + registryDiscoveryCacheKey);
-				this.getDiscoveryCache().putRegistry(registryDiscoveryCacheKey, registryMessagingResponse);
+				this.getDiscoveryCacheProvider().putRegistry(registryDiscoveryCacheKey, registryMessagingResponse);
 			}
 
 			// fire event
@@ -272,7 +249,7 @@ public class XDIDiscoveryClient {
 
 		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUri, endpointUriTypes);
 
-		if (this.getDiscoveryCache() != null) authorityMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCache().getAuthority(authorityDiscoveryCacheKey);
+		if (this.getDiscoveryCacheProvider() != null) authorityMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getAuthority(authorityDiscoveryCacheKey);
 
 		MessageEnvelope authorityMessageEnvelope = null;
 
@@ -318,10 +295,10 @@ public class XDIDiscoveryClient {
 
 			// save in cache
 
-			if (this.getDiscoveryCache() != null) {
+			if (this.getDiscoveryCacheProvider() != null) {
 
 				if (log.isDebugEnabled()) log.debug("Authority cache PUT: " + authorityDiscoveryCacheKey);
-				this.getDiscoveryCache().putAuthority(authorityDiscoveryCacheKey, authorityMessagingResponse);
+				this.getDiscoveryCacheProvider().putAuthority(authorityDiscoveryCacheKey, authorityMessagingResponse);
 			}
 
 			// fire event
@@ -378,13 +355,13 @@ public class XDIDiscoveryClient {
 		this.registryXdiClient = registryXdiClient;
 	}
 
-	public DiscoveryCache getDiscoveryCache() {
+	public DiscoveryCacheProvider getDiscoveryCacheProvider() {
 
-		return this.discoveryCache;
+		return this.discoveryCacheProvider;
 	}
 
-	public void setDiscoveryCache(DiscoveryCache discoveryCache) {
+	public void setDiscoveryCacheProvider(DiscoveryCacheProvider discoveryCacheProvider) {
 
-		this.discoveryCache = discoveryCache;
+		this.discoveryCacheProvider = discoveryCacheProvider;
 	}
 }

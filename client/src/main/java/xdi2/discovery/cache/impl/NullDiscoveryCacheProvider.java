@@ -1,10 +1,13 @@
-package xdi2.discovery.cache;
+package xdi2.discovery.cache.impl;
 
 import java.io.Serializable;
 
-public class NullDiscoveryCache implements DiscoveryCache {
+import xdi2.discovery.cache.DiscoveryCacheKey;
+import xdi2.discovery.cache.DiscoveryCacheProvider;
 
-	public NullDiscoveryCache() {
+public class NullDiscoveryCacheProvider extends DiscoveryCacheProvider {
+
+	public NullDiscoveryCacheProvider() {
 
 	}
 

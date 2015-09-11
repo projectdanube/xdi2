@@ -1,23 +1,25 @@
-package xdi2.discovery.cache;
+package xdi2.discovery.cache.impl;
 
 import java.io.Serializable;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import xdi2.discovery.cache.DiscoveryCacheKey;
+import xdi2.discovery.cache.DiscoveryCacheProvider;
 
-public class EhCacheDiscoveryCache implements DiscoveryCache {
+public class EhCacheDiscoveryCacheProvider extends DiscoveryCacheProvider {
 
 	private Cache registryCache;
 	private Cache authorityCache;
 
-	public EhCacheDiscoveryCache(Cache registryCache, Cache authorityCache) {
+	public EhCacheDiscoveryCacheProvider(Cache registryCache, Cache authorityCache) {
 
 		this.registryCache = registryCache;
 		this.authorityCache = authorityCache;
 	}
 
-	public EhCacheDiscoveryCache() {
+	public EhCacheDiscoveryCacheProvider() {
 
 		this.registryCache = null;
 		this.authorityCache = null;
@@ -25,11 +27,11 @@ public class EhCacheDiscoveryCache implements DiscoveryCache {
 
 	private void initDefault() {
 
-		CacheManager cacheManager = CacheManager.create(EhCacheDiscoveryCache.class.getResourceAsStream("ehcache.xml"));
-		cacheManager.addCache(EhCacheDiscoveryCache.class.getCanonicalName() + "-default-registry-cache");
-		cacheManager.addCache(EhCacheDiscoveryCache.class.getCanonicalName() + "-default-authority-cache");
-		this.registryCache = cacheManager.getCache(EhCacheDiscoveryCache.class.getCanonicalName() + "-default-registry-cache");
-		this.authorityCache = cacheManager.getCache(EhCacheDiscoveryCache.class.getCanonicalName() + "-default-authority-cache");
+		CacheManager cacheManager = CacheManager.create(EhCacheDiscoveryCacheProvider.class.getResourceAsStream("ehcache.xml"));
+		cacheManager.addCache(EhCacheDiscoveryCacheProvider.class.getCanonicalName() + "-default-registry-cache");
+		cacheManager.addCache(EhCacheDiscoveryCacheProvider.class.getCanonicalName() + "-default-authority-cache");
+		this.registryCache = cacheManager.getCache(EhCacheDiscoveryCacheProvider.class.getCanonicalName() + "-default-registry-cache");
+		this.authorityCache = cacheManager.getCache(EhCacheDiscoveryCacheProvider.class.getCanonicalName() + "-default-authority-cache");
 	}
 
 	@Override
