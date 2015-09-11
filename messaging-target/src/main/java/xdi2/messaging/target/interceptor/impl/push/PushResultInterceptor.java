@@ -99,6 +99,8 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 		// look for push results
 
+		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
+		
 		Map<Operation, List<PushResult>> operationPushResultsMap = getOperationPushResults(executionContext);
 		if (operationPushResultsMap == null) return InterceptorResult.DEFAULT;
 
@@ -117,7 +119,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// determine requesting and authorizing authorities
 
-				XDIAddress authorizingAuthority = message.getToXDIAddress();
+				XDIAddress authorizingAuthority = messagingTarget.getOwnerXDIAddress();
 				XDIAddress requestingAuthority = message.getFromXDIAddress();
 
 				// determine variable values
@@ -138,7 +140,15 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 				linkContractInstantiation.setVariableValues(variableValues);
 
-				LinkContract pushLinkContract = linkContractInstantiation.execute(false, true);
+				LinkContract pushLinkContract;
+
+				try {
+
+					pushLinkContract = linkContractInstantiation.execute(false, true);
+				} catch (Exception ex) {
+
+					throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
+				}
 
 				// associate push link contract with message
 

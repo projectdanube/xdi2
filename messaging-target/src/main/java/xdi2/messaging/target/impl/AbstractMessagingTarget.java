@@ -248,7 +248,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			try {
 
-				InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
+				InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), this, executionContext, executionResult);
 			} catch (Exception ex) {
 
 				log.warn("Error while execution result interceptors: " + ex.getMessage(), ex);

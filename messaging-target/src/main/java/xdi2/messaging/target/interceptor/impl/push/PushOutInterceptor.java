@@ -90,9 +90,8 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 * ExecutionResultInterceptor
 	 */
 
-
 	@Override
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public void finish(MessagingTarget messagingTarget, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// create the push maps
 
@@ -153,8 +152,6 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		}
 
 		// execute the push link contracts
-
-		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
 		Set<GenericLinkContract> pushLinkContracts = new HashSet<GenericLinkContract> ();
 		pushLinkContracts.addAll(pushLinkContractsXDIAddressMap.keySet());

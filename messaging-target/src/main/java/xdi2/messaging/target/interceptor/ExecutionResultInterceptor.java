@@ -13,9 +13,10 @@ import xdi2.messaging.target.execution.ExecutionResult;
 public interface ExecutionResultInterceptor extends Interceptor<MessagingTarget> {
 
 	/**
-	 * Run on the execution result after it is complete for final adjustments.
+	 * Run on the execution context and result after it has been finished.
+	 * @param messagingTarget The current messaging target.
 	 * @param executionContext The current execution context.
 	 * @param executionResult The current execution result.
 	 */
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
+	public void finish(MessagingTarget messagingTarget, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 }

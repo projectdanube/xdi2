@@ -228,14 +228,17 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		if (xdiClientRoute == null) throw new Xdi2MessagingException("No route for " + toPeerRootXDIArc, null, executionContext);
 
-		// disable link contracts in case the forwarding message is routed back to us
+		// disable link contracts if the forwarding message is routed back to us
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		if (messagingTarget instanceof AbstractMessagingTarget) {
+		if (forwardingMessage.getToXDIAddress() != null && forwardingMessage.getToPeerRootXDIArc().equals(messagingTarget.getOwnerPeerRootXDIArc())) {
 
-			LinkContractInterceptor linkContractInterceptor = ((AbstractMessagingTarget) messagingTarget).getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(forwardingMessage);
+			if (messagingTarget instanceof AbstractMessagingTarget) {
+
+				LinkContractInterceptor linkContractInterceptor = ((AbstractMessagingTarget) messagingTarget).getInterceptors().getInterceptor(LinkContractInterceptor.class);
+				if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(forwardingMessage);
+			}
 		}
 
 		// send the forwarding message

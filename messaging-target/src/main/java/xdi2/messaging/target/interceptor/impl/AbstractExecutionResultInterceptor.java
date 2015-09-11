@@ -6,10 +6,10 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 
-public abstract class AbstractResultGraphInterceptor extends AbstractInterceptor<MessagingTarget> implements ExecutionResultInterceptor {
+public abstract class AbstractExecutionResultInterceptor extends AbstractInterceptor<MessagingTarget> implements ExecutionResultInterceptor {
 
 	@Override
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public void finish(MessagingTarget messagingTarget, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 	}
 }

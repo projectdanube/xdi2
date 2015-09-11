@@ -382,7 +382,7 @@ public class InterceptorExecutor {
 		return targetStatement;
 	}
 
-	public static void executeResultInterceptorsFinish(InterceptorList<MessagingTarget> interceptorList, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public static void executeResultInterceptorsFinish(InterceptorList<MessagingTarget> interceptorList, MessagingTarget messagingTarget, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		for (Iterator<ExecutionResultInterceptor> executionResultInterceptors = findExecutionResultInterceptors(interceptorList); executionResultInterceptors.hasNext(); ) {
 
@@ -400,7 +400,7 @@ public class InterceptorExecutor {
 
 				executionContext.pushInterceptor(executionResultInterceptor, "ExecutionResultInterceptor: finish");
 
-				executionResultInterceptor.finish(executionContext, executionResult);
+				executionResultInterceptor.finish(messagingTarget, executionContext, executionResult);
 			} catch (Exception ex) {
 
 				throw executionContext.processException(ex);

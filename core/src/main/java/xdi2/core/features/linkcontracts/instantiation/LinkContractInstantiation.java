@@ -55,8 +55,8 @@ public class LinkContractInstantiation {
 
 		// create generic link contract
 
-		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known authorizing authority.");
-		if (this.getRequestingAuthority() == null) throw new NullPointerException("Cannot instantiate link contract without known requesting authority.");
+		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("No authorizing authority.");
+		if (this.getRequestingAuthority() == null) throw new NullPointerException("No requesting authority.");
 
 		Graph linkContractGraph = MemoryGraphFactory.getInstance().openGraph();
 
