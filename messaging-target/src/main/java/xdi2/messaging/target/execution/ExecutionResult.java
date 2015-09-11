@@ -209,7 +209,7 @@ public final class ExecutionResult {
 
 				if (operationPushResultGraph != null) {
 
-					responseMessage.createOperationResult(XDIAddressUtil.concatXDIAddresses(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH), operationResultGraph);
+					responseMessage.createOperationResult(XDIAddressUtil.concatXDIAddresses(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH), operationPushResultGraph);
 				}
 			}
 		}
