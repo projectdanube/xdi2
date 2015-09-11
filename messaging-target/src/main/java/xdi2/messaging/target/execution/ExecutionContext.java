@@ -495,7 +495,7 @@ public final class ExecutionContext implements Serializable {
 		this.currentExecutionPosition = new ExecutionPosition<T> (this.currentExecutionPosition, object, comment);
 
 		this.currentExecutionPosition.push = System.currentTimeMillis();
-		if (this.currentExecutionPosition.parentExecutionPosition == this.topExecutionPosition) this.firstPush = this.currentExecutionPosition.push;
+		if (this.firstPush == -1) this.firstPush = this.currentExecutionPosition.push;
 	}
 
 	private <T> void popExecutionPosition(Class<? extends T> clazz) {
