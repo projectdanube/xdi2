@@ -234,16 +234,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
-			// execute result interceptors (finish)
-
-			try {
-
-				InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
-			} catch (Exception ex) {
-
-				log.warn("Error while execution result interceptors: " + ex.getMessage(), ex);
-			}
-
 			// finish execution result
 
 			try {
@@ -252,6 +242,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			} catch (Exception ex) {
 
 				log.warn("Error while finishing execution context: " + ex.getMessage(), ex);
+			}
+
+			// execute result interceptors (finish)
+
+			try {
+
+				InterceptorExecutor.executeResultInterceptorsFinish(this.getInterceptors(), executionContext, executionResult);
+			} catch (Exception ex) {
+
+				log.warn("Error while execution result interceptors: " + ex.getMessage(), ex);
 			}
 
 			// done

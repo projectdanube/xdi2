@@ -22,6 +22,7 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.GraphAware;
 import xdi2.messaging.Message;
+import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -29,13 +30,14 @@ import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
+import xdi2.messaging.target.interceptor.InterceptorResult;
+import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
  * This interceptor can add push results to an execution result.
  */
-public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, ExecutionResultInterceptor, Prototype<PushResultInterceptor> {
+public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, Prototype<PushResultInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushResultInterceptor.class);
 
@@ -82,17 +84,23 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	}
 
 	/*
-	 * ResultGraphInterceptor
+	 * MessageEnvelopeInterceptor
 	 */
 
-	// TODO: maybe move some of this directly into the ExecutionResult
+
 	@Override
-	public void finish(ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+
+		return InterceptorResult.DEFAULT;
+	}
+
+	@Override
+	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
 		// look for push results
 
 		Map<Operation, List<PushResult>> operationPushResultsMap = getOperationPushResults(executionContext);
-		if (operationPushResultsMap == null) return;
+		if (operationPushResultsMap == null) return InterceptorResult.DEFAULT;
 
 		for (Map.Entry<Operation, List<PushResult>> operationPushResults : operationPushResultsMap.entrySet()) {
 
@@ -114,14 +122,14 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				// determine variable values
 
-				XDIAddress targetVariableValue = null;
-				if (targetVariableValue == null && pushResult.getXDIAddress() != null) targetVariableValue = pushResult.getXDIAddress();
-				if (targetVariableValue == null && pushResult.getXDIStatement() != null) targetVariableValue = targetXDIAddressForTargetXDIStatement(pushResult.getXDIStatement());
+				XDIAddress pushVariableValue = null;
+				if (pushVariableValue == null && pushResult.getXDIAddress() != null) pushVariableValue = pushResult.getXDIAddress();
+				if (pushVariableValue == null && pushResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(pushResult.getXDIStatement());
 
-				if (targetVariableValue == null) throw new NullPointerException();
+				if (pushVariableValue == null) throw new NullPointerException();
 
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
-				variableValues.put(XDIArc.create("{$push}"), targetVariableValue);
+				variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
 
 				// instantiate push link contract
 
@@ -157,6 +165,15 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 			if (log.isDebugEnabled()) log.debug("For operation " + operation + " we have operation push result graph " + operationPushResultGraph);
 		}
+
+		// done
+
+		return InterceptorResult.DEFAULT;
+	}
+
+	@Override
+	public void exception(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult, Exception ex) {
+
 	}
 
 	/*
@@ -172,7 +189,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 		this.targetGraph = targetGraph;
 	}
-	
+
 	/*
 	 * Helper methods
 	 */
