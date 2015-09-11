@@ -117,6 +117,12 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 					if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target address " + targetXDIAddress);
 
+					if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+
+						if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
+						continue;
+					}
+
 					Map<Operation, XDIAddress> pushLinkContractXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
 					if (pushLinkContractXDIAddressMap == null) { pushLinkContractXDIAddressMap = new HashMap<Operation, XDIAddress> (); pushLinkContractsXDIAddressMap.put(pushLinkContract, pushLinkContractXDIAddressMap); }
 
@@ -138,6 +144,12 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 					for (GenericLinkContract pushLinkContract : pushLinkContracts) {
 
 						if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target statement " + targetXDIStatement);
+
+						if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+
+							if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
+							continue;
+						}
 
 						Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
 						if (pushLinkContractXDIStatementMap == null) { pushLinkContractXDIStatementMap = new HashMap<Operation, List<XDIStatement>> (); pushLinkContractsXDIStatementMap.put(pushLinkContract, pushLinkContractXDIStatementMap); }
@@ -180,7 +192,13 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 				if (log.isDebugEnabled()) log.debug("Executing push " + pushLinkContract);
 
-				this.getPushGateway().executePush(messagingTarget, pushLinkContract, pushedOperations, pushedOperationResultGraphs, pushedXDIAddressMap, pushedXDIStatementMap);
+				this.getPushGateway().executePush(
+						messagingTarget, 
+						pushLinkContract, 
+						pushedOperations, 
+						pushedOperationResultGraphs, 
+						pushedXDIAddressMap, 
+						pushedXDIStatementMap);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
@@ -313,14 +331,5 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		if (writeOperations == null) { writeOperations = new ArrayList<Operation> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, writeOperations); }
 
 		writeOperations.add(operation);
-	}
-
-	/*
-	 * WriteListener
-	 */
-
-	public interface WriteListener {
-
-		public void onWrite(List<XDIAddress> targetAddresses);
 	}
 }
