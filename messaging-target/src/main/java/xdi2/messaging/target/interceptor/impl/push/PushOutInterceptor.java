@@ -87,6 +87,34 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	}
 
 	/*
+	 * OperationInterceptor
+	 */
+
+	@Override
+	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// only care about write operations
+
+		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
+
+		// add the write operation
+
+		addWriteOperationPerMessageEnvelope(executionContext, operation);
+
+		// done
+
+		return InterceptorResult.DEFAULT;
+	}
+
+	@Override
+	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+
+		// done
+
+		return InterceptorResult.DEFAULT;
+	}
+
+	/*
 	 * ExecutionResultInterceptor
 	 */
 
@@ -204,34 +232,6 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
 			}
 		}
-	}
-
-	/*
-	 * OperationInterceptor
-	 */
-
-	@Override
-	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		// only care about write operations
-
-		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
-
-		// add the write operation
-
-		addWriteOperationPerMessageEnvelope(executionContext, operation);
-
-		// done
-
-		return InterceptorResult.DEFAULT;
-	}
-
-	@Override
-	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
-
-		// done
-
-		return InterceptorResult.DEFAULT;
 	}
 
 	/*
