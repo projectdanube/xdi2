@@ -18,7 +18,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -516,16 +516,16 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			if ("Get key pairs".equals(submit)) {
 
-				message.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR));
-				message.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR));
+				message.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR));
+				message.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR));
 			} else if ("Generate key pairs".equals(submit)) {
 
-				message.createOperation(GenerateKeyContributor.XDI_ADD_DO_KEYPAIR, XDIStatement.fromComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR), XDIDictionaryConstants.XDI_ADD_IS_TYPE, XDIAddress.create("$rsa$2048")));
-				message.createOperation(GenerateKeyContributor.XDI_ADD_DO_KEYPAIR, XDIStatement.fromComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR), XDIDictionaryConstants.XDI_ADD_IS_TYPE, XDIAddress.create("$rsa$2048")));
+				message.createOperation(GenerateKeyContributor.XDI_ADD_DO_KEYPAIR, XDIStatement.fromComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR), XDIDictionaryConstants.XDI_ADD_IS_TYPE, XDIAddress.create("$rsa$2048")));
+				message.createOperation(GenerateKeyContributor.XDI_ADD_DO_KEYPAIR, XDIStatement.fromComponents(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR), XDIDictionaryConstants.XDI_ADD_IS_TYPE, XDIAddress.create("$rsa$2048")));
 			} else if ("Del key pairs".equals(submit)) {
 
-				message.createDelOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR));
-				message.createDelOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR));
+				message.createDelOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR));
+				message.createDelOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);

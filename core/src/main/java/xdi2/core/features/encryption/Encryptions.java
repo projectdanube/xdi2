@@ -7,7 +7,7 @@ import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
@@ -53,9 +53,9 @@ public class Encryptions {
 		XdiAttribute encryptionXdiAttribute;
 
 		if (singleton)
-			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true);
+			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION), true);
 		else
-			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), true).setXdiInstanceUnordered(true, false);
+			encryptionXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION), true).setXdiInstanceUnordered(true, false);
 
 		XDIAddress dataTypeXDIAddress = getDataTypeXDIAddress(keyAlgorithm, keyLength);
 		DataTypes.setDataType(encryptionXdiAttribute.getContextNode(), dataTypeXDIAddress);
@@ -74,14 +74,14 @@ public class Encryptions {
 
 		// add encryption that is an XDI attribute singleton
 
-		XdiAttributeSingleton encryptionAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), false);
+		XdiAttributeSingleton encryptionAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION), false);
 		Encryption<?, ?> encryptionSingleton = encryptionAttributeSingleton == null ? null : Encryption.fromXdiAttribute(encryptionAttributeSingleton);
 
 		if (encryptionSingleton != null) iterators.add(new SingleItemIterator<Encryption<?, ?>> (encryptionSingleton));
 
 		// add encryptions that are XDI attribute instances
 
-		XdiAttributeCollection encryptionAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION), false);
+		XdiAttributeCollection encryptionAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION), false);
 
 		if (encryptionAttributeCollection != null) iterators.add(new MappingXdiAttributeEncryptionIterator(encryptionAttributeCollection.getXdiInstancesDeref()));
 
@@ -148,6 +148,8 @@ public class Encryptions {
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) return null;
 
 			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 			if (xdiAttribute == null) return contextNode;

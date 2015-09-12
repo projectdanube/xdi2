@@ -101,27 +101,35 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.HasInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
-					<property name="secretTokenAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.GraphSecretTokenAuthenticator">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.SecretTokenInterceptor">
+					<property name="secretTokenValidator">
+						<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.GraphSecretTokenValidator">
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="secretTokenGraph" ref="registryGraph" />
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.signature.SignatureInterceptor">
 					<property name="signatureValidators">
 						<util:list>
-							<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
+							<bean class="xdi2.core.security.signature.validate.RSADiscoveryPublicKeySignatureValidator">
 								<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 							</bean>
+						</util:list>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.security.digest.DigestInterceptor">
+					<property name="digestValidators">
+						<util:list>
+							<bean class="xdi2.core.security.digest.validate.SHABasicDigestValidator" />
+							<bean class="xdi2.core.security.digest.validate.MDBasicDigestValidator" />
 						</util:list>
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
 					<property name="signatureCreator">
-						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
+						<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
@@ -130,7 +138,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="prototypeGraph" />
 									</bean>
 								</property>
@@ -144,7 +152,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="prototypeGraph" />
 									</bean>
 								</property>
@@ -236,9 +244,9 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.HasInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
-					<property name="secretTokenAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.SecretTokenInterceptor">
+					<property name="secretTokenValidator">
+						<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.StaticSecretTokenValidator">
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
@@ -248,19 +256,27 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.signature.SignatureInterceptor">
 					<property name="signatureValidators">
 						<util:list>
-							<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
+							<bean class="xdi2.core.security.signature.validate.RSADiscoveryPublicKeySignatureValidator">
 								<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 							</bean>
+						</util:list>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.security.digest.DigestInterceptor">
+					<property name="digestValidators">
+						<util:list>
+							<bean class="xdi2.core.security.digest.validate.SHABasicDigestValidator" />
+							<bean class="xdi2.core.security.digest.validate.MDBasicDigestValidator" />
 						</util:list>
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
 					<property name="signatureCreator">
-						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
+						<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
@@ -269,7 +285,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="registryGraph" />
 									</bean>
 								</property>
@@ -283,7 +299,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="registryGraph" />
 									</bean>
 								</property>
@@ -379,9 +395,9 @@
 				<bean class="xdi2.messaging.target.interceptor.impl.ToInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.RefInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.HasInterceptor" />
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.AuthenticationSecretTokenInterceptor">
-					<property name="secretTokenAuthenticator">
-						<bean class="xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.SecretTokenInterceptor">
+					<property name="secretTokenValidator">
+						<bean class="xdi2.messaging.target.interceptor.impl.security.secrettoken.StaticSecretTokenValidator">
 							<property name="globalSalt" value="00000000-0000-0000-0000-000000000000" />
 							<property name="localSaltAndDigestSecretTokens">
 								<util:map>
@@ -391,19 +407,27 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor">
+				<bean class="xdi2.messaging.target.interceptor.impl.security.signature.SignatureInterceptor">
 					<property name="signatureValidators">
 						<util:list>
-							<bean class="xdi2.core.security.validate.RSADiscoveryPublicKeySignatureValidator">
+							<bean class="xdi2.core.security.signature.validate.RSADiscoveryPublicKeySignatureValidator">
 								<property name="xdiDiscoveryClient" ref="XdiDiscoveryClient" />
 							</bean>
+						</util:list>
+					</property>
+				</bean>
+				<bean class="xdi2.messaging.target.interceptor.impl.security.digest.DigestInterceptor">
+					<property name="digestValidators">
+						<util:list>
+							<bean class="xdi2.core.security.digest.validate.SHABasicDigestValidator" />
+							<bean class="xdi2.core.security.digest.validate.MDBasicDigestValidator" />
 						</util:list>
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor" />
 				<bean class="xdi2.messaging.target.interceptor.impl.signing.SigningInterceptor">
 					<property name="signatureCreator">
-						<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator" />
+						<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator" />
 					</property>
 				</bean>
 				<bean class="xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor">
@@ -412,7 +436,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="graphAlice" />
 									</bean>
 								</property>
@@ -426,7 +450,7 @@
 						<util:list>
 							<bean class="xdi2.client.manipulator.impl.signing.SigningManipulator">
 								<property name="signatureCreator">
-									<bean class="xdi2.core.security.sign.RSAGraphPrivateKeySignatureCreator">
+									<bean class="xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator">
 										<property name="privateKeyGraph" ref="graphAlice" />
 									</bean>
 								</property>

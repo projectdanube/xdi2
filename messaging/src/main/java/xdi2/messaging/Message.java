@@ -8,11 +8,13 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
+import xdi2.core.features.digests.Digest;
+import xdi2.core.features.digests.Digests;
 import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
@@ -469,11 +471,11 @@ public final class Message implements Serializable, Comparable<Message> {
 
 		if (secretToken != null) {
 
-			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN));
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().setDeepContextNode(XDISecurityConstants.XDI_ADD_SECRET_TOKEN));
 			xdiAttribute.setLiteralData(secretToken);
 		} else {
 
-			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN, true));
+			XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(this.getContextNode().getDeepContextNode(XDISecurityConstants.XDI_ADD_SECRET_TOKEN, true));
 			LiteralNode literalNode = xdiAttribute == null ? null : xdiAttribute.getLiteralNode();
 			if (literalNode != null) literalNode.delete();
 		}
@@ -485,7 +487,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public String getSecretToken() {
 
-		ContextNode contextNode = this.getContextNode().getDeepContextNode(XDIAuthenticationConstants.XDI_ADD_SECRET_TOKEN, true);
+		ContextNode contextNode = this.getContextNode().getDeepContextNode(XDISecurityConstants.XDI_ADD_SECRET_TOKEN, true);
 		if (contextNode == null) return null;
 
 		XdiAttributeSingleton xdiAttribute = XdiAttributeSingleton.fromContextNode(contextNode);
@@ -498,12 +500,21 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Returns the signature from the message.
-	 * @return The signature.
+	 * Returns the signatures from the message.
+	 * @return The signatures.
 	 */
 	public ReadOnlyIterator<Signature> getSignatures() {
 
 		return Signatures.getSignatures(this.getContextNode());
+	}
+
+	/**
+	 * Returns the digests from the message.
+	 * @return The digests.
+	 */
+	public ReadOnlyIterator<Digest> getDigests() {
+
+		return Digests.getDigests(this.getContextNode());
 	}
 
 	/**

@@ -11,7 +11,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.encryption.Encryptions.NoEncryptionsCopyStrategy;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
@@ -50,10 +50,10 @@ public final class RSAEncryption extends Encryption<PublicKey, PrivateKey> {
 
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
-			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION))) return false;
+			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION))) return false;
 		} else if (xdiAttribute instanceof XdiAttributeInstance) {
 
-			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_ENCRYPTION))) return false;
+			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDISecurityConstants.XDI_ARC_ENCRYPTION))) return false;
 		} else {
 
 			return false;

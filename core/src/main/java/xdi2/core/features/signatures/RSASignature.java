@@ -1,6 +1,6 @@
 package xdi2.core.features.signatures;
 
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
@@ -38,10 +38,10 @@ public final class RSASignature extends Signature {
 
 		if (xdiAttribute instanceof XdiAttributeSingleton) {
 
-			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
+			if (! ((XdiAttributeSingleton) xdiAttribute).getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE))) return false;
 		} else if (xdiAttribute instanceof XdiAttributeInstance) {
 
-			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE))) return false;
+			if (! ((XdiAttributeInstance) xdiAttribute).getXdiCollection().getBaseXDIArc().equals(XdiAbstractContext.getBaseXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE))) return false;
 		} else {
 
 			return false;
@@ -72,12 +72,12 @@ public final class RSASignature extends Signature {
 	 * Instance methods
 	 */
 
-	public String getAlgorithm() {
+	public String getJCEAlgorithm() {
 
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(this.getDigestAlgorithm().toUpperCase());
-		builder.append(this.getDigestLength());
+		builder.append(this.getDigestVersion());
 		builder.append("with");
 		builder.append(this.getKeyAlgorithm().toUpperCase());
 

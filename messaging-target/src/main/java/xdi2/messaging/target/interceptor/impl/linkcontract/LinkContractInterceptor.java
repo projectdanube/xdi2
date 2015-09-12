@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
-import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.policy.PolicyRoot;
@@ -41,11 +41,9 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.impl.connect.ConnectInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.PushInInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor;
 import xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor.PushResult;
-import xdi2.messaging.target.interceptor.impl.send.SendInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
 /**
@@ -182,74 +180,57 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (isConnect(operation)) {
 
-			// look at link contract templates for ConnectInterceptor
+			// look at target address for ConnectInterceptor
 
-			AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
+			XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
+			if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
-			ConnectInterceptor connectInterceptor = messagingTarget.getInterceptors().getInterceptor(ConnectInterceptor.class);
-			if (connectInterceptor == null) return InterceptorResult.DEFAULT;
+			// check permission on target address
 
-			List<LinkContractTemplate> linkContractTemplates = connectInterceptor.getLinkContractTemplates(operation, executionContext);
+			Boolean authorized = null;
 
-			for (LinkContractTemplate linkContractTemplate : linkContractTemplates) {
+			if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
 
-				XDIAddress targetXDIAddress = linkContractTemplate.getContextNode().getXDIAddress();
+				authorized = Boolean.TRUE;
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
+			} else {
 
-				// check permission on target address
-
-				Boolean authorized = null;
-
-				if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
-
-					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
-				} else {
-
-					authorized = Boolean.FALSE;
-					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
-				}
-
-				// handle result
-
-				handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
+				authorized = Boolean.FALSE;
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
 			}
+
+			// handle result
+
+			handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
 		}
 
 		// check permission on $send operation
 
 		if (isSend(operation)) {
 
-			// look at messages for SendInterceptor
 
-			AbstractMessagingTarget messagingTarget = (AbstractMessagingTarget) executionContext.getCurrentMessagingTarget();
+			// look at target address for ConnectInterceptor
 
-			SendInterceptor sendInterceptor = messagingTarget.getInterceptors().getInterceptor(SendInterceptor.class);
-			if (sendInterceptor == null) return InterceptorResult.DEFAULT;
+			XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
+			if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
-			List<Message> forwardingMessages = sendInterceptor.getForwardingMessages(operation, executionContext);
+			// check permission on target address
 
-			for (Message forwardingMessage : forwardingMessages) {
+			Boolean authorized = null;
 
-				XDIAddress targetXDIAddress = forwardingMessage.getContextNode().getXDIAddress();
+			if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
 
-				// check permission on target address
+				authorized = Boolean.TRUE;
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
+			} else {
 
-				Boolean authorized = null;
-
-				if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIAddress, linkContract)) {
-
-					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + operation.getOperationXDIAddress() + " permission on target address " + targetXDIAddress);
-				} else {
-
-					authorized = Boolean.FALSE;
-					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
-				}
-
-				// handle result
-
-				handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
+				authorized = Boolean.FALSE;
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + operation.getOperationXDIAddress() + " permissions on target address " + targetXDIAddress);
 			}
+
+			// handle result
+
+			handleEvaluationResult(authorized, pushFlag, targetXDIAddress, operation, executionContext);
 		}
 
 		// check permission on $push operation

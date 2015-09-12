@@ -15,10 +15,10 @@ import xdi2.core.features.signatures.AESSignature;
 import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.impl.memory.MemoryGraphFactory;
-import xdi2.core.security.sign.AESStaticSecretKeySignatureCreator;
-import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
-import xdi2.core.security.validate.AESStaticSecretKeySignatureValidator;
-import xdi2.core.security.validate.RSAStaticPublicKeySignatureValidator;
+import xdi2.core.security.signature.create.AESStaticSecretKeySignatureCreator;
+import xdi2.core.security.signature.create.RSAStaticPrivateKeySignatureCreator;
+import xdi2.core.security.signature.validate.AESStaticSecretKeySignatureValidator;
+import xdi2.core.security.signature.validate.RSAStaticPublicKeySignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 
@@ -30,12 +30,12 @@ public class SignaturesTest extends TestCase {
 		XDIAddress symmetricKeyXDIAddress = XDIAddress.create("$sha$384$aes$256");
 
 		assertEquals(Signatures.getDigestAlgorithm(keyPairXDIAddress), "sha");
-		assertEquals(Signatures.getDigestLength(keyPairXDIAddress), Integer.valueOf(256));
+		assertEquals(Signatures.getDigestVersion(keyPairXDIAddress), Integer.valueOf(256));
 		assertEquals(Signatures.getKeyAlgorithm(keyPairXDIAddress), "rsa");
 		assertEquals(Signatures.getKeyLength(keyPairXDIAddress), Integer.valueOf(1024));
 
 		assertEquals(Signatures.getDigestAlgorithm(symmetricKeyXDIAddress), "sha");
-		assertEquals(Signatures.getDigestLength(symmetricKeyXDIAddress), Integer.valueOf(384));
+		assertEquals(Signatures.getDigestVersion(symmetricKeyXDIAddress), Integer.valueOf(384));
 		assertEquals(Signatures.getKeyAlgorithm(symmetricKeyXDIAddress), "aes");
 		assertEquals(Signatures.getKeyLength(symmetricKeyXDIAddress), Integer.valueOf(256));
 
@@ -62,11 +62,11 @@ public class SignaturesTest extends TestCase {
 		signature = (RSASignature) Signatures.getSignatures(contextNode).next();
 
 		assertEquals(signature.getDigestAlgorithm(), RSASignature.DIGEST_ALGORITHM_SHA);
-		assertEquals(signature.getDigestLength(), Integer.valueOf(256));
+		assertEquals(signature.getDigestVersion(), Integer.valueOf(256));
 		assertEquals(signature.getKeyAlgorithm(), RSASignature.KEY_ALGORITHM_RSA);
 		assertEquals(signature.getKeyLength(), Integer.valueOf(1024));
 
-		assertEquals(signature.getAlgorithm(), "SHA256withRSA");
+		assertEquals(signature.getJCEAlgorithm(), "SHA256withRSA");
 
 		assertEquals(signature.getBaseContextNode(), contextNode);
 
@@ -96,11 +96,11 @@ public class SignaturesTest extends TestCase {
 		signature = (AESSignature) Signatures.getSignatures(contextNode).next();
 
 		assertEquals(signature.getDigestAlgorithm(), AESSignature.DIGEST_ALGORITHM_SHA);
-		assertEquals(signature.getDigestLength(), Integer.valueOf(256));
+		assertEquals(signature.getDigestVersion(), Integer.valueOf(256));
 		assertEquals(signature.getKeyAlgorithm(), AESSignature.KEY_ALGORITHM_AES);
 		assertEquals(signature.getKeyLength(), Integer.valueOf(256));
 
-		assertEquals(signature.getAlgorithm(), "HmacSHA256");
+		assertEquals(signature.getJCEAlgorithm(), "HmacSHA256");
 
 		assertEquals(signature.getBaseContextNode(), contextNode);
 

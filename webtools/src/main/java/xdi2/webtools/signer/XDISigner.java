@@ -33,14 +33,15 @@ import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.Normalization;
+import xdi2.core.io.Normalization.NormalizationCopyStrategy;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
-import xdi2.core.security.sign.AESStaticSecretKeySignatureCreator;
-import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
-import xdi2.core.security.validate.AESStaticSecretKeySignatureValidator;
-import xdi2.core.security.validate.RSAStaticPublicKeySignatureValidator;
+import xdi2.core.security.signature.create.AESStaticSecretKeySignatureCreator;
+import xdi2.core.security.signature.create.RSAStaticPrivateKeySignatureCreator;
+import xdi2.core.security.signature.validate.AESStaticSecretKeySignatureValidator;
+import xdi2.core.security.signature.validate.RSAStaticPublicKeySignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.webtools.util.OutputCache;
@@ -219,7 +220,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 					new AESStaticSecretKeySignatureCreator((SecretKey) k).createSignature((AESSignature) signature);
 				}
 
-				output2 = Normalization.serialize(contextNode, new NoSignaturesCopyStrategy());
+				output2 = Normalization.serialize(contextNode, new NormalizationCopyStrategy());
 			} else if ("Validate!".equals(submit)) {
 
 				ReadOnlyIterator<Signature> signatures = Signatures.getSignatures(contextNode);

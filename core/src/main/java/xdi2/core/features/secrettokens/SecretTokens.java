@@ -8,7 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
 import xdi2.core.LiteralNode;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
@@ -28,7 +28,7 @@ public class SecretTokens {
 
 		// find local salt and digest secret token
 
-		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = xdiContext.getXdiAttribute(XDIAuthenticationConstants.XDI_ADD_DIGEST_SECRET_TOKEN, false);
+		XdiAttribute localSaltAndDigestSecretTokenXdiAttribute = xdiContext.getXdiAttribute(XDISecurityConstants.XDI_ADD_DIGEST_SECRET_TOKEN, false);
 		localSaltAndDigestSecretTokenXdiAttribute = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.dereference();
 
 		LiteralNode localSaltAndDigestSecretTokenLiteral = localSaltAndDigestSecretTokenXdiAttribute == null ? null : localSaltAndDigestSecretTokenXdiAttribute.getLiteralNode();

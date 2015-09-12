@@ -4,7 +4,7 @@ import java.security.GeneralSecurityException;
 
 import xdi2.core.Graph;
 import xdi2.core.features.signatures.Signature;
-import xdi2.core.security.sign.SignatureCreator;
+import xdi2.core.security.signature.create.SignatureCreator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.messaging.operations.Operation;

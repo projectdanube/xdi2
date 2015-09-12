@@ -12,10 +12,13 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.digests.Digests.NoDigestsCopyStrategy;
+import xdi2.core.features.signatures.Signatures.NoSignaturesCopyStrategy;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.readers.XDIJSONReader;
 import xdi2.core.io.writers.XDIJSONWriter;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.CopyUtil.CompoundCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 
 public class Normalization {
@@ -118,5 +121,17 @@ public class Normalization {
 		}
 
 		return tempGraph;
+	}
+
+	/*
+	 * Helper class
+	 */
+
+	public static class NormalizationCopyStrategy extends CompoundCopyStrategy {
+
+		public NormalizationCopyStrategy() {
+
+			super(new NoSignaturesCopyStrategy(), new NoDigestsCopyStrategy());
+		}
 	}
 }

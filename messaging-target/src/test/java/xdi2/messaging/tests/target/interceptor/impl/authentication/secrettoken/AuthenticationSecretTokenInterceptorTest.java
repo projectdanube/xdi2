@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator;
+import xdi2.messaging.target.interceptor.impl.security.secrettoken.StaticSecretTokenValidator;
 
 public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 
@@ -24,7 +24,7 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 
 	public void testStaticSecretTokenAuthenticator() throws Exception {
 
-		StaticSecretTokenAuthenticator staticSecretTokenAuthenticator = new StaticSecretTokenAuthenticator();
+		StaticSecretTokenValidator staticSecretTokenAuthenticator = new StaticSecretTokenValidator();
 		staticSecretTokenAuthenticator.setGlobalSalt(GLOBAL_SALT);
 		staticSecretTokenAuthenticator.setLocalSaltAndDigestSecretTokens(Collections.singletonMap(SENDER, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN));
 

@@ -96,9 +96,9 @@ public abstract class Signature implements Serializable, Comparable<Signature> {
 		return Signatures.getDigestAlgorithm(this.getXdiAttribute());
 	}
 
-	public Integer getDigestLength() {
+	public Integer getDigestVersion() {
 
-		return Signatures.getDigestLength(this.getXdiAttribute());
+		return Signatures.getDigestVersion(this.getXdiAttribute());
 	}
 
 	public String getKeyAlgorithm() {

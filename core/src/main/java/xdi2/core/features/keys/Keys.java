@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.LiteralNode;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
@@ -32,7 +32,7 @@ public class Keys {
 	 */
 	public static PublicKey getSignaturePublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Keys {
 	 */
 	public static PublicKey getEncryptionPublicKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPublicKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getPublicKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Keys {
 	 */
 	public static PrivateKey getSignaturePrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class Keys {
 	 */
 	public static PrivateKey getEncryptionPrivateKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getPrivateKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return getPrivateKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Keys {
 	 */
 	public static SecretKey getSignatureSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Keys {
 	 */
 	public static SecretKey getEncryptionSecretKey(XdiContext<?> xdiContext) throws GeneralSecurityException {
 
-		return getSecretKey(xdiContext, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
+		return getSecretKey(xdiContext, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY);
 	}
 
 	/**

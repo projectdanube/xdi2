@@ -6,7 +6,7 @@ import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
@@ -47,16 +47,16 @@ public class Signatures {
 	 * Creates an XDI signature on a context node.
 	 * @return The XDI signature.
 	 */
-	public static Signature createSignature(ContextNode contextNode, String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength, boolean singleton) {
+	public static Signature createSignature(ContextNode contextNode, String digestAlgorithm, Integer digestVersion, String keyAlgorithm, Integer keyLength, boolean singleton) {
 
 		XdiAttribute signatureXdiAttribute;
 
 		if (singleton)
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE), true);
 		else
-			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), true).setXdiInstanceUnordered(true, false);
+			signatureXdiAttribute = XdiAbstractContext.fromContextNode(contextNode).getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE), true).setXdiInstanceUnordered(true, false);
 
-		XDIAddress dataTypeXDIAddress = createDataTypeXDIAddress(digestAlgorithm, digestLength, keyAlgorithm, keyLength);
+		XDIAddress dataTypeXDIAddress = createDataTypeXDIAddress(digestAlgorithm, digestVersion, keyAlgorithm, keyLength);
 		if (dataTypeXDIAddress != null) DataTypes.setDataType(signatureXdiAttribute.getContextNode(), dataTypeXDIAddress);
 
 		return Signature.fromXdiAttribute(signatureXdiAttribute);
@@ -73,14 +73,14 @@ public class Signatures {
 
 		// add signature that is an XDI attribute singleton
 
-		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeSingleton signatureAttributeSingleton = xdiContext.getXdiAttributeSingleton(XdiAttributeSingleton.createXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE), false);
 		Signature signatureSingleton = signatureAttributeSingleton == null ? null : Signature.fromXdiAttribute(signatureAttributeSingleton);
 
 		if (signatureSingleton != null) iterators.add(new SingleItemIterator<Signature> (signatureSingleton));
 
 		// add signatures that are XDI attribute instances
 
-		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDIAuthenticationConstants.XDI_ARC_SIGNATURE), false);
+		XdiAttributeCollection signatureAttributeCollection = xdiContext.getXdiAttributeCollection(XdiAttributeCollection.createXDIArc(XDISecurityConstants.XDI_ARC_SIGNATURE), false);
 
 		if (signatureAttributeCollection != null) iterators.add(new MappingXdiAttributeSignatureIterator(signatureAttributeCollection.getXdiInstancesDeref()));
 
@@ -110,23 +110,23 @@ public class Signatures {
 		return digestAlgorithmAddress.getLiteral();
 	}
 
-	public static Integer getDigestLength(XdiAttribute xdiAttribute) {
+	public static Integer getDigestVersion(XdiAttribute xdiAttribute) {
 
 		XDIAddress dataTypeXDIAddress = DataTypes.getDataType(xdiAttribute.getContextNode());
 
-		return dataTypeXDIAddress == null ? null : getDigestLength(dataTypeXDIAddress);
+		return dataTypeXDIAddress == null ? null : getDigestVersion(dataTypeXDIAddress);
 	}
 
-	public static Integer getDigestLength(XDIAddress dataTypeXDIAddress) {
+	public static Integer getDigestVersion(XDIAddress dataTypeXDIAddress) {
 
-		XDIArc digestLengthAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(1) : null;
-		if (digestLengthAddress == null) return null;
+		XDIArc digestVersionAddress = dataTypeXDIAddress.getNumXDIArcs() > 3 ? dataTypeXDIAddress.getXDIArc(1) : null;
+		if (digestVersionAddress == null) return null;
 
-		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestLengthAddress.getCs())) return null;
-		if (digestLengthAddress.hasXRef()) return null;
-		if (! digestLengthAddress.hasLiteral()) return null;
+		if (! XDIConstants.CS_CLASS_RESERVED.equals(digestVersionAddress.getCs())) return null;
+		if (digestVersionAddress.hasXRef()) return null;
+		if (! digestVersionAddress.hasLiteral()) return null;
 
-		return Integer.valueOf(digestLengthAddress.getLiteral());
+		return Integer.valueOf(digestVersionAddress.getLiteral());
 	}
 
 	public static String getKeyAlgorithm(XdiAttribute xdiAttribute) {
@@ -167,12 +167,12 @@ public class Signatures {
 		return Integer.valueOf(keyLengthAddress.getLiteral());
 	}
 
-	public static XDIAddress createDataTypeXDIAddress(String digestAlgorithm, Integer digestLength, String keyAlgorithm, Integer keyLength) {
+	public static XDIAddress createDataTypeXDIAddress(String digestAlgorithm, Integer digestVersion, String keyAlgorithm, Integer keyLength) {
 
 		StringBuilder builder = new StringBuilder();
 
 		if (digestAlgorithm != null) builder.append(XDIConstants.CS_CLASS_RESERVED + digestAlgorithm.toLowerCase());
-		if (digestLength != null) builder.append(XDIConstants.CS_CLASS_RESERVED + digestLength.toString());
+		if (digestVersion != null) builder.append(XDIConstants.CS_CLASS_RESERVED + digestVersion.toString());
 		if (keyAlgorithm != null) builder.append(XDIConstants.CS_CLASS_RESERVED + keyAlgorithm.toLowerCase());
 		if (keyLength != null) builder.append(XDIConstants.CS_CLASS_RESERVED + keyLength.toString());
 
@@ -189,6 +189,8 @@ public class Signatures {
 
 		@Override
 		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			if (contextNode == null) return null;
 
 			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
 			if (xdiAttribute == null) return contextNode;

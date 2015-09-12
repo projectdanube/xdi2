@@ -7,7 +7,7 @@ import java.security.PrivateKey;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
@@ -36,12 +36,12 @@ public class XDIClientUtil {
 
 	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
 	public static PrivateKey retrieveEncryptionPrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
-		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
+		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
 	// TODO: deprecate this, or at least use XdiAgent?

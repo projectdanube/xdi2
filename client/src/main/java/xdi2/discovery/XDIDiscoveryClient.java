@@ -13,7 +13,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.URLURIUtil;
-import xdi2.core.constants.XDIAuthenticationConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
@@ -268,8 +268,8 @@ public class XDIDiscoveryClient {
 			authorityMessage.setLinkContractClass(PublicLinkContract.class);
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(XDIConstants.XDI_ADD_ROOT, XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
 			authorityMessage.createGetOperation(XDIStatement.fromRelationComponents(cloudNumber.getXDIAddress(), XDIDictionaryConstants.XDI_ADD_IS_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
-			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
-			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAuthenticationConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+			authorityMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
 			if (endpointUriTypes != null) {
 
