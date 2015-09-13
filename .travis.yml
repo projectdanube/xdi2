@@ -1,7 +1,4 @@
 language: java
-notifications:
-    email:
-        - markus@projectdanube.org
 branches:
     only:
         - master
