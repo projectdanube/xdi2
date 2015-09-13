@@ -145,11 +145,13 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 					if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target address " + targetXDIAddress);
 
-					if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+					// TODO: evaluate policy here?
+
+					/*					if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
 
 						if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
 						continue;
-					}
+					}*/
 
 					Map<Operation, XDIAddress> pushLinkContractXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
 					if (pushLinkContractXDIAddressMap == null) { pushLinkContractXDIAddressMap = new HashMap<Operation, XDIAddress> (); pushLinkContractsXDIAddressMap.put(pushLinkContract, pushLinkContractXDIAddressMap); }
@@ -173,11 +175,13 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 						if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target statement " + targetXDIStatement);
 
-						if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+						// TODO: evaluate policy here?
+
+						/*						if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
 
 							if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
 							continue;
-						}
+						}*/
 
 						Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
 						if (pushLinkContractXDIStatementMap == null) { pushLinkContractXDIStatementMap = new HashMap<Operation, List<XDIStatement>> (); pushLinkContractsXDIStatementMap.put(pushLinkContract, pushLinkContractXDIStatementMap); }

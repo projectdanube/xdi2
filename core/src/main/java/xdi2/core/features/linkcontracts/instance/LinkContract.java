@@ -108,18 +108,4 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 										new MappingRelationTargetContextNodeIterator(
 												this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_TO_PEER_ROOT_ARC))))));
 	}
-
-	// TODO: the push link contract should reference just the operation rather than the message?
-	public void setMessageXDIAddress(XDIAddress messageXDIAddress) {
-
-		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_MSG, messageXDIAddress);
-	}
-
-	public XDIAddress getMessageXDIAddress() {
-
-		Relation relation = this.getContextNode().getRelation(XDILinkContractConstants.XDI_ADD_MSG);
-		if (relation == null) return null;
-
-		return relation.getTargetXDIAddress();
-	}
 }

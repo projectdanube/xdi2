@@ -127,15 +127,17 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				XDIAddress pushVariableValue = null;
 				if (pushVariableValue == null && pushResult.getXDIAddress() != null) pushVariableValue = pushResult.getXDIAddress();
 				if (pushVariableValue == null && pushResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(pushResult.getXDIStatement());
-
 				if (pushVariableValue == null) throw new NullPointerException();
 
+				XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
+				
 				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
 				variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
+				variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
 
 				// instantiate push link contract
 
-				LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.PUSH_LINK_CONTRACT_TEMPLATE);
+				LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.MSG_PUSH_LINK_CONTRACT_TEMPLATE);
 				linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 				linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 				linkContractInstantiation.setVariableValues(variableValues);
@@ -150,11 +152,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 					throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
 				}
 
-				// associate push link contract with message
-
-				pushLinkContract.setMessageXDIAddress(message.getContextNode().getXDIAddress());
-
-				// write push link contract into operation result graph
+				// write push link contract into operation push result graph
 
 				CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), operationPushResultGraph, null);
 

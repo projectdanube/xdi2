@@ -103,19 +103,15 @@ public class BasicPushGateway implements PushGateway {
 					pushMessage.setFromPeerRootXDIArc(messagingTarget.getOwnerPeerRootXDIArc());
 					pushMessage.setToPeerRootXDIArc(toPeerRootXDIArc);
 					pushMessage.setLinkContract(pushLinkContract);
-
-					if (pushLinkContract.getMessageXDIAddress() != null) {
-
-						pushMessage.setCorrelationXDIAddress(pushLinkContract.getMessageXDIAddress());
-					}
-
-					Graph pushedOperationResultGraph = pushedOperationResultGraphs.get(pushedOperation);
+					pushMessage.setCorrelationXDIAddress(pushedOperation.getMessage().getContextNode().getXDIAddress());
 
 					// the $push message contains the nested pushed operation
 
 					pushMessage.createNestedPushOperation(pushedOperation.getMessage());
 
 					// and the result graph of that pushed operation
+
+					Graph pushedOperationResultGraph = pushedOperationResultGraphs.get(pushedOperation);
 
 					pushMessage.createOperationResult(pushedOperation.getOperationXDIAddress(), pushedOperationResultGraph);
 				}

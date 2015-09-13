@@ -34,7 +34,7 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_SEND = XDIAddress.fromComponent(XDI_ARC_SEND);
 	public static final XDIAddress XDI_ADD_PUSH = XDIAddress.fromComponent(XDI_ARC_PUSH);
 
-	public static final XDIAddress XDI_ADD_FROM_PEER_ROOT_ARC = XDIAddress.create("$set");
+	public static final XDIAddress XDI_ADD_FROM_PEER_ROOT_ARC = XDIAddress.create("$send");
 	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 	public static final XDIAddress XDI_ADD_CORRELATION = XDIAddress.create("$is$msg");
 
