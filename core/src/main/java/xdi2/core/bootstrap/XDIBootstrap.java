@@ -31,7 +31,7 @@ public class XDIBootstrap {
 				"($xdi)/$ref/\n" +
 				"/$is$ref/($xdi)\n" +
 
-				// public link contract
+				// public link contract on the bootstrap graph
 
 				"($xdi/$public)$do/$get/\n" +
 
