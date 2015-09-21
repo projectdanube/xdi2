@@ -309,9 +309,7 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 					Operation operation = operations.next();
 
-					Graph operationResultGraph = executionResult.createOperationResultGraph(operation);
-
-					this.execute(operation, operationResultGraph, executionContext);
+					this.execute(operation, executionContext, executionResult);
 				}
 			}
 
@@ -341,12 +339,24 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			}
 		}
 	}
-
 	/**
 	 * Executes an operation.
 	 * @param operation The XDI operation.
 	 * @param executionContext An "execution context" object that carries state between
 	 * messaging targets, interceptors and contributors.
+	 * @param executionResult The execution result produced by executing the messaging request.
+	 */
+	public void execute(Operation operation, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
+
+		Graph operationResultGraph = executionResult.createOperationResultGraph(operation);
+
+		this.execute(operation, operationResultGraph, executionContext);
+	}
+
+	/**
+	 * Executes an operation.
+	 * @param operation The XDI operation.
+	 * @param operationResultGraph The graph for result statements from this operation.
 	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
 	public void execute(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {

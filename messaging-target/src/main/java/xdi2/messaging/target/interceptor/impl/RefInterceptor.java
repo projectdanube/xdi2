@@ -461,7 +461,6 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		// feedback
 
-		Map<String, Object> messageAttributes = null;
 		Map<String, Object> operationAttributes = null;
 
 		try {
@@ -471,17 +470,15 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessage);
 
-			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
 
-			// execute feedback messages
+			// execute feedback message
 
-			messagingTarget.execute(feedbackMessage, executionContext, feedbackExecutionResult);
+			messagingTarget.execute(feedbackOperation, executionContext, feedbackExecutionResult);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
 
-			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
 
@@ -513,8 +510,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
-		feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
-		feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_COMMON_VARIABLE));
+		Operation feedbackOperationRef = feedbackMessageRef.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REF, XDIConstants.XDI_ADD_COMMON_VARIABLE));
+		Operation feedbackOperationRep = feedbackMessageRep.createGetOperation(XDIStatement.fromRelationComponents(contextNodeXDIAddress, XDIDictionaryConstants.XDI_ADD_REP, XDIConstants.XDI_ADD_COMMON_VARIABLE));
 
 		// prepare feedback execution result
 
@@ -537,17 +534,13 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRef);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRep);
 
-			MessagePolicyInterceptor messagePolicyInterceptor = messagingTarget.getInterceptors().getInterceptor(MessagePolicyInterceptor.class);
-			if (messagePolicyInterceptor != null) messagePolicyInterceptor.setDisabledForMessage(feedbackMessageRef);
-			if (messagePolicyInterceptor != null) messagePolicyInterceptor.setDisabledForMessage(feedbackMessageRep);
-
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
 
 			// execute feedback messages
 
-			messagingTarget.execute(feedbackMessageRef, executionContext, feedbackExecutionResult);
-			messagingTarget.execute(feedbackMessageRep, executionContext, feedbackExecutionResult);
+			messagingTarget.execute(feedbackOperationRef, executionContext, feedbackExecutionResult);
+			messagingTarget.execute(feedbackOperationRep, executionContext, feedbackExecutionResult);
 		} finally {
 
 			// after feedback: restore the execution context and messaging target
