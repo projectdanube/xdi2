@@ -468,7 +468,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			// before feedback: tweak the execution context and messaging target
 
 			LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessage);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForOperation(feedbackOperation);
 
 			operationAttributes = executionContext.getOperationAttributes();
 
@@ -527,12 +527,12 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 			// before feedback: tweak the execution context and messaging target
 
 			RefInterceptor refInterceptor = messagingTarget.getInterceptors().getInterceptor(RefInterceptor.class);
-			if (refInterceptor != null) refInterceptor.setDisabledForMessage(feedbackMessageRef);
-			if (refInterceptor != null) refInterceptor.setDisabledForMessage(feedbackMessageRep);
+			if (refInterceptor != null) refInterceptor.setDisabledForOperation(feedbackOperationRef);
+			if (refInterceptor != null) refInterceptor.setDisabledForOperation(feedbackOperationRep);
 
 			LinkContractInterceptor linkContractInterceptor = messagingTarget.getInterceptors().getInterceptor(LinkContractInterceptor.class);
-			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRef);
-			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessageRep);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForOperation(feedbackOperationRef);
+			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForOperation(feedbackOperationRep);
 
 			messageAttributes = executionContext.getMessageAttributes();
 			operationAttributes = executionContext.getOperationAttributes();
