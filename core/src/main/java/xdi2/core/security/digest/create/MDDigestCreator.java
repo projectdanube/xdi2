@@ -8,5 +8,8 @@ import xdi2.core.features.digests.MDDigest;
 public interface MDDigestCreator extends DigestCreator<MDDigest> {
 
 	public String getDigestAlgorithm();
+	public void setDigestAlgorithm(String digestAlgorithm);
+
 	public Integer getDigestVersion();
+	public void setDigestVersion(Integer digestVersion);
 }

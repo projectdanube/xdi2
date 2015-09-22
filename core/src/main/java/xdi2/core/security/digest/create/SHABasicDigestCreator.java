@@ -56,6 +56,7 @@ public class SHABasicDigestCreator extends AbstractSHADigestCreator implements S
 		return digest;
 	}
 
+	@Override
 	public void setValue(byte[] normalizedSerialization, SHADigest digest) throws GeneralSecurityException {
 
 		// set digest value

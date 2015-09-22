@@ -36,6 +36,7 @@ public abstract class AbstractMDDigestCreator extends AbstractDigestCreator<MDDi
 		return this.digestAlgorithm;
 	}
 
+	@Override
 	public void setDigestAlgorithm(String digestAlgorithm) {
 
 		this.digestAlgorithm = digestAlgorithm;
@@ -47,6 +48,7 @@ public abstract class AbstractMDDigestCreator extends AbstractDigestCreator<MDDi
 		return this.digestVersion;
 	}
 
+	@Override
 	public void setDigestVersion(Integer digestVersion) {
 
 		this.digestVersion = digestVersion;

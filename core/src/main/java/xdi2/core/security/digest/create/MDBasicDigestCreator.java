@@ -56,6 +56,7 @@ public class MDBasicDigestCreator extends AbstractMDDigestCreator implements MDD
 		return digest;
 	}
 
+	@Override
 	public void setValue(byte[] normalizedSerialization, MDDigest digest) throws GeneralSecurityException {
 
 		// set digest value

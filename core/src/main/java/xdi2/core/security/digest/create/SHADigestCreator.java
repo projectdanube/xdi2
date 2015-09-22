@@ -8,5 +8,8 @@ import xdi2.core.features.digests.SHADigest;
 public interface SHADigestCreator extends DigestCreator<SHADigest> {
 
 	public String getDigestAlgorithm();
+	public void setDigestAlgorithm(String digestAlgorithm);
+
 	public Integer getDigestVersion();
+	public void setDigestVersion(Integer digestVersion);
 }
