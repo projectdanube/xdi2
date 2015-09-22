@@ -40,6 +40,9 @@ public class XDIConstants {
 	public static final XDIAddress XDI_ADD_COMMON_VARIABLE = XDIAddress.fromComponent(XDI_ARC_COMMON_VARIABLE);
 	public static final XDIAddress XDI_ADD_COMMON_DEFINITION = XDIAddress.fromComponent(XDI_ARC_COMMON_DEFINITION);
 
+	public static final XDIArc XDI_ARC_LITERAL_VARIABLE = XDIArc.create("" + XS_VARIABLE.charAt(0) + CS_LITERAL.charValue() + XS_VARIABLE.charAt(1));
+	public static final XDIAddress XDI_ADD_LITERAL_VARIABLE = XDIAddress.fromComponent(XDI_ARC_LITERAL_VARIABLE);
+
 	public static final XDIArc XDI_ARC_TRUE = XDIArc.create("$true");
 	public static final XDIArc XDI_ARC_FALSE = XDIArc.create("$false");
 

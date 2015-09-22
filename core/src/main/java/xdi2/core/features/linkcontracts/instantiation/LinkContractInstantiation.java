@@ -20,6 +20,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.core.util.CopyUtil.CompoundCopyStrategy;
 import xdi2.core.util.CopyUtil.CopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceEscapedVariablesCopyStrategy;
+import xdi2.core.util.CopyUtil.ReplaceLiteralVariablesCopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 
 public class LinkContractInstantiation {
@@ -29,9 +30,9 @@ public class LinkContractInstantiation {
 	private LinkContractTemplate linkContractTemplate;
 	private XDIAddress authorizingAuthority;
 	private XDIAddress requestingAuthority;
-	private Map<XDIArc, XDIAddress> variableValues;
+	private Map<XDIArc, Object> variableValues;
 
-	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, Map<XDIArc, XDIAddress> variableValues) {
+	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, Map<XDIArc, Object> variableValues) {
 
 		this.linkContractTemplate = linkContractTemplate;
 		this.authorizingAuthority = authorizingAuthority;
@@ -68,7 +69,7 @@ public class LinkContractInstantiation {
 
 		// set up variable values
 
-		Map<XDIArc, XDIAddress> allVariableValues = new HashMap<XDIArc, XDIAddress> ();
+		Map<XDIArc, Object> allVariableValues = new HashMap<XDIArc, Object> ();
 		if (this.getVariableValues() != null) allVariableValues.putAll(this.getVariableValues());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
@@ -83,6 +84,7 @@ public class LinkContractInstantiation {
 
 		CopyStrategy copyStrategy = new CompoundCopyStrategy(
 				new ReplaceXDIAddressCopyStrategy(allVariableValues),
+				new ReplaceLiteralVariablesCopyStrategy(allVariableValues),
 				new ReplaceEscapedVariablesCopyStrategy());
 		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), linkContract.getContextNode(), copyStrategy);
 
@@ -133,12 +135,12 @@ public class LinkContractInstantiation {
 		this.requestingAuthority = requestingAuthority;
 	}
 
-	public Map<XDIArc, XDIAddress> getVariableValues() {
+	public Map<XDIArc, Object> getVariableValues() {
 
 		return this.variableValues;
 	}
 
-	public void setVariableValues(Map<XDIArc, XDIAddress> variableValues) {
+	public void setVariableValues(Map<XDIArc, Object> variableValues) {
 
 		this.variableValues = variableValues;
 	}

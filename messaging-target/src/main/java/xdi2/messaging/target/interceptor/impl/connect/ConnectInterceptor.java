@@ -216,7 +216,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// determine variable values
 
-		Map<XDIArc, XDIAddress> variableValues = operation.getVariableValues();
+		Map<XDIArc, Object> variableValues = operation.getVariableValues();
 
 		// instantiate link contract
 

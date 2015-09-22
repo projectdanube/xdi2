@@ -100,7 +100,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 		// look for push results
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
-		
+
 		Map<Operation, List<PushResult>> operationPushResultsMap = getOperationPushResults(executionContext);
 		if (operationPushResultsMap == null) return InterceptorResult.DEFAULT;
 
@@ -130,8 +130,8 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 				if (pushVariableValue == null) throw new NullPointerException();
 
 				XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
-				
-				Map<XDIArc, XDIAddress> variableValues = new HashMap<XDIArc, XDIAddress> ();
+
+				Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
 				variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
 				variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
 

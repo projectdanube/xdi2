@@ -499,19 +499,19 @@ public final class CopyUtil {
 	 */
 	public static class ReplaceXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
-		private Map<XDIArc, XDIAddress> replacements;
+		private Map<XDIArc, Object> replacements;
 
-		public ReplaceXDIAddressCopyStrategy(Map<XDIArc, XDIAddress> replacements) {
+		public ReplaceXDIAddressCopyStrategy(Map<XDIArc, Object> replacements) {
 
 			this.replacements = replacements;
 		}
 
-		public ReplaceXDIAddressCopyStrategy(XDIArc oldXDIArc, XDIAddress newXDIArc) {
+		public ReplaceXDIAddressCopyStrategy(XDIArc oldXDIArc, Object newXDIArcOrXDIAddress) {
 
-			this(Collections.singletonMap(oldXDIArc, newXDIArc));
+			this(Collections.singletonMap(oldXDIArc, newXDIArcOrXDIAddress));
 		}
 
-		protected ReplaceXDIAddressCopyStrategy() {
+		public ReplaceXDIAddressCopyStrategy() {
 
 			this(null);
 		}
@@ -524,15 +524,24 @@ public final class CopyUtil {
 
 			XDIAddress replacedContextNodeXDIAddress = XDIAddress.fromComponent(contextNodeXDIArc);
 
-			Map<XDIArc, XDIAddress> replacements = this.getReplacements(replacedContextNodeXDIAddress);
+			Map<XDIArc, Object> replacements = this.getReplacements(replacedContextNodeXDIAddress);
 			if (replacements == null) return super.replaceContextNode(contextNode);
 
-			for (Entry<XDIArc, XDIAddress> replacement : replacements.entrySet()) {
+			for (Entry<XDIArc, Object> replacement : replacements.entrySet()) {
+
+				XDIArc oldXDIArc = replacement.getKey();
+				Object newXDIArcOrXDIAddress = replacement.getValue();
+
+				XDIAddress newXDIAddress;
+			
+				if (newXDIArcOrXDIAddress instanceof XDIAddress) newXDIAddress = (XDIAddress) newXDIArcOrXDIAddress;
+				else if (newXDIArcOrXDIAddress instanceof XDIArc) newXDIAddress = XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddress);
+				else continue;
 
 				replacedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
 						replacedContextNodeXDIAddress, 
-						replacement.getKey(), 
-						replacement.getValue());
+						oldXDIArc, 
+						newXDIAddress);
 			}
 
 			replacedContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1), replacedContextNodeXDIAddress);
@@ -559,15 +568,24 @@ public final class CopyUtil {
 
 			XDIAddress replacedTargetXDIAddress = targetXDIAddress;
 
-			Map<XDIArc, XDIAddress> replacements = this.getReplacements(replacedTargetXDIAddress);
+			Map<XDIArc, Object> replacements = this.getReplacements(replacedTargetXDIAddress);
 			if (replacements == null) return super.replaceRelation(relation);
 
-			for (Entry<XDIArc, XDIAddress> replacement : replacements.entrySet()) {
+			for (Entry<XDIArc, Object> replacement : replacements.entrySet()) {
 
+				XDIArc oldXDIArc = replacement.getKey();
+				Object newXDIArcOrXDIAddress = replacement.getValue();
+
+				XDIAddress newXDIAddress;
+			
+				if (newXDIArcOrXDIAddress instanceof XDIAddress) newXDIAddress = (XDIAddress) newXDIArcOrXDIAddress;
+				else if (newXDIArcOrXDIAddress instanceof XDIArc) newXDIAddress = XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddress);
+				else continue;
+				
 				replacedTargetXDIAddress = XDIAddressUtil.replaceXDIAddress(
 						replacedTargetXDIAddress, 
-						replacement.getKey(), 
-						replacement.getValue());
+						oldXDIArc, 
+						newXDIAddress);
 			}
 
 			if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
@@ -579,15 +597,15 @@ public final class CopyUtil {
 			return replacedRelation;
 		}
 
-		protected Map<XDIArc, XDIAddress> getReplacements(XDIAddress XDIaddress) {
+		protected Map<XDIArc, Object> getReplacements(XDIAddress XDIaddress) {
 
-			Map<XDIArc, XDIAddress> replacements = null;
+			Map<XDIArc, Object> replacements = null;
 
 			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
 
 				if (this.replacements.containsKey(XDIarc)) {
 
-					if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+					if (replacements == null) replacements = new HashMap<XDIArc, Object> ();
 					replacements.put(XDIarc, this.replacements.get(XDIarc));
 				} else if (XDIarc.hasXRef() && XDIarc.getXRef().hasPartialSubjectAndPredicate()) {
 
@@ -595,7 +613,7 @@ public final class CopyUtil {
 
 						if (this.replacements.containsKey(partialSubjectXDIArc)) {
 
-							if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+							if (replacements == null) replacements = new HashMap<XDIArc, Object> ();
 							replacements.put(partialSubjectXDIArc, this.replacements.get(partialSubjectXDIArc));
 						}
 					}
@@ -604,7 +622,7 @@ public final class CopyUtil {
 
 						if (this.replacements.containsKey(partialPredicateXDIArc)) {
 
-							if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+							if (replacements == null) replacements = new HashMap<XDIArc, Object> ();
 							replacements.put(partialPredicateXDIArc, this.replacements.get(partialPredicateXDIArc));
 						}
 					}
@@ -622,9 +640,9 @@ public final class CopyUtil {
 	public static class ReplaceEscapedVariablesCopyStrategy extends ReplaceXDIAddressCopyStrategy implements CopyStrategy {
 
 		@Override
-		protected Map<XDIArc, XDIAddress> getReplacements(XDIAddress XDIaddress) {
+		protected Map<XDIArc, Object> getReplacements(XDIAddress XDIaddress) {
 
-			Map<XDIArc, XDIAddress> replacements = null;
+			Map<XDIArc, Object> replacements = null;
 
 			for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
 
@@ -632,14 +650,55 @@ public final class CopyUtil {
 				if (! XDIarc.isVariable()) continue;
 				if (! XDIarc.isRelative()) continue;
 
-				if (replacements == null) replacements = new HashMap<XDIArc, XDIAddress> ();
+				if (replacements == null) replacements = new HashMap<XDIArc, Object> ();
 
-				XDIAddress replacementXDIAddress = XDIAddress.fromComponent(XDIArc.fromComponents(XDIarc.getCs(), true, XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), false, XDIarc.getLiteral(), XDIarc.getXRef()));
+				XDIArc newXDIArc = XDIArc.fromComponents(XDIarc.getCs(), true, XDIarc.isDefinition(), XDIarc.isCollection(), XDIarc.isAttribute(), XDIarc.isImmutable(), false, XDIarc.getLiteral(), XDIarc.getXRef());
 
-				replacements.put(XDIarc, replacementXDIAddress);
+				replacements.put(XDIarc, newXDIArc);
 			}
 
 			return replacements;
+		}
+	}
+
+	/**
+	 * A strategy for replacing escaped variables.
+	 */
+
+	public static class ReplaceLiteralVariablesCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+
+		private Map<XDIArc, Object> replacements;
+
+		public ReplaceLiteralVariablesCopyStrategy(Map<XDIArc, Object> replacements) {
+
+			this.replacements = replacements;
+		}
+
+		public ReplaceLiteralVariablesCopyStrategy(XDIArc oldXDIArc, Object newXDIArc) {
+
+			this(Collections.singletonMap(oldXDIArc, newXDIArc));
+		}
+
+		@Override
+		public ContextNode replaceContextNode(ContextNode contextNode) {
+
+			Relation relation = contextNode.getRelation(XDIConstants.XDI_ADD_LITERAL_VARIABLE);
+			if (relation == null) return super.replaceContextNode(contextNode);
+
+			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
+			if (targetXDIAddress.getNumXDIArcs() > 1) return super.replaceContextNode(contextNode);
+
+			Object replacement = this.replacements.get(targetXDIAddress.getFirstXDIArc());
+
+			ContextNode replacedContextNode = CloneUtil.cloneContextNode(contextNode);
+
+			replacedContextNode.delRelations(XDIConstants.XDI_ADD_LITERAL_VARIABLE);
+			replacedContextNode.delLiteralNode();
+			replacedContextNode.setLiteralNode(replacement);
+
+			if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacement);
+
+			return replacedContextNode;
 		}
 	}
 
