@@ -459,12 +459,12 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 
 			if ("Get generic link contract".equals(submit)) {
 
-				message.createGetOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true));
+				message.createGetOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
 			} else if ("Set generic link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-				GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true, true);
+				GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null, true);
 				genericLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));
 
 				PolicyAnd policyAnd = genericLinkContract.getPolicyRoot(true).createAndPolicy(true);
@@ -476,7 +476,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				message.createSetOperation(graph);
 			} else if ("Del generic link contract".equals(submit)) {
 
-				message.createDelOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, true));
+				message.createDelOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);
