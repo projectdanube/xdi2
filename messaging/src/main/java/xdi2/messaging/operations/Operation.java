@@ -324,6 +324,22 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return parameterLiteral;
 	}
 
+	public void setVariableValue(XDIArc variableValueXDIArc, Object variableValue) {
+
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
+		if (variableValuesXdiEntity == null) return;
+
+		if (variableValue instanceof XDIArc) variableValue = XDIAddress.fromComponent((XDIArc) variableValue);
+
+		if (variableValue instanceof XDIAddress) {
+
+			Equivalence.setIdentityContextNode(variableValuesXdiEntity.getContextNode().setContextNode(variableValueXDIArc), (XDIAddress) variableValue);
+		} else {
+
+			variableValuesXdiEntity.getContextNode().setContextNode(variableValueXDIArc).setLiteralNode(variableValue);
+		}
+	}
+
 	public Map<XDIArc, Object> getVariableValues() {
 
 		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
