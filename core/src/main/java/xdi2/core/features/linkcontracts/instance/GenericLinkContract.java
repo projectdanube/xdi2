@@ -11,7 +11,6 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstance;
-import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -77,7 +76,7 @@ public class GenericLinkContract extends LinkContract {
 		return new GenericLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean singleton) {
+	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc) {
 
 		if (authorizingAuthority == null) throw new NullPointerException();
 		if (requestingAuthority == null) throw new NullPointerException();
@@ -99,13 +98,13 @@ public class GenericLinkContract extends LinkContract {
 			genericLinkContractXDIArcs.addAll(templateAuthorityAndId.getXDIArcs());
 		}
 
-		if (singleton) {
+		if (instanceXDIArc == null) {
 
 			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_DO);
 		} else {
 
 			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_EC_DO);
-			genericLinkContractXDIArcs.add(XdiEntityInstanceUnordered.createXDIArc());
+			genericLinkContractXDIArcs.add(instanceXDIArc);
 		}
 
 		return XDIAddress.fromComponents(genericLinkContractXDIArcs);
@@ -113,16 +112,16 @@ public class GenericLinkContract extends LinkContract {
 
 	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
 
-		return createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, true);
+		return createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, null);
 	}
 
 	/**
 	 * Factory method that finds or creates an XDI generic link contract for a graph.
 	 * @return The XDI generic link contract.
 	 */
-	public static GenericLinkContract findGenericLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, boolean singleton, boolean create) {
+	public static GenericLinkContract findGenericLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc, boolean create) {
 
-		XDIAddress genericLinkContractXDIAddress = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, singleton);
+		XDIAddress genericLinkContractXDIAddress = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, instanceXDIArc);
 
 		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXDIAddress) : graph.getDeepContextNode(genericLinkContractXDIAddress, true);
 		if (genericLinkContractContextNode == null) return null;

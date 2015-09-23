@@ -13,6 +13,7 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
@@ -28,13 +29,16 @@ public class LinkContractInstantiation {
 
 	private static final Logger log = LoggerFactory.getLogger(LinkContractInstantiation.class);
 
-	public static final XDIArc[] RESERVED_VARIABLES = new XDIArc[] {
+	public static final XDIArc XDI_ARC_INSTANCE_VARIABLE = XDIArc.create("<{*!:uuid:0}>");
+
+	public static final XDIArc[] XDI_ARC_RESERVED_VARIABLES = new XDIArc[] {
 
 			XDILinkContractConstants.XDI_ARC_V_FROM,
 			XDILinkContractConstants.XDI_ARC_V_TO,
 			XDILinkContractConstants.XDI_ARC_V_FROM_ROOT,
 			XDILinkContractConstants.XDI_ARC_V_TO_ROOT,
-			XDILinkContractConstants.XDI_ARC_DO
+			XDILinkContractConstants.XDI_ARC_DO,
+			XDI_ARC_INSTANCE_VARIABLE
 	};
 
 	private LinkContractTemplate linkContractTemplate;
@@ -60,7 +64,7 @@ public class LinkContractInstantiation {
 		this(null, null, null, null);
 	}
 
-	public LinkContract execute(boolean singleton, boolean create) {
+	public LinkContract execute(XDIArc instanceXDIArc, boolean create) {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
@@ -71,7 +75,7 @@ public class LinkContractInstantiation {
 
 		Graph linkContractGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		LinkContract linkContract = GenericLinkContract.findGenericLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, singleton, create);
+		LinkContract linkContract = GenericLinkContract.findGenericLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, instanceXDIArc, create);
 		if (linkContract == null) return null;
 		if (linkContract != null && ! create) return linkContract;
 
@@ -79,7 +83,7 @@ public class LinkContractInstantiation {
 
 		// check for reserved variables
 
-		for (XDIArc reservedVariable : RESERVED_VARIABLES) {
+		for (XDIArc reservedVariable : XDI_ARC_RESERVED_VARIABLES) {
 
 			if (this.getVariableValues().containsKey(reservedVariable)) throw new Xdi2RuntimeException("Cannot set reserved variable " + reservedVariable + " during link contract instantiation.");
 		}
@@ -116,6 +120,13 @@ public class LinkContractInstantiation {
 		// done
 
 		return linkContract;
+	}
+
+	public LinkContract execute(boolean create) {
+
+		XDIArc instanceXDIArc = XdiEntityInstanceUnordered.createXDIArc();
+
+		return this.execute(instanceXDIArc, create);
 	}
 
 	/*

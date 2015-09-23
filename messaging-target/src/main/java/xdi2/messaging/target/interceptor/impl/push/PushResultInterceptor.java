@@ -146,7 +146,7 @@ public class PushResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 				try {
 
-					pushLinkContract = linkContractInstantiation.execute(false, true);
+					pushLinkContract = linkContractInstantiation.execute(true);
 				} catch (Exception ex) {
 
 					throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
