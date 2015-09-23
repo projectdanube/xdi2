@@ -29,7 +29,7 @@ public class LinkContractInstantiation {
 
 	private static final Logger log = LoggerFactory.getLogger(LinkContractInstantiation.class);
 
-	public static final XDIArc XDI_ARC_INSTANCE_VARIABLE = XDIArc.create("{<*!:uuid:0>}");
+	public static final XDIArc XDI_ARC_INSTANCE_VARIABLE = XDIArc.create("{*!:uuid:0}");
 
 	public static final XDIArc[] XDI_ARC_RESERVED_VARIABLES = new XDIArc[] {
 
