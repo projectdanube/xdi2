@@ -58,7 +58,7 @@ public class XDIBootstrap {
 				"($msg$push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 				"($msg$push{$do}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
-				"$digest{$do}/$all/\n" +
+				"$msg$digest{$id}{$do}/$all/\n" +
 				"($digest{$do}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
 
 		try {

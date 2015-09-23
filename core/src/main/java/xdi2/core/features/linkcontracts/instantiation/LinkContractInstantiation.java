@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
@@ -26,6 +27,15 @@ import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 public class LinkContractInstantiation {
 
 	private static final Logger log = LoggerFactory.getLogger(LinkContractInstantiation.class);
+
+	public static final XDIArc[] RESERVED_VARIABLES = new XDIArc[] {
+
+			XDILinkContractConstants.XDI_ARC_V_FROM,
+			XDILinkContractConstants.XDI_ARC_V_TO,
+			XDILinkContractConstants.XDI_ARC_V_FROM_ROOT,
+			XDILinkContractConstants.XDI_ARC_V_TO_ROOT,
+			XDILinkContractConstants.XDI_ARC_DO
+	};
 
 	private LinkContractTemplate linkContractTemplate;
 	private XDIAddress authorizingAuthority;
@@ -67,6 +77,15 @@ public class LinkContractInstantiation {
 
 		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + linkContract + " from link contract template " + this.getLinkContractTemplate());
 
+		// check for reserved variables
+
+		for (XDIArc reservedVariable : RESERVED_VARIABLES) {
+
+			if (this.getVariableValues().containsKey(reservedVariable)) throw new Xdi2RuntimeException("Cannot set reserved variable " + reservedVariable + " during link contract instantiation.");
+		}
+
+		// TODO: make sure all variables in the link contract template have assigned values
+
 		// set up variable values
 
 		Map<XDIArc, Object> allVariableValues = new HashMap<XDIArc, Object> ();
@@ -77,8 +96,6 @@ public class LinkContractInstantiation {
 		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getAuthorizingAuthority())));
 
 		if (log.isDebugEnabled()) log.debug("Variable values: " + allVariableValues);
-
-		// TODO: make sure all variables in the link contract template have assigned values
 
 		// instantiate
 
