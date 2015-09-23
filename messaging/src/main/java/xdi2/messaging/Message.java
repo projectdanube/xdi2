@@ -314,7 +314,11 @@ public final class Message implements Serializable, Comparable<Message> {
 	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
 
 		this.getContextNode().delRelations(XDILinkContractConstants.XDI_ADD_DO);
-		this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_DO, linkContractXDIAddress);
+
+		if (linkContractXDIAddress != null) {
+
+			this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_DO, linkContractXDIAddress);
+		}
 	}
 
 	/**
@@ -322,7 +326,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setLinkContract(LinkContract linkContract) {
 
-		this.setLinkContractXDIAddress(linkContract.getXdiEntity().getXDIAddress());
+		this.setLinkContractXDIAddress(linkContract == null ? null : linkContract.getXdiEntity().getXDIAddress());
 	}
 
 	/**
@@ -333,7 +337,10 @@ public final class Message implements Serializable, Comparable<Message> {
 		XDIAddress ownerXDIAddress = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getToPeerRootXDIArc());
 		if (ownerXDIAddress == null) throw new Xdi2RuntimeException("No TO peer root arc has been set yet.");
 
-		if (RootLinkContract.class.isAssignableFrom(clazz)) {
+		if (clazz == null) {
+
+			this.setLinkContractXDIAddress(null);
+		} else if (RootLinkContract.class.isAssignableFrom(clazz)) {
 
 			this.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(ownerXDIAddress));
 		} else if (PublicLinkContract.class.isAssignableFrom(clazz)) {
