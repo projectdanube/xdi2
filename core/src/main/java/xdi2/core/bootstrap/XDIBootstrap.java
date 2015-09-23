@@ -15,14 +15,14 @@ public class XDIBootstrap {
 	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$do}");
 	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$do}");
 	public static final XDIAddress MSG_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$push{$do}");
-	public static final XDIAddress DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$digest{$do}");
+	public static final XDIAddress MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$digest{$do}");
 
 	public static final Graph BOOTSTRAP_GRAPH;
 	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate GET_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate PUSH_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate MSG_PUSH_LINK_CONTRACT_TEMPLATE;
-	public static final LinkContractTemplate DIGEST_LINK_CONTRACT_TEMPLATE;
+	public static final LinkContractTemplate MSG_DIGEST_LINK_CONTRACT_TEMPLATE;
 
 	static {
 
@@ -59,7 +59,7 @@ public class XDIBootstrap {
 				"($msg$push{$do}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
 				"$msg$digest{$id}{$do}/$all/\n" +
-				"($digest{$do}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
+				"($msg$digest{$do}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
 
 		try {
 
@@ -68,7 +68,7 @@ public class XDIBootstrap {
 			GET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(GET_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			MSG_PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
-			DIGEST_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS)));
+			MSG_DIGEST_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 		} catch (Xdi2ParseException | IOException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
