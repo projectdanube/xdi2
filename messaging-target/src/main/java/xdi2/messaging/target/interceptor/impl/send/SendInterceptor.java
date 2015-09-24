@@ -203,7 +203,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		// return forwarding messages
 
-		return new IteratorListMaker<Message> (MessageEnvelope.fromGraph(innerGraph).getMessages()).list();
+		return forwardingMessages;
 	}
 
 	private void processSend(Message forwardingMessage, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
