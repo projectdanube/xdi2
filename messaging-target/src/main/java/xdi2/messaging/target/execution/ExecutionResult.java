@@ -129,7 +129,6 @@ public final class ExecutionResult {
 
 		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
 		if (! this.operationResultGraphs.containsKey(operation)) throw new Xdi2RuntimeException("No operation result graph for operation " + operation);
-		if (this.operationResultGraphs.get(operation) == null) throw new Xdi2RuntimeException("Operation result graph for operation " + operation + " has not been created.");
 
 		return this.operationResultGraphs.get(operation);
 	}
