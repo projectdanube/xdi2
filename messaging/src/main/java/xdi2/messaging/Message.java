@@ -8,9 +8,9 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.digests.Digest;
@@ -1089,6 +1089,32 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Returns all XDI $connect operations in this XDI message.
+	 * @return An iterator over all XDI $connect operations.
+	 */
+	public ReadOnlyIterator<ConnectOperation> getConnectOperations() {
+
+		// get all relations that are valid XDI $connect operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_CONNECT);
+
+		return new MappingRelationConnectOperationIterator(this, relations);
+	}
+
+	/**
+	 * Returns all XDI $send operations in this XDI message.
+	 * @return An iterator over all XDI $send operations.
+	 */
+	public ReadOnlyIterator<SendOperation> getSendOperations() {
+
+		// get all relations that are valid XDI $send operations
+
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_SEND);
+
+		return new MappingRelationSendOperationIterator(this, relations);
+	}
+
+	/**
 	 * Returns all XDI $push operations in this XDI message.
 	 * @return An iterator over all XDI $push operations.
 	 */
@@ -1241,6 +1267,36 @@ public final class Message implements Serializable, Comparable<Message> {
 				public DelOperation map(Relation relation) {
 
 					return DelOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationConnectOperationIterator extends NotNullIterator<ConnectOperation> {
+
+		public MappingRelationConnectOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, ConnectOperation> (relations) {
+
+				@Override
+				public ConnectOperation map(Relation relation) {
+
+					return ConnectOperation.fromMessageAndRelation(message, relation);
+				}
+			});
+		}
+	}
+
+	public static class MappingRelationSendOperationIterator extends NotNullIterator<SendOperation> {
+
+		public MappingRelationSendOperationIterator(final Message message, Iterator<Relation> relations) {
+
+			super(new MappingIterator<Relation, SendOperation> (relations) {
+
+				@Override
+				public SendOperation map(Relation relation) {
+
+					return SendOperation.fromMessageAndRelation(message, relation);
 				}
 			});
 		}
