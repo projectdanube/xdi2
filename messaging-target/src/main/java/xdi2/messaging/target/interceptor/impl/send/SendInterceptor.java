@@ -100,6 +100,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		// get forwarding message(s)
 
 		List<Message> forwardingMessages = this.getForwardingMessages(operation, executionContext);
+		if (log.isDebugEnabled()) log.debug("Trying to forward " + forwardingMessages.size() + " messages.");
 
 		// send
 
@@ -229,6 +230,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		if (xdiClientRoute == null) throw new Xdi2MessagingException("No route for " + toPeerRootXDIArc, null, executionContext);
 
 		// disable link contracts if the forwarding message is routed back to us
+		// TODO: instead of disabling it, we should use the outer message's link contract
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 

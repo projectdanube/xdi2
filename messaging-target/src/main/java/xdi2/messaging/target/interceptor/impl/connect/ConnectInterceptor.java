@@ -110,6 +110,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		// get link contract template(s)
 
 		List<LinkContractTemplate> linkContractTemplates = this.getLinkContractTemplates(operation, executionContext);
+		if (log.isDebugEnabled()) log.debug("Trying to instantiate " + linkContractTemplates.size() + " link contract templates.");
 
 		// connect
 
