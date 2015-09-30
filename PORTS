@@ -26,6 +26,9 @@ Known default HTTP ports of various XDI2 (and -related) projects.
 9301: xdi2-csp
 9400: xdi2-registry
 9801: xdi2-example-ec25519-server
+9802: xdi2-example-secp256k1-server
+9901: xdi.space
+9902: xdi.camp
 7071: rn-member-graph-service
 7072: rn-discovery-service
 7073: rn-registration-service
