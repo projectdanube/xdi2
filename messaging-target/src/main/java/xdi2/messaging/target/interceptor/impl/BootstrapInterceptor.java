@@ -18,6 +18,7 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
+import xdi2.core.features.linkcontracts.instance.SendLinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot.MappingContextNodePeerRootIterator;
@@ -66,6 +67,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private boolean bootstrapRootLinkContract;
 	private boolean bootstrapPublicLinkContract;
 	private boolean bootstrapConnectLinkContract;
+	private boolean bootstrapSendLinkContract;
 	private boolean bootstrapTimestamp;
 	private Graph bootstrapGraph;
 	private MessageEnvelope bootstrapMessageEnvelope;
@@ -79,6 +81,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		this.bootstrapRootLinkContract = false;
 		this.bootstrapPublicLinkContract = false;
 		this.bootstrapConnectLinkContract = false;
+		this.bootstrapSendLinkContract = false;
 		this.bootstrapTimestamp = false;
 		this.bootstrapGraph = null;
 		this.bootstrapMessageEnvelope = null;
@@ -250,14 +253,36 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			ConnectLinkContract bootstrapConnectLinkContract = ConnectLinkContract.findConnectLinkContract(graph, true);
 			bootstrapConnectLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_CONNECT, XDIConstants.XDI_ADD_ROOT);
-			bootstrapConnectLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_SEND, XDIConstants.XDI_ADD_ROOT);
 
 			PolicyRoot policyRoot = bootstrapConnectLinkContract.getPolicyRoot(true);
 			policyRoot.createNotPolicy(true);
 
-			PolicyRoot pushPolicyRoot = bootstrapConnectLinkContract.getPushPolicyRoot(true);
+			PolicyRoot holdPushPolicyRoot = bootstrapConnectLinkContract.getHoldPushPolicyRoot(true);
 
-			PolicyAnd pushPolicyAnd = pushPolicyRoot.createAndPolicy(true);
+			PolicyAnd pushPolicyAnd = holdPushPolicyRoot.createAndPolicy(true);
+			PolicyUtil.createSignatureValidOperator(pushPolicyAnd);
+		}
+
+		// create bootstrap send link contract
+
+		if (this.getBootstrapSendLinkContract()) {
+
+			if (this.getBootstrapOwner() == null) {
+
+				throw new Xdi2MessagingException("Can only create the bootstrap send link contract if a bootstrap owner is given.", null, null);
+			}
+
+			if (log.isDebugEnabled()) log.debug("Creating bootstrap send link contract.");
+
+			SendLinkContract bootstrapSendLinkContract = SendLinkContract.findSendLinkContract(graph, true);
+			bootstrapSendLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_SEND, XDIConstants.XDI_ADD_ROOT);
+
+			PolicyRoot policyRoot = bootstrapSendLinkContract.getPolicyRoot(true);
+			policyRoot.createNotPolicy(true);
+
+			PolicyRoot holdPolicyRoot = bootstrapSendLinkContract.getHoldPolicyRoot(true);
+
+			PolicyAnd pushPolicyAnd = holdPolicyRoot.createAndPolicy(true);
 			PolicyUtil.createSignatureValidOperator(pushPolicyAnd);
 		}
 
@@ -274,7 +299,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 			CopyStrategy copyStrategy = new CompoundCopyStrategy(
 					new ReplaceXDIAddressCopyStrategy(XDI_ARC_SELF, this.getBootstrapOwner()),
-							new ReplaceRegexLiteralStringCopyStrategy(Pattern.quote(XDI_ARC_SELF.toString()), this.getBootstrapOwner().toString()));
+					new ReplaceRegexLiteralStringCopyStrategy(Pattern.quote(XDI_ARC_SELF.toString()), this.getBootstrapOwner().toString()));
 
 			Graph bootstrapGraph = MemoryGraphFactory.getInstance().openGraph();
 			CopyUtil.copyGraph(this.getBootstrapGraph(), bootstrapGraph, copyStrategy);
@@ -377,6 +402,16 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	public void setBootstrapConnectLinkContract(boolean bootstrapConnectLinkContract) {
 
 		this.bootstrapConnectLinkContract = bootstrapConnectLinkContract;
+	}
+
+	public boolean getBootstrapSendLinkContract() {
+
+		return this.bootstrapSendLinkContract;
+	}
+
+	public void setBootstrapSendLinkContract(boolean bootstrapSendLinkContract) {
+
+		this.bootstrapSendLinkContract = bootstrapSendLinkContract;
 	}
 
 	public boolean getBootstrapTimestamp() {

@@ -76,6 +76,7 @@
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapConnectLinkContract" value="true" />
+					<property name="bootstrapSendLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
@@ -168,7 +169,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -219,6 +220,7 @@
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapConnectLinkContract" value="true" />
+					<property name="bootstrapSendLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
@@ -315,7 +317,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -370,6 +372,7 @@
 					<property name="bootstrapRootLinkContract" value="true" />
 					<property name="bootstrapPublicLinkContract" value="true" />
 					<property name="bootstrapConnectLinkContract" value="true" />
+					<property name="bootstrapSendLinkContract" value="true" />
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
@@ -466,7 +469,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.push.PushResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">

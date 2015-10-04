@@ -41,6 +41,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 				RootLinkContract.isValid(xdiEntity) ||
 				PublicLinkContract.isValid(xdiEntity) ||
 				ConnectLinkContract.isValid(xdiEntity) ||
+				SendLinkContract.isValid(xdiEntity) ||
 				GenericLinkContract.isValid(xdiEntity);
 	}
 
@@ -56,6 +57,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		if ((linkContract = RootLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = ConnectLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = SendLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;

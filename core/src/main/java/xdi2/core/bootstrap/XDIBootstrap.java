@@ -14,14 +14,14 @@ public class XDIBootstrap {
 	public static final XDIAddress ALL_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$all{$do}");
 	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$do}");
 	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$do}");
-	public static final XDIAddress MSG_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$push{$do}");
+	public static final XDIAddress HOLD_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$hold$push{$do}");
 	public static final XDIAddress MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$digest{$do}");
 
 	public static final Graph BOOTSTRAP_GRAPH;
 	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate GET_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate PUSH_LINK_CONTRACT_TEMPLATE;
-	public static final LinkContractTemplate MSG_PUSH_LINK_CONTRACT_TEMPLATE;
+	public static final LinkContractTemplate HOLD_PUSH_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate MSG_DIGEST_LINK_CONTRACT_TEMPLATE;
 
 	static {
@@ -52,11 +52,11 @@ public class XDIBootstrap {
 				"($push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
 				"($push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
-				"$msg$push{$do}/$push/{$push}\n" +
-				"$msg$push{$do}/$is()/{($from)}\n" +
-				"($msg$push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
-				"($msg$push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
-				"($msg$push{$do}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
+				"$hold$push{$do}/$push/{$push}\n" +
+				"$hold$push{$do}/$is()/{($from)}\n" +
+				"($hold$push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
+				"($hold$push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($hold$push{$do}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
 				"$msg$digest{$do}/$all/\n" +
 				"($msg$digest{$do}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
@@ -67,7 +67,7 @@ public class XDIBootstrap {
 			ALL_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(ALL_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			GET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(GET_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
-			MSG_PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
+			HOLD_PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(HOLD_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			MSG_DIGEST_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 		} catch (Xdi2ParseException | IOException ex) {
 
