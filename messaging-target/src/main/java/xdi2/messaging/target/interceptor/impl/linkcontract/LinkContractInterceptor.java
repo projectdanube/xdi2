@@ -320,7 +320,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		return Boolean.TRUE.equals(hold) ? InterceptorResult.SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET : InterceptorResult.DEFAULT;
+		return XDIConstants.XDI_ADD_ROOT.equals(hold) ? InterceptorResult.SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET : InterceptorResult.DEFAULT;
 	}
 
 	@Override
@@ -338,7 +338,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// read the referenced link contract and push required flag from the execution context
+		// read the referenced link contract and hold from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
@@ -390,7 +390,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// read the referenced link contract from the execution context
+		// read the referenced link contract and hold from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
