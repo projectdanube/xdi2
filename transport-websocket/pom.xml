@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>xdi2</groupId>
 		<artifactId>xdi2</artifactId>
-		<version>0.8-SNAPSHOT</version>
+		<version>0.8-M1</version>
 	</parent>
 
 	<dependencies>
@@ -28,13 +28,13 @@
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-uri</artifactId>
-			<version>0.8-SNAPSHOT</version>
+			<version>0.8-M1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-client-websocket</artifactId>
-			<version>0.8-SNAPSHOT</version>
+			<version>0.8-M1</version>
 			<scope>compile</scope>
 			<exclusions>
 				<exclusion>
