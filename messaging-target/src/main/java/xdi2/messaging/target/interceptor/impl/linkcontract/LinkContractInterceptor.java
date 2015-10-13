@@ -52,7 +52,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author animesh
  */
-public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageInterceptor, OperationInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
+public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, OperationInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor>, GraphAware {
 
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 

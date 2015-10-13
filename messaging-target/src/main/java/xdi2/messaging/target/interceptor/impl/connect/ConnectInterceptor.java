@@ -42,7 +42,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor can process $connect operations.
  */
-public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, OperationInterceptor, Prototype<ConnectInterceptor> {
+public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<ConnectInterceptor>, GraphAware {
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectInterceptor.class);
 
@@ -95,6 +95,11 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	public void setGraph(Graph graph) {
 
 		if (this.getTargetGraph() == null) this.setTargetGraph(graph);
+
+		for (Manipulator manipulator : this.getManipulators()) {
+
+			if (manipulator instanceof GraphAware) ((GraphAware) manipulator).setGraph(graph);
+		}
 	}
 
 	/*
@@ -217,19 +222,19 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		if (authorizingAuthority == null) throw new Xdi2MessagingException("No authorizing authority for link contract instantiation.", null, executionContext);
 
 		// determine instance variable
-		
+
 		Object instanceVariableValue = operation.getVariableValues().get(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
 		XDIArc instanceXDIArc;
 
 		if (instanceVariableValue != null) {
-			
+
 			if ((! (instanceVariableValue instanceof XDIAddress)) || ((XDIAddress) instanceVariableValue).getNumXDIArcs() != 1) throw new Xdi2MessagingException("Invalid instance variable value: " + instanceVariableValue, null, executionContext);
 			instanceXDIArc = ((XDIAddress) instanceVariableValue).getFirstXDIArc();
 		} else {
-			
+
 			instanceXDIArc = null;
 		}
-		
+
 		// determine variable values
 
 		Map<XDIArc, Object> variableValues = operation.getVariableValues();
