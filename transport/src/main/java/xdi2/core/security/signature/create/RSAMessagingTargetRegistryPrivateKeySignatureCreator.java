@@ -74,6 +74,9 @@ public class RSAMessagingTargetRegistryPrivateKeySignatureCreator extends RSAPri
 			throw new GeneralSecurityException("Messaging target not found for " + signerXDIAddress);
 		}
 
+		if (log.isDebugEnabled()) log.debug("Messaging target mount: " + messagingTargetMount);
+		if (messagingTargetMount == null) return null;
+
 		MessagingTarget messagingTarget = messagingTargetMount.getMessagingTarget();
 		Graph graph = ((GraphMessagingTarget) messagingTarget).getGraph();	// TODO: what if this is another messaging target?
 
@@ -83,7 +86,6 @@ public class RSAMessagingTargetRegistryPrivateKeySignatureCreator extends RSAPri
 		signerXdiEntity = signerXdiEntity == null ? null : signerXdiEntity.dereference();
 
 		if (log.isDebugEnabled()) log.debug("Signer entity: " + signerXdiEntity);
-
 		if (signerXdiEntity == null) return null;
 
 		// find private key
