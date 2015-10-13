@@ -27,7 +27,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -77,9 +76,10 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		SendInterceptor interceptor = new SendInterceptor();
 
-		// set the agent
+		// set the agent and manipulators
 
 		interceptor.setXdiAgent(this.getXdiAgent());
+		interceptor.setManipulators(this.getManipulators());
 
 		// done
 
@@ -234,7 +234,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		if (forwardingMessage.getToXDIAddress() != null && forwardingMessage.getToPeerRootXDIArc().equals(messagingTarget.getOwnerPeerRootXDIArc())) {
+		if (forwardingMessage.getToPeerRootXDIArc() != null && forwardingMessage.getToPeerRootXDIArc().equals(messagingTarget.getOwnerPeerRootXDIArc())) {
 
 			if (messagingTarget instanceof AbstractMessagingTarget) {
 

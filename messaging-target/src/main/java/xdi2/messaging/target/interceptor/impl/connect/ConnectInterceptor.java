@@ -77,9 +77,10 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		interceptor.setTargetGraph(this.getTargetGraph());
 
-		// set the agent
+		// set the agent and manipulators
 
 		interceptor.setXdiAgent(this.getXdiAgent());
+		interceptor.setManipulators(this.getManipulators());
 
 		// done
 
