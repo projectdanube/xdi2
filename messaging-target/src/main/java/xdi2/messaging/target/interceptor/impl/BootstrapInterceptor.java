@@ -143,7 +143,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 		GraphMessagingTarget graphMessagingTarget = (GraphMessagingTarget) messagingTarget;
 		Graph graph = graphMessagingTarget.getGraph();
 
-		if (log.isDebugEnabled()) log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + (this.getBootstrapOwnerSynonyms() == null ? null : Arrays.asList(this.getBootstrapOwnerSynonyms())) + ", bootstrapLinkContract=" + this.getBootstrapRootLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract() + ", bootstrapGraph=" + (this.getBootstrapGraph() != null) + ", bootstrapMessageEnvelope=" + (this.getBootstrapMessageEnvelope() != null));
+		if (log.isDebugEnabled()) log.debug("bootstrapOwner=" + this.getBootstrapOwner() + ", bootstrapOwnerSynonyms=" + (this.getBootstrapOwnerSynonyms() == null ? null : Arrays.asList(this.getBootstrapOwnerSynonyms())) + ", bootstrapLinkContract=" + this.getBootstrapRootLinkContract() + ", bootstrapPublicLinkContract=" + this.getBootstrapPublicLinkContract() + ", bootstrapConnectLinkContract=" + this.getBootstrapConnectLinkContract() + ", bootstrapSendLinkContract=" + this.getBootstrapSendLinkContract() + ", bootstrapGraph=" + (this.getBootstrapGraph() != null) + ", bootstrapMessageEnvelope=" + (this.getBootstrapMessageEnvelope() != null));
 
 		// check if the owner statement exists
 
