@@ -382,7 +382,7 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 
 			if (this.triedNextXdiInstance) return;
 
-			this.nextXdiInstance = XdiAbstractCollection.this.getXdiInstanceOrdered(false, false, this.index);
+			this.nextXdiInstance = XdiAbstractCollection.this.getXdiInstanceOrdered(false, true, this.index);
 
 			if (log.isTraceEnabled()) log.trace("Next instance at index " + this.index + ": " + this.nextXdiInstance);
 
