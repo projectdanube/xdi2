@@ -5,7 +5,7 @@
 	<groupId>xdi2</groupId>
 	<artifactId>xdi2</artifactId>
 	<packaging>pom</packaging>
-	<version>0.8-SNAPSHOT</version>
+	<version>0.8-M2</version>
 	<name>xdi2</name>
 	<description>XDI2 (XDI Two) is a general-purpose, lightweight and modular Java implementation of XDI specifications.</description>
 	<url>https://xdi2.org</url>
