@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>xdi2</groupId>
 		<artifactId>xdi2</artifactId>
-		<version>0.8-M2</version>
+		<version>0.8-SNAPSHOT</version>
 	</parent>
 
 	<build>
@@ -139,7 +139,7 @@
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-server</artifactId>
-			<version>0.8-M2</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
