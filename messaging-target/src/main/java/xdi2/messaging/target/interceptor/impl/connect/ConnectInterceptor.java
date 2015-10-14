@@ -17,11 +17,14 @@ import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.LinkContractTemplates;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -249,15 +252,17 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		LinkContract linkContract = linkContractInstantiation.execute(instanceXDIArc, true);
 
-		// write link contract into operation result graph
+		// write link contract and index into operation result graph
 
 		CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), operationResultGraph, null);
 
-		// link contract into target graph
+		// write link contract and index into target graph
 
 		if (this.getTargetGraph() != null) {
 
 			CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
+			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+			Index.setEntityIndexAggregation(xdiLinkContractIndex, linkContract.getXdiEntity());
 		}
 	}
 

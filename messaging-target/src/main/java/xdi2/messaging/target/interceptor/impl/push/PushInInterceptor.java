@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
@@ -170,13 +173,15 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 		// TODO: use feedback message? or have member field private Graph targetGraph; ?
 		// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
 
-		if ((executionContext.getCurrentMessagingTarget() instanceof GraphMessagingTarget)) {
+		// write link contract and index into target graph
 
-			GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
+		if (this.getTargetGraph() != null) {
 
 			for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
 
-				CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
+				CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(), null);
+				XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+				Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
 			}
 		}
 	}
