@@ -9,7 +9,6 @@ import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
-import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceOrdered;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.util.CloneUtil;
@@ -44,33 +43,13 @@ public final class MessagingCloneUtil {
 	}
 
 	/**
-	 * Creates a clone of the given message collection with the same contents.
-	 * @param messageCollection The message collection to clone.
-	 * @return The cloned message collection.
-	 */
-	public static MessageCollection cloneMessageCollection(MessageCollection messageCollection) {
-
-		MessageEnvelope clonedMessageEnvelope = cloneMessageEnvelope(messageCollection.getMessageEnvelope());
-		clonedMessageEnvelope.deleteMessageCollections();
-
-		ContextNode copiedContextNode = CopyUtil.copyContextNode(messageCollection.getContextNode(), clonedMessageEnvelope.getGraph(), null);
-
-		XdiEntityCollection clonedXdiEntityCollection = XdiEntityCollection.fromContextNode(copiedContextNode);
-		MessageCollection clonedMessageCollection = MessageCollection.fromMessageEnvelopeAndXdiEntityCollection(clonedMessageEnvelope, clonedXdiEntityCollection);
-		if (log.isTraceEnabled()) log.trace("Cloned message collection: " + clonedMessageCollection.getMessageEnvelope());
-
-		return clonedMessageCollection;
-	}
-
-	/**
 	 * Creates a clone of the given message with the same contents.
 	 * @param message The message to clone.
 	 * @return The cloned message.
 	 */
 	public static Message cloneMessage(Message message, boolean newId) {
 
-		MessageCollection clonedMessageCollection = cloneMessageCollection(message.getMessageCollection());
-		clonedMessageCollection.deleteMessages();
+		MessageCollection clonedMessageCollection = new MessageEnvelope().getMessageCollection(message.getSenderXDIAddress(), true);
 
 		XdiEntity xdiEntity = message.getXdiEntity();
 
@@ -95,7 +74,7 @@ public final class MessagingCloneUtil {
 			copiedContextNode = CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
 		}
 
-		for (Relation incomingRelation : message.getContextNode().getIncomingRelations()) CopyUtil.copyRelation(incomingRelation, copiedContextNode.getGraph(), null);
+		for (Relation incomingRelation : message.getContextNode().getIncomingRelations()) copiedContextNode.getGraph().setDeepRelation(incomingRelation.getContextNode().getXDIAddress(), incomingRelation.getXDIAddress(), copiedContextNode);
 
 		XdiEntity clonedXdiEntity = XdiAbstractEntity.fromContextNode(copiedContextNode);
 		Message clonedMessage = Message.fromMessageCollectionAndXdiEntity(clonedMessageCollection, clonedXdiEntity);

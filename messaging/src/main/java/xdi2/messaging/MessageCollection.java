@@ -176,6 +176,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 		for (Message message : new IteratorListMaker<Message> (this.getMessages()).list()) {
 
+			message.getContextNode().delIncomingRelations();
 			message.getContextNode().delete();
 		}
 	}
