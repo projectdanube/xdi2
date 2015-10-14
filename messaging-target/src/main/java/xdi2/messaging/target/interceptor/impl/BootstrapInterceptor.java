@@ -98,11 +98,13 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		BootstrapInterceptor interceptor = new BootstrapInterceptor();
 
-		// set the owner, root link contract, and public link contract
+		// set the owner, root link contract, public link contract, connect link contract, send link contract
 
 		interceptor.setBootstrapOwner(prototypingContext.getOwnerXDIAddress());
 		interceptor.setBootstrapRootLinkContract(this.getBootstrapRootLinkContract());
 		interceptor.setBootstrapPublicLinkContract(this.getBootstrapPublicLinkContract());
+		interceptor.setBootstrapConnectLinkContract(this.getBootstrapConnectLinkContract());
+		interceptor.setBootstrapSendLinkContract(this.getBootstrapSendLinkContract());
 
 		// set the owner synonyms
 
