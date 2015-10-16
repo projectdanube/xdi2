@@ -260,9 +260,9 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 		return this.xdiWebSocketEndpointUri;
 	}
 
-	public void setXdiWebSocketEndpointUri(URI xdiEndpointUri) {
+	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
 
-		this.xdiWebSocketEndpointUri = xdiEndpointUri;
+		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
 	}
 
 	public MimeType getSendMimeType() {
