@@ -1,4 +1,4 @@
-=!1111[$msg]*!1/$is()/(=!1111)
-=!1111[$msg]*!1/$do/(=!1111/=!2222)$do
-(=!1111[$msg]*!1$do/$do$signal)=!1111[#channel]*!23[#event]{$1}<$domain>/&/"cloudos"
-(=!1111[$msg]*!1$do/$do$signal)=!1111[#channel]*!23[#event]{$1}<$type>/&/"restart"
+=!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
+=!:uuid:1111[$msg]*!:uuid:1234/$do/(=!:uuid:1111/=!:uuid:2222)$do
+(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]{$1}<$domain>/&/"cloudos"
+(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]{$1}<$type>/&/"restart"

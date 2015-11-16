@@ -1,4 +1,4 @@
-=!:uuid:1111[$msg]*!1/$is()/(=!:uuid:1111)
-=!:uuid:1111[$msg]*!1/$do/(=!:uuid:1111/=!:uuid:1111)$do
-=!:uuid:1111[$msg]*!1<$secret><$token>/&/"s3cr3t"
-(=!:uuid:1111[$msg]*!1$do/$set)=!:uuid:1111<#email>/&/"markus@projectdanube.org"
+=!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
+=!:uuid:1111[$msg]*!:uuid:1234/$do/(=!:uuid:1111/=!:uuid:1111)$do
+=!:uuid:1111[$msg]*!:uuid:1234<$secret><$token>/&/"s3cr3t"
+(=!:uuid:1111[$msg]*!:uuid:1234$do/$set)=!:uuid:1111<#email>/&/"markus@projectdanube.org"

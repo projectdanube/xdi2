@@ -1,2 +1,2 @@
-(=markus[$msg]*!1$do/$get)=z<#name>/&/"xxx"
-=markus[$msg]*!1$get<$deref>/&/true
+(=markus[$msg]*!:uuid:1234$do/$get)=z<#name>/&/"xxx"
+=markus[$msg]*!:uuid:1234$get<$deref>/&/true

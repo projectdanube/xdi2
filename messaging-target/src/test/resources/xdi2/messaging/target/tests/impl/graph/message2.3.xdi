@@ -1,1 +1,1 @@
-(=markus[$msg]*!1$do/$set)=markus/#brother/=michael
+(=markus[$msg]*!:uuid:1234$do/$set)=markus/#brother/=michael

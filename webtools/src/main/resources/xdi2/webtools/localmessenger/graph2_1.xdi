@@ -5,7 +5,7 @@
 (=!:uuid:1111/#friend)$do/$set/=!:uuid:1111
 =!:uuid:1111<#age>/&/"33"
 =!:uuid:1111<#name>/&/"Markus Sabadello"
-=!:uuid:1111[<#email>]<*!1>/&/"markus@projectdanube.org"
-=!:uuid:1111[<#email>]<*!2>/&/"markus.sabadello@hotmail.com"
+=!:uuid:1111[<#email>]<@0>/&/"markus@projectdanube.org"
+=!:uuid:1111[<#email>]<@1>/&/"markus.sabadello@hotmail.com"
 =!:uuid:1111/#friend/=drummond
 /$is$ref/(=!:uuid:1111)
