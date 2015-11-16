@@ -1139,12 +1139,12 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.setContextNode(XDIArc.create("=abc"));
 		ContextNode abcPassportContextNode = abcContextNode.setContextNode(XDIArc.create("[#passport]"));
-		ContextNode abcPassport1ContextNode = abcPassportContextNode.setContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassport2ContextNode = abcPassportContextNode.setContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassport1ContextNode = abcPassportContextNode.setContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassport2ContextNode = abcPassportContextNode.setContextNode(XDIArc.create("*!:uuid:2222"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.setContextNode(XDIArc.create("[$v]"));
 		ContextNode abcPassportCContextNode = abcPassportContextNode.setContextNode(XDIArc.create("[$o]"));
-		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.setContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.setContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.setContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.setContextNode(XDIArc.create("*!:uuid:2222"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.setRelation(XDIAddress.create("$"), XDIAddress.create("=abc[#passport]"));
 		LiteralNode abcPassport1NumberLiteral = abcPassport1ContextNode.setDeepContextNode(XDIAddress.create("<#number>")).setLiteralNode("987654321");
 		LiteralNode abcPassport1CountryLiteral = abcPassport1ContextNode.setDeepContextNode(XDIAddress.create("<#country>")).setLiteralNode("Canada");
@@ -1152,11 +1152,11 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		LiteralNode abcPassport2NumberLiteral = abcPassport2ContextNode.setDeepContextNode(XDIAddress.create("<#number>")).setLiteralNode("123456789");
 		LiteralNode abcPassport2CountryLiteral = abcPassport2ContextNode.setDeepContextNode(XDIAddress.create("<#country>")).setLiteralNode("New Zealand");
 		LiteralNode abcPassport2DLiteral = abcPassport2ContextNode.setDeepContextNode(XDIAddress.create("<$t>")).setLiteralNode("2010-10-01T00:00:00Z");
-		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.setContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.setContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.setContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.setContextNode(XDIArc.create("*!:uuid:2222"));
 		LiteralNode abcPassportC1DLiteral = abcPassportC1ContextNode.setDeepContextNode(XDIAddress.create("<$t>")).setLiteralNode("2010-11-11T11:11:11Z");
 		LiteralNode abcPassportC2DLiteral = abcPassportC2ContextNode.setDeepContextNode(XDIAddress.create("<$t>")).setLiteralNode("2010-12-22T22:22:22Z");
-		Relation abcPassportRelationV = abcPassportContextNode.setRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!2"));
+		Relation abcPassportRelationV = abcPassportContextNode.setRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!:uuid:2222"));
 		Relation abcPassportRelation1 = abcPassportContextNode.setRelation(XDIAddress.create("@1"), abcPassport1ContextNode);
 		Relation abcPassportRelation2 = abcPassportContextNode.setRelation(XDIAddress.create("@2"), abcPassport2ContextNode);
 		Relation abcTestRelation1 = abcContextNode.setRelation(XDIAddress.create("#rel"), abcPassport1ContextNode);
@@ -1168,12 +1168,12 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDIArc.create("=abc"));
 		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDIArc.create("[#passport]"));
-		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$v]"));
 		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$o]"));
-		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDIAddress.create("$"));
 		LiteralNode abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#number>&"));
 		LiteralNode abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#country>&"));
@@ -1181,15 +1181,15 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		LiteralNode abcPassport2NumberLiteral = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<#number>&"));
 		LiteralNode abcPassport2CountryLiteral = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<#country>&"));
 		LiteralNode abcPassport2DLiteral = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
-		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		LiteralNode abcPassportC1DLiteral = abcPassportC1ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		LiteralNode abcPassportC2DLiteral = abcPassportC2ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDIAddress.create("[$v]"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDIAddress.create("@1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDIAddress.create("@2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:1111"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:2222"));
 
 		assertEquals(rootContextNode.getXDIAddress(), XDIConstants.XDI_ADD_ROOT);
 		assertEquals(abcContextNode.getXDIAddress(), XDIAddress.create("=abc"));
@@ -1198,12 +1198,12 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 
 		assertTrue(rootContextNode.containsContextNode(XDIArc.create("=abc")));
 		assertTrue(abcContextNode.containsContextNode(XDIArc.create("[#passport]")));
-		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!2")));
+		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("[$v]")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("[$o]")));
-		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!2")));
+		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));
 		assertTrue(abcPassportV2ContextNode.containsRelation(XDIAddress.create("$"), XDIAddress.create("=abc[#passport]")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(XDIArc.create("<#number>")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(XDIArc.create("<#country>")));
@@ -1217,48 +1217,48 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDIAddress.create("<#number>")).containsLiteralNode());
 		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDIAddress.create("<#country>")).containsLiteralNode());
 		assertTrue(abcPassport2ContextNode.getDeepContextNode(XDIAddress.create("<$t>")).containsLiteralNode());
-		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!2")));
+		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));
 		assertTrue(abcPassportC1ContextNode.containsContextNode(XDIArc.create("<$t>")));
 		assertTrue(abcPassportC2ContextNode.containsContextNode(XDIArc.create("<$t>")));
 		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDIAddress.create("<$t>")).containsLiteralNode());
 		assertTrue(abcPassportC2ContextNode.getDeepContextNode(XDIAddress.create("<$t>")).containsLiteralNode());
-		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!2")));
-		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@1"), XDIAddress.create("=abc[#passport]*!1")));
-		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@2"), XDIAddress.create("=abc[#passport]*!2")));
-		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!1")));
-		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!2")));
+		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!:uuid:2222")));
+		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@1"), XDIAddress.create("=abc[#passport]*!:uuid:1111")));
+		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@2"), XDIAddress.create("=abc[#passport]*!:uuid:2222")));
+		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:1111")));
+		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:2222")));
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.getDeepContextNode(XDIAddress.create("")),
 				graph.getDeepContextNode(XDIAddress.create("=abc")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!2")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!2")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<#number>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<#country>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<#number>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<#country>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!1<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!2<$t>"))
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<#number>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<#country>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<#number>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<#country>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222<$t>"))
 		};
 
 		XDIArc[][] contextNodeXDIAddressArray = new XDIArc[][] {
 				new XDIArc[] { XDIArc.create("=abc") },
 				new XDIArc[] { XDIArc.create("[#passport]") },
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("*!2"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("*!:uuid:2222"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },
 				new XDIArc[] { XDIArc.create("<#number>"), XDIArc.create("<#country>"), XDIArc.create("<$t>") },
 				new XDIArc[] { XDIArc.create("<#number>"), XDIArc.create("<#country>"), XDIArc.create("<$t>") },
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("*!2") },
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("*!2") },
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("*!:uuid:2222") },
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("*!:uuid:2222") },
 				new XDIArc[] { },
 				new XDIArc[] { },
 				new XDIArc[] { XDIArc.create("<$t>") },
@@ -1359,18 +1359,18 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertEquals(XDIAddress.create("=abc"), abcContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("[#passport]"), abcPassportContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!1"), abcPassport1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcPassport1ContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!2"), abcPassport2ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport]*!2"), abcPassport2ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassport1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcPassport1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:2222"), abcPassport2ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:2222"), abcPassport2ContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("[$v]"), abcPassportVContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]"), abcPassportVContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("[$o]"), abcPassportCContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$o]"), abcPassportCContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!1"), abcPassportV1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!1"), abcPassportV1ContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!2"), abcPassportV2ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!2"), abcPassportV2ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassportV1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:1111"), abcPassportV1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:2222"), abcPassportV2ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222"), abcPassportV2ContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getXDIAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportV2RelationDollar.getTargetXDIAddress());
 		assertEquals(XDIArc.create("<#number>"), abcPassport1NumberLiteral.getContextNode().getXDIArc());
@@ -1385,24 +1385,24 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertEquals("New Zealand", abcPassport2CountryLiteral.getLiteralData());
 		assertEquals(XDIArc.create("<$t>"), abcPassport2DLiteral.getContextNode().getXDIArc());
 		assertEquals("2010-10-01T00:00:00Z", abcPassport2DLiteral.getLiteralData());
-		assertEquals(XDIArc.create("*!1"), abcPassportC1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$o]*!1"), abcPassportC1ContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!2"), abcPassportC2ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$o]*!2"), abcPassportC2ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassportC1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111"), abcPassportC1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:2222"), abcPassportC2ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222"), abcPassportC2ContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("<$t>"), abcPassportC1DLiteral.getContextNode().getXDIArc());
 		assertEquals("2010-11-11T11:11:11Z", abcPassportC1DLiteral.getLiteralData());
 		assertEquals(XDIArc.create("<$t>"), abcPassportC2DLiteral.getContextNode().getXDIArc());
 		assertEquals("2010-12-22T22:22:22Z", abcPassportC2DLiteral.getLiteralData());
 		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!2"), abcPassportRelationV.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222"), abcPassportRelationV.getTargetXDIAddress());
 		assertEquals(XDIArc.create("@1"), abcPassportRelation1.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcPassportRelation1.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcPassportRelation1.getTargetXDIAddress());
 		assertEquals(XDIArc.create("@2"), abcPassportRelation2.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!2"), abcPassportRelation2.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:2222"), abcPassportRelation2.getTargetXDIAddress());
 		assertEquals(XDIArc.create("#rel"), abcRelation1.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcRelation1.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcRelation1.getTargetXDIAddress());
 		assertEquals(XDIArc.create("#rel"), abcRelation2.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!2"), abcRelation2.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:2222"), abcRelation2.getTargetXDIAddress());
 
 		assertEquals(rootContextNode.getAllContextNodeCount(), 18);
 		assertEquals(rootContextNode.getAllRelationCount(), 6);
@@ -1415,12 +1415,12 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDIArc.create("=abc"));
 		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDIArc.create("[#passport]"));
-		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$v]"));
 		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$o]"));
-		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDIAddress.create("$"));
 		LiteralNode abcPassport1LiteralNumber = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#number>&"));
 		LiteralNode abcPassport1LiteralCountry = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#country>&"));
@@ -1428,15 +1428,15 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		LiteralNode abcPassport2LiteralNumber = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<#number>&"));
 		LiteralNode abcPassport2LiteralCountry = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<#country>&"));
 		LiteralNode abcPassport2LiteralD = abcPassport2ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
-		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		LiteralNode abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		LiteralNode abcPassportC2LiteralD = abcPassportC2ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDIAddress.create("[$v]"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDIAddress.create("@1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDIAddress.create("@2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:1111"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:2222"));
 
 		abcPassport2ContextNode.delete();
 		abcPassportC1LiteralD.setLiteralData("2010-03-03T03:03:03Z");
@@ -1448,12 +1448,12 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		ContextNode rootContextNode = graph.getRootContextNode();
 		ContextNode abcContextNode = rootContextNode.getContextNode(XDIArc.create("=abc"));
 		ContextNode abcPassportContextNode = abcContextNode.getContextNode(XDIArc.create("[#passport]"));
-		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassport1ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassport2ContextNode = abcPassportContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		ContextNode abcPassportVContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$v]"));
 		ContextNode abcPassportCContextNode = abcPassportContextNode.getContextNode(XDIArc.create("[$o]"));
-		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportV1ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportV2ContextNode = abcPassportVContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		Relation abcPassportV2RelationDollar = abcPassportV2ContextNode.getRelation(XDIAddress.create("$"));
 		LiteralNode abcPassport1NumberLiteral = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#number>&"));
 		LiteralNode abcPassport1CountryLiteral = abcPassport1ContextNode.getDeepLiteralNode(XDIAddress.create("<#country>&"));
@@ -1461,24 +1461,24 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		LiteralNode abcPassport2LiteralNumber = null;
 		LiteralNode abcPassport2LiteralCountry = null;
 		LiteralNode abcPassport2LiteralD = null;
-		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!1"));
-		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!2"));
+		ContextNode abcPassportC1ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:1111"));
+		ContextNode abcPassportC2ContextNode = abcPassportCContextNode.getContextNode(XDIArc.create("*!:uuid:2222"));
 		LiteralNode abcPassportC1LiteralD = abcPassportC1ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		LiteralNode abcPassportC2LiteralD = abcPassportC2ContextNode == null ? null : abcPassportC2ContextNode.getDeepLiteralNode(XDIAddress.create("<$t>&"));
 		Relation abcPassportRelationV = abcPassportContextNode.getRelation(XDIAddress.create("[$v]"));
 		Relation abcPassportRelation1 = abcPassportContextNode.getRelation(XDIAddress.create("@1"));
 		Relation abcPassportRelation2 = abcPassportContextNode.getRelation(XDIAddress.create("@2"));
-		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!1"));
-		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!2"));
+		Relation abcRelation1 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:1111"));
+		Relation abcRelation2 = abcContextNode.getRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:2222"));
 
 		assertTrue(rootContextNode.containsContextNode(XDIArc.create("=abc")));
 		assertTrue(abcContextNode.containsContextNode(XDIArc.create("[#passport]")));
-		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertFalse(abcPassportContextNode.containsContextNode(XDIArc.create("*!2")));	// MANIPULATED
+		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertFalse(abcPassportContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));	// MANIPULATED
 		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("[$v]")));
 		assertTrue(abcPassportContextNode.containsContextNode(XDIArc.create("[$o]")));
-		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!2")));
+		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertTrue(abcPassportVContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));
 		assertTrue(abcPassportV2ContextNode.containsRelation(XDIAddress.create("$"), XDIAddress.create("=abc[#passport]")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(XDIArc.create("<#number>")));
 		assertTrue(abcPassport1ContextNode.containsContextNode(XDIArc.create("<#country>")));
@@ -1492,48 +1492,48 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
-		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!1")));
-		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!2")));
+		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!:uuid:1111")));
+		assertTrue(abcPassportCContextNode.containsContextNode(XDIArc.create("*!:uuid:2222")));
 		assertTrue(abcPassportC1ContextNode.containsContextNode(XDIArc.create("<$t>")));
 		assertFalse(abcPassportC2ContextNode.containsContextNode(XDIArc.create("<$t>")));	// MANIPULATED
 		assertTrue(abcPassportC1ContextNode.getDeepContextNode(XDIAddress.create("<$t>")).containsLiteralNode());
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
-		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!2")));
-		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@1"), XDIAddress.create("=abc[#passport]*!1")));
-		assertFalse(abcPassportContextNode.containsRelation(XDIAddress.create("@2"), XDIAddress.create("=abc[#passport]*!2")));		// MANIPULATED
-		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!1")));
-		assertFalse(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!2")));		// MANIPULATED
+		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("[$v]"), XDIAddress.create("=abc[#passport][$v]*!:uuid:2222")));
+		assertTrue(abcPassportContextNode.containsRelation(XDIAddress.create("@1"), XDIAddress.create("=abc[#passport]*!:uuid:1111")));
+		assertFalse(abcPassportContextNode.containsRelation(XDIAddress.create("@2"), XDIAddress.create("=abc[#passport]*!:uuid:2222")));		// MANIPULATED
+		assertTrue(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:1111")));
+		assertFalse(abcContextNode.containsRelation(XDIAddress.create("#rel"), XDIAddress.create("=abc[#passport]*!:uuid:2222")));		// MANIPULATED
 
 		ContextNode contextNodesArray[] = new ContextNode [] {
 				graph.getDeepContextNode(XDIAddress.create("")),
 				graph.getDeepContextNode(XDIAddress.create("=abc")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]")),
 				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!2")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!1")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!2")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<#number>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<#country>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!1<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<#number>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<#country>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!2<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!1<$t>")),
-				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!2<$t>"))
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<#number>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<#country>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:1111<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<#number>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<#country>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport]*!:uuid:2222<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111<$t>")),
+				graph.getDeepContextNode(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222<$t>"))
 		};
 
 		XDIArc[][] contextNodeXDIAddressArray = new XDIArc[][] {
 				new XDIArc[] { XDIArc.create("=abc") },
 				new XDIArc[] { XDIArc.create("[#passport]") },
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },	// MANIPULATED
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("[$v]"), XDIArc.create("[$o]") },	// MANIPULATED
 				new XDIArc[] { XDIArc.create("<#number>"), XDIArc.create("<#country>"), XDIArc.create("<$t>") },
 				null,	// MANIPULATED
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("*!2") },
-				new XDIArc[] { XDIArc.create("*!1"), XDIArc.create("*!2") },
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("*!:uuid:2222") },
+				new XDIArc[] { XDIArc.create("*!:uuid:1111"), XDIArc.create("*!:uuid:2222") },
 				new XDIArc[] { },
 				new XDIArc[] { },
 				new XDIArc[] { XDIArc.create("<$t>") },
@@ -1634,18 +1634,18 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertEquals(XDIAddress.create("=abc"), abcContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("[#passport]"), abcPassportContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!1"), abcPassport1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcPassport1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassport1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcPassport1ContextNode.getXDIAddress());
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertNull(abcPassport2ContextNode);	// MANIPULATED
 		assertEquals(XDIArc.create("[$v]"), abcPassportVContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$v]"), abcPassportVContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("[$o]"), abcPassportCContextNode.getXDIArc());
 		assertEquals(XDIAddress.create("=abc[#passport][$o]"), abcPassportCContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!1"), abcPassportV1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!1"), abcPassportV1ContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!2"), abcPassportV2ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!2"), abcPassportV2ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassportV1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:1111"), abcPassportV1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:2222"), abcPassportV2ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222"), abcPassportV2ContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("$"), abcPassportV2RelationDollar.getXDIAddress());
 		assertEquals(XDIAddress.create("=abc[#passport]"), abcPassportV2RelationDollar.getTargetXDIAddress());
 		assertEquals(XDIArc.create("<#number>"), abcPassport1NumberLiteral.getContextNode().getXDIArc());
@@ -1660,22 +1660,22 @@ public abstract class AbstractGraphTest extends AbstractTestCase {
 		assertNull(abcPassport2LiteralCountry);	// MANIPULATED
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
 		assertNull(abcPassport2LiteralD);	// MANIPULATED
-		assertEquals(XDIArc.create("*!1"), abcPassportC1ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$o]*!1"), abcPassportC1ContextNode.getXDIAddress());
-		assertEquals(XDIArc.create("*!2"), abcPassportC2ContextNode.getXDIArc());
-		assertEquals(XDIAddress.create("=abc[#passport][$o]*!2"), abcPassportC2ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:1111"), abcPassportC1ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$o]*!:uuid:1111"), abcPassportC1ContextNode.getXDIAddress());
+		assertEquals(XDIArc.create("*!:uuid:2222"), abcPassportC2ContextNode.getXDIArc());
+		assertEquals(XDIAddress.create("=abc[#passport][$o]*!:uuid:2222"), abcPassportC2ContextNode.getXDIAddress());
 		assertEquals(XDIArc.create("<$t>"), abcPassportC1LiteralD.getContextNode().getXDIArc());
 		assertEquals("2010-03-03T03:03:03Z", abcPassportC1LiteralD.getLiteralData());	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertNull(abcPassportC2LiteralD);	// MANIPULATED
 		assertEquals(XDIArc.create("[$v]"), abcPassportRelationV.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport][$v]*!2"), abcPassportRelationV.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport][$v]*!:uuid:2222"), abcPassportRelationV.getTargetXDIAddress());
 		assertEquals(XDIArc.create("@1"), abcPassportRelation1.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcPassportRelation1.getTargetXDIAddress());	// MANIPULATED
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcPassportRelation1.getTargetXDIAddress());	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertNull(abcPassportRelation2);	// MANIPULATED
 		assertEquals(XDIArc.create("#rel"), abcRelation1.getXDIAddress());
-		assertEquals(XDIAddress.create("=abc[#passport]*!1"), abcRelation1.getTargetXDIAddress());
+		assertEquals(XDIAddress.create("=abc[#passport]*!:uuid:1111"), abcRelation1.getTargetXDIAddress());
 		assertNull(abcRelation2);	// MANIPULATED
 		assertNull(abcRelation2);	// MANIPULATED
 

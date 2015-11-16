@@ -1,4 +1,6 @@
-=!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
-=!:uuid:1111[$msg]*!:uuid:1234/$do/(=!:uuid:1111/#signal)$do
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]*!44/#domain/#cloudos
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]*!44/#type/#notification
++!:uuid:8888[$msg]*!:uuid:1234/$is()/(+!:uuid:0000)
++!:uuid:8888[$msg]*!:uuid:1234/$do/(+!:uuid:0000/+!:uuid:8888)$add$do
+(+!:uuid:8888[$msg]*!:uuid:1234$do/$set)//(=!:uuid:1111)
+(+!:uuid:8888[$msg]*!:uuid:1234$do/$set)(=!:uuid:1111)<$xdi><$uri>/&/"https://test.clouds.com/xdi/"
+(+!:uuid:8888[$msg]*!:uuid:1234$do/$set)(=!:uuid:1111)/$is$ref/(=alice)
+(+!:uuid:8888[$msg]*!:uuid:1234$do/$set)(=alice)/$ref/(=!:uuid:1111)

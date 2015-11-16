@@ -1,4 +1,4 @@
 =!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
 =!:uuid:1111[$msg]*!:uuid:1234/$do/(=!:uuid:1111/=!:uuid:2222)$do
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]*!44/#domain/#cloudos
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!23[#event]*!44/#type/#deletion
+(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#domain/#cloudos
+(=!:uuid:1111[$msg]*!:uuid:1234$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#deletion

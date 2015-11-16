@@ -3,9 +3,9 @@
 =!:uuid:1111<#country>/&/"Austria"
 =!:uuid:2222<#name>/&/"Animesh"
 =!:uuid:2222<#country>/&/"USA"
-=!:uuid:3333333<#name>/$rep/=!:uuid:1111<#name>
-=!:uuid:3333333<#country>/$rep/=!:uuid:2222<#country>
+=!:uuid:3333<#name>/$rep/=!:uuid:1111<#name>
+=!:uuid:3333<#country>/$rep/=!:uuid:2222<#country>
 =animesh/$ref/=!:uuid:2222
-=pseudonym/$ref/=!:uuid:3333333
+=pseudonym/$ref/=!:uuid:3333
 (=!:uuid:1111)/$ref/
 /$is$ref/(=!:uuid:1111)
