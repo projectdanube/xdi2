@@ -1,2 +1,2 @@
-=!2222[$msg]*!1/$is()/(=!1111)
-=!2222[$msg]*!1$do/$del/=!100=!200=!3#first<#name>
+=!:uuid:2222[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
+=!:uuid:2222[$msg]*!:uuid:1234$do/$del/=!100=!200=!:uuid:3333#first<#name>

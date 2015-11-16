@@ -1,2 +1,2 @@
-=markus[$msg]*!1/$is()/(=!1111)
-(=markus[$msg]*!1$do/$set)=markus<#email>/&/"markus@test.com"
+=markus[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
+(=markus[$msg]*!:uuid:1234$do/$set)=markus<#email>/&/"markus@test.com"

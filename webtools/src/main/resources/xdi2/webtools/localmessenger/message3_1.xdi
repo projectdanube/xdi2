@@ -1,2 +1,2 @@
-=markus[$msg]*!1/$is()/(+!3436.F6A6.3644.4D74)
-(=markus[$msg]*!1$do/$set)+kynetx[<$uri>]{<@0>}/&/"https://xdi.kobj.net"
+=markus[$msg]*!:uuid:1234/$is()/(+!3436.F6A6.3644.4D74)
+(=markus[$msg]*!:uuid:1234$do/$set)+kynetx[<$uri>]{<@0>}/&/"https://xdi.kobj.net"

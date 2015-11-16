@@ -16,6 +16,7 @@ import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiVariable;
+import xdi2.core.features.variables.Variables;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIXRef;
@@ -63,17 +64,17 @@ public final class XDIAddressUtil {
 
 					xdiContext = startPosition.toContext();
 
-					if (VariableUtil.matches(xdiVariable, xdiContext)) {
+					if (Variables.matches(xdiVariable, xdiContext)) {
 
 						startPosition.next();
 
-						if (VariableUtil.isMultiple(xdiVariable)) {
+						if (Variables.isMultiple(xdiVariable)) {
 
 							while (true) {
 
 								if (startPosition.done()) break;
 								xdiContext = startPosition.toContext();
-								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
+								if (! Variables.matches(xdiVariable, xdiContext)) break;
 								if (startPosition.matchesNext(addressPosition)) break;
 
 								startPosition.next();
@@ -91,17 +92,17 @@ public final class XDIAddressUtil {
 
 					xdiContext = addressPosition.toContext();
 
-					if (VariableUtil.matches(xdiVariable, xdiContext)) {
+					if (Variables.matches(xdiVariable, xdiContext)) {
 
 						addressPosition.next();
 
-						if (VariableUtil.isMultiple(xdiVariable)) {
+						if (Variables.isMultiple(xdiVariable)) {
 
 							while (true) {
 
 								if (addressPosition.done()) break;
 								xdiContext = addressPosition.toContext();
-								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
+								if (! Variables.matches(xdiVariable, xdiContext)) break;
 								if (addressPosition.matchesNext(startPosition)) break;
 
 								addressPosition.next();
@@ -166,17 +167,17 @@ public final class XDIAddressUtil {
 
 					xdiContext = endPosition.toContext();
 
-					if (VariableUtil.matches(xdiVariable, xdiContext)) {
+					if (Variables.matches(xdiVariable, xdiContext)) {
 
 						endPosition.next();
 
-						if (VariableUtil.isMultiple(xdiVariable)) {
+						if (Variables.isMultiple(xdiVariable)) {
 
 							while (true) {
 
 								if (endPosition.done()) break;
 								xdiContext = endPosition.toContext();
-								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
+								if (! Variables.matches(xdiVariable, xdiContext)) break;
 								if (endPosition.matchesNext(addressPosition)) break;
 
 								endPosition.next();
@@ -197,17 +198,17 @@ public final class XDIAddressUtil {
 
 					xdiContext = addressPosition.toContext();
 
-					if (VariableUtil.matches(xdiVariable, xdiContext)) {
+					if (Variables.matches(xdiVariable, xdiContext)) {
 
 						addressPosition.next();
 
-						if (VariableUtil.isMultiple(xdiVariable)) {
+						if (Variables.isMultiple(xdiVariable)) {
 
 							while (true) {
 
 								if (addressPosition.done()) break;
 								xdiContext = addressPosition.toContext();
-								if (! VariableUtil.matches(xdiVariable, xdiContext)) break;
+								if (! Variables.matches(xdiVariable, xdiContext)) break;
 								if (addressPosition.matchesNext(endPosition)) break;
 
 								addressPosition.next();

@@ -1,2 +1,2 @@
-=sender[$msg]*!1/$do/(=a/=x)$do
-=sender[$msg]*!1$do/$get/=a=b
+=sender[$msg]*!:uuid:1234/$do/(=a/=x)$do
+=sender[$msg]*!:uuid:1234$do/$get/=a=b
