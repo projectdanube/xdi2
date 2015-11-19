@@ -15,6 +15,7 @@ Known default HTTP ports of various XDI2 (and -related) projects.
 9991: xdi2-redis
 9992: xdi2-mongodb
 9993: xdi2-ehcache
+9994: xdi2-ipfs
 9110: xdi2-pixel
 9120: xdi2-oauth2
 9130: xdi2-filesys
