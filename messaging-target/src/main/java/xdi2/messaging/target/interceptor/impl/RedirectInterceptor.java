@@ -30,26 +30,28 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
  * 
  * @author markus
  */
-public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<RoutingInterceptor> {
+public class RedirectInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<RedirectInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(RoutingInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(RedirectInterceptor.class);
 
 	private XDIAgent xdiAgent;
 	private Collection<Manipulator> manipulators;
+	private boolean requireRoute;
 	private boolean skipSiblingInterceptors;
 	private boolean skipMessagingTarget;
 
-	public RoutingInterceptor(XDIAgent xdiAgent, Collection<Manipulator> manipulators, boolean skipSiblingInterceptors, boolean skipMessagingTarget) {
+	public RedirectInterceptor(XDIAgent xdiAgent, Collection<Manipulator> manipulators, boolean requireRoute, boolean skipSiblingInterceptors, boolean skipMessagingTarget) {
 
 		this.xdiAgent = xdiAgent;
 		this.manipulators = manipulators;
+		this.requireRoute = requireRoute;
 		this.skipSiblingInterceptors = skipSiblingInterceptors;
 		this.skipMessagingTarget = skipMessagingTarget;
 	}
 
-	public RoutingInterceptor() {
+	public RedirectInterceptor() {
 
-		this(new XDIBasicAgent(), null, true, true);
+		this(new XDIBasicAgent(), null, false, true, true);
 	}
 
 	/*
@@ -57,11 +59,11 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 */
 
 	@Override
-	public RoutingInterceptor instanceFor(PrototypingContext prototypingContext) {
+	public RedirectInterceptor instanceFor(PrototypingContext prototypingContext) {
 
 		// create new interceptor
 
-		RoutingInterceptor interceptor = new RoutingInterceptor();
+		RedirectInterceptor interceptor = new RedirectInterceptor();
 
 		// set the agent and manipulators
 
@@ -82,7 +84,7 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// send
 
-		this.processRoute(message, executionContext);
+		this.processRedirect(message, executionContext);
 
 		// done
 
@@ -99,11 +101,11 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 * Helper methods
 	 */
 
-	private void processRoute(Message routingMessage, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void processRedirect(Message routingMessage, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Preparing to route message " + routingMessage);
 
-		// find route for routing message
+		// find route for redirect message
 
 		XDIArc toPeerRootXDIArc = routingMessage.getToPeerRootXDIArc();
 
@@ -120,9 +122,14 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			throw new Xdi2MessagingException("Client problem while routing to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
 		}
 
-		if (xdiClientRoute == null) throw new Xdi2MessagingException("No route for " + toPeerRootXDIArc, null, executionContext);
+		if (xdiClientRoute == null) {
 
-		// send the routing message
+			if (this.isRequireRoute()) throw new Xdi2MessagingException("No route for " + toPeerRootXDIArc, null, executionContext);
+
+			return;
+		}
+
+		// send the redirect message
 
 		XDIClient<? extends MessagingResponse> xdiClient = xdiClientRoute.constructXDIClient();
 
@@ -143,7 +150,7 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			xdiClient.send(routingMessage.getMessageEnvelope());
 		} catch (Xdi2ClientException ex) {
 
-			throw new Xdi2MessagingException("Problem while sending routing message " + routingMessage + " to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
+			throw new Xdi2MessagingException("Problem while sending redirect message " + routingMessage + " to " + toPeerRootXDIArc + ": " + ex.getMessage(), ex, executionContext);
 		}
 	}
 
@@ -169,6 +176,16 @@ public class RoutingInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	public void setManipulators(Collection<Manipulator> manipulators) {
 
 		this.manipulators = manipulators;
+	}
+
+	public boolean isRequireRoute() {
+
+		return this.requireRoute;
+	}
+
+	public void setRequireRoute(boolean requireRoute) {
+
+		this.requireRoute = requireRoute;
 	}
 
 	public boolean isSkipSiblingInterceptors() {
