@@ -6,10 +6,10 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
 
+import xdi2.transport.TransportResponse;
 import xdi2.transport.impl.http.HttpTransportResponse;
-import xdi2.transport.impl.http.impl.AbstractHttpTransportResponse;
 
-public class ServletHttpTransportResponse extends AbstractHttpTransportResponse implements HttpTransportResponse {
+public class ServletHttpTransportResponse extends HttpTransportResponse implements TransportResponse {
 
 	private HttpServletResponse httpServletResponse;
 

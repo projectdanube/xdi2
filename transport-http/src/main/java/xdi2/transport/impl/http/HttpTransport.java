@@ -25,11 +25,11 @@ import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.AbstractTransport;
+import xdi2.transport.impl.uri.UriTransport;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
-public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpTransportResponse> {
+public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransportResponse> {
 
 	private static final Logger log = LoggerFactory.getLogger(HttpTransport.class);
 
@@ -468,6 +468,7 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 	 * Getters and setters
 	 */
 
+	@Override
 	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
 		return this.uriMessagingTargetRegistry;
@@ -489,7 +490,8 @@ public class HttpTransport extends AbstractTransport<HttpTransportRequest, HttpT
 	}
 
 	public Map<String, String> getHeadersGet() {
-		return headersGet;
+
+		return this.headersGet;
 	}
 
 	public void setHeadersGet(Map<String, String> headersGet) {

@@ -29,11 +29,11 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.transport.exceptions.Xdi2TransportException;
-import xdi2.transport.impl.AbstractTransport;
+import xdi2.transport.impl.uri.UriTransport;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
 
-public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequest, WebSocketTransportResponse> {
+public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, WebSocketTransportResponse> {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransport.class);
 
@@ -302,6 +302,7 @@ public class WebSocketTransport extends AbstractTransport<WebSocketTransportRequ
 	 * Getters and setters
 	 */
 
+	@Override
 	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
 
 		return this.uriMessagingTargetRegistry;

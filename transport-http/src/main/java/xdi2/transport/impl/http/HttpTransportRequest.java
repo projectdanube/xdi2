@@ -4,14 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import xdi2.transport.TransportRequest;
+import xdi2.transport.impl.uri.UriTransportRequest;
 
 /**
- * This interface abstracts path information about a request to the server.
+ * This class represents an XDI request to an HTTP server.
  * This is used by the HttpTransport.
  * 
  * @author markus
  */
-public interface HttpTransportRequest extends TransportRequest {
+public abstract class HttpTransportRequest extends UriTransportRequest implements TransportRequest {
 
 	public static final String METHOD_GET = "GET";
 	public static final String METHOD_POST= "POST";
@@ -19,14 +20,24 @@ public interface HttpTransportRequest extends TransportRequest {
 	public static final String METHOD_DELETE = "DELETE";
 	public static final String METHOD_OPTIONS = "OPTIONS";
 
-	public String getMethod();
-	public String getBaseUri();
-	public String getRequestPath();
-	public String getParameter(String name);
-	public String getHeader(String name);
-	public String getContentType();
+	public abstract String getMethod();
+	public abstract String getBaseUri();
+	public abstract String getRequestPath();
+	public abstract String getParameter(String name);
+	public abstract String getHeader(String name);
 
-	public InputStream getBodyInputStream() throws IOException;
+	public String getContentType() {
 
-	public String getRemoteAddr();
+		return this.getHeader("Content-Type");
+	}
+
+	public abstract InputStream getBodyInputStream() throws IOException;
+
+	public abstract String getRemoteAddr();
+
+	@Override
+	public String toString() {
+
+		return this.getMethod() + " " + this.getRequestPath() + " (" + this.getRemoteAddr() + ")";
+	}
 }
