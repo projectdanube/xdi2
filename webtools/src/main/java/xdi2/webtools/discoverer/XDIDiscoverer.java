@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.client.constants.XDIClientConstants;
 import xdi2.client.exceptions.Xdi2ClientException;
-import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
@@ -28,7 +27,6 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.webtools.util.LoggingTrustManager;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -128,7 +126,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		XDIDiscoveryResult discoveryResultAuthority = null;
 		Exception exceptionAuthority = null;
 
-		LoggingTrustManager loggingTrustManager = null;
+//		LoggingTrustManager loggingTrustManager = null;
 
 		long start = System.currentTimeMillis();
 		long startRegistry = 0, stopRegistry = 0, startAuthority = 0, stopAuthority = 0;
@@ -143,7 +141,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			// from registry
 
-			loggingTrustManager = new LoggingTrustManager();
+//			loggingTrustManager = new LoggingTrustManager();
 
 			startRegistry = System.currentTimeMillis();
 			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDIAddress.create(input));
@@ -157,10 +155,10 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer.write("Discovery result from registry: (" + Long.toString(stopRegistry - startRegistry) + " ms time" + ")\n\n");
 
-				if (loggingTrustManager.getBuffer().length() > 0) {
+	/*			if (loggingTrustManager.getBuffer().length() > 0) {
 
 					writer.write(loggingTrustManager.getBuffer().toString() + "\n");
-				}
+				}*/
 
 				writer.write("Cloud Number: " + discoveryResultRegistry.getCloudNumber() + "\n");
 				writer.write("Cloud Names: " + (discoveryResultRegistry.getCloudNames() == null ? null : Arrays.asList(discoveryResultRegistry.getCloudNames())) + "\n");
@@ -208,7 +206,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				if (discoveryResultRegistry != null && discoveryResultRegistry.getXdiEndpointUri() != null) {
 
-					loggingTrustManager = new LoggingTrustManager();
+//					loggingTrustManager = new LoggingTrustManager();
 
 					String[] endpointUriTypesString = services.trim().isEmpty() ? new String[0] : services.trim().split("[, ]");
 					XDIAddress[] endpointUriTypes = new XDIAddress[endpointUriTypesString.length];
@@ -235,10 +233,10 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 				writer2.write("Discovery result from authority: (" + Long.toString(stopAuthority - startAuthority) + " ms time" + ")\n\n");
 
-				if (loggingTrustManager.getBuffer().length() > 0) {
+/*				if (loggingTrustManager.getBuffer().length() > 0) {
 
 					writer2.write(loggingTrustManager.getBuffer().toString() + "\n");
-				}
+				}*/
 
 				writer2.write("Cloud Number: " + discoveryResultAuthority.getCloudNumber() + "\n");
 				writer2.write("Cloud Names: " + (discoveryResultAuthority.getCloudNames() == null ? null : Arrays.asList(discoveryResultAuthority.getCloudNames())) + "\n");
@@ -321,8 +319,15 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 			if (error == null) error = ex.getClass().getName();
 		} finally {
 
-			LoggingTrustManager.disable();
-			XDI2X509TrustManager.enable();
+/*			LoggingTrustManager.disable();
+
+			try {
+
+				XDI2X509TrustManager.enableTrustAll();
+			} catch (Exception ex) {
+
+				throw new RuntimeException(ex.getMessage(), ex);
+			}*/
 		}
 
 		long stop = System.currentTimeMillis();

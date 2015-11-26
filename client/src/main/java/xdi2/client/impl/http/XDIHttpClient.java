@@ -66,7 +66,13 @@ public class XDIHttpClient extends XDIAbstractClient<TransportMessagingResponse>
 
 	static {
 
-		XDI2X509TrustManager.enable();
+		try {
+
+			XDI2X509TrustManager.enableTrustAll();
+		} catch (Exception ex) {
+
+			throw new RuntimeException(ex.getMessage(), ex);
+		}
 	}
 
 	public XDIHttpClient(HttpURLConnection httpURLConnection, URI xdiEndpointUri, MimeType sendMimeType, MimeType recvMimeType, String userAgent, Boolean followRedirects) {
