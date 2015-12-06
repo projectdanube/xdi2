@@ -188,7 +188,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		TransportMessagingResponse messagingResponse;
 
-		if (isFull(messageEnvelope)) {
+		if (isResponseMessage(messageEnvelope)) {
 
 			messagingResponse = executionResult.makeFullMessagingResponse(messageEnvelope, messagingTarget);
 		} else {
@@ -247,12 +247,12 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 	 * Helper methods
 	 */
 
-	public static boolean isFull(MessageEnvelope messageEnvelope) {
+	public static boolean isResponseMessage(MessageEnvelope messageEnvelope) {
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			Boolean full = message.getParameterBoolean(XDIMessagingConstants.XDI_ADD_MESSAGE_PARAMETER_FULL);
-			if (Boolean.TRUE.equals(full)) return true;
+			Boolean responseMessage = message.getParameterBoolean(XDIMessagingConstants.XDI_ADD_MESSAGE_PARAMETER_MSG);
+			if (Boolean.TRUE.equals(responseMessage)) return true;
 		}
 
 		return false;

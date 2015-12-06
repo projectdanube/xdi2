@@ -38,7 +38,7 @@ public final class XDIMessagingConstants {
 	public static final XDIAddress XDI_ADD_TO_PEER_ROOT_ARC = XDIAddress.create("$is()");
 	public static final XDIAddress XDI_ADD_CORRELATION = XDIAddress.create("$is$msg");
 
-	public static final XDIAddress XDI_ADD_MESSAGE_PARAMETER_FULL = XDIAddress.create("<$full>");
+	public static final XDIAddress XDI_ADD_MESSAGE_PARAMETER_MSG = XDIAddress.create("<$msg>");
 	public static final XDIAddress XDI_ADD_MESSAGE_PARAMETER_RETURN_URI = XDIAddress.create("<$return><$uri>");
 	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEREF = XDIAddress.create("<$deref>");
 	public static final XDIAddress XDI_ADD_OPERATION_PARAMETER_DEHAS = XDIAddress.create("<$dehas>");

@@ -58,13 +58,13 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	}
 
 	/**
-	 * Returns an existing XDI hold policy root in this XDI link contract (template), or creates a new one.
-	 * @param create Whether to create an XDI hold policy root if it does not exist.
-	 * @return The existing or newly created XDI hold policy root.
+	 * Returns an existing XDI defer policy root in this XDI link contract (template), or creates a new one.
+	 * @param create Whether to create an XDI defer policy root if it does not exist.
+	 * @return The existing or newly created XDI defer policy root.
 	 */
-	public PolicyRoot getHoldPolicyRoot(boolean create) {
+	public PolicyRoot getDeferPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_HOLD, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER, create);
 		if (xdiEntitySingleton == null) return null;
 		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
@@ -73,13 +73,13 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	}
 
 	/**
-	 * Returns an existing XDI hold push policy root in this XDI link contract (template), or creates a new one.
-	 * @param create Whether to create an XDI hold push policy root if it does not exist.
-	 * @return The existing or newly created XDI hold push policy root.
+	 * Returns an existing XDI defer push policy root in this XDI link contract (template), or creates a new one.
+	 * @param create Whether to create an XDI defer push policy root if it does not exist.
+	 * @return The existing or newly created XDI defer push policy root.
 	 */
-	public PolicyRoot getHoldPushPolicyRoot(boolean create) {
+	public PolicyRoot getDeferPushPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_HOLD_PUSH, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER_PUSH, create);
 		if (xdiEntitySingleton == null) return null;
 		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;

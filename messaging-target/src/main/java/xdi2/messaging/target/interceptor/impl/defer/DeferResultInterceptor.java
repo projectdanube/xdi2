@@ -1,4 +1,4 @@
-package xdi2.messaging.target.interceptor.impl.hold;
+package xdi2.messaging.target.interceptor.impl.defer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,20 +35,20 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 
 /**
- * This interceptor can add hold results to a messaging target and execution result.
+ * This interceptor can add defer results to a messaging target and execution result.
  */
-public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, Prototype<HoldResultInterceptor> {
+public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, Prototype<DeferResultInterceptor> {
 
-	private static final Logger log = LoggerFactory.getLogger(HoldResultInterceptor.class);
+	private static final Logger log = LoggerFactory.getLogger(DeferResultInterceptor.class);
 
 	private Graph targetGraph;
 
-	public HoldResultInterceptor(Graph targetGraph) {
+	public DeferResultInterceptor(Graph targetGraph) {
 
 		this.targetGraph = targetGraph;
 	}
 
-	public HoldResultInterceptor() {
+	public DeferResultInterceptor() {
 
 		this(null);
 	}
@@ -58,11 +58,11 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 */
 
 	@Override
-	public HoldResultInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
+	public DeferResultInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
 		// create new contributor
 
-		HoldResultInterceptor contributor = new HoldResultInterceptor();
+		DeferResultInterceptor contributor = new DeferResultInterceptor();
 
 		// set the graph
 
@@ -97,25 +97,25 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	@Override
 	public InterceptorResult after(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
-		// look for hold results
+		// look for defer results
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		Map<Operation, List<HoldResult>> operationHoldResultsMap = getOperationHoldResults(executionContext);
-		if (operationHoldResultsMap == null) return InterceptorResult.DEFAULT;
+		Map<Operation, List<DeferResult>> operationDeferResultsMap = getOperationDeferResults(executionContext);
+		if (operationDeferResultsMap == null) return InterceptorResult.DEFAULT;
 
-		for (Map.Entry<Operation, List<HoldResult>> operationHoldResults : operationHoldResultsMap.entrySet()) {
+		for (Map.Entry<Operation, List<DeferResult>> operationDeferResults : operationDeferResultsMap.entrySet()) {
 
-			Operation operation = operationHoldResults.getKey();
-			List<HoldResult> holdResults = operationHoldResults.getValue();
+			Operation operation = operationDeferResults.getKey();
+			List<DeferResult> deferResults = operationDeferResults.getValue();
 
-			if (holdResults.isEmpty()) continue;
+			if (deferResults.isEmpty()) continue;
 
 			Graph operationPushResultGraph = executionResult.createOperationPushResultGraph(operation);
 
 			Message message = operation.getMessage();
 
-			for (HoldResult holdResult : holdResults) {
+			for (DeferResult deferResult : deferResults) {
 
 				// write message and index into target graph
 
@@ -126,9 +126,9 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity());
 				}
 
-				// hold push result?
+				// defer push result? create a deferred push link contract!
 
-				if (holdResult.getPush()) {
+				if (deferResult.isPush()) {
 
 					// determine requesting and authorizing authorities
 
@@ -138,8 +138,8 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 					// determine variable values
 
 					XDIAddress pushVariableValue = null;
-					if (pushVariableValue == null && holdResult.getXDIAddress() != null) pushVariableValue = holdResult.getXDIAddress();
-					if (pushVariableValue == null && holdResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(holdResult.getXDIStatement());
+					if (pushVariableValue == null && deferResult.getXDIAddress() != null) pushVariableValue = deferResult.getXDIAddress();
+					if (pushVariableValue == null && deferResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(deferResult.getXDIStatement());
 					if (pushVariableValue == null) throw new NullPointerException();
 
 					XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
@@ -150,7 +150,7 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 
 					// instantiate push link contract
 
-					LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.HOLD_PUSH_LINK_CONTRACT_TEMPLATE);
+					LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE);
 					linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 					linkContractInstantiation.setRequestingAuthority(requestingAuthority);
 					linkContractInstantiation.setVariableValues(variableValues);
@@ -226,22 +226,22 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_OPERATIONHOLDRESULTS_PER_MESSAGEENVELOPE = HoldResultInterceptor.class.getCanonicalName() + "#operationholdresultspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE = DeferResultInterceptor.class.getCanonicalName() + "#operationholdresultspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	public static Map<Operation, List<HoldResult>> getOperationHoldResults(ExecutionContext executionContext) {
+	public static Map<Operation, List<DeferResult>> getOperationDeferResults(ExecutionContext executionContext) {
 
-		return (Map<Operation, List<HoldResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONHOLDRESULTS_PER_MESSAGEENVELOPE);
+		return (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void addOperationHoldResult(ExecutionContext executionContext, Operation operation, HoldResult holdResult) {
+	public static void addOperationDeferResult(ExecutionContext executionContext, Operation operation, DeferResult holdResult) {
 
-		Map<Operation, List<HoldResult>> holdResultsMap = (Map<Operation, List<HoldResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONHOLDRESULTS_PER_MESSAGEENVELOPE);
-		if (holdResultsMap == null) { holdResultsMap = new HashMap<Operation, List<HoldResult>> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONHOLDRESULTS_PER_MESSAGEENVELOPE, holdResultsMap); }
+		Map<Operation, List<DeferResult>> holdResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
+		if (holdResultsMap == null) { holdResultsMap = new HashMap<Operation, List<DeferResult>> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE, holdResultsMap); }
 
-		List<HoldResult> holdResults = holdResultsMap.get(operation);
-		if (holdResults == null) { holdResults = new ArrayList<HoldResult> (); holdResultsMap.put(operation, holdResults); }
+		List<DeferResult> holdResults = holdResultsMap.get(operation);
+		if (holdResults == null) { holdResults = new ArrayList<DeferResult> (); holdResultsMap.put(operation, holdResults); }
 
 		holdResults.add(holdResult);
 	}
@@ -250,7 +250,7 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 	 * Helper class
 	 */
 
-	public static class HoldResult implements Serializable {
+	public static class DeferResult implements Serializable {
 
 		private static final long serialVersionUID = 904748436911142763L;
 
@@ -258,14 +258,14 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 		private XDIStatement XDIstatement;
 		private boolean push;
 
-		public HoldResult(XDIAddress XDIaddress, boolean push) {
+		public DeferResult(XDIAddress XDIaddress, boolean push) {
 
 			this.XDIaddress = XDIaddress;
 			this.XDIstatement = null;
 			this.push = push;
 		}
 
-		public HoldResult(XDIStatement XDIstatement, boolean push) {
+		public DeferResult(XDIStatement XDIstatement, boolean push) {
 
 			this.XDIaddress = null;
 			this.XDIstatement = XDIstatement;
@@ -282,7 +282,7 @@ public class HoldResultInterceptor extends AbstractInterceptor<MessagingTarget> 
 			return this.XDIstatement;
 		}
 
-		public boolean getPush() {
+		public boolean isPush() {
 
 			return this.push;
 		}

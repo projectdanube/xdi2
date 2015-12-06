@@ -169,7 +169,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -317,7 +317,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">
@@ -469,7 +469,7 @@
 						</bean>
 					</property>
 				</bean>
-				<bean class="xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor" />
+				<bean class="xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor" />
 			</util:list>
 		</property>
 		<property name="contributors">

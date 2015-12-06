@@ -42,8 +42,8 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.TargetInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
-import xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor;
-import xdi2.messaging.target.interceptor.impl.hold.HoldResultInterceptor.HoldResult;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor.DeferResult;
 import xdi2.messaging.target.interceptor.impl.push.PushInInterceptor;
 import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContext;
 
@@ -133,31 +133,31 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (policyRootResult) {
 
-			putHold(executionContext, XDIConstants.XDI_ADD_ROOT);
+			putEvaluationResult(executionContext, XDIConstants.XDI_ADD_ROOT);
 			return InterceptorResult.DEFAULT;
 		}
 
-		// evaluate the XDI hold policy against this message
+		// evaluate the XDI defer policy against this message
 
-		PolicyRoot holdPolicyRoot = linkContract.getHoldPolicyRoot(false);
-		boolean holdPolicyRootResult = holdPolicyRoot == null ? false : this.evaluatePolicyRoot(message, holdPolicyRoot);
-		if (holdPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " hold policy evaluated to " + holdPolicyRootResult);
+		PolicyRoot deferPolicyRoot = linkContract.getDeferPolicyRoot(false);
+		boolean deferPolicyRootResult = deferPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPolicyRoot);
+		if (deferPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " defer policy evaluated to " + deferPolicyRootResult);
 
-		if (holdPolicyRootResult) {
+		if (deferPolicyRootResult) {
 
-			putHold(executionContext, XDIPolicyConstants.XDI_ADD_HOLD);
+			putEvaluationResult(executionContext, XDIPolicyConstants.XDI_ADD_DEFER);
 			return InterceptorResult.DEFAULT;
 		}
 
-		// evaluate the XDI hold push policy against this message
+		// evaluate the XDI defer push policy against this message
 
-		PolicyRoot holdPushPolicyRoot = linkContract.getHoldPushPolicyRoot(false);
-		boolean holdPushPolicyRootResult = holdPushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, holdPushPolicyRoot);
-		if (holdPushPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " hold push policy evaluated to " + holdPushPolicyRootResult);
+		PolicyRoot deferPushPolicyRoot = linkContract.getDeferPushPolicyRoot(false);
+		boolean deferPushPolicyRootResult = deferPushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPushPolicyRoot);
+		if (deferPushPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " defer push policy evaluated to " + deferPushPolicyRootResult);
 
-		if (holdPushPolicyRootResult) {
+		if (deferPushPolicyRootResult) {
 
-			putHold(executionContext, XDIPolicyConstants.XDI_ADD_HOLD_PUSH);
+			putEvaluationResult(executionContext, XDIPolicyConstants.XDI_ADD_DEFER_PUSH);
 			return InterceptorResult.DEFAULT;
 		}
 
@@ -181,13 +181,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// read the referenced link contract and hold from the execution context
+		// read the referenced link contract and evaluation result from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		XDIAddress hold = getHold(executionContext);
-		if (hold == null) throw new Xdi2MessagingException("No hold.", null, executionContext);
+		XDIAddress evaluationResult = getEvaluationResult(executionContext);
+		if (evaluationResult == null) throw new Xdi2MessagingException("No evaluation result.", null, executionContext);
 
 		// check permission on $connect operation
 
@@ -214,7 +214,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 			// handle result
 
-			handleEvaluationResult(authorized, hold, targetXDIAddress, operation, executionContext);
+			handleEvaluationResult(authorized, evaluationResult, targetXDIAddress, operation, executionContext);
 		}
 
 		// check permission on $send operation
@@ -243,7 +243,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 			// handle result
 
-			handleEvaluationResult(authorized, hold, targetXDIAddress, operation, executionContext);
+			handleEvaluationResult(authorized, evaluationResult, targetXDIAddress, operation, executionContext);
 		}
 
 		// check permission on $push operation
@@ -286,7 +286,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 						// handle result
 
-						handleEvaluationResult(authorized, hold, targetXDIAddress, operation, executionContext);
+						handleEvaluationResult(authorized, evaluationResult, targetXDIAddress, operation, executionContext);
 					}
 
 					// check permissions on target statements
@@ -311,7 +311,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 							// handle result
 
-							handleEvaluationResult(authorized, hold, targetXDIAddress, operation, executionContext);
+							handleEvaluationResult(authorized, evaluationResult, targetXDIAddress, operation, executionContext);
 						}
 					}
 				}
@@ -320,7 +320,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		return XDIConstants.XDI_ADD_ROOT.equals(hold) ? InterceptorResult.DEFAULT : InterceptorResult.SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET;
+		return XDIConstants.XDI_ADD_ROOT.equals(evaluationResult) ? InterceptorResult.DEFAULT : InterceptorResult.SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET;
 	}
 
 	@Override
@@ -338,13 +338,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public XDIAddress targetAddress(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// read the referenced link contract and hold from the execution context
+		// read the referenced link contract and evaluation result from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		XDIAddress hold = getHold(executionContext);
-		if (hold == null) throw new Xdi2MessagingException("No hold.", null, executionContext);
+		XDIAddress evaluationResult = getEvaluationResult(executionContext);
+		if (evaluationResult == null) throw new Xdi2MessagingException("No evaluation result.", null, executionContext);
 
 		// check permission on target address
 
@@ -380,7 +380,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// handle result
 
-		handleEvaluationResult(authorized, hold, targetXDIAddress, operation, executionContext);
+		handleEvaluationResult(authorized, evaluationResult, targetXDIAddress, operation, executionContext);
 
 		// done
 
@@ -390,13 +390,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public XDIStatement targetStatement(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// read the referenced link contract and hold from the execution context
+		// read the referenced link contract and evaluation result from the execution context
 
 		LinkContract linkContract = getLinkContract(executionContext);
 		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
 
-		XDIAddress hold = getHold(executionContext);
-		if (hold == null) throw new Xdi2MessagingException("No hold.", null, executionContext);
+		XDIAddress evaluationResult = getEvaluationResult(executionContext);
+		if (evaluationResult == null) throw new Xdi2MessagingException("No evaluation result.", null, executionContext);
 
 		// determine target address
 
@@ -463,7 +463,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// handle result
 
-		handleEvaluationResult(authorized, hold, targetXDIStatement, operation, executionContext);
+		handleEvaluationResult(authorized, evaluationResult, targetXDIStatement, operation, executionContext);
 
 		// done
 
@@ -506,7 +506,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		}
 	}
 
-	private static void handleEvaluationResult(Boolean authorized, XDIAddress hold, XDIAddress targetXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
+	private static void handleEvaluationResult(Boolean authorized, XDIAddress evaluationResult, XDIAddress targetXDIAddress, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
 
 		// authorized?
 
@@ -515,18 +515,18 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target address: " + targetXDIAddress, null, executionContext);
 		}
 
-		// hold result?
+		// defer evaluation result?
 
-		if (XDIPolicyConstants.XDI_ADD_HOLD.equals(hold) || XDIPolicyConstants.XDI_ADD_HOLD_PUSH.equals(hold)) {
+		if (XDIPolicyConstants.XDI_ADD_DEFER.equals(evaluationResult) || XDIPolicyConstants.XDI_ADD_DEFER_PUSH.equals(evaluationResult)) {
 
-			boolean push = XDIPolicyConstants.XDI_ADD_HOLD_PUSH.equals(hold);
+			boolean push = XDIPolicyConstants.XDI_ADD_DEFER_PUSH.equals(evaluationResult);
 
-			HoldResult holdResult = new HoldResult(targetXDIAddress, push);
-			HoldResultInterceptor.addOperationHoldResult(executionContext, operation, holdResult);
+			DeferResult deferResult = new DeferResult(targetXDIAddress, push);
+			DeferResultInterceptor.addOperationDeferResult(executionContext, operation, deferResult);
 		}
 	}
 
-	private static void handleEvaluationResult(Boolean authorized, XDIAddress hold, XDIStatement targetXDIStatement, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
+	private static void handleEvaluationResult(Boolean authorized, XDIAddress evaluationResult, XDIStatement targetXDIStatement, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
 
 		// authorized?
 
@@ -535,14 +535,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			throw new Xdi2NotAuthorizedException("Link contract violation for operation: " + operation.getOperationXDIAddress() + " on target statement: " + targetXDIStatement, null, executionContext);
 		}
 
-		// hold result?
+		// defer evaluation result?
 
-		if (XDIPolicyConstants.XDI_ADD_HOLD.equals(hold) || XDIPolicyConstants.XDI_ADD_HOLD_PUSH.equals(hold)) {
+		if (XDIPolicyConstants.XDI_ADD_DEFER.equals(evaluationResult) || XDIPolicyConstants.XDI_ADD_DEFER_PUSH.equals(evaluationResult)) {
 
-			boolean push = XDIPolicyConstants.XDI_ADD_HOLD_PUSH.equals(hold);
+			boolean push = XDIPolicyConstants.XDI_ADD_DEFER_PUSH.equals(evaluationResult);
 
-			HoldResult holdResult = new HoldResult(targetXDIStatement, push);
-			HoldResultInterceptor.addOperationHoldResult(executionContext, operation, holdResult);
+			DeferResult deferResult = new DeferResult(targetXDIStatement, push);
+			DeferResultInterceptor.addOperationDeferResult(executionContext, operation, deferResult);
 		}
 	}
 
@@ -666,7 +666,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 */
 
 	private static final String EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#linkcontractpermessage";
-	private static final String EXECUTIONCONTEXT_KEY_HOLD_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#holdpermessage";
+	private static final String EXECUTIONCONTEXT_KEY_EVALUATIONRESULT_PER_MESSAGE = LinkContractInterceptor.class.getCanonicalName() + "#evaluationresultpermessage";
 
 	public static LinkContract getLinkContract(ExecutionContext executionContext) {
 
@@ -678,13 +678,13 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_LINKCONTRACT_PER_MESSAGE, linkContract);
 	}
 
-	public static XDIAddress getHold(ExecutionContext executionContext) {
+	public static XDIAddress getEvaluationResult(ExecutionContext executionContext) {
 
-		return (XDIAddress) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_HOLD_PER_MESSAGE);
+		return (XDIAddress) executionContext.getMessageAttribute(EXECUTIONCONTEXT_KEY_EVALUATIONRESULT_PER_MESSAGE);
 	}
 
-	public static void putHold(ExecutionContext executionContext, XDIAddress hold) {
+	public static void putEvaluationResult(ExecutionContext executionContext, XDIAddress evaluationResult) {
 
-		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_HOLD_PER_MESSAGE, hold);
+		executionContext.putMessageAttribute(EXECUTIONCONTEXT_KEY_EVALUATIONRESULT_PER_MESSAGE, evaluationResult);
 	}
 }
