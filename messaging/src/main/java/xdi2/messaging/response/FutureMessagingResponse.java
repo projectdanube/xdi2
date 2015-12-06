@@ -41,37 +41,37 @@ public class FutureMessagingResponse implements MessagingResponse {
 	@Override
 	public Graph getGraph() {
 
-		throw new IllegalStateException("Graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	@Override
 	public Graph getResultGraph() {
 
-		throw new IllegalStateException("Result graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	@Override
 	public boolean hasPushLinkContracts() {
 
-		throw new IllegalStateException("Result graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	@Override
 	public ReadOnlyIterator<LinkContract> getPushLinkContracts() {
 
-		throw new IllegalStateException("Result graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	@Override
 	public boolean hasXdiError() {
 
-		throw new IllegalStateException("Result graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	@Override
 	public XdiError getXdiError() {
 
-		throw new IllegalStateException("Result graph is not available in future messaging response.");
+		throw new IllegalStateException("This messaging response is not yet available.");
 	}
 
 	public MessageEnvelope getMessageEnvelope() {
