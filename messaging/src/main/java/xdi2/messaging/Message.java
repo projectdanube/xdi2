@@ -891,10 +891,10 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $send operation and adds it to this XDI message.
-	 * @param message The nested message of this operation.
+	 * @param message The inner message of this operation.
 	 * @return The newly created $send operation.
 	 */
-	public SendOperation createNestedSendOperation(Message message) {
+	public SendOperation createSendOperation(Message message) {
 
 		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);
@@ -949,10 +949,10 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	/**
 	 * Creates a new $push operation and adds it to this XDI message.
-	 * @param message The nested message of this operation.
+	 * @param message The inner message of this operation.
 	 * @return The newly created $push operation.
 	 */
-	public PushOperation createNestedPushOperation(Message message) {
+	public PushOperation createPushOperation(Message message) {
 
 		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
 		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);

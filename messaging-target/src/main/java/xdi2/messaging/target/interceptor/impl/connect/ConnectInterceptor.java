@@ -62,7 +62,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 	public ConnectInterceptor() {
 
-		this(null, new XDIBasicAgent(), null);
+		this(null, new XDIBasicAgent(), new ArrayList<Manipulator> ());
 	}
 
 	/*

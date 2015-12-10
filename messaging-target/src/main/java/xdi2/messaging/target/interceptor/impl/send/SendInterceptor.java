@@ -63,7 +63,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 	public SendInterceptor() {
 
-		this(new XDIBasicAgent(), null);
+		this(new XDIBasicAgent(), new ArrayList<Manipulator> ());
 	}
 
 	/*

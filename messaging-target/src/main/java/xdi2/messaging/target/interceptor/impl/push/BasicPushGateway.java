@@ -105,9 +105,9 @@ public class BasicPushGateway implements PushGateway {
 					pushMessage.setLinkContract(pushLinkContract);
 					pushMessage.setCorrelationXDIAddress(pushedOperation.getMessage().getContextNode().getXDIAddress());
 
-					// the $push message contains the nested pushed operation
+					// the $push message contains the inner pushed operation
 
-					pushMessage.createNestedPushOperation(pushedOperation.getMessage());
+					pushMessage.createPushOperation(pushedOperation.getMessage());
 
 					// and the result graph of that pushed operation
 
