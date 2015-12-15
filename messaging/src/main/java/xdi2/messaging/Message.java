@@ -31,11 +31,9 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.timestamps.Timestamps;
-import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorCounter;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingIterator;
@@ -53,6 +51,7 @@ import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.PushOperation;
 import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.operations.SetOperation;
+import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * An XDI message, represented as a context node.
@@ -896,10 +895,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public SendOperation createSendOperation(Message message) {
 
-		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);
+		Message clonedMessage = MessagingCloneUtil.cloneMessage(message, false);
 
-		return this.createSendOperation(tempGraph);
+		return this.createSendOperation(clonedMessage.getMessageEnvelope().getGraph());
 	}
 
 	/**
@@ -954,10 +952,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public PushOperation createPushOperation(Message message) {
 
-		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
-		CopyUtil.copyContextNode(message.getContextNode(), tempGraph, null);
+		Message clonedMessage = MessagingCloneUtil.cloneMessage(message, false);
 
-		return this.createPushOperation(tempGraph);
+		return this.createPushOperation(clonedMessage.getMessageEnvelope().getGraph());
 	}
 
 	/**
