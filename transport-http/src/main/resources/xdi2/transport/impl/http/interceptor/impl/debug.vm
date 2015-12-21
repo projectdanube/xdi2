@@ -258,7 +258,10 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
     	<b>$logentry.duration ms</b>
     </td>
     <td valign="top">
-    	<b>$logentry.request.getRequestPath()</b>
+		#if($logentry.request.getRequestPath())
+	    	<b>$logentry.request.getRequestPath()</b>
+		#else
+	    #end
 		#if($logentry.request.getRemoteAddr())
 	    	<br><b>$logentry.request.getRemoteAddr()</b>
 		#else
