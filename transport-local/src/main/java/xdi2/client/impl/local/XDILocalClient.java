@@ -66,8 +66,6 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 		messagingTarget.setGraph(this.getGraph());
 		messagingTarget.init();
 
-		this.messagingTarget = messagingTarget;
-
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Connected successfully.");
