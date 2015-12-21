@@ -1,6 +1,7 @@
 package xdi2.core.features.policy.operator;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
@@ -94,7 +95,7 @@ public abstract class Operator implements Serializable, Comparable<Operator> {
 
 		if (log.isDebugEnabled()) log.debug("Evaluating " + this.getClass().getSimpleName() + ": " + this.getRelation());
 		boolean[] result = this.evaluateInternal(policyEvaluationContext);
-		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + result);
+		if (log.isDebugEnabled()) log.debug("Evaluated " + this.getClass().getSimpleName() + ": " + this.getRelation() + ": " + Arrays.asList(result));
 
 		return result;
 	}
