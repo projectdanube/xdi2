@@ -1,6 +1,9 @@
 package xdi2.core.features.linkcontracts;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Statement;
@@ -16,6 +19,7 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IterableIterator;
+import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
@@ -120,86 +124,126 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 		this.getContextNode().setRelation(permissionXDIAddress, targetXDIAddress);
 	}
 
-	public void setNegativePermissionTargetXDIAddress(XDIAddress permissionAddress, XDIAddress targetAddress) {
+	public void setNegativePermissionTargetXDIAddress(XDIAddress permissionXDIAddress, XDIAddress targetXDIAddress) {
 
-		this.setPermissionTargetXDIAddress(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress), targetAddress);
+		this.setPermissionTargetXDIAddress(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIAddress);
 	}
 
-	public void setPermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public void setPermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
 
-		if (permissionAddress == null || targetStatementAddress == null) throw new NullPointerException();
+		if (permissionXDIAddress == null || targetXDIStatement == null) throw new NullPointerException();
 
 		// prepare the target statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionAddress, true);
+		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, true);
 		if (xdiInnerRoot == null) return;
 
 		// set the permission statement
 
-		xdiInnerRoot.getContextNode().setStatement(targetStatementAddress);
+		xdiInnerRoot.getContextNode().setStatement(targetXDIStatement);
 	}
 
-	public void setNegativePermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public void setNegativePermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
 
-		this.setPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress), targetStatementAddress);
+		this.setPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIStatement);
 	}
 
-	public void delPermissionTargetXDIAddress(XDIAddress permissionAddress, XDIAddress targetAddress) {
+	public void delPermissionTargetXDIAddress(XDIAddress permissionXDIAddress, XDIAddress targetXDIAddress) {
 
-		if (permissionAddress == null || targetAddress == null) throw new NullPointerException();
+		if (permissionXDIAddress == null || targetXDIAddress == null) throw new NullPointerException();
 
 		// delete the permission arc
 
-		this.getContextNode().delRelation(permissionAddress, targetAddress);
+		this.getContextNode().delRelation(permissionXDIAddress, targetXDIAddress);
 	}
 
-	public void delNegativePermissionTargetXDIAddress(XDIAddress permissionAddress, XDIAddress targetAddress) {
+	public void delNegativePermissionTargetXDIAddress(XDIAddress permissionXDIAddress, XDIAddress targetXDIAddress) {
 
-		this.delPermissionTargetXDIAddress(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress), targetAddress);
+		this.delPermissionTargetXDIAddress(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIAddress);
 	}
 
-	public void delPermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public void delPermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
 
-		if (permissionAddress == null || targetStatementAddress == null) throw new NullPointerException();
+		if (permissionXDIAddress == null || targetXDIStatement == null) throw new NullPointerException();
 
 		// delete the permission statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return;
 
-		Statement statement = xdiInnerRoot.getContextNode().getStatement(targetStatementAddress);
+		Statement statement = xdiInnerRoot.getContextNode().getStatement(targetXDIStatement);
 		if (statement == null) return;
 
 		statement.delete();
 	}
 
-	public void delNegativePermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public void delNegativePermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
 
-		this.delPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress), targetStatementAddress);
+		this.delPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIStatement);
 	}
 
-	public IterableIterator<XDIAddress> getPermissionTargetXDIAddresses(XDIAddress permissionAddress) {
+	public IterableIterator<XDIAddress> getPermissionTargetXDIAddresses(XDIAddress permissionXDIAddress) {
 
-		if (permissionAddress == null) throw new NullPointerException();
+		if (permissionXDIAddress == null) throw new NullPointerException();
 
 		// return the target addresses
 
 		return new MappingRelationTargetXDIAddressIterator(
-				this.getContextNode().getRelations(permissionAddress));
+				this.getContextNode().getRelations(permissionXDIAddress));
 	}
 
-	public IterableIterator<XDIAddress> getNegativePermissionTargetXDIAddresses(XDIAddress permissionAddress) {
+	public IterableIterator<XDIAddress> getNegativePermissionTargetXDIAddresses(XDIAddress permissionXDIAddress) {
 
-		return this.getPermissionTargetXDIAddresses(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress));
+		return this.getPermissionTargetXDIAddresses(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress));
 	}
 
-	public IterableIterator<XDIStatement> getPermissionTargetXDIStatements(XDIAddress permissionAddress) {
+	public Map<XDIAddress, List<XDIAddress>> getAllPermissionTargetXDIAddresses() {
 
-		if (permissionAddress == null) throw new NullPointerException();
+		Map<XDIAddress, List<XDIAddress>> result = new HashMap<XDIAddress, List<XDIAddress>> ();
+
+		// return all target addresses
+
+		for (XDIAddress permissionXDIAddress : XDILinkContractConstants.XDI_ADD_PERMISSIONS) {
+
+			IterableIterator<XDIAddress> permissionTargetXDIAddresses = this.getPermissionTargetXDIAddresses(permissionXDIAddress);
+
+			if (permissionTargetXDIAddresses.hasNext()) {
+
+				List<XDIAddress> list = new IteratorListMaker<XDIAddress> (permissionTargetXDIAddresses).list();
+				result.put(permissionXDIAddress, list);
+			}
+		}
+
+		return result;
+	}
+
+	public Map<XDIAddress, List<XDIAddress>> getAllNegativePermissionTargetXDIAddresses() {
+
+		Map<XDIAddress, List<XDIAddress>> result = new HashMap<XDIAddress, List<XDIAddress>> ();
+
+		// return all target addresses
+
+		for (XDIAddress permissionXDIAddress : XDILinkContractConstants.XDI_ADD_PERMISSIONS) {
+
+			IterableIterator<XDIAddress> permissionTargetXDIAddresses = this.getNegativePermissionTargetXDIAddresses(permissionXDIAddress);
+
+			if (permissionTargetXDIAddresses.hasNext()) {
+
+				List<XDIAddress> list = new IteratorListMaker<XDIAddress> (permissionTargetXDIAddresses).list();
+				result.put(permissionXDIAddress, list);
+			}
+		}
+
+		return result;
+	}
+
+	public IterableIterator<XDIStatement> getPermissionTargetXDIStatements(XDIAddress permissionXDIAddress) {
+
+		if (permissionXDIAddress == null) throw new NullPointerException();
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return new EmptyIterator<XDIStatement> ();
 
 		// return the target statements
@@ -211,23 +255,68 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 								xdiInnerRoot.getContextNode().getAllStatements())));
 	}
 
-	public boolean hasPermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public IterableIterator<XDIStatement> getNegativePermissionTargetXDIStatements(XDIAddress permissionXDIAddress) {
 
-		if (permissionAddress == null || targetStatementAddress == null) throw new NullPointerException();
+		return this.getPermissionTargetXDIStatements(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress));
+	}
+
+	public Map<XDIAddress, List<XDIStatement>> getAllPermissionTargetXDIStatements() {
+
+		Map<XDIAddress, List<XDIStatement>> result = new HashMap<XDIAddress, List<XDIStatement>> ();
+
+		// return all target statements
+
+		for (XDIAddress permissionXDIAddress : XDILinkContractConstants.XDI_ADD_PERMISSIONS) {
+
+			IterableIterator<XDIStatement> permissionTargetXDIStatements = this.getPermissionTargetXDIStatements(permissionXDIAddress);
+
+			if (permissionTargetXDIStatements.hasNext()) {
+
+				List<XDIStatement> list = new IteratorListMaker<XDIStatement> (permissionTargetXDIStatements).list();
+				result.put(permissionXDIAddress, list);
+			}
+		}
+
+		return result;
+	}
+
+	public Map<XDIAddress, List<XDIStatement>> getAllNegativePermissionTargetXDIStatements() {
+
+		Map<XDIAddress, List<XDIStatement>> result = new HashMap<XDIAddress, List<XDIStatement>> ();
+
+		// return all target statements
+
+		for (XDIAddress permissionXDIAddress : XDILinkContractConstants.XDI_ADD_PERMISSIONS) {
+
+			IterableIterator<XDIStatement> permissionTargetXDIStatements = this.getNegativePermissionTargetXDIStatements(permissionXDIAddress);
+
+			if (permissionTargetXDIStatements.hasNext()) {
+
+				List<XDIStatement> list = new IteratorListMaker<XDIStatement> (permissionTargetXDIStatements).list();
+				result.put(permissionXDIAddress, list);
+			}
+		}
+
+		return result;
+	}
+
+	public boolean hasPermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
+
+		if (permissionXDIAddress == null || targetXDIStatement == null) throw new NullPointerException();
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return false;
 
 		// check if the target statement exists
 
-		return xdiInnerRoot.getContextNode().containsStatement(targetStatementAddress);
+		return xdiInnerRoot.getContextNode().containsStatement(targetXDIStatement);
 	}
 
-	public boolean hasNegativePermissionTargetXDIStatement(XDIAddress permissionAddress, XDIStatement targetStatementAddress) {
+	public boolean hasNegativePermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
 
-		return this.hasPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionAddress), targetStatementAddress);
+		return this.hasPermissionTargetXDIStatement(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIStatement);
 	}
 
 	/*
