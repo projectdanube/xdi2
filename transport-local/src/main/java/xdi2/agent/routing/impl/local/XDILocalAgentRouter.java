@@ -1,5 +1,8 @@
 package xdi2.agent.routing.impl.local;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +15,8 @@ import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.transport.Transport;
 
 public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRoute, XDILocalClient> implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
 
@@ -19,11 +24,13 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 
 	private MessagingTarget messagingTarget;
 	private Graph graph;
+	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
 	public XDILocalAgentRouter(MessagingTarget messagingTarget, Graph graph) {
 
 		this.messagingTarget = messagingTarget;
 		this.graph = graph;
+		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
 	public XDILocalAgentRouter(MessagingTarget messagingTarget) {
@@ -72,6 +79,13 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 
 		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingTarget(), this.getGraph());
 
+		// add interceptors if supported
+
+		if (this.getInterceptors() != null) {
+
+			route.getInterceptors().addAll(this.getInterceptors());
+		}
+
 		// done
 
 		return route;
@@ -99,5 +113,15 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
+	}
+
+	public Collection<Interceptor<Transport<?, ?>>> getInterceptors() {
+
+		return this.interceptors;
+	}
+
+	public void setInterceptors(Collection<Interceptor<Transport<?, ?>>> interceptors) {
+
+		this.interceptors = interceptors;
 	}
 }

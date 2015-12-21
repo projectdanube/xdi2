@@ -1,5 +1,8 @@
 package xdi2.client.impl.local;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,8 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.local.LocalTransport;
 import xdi2.transport.impl.local.LocalTransportRequest;
@@ -27,6 +32,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 	private MessagingTarget messagingTarget;
 	private Graph graph;
+	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
 	public XDILocalClient(MessagingTarget messagingTarget, Graph graph) {
 
@@ -34,6 +40,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		this.messagingTarget = messagingTarget;
 		this.graph = graph;
+		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
 	public XDILocalClient(MessagingTarget messagingTarget) {
@@ -108,6 +115,17 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 			throw new Xdi2ClientException("Cannot open messaging target: " + ex.getMessage(), ex);
 		}
 
+		// create the transport
+
+		LocalTransport localTransport = new LocalTransport(messagingTarget);
+
+		// add interceptors if supported
+
+		if (this.getInterceptors() != null) {
+
+			localTransport.getInterceptors().addInterceptors(this.getInterceptors());
+		}
+
 		// execute the transport
 
 		LocalTransportRequest request = new LocalTransportRequest(messageEnvelope);
@@ -115,7 +133,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		try {
 
-			new LocalTransport(messagingTarget).execute(request, response);
+			localTransport.execute(request, response);
 		} catch (Xdi2TransportException ex) {
 
 			throw new Xdi2ClientException("Unable to send message envelope to local messaging target: " + ex.getMessage(), ex);
@@ -150,5 +168,15 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
+	}
+
+	public Collection<Interceptor<Transport<?, ?>>> getInterceptors() {
+
+		return this.interceptors;
+	}
+
+	public void setInterceptors(Collection<Interceptor<Transport<?, ?>>> interceptors) {
+
+		this.interceptors = interceptors;
 	}
 }

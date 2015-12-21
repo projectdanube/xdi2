@@ -1,5 +1,8 @@
 package xdi2.agent.routing.impl.local;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,8 @@ import xdi2.client.impl.local.XDILocalClientRoute;
 import xdi2.core.exceptions.Xdi2Exception;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.transport.Transport;
 import xdi2.transport.registry.MessagingTargetMount;
 import xdi2.transport.registry.MessagingTargetRegistry;
 
@@ -19,6 +24,18 @@ public class XDIMessagingTargetRegistryAgentRouter extends XDIAbstractAgentRoute
 	private static final Logger log = LoggerFactory.getLogger(XDIMessagingTargetRegistryAgentRouter.class);
 
 	private MessagingTargetRegistry messagingTargetRegistry;
+	private Collection<Interceptor<Transport<?, ?>>> interceptors;
+
+	public XDIMessagingTargetRegistryAgentRouter(MessagingTargetRegistry messagingTargetRegistry) {
+
+		this.messagingTargetRegistry = messagingTargetRegistry;
+		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
+	}
+
+	public XDIMessagingTargetRegistryAgentRouter() {
+
+		this(null);
+	}
 
 	@Override
 	protected XDILocalClientRoute routeInternal(XDIArc toPeerRootXDIArc) throws Xdi2AgentException {
@@ -53,6 +70,13 @@ public class XDIMessagingTargetRegistryAgentRouter extends XDIAbstractAgentRoute
 
 		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, messagingTarget);
 
+		// add interceptors if supported
+
+		if (this.getInterceptors() != null) {
+
+			route.getInterceptors().addAll(this.getInterceptors());
+		}
+
 		// done
 
 		return route;
@@ -70,5 +94,15 @@ public class XDIMessagingTargetRegistryAgentRouter extends XDIAbstractAgentRoute
 	public void setMessagingTargetRegistry(MessagingTargetRegistry messagingTargetRegistry) {
 
 		this.messagingTargetRegistry = messagingTargetRegistry;
+	}
+
+	public Collection<Interceptor<Transport<?, ?>>> getInterceptors() {
+
+		return this.interceptors;
+	}
+
+	public void setInterceptors(Collection<Interceptor<Transport<?, ?>>> interceptors) {
+
+		this.interceptors = interceptors;
 	}
 }

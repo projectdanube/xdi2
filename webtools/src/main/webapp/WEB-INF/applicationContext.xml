@@ -50,6 +50,11 @@
 				<bean class="xdi2.agent.routing.impl.bootstrap.XDIBootstrapLocalAgentRouter" />
 				<bean class="xdi2.agent.routing.impl.local.XDIMessagingTargetRegistryAgentRouter">
 					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+					<property name="interceptors">
+						<util:list>
+							<ref bean="DebugHttpTransportInterceptor" />
+						</util:list>
+					</property>
 				</bean>
 				<bean class="xdi2.agent.routing.impl.websocket.XDIWebSocketTransportAgentRouter">
 					<property name="webSocketTransport" ref="WebSocketTransport" />

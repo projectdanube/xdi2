@@ -1,15 +1,21 @@
 package xdi2.client.impl.local;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import xdi2.client.XDIClientRoute;
 import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.transport.Transport;
 
 public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> implements XDIClientRoute<XDILocalClient> {
 
 	private MessagingTarget messagingTarget;
 	private Graph graph;
+	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
 	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingTarget messagingTarget, Graph graph) {
 
@@ -17,6 +23,7 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 
 		this.messagingTarget = messagingTarget;
 		this.graph = graph;
+		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
 	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingTarget messagingTarget) {
@@ -47,7 +54,20 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 	@Override
 	protected XDILocalClient constructXDIClientInternal() {
 
-		return new XDILocalClient(this.getMessagingTarget(), this.getGraph());
+		// client construction step
+
+		XDILocalClient xdiClient = new XDILocalClient(this.getMessagingTarget(), this.getGraph());
+
+		// add interceptors if supported
+
+		if (this.getInterceptors() != null) {
+
+			xdiClient.getInterceptors().addAll(this.getInterceptors());
+		}
+
+		// done
+
+		return xdiClient;
 	}
 
 	/*
@@ -72,5 +92,15 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
+	}
+
+	public Collection<Interceptor<Transport<?, ?>>> getInterceptors() {
+
+		return this.interceptors;
+	}
+
+	public void setInterceptors(Collection<Interceptor<Transport<?, ?>>> interceptors) {
+
+		this.interceptors = interceptors;
 	}
 }
