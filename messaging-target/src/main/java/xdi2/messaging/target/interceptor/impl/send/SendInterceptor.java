@@ -285,7 +285,11 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 				GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
 
+				if (log.isDebugEnabled()) log.debug("Looking for push link contracts from forwarding messaging response...");
+
 				for (LinkContract pushLinkContract : forwardingMessagingResponse.getPushLinkContracts()) {
+
+					if (log.isDebugEnabled()) log.debug("Obtained push link contract from forwarding messaging response " + pushLinkContract);
 
 					CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
 				}
