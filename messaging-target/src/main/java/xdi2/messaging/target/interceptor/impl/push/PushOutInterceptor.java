@@ -214,7 +214,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			for (Operation pushedOperation : pushedOperations) {
 
-				// TODO maybe dont push the ENTIRE operation result graph for all operations that trigger push contract?
+				// TODO maybe don't push the ENTIRE operation result graph for all operations that trigger push contract?
 
 				Graph pushedOperationResultGraph = executionResult.getFinishedOperationResultGraph(pushedOperation);
 				pushedOperationResultGraphs.put(pushedOperation, pushedOperationResultGraph);
@@ -233,7 +233,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 						pushedXDIStatementMap);
 			} catch (Exception ex) {
 
-				throw new Xdi2MessagingException("Problem while executing push: " + ex.getMessage(), ex, executionContext);
+				if (log.isWarnEnabled()) log.warn("Problem while executing push: " + ex.getMessage(), ex, executionContext);
 			}
 		}
 	}
