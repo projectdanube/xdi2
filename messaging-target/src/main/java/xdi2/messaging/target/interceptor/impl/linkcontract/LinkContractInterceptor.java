@@ -319,7 +319,9 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// done
 
-		return XDIConstants.XDI_ADD_ROOT.equals(evaluationResult) ? InterceptorResult.DEFAULT : InterceptorResult.SKIP_SIBLING_INTERCEPTORS_AND_MESSAGING_TARGET;
+		if (! XDIConstants.XDI_ADD_ROOT.equals(evaluationResult)) return InterceptorResult.SKIP_MESSAGING_TARGET;
+
+		return InterceptorResult.DEFAULT;
 	}
 
 	@Override
