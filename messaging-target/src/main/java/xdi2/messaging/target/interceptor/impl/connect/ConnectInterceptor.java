@@ -41,6 +41,7 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
 
 /**
  * This interceptor can process $connect operations.
@@ -115,6 +116,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		// check operation
 
 		if (! (operation instanceof ConnectOperation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
 
 		// get link contract template(s)
 

@@ -42,6 +42,7 @@ import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
@@ -110,6 +111,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		// check operation
 
 		if (! (operation instanceof SendOperation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
 
 		// get forwarding message(s)
 

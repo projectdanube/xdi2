@@ -29,6 +29,7 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
 import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
@@ -90,6 +91,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 		// check operation
 
 		if (! (operation instanceof PushOperation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
 
 		// get pushed message(s)
 

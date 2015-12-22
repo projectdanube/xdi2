@@ -7,6 +7,7 @@ import xdi2.core.features.signatures.Signature;
 import xdi2.core.security.signature.create.SignatureCreator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
+import xdi2.messaging.operations.DoOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -14,6 +15,7 @@ import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.interceptor.InterceptorResult;
 import xdi2.messaging.target.interceptor.OperationInterceptor;
 import xdi2.messaging.target.interceptor.impl.AbstractOperationInterceptor;
+import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
 
 /**
  * This interceptor can sign an inner graph. 
@@ -54,7 +56,9 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 
 		// check parameters
 
+		if (! (operation instanceof DoOperation)) return InterceptorResult.DEFAULT;
 		if (! XDI_ADD_DO_SIG.equals(operation.getOperationXDIAddress())) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
 		if (operation.getTargetXdiInnerRoot() == null) return InterceptorResult.DEFAULT;
 
 		// get the inner graph
