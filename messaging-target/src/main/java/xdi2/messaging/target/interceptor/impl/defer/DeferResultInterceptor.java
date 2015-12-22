@@ -235,6 +235,15 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	}
 
 	@SuppressWarnings("unchecked")
+	public static boolean hasOperationDeferResult(ExecutionContext executionContext, Operation operation) {
+
+		Map<Operation, List<DeferResult>> deferResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
+		if (deferResultsMap == null) return false;
+
+		return deferResultsMap.containsKey(operation);
+	}
+
+	@SuppressWarnings("unchecked")
 	public static void addOperationDeferResult(ExecutionContext executionContext, Operation operation, DeferResult deferResult) {
 
 		Map<Operation, List<DeferResult>> deferResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
