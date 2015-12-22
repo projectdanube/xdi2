@@ -226,7 +226,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE = DeferResultInterceptor.class.getCanonicalName() + "#operationholdresultspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE = DeferResultInterceptor.class.getCanonicalName() + "#operationdeferresultspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
 	public static Map<Operation, List<DeferResult>> getOperationDeferResults(ExecutionContext executionContext) {
@@ -235,15 +235,15 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void addOperationDeferResult(ExecutionContext executionContext, Operation operation, DeferResult holdResult) {
+	public static void addOperationDeferResult(ExecutionContext executionContext, Operation operation, DeferResult deferResult) {
 
-		Map<Operation, List<DeferResult>> holdResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
-		if (holdResultsMap == null) { holdResultsMap = new HashMap<Operation, List<DeferResult>> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE, holdResultsMap); }
+		Map<Operation, List<DeferResult>> deferResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
+		if (deferResultsMap == null) { deferResultsMap = new HashMap<Operation, List<DeferResult>> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE, deferResultsMap); }
 
-		List<DeferResult> holdResults = holdResultsMap.get(operation);
-		if (holdResults == null) { holdResults = new ArrayList<DeferResult> (); holdResultsMap.put(operation, holdResults); }
+		List<DeferResult> deferResults = deferResultsMap.get(operation);
+		if (deferResults == null) { deferResults = new ArrayList<DeferResult> (); deferResultsMap.put(operation, deferResults); }
 
-		holdResults.add(holdResult);
+		deferResults.add(deferResult);
 	}
 
 	/*
