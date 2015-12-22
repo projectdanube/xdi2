@@ -106,7 +106,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	}
 
 	/*
-	 * TargetInterceptor
+	 * OperationInterceptor
 	 */
 
 	@Override
