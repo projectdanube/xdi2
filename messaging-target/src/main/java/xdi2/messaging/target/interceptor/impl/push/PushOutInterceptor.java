@@ -287,7 +287,11 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			if (contextNode != null) {
 
+				if (log.isDebugEnabled()) log.debug("Trying to find push link contracts for context node " + contextNode);
+
 				for (Relation pushLinkContractRelation : contextNode.getRelations(XDILinkContractConstants.XDI_ADD_IS_PUSH)) {
+
+					if (log.isDebugEnabled()) log.debug("Trying to find push link contract for relation " + pushLinkContractRelation);
 
 					ContextNode pushLinkContractContextNode = pushLinkContractRelation.followContextNode();
 					if (pushLinkContractContextNode == null) continue;
@@ -299,6 +303,8 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 					if (pushLinkContract == null) continue;
 
 					for (XDIAddress pushTargetXDIAddress : pushLinkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH)) {
+
+						if (log.isDebugEnabled()) log.debug("Found push link contract to address " + pushTargetXDIAddress + " for address " + XDIaddress);
 
 						if (XDIAddressUtil.startsWithXDIAddress(XDIaddress, pushTargetXDIAddress) != null) {
 
@@ -312,6 +318,10 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			if (XDIaddress.getNumXDIArcs() == 0) break;
 			XDIaddress = XDIAddressUtil.parentXDIAddress(XDIaddress, -1);
 		}
+
+		// done
+
+		if (log.isDebugEnabled()) log.debug("Found push link contracts for address " + XDIaddress + ": " + pushLinkContracts);
 
 		return pushLinkContracts;
 	}
