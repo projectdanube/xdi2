@@ -13,9 +13,9 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.URLURIUtil;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.CloudNumber;
@@ -167,7 +167,10 @@ public class XDIDiscoveryClient {
 
 		DiscoveryCacheKey registryDiscoveryCacheKey = DiscoveryCacheKey.build(query, this.getRegistryXdiClient(), null);
 
-		if (this.getDiscoveryCacheProvider() != null) registryMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getRegistry(registryDiscoveryCacheKey);
+		synchronized(this) {
+
+			if (this.getDiscoveryCacheProvider() != null) registryMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getRegistry(registryDiscoveryCacheKey);
+		}
 
 		MessageEnvelope registryMessageEnvelope = null;
 
@@ -249,7 +252,10 @@ public class XDIDiscoveryClient {
 
 		DiscoveryCacheKey authorityDiscoveryCacheKey = DiscoveryCacheKey.build(cloudNumber, xdiEndpointUri, endpointUriTypes);
 
-		if (this.getDiscoveryCacheProvider() != null) authorityMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getAuthority(authorityDiscoveryCacheKey);
+		synchronized(this) {
+
+			if (this.getDiscoveryCacheProvider() != null) authorityMessagingResponse = (TransportMessagingResponse) this.getDiscoveryCacheProvider().getAuthority(authorityDiscoveryCacheKey);
+		}
 
 		MessageEnvelope authorityMessageEnvelope = null;
 
