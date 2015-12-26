@@ -22,15 +22,24 @@ public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpC
 	private static final Logger log = LoggerFactory.getLogger(XDIHttpDiscoveryAgentRouter.class);
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
+	private boolean discoverFromAuthority;
+
+	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient, boolean discoverFromAuthority) {
+
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.discoverFromAuthority = discoverFromAuthority;
+	}
 
 	public XDIHttpDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.discoverFromAuthority = false;
 	}
 
 	public XDIHttpDiscoveryAgentRouter() {
 
 		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
+		this.discoverFromAuthority = false;
 	}
 
 	@Override
@@ -48,7 +57,10 @@ public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpC
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
+			if (this.getDiscoverFromAuthority())
+				xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
+			else
+				xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc));
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2AgentException("Discovery problem: " + ex.getMessage(), ex);
@@ -96,5 +108,15 @@ public class XDIHttpDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDIHttpC
 	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
+	}
+
+	public boolean getDiscoverFromAuthority() {
+
+		return this.discoverFromAuthority;
+	}
+
+	public void setDiscoverFromAuthority(boolean discoverFromAuthority) {
+
+		this.discoverFromAuthority = discoverFromAuthority;
 	}
 }
