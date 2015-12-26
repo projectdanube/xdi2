@@ -214,7 +214,7 @@ public class XDIWebSocketClient extends XDIAbstractClient<FutureMessagingRespons
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Connected successfully.");
-		
+
 		this.setSession(session);
 		return session;
 	}
