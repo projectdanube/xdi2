@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.websocket.ClientEndpointConfig;
 import javax.websocket.CloseReason;
+import javax.websocket.ContainerProvider;
 import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Extension;
 import javax.websocket.Session;
+import javax.websocket.WebSocketContainer;
 
-import org.eclipse.jetty.websocket.jsr356.ClientContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,22 +29,22 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 
 		// create client container
 
-		ClientContainer clientContainer = new ClientContainer();
+		WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
 
 		// set default timeout
 
-		long oldDefaultMaxSessionIdleTimeout = clientContainer.getDefaultMaxSessionIdleTimeout();
+		long oldDefaultMaxSessionIdleTimeout = webSocketContainer.getDefaultMaxSessionIdleTimeout();
 		long newDefaultMaxSessionIdleTimeout = 0;
-		clientContainer.setDefaultMaxSessionIdleTimeout(newDefaultMaxSessionIdleTimeout);
+		webSocketContainer.setDefaultMaxSessionIdleTimeout(newDefaultMaxSessionIdleTimeout);
 
 		if (log.isDebugEnabled()) log.debug("Changed default max session idle timeout from " + oldDefaultMaxSessionIdleTimeout + " to " + newDefaultMaxSessionIdleTimeout);
 
 		// connect
 
-		return connect(clientContainer, xdiWebSocketClient, xdiWebSocketEndpointUri);
+		return connect(webSocketContainer, xdiWebSocketClient, xdiWebSocketEndpointUri);
 	}
 
-	private static WebSocketClientEndpoint connect(ClientContainer clientContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
+	private static WebSocketClientEndpoint connect(WebSocketContainer webSocketContainer, XDIWebSocketClient xdiWebSocketClient, URI xdiWebSocketEndpointUri) throws Exception {
 
 		// init websocket endpoint
 
@@ -72,8 +73,7 @@ public class WebSocketClientEndpoint extends javax.websocket.Endpoint {
 
 		WebSocketClientEndpoint webSocketEndpoint = new WebSocketClientEndpoint();
 
-		clientContainer.start();
-		Session session = clientContainer.connectToServer(webSocketEndpoint, clientEndpointConfig, URI.create(xdiWebSocketEndpointUri.toString()));
+		Session session = webSocketContainer.connectToServer(webSocketEndpoint, clientEndpointConfig, URI.create(xdiWebSocketEndpointUri.toString()));
 		webSocketEndpoint.setSession(session);
 
 		// done
