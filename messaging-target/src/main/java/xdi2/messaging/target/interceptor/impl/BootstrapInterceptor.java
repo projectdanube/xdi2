@@ -259,10 +259,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			PolicyRoot policyRoot = bootstrapConnectLinkContract.getPolicyRoot(true);
 			policyRoot.createNotPolicy(true);
 
-			PolicyRoot holdPushPolicyRoot = bootstrapConnectLinkContract.getDeferPushPolicyRoot(true);
+			PolicyRoot deferPushPolicyRoot = bootstrapConnectLinkContract.getDeferPushPolicyRoot(true);
 
-			PolicyAnd pushPolicyAnd = holdPushPolicyRoot.createAndPolicy(true);
-			PolicyUtil.createSignatureValidOperator(pushPolicyAnd);
+			PolicyAnd deferPushPolicyAnd = deferPushPolicyRoot.createAndPolicy(true);
+			PolicyUtil.createSignatureValidOperator(deferPushPolicyAnd);
 		}
 
 		// create bootstrap send link contract
@@ -282,10 +282,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 			PolicyRoot policyRoot = bootstrapSendLinkContract.getPolicyRoot(true);
 			policyRoot.createNotPolicy(true);
 
-			PolicyRoot holdPolicyRoot = bootstrapSendLinkContract.getDeferPolicyRoot(true);
+			PolicyRoot deferPolicyRoot = bootstrapSendLinkContract.getDeferPolicyRoot(true);
 
-			PolicyAnd pushPolicyAnd = holdPolicyRoot.createAndPolicy(true);
-			PolicyUtil.createSignatureValidOperator(pushPolicyAnd);
+			PolicyAnd deferPolicyAnd = deferPolicyRoot.createAndPolicy(true);
+			PolicyUtil.createSignatureValidOperator(deferPolicyAnd);
 		}
 
 		// create bootstrap timestamp
