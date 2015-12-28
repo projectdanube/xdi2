@@ -22,6 +22,8 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
+import xdi2.messaging.operations.ConnectOperation;
+import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -93,9 +95,9 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	@Override
 	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// only care about write operations
+		// is this a pushable operation?
 
-		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
+		if (! isPushableOperation(operation)) return InterceptorResult.DEFAULT;
 
 		// add the write operation
 
@@ -265,6 +267,14 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	/*
 	 * Helper methods
 	 */
+
+	private static boolean isPushableOperation(Operation operation) {
+
+		if (operation instanceof GetOperation) return false;
+		if (operation instanceof ConnectOperation && operation.getTargetXDIAddress() != null) return false;
+
+		return true;
+	}
 
 	private static XDIAddress targetXDIAddressForTargetXDIStatement(XDIStatement targetXDIStatement) {
 

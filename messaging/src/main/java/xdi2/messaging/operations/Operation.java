@@ -231,16 +231,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return this.getMessage().getMessageCollection().getSenderXDIAddress();
 	}
 
-	/**
-	 * Is this a read-only operation?
-	 */
-	public boolean isReadOnlyOperation() {
-
-		if (this instanceof GetOperation) return true;
-
-		return false;
-	}
-
 	/*
 	 * Operation parameters and variable values
 	 */

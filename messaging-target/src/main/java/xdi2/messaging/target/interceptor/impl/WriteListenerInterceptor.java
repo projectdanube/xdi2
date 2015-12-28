@@ -17,6 +17,7 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -152,9 +153,9 @@ public class WriteListenerInterceptor extends AbstractInterceptor<MessagingTarge
 	@Override
 	public InterceptorResult before(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		// only care about write operations
+		// is this a write operation?
 
-		if (operation.isReadOnlyOperation()) return InterceptorResult.DEFAULT;
+		if (! isWriteOperation(operation)) return InterceptorResult.DEFAULT;
 
 		// add the write address
 
@@ -201,6 +202,17 @@ public class WriteListenerInterceptor extends AbstractInterceptor<MessagingTarge
 
 			this.writeListeners.remove(writeListenerXDIAddress);
 		}
+	}
+
+	/*
+	 * Helper methods
+	 */
+
+	private static boolean isWriteOperation(Operation operation) {
+
+		if (operation instanceof GetOperation) return false;
+
+		return true;
 	}
 
 	/*

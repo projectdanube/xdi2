@@ -4,6 +4,7 @@ import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
+import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -68,7 +69,7 @@ public class ReadOnlyInterceptor extends AbstractInterceptor<MessagingTarget> im
 
 	private void checkReadOnly(Operation operation, XDIAddress contextNodeXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		if (operation.isReadOnlyOperation()) return;
+		if (operation instanceof GetOperation) return;
 
 		for (XDIAddress readOnlyAddress : this.readOnlyAddresses) {
 
