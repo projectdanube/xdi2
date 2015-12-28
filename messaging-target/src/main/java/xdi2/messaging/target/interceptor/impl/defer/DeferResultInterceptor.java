@@ -173,7 +173,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 					if (this.getTargetGraph() != null) {
 
-						CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(), null);
+						CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
 						XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
 						Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 					}
