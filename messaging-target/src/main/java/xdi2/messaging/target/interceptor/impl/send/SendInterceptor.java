@@ -17,6 +17,7 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
+import xdi2.client.manipulator.impl.signing.SigningManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
@@ -193,9 +194,9 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		Message forwardingMessage = Message.fromXdiEntity(forwardingMessageXdiEntity);
 		if (forwardingMessage == null) throw new Xdi2MessagingException("Invalid forwarding message at address " + targetXDIAddress, null, executionContext);
 
-		// clone forwarding message with new ID
+		// clone forwarding message without new ID
 
-		forwardingMessage = MessagingCloneUtil.cloneMessage(forwardingMessage, true);
+		forwardingMessage = MessagingCloneUtil.cloneMessage(forwardingMessage, false);
 
 		// done
 
@@ -214,7 +215,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		for (Message message : MessageEnvelope.fromGraph(innerGraph).getMessages()) {
 
-			forwardingMessages.add(MessagingCloneUtil.cloneMessage(message, true));
+			forwardingMessages.add(MessagingCloneUtil.cloneMessage(message, false));
 		}
 
 		// return forwarding messages
@@ -247,6 +248,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		// disable link contracts if the forwarding message is routed back to us
 		// TODO: instead of disabling it, we should use the outer message's link contract
+		// TODO: can we also disable authentication in the forwarding message? e.g. a signature
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
