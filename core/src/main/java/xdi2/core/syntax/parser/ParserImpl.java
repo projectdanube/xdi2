@@ -107,6 +107,7 @@ public class ParserImpl extends ParserAbstract implements Parser {
 					if (xsattribute(string.charAt(pos)) != null) break;
 					if (cs(string.charAt(pos)) != null) break;
 					if (immutable(string.charAt(pos))) break;
+					// TODO review if this is correct
 					// intentionally don't check for relative here, since it's a valid character
 					if (xsxref(string.charAt(pos)) != null) break;
 				}
