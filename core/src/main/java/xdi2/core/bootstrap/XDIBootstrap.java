@@ -47,6 +47,10 @@ public class XDIBootstrap {
 				"($get{$do}$if$and/$true){$~from}/$is/{$from}\n" +
 				"($get{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
+				"$set{$do}/$set/{$set}\n" +
+				"($set{$do}$if$and/$true){$~from}/$is/{$from}\n" +
+				"($set{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+
 				"$push{$do}/$push/{$push}\n" +
 				"$push{$do}/$is()/{($from)}\n" +
 				"($push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
