@@ -243,14 +243,14 @@ public class Equivalence {
 		return relation == null ? null : relation.followContextNode();
 	}
 
-	public static void setAggregationContextNode(ContextNode contextNode, ContextNode identityContextNode) {
+	public static void setAggregationContextNode(ContextNode contextNode, ContextNode aggregationContextNode) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, identityContextNode);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, aggregationContextNode);
 	}
 
-	public static void setAggregationContextNode(ContextNode contextNode, XDIAddress identitycontextNodeXDIAddress) {
+	public static void setAggregationContextNode(ContextNode contextNode, XDIAddress aggregationContextNodeXDIAddress) {
 
-		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, identitycontextNodeXDIAddress);
+		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, aggregationContextNodeXDIAddress);
 	}
 
 	public static ReadOnlyIterator<Relation> getIncomingAggregationRelations(ContextNode contextNode) {

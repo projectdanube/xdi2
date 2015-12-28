@@ -123,7 +123,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 					CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(), null);
 					XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(), XDIMessagingConstants.XDI_ARC_MSG, true);
-					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity());
+					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity().getXDIAddress());
 				}
 
 				// defer push result? create a deferred push link contract!
@@ -173,9 +173,9 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 					if (this.getTargetGraph() != null) {
 
-						CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
+						CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(), null);
 						XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
-						Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
+						Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 					}
 				}
 			}

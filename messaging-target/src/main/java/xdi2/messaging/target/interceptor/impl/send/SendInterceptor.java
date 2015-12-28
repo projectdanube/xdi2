@@ -17,13 +17,15 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
 import xdi2.client.manipulator.Manipulator;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
-import xdi2.client.manipulator.impl.signing.SigningManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.constants.XDILinkContractConstants;
+import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -295,7 +297,11 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 					if (log.isDebugEnabled()) log.debug("Obtained push link contract from forwarding messaging response " + pushLinkContract);
 
+					// write push link contract and index into graph
+
 					CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
+					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+					Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 				}
 			}
 

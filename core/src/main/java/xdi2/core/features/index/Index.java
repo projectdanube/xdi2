@@ -9,6 +9,7 @@ import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
@@ -41,9 +42,19 @@ public class Index {
 		Equivalence.setAggregationContextNode(xdiEntityCollection.getContextNode(), xdiEntity.getContextNode());
 	}
 
+	public static void setEntityIndexAggregation(XdiEntityCollection xdiEntityCollection, XDIAddress XDIaddress) {
+
+		Equivalence.setAggregationContextNode(xdiEntityCollection.getContextNode(), XDIaddress);
+	}
+
 	public static void setAttributeIndexAggregation(XdiAttributeCollection xdiAttributeCollection, XdiAttribute xdiAttribute) {
 
 		Equivalence.setAggregationContextNode(xdiAttributeCollection.getContextNode(), xdiAttribute.getContextNode());
+	}
+
+	public static void setAttributeIndexAggregation(XdiAttributeCollection xdiAttributeCollection, XDIAddress XDIaddress) {
+
+		Equivalence.setAggregationContextNode(xdiAttributeCollection.getContextNode(), XDIaddress);
 	}
 
 	public static ReadOnlyIterator<XdiEntity> getEntityIndexAggregations(XdiEntityCollection xdiEntityCollection) {
