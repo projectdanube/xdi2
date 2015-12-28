@@ -1,6 +1,10 @@
 release 0.8 ("Orșova")
 ======================
 
+* new classes RSAAgentPublicKeySignatureValidator, RSAAgentPrivateKeySignatureCreator,
+AESAgentSecretKeySignatureValidator, AESAgentSecretKeySignatureCreator for retrieving keys
+using XDIAgent
+
 * introducing PushInInterceptor, PushOutInterceptor, DeferResultInterceptor
 
 * using relativity symbol ~ by default for ordered instances, e.g. [$msg]@~0
