@@ -54,8 +54,7 @@ public class AESGraphSecretKeySignatureValidator extends AESSecretKeySignatureVa
 		XdiEntity signerXdiEntity = XdiCommonRoot.findCommonRoot(this.getSecretKeyGraph()).getXdiEntity(signerXDIAddress, false);
 		signerXdiEntity = signerXdiEntity == null ? null : signerXdiEntity.dereference();
 
-		if (log.isDebugEnabled()) log.debug("Signer entity: " + signerXdiEntity);
-
+		if (log.isDebugEnabled()) log.debug("Signer entity: " + signerXdiEntity + " in graph " + GraphUtil.getOwnerPeerRootXDIArc(this.getSecretKeyGraph()));
 		if (signerXdiEntity == null) return null;
 
 		// find secret key

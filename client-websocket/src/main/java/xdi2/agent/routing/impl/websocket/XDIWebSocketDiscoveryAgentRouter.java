@@ -23,15 +23,24 @@ public class XDIWebSocketDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDI
 	private static final Logger log = LoggerFactory.getLogger(XDIWebSocketDiscoveryAgentRouter.class);
 
 	private XDIDiscoveryClient xdiDiscoveryClient;
+	private boolean discoverFromAuthority;
+
+	public XDIWebSocketDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient, boolean discoverFromAuthority) {
+
+		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.discoverFromAuthority = discoverFromAuthority;
+	}
 
 	public XDIWebSocketDiscoveryAgentRouter(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
+		this.discoverFromAuthority = true;
 	}
 
 	public XDIWebSocketDiscoveryAgentRouter() {
 
 		this.xdiDiscoveryClient = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT;
+		this.discoverFromAuthority = true;
 	}
 
 	@Override
@@ -49,7 +58,10 @@ public class XDIWebSocketDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDI
 
 		try {
 
-			xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
+			if (this.getDiscoverFromAuthority()) 
+				xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
+			else
+				xdiDiscoveryResult = this.getXdiDiscoveryClient().discoverFromRegistry(XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(toPeerRootXDIArc), XDIClientConstants.WEBSOCKET_ENDPOINT_URI_TYPE);
 		} catch (Xdi2ClientException ex) {
 
 			throw new Xdi2AgentException("Discovery problem: " + ex.getMessage(), ex);
@@ -97,5 +109,15 @@ public class XDIWebSocketDiscoveryAgentRouter extends XDIAbstractAgentRouter<XDI
 	public void setXdiDiscoveryClient(XDIDiscoveryClient xdiDiscoveryClient) {
 
 		this.xdiDiscoveryClient = xdiDiscoveryClient;
+	}
+
+	public boolean getDiscoverFromAuthority() {
+
+		return this.discoverFromAuthority;
+	}
+
+	public void setDiscoverFromAuthority(boolean discoverFromAuthority) {
+
+		this.discoverFromAuthority = discoverFromAuthority;
 	}
 }

@@ -12,6 +12,7 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.util.GraphUtil;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
@@ -85,7 +86,7 @@ public class RSAMessagingTargetRegistryPrivateKeySignatureCreator extends RSAPri
 		XdiEntity signerXdiEntity = XdiCommonRoot.findCommonRoot(graph).getXdiEntity(signerXDIAddress, false);
 		signerXdiEntity = signerXdiEntity == null ? null : signerXdiEntity.dereference();
 
-		if (log.isDebugEnabled()) log.debug("Signer entity: " + signerXdiEntity);
+		if (log.isDebugEnabled()) log.debug("Signer entity: " + signerXdiEntity + " in graph " + GraphUtil.getOwnerPeerRootXDIArc(graph));
 		if (signerXdiEntity == null) return null;
 
 		// find private key
