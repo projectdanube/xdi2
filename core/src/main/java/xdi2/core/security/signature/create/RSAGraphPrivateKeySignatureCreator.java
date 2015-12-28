@@ -11,14 +11,13 @@ import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.GraphUtil;
 
 /**
  * This is an RSAPrivateKeySignatureCreator that create an XDI RSASignature by
  * obtaining private keys from a "private key graph".
  */
-public class RSAGraphPrivateKeySignatureCreator extends RSAPrivateKeySignatureCreator implements GraphAware {
+public class RSAGraphPrivateKeySignatureCreator extends RSAPrivateKeySignatureCreator {
 
 	private static Logger log = LoggerFactory.getLogger(RSAGraphPrivateKeySignatureCreator.class.getName());
 
@@ -77,16 +76,6 @@ public class RSAGraphPrivateKeySignatureCreator extends RSAPrivateKeySignatureCr
 		// done
 
 		return privateKey;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getPrivateKeyGraph() == null) this.setPrivateKeyGraph(graph);
 	}
 
 	/*

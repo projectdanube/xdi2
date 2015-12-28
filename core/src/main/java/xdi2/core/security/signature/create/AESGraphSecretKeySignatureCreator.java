@@ -12,14 +12,13 @@ import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.GraphUtil;
 
 /**
  * This is an AESSecretKeySignatureCreator that create an XDI AESSignature by
  * obtaining secret keys from a "secret key graph".
  */
-public class AESGraphSecretKeySignatureCreator extends AESSecretKeySignatureCreator implements GraphAware {
+public class AESGraphSecretKeySignatureCreator extends AESSecretKeySignatureCreator {
 
 	private static Logger log = LoggerFactory.getLogger(AESGraphSecretKeySignatureCreator.class.getName());
 
@@ -78,16 +77,6 @@ public class AESGraphSecretKeySignatureCreator extends AESSecretKeySignatureCrea
 		// done
 
 		return secretKey;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getSecretKeyGraph() == null) this.setSecretKeyGraph(graph);
 	}
 
 	/*

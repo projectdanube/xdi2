@@ -30,7 +30,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.GraphAware;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
@@ -52,7 +51,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
 /**
  * This interceptor can process $send operations.
  */
-public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<SendInterceptor>, GraphAware {
+public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<SendInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(SendInterceptor.class);
 
@@ -89,19 +88,6 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		// done
 
 		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		for (Manipulator manipulator : this.getManipulators()) {
-
-			if (manipulator instanceof GraphAware) ((GraphAware) manipulator).setGraph(graph);
-		}
 	}
 
 	/*
@@ -172,6 +158,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 			// add manipulators
 
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
+			// TODO: is it okay that we set the public link contract here, or are we supposed to rely on the XDIAgent's configuration for that?
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
 			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
 

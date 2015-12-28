@@ -25,14 +25,12 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 
 		private static final Logger log = LoggerFactory.getLogger(PrototypingContext.class);
 
-		private MessagingTarget messagingTarget;
 		private XDIAddress ownerXDIAddress;
 		private XdiPeerRoot ownerXdiPeerRoot;
 		private ContextNode ownerContextNode;
 
 		public PrototypingContext(XDIAddress ownerXDIAddress, XdiPeerRoot ownerXdiPeerRoot, ContextNode ownerContextNode) {
 
-			this.messagingTarget = null;
 			this.ownerXDIAddress = ownerXDIAddress;
 			this.ownerXdiPeerRoot = ownerXdiPeerRoot;
 			this.ownerContextNode = ownerContextNode;
@@ -53,17 +51,10 @@ public interface Prototype<T extends Prototype<T>> extends Cloneable {
 				prototyped = prototype.instanceFor(this);
 				this.put(prototype, prototyped);
 
-				if (this.messagingTarget == null && (prototyped instanceof MessagingTarget)) this.messagingTarget = (MessagingTarget) prototyped;
-
 				if (log.isDebugEnabled()) log.debug("Instantiated " + prototyped + " from prototype " + prototype);
 			}
 
 			return prototyped;
-		}
-
-		public MessagingTarget getMessagingTarget() {
-
-			return this.messagingTarget;
 		}
 
 		public XDIAddress getOwnerXDIAddress() {

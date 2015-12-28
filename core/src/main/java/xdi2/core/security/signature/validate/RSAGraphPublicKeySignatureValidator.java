@@ -11,14 +11,13 @@ import xdi2.core.features.keys.Keys;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.GraphUtil;
 
 /**
  * This is an RSAPublicKeySignatureValidator that can validate an XDI RSASignature by
  * obtaining public keys from a "public key graph".
  */
-public class RSAGraphPublicKeySignatureValidator extends RSAPublicKeySignatureValidator implements GraphAware {
+public class RSAGraphPublicKeySignatureValidator extends RSAPublicKeySignatureValidator {
 
 	private static Logger log = LoggerFactory.getLogger(RSAGraphPublicKeySignatureValidator.class.getName());
 
@@ -63,16 +62,6 @@ public class RSAGraphPublicKeySignatureValidator extends RSAPublicKeySignatureVa
 		// done
 
 		return publicKey;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getPublicKeyGraph() == null) this.setPublicKeyGraph(graph);
 	}
 
 	/*
