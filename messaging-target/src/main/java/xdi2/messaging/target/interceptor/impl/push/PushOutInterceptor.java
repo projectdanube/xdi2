@@ -22,7 +22,6 @@ import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
-import xdi2.messaging.operations.ConnectOperation;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
@@ -99,9 +98,9 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		if (! isPushableOperation(operation)) return InterceptorResult.DEFAULT;
 
-		// add the write operation
+		// add the pushable operation
 
-		addWriteOperationPerMessageEnvelope(executionContext, operation);
+		addPushableOperationPerMessageEnvelope(executionContext, operation);
 
 		// done
 
@@ -125,16 +124,16 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// create the push maps
 
-		List<Operation> writeOperations = getWriteOperationsPerMessageEnvelope(executionContext);
-		if (writeOperations == null) return;
+		List<Operation> pushableOperations = getPushableOperationsPerMessageEnvelope(executionContext);
+		if (pushableOperations == null) return;
 
 		Map<GenericLinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<GenericLinkContract, Map<Operation, XDIAddress>> ();
 		Map<GenericLinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<GenericLinkContract, Map<Operation, List<XDIStatement>>> ();
 
-		for (Operation writeOperation : writeOperations) {
+		for (Operation pushableOperation : pushableOperations) {
 
-			XDIAddress targetXDIAddress = writeOperation.getTargetXDIAddress();
-			IterableIterator<XDIStatement> targetXDIStatements = writeOperation.getTargetXDIStatements();
+			XDIAddress targetXDIAddress = pushableOperation.getTargetXDIAddress();
+			IterableIterator<XDIStatement> targetXDIStatements = pushableOperation.getTargetXDIStatements();
 
 			// look for push link contracts for the operation's target address
 
@@ -149,16 +148,16 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 					// TODO: evaluate policy here?
 
-					/*					if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+					/*					if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(pushableOperation.getMessage().getContextNode().getXDIAddress())) {
 
-						if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
+						if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + pushableOperation.getMessage().getContextNode().getXDIAddress());
 						continue;
 					}*/
 
 					Map<Operation, XDIAddress> pushLinkContractXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
 					if (pushLinkContractXDIAddressMap == null) { pushLinkContractXDIAddressMap = new HashMap<Operation, XDIAddress> (); pushLinkContractsXDIAddressMap.put(pushLinkContract, pushLinkContractXDIAddressMap); }
 
-					pushLinkContractXDIAddressMap.put(writeOperation, targetXDIAddress);
+					pushLinkContractXDIAddressMap.put(pushableOperation, targetXDIAddress);
 				}
 			}
 
@@ -179,17 +178,17 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 						// TODO: evaluate policy here?
 
-						/*						if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(writeOperation.getMessage().getContextNode().getXDIAddress())) {
+						/*						if (pushLinkContract.getMessageXDIAddress() != null && ! pushLinkContract.getMessageXDIAddress().equals(pushableOperation.getMessage().getContextNode().getXDIAddress())) {
 
-							if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + writeOperation.getMessage().getContextNode().getXDIAddress());
+							if (log.isDebugEnabled()) log.debug("Push link contract " + pushLinkContract + " is associated with message " + pushLinkContract.getMessageXDIAddress() + ", not " + pushableOperation.getMessage().getContextNode().getXDIAddress());
 							continue;
 						}*/
 
 						Map<Operation, List<XDIStatement>> pushLinkContractXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
 						if (pushLinkContractXDIStatementMap == null) { pushLinkContractXDIStatementMap = new HashMap<Operation, List<XDIStatement>> (); pushLinkContractsXDIStatementMap.put(pushLinkContract, pushLinkContractXDIStatementMap); }
 
-						List<XDIStatement> pushLinkContractXDIStatementList = pushLinkContractXDIStatementMap.get(writeOperation);
-						if (pushLinkContractXDIStatementList == null) { pushLinkContractXDIStatementList = new ArrayList<XDIStatement> (); pushLinkContractXDIStatementMap.put(writeOperation, pushLinkContractXDIStatementList); }
+						List<XDIStatement> pushLinkContractXDIStatementList = pushLinkContractXDIStatementMap.get(pushableOperation);
+						if (pushLinkContractXDIStatementList == null) { pushLinkContractXDIStatementList = new ArrayList<XDIStatement> (); pushLinkContractXDIStatementMap.put(pushableOperation, pushLinkContractXDIStatementList); }
 
 						pushLinkContractXDIStatementList.add(targetXDIStatement);
 					}
@@ -271,7 +270,6 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	private static boolean isPushableOperation(Operation operation) {
 
 		if (operation instanceof GetOperation) return false;
-		if (operation instanceof ConnectOperation && operation.getTargetXdiInnerRoot() != null) return false;
 
 		return true;
 	}
@@ -340,20 +338,20 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE = PushOutInterceptor.class.getCanonicalName() + "#writeoperationspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_PUSHABLEOPERATIONS_PER_MESSAGEENVELOPE = PushOutInterceptor.class.getCanonicalName() + "#pushableoperationspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	private static List<Operation> getWriteOperationsPerMessageEnvelope(ExecutionContext executionContext) {
+	private static List<Operation> getPushableOperationsPerMessageEnvelope(ExecutionContext executionContext) {
 
-		return (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
+		return (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_PUSHABLEOPERATIONS_PER_MESSAGEENVELOPE);
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void addWriteOperationPerMessageEnvelope(ExecutionContext executionContext, Operation operation) {
+	private static void addPushableOperationPerMessageEnvelope(ExecutionContext executionContext, Operation pushableOperation) {
 
-		List<Operation> writeOperations = (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE);
-		if (writeOperations == null) { writeOperations = new ArrayList<Operation> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_WRITEOPERATIONS_PER_MESSAGEENVELOPE, writeOperations); }
+		List<Operation> pushableOperations = (List<Operation>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_PUSHABLEOPERATIONS_PER_MESSAGEENVELOPE);
+		if (pushableOperations == null) { pushableOperations = new ArrayList<Operation> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_PUSHABLEOPERATIONS_PER_MESSAGEENVELOPE, pushableOperations); }
 
-		writeOperations.add(operation);
+		pushableOperations.add(pushableOperation);
 	}
 }
