@@ -45,6 +45,8 @@ public class SigningManipulator extends AbstractMessageManipulator implements Me
 
 		if (signatures.hasNext()) {
 
+			// TODO: should we allow multiple signatures on the message?
+			// e.g. if a deferred message is approved using $send, it already has a signature but may get an additional one?
 			if (log.isWarnEnabled()) log.warn("Message " + message + " already has signature " + signatures.next());
 
 			return;
