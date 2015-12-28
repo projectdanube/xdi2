@@ -24,6 +24,7 @@ import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
+import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -270,6 +271,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	private static boolean isPushableOperation(Operation operation) {
 
 		if (operation instanceof GetOperation) return false;
+		if (operation instanceof SendOperation) return false;
 
 		return true;
 	}
