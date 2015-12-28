@@ -271,7 +271,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	private static boolean isPushableOperation(Operation operation) {
 
 		if (operation instanceof GetOperation) return false;
-		if (operation instanceof ConnectOperation && operation.getTargetXDIAddress() != null) return false;
+		if (operation instanceof ConnectOperation && operation.getTargetXdiInnerRoot() != null) return false;
 
 		return true;
 	}
