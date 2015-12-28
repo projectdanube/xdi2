@@ -17,6 +17,7 @@ import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.timestamps.Timestamps;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
+import xdi2.core.syntax.parser.ParserException;
 import xdi2.core.util.iterators.SelectingMappingIterator;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -64,7 +65,15 @@ public class RegistryUriMessagingTargetFactory extends PrototypingUriMessagingTa
 		if (ownerString.startsWith("/")) ownerString = ownerString.substring(1);
 		if (ownerString.contains("/")) ownerString = ownerString.substring(0, ownerString.indexOf("/"));
 
-		XDIAddress ownerXDIAddress = XDIAddress.create(ownerString);
+		XDIAddress ownerXDIAddress;
+
+		try {
+
+			ownerXDIAddress = XDIAddress.create(ownerString);
+		} catch (ParserException ex) {
+
+			throw new Xdi2TransportException("Invalid owner string " + ownerString + ": " + ex.getMessage(), ex);
+		}
 
 		// find the owner's XDI peer root
 
