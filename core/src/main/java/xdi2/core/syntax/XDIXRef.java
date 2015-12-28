@@ -1,5 +1,6 @@
 package xdi2.core.syntax;
 
+import xdi2.core.syntax.parser.ParserException;
 import xdi2.core.syntax.parser.ParserRegistry;
 
 public class XDIXRef extends XDIIdentifier {
@@ -32,13 +33,13 @@ public class XDIXRef extends XDIIdentifier {
 
 	static XDIXRef fromComponents(String string, String xs, XDIArc XDIarc, XDIAddress partialSubject, XDIAddress partialPredicate, String iri, String literal) {
 
-		if (xs == null) throw new IllegalArgumentException();
-		if (XDIarc == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new IllegalArgumentException();
-		if (XDIarc != null && (partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (partialSubject != null && (XDIarc != null || partialPredicate == null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (partialPredicate != null && (XDIarc != null || partialSubject == null || iri != null || literal != null)) throw new IllegalArgumentException();
-		if (iri != null && (XDIarc != null || partialSubject != null || partialPredicate != null || literal != null)) throw new IllegalArgumentException();
-		if (literal != null && (XDIarc != null || partialSubject != null || partialPredicate != null || iri != null)) throw new IllegalArgumentException();
+		if (xs == null) throw new ParserException("Invalid cross-reference: " + string);
+		if (XDIarc == null && partialSubject == null && partialPredicate == null && iri == null && literal == null) throw new ParserException("Invalid cross-reference: " + string);
+		if (XDIarc != null && (partialSubject != null || partialPredicate != null || iri != null || literal != null)) throw new ParserException("Invalid cross-reference: " + string);
+		if (partialSubject != null && (XDIarc != null || partialPredicate == null || iri != null || literal != null)) throw new ParserException("Invalid cross-reference: " + string);
+		if (partialPredicate != null && (XDIarc != null || partialSubject == null || iri != null || literal != null)) throw new ParserException("Invalid cross-reference: " + string);
+		if (iri != null && (XDIarc != null || partialSubject != null || partialPredicate != null || literal != null)) throw new ParserException("Invalid cross-reference: " + string);
+		if (literal != null && (XDIarc != null || partialSubject != null || partialPredicate != null || iri != null)) throw new ParserException("Invalid cross-reference: " + string);
 
 		if (string == null) {
 

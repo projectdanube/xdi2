@@ -2,6 +2,7 @@ package xdi2.core.syntax;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.impl.AbstractLiteralNode;
+import xdi2.core.syntax.parser.ParserException;
 import xdi2.core.syntax.parser.ParserRegistry;
 import xdi2.core.util.XDIAddressUtil;
 
@@ -48,7 +49,7 @@ public class XDIStatement extends XDIIdentifier {
 			return fromLiteralComponents(string, subject, object);
 		} else {
 
-			throw new IllegalArgumentException("Invalid statement components: " + subject + "/" + predicate + "/" + object);
+			throw new ParserException("Invalid statement components: " + subject + "/" + predicate + "/" + object);
 		}
 	}
 
@@ -65,8 +66,8 @@ public class XDIStatement extends XDIIdentifier {
 
 		if (string == null) string = contextNodeXDIAddress.toString() + "/" + XDIConstants.STRING_CONTEXT + "/" + contextNodeXDIArc.toString();
 
-		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a contextual statement: " + string);
-		if (contextNodeXDIArc.isLiteralNodeXDIArc()) throw new IllegalArgumentException("Cannot have literal node arc " + contextNodeXDIArc + " as object of a contextual statement: " + string);
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new ParserException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a contextual statement: " + string);
+		if (contextNodeXDIArc.isLiteralNodeXDIArc()) throw new ParserException("Cannot have literal node arc " + contextNodeXDIArc + " as object of a contextual statement: " + string);
 
 		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.STRING_CONTEXT, contextNodeXDIArc);
 	}
@@ -80,8 +81,8 @@ public class XDIStatement extends XDIIdentifier {
 
 		if (string == null) string = contextNodeXDIAddress.toString() + "/" + relationAddress.toString() + "/" + targetXDIAddress.toString();
 
-		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a relational statement: " + string);
-		if (relationAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + relationAddress + " as predicate of a relational statement: " + string);
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new ParserException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a relational statement: " + string);
+		if (relationAddress.isLiteralNodeXDIAddress()) throw new ParserException("Cannot have literal node address " + relationAddress + " as predicate of a relational statement: " + string);
 
 		return new XDIStatement(string, contextNodeXDIAddress, relationAddress, targetXDIAddress);
 	}
@@ -95,7 +96,7 @@ public class XDIStatement extends XDIIdentifier {
 
 		if (string == null) string = contextNodeXDIAddress.toString() + "/" + XDIConstants.XDI_ARC_LITERAL + "/" + AbstractLiteralNode.literalDataToString(literalData);
 
-		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a literal statement: " + string);
+		if (contextNodeXDIAddress.isLiteralNodeXDIAddress()) throw new ParserException("Cannot have literal node address " + contextNodeXDIAddress + " as subject of a literal statement: " + string);
 
 		return new XDIStatement(string, contextNodeXDIAddress, XDIConstants.XDI_ARC_LITERAL, literalData);
 	}

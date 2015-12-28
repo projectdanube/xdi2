@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.syntax.parser.ParserException;
 import xdi2.core.syntax.parser.ParserRegistry;
 
 public class XDIArc extends XDIIdentifier {
@@ -68,8 +69,8 @@ public class XDIArc extends XDIIdentifier {
 			string = buffer.toString();
 		}
 
-		if (cs == null && literal != null) throw new IllegalArgumentException("If there is a literal, must have a context symbol: " + string);
-		if (literal != null && xref != null) throw new IllegalArgumentException("Cannot have both literal and xref: " + string);
+		if (cs == null && literal != null) throw new ParserException("If there is a literal, must have a context symbol: " + string);
+		if (literal != null && xref != null) throw new ParserException("Cannot have both literal and xref: " + string);
 
 		return new XDIArc(string, cs, variable, definition, collection, attribute, immutable, relative, literal, xref);
 	}
