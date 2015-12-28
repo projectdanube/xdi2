@@ -16,6 +16,7 @@ import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 
 /**
@@ -74,7 +75,7 @@ public final class MessagingCloneUtil {
 			copiedContextNode = CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
 		}
 
-		for (Relation incomingRelation : message.getContextNode().getIncomingRelations()) copiedContextNode.getGraph().setDeepRelation(incomingRelation.getContextNode().getXDIAddress(), incomingRelation.getXDIAddress(), copiedContextNode);
+		for (Relation incomingRelation : message.getContextNode().getIncomingRelations(XDIMessagingConstants.XDI_ADD_SEND)) copiedContextNode.getGraph().setDeepRelation(incomingRelation.getContextNode().getXDIAddress(), incomingRelation.getXDIAddress(), copiedContextNode);
 
 		XdiEntity clonedXdiEntity = XdiAbstractEntity.fromContextNode(copiedContextNode);
 		Message clonedMessage = Message.fromMessageCollectionAndXdiEntity(clonedMessageCollection, clonedXdiEntity);
