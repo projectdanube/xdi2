@@ -19,7 +19,6 @@ import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.operations.GetOperation;
@@ -38,7 +37,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor executes push link contracts while a message is executed.
  */
-public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, ExecutionResultInterceptor, OperationInterceptor, Prototype<PushOutInterceptor> {
+public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> implements ExecutionResultInterceptor, OperationInterceptor, Prototype<PushOutInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushOutInterceptor.class);
 
@@ -64,28 +63,9 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	@Override
 	public PushOutInterceptor instanceFor(PrototypingContext prototypingContext) {
 
-		// create new interceptor
-
-		PushOutInterceptor interceptor = new PushOutInterceptor();
-
-		// set the graph
-
-		interceptor.setPushLinkContractsGraph(this.getPushLinkContractsGraph());
-		interceptor.setPushGateway(this.getPushGateway());
-
 		// done
 
-		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getPushLinkContractsGraph() == null) this.setPushLinkContractsGraph(graph);
+		return this;
 	}
 
 	/*
@@ -140,7 +120,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			if (targetXDIAddress != null) {
 
-				List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
+				List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
 				if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
 				for (GenericLinkContract pushLinkContract : pushLinkContracts) {
@@ -170,7 +150,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 					targetXDIAddress = targetXDIAddressForTargetXDIStatement(targetXDIStatement);
 
-					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(), targetXDIAddress);
+					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
 					for (GenericLinkContract pushLinkContract : pushLinkContracts) {
@@ -243,6 +223,15 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getPushLinkContractsGraph(ExecutionContext executionContext) {
+
+		Graph pushLinkContractsGraph = this.getPushLinkContractsGraph();
+		if (pushLinkContractsGraph == null) pushLinkContractsGraph = executionContext.getCurrentGraph();
+		if (pushLinkContractsGraph == null) throw new NullPointerException("No push link contracts graph.");
+
+		return pushLinkContractsGraph;
+	}
 
 	public Graph getPushLinkContractsGraph() {
 

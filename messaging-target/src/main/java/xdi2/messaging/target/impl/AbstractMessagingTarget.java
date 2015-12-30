@@ -14,7 +14,6 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
@@ -30,7 +29,6 @@ import xdi2.messaging.target.contributor.ContributorResult;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.execution.ExecutionContext;
 import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 import xdi2.messaging.target.interceptor.InterceptorList;
 import xdi2.messaging.target.interceptor.InterceptorResult;
@@ -88,11 +86,6 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			if (log.isDebugEnabled()) log.debug("Initializing extension " + extension.getClass().getSimpleName() + ".");
 
 			extension.init(this);
-
-			if (this instanceof GraphMessagingTarget && extension instanceof GraphAware) {
-
-				((GraphAware) extension).setGraph(((GraphMessagingTarget) this).getGraph());
-			}
 		}
 	}
 

@@ -20,7 +20,6 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.GraphAware;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -37,7 +36,7 @@ import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 /**
  * This interceptor can add defer results to a messaging target and execution result.
  */
-public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageEnvelopeInterceptor, Prototype<DeferResultInterceptor> {
+public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor, Prototype<DeferResultInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(DeferResultInterceptor.class);
 
@@ -60,27 +59,9 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	@Override
 	public DeferResultInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new contributor
-
-		DeferResultInterceptor contributor = new DeferResultInterceptor();
-
-		// set the graph
-
-		contributor.setTargetGraph(this.getTargetGraph());
-
 		// done
 
-		return contributor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getTargetGraph() == null) this.setTargetGraph(graph);
+		return this;
 	}
 
 	/*
@@ -119,10 +100,10 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 				// write message and index into target graph
 
-				if (this.getTargetGraph() != null) {
+				if (this.getTargetGraph(executionContext) != null) {
 
-					CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(), null);
-					XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(), XDIMessagingConstants.XDI_ARC_MSG, true);
+					CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(executionContext), null);
+					XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDIMessagingConstants.XDI_ARC_MSG, true);
 					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity().getXDIAddress());
 				}
 
@@ -171,10 +152,10 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 					// write push link contract and index into target graph
 
-					if (this.getTargetGraph() != null) {
+					if (this.getTargetGraph(executionContext) != null) {
 
-						CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
-						XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+						CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(executionContext), null);
+						XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
 						Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 					}
 				}
@@ -196,6 +177,15 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getTargetGraph(ExecutionContext executionContext) {
+
+		Graph targetGraph = this.getTargetGraph();
+		if (targetGraph == null) targetGraph = executionContext.getCurrentGraph();
+		if (targetGraph == null) throw new NullPointerException("No target graph.");
+
+		return targetGraph;
+	}
 
 	public Graph getTargetGraph() {
 

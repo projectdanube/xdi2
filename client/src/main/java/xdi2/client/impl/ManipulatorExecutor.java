@@ -23,7 +23,7 @@ public class ManipulatorExecutor {
 	 * Methods for executing manipulators
 	 */
 
-	public static void executeMessageEnvelopeManipulators(ManipulatorList manipulatorList, MessageEnvelope messageEnvelope) throws Xdi2ClientException {
+	public static void executeMessageEnvelopeManipulators(ManipulatorList manipulatorList, MessageEnvelope messageEnvelope, ManipulationContext manipulationContext) throws Xdi2ClientException {
 
 		for (Iterator<MessageEnvelopeManipulator> messageEnvelopeManipulators = findMessageEnvelopeManipulators(manipulatorList); messageEnvelopeManipulators.hasNext(); ) {
 
@@ -31,11 +31,11 @@ public class ManipulatorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing message envelope manipulator " + messageEnvelopeManipulator.getClass().getSimpleName() + " (before).");
 
-			messageEnvelopeManipulator.manipulate(messageEnvelope);
+			messageEnvelopeManipulator.manipulate(messageEnvelope, manipulationContext);
 		}
 	}
 
-	public static void executeMessageManipulators(ManipulatorList manipulatorList, Message message) throws Xdi2ClientException {
+	public static void executeMessageManipulators(ManipulatorList manipulatorList, Message message, ManipulationContext manipulationContext) throws Xdi2ClientException {
 
 		for (Iterator<MessageManipulator> messageManipulators = findMessageManipulators(manipulatorList); messageManipulators.hasNext(); ) {
 
@@ -43,7 +43,7 @@ public class ManipulatorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing message manipulator " + messageManipulator.getClass().getSimpleName() + " (before).");
 
-			messageManipulator.manipulate(message);
+			messageManipulator.manipulate(message, manipulationContext);
 		}
 	}
 

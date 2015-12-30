@@ -8,13 +8,13 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.GraphAware;
+import xdi2.messaging.target.execution.ExecutionContext;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a "secret token graph",
  * which contains sender addresses and secret tokens in digest form.
  */
-public class GraphSecretTokenValidator extends DigestSecretTokenValidator implements GraphAware {
+public class GraphSecretTokenValidator extends DigestSecretTokenValidator {
 
 	private static Logger log = LoggerFactory.getLogger(GraphSecretTokenValidator.class.getName());
 
@@ -32,16 +32,6 @@ public class GraphSecretTokenValidator extends DigestSecretTokenValidator implem
 		super();
 
 		this.secretTokenGraph = null;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getSecretTokenGraph() == null) this.setSecretTokenGraph(graph);
 	}
 
 	/*
@@ -72,6 +62,15 @@ public class GraphSecretTokenValidator extends DigestSecretTokenValidator implem
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getSecretTokenGraph(ExecutionContext executionContext) {
+
+		Graph secretTokenGraph = this.getSecretTokenGraph();
+		if (secretTokenGraph == null) secretTokenGraph = executionContext.getCurrentGraph();
+		if (secretTokenGraph == null) throw new NullPointerException("No secret token graph.");
+
+		return secretTokenGraph;
+	}
 
 	public Graph getSecretTokenGraph() {
 

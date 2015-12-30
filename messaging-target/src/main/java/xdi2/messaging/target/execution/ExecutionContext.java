@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.Graph;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.messaging.Message;
@@ -17,6 +18,7 @@ import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.contributor.Contributor;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
+import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
 import xdi2.messaging.target.interceptor.Interceptor;
 
 /**
@@ -344,6 +346,13 @@ public final class ExecutionContext implements Serializable {
 		for (ExecutionPosition<MessagingTarget> executionPosition : executionPositions) messagingTargets.add(executionPosition.executionObject);
 
 		return messagingTargets;
+	}
+
+	public Graph getCurrentGraph() {
+
+		MessagingTarget currentMessagingTarget = this.getCurrentMessagingTarget();
+
+		return (currentMessagingTarget instanceof GraphMessagingTarget) ? ((GraphMessagingTarget) currentMessagingTarget).getGraph() : null;
 	}
 
 	public MessageEnvelope getCurrentMessageEnvelope() {

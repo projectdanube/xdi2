@@ -20,7 +20,6 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -52,7 +51,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author animesh
  */
-public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, OperationInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor>, GraphAware {
+public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, OperationInterceptor, TargetInterceptor, Prototype<LinkContractInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(LinkContractInterceptor.class.getName());
 
@@ -75,27 +74,9 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	@Override
 	public LinkContractInterceptor instanceFor(PrototypingContext prototypingContext) {
 
-		// create new interceptor
-
-		LinkContractInterceptor interceptor = new LinkContractInterceptor();
-
-		// set the graph
-
-		interceptor.setLinkContractsGraph(this.getLinkContractsGraph());
-
 		// done
 
-		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getLinkContractsGraph() == null) this.setLinkContractsGraph(graph);
+		return this;
 	}
 
 	/*
@@ -115,7 +96,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph().getDeepContextNode(linkContractXDIAddress, true);
+		ContextNode linkContractContextNode = this.getLinkContractsGraph(executionContext).getDeepContextNode(linkContractXDIAddress, true);
 		XdiEntity xdiEntity = linkContractContextNode == null ? null : XdiAbstractEntity.fromContextNode(linkContractContextNode);
 		LinkContract linkContract = xdiEntity == null ? null : LinkContract.fromXdiEntity(xdiEntity);
 
@@ -128,7 +109,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// evaluate the XDI policy against this message
 
 		PolicyRoot policyRoot = linkContract.getPolicyRoot(false);
-		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot);
+		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot, executionContext);
 		if (policyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " policy evaluated to " + policyRootResult);
 
 		if (policyRootResult) {
@@ -140,7 +121,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// evaluate the XDI defer policy against this message
 
 		PolicyRoot deferPolicyRoot = linkContract.getDeferPolicyRoot(false);
-		boolean deferPolicyRootResult = deferPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPolicyRoot);
+		boolean deferPolicyRootResult = deferPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPolicyRoot, executionContext);
 		if (deferPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " defer policy evaluated to " + deferPolicyRootResult);
 
 		if (deferPolicyRootResult) {
@@ -152,7 +133,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 		// evaluate the XDI defer push policy against this message
 
 		PolicyRoot deferPushPolicyRoot = linkContract.getDeferPushPolicyRoot(false);
-		boolean deferPushPolicyRootResult = deferPushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPushPolicyRoot);
+		boolean deferPushPolicyRootResult = deferPushPolicyRoot == null ? false : this.evaluatePolicyRoot(message, deferPushPolicyRoot, executionContext);
 		if (deferPushPolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " defer push policy evaluated to " + deferPushPolicyRootResult);
 
 		if (deferPushPolicyRootResult) {
@@ -475,6 +456,15 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 * Getters and setters
 	 */
 
+	public Graph getLinkContractsGraph(ExecutionContext executionContext) {
+
+		Graph linkContractsGraph = this.getLinkContractsGraph();
+		if (linkContractsGraph == null) linkContractsGraph = executionContext.getCurrentGraph();
+		if (linkContractsGraph == null) throw new NullPointerException("No link contracts graph.");
+
+		return linkContractsGraph;
+	}
+
 	public Graph getLinkContractsGraph() {
 
 		return this.linkContractsGraph;
@@ -489,9 +479,9 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	 * Helper methods
 	 */
 
-	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot) {
+	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getLinkContractsGraph());
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getLinkContractsGraph(executionContext));
 
 		return policyRoot.evaluate(policyEvaluationContext);
 	}

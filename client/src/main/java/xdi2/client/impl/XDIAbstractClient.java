@@ -42,15 +42,19 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 
 		Date beginTimestamp = new Date();
 
+		// create manipulation context
+
+		ManipulationContext manipulationContext = this.createManipulationContext();
+
 		// manipulate
 
 		if (log.isDebugEnabled()) log.debug(this.getClass().getSimpleName() + ": Applying " + this.getManipulators().size() + " manipulator(s).");
 
-		ManipulatorExecutor.executeMessageEnvelopeManipulators(this.getManipulators(), messageEnvelope);
+		ManipulatorExecutor.executeMessageEnvelopeManipulators(this.getManipulators(), messageEnvelope, manipulationContext);
 
 		for (Message message : messageEnvelope.getMessages()) {
 
-			ManipulatorExecutor.executeMessageManipulators(this.getManipulators(), message);
+			ManipulatorExecutor.executeMessageManipulators(this.getManipulators(), message, manipulationContext);
 		}
 
 		// send the messaging request and retrieve the messaging response
@@ -87,6 +91,19 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 	}
 
 	protected abstract MESSAGINGRESPONSE sendInternal(MessageEnvelope messageEnvelope) throws Xdi2ClientException;
+
+	/*
+	 * Helper methods
+	 */
+
+	public ManipulationContext createManipulationContext() {
+
+		ManipulationContext manipulationContext = ManipulationContext.createManipulationContext();
+
+		putXDIAbstractClient(manipulationContext, this);
+
+		return manipulationContext;
+	}
 
 	/*
 	 * Getters and setters
@@ -129,5 +146,21 @@ public abstract class XDIAbstractClient <MESSAGINGRESPONSE extends MessagingResp
 	public void fireDiscoverEvent(XDIDiscoverEvent discoveryEvent) {
 
 		for (XDIClientListener clientListener : this.clientListeners) clientListener.onDiscover(discoveryEvent);
+	}
+
+	/*
+	 * ManipulationContext helper methods
+	 */
+
+	private static final String MANIPULATIONCONTEXT_KEY_XDIABSTRACTCLIENT = XDIAbstractClient.class.getCanonicalName() + "#xdiabstractclient";
+
+	public static XDIAbstractClient<?> getXDIAbstractClient(ManipulationContext manipulationContext) {
+
+		return (XDIAbstractClient<?>) manipulationContext.getManipulationContextAttribute(MANIPULATIONCONTEXT_KEY_XDIABSTRACTCLIENT);
+	}
+
+	public static void putXDIAbstractClient(ManipulationContext manipulationContext, XDIAbstractClient<?> xdiAbstractClient) {
+
+		manipulationContext.putManipulationContextAttribute(MANIPULATIONCONTEXT_KEY_XDIABSTRACTCLIENT, xdiAbstractClient);
 	}
 }

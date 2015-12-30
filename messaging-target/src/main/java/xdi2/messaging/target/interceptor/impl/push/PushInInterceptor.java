@@ -15,7 +15,6 @@ import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -35,7 +34,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
 /**
  * This interceptor can process $push operations.
  */
-public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, OperationInterceptor, Prototype<PushInInterceptor> {
+public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<PushInInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(PushInInterceptor.class);
 
@@ -58,27 +57,9 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 	@Override
 	public PushInInterceptor instanceFor(xdi2.messaging.target.Prototype.PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new interceptor
-
-		PushInInterceptor interceptor = new PushInInterceptor();
-
-		// set the graph
-
-		interceptor.setTargetGraph(this.getTargetGraph());
-
 		// done
 
-		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getTargetGraph() == null) this.setTargetGraph(graph);
+		return this;
 	}
 
 	/*
@@ -176,20 +157,26 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		// write link contract and index into target graph
 
-		if (this.getTargetGraph() != null) {
+		for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
 
-			for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
-
-				CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(), null);
-				XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
-				Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
-			}
+			CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(executionContext), null);
+			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
+			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
 		}
 	}
 
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getTargetGraph(ExecutionContext executionContext) {
+
+		Graph targetGraph = this.getTargetGraph();
+		if (targetGraph == null) targetGraph = executionContext.getCurrentGraph();
+		if (targetGraph == null) throw new NullPointerException("No target graph.");
+
+		return targetGraph;
+	}
 
 	public Graph getTargetGraph() {
 

@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.Graph;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
-import xdi2.core.util.GraphAware;
 import xdi2.messaging.Message;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -23,7 +22,7 @@ import xdi2.messaging.target.interceptor.impl.util.MessagePolicyEvaluationContex
  * 
  * @author markus
  */
-public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarget> implements GraphAware, MessageInterceptor, Prototype<MessagePolicyInterceptor> {
+public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor, Prototype<MessagePolicyInterceptor> {
 
 	private static Logger log = LoggerFactory.getLogger(MessagePolicyInterceptor.class.getName());
 
@@ -46,27 +45,9 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	@Override
 	public MessagePolicyInterceptor instanceFor(PrototypingContext prototypingContext) {
 
-		// create new interceptor
-
-		MessagePolicyInterceptor interceptor = new MessagePolicyInterceptor();
-
-		// set the graph
-
-		interceptor.setMessagePolicyGraph(this.getMessagePolicyGraph());
-
 		// done
 
-		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getMessagePolicyGraph() == null) this.setMessagePolicyGraph(graph);
+		return this;
 	}
 
 	/*
@@ -79,7 +60,7 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 		// evaluate the XDI policy of this message
 
 		PolicyRoot policyRoot = message.getPolicyRoot(false);
-		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot);
+		boolean policyRootResult = policyRoot == null ? true : this.evaluatePolicyRoot(message, policyRoot, executionContext);
 		if (policyRoot != null) if (log.isDebugEnabled()) log.debug("Message " + message + " policy evaluated to " + policyRootResult);
 
 		if (policyRootResult) {
@@ -104,9 +85,9 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	 * Helper methods
 	 */
 
-	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot) {
+	private boolean evaluatePolicyRoot(Message message, PolicyRoot policyRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph());
+		PolicyEvaluationContext policyEvaluationContext = new MessagePolicyEvaluationContext(message, this.getMessagePolicyGraph(executionContext));
 
 		return policyRoot.evaluate(policyEvaluationContext);
 	}
@@ -114,6 +95,15 @@ public class MessagePolicyInterceptor extends AbstractInterceptor<MessagingTarge
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getMessagePolicyGraph(ExecutionContext executionContext) {
+
+		Graph messagePolicyGraph = this.getMessagePolicyGraph();
+		if (messagePolicyGraph == null) messagePolicyGraph = executionContext.getCurrentGraph();
+		if (messagePolicyGraph == null) throw new NullPointerException("No message policy graph.");
+
+		return messagePolicyGraph;
+	}
 
 	public Graph getMessagePolicyGraph() {
 

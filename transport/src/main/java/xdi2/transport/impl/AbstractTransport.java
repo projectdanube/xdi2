@@ -177,9 +177,9 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 		ExecutionContext executionContext = ExecutionContext.createExecutionContext();
 
-		AbstractTransport.putTransport(executionContext, this);
-		AbstractTransport.putRequest(executionContext, request);
-		AbstractTransport.putResponse(executionContext, response);
+		putTransport(executionContext, this);
+		putRequest(executionContext, request);
+		putResponse(executionContext, response);
 
 		return executionContext;
 	}

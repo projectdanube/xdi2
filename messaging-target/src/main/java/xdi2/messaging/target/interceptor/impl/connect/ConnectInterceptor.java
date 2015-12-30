@@ -30,7 +30,6 @@ import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.GraphAware;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.operations.ConnectOperation;
 import xdi2.messaging.operations.Operation;
@@ -46,7 +45,7 @@ import xdi2.messaging.target.interceptor.impl.defer.DeferResultInterceptor;
 /**
  * This interceptor can process $connect operations.
  */
-public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<ConnectInterceptor>, GraphAware {
+public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> implements OperationInterceptor, Prototype<ConnectInterceptor> {
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectInterceptor.class);
 
@@ -73,37 +72,9 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	@Override
 	public ConnectInterceptor instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new interceptor
-
-		ConnectInterceptor interceptor = new ConnectInterceptor();
-
-		// set the graph
-
-		interceptor.setTargetGraph(this.getTargetGraph());
-
-		// set the agent and manipulators
-
-		interceptor.setXdiAgent(this.getXdiAgent());
-		interceptor.setManipulators(this.getManipulators());
-
 		// done
 
-		return interceptor;
-	}
-
-	/*
-	 * GraphAware
-	 */
-
-	@Override
-	public void setGraph(Graph graph) {
-
-		if (this.getTargetGraph() == null) this.setTargetGraph(graph);
-
-		for (Manipulator manipulator : this.getManipulators()) {
-
-			if (manipulator instanceof GraphAware) ((GraphAware) manipulator).setGraph(graph);
-		}
+		return this;
 	}
 
 	/*
@@ -260,10 +231,10 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// write link contract and index into target graph
 
-		if (this.getTargetGraph() != null) {
+		if (this.getTargetGraph(executionContext) != null) {
 
-			CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(), null);
-			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+			CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(executionContext), null);
+			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
 			Index.setEntityIndexAggregation(xdiLinkContractIndex, linkContract.getXdiEntity());
 		}
 	}
@@ -271,6 +242,15 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 	/*
 	 * Getters and setters
 	 */
+
+	public Graph getTargetGraph(ExecutionContext executionContext) {
+
+		Graph targetGraph = this.getTargetGraph();
+		if (targetGraph == null) targetGraph = executionContext.getCurrentGraph();
+		if (targetGraph == null) throw new NullPointerException("No target graph.");
+
+		return targetGraph;
+	}
 
 	public Graph getTargetGraph() {
 
