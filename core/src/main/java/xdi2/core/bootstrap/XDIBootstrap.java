@@ -13,6 +13,7 @@ public class XDIBootstrap {
 
 	public static final XDIAddress ALL_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$all{$do}");
 	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$do}");
+	public static final XDIAddress SET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$set{$do}");
 	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$do}");
 	public static final XDIAddress DEFER_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$defer$push{$do}");
 	public static final XDIAddress MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$digest{$do}");
@@ -20,6 +21,7 @@ public class XDIBootstrap {
 	public static final Graph BOOTSTRAP_GRAPH;
 	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate GET_LINK_CONTRACT_TEMPLATE;
+	public static final LinkContractTemplate SET_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate PUSH_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate DEFER_PUSH_LINK_CONTRACT_TEMPLATE;
 	public static final LinkContractTemplate MSG_DIGEST_LINK_CONTRACT_TEMPLATE;
@@ -70,6 +72,7 @@ public class XDIBootstrap {
 			BOOTSTRAP_GRAPH = MemoryGraphFactory.getInstance().parseGraph(bootstrapGraphString, "XDI DISPLAY", null);
 			ALL_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(ALL_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			GET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(GET_LINK_CONTRACT_TEMPLATE_ADDRESS)));
+			SET_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(SET_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			DEFER_PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(DEFER_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			MSG_DIGEST_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS)));
