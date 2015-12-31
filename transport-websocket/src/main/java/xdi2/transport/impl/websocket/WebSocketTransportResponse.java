@@ -1,6 +1,7 @@
 package xdi2.transport.impl.websocket;
 
 import javax.websocket.RemoteEndpoint.Async;
+import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 
 import xdi2.transport.TransportResponse;
@@ -15,19 +16,22 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
 public class WebSocketTransportResponse implements TransportResponse {
 
 	private WebSocketServerMessageHandler webSocketMessageHandler;
+	private Basic basic;
 	private Async async;
 
-	private WebSocketTransportResponse(WebSocketServerMessageHandler webSocketMessageHandler, Async async) {
+	private WebSocketTransportResponse(WebSocketServerMessageHandler webSocketMessageHandler, Basic basic, Async async) {
 
 		this.webSocketMessageHandler = webSocketMessageHandler;
+		this.basic = basic;
 		this.async = async;
 	}
 
 	public static WebSocketTransportResponse create(WebSocketServerMessageHandler webSocketMessageHandler, Session session) {
 
+		Basic basic = session.getBasicRemote();
 		Async async = session.getAsyncRemote();
 
-		return new WebSocketTransportResponse(webSocketMessageHandler, async);
+		return new WebSocketTransportResponse(webSocketMessageHandler, basic, async);
 	}
 
 	/*
@@ -37,6 +41,11 @@ public class WebSocketTransportResponse implements TransportResponse {
 	public WebSocketServerMessageHandler getWebSocketMessageHandler() {
 
 		return this.webSocketMessageHandler;
+	}
+
+	public Basic getBasic() {
+
+		return this.basic;
 	}
 
 	public Async getAsync() {

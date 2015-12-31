@@ -278,9 +278,14 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 		StringWriter buffer = new StringWriter();
 		writer.write(messagingResponse.getGraph(), buffer);
 
+		// TODO figure out if we can use .getAsync() and avoid concurrency problems
+
 		if (buffer.getBuffer().length() > 0) {
 
-			response.getAsync().sendText(buffer.getBuffer().toString());
+			synchronized (response.getBasic()) {
+
+				response.getBasic().sendText(buffer.getBuffer().toString());
+			}
 		}
 
 		if (log.isDebugEnabled()) log.debug("Output complete.");
