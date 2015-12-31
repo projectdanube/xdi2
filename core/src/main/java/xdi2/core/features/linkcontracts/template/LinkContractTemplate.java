@@ -17,7 +17,7 @@ import xdi2.core.util.XDIAddressUtil;
  * An XDI link contract template, represented as an XDI variable.
  * 
  * Example addresses:
- * [+]!:uuid:1234#registration{$do}
+ * +!:uuid:1234#registration{$do}
  * 
  * @author markus
  */
