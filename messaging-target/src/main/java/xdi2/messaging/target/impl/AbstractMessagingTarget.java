@@ -130,7 +130,11 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 		try {
 
+			// push
+
 			executionContext.pushMessagingTarget(this, null);
+
+			// push
 
 			executionContext.pushMessageEnvelope(messageEnvelope, null);
 
@@ -211,20 +215,14 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			this.getInterceptors().clearDisabledForMessageEnvelope(messageEnvelope);
 			this.getContributors().clearDisabledForMessageEnvelope(messageEnvelope);
 
+			// pop
+
 			try {
 
 				executionContext.popMessageEnvelope();
 			} catch (Exception ex) {
 
 				log.warn("Error while popping message envelope: " + ex.getMessage(), ex);
-			}
-
-			try {
-
-				executionContext.popMessagingTarget();
-			} catch (Exception ex) {
-
-				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
 			// finish execution result
@@ -245,6 +243,16 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			} catch (Exception ex) {
 
 				log.warn("Error while execution result interceptors: " + ex.getMessage(), ex);
+			}
+
+			// pop
+
+			try {
+
+				executionContext.popMessagingTarget();
+			} catch (Exception ex) {
+
+				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
 			}
 
 			// done
@@ -271,6 +279,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		boolean skipMessagingTarget = false;
 
 		try {
+
+			// push
 
 			executionContext.pushMessage(message, message.getContextNode().getXDIAddress().toString());
 
@@ -323,6 +333,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			this.getInterceptors().clearDisabledForMessage(message);
 			this.getContributors().clearDisabledForMessage(message);
 
+			// pop
+
 			try {
 
 				executionContext.popMessage();
@@ -362,6 +374,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		boolean skipMessagingTarget = false;
 
 		try {
+
+			// push
 
 			executionContext.pushOperation(operation, operation.getOperationXDIAddress().toString());
 
@@ -421,6 +435,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			this.getInterceptors().clearDisabledForOperation(operation);
 			this.getContributors().clearDisabledForOperation(operation);
 
+			// pop
+
 			try {
 
 				executionContext.popOperation();
@@ -447,6 +463,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
+
+			// push
 
 			executionContext.pushTargetAddress(targetXDIAddress, "" + targetXDIAddress);
 
@@ -488,6 +506,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 			throw executionContext.processException(ex);
 		} finally {
 
+			// pop
+
 			try {
 
 				executionContext.popTargetAddress();
@@ -514,6 +534,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 		if (executionContext == null) throw new NullPointerException();
 
 		try {
+
+			// push
 
 			executionContext.pushTargetStatement(targetXDIStatement, "" + targetXDIStatement);
 
@@ -554,6 +576,8 @@ public abstract class AbstractMessagingTarget implements MessagingTarget {
 
 			throw executionContext.processException(ex);
 		} finally {
+
+			// pop
 
 			try {
 
