@@ -13,6 +13,7 @@ import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstance;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
@@ -172,6 +173,14 @@ public class GenericLinkContract extends LinkContract {
 	/*
 	 * Instance methods
 	 */
+
+	public XdiInnerRoot getXdiInnerRoot() {
+
+		XdiRoot xdiRoot = this.getXdiEntity().findRoot();
+		if (! (xdiRoot instanceof XdiInnerRoot)) return null;
+
+		return (XdiInnerRoot) xdiRoot;
+	}
 
 	public XDIAddress getAuthorizingAuthority() {
 

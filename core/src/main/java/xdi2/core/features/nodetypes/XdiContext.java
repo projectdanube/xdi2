@@ -17,6 +17,7 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public XDIAddress getXDIAddress();
 	public XDIArc getBaseXDIArc();
 
+	public XdiContext<?> getXdiContext();
 	public EQ dereference(boolean reference, boolean replacement, boolean identity);
 	public EQ dereference();
 	public EQ getReferenceXdiContext();

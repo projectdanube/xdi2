@@ -143,6 +143,15 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
+	public XdiContext<?> getXdiContext() {
+
+		ContextNode contextNode = this.getContextNode().getContextNode();
+		if (contextNode == null) return null;
+
+		return XdiAbstractContext.fromContextNode(contextNode);
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public EQ dereference(boolean reference, boolean replacement, boolean identity) {
 
