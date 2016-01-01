@@ -149,17 +149,17 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		// TODO: how exactly is the $push message a response, and to what?
 
-		FullMessagingResponse pushMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessageEnvelope());
+		FullMessagingResponse pushedMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessageEnvelope());
 
 		// TODO: correctly store any push contracts we got? 
 		// TODO: use feedback message? or have member field private Graph targetGraph; ?
 		// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
 
-		if (log.isDebugEnabled()) log.debug("Looking for push link contracts from forwarding messaging response...");
+		if (log.isDebugEnabled()) log.debug("Looking for push link contracts from result graph of pushed messaging response" + pushedMessagingResponse.getResultGraph());
 
-		for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
+		for (LinkContract pushLinkContract : pushedMessagingResponse.getPushLinkContracts()) {
 
-			if (log.isDebugEnabled()) log.debug("Obtained push link contract from forwarding messaging response " + pushLinkContract);
+			if (log.isDebugEnabled()) log.debug("Obtained push link contract from result graph of pushed messaging response " + pushLinkContract);
 
 			// write link contract and index into target graph
 
