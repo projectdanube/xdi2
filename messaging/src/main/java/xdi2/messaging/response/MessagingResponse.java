@@ -28,6 +28,11 @@ public interface MessagingResponse {
 	public ReadOnlyIterator<LinkContract> getPushLinkContracts();
 
 	/**
+	 * TODO
+	 */
+	public ReadOnlyIterator<LinkContract> getLinkContracts();
+
+	/**
 	 * Returns whether the messaging response has an associated error.
 	 */
 	public boolean hasXdiError();

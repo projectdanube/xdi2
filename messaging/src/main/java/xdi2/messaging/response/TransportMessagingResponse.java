@@ -105,6 +105,30 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 	}
 
 	/*
+	 * TODO: This should be completely removed. Instead of manually extracting link contracts
+	 * of an incoming push, we should process pushed messaging results like other messaging results
+	 * (e.g. of a $connect)
+	 */
+	@Override
+	public ReadOnlyIterator<LinkContract> getLinkContracts() {
+
+		Graph resultGraph = this.getResultGraph();
+		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
+
+		return new SelectingIterator<LinkContract> (LinkContracts.getAllLinkContracts(resultGraph)) {
+
+			@Override
+			public boolean select(LinkContract linkContract) {
+
+				if (! (linkContract instanceof GenericLinkContract)) return false;
+				if (! (((GenericLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
+
+				return true;
+			}
+		};
+	}
+
+	/*
 	 * Object methods
 	 */
 
