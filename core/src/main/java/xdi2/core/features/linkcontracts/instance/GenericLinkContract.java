@@ -135,6 +135,9 @@ public class GenericLinkContract extends LinkContract {
 
 	public static XDIAddress getAuthorizingAuthority(XDIAddress XDIaddress) {
 
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		if (XDIaddress == null) return null;
+
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
 		if (! XdiInnerRoot.isValidXDIArc(linkContractInnerRootXDIArc)) return null;
 
@@ -143,6 +146,9 @@ public class GenericLinkContract extends LinkContract {
 
 	public static XDIAddress getRequestingAuthority(XDIAddress XDIaddress) {
 
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		if (XDIaddress == null) return null;
+
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
 		if (! XdiInnerRoot.isValidXDIArc(linkContractInnerRootXDIArc)) return null;
 
@@ -150,6 +156,9 @@ public class GenericLinkContract extends LinkContract {
 	}
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
+
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		if (XDIaddress == null) return null;
 
 		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_DO);
 		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createXDIArc(XDILinkContractConstants.XDI_ARC_DO));

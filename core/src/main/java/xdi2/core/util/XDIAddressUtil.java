@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -331,14 +332,14 @@ public final class XDIAddressUtil {
 	/**
 	 * Finds a part of an XDI address that matches a certain node type.
 	 */
-	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes, boolean keepParent, boolean keepLocal) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes, boolean keepOnlyFirst, boolean keepOnlyLast, boolean keepParent, boolean keepLocal) {
 
 		try {
 
 			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
 			XdiContext<?> xdiContext = null;
 
-			List<XDIArc> XDIarcs = null;
+			LinkedList<XDIArc> XDIarcs = null;
 			List<XDIArc> XDIparentArcs = new ArrayList<XDIArc> ();
 			List<XDIArc> XDIlocalArcs = new ArrayList<XDIArc> ();
 
@@ -353,7 +354,7 @@ public final class XDIAddressUtil {
 
 				if (found) {
 
-					if (XDIarcs == null) XDIarcs = new ArrayList<XDIArc> ();
+					if (XDIarcs == null) XDIarcs = new LinkedList<XDIArc> ();
 
 					if (! contextNode.isRootContextNode()) {
 
@@ -378,6 +379,9 @@ public final class XDIAddressUtil {
 
 			if (XDIarcs == null) return null;
 
+			if (XDIarcs.size() > 0 && keepOnlyFirst) { XDIArc first = XDIarcs.getFirst(); XDIarcs.clear(); XDIarcs.add(first); }
+			if (XDIarcs.size() > 0 && keepOnlyLast) { XDIArc last = XDIarcs.getLast(); XDIarcs.clear(); XDIarcs.add(last); }
+
 			if (keepParent) XDIarcs.addAll(0, XDIparentArcs);
 			if (keepLocal) XDIarcs.addAll(XDIlocalArcs);
 
@@ -388,13 +392,13 @@ public final class XDIAddressUtil {
 		}
 	}
 
-	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<X> clazz, boolean keepParent, boolean keepLocal) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<X> clazz, boolean keepOnlyFirst, boolean keepOnlyLast, boolean keepParent, boolean keepLocal) {
 
 		@SuppressWarnings("unchecked")
 		Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
 		clazzes[0] = clazz;
 
-		return extractXDIAddress(XDIaddress, clazzes, keepParent, keepLocal);
+		return extractXDIAddress(XDIaddress, clazzes, keepOnlyFirst, keepOnlyLast, keepParent, keepLocal);
 	}
 
 	/**

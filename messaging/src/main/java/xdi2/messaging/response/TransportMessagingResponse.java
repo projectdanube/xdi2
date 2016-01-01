@@ -85,6 +85,8 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 
 		// TODO: fix this, not all link contracts are push link contracts
 		// maybe also need strict criteria, e.g. only return contract from/to the correct peers
+		// TODO: and also only for responses to the requested operation, rather than ALL push contracts?
+		// TODO: and dont get the nested ones, in case we have a response to $send
 		return new SelectingIterator<LinkContract> (LinkContracts.getAllLinkContracts(resultGraph)) {
 
 			@Override
