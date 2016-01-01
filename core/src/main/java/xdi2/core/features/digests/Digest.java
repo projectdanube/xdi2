@@ -6,7 +6,6 @@ import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.ContextNode;
-import xdi2.core.LiteralNode;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeInstance;
 
@@ -108,8 +107,7 @@ public abstract class Digest implements Serializable, Comparable<Digest> {
 	 */
 	public byte[] getDigestValue() {
 
-		LiteralNode literalNode = this.getXdiAttribute().getLiteralNode();
-		String literalDataString = literalNode == null ? null : literalNode.getLiteralDataString();
+		String literalDataString = this.getXdiAttribute().getLiteralDataString();
 		if (literalDataString == null) return null;
 
 		byte[] digestValue = Base64.decodeBase64(literalDataString.getBytes(Charset.forName("UTF-8")));
