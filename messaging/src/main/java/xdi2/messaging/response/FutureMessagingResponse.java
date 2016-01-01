@@ -63,6 +63,12 @@ public class FutureMessagingResponse implements MessagingResponse {
 	}
 
 	@Override
+	public ReadOnlyIterator<LinkContract> getLinkContracts() {
+
+		throw new IllegalStateException("This messaging response is not yet available.");
+	}
+
+	@Override
 	public boolean hasXdiError() {
 
 		throw new IllegalStateException("This messaging response is not yet available.");
