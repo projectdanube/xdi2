@@ -320,7 +320,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// done
 
-		if (log.isDebugEnabled()) log.debug("Found " + pushLinkContracts.size() + " push link contracts for address " + XDIaddress + ": " + pushLinkContracts);
+		if (log.isDebugEnabled()) log.debug("Found " + pushLinkContracts.size() + " push link contracts: " + pushLinkContracts);
 
 		return pushLinkContracts;
 	}

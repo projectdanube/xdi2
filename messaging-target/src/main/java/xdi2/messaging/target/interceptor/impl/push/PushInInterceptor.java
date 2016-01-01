@@ -155,13 +155,17 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 		// TODO: use feedback message? or have member field private Graph targetGraph; ?
 		// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
 
-		// write link contract and index into target graph
+		if (log.isDebugEnabled()) log.debug("Looking for push link contracts from forwarding messaging response...");
 
 		for (LinkContract pushLinkContract : pushMessagingResponse.getPushLinkContracts()) {
 
+			if (log.isDebugEnabled()) log.debug("Obtained push link contract from forwarding messaging response " + pushLinkContract);
+
+			// write link contract and index into target graph
+
 			CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(executionContext), null);
 			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
-			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity());
+			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 		}
 	}
 
