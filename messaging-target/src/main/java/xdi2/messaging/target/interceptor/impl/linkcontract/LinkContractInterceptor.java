@@ -180,7 +180,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		// authorized?
 
-		handleAuthorizationResult(authorized, operation, executionContext);
+		if (authorized != null) handleAuthorizationResult(authorized, operation, executionContext);
 
 		// done
 
@@ -645,6 +645,8 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	}
 
 	private static void handleAuthorizationResult(Boolean authorized, Operation operation, ExecutionContext executionContext) throws Xdi2NotAuthorizedException {
+
+		if (authorized == null) throw new NullPointerException();
 
 		if (! Boolean.TRUE.equals(authorized)) {
 

@@ -1,5 +1,6 @@
 package xdi2.messaging.target.interceptor.impl.defer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +19,11 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
+import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -100,7 +103,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			if (! Boolean.TRUE.equals(push)) continue;
 
-			Graph messagePushResultGraph = executionResult.createMessagePushResultGraph(message);
+			Graph messageDeferredPushResultGraph = executionResult.createMessageDeferredPushResultGraph(message);
 
 			// determine requesting and authorizing authorities
 
@@ -109,18 +112,34 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			// determine variable values
 
-			List<XDIAddress> pushVariableValues = null;
-			if (pushVariableValue == null && deferResult.getXDIAddress() != null) pushVariableValue = deferResult.getXDIAddress();
-			if (pushVariableValue == null && deferResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(deferResult.getXDIStatement());
-			if (pushVariableValue == null) throw new NullPointerException();
+			List<XDIAddress> pushVariableValues = new ArrayList<XDIAddress> ();
+
+			for (Operation operation : message.getOperations()) {
+
+				XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
+				IterableIterator<XDIStatement> targetXDIStatements = operation.getTargetXDIStatements();
+
+				if (targetXDIAddress != null) {
+
+					pushVariableValues.add(targetXDIAddress);
+				}
+
+				if (targetXDIStatements != null) {
+
+					for (XDIStatement targetXDIStatement : targetXDIStatements) {
+
+						pushVariableValues.add(targetXDIAddressForTargetXDIStatement(targetXDIStatement));
+					}
+				}
+			}
 
 			XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
 
 			Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
-			variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
+			variableValues.put(XDIArc.create("{$push}"), pushVariableValues);
 			variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
 
-			// instantiate push link contract
+			// instantiate deferred push link contract
 
 			LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE);
 			linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
@@ -139,7 +158,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			// write push link contract into message push result graph
 
-			CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), messagePushResultGraph, null);
+			CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), messageDeferredPushResultGraph, null);
 
 			// write push link contract and index into target graph
 
@@ -150,7 +169,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 				Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 			}
 
-			if (log.isDebugEnabled()) log.debug("For message " + message + " we have message push result graph " + messagePushResultGraph);
+			if (log.isDebugEnabled()) log.debug("For message " + message + " we have message push result graph " + messageDeferredPushResultGraph);
 		}
 
 		// done

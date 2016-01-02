@@ -75,7 +75,7 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		List<ContextNode> copyContextNodes = copyStrategy.replaceContextNode(contextNode);
-		if (copyContextNodes == null) throw new NullPointerException();
+		if (copyContextNodes == null) copyContextNodes = Collections.singletonList(contextNode); // TODO: maybe avoid creating a list object here
 
 		ContextNode targetCopiedContextNode = null;
 
@@ -94,7 +94,7 @@ public final class CopyUtil {
 			copyContextNodeContents(copyContextNode, targetCopiedContextNode, copyStrategy);
 		}
 
-		return targetCopiedContextNode;
+		return copyContextNodes.size() > 1 ? null : targetCopiedContextNode;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		List<ContextNode> copyContextNodes = copyStrategy.replaceContextNode(contextNode);
-		if (copyContextNodes == null) throw new NullPointerException();
+		if (copyContextNodes == null) copyContextNodes = Collections.singletonList(contextNode); // TODO: maybe avoid creating a list object here
 
 		ContextNode targetCopiedContextNode = null;
 
@@ -126,7 +126,7 @@ public final class CopyUtil {
 			copyContextNodeContents(copyContextNode, targetCopiedContextNode, copyStrategy);
 		}
 
-		return targetCopiedContextNode;
+		return copyContextNodes.size() > 1 ? null : targetCopiedContextNode;
 	}
 
 	/**
@@ -189,7 +189,7 @@ public final class CopyUtil {
 		if (copyStrategy == null) copyStrategy = allCopyStrategy;
 
 		List<Relation> copyRelations = copyStrategy.replaceRelation(relation);
-		if (copyRelations == null) throw new NullPointerException();
+		if (copyRelations == null) copyRelations = Collections.singletonList(relation); // TODO: maybe avoid creating a list object here
 
 		Relation targetRelation = null;
 
@@ -428,33 +428,35 @@ public final class CopyUtil {
 		/**
 		 * Strategies can replace a context node that is being copied.
 		 * @param contextNode The original context node.
-		 * @return The replacement (or null if it should not be copied).
+		 * @return The replacement context node(s). Return null to copy the original context node.
+		 * Return the empty list to not copy any context nodes.
 		 */
 		@Override
 		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
 			if (log.isTraceEnabled()) log.trace("Copying context node " + contextNode);
 
-			return Collections.singletonList(contextNode);
+			return null;
 		}
 
 		/**
 		 * Strategies can replace a relation that is being copied.
 		 * @param relation The original relation.
-		 * @return The replacement (or null if it should not be copied).
+		 * @return The replacement relation(s). Return null to copy the original relation.
+		 * Return the empty list to not copy any relations.
 		 */
 		@Override
 		public List<Relation> replaceRelation(Relation relation) {
 
 			if (log.isTraceEnabled()) log.trace("Copying relation " + relation);
 
-			return Collections.singletonList(relation);
+			return null;
 		}
 
 		/**
 		 * Strategies can replace a literal that is being copied.
 		 * @param literalNode The original literal node.
-		 * @return The replacement (or null if it should not be copied).
+		 * @return The original or replacement literal. Return null to not copy any literal node.
 		 */
 		@Override
 		public LiteralNode replaceLiteralNode(LiteralNode literalNode) {
@@ -521,12 +523,12 @@ public final class CopyUtil {
 			this.replacements = replacements;
 		}
 
-		public ReplaceXDIAddressCopyStrategy(XDIArc oldXDIArc, Object newXDIArcOrXDIAddress) {
+		public ReplaceXDIAddressCopyStrategy(XDIArc oldXDIArc, Object newXDIArcOrXDIAddressOrList) {
 
-			this(Collections.singletonMap(oldXDIArc, newXDIArcOrXDIAddress));
+			this(Collections.singletonMap(oldXDIArc, newXDIArcOrXDIAddressOrList));
 		}
 
-		public ReplaceXDIAddressCopyStrategy() {
+		protected ReplaceXDIAddressCopyStrategy() {
 
 			this(null);
 		}
@@ -537,41 +539,56 @@ public final class CopyUtil {
 			XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
 			XDIArc contextNodeXDIArc = contextNode.getXDIArc();
 
-			XDIAddress replacedContextNodeXDIAddress = XDIAddress.fromComponent(contextNodeXDIArc);
+			XDIAddress baseXDIAddress = XDIAddress.fromComponent(contextNodeXDIArc);
 
-			Map<XDIArc, Object> replacements = this.getReplacements(replacedContextNodeXDIAddress);
-			if (replacements == null) return super.replaceContextNode(contextNode);
+			Map<XDIArc, Object> replacements = this.getReplacements(baseXDIAddress);
+			if (replacements == null) return null;
+
+			List<XDIAddress> replacedContextNodeXDIAddresses = new ArrayList<XDIAddress> ();
 
 			for (Entry<XDIArc, Object> replacement : replacements.entrySet()) {
 
 				XDIArc oldXDIArc = replacement.getKey();
 				Object newXDIArcOrXDIAddressOrList = replacement.getValue();
 
-				XDIAddress newXDIAddress;
+				List<XDIAddress> newXDIAddresses;
 
-				if (newXDIArcOrXDIAddressOrList instanceof XDIAddress) newXDIAddress = (XDIAddress) newXDIArcOrXDIAddressOrList;
-				else if (newXDIArcOrXDIAddressOrList instanceof XDIArc) newXDIAddress = XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddressOrList);
+				if (newXDIArcOrXDIAddressOrList instanceof XDIAddress) newXDIAddresses = Collections.singletonList((XDIAddress) newXDIArcOrXDIAddressOrList);
+				else if (newXDIArcOrXDIAddressOrList instanceof XDIArc) newXDIAddresses = Collections.singletonList(XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddressOrList));
+				else if (newXDIArcOrXDIAddressOrList instanceof List) newXDIAddresses = (List<XDIAddress>) newXDIArcOrXDIAddressOrList;
 				else throw new IllegalArgumentException("Illegal replacement: " + newXDIArcOrXDIAddressOrList.getClass().getCanonicalName());
 
-				replacedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
-						replacedContextNodeXDIAddress, 
-						oldXDIArc, 
-						newXDIAddress);
+				for (XDIAddress newXDIAddress : newXDIAddresses) {
+
+					XDIAddress replacedContextNodeXDIAddress = XDIAddressUtil.replaceXDIAddress(
+							baseXDIAddress, 
+							oldXDIArc, 
+							newXDIAddress);
+
+					replacedContextNodeXDIAddresses.add(replacedContextNodeXDIAddress);
+				}
 			}
 
-			replacedContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1), replacedContextNodeXDIAddress);
+			List<ContextNode> replacedContextNodes = new ArrayList<ContextNode> ();
 
-			if (log.isTraceEnabled()) log.trace("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
+			for (XDIAddress replacedContextNodeXDIAddress : replacedContextNodeXDIAddresses) {
 
-			if (contextNodeXDIAddress.equals(replacedContextNodeXDIAddress)) return super.replaceContextNode(contextNode);
+				replacedContextNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(XDIAddressUtil.parentXDIAddress(contextNodeXDIAddress, -1), replacedContextNodeXDIAddress);
 
-			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
-			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
+				if (log.isTraceEnabled()) log.trace("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
 
-			int additionalArcs = replacedContextNodeXDIAddress.getNumXDIArcs() - contextNodeXDIAddress.getNumXDIArcs();
-			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
+				if (contextNodeXDIAddress.equals(replacedContextNodeXDIAddress)) return super.replaceContextNode(contextNode);
 
-			return replacedContextNode;
+				ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
+				CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
+
+				int additionalArcs = replacedContextNodeXDIAddress.getNumXDIArcs() - contextNodeXDIAddress.getNumXDIArcs();
+				replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
+
+				replacedContextNodes.add(replacedContextNode);
+			}
+
+			return replacedContextNodes;
 		}
 
 		@Override
@@ -581,35 +598,50 @@ public final class CopyUtil {
 			XDIAddress XDIaddress = relation.getXDIAddress();
 			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
 
-			XDIAddress replacedTargetXDIAddress = targetXDIAddress;
+			XDIAddress baseXDIAddress = targetXDIAddress;
 
-			Map<XDIArc, Object> replacements = this.getReplacements(replacedTargetXDIAddress);
+			Map<XDIArc, Object> replacements = this.getReplacements(baseXDIAddress);
 			if (replacements == null) return super.replaceRelation(relation);
+
+			List<XDIAddress> replacedTargetXDIAddresses = new ArrayList<XDIAddress> ();
 
 			for (Entry<XDIArc, Object> replacement : replacements.entrySet()) {
 
 				XDIArc oldXDIArc = replacement.getKey();
 				Object newXDIArcOrXDIAddressOrList = replacement.getValue();
 
-				XDIAddress newXDIAddress;
+				List<XDIAddress> newXDIAddresses;
 
-				if (newXDIArcOrXDIAddressOrList instanceof XDIAddress) newXDIAddress = (XDIAddress) newXDIArcOrXDIAddressOrList;
-				else if (newXDIArcOrXDIAddressOrList instanceof XDIArc) newXDIAddress = XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddressOrList);
+				if (newXDIArcOrXDIAddressOrList instanceof XDIAddress) newXDIAddresses = Collections.singletonList((XDIAddress) newXDIArcOrXDIAddressOrList);
+				else if (newXDIArcOrXDIAddressOrList instanceof XDIArc) newXDIAddresses = Collections.singletonList(XDIAddress.fromComponent((XDIArc) newXDIArcOrXDIAddressOrList));
+				else if (newXDIArcOrXDIAddressOrList instanceof List) newXDIAddresses = (List<XDIAddress>) newXDIArcOrXDIAddressOrList;
 				else throw new IllegalArgumentException("Illegal replacement: " + newXDIArcOrXDIAddressOrList.getClass().getCanonicalName());
 
-				replacedTargetXDIAddress = XDIAddressUtil.replaceXDIAddress(
-						replacedTargetXDIAddress, 
-						oldXDIArc, 
-						newXDIAddress);
+				for (XDIAddress newXDIAddress : newXDIAddresses) {
+
+					XDIAddress replacedTargetXDIAddress = XDIAddressUtil.replaceXDIAddress(
+							baseXDIAddress, 
+							oldXDIArc, 
+							newXDIAddress);
+
+					replacedTargetXDIAddresses.add(replacedTargetXDIAddress);
+				}
 			}
 
-			if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
+			List<Relation> replacedRelations = new ArrayList<Relation> ();
 
-			if (targetXDIAddress.equals(replacedTargetXDIAddress)) return super.replaceRelation(relation);
+			for (XDIAddress replacedTargetXDIAddress : replacedTargetXDIAddresses) {
 
-			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
+				if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
 
-			return replacedRelation;
+				if (targetXDIAddress.equals(replacedTargetXDIAddress)) return super.replaceRelation(relation);
+
+				Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
+
+				replacedRelations.add(replacedRelation);
+			}
+
+			return replacedRelations;
 		}
 
 		protected Map<XDIArc, Object> getReplacements(XDIAddress XDIaddress) {
@@ -698,10 +730,10 @@ public final class CopyUtil {
 		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
 			Relation relation = contextNode.getRelation(XDIConstants.XDI_ADD_LITERAL_VARIABLE);
-			if (relation == null) return super.replaceContextNode(contextNode);
+			if (relation == null) return null;
 
 			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
-			if (targetXDIAddress.getNumXDIArcs() > 1) return super.replaceContextNode(contextNode);
+			if (targetXDIAddress.getNumXDIArcs() > 1) return null;
 
 			Object replacement = this.replacements.get(targetXDIAddress.getFirstXDIArc());
 
@@ -733,41 +765,51 @@ public final class CopyUtil {
 		@Override
 		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
-			List<ContextNode> copyContextNodes = Collections.singletonList(contextNode);
+			List<ContextNode> compoundCopyContextNodes = Collections.singletonList(contextNode);
 
 			for (CopyStrategy copyStrategy : this.copyStrategies) {
 
-				List<ContextNode> nextCopyContextNodes = new ArrayList<ContextNode> ();
+				List<ContextNode> nextCompoundCopyContextNodes = new ArrayList<ContextNode> ();
 
-				for (ContextNode copyContextNode : copyContextNodes) {
+				for (ContextNode compoundCopyContextNode : compoundCopyContextNodes) {
 
-					nextCopyContextNodes.addAll(copyStrategy.replaceContextNode(copyContextNode));
+					List<ContextNode> copyContextNodes = copyStrategy.replaceContextNode(compoundCopyContextNode);
+
+					if (copyContextNodes != null)
+						nextCompoundCopyContextNodes.addAll(copyContextNodes);
+					else
+						nextCompoundCopyContextNodes.add(compoundCopyContextNode);
 				}
 
-				copyContextNodes = nextCopyContextNodes;
+				compoundCopyContextNodes = nextCompoundCopyContextNodes;
 			}
 
-			return copyContextNodes;
+			return compoundCopyContextNodes;
 		}
 
 		@Override
 		public List<Relation> replaceRelation(Relation relation) {
 
-			List<Relation> copyRelations = Collections.singletonList(relation);
+			List<Relation> compoundCopyRelations = Collections.singletonList(relation);
 
 			for (CopyStrategy copyStrategy : this.copyStrategies) {
 
-				List<Relation> nextCopyRelations = new ArrayList<Relation> ();
+				List<Relation> nextCompoundCopyRelations = new ArrayList<Relation> ();
 
-				for (Relation copyRelation : copyRelations) {
+				for (Relation compoundCopyRelation : compoundCopyRelations) {
 
-					nextCopyRelations.addAll(copyStrategy.replaceRelation(copyRelation));
+					List<Relation> copyRelations = copyStrategy.replaceRelation(compoundCopyRelation);
+
+					if (copyRelations != null)
+						nextCompoundCopyRelations.addAll(copyRelations);
+					else
+						nextCompoundCopyRelations.add(compoundCopyRelation);
 				}
 
-				copyRelations = nextCopyRelations;
+				compoundCopyRelations = nextCompoundCopyRelations;
 			}
 
-			return copyRelations;
+			return compoundCopyRelations;
 		}
 
 		@Override

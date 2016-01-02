@@ -2,8 +2,6 @@ package xdi2.messaging.response;
 
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
-import xdi2.core.features.linkcontracts.instance.LinkContract;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public interface MessagingResponse {
 
@@ -16,21 +14,6 @@ public interface MessagingResponse {
 	 * Returns the result graph returned in this messaging response.
 	 */
 	public Graph getResultGraph();
-
-	/**
-	 * Returns whether the messaging response has one or more push link contracts.
-	 */
-	public boolean hasPushLinkContracts();
-
-	/**
-	 * Returns the push link contracts;
-	 */
-	public ReadOnlyIterator<LinkContract> getPushLinkContracts();
-
-	/**
-	 * TODO
-	 */
-	public ReadOnlyIterator<LinkContract> getLinkContracts();
 
 	/**
 	 * Returns whether the messaging response has an associated error.

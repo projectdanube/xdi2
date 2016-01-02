@@ -3,7 +3,6 @@ package xdi2.messaging.response;
 import java.io.Serializable;
 
 import xdi2.core.Graph;
-import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
@@ -72,47 +71,20 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 		return XdiError.findXdiError(XdiCommonRoot.findCommonRoot(resultGraph), false);
 	}
 
-	@Override
-	public boolean hasPushLinkContracts() {
-
-		return this.getPushLinkContracts().hasNext();
-	}
-
-	@Override
-	public ReadOnlyIterator<LinkContract> getPushLinkContracts() {
-
-		Graph resultGraph = this.getResultGraph();
-		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
-
-		// TODO: fix this, not all link contracts are push link contracts
-		// maybe also need strict criteria, e.g. only return contract from/to the correct peers
-		// TODO: and also only for responses to the requested operation, rather than ALL push contracts?
-		// TODO: and dont get the nested ones, in case we have a response to $send
-		return new SelectingIterator<LinkContract> (LinkContracts.getAllLinkContracts(resultGraph)) {
-
-			@Override
-			public boolean select(LinkContract linkContract) {
-
-				if (! (linkContract instanceof GenericLinkContract)) return false;
-				if (! (((GenericLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
-
-				if (linkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;
-				if (linkContract.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;
-
-				return false;
-			}
-		};
-	}
+	/*
+	 * Helper methods
+	 */
 
 	/*
 	 * TODO: This should be completely removed. Instead of manually extracting link contracts
 	 * of an incoming push, we should process pushed messaging results like other messaging results
 	 * (e.g. of a $connect)
 	 */
-	@Override
-	public ReadOnlyIterator<LinkContract> getLinkContracts() {
+	public static ReadOnlyIterator<LinkContract> getLinkContracts(MessagingResponse messagingResponse) {
+		
+		if (! (messagingResponse instanceof TransportMessagingResponse)) return new EmptyIterator<LinkContract> ();
 
-		Graph resultGraph = this.getResultGraph();
+		Graph resultGraph = ((TransportMessagingResponse) messagingResponse).getResultGraph();
 		if (resultGraph == null) return new EmptyIterator<LinkContract> ();
 
 		return new SelectingIterator<LinkContract> (LinkContracts.getAllLinkContracts(resultGraph)) {
@@ -127,7 +99,7 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 			}
 		};
 	}
-
+	
 	/*
 	 * Object methods
 	 */

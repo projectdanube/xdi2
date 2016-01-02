@@ -21,6 +21,7 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.PushOperation;
 import xdi2.messaging.response.FullMessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -156,7 +157,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		if (log.isDebugEnabled()) log.debug("Looking for link contracts from result graph of pushed messaging response " + pushedMessagingResponse.getResultGraph());
 
-		for (LinkContract pushLinkContract : pushedMessagingResponse.getLinkContracts()) {
+		for (LinkContract pushLinkContract : TransportMessagingResponse.getLinkContracts(pushedMessagingResponse)) {
 
 			if (log.isDebugEnabled()) log.debug("Obtained link contract from result graph of pushed messaging response " + pushLinkContract);
 

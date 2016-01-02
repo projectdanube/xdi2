@@ -34,6 +34,7 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.SendOperation;
+import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
@@ -278,9 +279,9 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 				GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
 
-				if (log.isDebugEnabled()) log.debug("Looking for push link contracts from result graph of forwarding messaging response: " + forwardingMessagingResponse.getResultGraph());
+				if (log.isDebugEnabled()) log.debug("Looking for deferred push link contracts from result graph of forwarding messaging response: " + forwardingMessagingResponse.getResultGraph());
 
-				for (LinkContract pushLinkContract : forwardingMessagingResponse.getPushLinkContracts()) {
+				for (LinkContract pushLinkContract : FullMessagingResponse.getDeferredPushLinkContracts(forwardingMessagingResponse)) {
 
 					if (log.isDebugEnabled()) log.debug("Obtained push link contract from result graph of forwarding messaging response " + pushLinkContract);
 

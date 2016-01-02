@@ -2,9 +2,7 @@ package xdi2.messaging.response;
 
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
-import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.MessageEnvelope;
 
 /**
@@ -46,24 +44,6 @@ public class FutureMessagingResponse implements MessagingResponse {
 
 	@Override
 	public Graph getResultGraph() {
-
-		throw new IllegalStateException("This messaging response is not yet available.");
-	}
-
-	@Override
-	public boolean hasPushLinkContracts() {
-
-		throw new IllegalStateException("This messaging response is not yet available.");
-	}
-
-	@Override
-	public ReadOnlyIterator<LinkContract> getPushLinkContracts() {
-
-		throw new IllegalStateException("This messaging response is not yet available.");
-	}
-
-	@Override
-	public ReadOnlyIterator<LinkContract> getLinkContracts() {
 
 		throw new IllegalStateException("This messaging response is not yet available.");
 	}

@@ -1,6 +1,7 @@
 package xdi2.core.features.signatures;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -188,17 +189,17 @@ public class Signatures {
 	public static class NoSignaturesCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
+		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
-			if (contextNode == null) return null;
+			if (contextNode == null) throw new NullPointerException();
 
 			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			if (xdiAttribute == null) return contextNode;
+			if (xdiAttribute == null) return null;
 
 			Signature signature = Signature.fromXdiAttribute(xdiAttribute);
-			if (signature == null) return contextNode;
+			if (signature == null) return null;
 
-			return null;
+			return Collections.emptyList();
 		}
 	}
 

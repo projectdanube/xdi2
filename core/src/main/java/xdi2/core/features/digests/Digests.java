@@ -1,13 +1,14 @@
 package xdi2.core.features.digests;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator;
@@ -148,17 +149,17 @@ public class Digests {
 	public static class NoDigestsCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
+		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
-			if (contextNode == null) return null;
+			if (contextNode == null) throw new NullPointerException();
 			
 			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			if (xdiAttribute == null) return contextNode;
+			if (xdiAttribute == null) return null;
 
 			Digest digest = Digest.fromXdiAttribute(xdiAttribute);
-			if (digest == null) return contextNode;
+			if (digest == null) return null;
 
-			return null;
+			return Collections.emptyList();
 		}
 	}
 

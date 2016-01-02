@@ -40,6 +40,7 @@ import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
+import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.core.util.iterators.SingleItemIterator;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -1007,13 +1008,21 @@ public final class Message implements Serializable, Comparable<Message> {
 	 * @param messagePushResultGraph The message push result graph to add to this XDI message.
 	 * @return The newly created message push result represented as an XDI inner root.
 	 */
-	public XdiInnerRoot createMessagePushResult(Graph messagePushResultGraph) {
+	public XdiInnerRoot createMessageDeferredPushResult(Graph messagePushResultGraph) {
 
 		if (messagePushResultGraph == null) throw new NullPointerException();
 
 		Iterator<XDIStatement> statements = new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(messagePushResultGraph.getAllStatements()));
 		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_DEFER_PUSH, true);
 		while (statements.hasNext()) xdiInnerRoot.getContextNode().setStatement(statements.next());
+
+		return xdiInnerRoot;
+	}
+
+	public XdiInnerRoot getMessageDeferredPushResult() {
+
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_DEFER_PUSH, false);
+		if (xdiInnerRoot == null) return null;
 
 		return xdiInnerRoot;
 	}
@@ -1037,7 +1046,15 @@ public final class Message implements Serializable, Comparable<Message> {
 
 	public ReadOnlyIterator<XdiInnerRoot> getOperationResults() {
 
-		return new XdiInnerRoot.MappingRelationInnerRootIterator(this.getContextNode().getRelations());
+		return new XdiInnerRoot.MappingRelationInnerRootIterator(
+				new SelectingIterator<Relation> (this.getContextNode().getRelations()) {
+
+					@Override
+					public boolean select(Relation relation) {
+
+						return Operation.isValid(relation);
+					}
+				});
 	}
 
 	/**

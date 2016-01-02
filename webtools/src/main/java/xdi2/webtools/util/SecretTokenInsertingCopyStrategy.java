@@ -23,7 +23,7 @@ public class SecretTokenInsertingCopyStrategy extends AbstractCopyStrategy imple
 			return new DummyLiteralNode(this.secretToken);
 		} else {
 
-			return literal;
+			return null;
 		}
 	}
 }

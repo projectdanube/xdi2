@@ -70,6 +70,7 @@ public class LinkContractInterceptorTest extends TestCase {
 					continue;
 				} catch (Xdi2NotAuthorizedException ex) {
 
+					log.error(ex.getMessage(), ex);
 					fail();
 				} finally {
 					ii++;

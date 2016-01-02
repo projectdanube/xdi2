@@ -39,14 +39,14 @@ public final class ExecutionResult {
 
 	private static final Logger log = LoggerFactory.getLogger(ExecutionResult.class);
 
-	private Map<Message, Graph> messagePushResultGraphs;
+	private Map<Message, Graph> messageDeferredPushResultGraphs;
 	private Map<Operation, Graph> operationResultGraphs;
 	private Throwable ex;
 	private Exception resultGraphFinishedEx;
 
 	private ExecutionResult(Map<Message, Graph> messagePushResultGraphs, Map<Operation, Graph> operationResultGraphs) {
 
-		this.messagePushResultGraphs = messagePushResultGraphs;
+		this.messageDeferredPushResultGraphs = messagePushResultGraphs;
 		this.operationResultGraphs = operationResultGraphs;
 		this.ex = null;
 		this.resultGraphFinishedEx = null;
@@ -60,10 +60,10 @@ public final class ExecutionResult {
 
 		if (messageEnvelope == null) throw new NullPointerException();
 
-		// set up message push result graphs
+		// set up message deferred push result graphs
 
-		Map<Message, Graph> messagePushResultGraphs = new HashMap<Message, Graph> ();
-		for (Message message : messageEnvelope.getMessages()) messagePushResultGraphs.put(message, null);
+		Map<Message, Graph> messageDeferredPushResultGraphs = new HashMap<Message, Graph> ();
+		for (Message message : messageEnvelope.getMessages()) messageDeferredPushResultGraphs.put(message, null);
 
 		// set up operation result graphs
 
@@ -72,7 +72,7 @@ public final class ExecutionResult {
 
 		// create execution result
 
-		ExecutionResult executionResult = new ExecutionResult(messagePushResultGraphs, operationResultGraphs);
+		ExecutionResult executionResult = new ExecutionResult(messageDeferredPushResultGraphs, operationResultGraphs);
 
 		// done
 
@@ -83,18 +83,18 @@ public final class ExecutionResult {
 	 * Instance methods
 	 */
 
-	public Graph createMessagePushResultGraph(Message message) {
+	public Graph createMessageDeferredPushResultGraph(Message message) {
 
 		if (message == null) throw new NullPointerException();
 
 		if (this.isFinished()) throw new Xdi2RuntimeException("Execution result has already been finished.", this.resultGraphFinishedEx);
-		if (! this.messagePushResultGraphs.containsKey(message)) throw new Xdi2RuntimeException("No message push result graph for message" + message);
-		if (this.messagePushResultGraphs.get(message) != null) throw new Xdi2RuntimeException("Message push result graph for message " + message + " has already been created.");
+		if (! this.messageDeferredPushResultGraphs.containsKey(message)) throw new Xdi2RuntimeException("No message deferred push result graph for message" + message);
+		if (this.messageDeferredPushResultGraphs.get(message) != null) throw new Xdi2RuntimeException("Message deferred push result graph for message " + message + " has already been created.");
 
-		Graph messagePushResultGraph = MemoryGraphFactory.getInstance().openGraph();
-		this.messagePushResultGraphs.put(message, messagePushResultGraph);
+		Graph messageDeferredPushResultGraph = MemoryGraphFactory.getInstance().openGraph();
+		this.messageDeferredPushResultGraphs.put(message, messageDeferredPushResultGraph);
 
-		return messagePushResultGraph;
+		return messageDeferredPushResultGraph;
 	}
 
 	public Graph createOperationResultGraph(Operation operation) {
@@ -121,14 +121,14 @@ public final class ExecutionResult {
 		this.ex = ex;
 	}
 
-	public Graph getFinishedMessagePushResultGraph(Message message) {
+	public Graph getFinishedMessageDeferredPushResultGraph(Message message) {
 
 		if (message == null) throw new NullPointerException();
 
 		if (! this.isFinished()) throw new Xdi2RuntimeException("Execution result has not been finished yet.", this.resultGraphFinishedEx);
-		if (! this.messagePushResultGraphs.containsKey(message)) throw new Xdi2RuntimeException("No message push result graph for message " + message);
+		if (! this.messageDeferredPushResultGraphs.containsKey(message)) throw new Xdi2RuntimeException("No message deferred push result graph for message " + message);
 
-		return this.messagePushResultGraphs.get(message);
+		return this.messageDeferredPushResultGraphs.get(message);
 	}
 
 	public Graph getFinishedOperationResultGraph(Operation operation) {
@@ -204,11 +204,11 @@ public final class ExecutionResult {
 				}
 			}
 
-			Graph messagePushResultGraph = this.getFinishedMessagePushResultGraph(message);
+			Graph messageDeferredPushResultGraph = this.getFinishedMessageDeferredPushResultGraph(message);
 
-			if (messagePushResultGraph != null) {
+			if (messageDeferredPushResultGraph != null) {
 
-				responseMessage.createMessagePushResult(messagePushResultGraph);
+				responseMessage.createMessageDeferredPushResult(messageDeferredPushResultGraph);
 			}
 		}
 

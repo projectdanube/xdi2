@@ -16,7 +16,7 @@ public class SecretTokenCensoringCopyStrategy extends AbstractCopyStrategy imple
 			return new DummyLiteralNode("********");
 		} else {
 
-			return literal;
+			return null;
 		}
 	}
 }

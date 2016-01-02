@@ -2,13 +2,14 @@ package xdi2.core.features.encryption;
 
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator;
@@ -147,17 +148,17 @@ public class Encryptions {
 	public static class NoEncryptionsCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
 		@Override
-		public ContextNode replaceContextNode(ContextNode contextNode) {
+		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
-			if (contextNode == null) return null;
+			if (contextNode == null) throw new NullPointerException();
 
 			XdiAttribute xdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			if (xdiAttribute == null) return contextNode;
+			if (xdiAttribute == null) return null;
 
 			Encryption<?, ?> encryption = Encryption.fromXdiAttribute(xdiAttribute);
-			if (encryption == null) return contextNode;
+			if (encryption == null) return null;
 
-			return null;
+			return Collections.emptyList();
 		}
 	}
 
