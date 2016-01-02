@@ -1,6 +1,8 @@
 package xdi2.core.syntax;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import xdi2.core.syntax.parser.ParserRegistry;
@@ -49,6 +51,24 @@ public final class XDIAddress extends XDIIdentifier {
 	public static XDIAddress fromComponent(XDIArc XDIarc) {
 
 		return new XDIAddress(XDIarc.toString(), Collections.singletonList(XDIarc));
+	}
+
+	public XDIAddress concatXDIAddress(XDIArc XDIarc) {
+
+		return XDIAddressUtil.concatXDIAddresses(this, XDIarc);
+	}
+
+	public XDIAddress concatXDIAddress(XDIAddress XDIaddress) {
+
+		return XDIAddressUtil.concatXDIAddresses(this, XDIaddress);
+	}
+
+	public XDIAddress concatXDIAddress(XDIAddress... XDIaddress) {
+
+		LinkedList<XDIAddress> list = new LinkedList<XDIAddress> (Arrays.asList(XDIaddress));
+		list.addFirst(this);
+
+		return XDIAddressUtil.concatXDIAddresses(list.toArray(new XDIArc[list.size()]));
 	}
 
 	/*

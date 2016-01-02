@@ -2,6 +2,8 @@ package xdi2.core.syntax;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.UUID;
 
 import org.apache.commons.codec.binary.Hex;
@@ -10,6 +12,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.syntax.parser.ParserException;
 import xdi2.core.syntax.parser.ParserRegistry;
+import xdi2.core.util.XDIAddressUtil;
 
 public class XDIArc extends XDIIdentifier {
 
@@ -133,6 +136,24 @@ public class XDIArc extends XDIIdentifier {
 	public static String literalFromDigest(String input) {
 
 		return literalFromDigest(input, DEFAULT_DIGEST_ALGORITHM);
+	}
+
+	public XDIAddress concatXDIAddress(XDIArc XDIarc) {
+
+		return XDIAddressUtil.concatXDIAddresses(this, XDIarc);
+	}
+
+	public XDIAddress concatXDIAddress(XDIArc... XDIarc) {
+
+		LinkedList<XDIArc> list = new LinkedList<XDIArc> (Arrays.asList(XDIarc));
+		list.addFirst(this);
+
+		return XDIAddressUtil.concatXDIAddresses(list.toArray(new XDIArc[list.size()]));
+	}
+
+	public XDIAddress concatXDIAddress(XDIAddress XDIaddress) {
+
+		return XDIAddressUtil.concatXDIAddresses(this, XDIaddress);
 	}
 
 	/*
