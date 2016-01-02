@@ -199,13 +199,13 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// determine instance variable
 
-		Object instanceVariableValue = operation.getVariableValues().get(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
+		XDIAddress instanceVariableValue = operation.getVariableXDIAddressValue(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
 		XDIArc instanceXDIArc;
 
 		if (instanceVariableValue != null) {
 
-			if ((! (instanceVariableValue instanceof XDIAddress)) || ((XDIAddress) instanceVariableValue).getNumXDIArcs() != 1) throw new Xdi2MessagingException("Invalid instance variable value: " + instanceVariableValue, null, executionContext);
-			instanceXDIArc = ((XDIAddress) instanceVariableValue).getFirstXDIArc();
+			if (instanceVariableValue.getNumXDIArcs() != 1) throw new Xdi2MessagingException("Invalid instance variable value: " + instanceVariableValue, null, executionContext);
+			instanceXDIArc = instanceVariableValue.getFirstXDIArc();
 		} else {
 
 			instanceXDIArc = null;

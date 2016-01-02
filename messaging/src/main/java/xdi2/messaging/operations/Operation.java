@@ -363,33 +363,59 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
 
 			ReadOnlyIterator<ContextNode> variableValueContextNodes = Equivalence.getIdentityContextNodes(xdiVariable.getContextNode());
-			Object variableValueLiteralData = xdiVariable.getContextNode().getLiteralData();
+			Object variableLiteralDataValue = xdiVariable.getContextNode().getLiteralData();
 
-			if (variableValueContextNodes.hasNext() && variableValueLiteralData != null) throw new Xdi2RuntimeException("Variable has both an XDI address and a literal data value.");
-			if ((! variableValueContextNodes.hasNext()) && variableValueLiteralData == null) throw new Xdi2RuntimeException("Variable has neither XDI address nor literal data value.");
+			if (variableValueContextNodes.hasNext() && variableLiteralDataValue != null) throw new Xdi2RuntimeException("Variable has both an XDI address and a literal data value.");
+			if ((! variableValueContextNodes.hasNext()) && variableLiteralDataValue == null) throw new Xdi2RuntimeException("Variable has neither XDI address nor literal data value.");
 
 			if (variableValueContextNodes.hasNext()) {
 
-				List<XDIAddress> variableValueXDIAddresses = new ArrayList<XDIAddress> ();
-				variableValues.put(variableValueXDIArc, variableValueXDIAddresses);
+				List<XDIAddress> variableXDIAddressValues = new ArrayList<XDIAddress> ();
+				variableValues.put(variableValueXDIArc, variableXDIAddressValues);
 
 				for (ContextNode variableValueContextNode : variableValueContextNodes) {
 
-					XDIAddress variableValueXDIAddress = variableValueContextNode.getXDIAddress();
+					XDIAddress variableXDIAddressValue = variableValueContextNode.getXDIAddress();
 
-					if (log.isDebugEnabled()) log.debug("Variable XDI address value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
-					variableValueXDIAddresses.add(variableValueXDIAddress);
+					if (log.isDebugEnabled()) log.debug("Variable XDI address value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableXDIAddressValue);
+					variableXDIAddressValues.add(variableXDIAddressValue);
 				}
 			}
 
-			if (variableValueLiteralData != null) {
+			if (variableLiteralDataValue != null) {
 
-				if (log.isDebugEnabled()) log.debug("Variable literal data value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueLiteralData);
-				variableValues.put(variableValueXDIArc, variableValueLiteralData);
+				if (log.isDebugEnabled()) log.debug("Variable literal data value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableLiteralDataValue);
+				variableValues.put(variableValueXDIArc, variableLiteralDataValue);
 			}
 		}
 
 		return variableValues;
+	}
+
+	public List<XDIAddress> getVariableXDIAddressValues(XDIArc variableValueXDIArc) {
+
+		Map<XDIArc, Object> variableValues = this.getVariableValues();
+		Object variableXDIAddressValues = variableValues.get(variableValueXDIArc);
+		if (! (variableXDIAddressValues instanceof List<?>)) return Collections.emptyList();
+
+		return (List<XDIAddress>) variableXDIAddressValues;
+	}
+
+	public XDIAddress getVariableXDIAddressValue(XDIArc variableValueXDIArc) {
+
+		List<XDIAddress> variableXDIAddressValues = this.getVariableXDIAddressValues(variableValueXDIArc);
+		if (variableXDIAddressValues == null || variableXDIAddressValues.size() < 1) return null;
+
+		return variableXDIAddressValues.get(0);
+	}
+
+	public Object getVariableLiteralDataValue(XDIArc variableValueXDIArc) {
+
+		Map<XDIArc, Object> variableValues = this.getVariableValues();
+		Object variableLiteralDataValue = variableValues.get(variableValueXDIArc);
+		if (variableLiteralDataValue instanceof List<?>) return null;
+
+		return variableLiteralDataValue;
 	}
 
 	/*
