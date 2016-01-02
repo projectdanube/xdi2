@@ -1052,7 +1052,7 @@ public final class Message implements Serializable, Comparable<Message> {
 					@Override
 					public boolean select(Relation relation) {
 
-						return Operation.isValid(relation);
+						return Operation.isValidOperationXDIAddress(relation.getXDIAddress());
 					}
 				});
 	}

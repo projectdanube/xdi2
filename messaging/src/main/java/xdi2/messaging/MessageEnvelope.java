@@ -252,9 +252,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		return new DescendingIterator<Message, Operation> (this.getMessages()) {
 
 			@Override
-			public Iterator<Operation> descend(Message item) {
+			public Iterator<Operation> descend(Message message) {
 
-				return item.getOperations();
+				return message.getOperations();
 			}
 		};
 	}
@@ -268,9 +268,9 @@ public class MessageEnvelope implements Serializable, Comparable<MessageEnvelope
 		return new DescendingIterator<Message, XdiInnerRoot> (this.getMessages()) {
 
 			@Override
-			public Iterator<XdiInnerRoot> descend(Message item) {
+			public Iterator<XdiInnerRoot> descend(Message message) {
 
-				return item.getOperationResults();
+				return message.getOperationResults();
 			}
 		};
 	}

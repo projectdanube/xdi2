@@ -81,7 +81,7 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 	 * (e.g. of a $connect)
 	 */
 	public static ReadOnlyIterator<LinkContract> getLinkContracts(MessagingResponse messagingResponse) {
-		
+
 		if (! (messagingResponse instanceof TransportMessagingResponse)) return new EmptyIterator<LinkContract> ();
 
 		Graph resultGraph = ((TransportMessagingResponse) messagingResponse).getResultGraph();
@@ -99,7 +99,7 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 			}
 		};
 	}
-	
+
 	/*
 	 * Object methods
 	 */

@@ -26,6 +26,7 @@ import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -33,6 +34,7 @@ import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * An XDI messaging operation, represented as a relation.
@@ -75,6 +77,18 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 				ConnectOperation.isValid(relation) ||
 				SendOperation.isValid(relation) ||
 				PushOperation.isValid(relation);
+	}
+
+	public static boolean isValidOperationXDIAddress(XDIAddress operationXDIAddress) {
+
+		return
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_GET) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_SET) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_DEL) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_DO) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_CONNECT) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_SEND) != null ||
+				XDIAddressUtil.startsWithXDIAddress(operationXDIAddress, XDIMessagingConstants.XDI_ADD_PUSH) != null;
 	}
 
 	/**
