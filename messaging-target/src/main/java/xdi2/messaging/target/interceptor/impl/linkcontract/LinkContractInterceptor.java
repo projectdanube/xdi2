@@ -202,7 +202,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (isSend(operation)) {
 
-			// look at target address for ConnectInterceptor
+			// look at target address for SendInterceptor
 
 			XDIAddress targetXDIAddress = operation.getTargetXDIAddress();
 			if (targetXDIAddress == null) targetXDIAddress = XDIConstants.XDI_ADD_ROOT;
