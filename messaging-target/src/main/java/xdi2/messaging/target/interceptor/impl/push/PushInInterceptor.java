@@ -72,7 +72,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 		// check operation
 
 		if (! (operation instanceof PushOperation)) return InterceptorResult.DEFAULT;
-		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.DEFAULT;
 
 		// get pushed message(s)
 

@@ -100,7 +100,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 		// check operation
 
 		if (! (operation instanceof SendOperation)) return InterceptorResult.DEFAULT;
-		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.DEFAULT;
 
 		// get forwarding message(s)
 

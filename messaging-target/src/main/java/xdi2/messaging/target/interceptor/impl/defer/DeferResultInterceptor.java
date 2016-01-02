@@ -1,7 +1,5 @@
 package xdi2.messaging.target.interceptor.impl.defer;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,6 @@ import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
-import xdi2.messaging.operations.Operation;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -82,86 +79,78 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 		MessagingTarget messagingTarget = executionContext.getCurrentMessagingTarget();
 
-		Map<Operation, List<DeferResult>> operationDeferResultsMap = getOperationDeferResults(executionContext);
-		if (operationDeferResultsMap == null) return InterceptorResult.DEFAULT;
+		Map<Message, Boolean> deferResults = getDeferResults(executionContext);
+		if (deferResults == null) return InterceptorResult.DEFAULT;
 
-		for (Map.Entry<Operation, List<DeferResult>> operationDeferResults : operationDeferResultsMap.entrySet()) {
+		for (Map.Entry<Message, Boolean> deferResult : deferResults.entrySet()) {
 
-			Operation operation = operationDeferResults.getKey();
-			List<DeferResult> deferResults = operationDeferResults.getValue();
+			Message message = deferResult.getKey();
+			Boolean push = deferResult.getValue();
 
-			if (deferResults.isEmpty()) continue;
+			// write message and index into target graph
 
-			Graph operationPushResultGraph = executionResult.createOperationPushResultGraph(operation);
+			if (this.getTargetGraph(executionContext) != null) {
 
-			Message message = operation.getMessage();
-
-			for (DeferResult deferResult : deferResults) {
-
-				// write message and index into target graph
-
-				if (this.getTargetGraph(executionContext) != null) {
-
-					CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(executionContext), null);
-					XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDIMessagingConstants.XDI_ARC_MSG, true);
-					Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity().getXDIAddress());
-				}
-
-				// defer push result? create a deferred push link contract!
-
-				if (deferResult.isPush()) {
-
-					// determine requesting and authorizing authorities
-
-					XDIAddress authorizingAuthority = messagingTarget.getOwnerXDIAddress();
-					XDIAddress requestingAuthority = message.getFromXDIAddress();
-
-					// determine variable values
-
-					XDIAddress pushVariableValue = null;
-					if (pushVariableValue == null && deferResult.getXDIAddress() != null) pushVariableValue = deferResult.getXDIAddress();
-					if (pushVariableValue == null && deferResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(deferResult.getXDIStatement());
-					if (pushVariableValue == null) throw new NullPointerException();
-
-					XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
-
-					Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
-					variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
-					variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
-
-					// instantiate push link contract
-
-					LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE);
-					linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
-					linkContractInstantiation.setRequestingAuthority(requestingAuthority);
-					linkContractInstantiation.setVariableValues(variableValues);
-
-					LinkContract pushLinkContract;
-
-					try {
-
-						pushLinkContract = linkContractInstantiation.execute(true);
-					} catch (Exception ex) {
-
-						throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
-					}
-
-					// write push link contract into operation push result graph
-
-					CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), operationPushResultGraph, null);
-
-					// write push link contract and index into target graph
-
-					if (this.getTargetGraph(executionContext) != null) {
-
-						CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(executionContext), null);
-						XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
-						Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
-					}
-				}
+				CopyUtil.copyContextNode(message.getContextNode(), this.getTargetGraph(executionContext), null);
+				XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDIMessagingConstants.XDI_ARC_MSG, true);
+				Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity().getXDIAddress());
 			}
 
-			if (log.isDebugEnabled()) log.debug("For operation " + operation + " we have operation push result graph " + operationPushResultGraph);
+			// create a deferred push link contract?
+
+			if (! Boolean.TRUE.equals(push)) continue;
+
+			Graph messagePushResultGraph = executionResult.createMessagePushResultGraph(message);
+
+			// determine requesting and authorizing authorities
+
+			XDIAddress authorizingAuthority = messagingTarget.getOwnerXDIAddress();
+			XDIAddress requestingAuthority = message.getFromXDIAddress();
+
+			// determine variable values
+
+			List<XDIAddress> pushVariableValues = null;
+			if (pushVariableValue == null && deferResult.getXDIAddress() != null) pushVariableValue = deferResult.getXDIAddress();
+			if (pushVariableValue == null && deferResult.getXDIStatement() != null) pushVariableValue = targetXDIAddressForTargetXDIStatement(deferResult.getXDIStatement());
+			if (pushVariableValue == null) throw new NullPointerException();
+
+			XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
+
+			Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
+			variableValues.put(XDIArc.create("{$push}"), pushVariableValue);
+			variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
+
+			// instantiate push link contract
+
+			LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE);
+			linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
+			linkContractInstantiation.setRequestingAuthority(requestingAuthority);
+			linkContractInstantiation.setVariableValues(variableValues);
+
+			LinkContract pushLinkContract;
+
+			try {
+
+				pushLinkContract = linkContractInstantiation.execute(true);
+			} catch (Exception ex) {
+
+				throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
+			}
+
+			// write push link contract into message push result graph
+
+			CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), messagePushResultGraph, null);
+
+			// write push link contract and index into target graph
+
+			if (this.getTargetGraph(executionContext) != null) {
+
+				CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), this.getTargetGraph(executionContext), null);
+				XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
+				Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
+			}
+
+			if (log.isDebugEnabled()) log.debug("For message " + message + " we have message push result graph " + messagePushResultGraph);
 		}
 
 		// done
@@ -216,74 +205,29 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 	 * ExecutionContext helper methods
 	 */
 
-	private static final String EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE = DeferResultInterceptor.class.getCanonicalName() + "#operationdeferresultspermessageenvelope";
+	private static final String EXECUTIONCONTEXT_KEY_DEFERRESULTS_PER_MESSAGEENVELOPE = DeferResultInterceptor.class.getCanonicalName() + "#deferresultspermessageenvelope";
 
 	@SuppressWarnings("unchecked")
-	public static Map<Operation, List<DeferResult>> getOperationDeferResults(ExecutionContext executionContext) {
+	public static Map<Message, Boolean> getDeferResults(ExecutionContext executionContext) {
 
-		return (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
+		return (Map<Message, Boolean>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_DEFERRESULTS_PER_MESSAGEENVELOPE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static boolean hasOperationDeferResult(ExecutionContext executionContext, Operation operation) {
+	public static boolean hasDeferResult(ExecutionContext executionContext, Message message) {
 
-		Map<Operation, List<DeferResult>> deferResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
-		if (deferResultsMap == null) return false;
+		Map<Message, Boolean> deferResults = (Map<Message, Boolean>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_DEFERRESULTS_PER_MESSAGEENVELOPE);
+		if (deferResults == null) return false;
 
-		return deferResultsMap.containsKey(operation);
+		return deferResults.containsKey(message);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void addOperationDeferResult(ExecutionContext executionContext, Operation operation, DeferResult deferResult) {
+	public static void putDeferResult(ExecutionContext executionContext, Message message, Boolean deferResult) {
 
-		Map<Operation, List<DeferResult>> deferResultsMap = (Map<Operation, List<DeferResult>>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE);
-		if (deferResultsMap == null) { deferResultsMap = new HashMap<Operation, List<DeferResult>> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_OPERATIONDEFERRESULTS_PER_MESSAGEENVELOPE, deferResultsMap); }
+		Map<Message, Boolean> deferResults = (Map<Message, Boolean>) executionContext.getMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_DEFERRESULTS_PER_MESSAGEENVELOPE);
+		if (deferResults == null) { deferResults = new HashMap<Message, Boolean> (); executionContext.putMessageEnvelopeAttribute(EXECUTIONCONTEXT_KEY_DEFERRESULTS_PER_MESSAGEENVELOPE, deferResults); }
 
-		List<DeferResult> deferResults = deferResultsMap.get(operation);
-		if (deferResults == null) { deferResults = new ArrayList<DeferResult> (); deferResultsMap.put(operation, deferResults); }
-
-		deferResults.add(deferResult);
-	}
-
-	/*
-	 * Helper class
-	 */
-
-	public static class DeferResult implements Serializable {
-
-		private static final long serialVersionUID = 904748436911142763L;
-
-		private XDIAddress XDIaddress;
-		private XDIStatement XDIstatement;
-		private boolean push;
-
-		public DeferResult(XDIAddress XDIaddress, boolean push) {
-
-			this.XDIaddress = XDIaddress;
-			this.XDIstatement = null;
-			this.push = push;
-		}
-
-		public DeferResult(XDIStatement XDIstatement, boolean push) {
-
-			this.XDIaddress = null;
-			this.XDIstatement = XDIstatement;
-			this.push = push;
-		}
-
-		public XDIAddress getXDIAddress() {
-
-			return this.XDIaddress;
-		}
-
-		public XDIStatement getXDIStatement() {
-
-			return this.XDIstatement;
-		}
-
-		public boolean isPush() {
-
-			return this.push;
-		}
+		deferResults.put(message, deferResult);
 	}
 }

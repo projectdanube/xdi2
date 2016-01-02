@@ -1,8 +1,10 @@
 package xdi2.messaging.operations;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -26,6 +28,7 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
+import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
@@ -319,7 +322,10 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 		if (variableValuesXdiEntity == null) return;
 
-		if (variableValue instanceof XDIArc) variableValue = XDIAddress.fromComponent((XDIArc) variableValue);
+		if (variableValue instanceof XDIArc) {
+
+			variableValue = XDIAddress.fromComponent((XDIArc) variableValue);
+		}
 
 		if (variableValue instanceof XDIAddress) {
 
@@ -342,25 +348,29 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
 
-			ContextNode variableValueContextNode = Equivalence.getIdentityContextNode(xdiVariable.getContextNode());
-			XDIAddress variableValueXDIAddress = variableValueContextNode == null ? null : variableValueContextNode.getXDIAddress();
-
+			ReadOnlyIterator<ContextNode> variableValueContextNodes = Equivalence.getIdentityContextNodes(xdiVariable.getContextNode());
 			Object variableValueLiteralData = xdiVariable.getContextNode().getLiteralData();
 
-			if (variableValueXDIAddress != null && variableValueLiteralData != null) throw new Xdi2RuntimeException("Variable has both an XDI address and a literal data value.");
-			if (variableValueXDIAddress == null && variableValueLiteralData == null) throw new Xdi2RuntimeException("Variable has neither XDI address nor literal data value.");
+			if (variableValueContextNodes.hasNext() && variableValueLiteralData != null) throw new Xdi2RuntimeException("Variable has both an XDI address and a literal data value.");
+			if ((! variableValueContextNodes.hasNext()) && variableValueLiteralData == null) throw new Xdi2RuntimeException("Variable has neither XDI address nor literal data value.");
 
-			if (variableValueXDIAddress != null) {
+			if (variableValueContextNodes.hasNext()) {
 
-				if (log.isDebugEnabled()) log.debug("Variable value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
+				List<XDIAddress> variableValueXDIAddresses = new ArrayList<XDIAddress> ();
+				variableValues.put(variableValueXDIArc, variableValueXDIAddresses);
 
-				variableValues.put(variableValueXDIArc, variableValueXDIAddress);
+				for (ContextNode variableValueContextNode : variableValueContextNodes) {
+
+					XDIAddress variableValueXDIAddress = variableValueContextNode.getXDIAddress();
+
+					if (log.isDebugEnabled()) log.debug("Variable XDI address value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueXDIAddress);
+					variableValueXDIAddresses.add(variableValueXDIAddress);
+				}
 			}
 
 			if (variableValueLiteralData != null) {
 
-				if (log.isDebugEnabled()) log.debug("Variable value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueLiteralData);
-
+				if (log.isDebugEnabled()) log.debug("Variable literal data value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableValueLiteralData);
 				variableValues.put(variableValueXDIArc, variableValueLiteralData);
 			}
 		}

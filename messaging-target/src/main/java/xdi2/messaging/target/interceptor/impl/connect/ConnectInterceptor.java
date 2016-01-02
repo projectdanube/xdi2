@@ -87,7 +87,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		// check operation
 
 		if (! (operation instanceof ConnectOperation)) return InterceptorResult.DEFAULT;
-		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.DEFAULT;
 
 		// get link contract template(s)
 

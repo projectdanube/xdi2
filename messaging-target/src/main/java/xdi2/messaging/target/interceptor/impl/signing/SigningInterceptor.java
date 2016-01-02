@@ -58,7 +58,7 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 
 		if (! (operation instanceof DoOperation)) return InterceptorResult.DEFAULT;
 		if (! XDI_ADD_DO_SIG.equals(operation.getOperationXDIAddress())) return InterceptorResult.DEFAULT;
-		if (DeferResultInterceptor.hasOperationDeferResult(executionContext, operation)) return InterceptorResult.DEFAULT;
+		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.DEFAULT;
 		if (operation.getTargetXdiInnerRoot() == null) return InterceptorResult.DEFAULT;
 
 		// get the inner graph

@@ -1003,6 +1003,22 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
+	 * Creates a new message push result and adds it to this XDI message.
+	 * @param messagePushResultGraph The message push result graph to add to this XDI message.
+	 * @return The newly created message push result represented as an XDI inner root.
+	 */
+	public XdiInnerRoot createMessagePushResult(Graph messagePushResultGraph) {
+
+		if (messagePushResultGraph == null) throw new NullPointerException();
+
+		Iterator<XDIStatement> statements = new MappingXDIStatementIterator(new SelectingNotImpliedStatementIterator(messagePushResultGraph.getAllStatements()));
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(XDIMessagingConstants.XDI_ADD_DEFER_PUSH, true);
+		while (statements.hasNext()) xdiInnerRoot.getContextNode().setStatement(statements.next());
+
+		return xdiInnerRoot;
+	}
+
+	/**
 	 * Creates a new operation result and adds it to this XDI message.
 	 * @param operationXDIAddress The operation address to use for the new operation result.
 	 * @param resultGraph The result graph to add to this XDI message.
