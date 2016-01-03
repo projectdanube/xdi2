@@ -6,6 +6,7 @@ import xdi2.tests.core.features.datatypes.DataTypesTest;
 import xdi2.tests.core.features.dictionary.DictionaryTest;
 import xdi2.tests.core.features.equivalence.EquivalenceTest;
 import xdi2.tests.core.features.linkcontracts.LinkContractsTest;
+import xdi2.tests.core.features.linkcontracts.instantiation.LinkContractInstantiationTest;
 import xdi2.tests.core.features.nodetypes.ArcsTest;
 import xdi2.tests.core.features.nodetypes.CommonRootTest;
 import xdi2.tests.core.features.nodetypes.InnerRootsTest;
@@ -64,6 +65,7 @@ public class AllTests {
 		suite.addTestSuite(ArcsTest.class);
 		suite.addTestSuite(NodeTypesTest.class);
 		suite.addTestSuite(LinkContractsTest.class);
+		suite.addTestSuite(LinkContractInstantiationTest.class);
 		suite.addTestSuite(SignaturesTest.class);
 		suite.addTestSuite(SecretTokensTest.class);
 		suite.addTestSuite(RootsTest.class);
