@@ -9,14 +9,14 @@
 	<parent>
 		<groupId>xdi2</groupId>
 		<artifactId>xdi2</artifactId>
-		<version>0.8-M3</version>
+		<version>0.8-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport</artifactId>
-			<version>0.8-M3</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
