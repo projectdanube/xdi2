@@ -36,6 +36,7 @@ import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.SendOperation;
 import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.MessagingResponse;
+import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
 import xdi2.messaging.target.Prototype;
 import xdi2.messaging.target.exceptions.Xdi2MessagingException;
@@ -271,13 +272,13 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 			MessagingResponse forwardingMessagingResponse = xdiClient.send(forwardingMessage.getMessageEnvelope());
 
-			// TODO: correctly store any push contracts we got? 
-			// TODO: use feedback message? or have member field private Graph targetGraph; ?
-			// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
-
 			if ((executionContext.getCurrentMessagingTarget() instanceof GraphMessagingTarget)) {
 
 				GraphMessagingTarget graphMessagingTarget = ((GraphMessagingTarget) executionContext.getCurrentMessagingTarget());
+
+				// TODO: correctly store any push contracts we got? 
+				// TODO: use feedback message? or have member field private Graph targetGraph; ?
+				// TODO: or have the XDIClient put it into our "origin" graph by adding a originGraph parameter to XDIClient?
 
 				if (log.isDebugEnabled()) log.debug("Looking for deferred push link contracts from result graph of forwarding messaging response: " + forwardingMessagingResponse.getResultGraph());
 
@@ -290,6 +291,22 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 					CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
 					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
 					Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
+				}
+
+				// TODO: correctly store any contracts we got?
+				// see comment in pushedMessagingResponse.getLinkContracts()
+
+				if (log.isDebugEnabled()) log.debug("Looking for link contracts from result graph of forwarding messaging response " + forwardingMessagingResponse.getResultGraph());
+
+				for (LinkContract linkContract : TransportMessagingResponse.getLinkContracts(forwardingMessagingResponse)) {
+
+					if (log.isDebugEnabled()) log.debug("Obtained link contract from result graph of forwarding messaging response " + linkContract);
+
+					// write link contract and index into graph
+
+					CopyUtil.copyContextNode(linkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
+					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+					Index.setEntityIndexAggregation(xdiLinkContractIndex, linkContract.getXdiEntity().getXDIAddress());
 				}
 			}
 
