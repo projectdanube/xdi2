@@ -13,7 +13,6 @@ import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
@@ -120,13 +119,6 @@ public class LinkContractInstantiation {
 		// done
 
 		return linkContract;
-	}
-
-	public LinkContract execute(boolean create) {
-
-		XDIArc instanceXDIArc = XdiEntityInstanceUnordered.createXDIArc();
-
-		return this.execute(instanceXDIArc, create);
 	}
 
 	/*

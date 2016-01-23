@@ -197,7 +197,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		XDIAddress authorizingAuthority = operation.getMessage().getToXDIAddress();
 		if (authorizingAuthority == null) throw new Xdi2MessagingException("No authorizing authority for link contract instantiation.", null, executionContext);
 
-		// determine instance variable
+		// determine link contract instance ID
 
 		XDIAddress instanceVariableValue = operation.getVariableXDIAddressValue(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
 		XDIArc instanceXDIArc;
@@ -211,7 +211,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			instanceXDIArc = null;
 		}
 
-		// determine variable values
+		// determine link contract variable values
 
 		Map<XDIArc, Object> variableValues = operation.getVariableValues();
 		variableValues.remove(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
@@ -223,7 +223,15 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setVariableValues(variableValues);
 
-		LinkContract linkContract = linkContractInstantiation.execute(instanceXDIArc, true);
+		LinkContract linkContract;
+
+		try {
+
+			linkContract = linkContractInstantiation.execute(instanceXDIArc, true);
+		} catch (Exception ex) {
+
+			throw new Xdi2MessagingException("Cannot instantiate link contract: " + ex.getMessage(), ex, executionContext);
+		}
 
 		// write link contract and index into operation result graph
 

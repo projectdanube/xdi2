@@ -15,6 +15,7 @@ import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -110,7 +111,11 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 			XDIAddress authorizingAuthority = messagingTarget.getOwnerXDIAddress();
 			XDIAddress requestingAuthority = message.getFromXDIAddress();
 
-			// determine variable values
+			// determine link contract instance ID
+
+			XDIArc instanceXDIArc = XdiEntityInstanceUnordered.createXDIArc();
+
+			// determine link contract variable values
 
 			List<XDIAddress> pushVariableValues = new ArrayList<XDIAddress> ();
 
@@ -150,7 +155,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			try {
 
-				pushLinkContract = linkContractInstantiation.execute(true);
+				pushLinkContract = linkContractInstantiation.execute(instanceXDIArc, true);
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);
