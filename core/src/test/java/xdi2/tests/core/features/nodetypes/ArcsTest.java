@@ -19,9 +19,9 @@ public class ArcsTest extends TestCase {
 		assertEquals(XdiEntityCollection.createXDIArc(XDIArc.create("#address")), XDIArc.create("[#address]"));
 		assertEquals(XdiAttributeCollection.createXDIArc(XDIArc.create("#address")), XDIArc.create("[<#address>]"));
 		assertEquals(XdiAbstractInstanceUnordered.createXDIArc(true, true, false, "1", null), XDIArc.create("<*!1>"));
-		assertEquals(XdiAbstractInstanceOrdered.createXDIArc(true, false, false, "1", null), XDIArc.create("<@1>"));
+		assertEquals(XdiAbstractInstanceOrdered.createXDIArc(true, false, true, "1", null), XDIArc.create("<@~1>"));
 		assertEquals(XdiAbstractInstanceUnordered.createXDIArc(false, true, false, "1", null), XDIArc.create("*!1"));
-		assertEquals(XdiAbstractInstanceOrdered.createXDIArc(false, false, false, "1", null), XDIArc.create("@1"));
+		assertEquals(XdiAbstractInstanceOrdered.createXDIArc(false, false, true, "1", null), XDIArc.create("@~1"));
 
 		assertTrue(XdiEntitySingleton.isValidXDIArc(XdiEntitySingleton.createXDIArc(XDIArc.create("#address"))));
 		assertFalse(XdiAttributeSingleton.isValidXDIArc(XdiEntitySingleton.createXDIArc(XDIArc.create("#address"))));

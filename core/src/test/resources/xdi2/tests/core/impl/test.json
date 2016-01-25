@@ -10,8 +10,8 @@
 	"=abc[#passport][$o]*!:uuid:1111<$t>/&":"2010-11-11T11:11:11Z",
 	"=abc[#passport][$o]*!:uuid:2222<$t>/&":"2010-12-22T22:22:22Z",
 	"=abc[#passport]/[$v]":["=abc[#passport][$v]*!:uuid:2222"],
-	"=abc[#passport]/@1":["=abc[#passport]*!:uuid:1111"],
-	"=abc[#passport]/@2":["=abc[#passport]*!:uuid:2222"],
+	"=abc[#passport]/@~1":["=abc[#passport]*!:uuid:1111"],
+	"=abc[#passport]/@~2":["=abc[#passport]*!:uuid:2222"],
 	"=abc/#rel":[
 		"=abc[#passport]*!:uuid:1111",
 		"=abc[#passport]*!:uuid:2222"

@@ -64,10 +64,10 @@ public class NodeTypesTest extends TestCase {
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<*!:uuid:1111>|")) instanceof XdiAttributeInstanceUnordered.Definition);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<*!:uuid:1111>|}")) instanceof XdiAttributeInstanceUnordered.Definition.Variable);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<*!:uuid:1111>}")) instanceof XdiAttributeInstanceUnordered.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")) instanceof XdiAttributeInstanceOrdered);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")) instanceof XdiAttributeInstanceOrdered.Definition);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")) instanceof XdiAttributeInstanceOrdered.Definition.Variable);
-		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")) instanceof XdiAttributeInstanceOrdered.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]<@~0>")) instanceof XdiAttributeInstanceOrdered);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]|<@~0>|")) instanceof XdiAttributeInstanceOrdered.Definition);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@~0>|}")) instanceof XdiAttributeInstanceOrdered.Definition.Variable);
+		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("[<#tel>]{<@~0>}")) instanceof XdiAttributeInstanceOrdered.Variable);
 
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("#vehicle")) instanceof XdiEntitySingleton);
 		assertTrue(XdiAbstractContext.fromXDIAddress(XDIAddress.create("|#vehicle|")) instanceof XdiEntitySingleton.Definition);
@@ -132,10 +132,10 @@ public class NodeTypesTest extends TestCase {
 		assertNotNull(XdiAttributeInstanceUnordered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<*!:uuid:1111>|")));
 		assertNotNull(XdiAttributeInstanceUnordered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<*!:uuid:1111>|}")));
 		assertNotNull(XdiAttributeInstanceUnordered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<*!:uuid:1111>}")));
-		assertNotNull(XdiAttributeInstanceOrdered.fromXDIAddress(XDIAddress.create("[<#tel>]<@0>")));
-		assertNotNull(XdiAttributeInstanceOrdered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<@0>|")));
-		assertNotNull(XdiAttributeInstanceOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@0>|}")));
-		assertNotNull(XdiAttributeInstanceOrdered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<@0>}")));
+		assertNotNull(XdiAttributeInstanceOrdered.fromXDIAddress(XDIAddress.create("[<#tel>]<@~0>")));
+		assertNotNull(XdiAttributeInstanceOrdered.Definition.fromXDIAddress(XDIAddress.create("[<#tel>]|<@~0>|")));
+		assertNotNull(XdiAttributeInstanceOrdered.Definition.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{|<@~0>|}")));
+		assertNotNull(XdiAttributeInstanceOrdered.Variable.fromXDIAddress(XDIAddress.create("[<#tel>]{<@~0>}")));
 
 		assertNotNull(XdiEntitySingleton.fromXDIAddress(XDIAddress.create("#vehicle")));
 		assertNotNull(XdiEntitySingleton.Definition.fromXDIAddress(XDIAddress.create("|#vehicle|")));
