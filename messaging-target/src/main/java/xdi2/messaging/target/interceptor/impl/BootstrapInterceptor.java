@@ -58,7 +58,7 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
 	public final static int INIT_PRIORITY = 20;
-	public final static int SHUTDOWN_PRIORITY = 10;
+	public final static int SHUTDOWN_PRIORITY = 20;
 
 	public final static XDIArc XDI_ARC_SELF = XDIArc.create("{$self}");
 
@@ -172,17 +172,10 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 				for (XDIAddress bootstrapOwnerSynonym : this.getBootstrapOwnerSynonyms()) {
 
 					ContextNode bootstrapOwnerSynonymContextNode = graph.setDeepContextNode(bootstrapOwnerSynonym);
-
-					bootstrapOwnerSynonymContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
-					bootstrapOwnerSynonymContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, bootstrapOwnerContextNode);
-
-					bootstrapOwnerContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_IS_REF);
-					bootstrapOwnerContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, bootstrapOwnerSynonymContextNode);
+					Equivalence.setReferenceContextNode(bootstrapOwnerSynonymContextNode, bootstrapOwnerContextNode, true);
 
 					ContextNode bootstrapOwnerSynonymPeerRootContextNode = XdiCommonRoot.findCommonRoot(graph).getPeerRoot(bootstrapOwnerSynonym, true).getContextNode();
-
-					bootstrapOwnerSynonymPeerRootContextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
-					bootstrapOwnerSynonymPeerRootContextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, bootstrapOwnerSelfPeerRootContextNode);
+					Equivalence.setReferenceContextNode(bootstrapOwnerSynonymPeerRootContextNode, bootstrapOwnerSelfPeerRootContextNode, false);
 				}
 			}
 		}

@@ -17,8 +17,8 @@ public class AbstractExtension <CONTAINER> implements Extension<CONTAINER> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractExtension.class);
 
-	public final static int DEFAULT_INIT_PRIORITY = 10;
-	public final static int DEFAULT_SHUTDOWN_PRIORITY = 10;
+	public final static int DEFAULT_INIT_PRIORITY = 100;
+	public final static int DEFAULT_SHUTDOWN_PRIORITY = 100;
 
 	private int initPriority;
 	private int shutdownPriority;
