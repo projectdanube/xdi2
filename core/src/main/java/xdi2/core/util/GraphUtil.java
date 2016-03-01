@@ -21,10 +21,10 @@ public final class GraphUtil {
 
 	public static XDIArc getOwnerPeerRootXDIArc(Graph graph) {
 
-		XdiPeerRoot xdiSelfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
-		if (xdiSelfPeerRoot == null) return null;
+		XdiPeerRoot selfPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
+		if (selfPeerRoot == null) return null;
 
-		return xdiSelfPeerRoot.getXDIArc();
+		return selfPeerRoot.getXDIArc();
 	}
 
 	public static XDIAddress getOwnerXDIAddress(Graph graph) {
