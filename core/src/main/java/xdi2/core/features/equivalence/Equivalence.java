@@ -178,8 +178,8 @@ public class Equivalence {
 		contextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
 		contextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REP);
 
-		Relation relation = contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, replacementContextNode);
-		if (inverse) relation.followContextNode().setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, relation.getContextNode());
+		Relation relation = contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementContextNode);
+		if (inverse) relation.followContextNode().setRelation(XDIDictionaryConstants.XDI_ADD_IS_REP, relation.getContextNode());
 	}
 
 	public static void setReplacementContextNode(ContextNode contextNode, ContextNode replacementContextNode) {
@@ -192,8 +192,8 @@ public class Equivalence {
 		contextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REF);
 		contextNode.delRelations(XDIDictionaryConstants.XDI_ADD_REP);
 
-		Relation relation = contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REF, replacementContextNodeXDIAddress);
-		if (inverse) relation.followContextNode().setRelation(XDIDictionaryConstants.XDI_ADD_IS_REF, relation.getContextNode());
+		Relation relation = contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementContextNodeXDIAddress);
+		if (inverse) relation.followContextNode().setRelation(XDIDictionaryConstants.XDI_ADD_IS_REP, relation.getContextNode());
 	}
 
 	public static void setReplacementContextNode(ContextNode contextNode, XDIAddress replacementContextNodeXDIAddress) {
