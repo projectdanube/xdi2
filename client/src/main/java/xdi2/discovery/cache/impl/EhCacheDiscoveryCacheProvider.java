@@ -25,7 +25,10 @@ public class EhCacheDiscoveryCacheProvider extends DiscoveryCacheProvider {
 		this.authorityCache = null;
 	}
 
-	private void initDefault() {
+	private synchronized void initDefault() {
+
+		if (this.registryCache != null) return;
+		if (this.authorityCache != null) return;
 
 		CacheManager cacheManager = CacheManager.create(EhCacheDiscoveryCacheProvider.class.getResourceAsStream("ehcache.xml"));
 		cacheManager.addCache(EhCacheDiscoveryCacheProvider.class.getCanonicalName() + "-default-registry-cache");
