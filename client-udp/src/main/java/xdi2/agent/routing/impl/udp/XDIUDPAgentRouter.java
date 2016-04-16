@@ -1,7 +1,5 @@
 package xdi2.agent.routing.impl.udp;
 
-import java.net.URI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,18 +15,21 @@ public class XDIUDPAgentRouter extends XDIAbstractAgentRouter<XDIUDPClientRoute,
 	private static final Logger log = LoggerFactory.getLogger(XDIUDPAgentRouter.class);
 
 	private XDIArc toPeerRootXDIArc;
-	private URI xdiWebSocketEndpointUri;
+	private String host;
+	private int port;
 
-	public XDIUDPAgentRouter(XDIArc toPeerRootXDIArc, URI xdiWebSocketEndpointUri) {
+	public XDIUDPAgentRouter(XDIArc toPeerRootXDIArc, String host, int port) {
 
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.host = host;
+		this.port = port;
 	}
 
 	public XDIUDPAgentRouter() {
 
 		this.toPeerRootXDIArc = null;
-		this.xdiWebSocketEndpointUri = null;
+		this.host = null;
+		this.port = -1;
 	}
 
 	@Override
@@ -49,13 +50,13 @@ public class XDIUDPAgentRouter extends XDIAbstractAgentRouter<XDIUDPClientRoute,
 
 		if (! toPeerRootXDIArc.equals(this.getToPeerRootXDIArc())) {
 
-			if (log.isDebugEnabled()) log.debug("XDI WebSocket endpoint " + this.getXdiWebSocketEndpointUri() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
+			if (log.isDebugEnabled()) log.debug("XDI WebSocket endpoint " + this.getHost() + ":" + this.getPort() + " is no route to peer root " + toPeerRootXDIArc + " (" + this.getToPeerRootXDIArc() + "). Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDIUDPClientRoute route = new XDIUDPClientRoute(toPeerRootXDIArc, null, this.getXdiWebSocketEndpointUri());
+		XDIUDPClientRoute route = new XDIUDPClientRoute(toPeerRootXDIArc, null, this.getHost(), this.getPort());
 
 		// done
 
@@ -76,13 +77,23 @@ public class XDIUDPAgentRouter extends XDIAbstractAgentRouter<XDIUDPClientRoute,
 		this.toPeerRootXDIArc = toPeerRootXDIArc;
 	}
 
-	public URI getXdiWebSocketEndpointUri() {
+	public String getHost() {
 
-		return this.xdiWebSocketEndpointUri;
+		return this.host;
 	}
 
-	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
+	public void setHost(String host) {
 
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.host = host;
+	}
+
+	public int getPort() {
+
+		return this.port;
+	}
+
+	public void setPort(int port) {
+
+		this.port = port;
 	}
 }

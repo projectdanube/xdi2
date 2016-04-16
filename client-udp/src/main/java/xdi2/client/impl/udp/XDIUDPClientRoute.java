@@ -1,8 +1,6 @@
 package xdi2.client.impl.udp;
 
-import java.net.URI;
-
-import javax.websocket.Session;
+import java.net.DatagramSocket;
 
 import xdi2.client.XDIClientRoute;
 import xdi2.client.impl.XDIAbstractClientRoute;
@@ -10,69 +8,81 @@ import xdi2.core.syntax.XDIArc;
 
 public class XDIUDPClientRoute extends XDIAbstractClientRoute<XDIUDPClient> implements XDIClientRoute<XDIUDPClient> {
 
-	private Session session;
-	private URI xdiWebSocketEndpointUri;
+	private DatagramSocket datagramSocket;
+	private String host;
+	private int port;
 
-	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, Session session, URI xdiWebSocketEndpointUri) {
+	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, DatagramSocket datagramSocket, String host, int port) {
 
 		super(toPeerRootXDIArc);
 
-		this.session = session;
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.datagramSocket = datagramSocket;
+		this.host = host;
+		this.port = port;
 	}
 
-	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, Session session) {
+	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, DatagramSocket datagramSocket) {
 
-		this(toPeerRootXDIArc, session, null);
+		this(toPeerRootXDIArc, datagramSocket, null, -1);
 	}
 
-	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, URI xdiWebSocketEndpointUri) {
+	public XDIUDPClientRoute(XDIArc toPeerRootXDIArc, String host, int port) {
 
-		this(toPeerRootXDIArc, null, xdiWebSocketEndpointUri);
+		this(toPeerRootXDIArc, null, host, port);
 	}
 
-	public XDIUDPClientRoute(Session session) {
+	public XDIUDPClientRoute(DatagramSocket datagramSocket) {
 
-		this(null, session, null);
+		this(null, datagramSocket, null, -1);
 	}
 
-	public XDIUDPClientRoute(URI xdiWebSocketEndpointUri) {
+	public XDIUDPClientRoute(String host, int port) {
 
-		this(null, null, xdiWebSocketEndpointUri);
+		this(null, null, host, port);
 	}
 
 	public XDIUDPClientRoute() {
 
-		this(null, null, null);
+		this(null, null, null, -1);
 	}
 
 	@Override
 	public XDIUDPClient constructXDIClientInternal() {
 
-		return new XDIUDPClient(this.getSession(), this.getXdiWebSocketEndpointUri());
+		return new XDIUDPClient(this.getDatagramSocket(), this.getHost(), this.getPort());
 	}
 
 	/*
 	 * Getters and setters
 	 */
 
-	public Session getSession() {
+	public DatagramSocket getDatagramSocket() {
 
-		return this.session;
+		return this.datagramSocket;
 	}
 
-	public void setSession(Session session) {
+	public void setDatagramSocket(DatagramSocket datagramSocket) {
 
-		this.session = session;
+		this.datagramSocket = datagramSocket;
 	}
 
-	public URI getXdiWebSocketEndpointUri() {
+	public String getHost() {
 
-		return this.xdiWebSocketEndpointUri;
+		return this.host;
 	}
 
-	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
+	public void setHost(String host) {
 
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.host = host;
+	}
+
+	public int getPort() {
+
+		return this.port;
+	}
+
+	public void setPort(int port) {
+
+		this.port = port;
 	}
 }

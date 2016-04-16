@@ -43,7 +43,6 @@ import xdi2.messaging.target.execution.ExecutionResult;
 import xdi2.messaging.target.factory.impl.uri.UriMessagingTargetFactory;
 import xdi2.messaging.target.impl.AbstractMessagingTarget;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
@@ -53,7 +52,6 @@ import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.interceptor.TransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetFactoryMount;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
@@ -63,7 +61,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements ApplicationContextAware, TransportInterceptor, HttpTransportInterceptor {
+public class DebugHttpTransportInterceptor extends AbstractHttpTransportInterceptor implements ApplicationContextAware, HttpTransportInterceptor {
 
 	public static final String DEFAULT_PATH = "/";
 	public static final int DEFAULT_LOG_CAPACITY = 10;

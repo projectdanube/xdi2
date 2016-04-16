@@ -6,6 +6,8 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
+import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
+import xdi2.transport.interceptor.TransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
@@ -13,7 +15,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public class RedirectHttpTransportInterceptor extends AbstractHttpTransportInterceptor {
+public class RedirectHttpTransportInterceptor extends AbstractHttpTransportInterceptor implements TransportInterceptor, HttpTransportInterceptor {
 
 	public static final int DEFAULT_STATUS = HttpTransportResponse.SC_FOUND;
 	public static final String DEFAULT_LOCATION = null;

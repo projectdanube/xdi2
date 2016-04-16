@@ -60,13 +60,13 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 	}
 
 	@Override
-	public void init() throws Exception {
+	public synchronized void init() throws Exception {
 
 		super.init();
 	}
 
 	@Override
-	public void shutdown() throws Exception {
+	public synchronized void shutdown() throws Exception {
 
 		List<Exception> exs = new ArrayList<Exception> ();
 
@@ -149,7 +149,7 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 
 		try {
 
-			messageEnvelope = read(request, response);
+			messageEnvelope = read(request);
 			if (messageEnvelope == null) return;
 		} catch (IOException ex) {
 
@@ -215,7 +215,7 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 	 * Helper methods
 	 */
 
-	private static MessageEnvelope read(WebSocketTransportRequest request, WebSocketTransportResponse response) throws IOException {
+	private static MessageEnvelope read(WebSocketTransportRequest request) throws IOException {
 
 		Reader reader = request.getReader();
 

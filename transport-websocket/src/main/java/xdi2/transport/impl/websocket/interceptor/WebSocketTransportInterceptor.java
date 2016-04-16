@@ -2,12 +2,11 @@ package xdi2.transport.impl.websocket.interceptor;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.interceptor.Interceptor;
-import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.websocket.WebSocketTransport;
 import xdi2.transport.impl.websocket.WebSocketTransportRequest;
 import xdi2.transport.impl.websocket.WebSocketTransportResponse;
+import xdi2.transport.interceptor.TransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
@@ -15,7 +14,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public interface WebSocketTransportInterceptor extends Interceptor<Transport<?, ?>> {
+public interface WebSocketTransportInterceptor extends TransportInterceptor {
 
 	/**
 	 * Run when the WebSocket transport receives a message.

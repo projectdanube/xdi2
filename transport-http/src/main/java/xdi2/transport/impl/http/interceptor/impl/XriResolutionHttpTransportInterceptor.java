@@ -29,6 +29,7 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
+import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
@@ -36,7 +37,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransportInterceptor {
+public class XriResolutionHttpTransportInterceptor extends AbstractHttpTransportInterceptor implements HttpTransportInterceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(XriResolutionHttpTransportInterceptor.class);
 

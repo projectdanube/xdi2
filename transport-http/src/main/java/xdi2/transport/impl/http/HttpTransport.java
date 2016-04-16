@@ -146,7 +146,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, XDIMessagingConstants.XDI_ADD_GET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -191,7 +191,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromBody(request, response);
+			messageEnvelope = readFromBody(request);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -236,7 +236,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, XDIMessagingConstants.XDI_ADD_SET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -281,7 +281,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
+			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, XDIMessagingConstants.XDI_ADD_DEL);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -310,7 +310,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 	 * Helper methods
 	 */
 
-	private static MessageEnvelope readFromUrl(UriMessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
+	private static MessageEnvelope readFromUrl(UriMessagingTargetMount messagingTargetMount, HttpTransportRequest request, XDIAddress operationAddress) throws IOException {
 
 		if (messagingTargetMount == null) throw new NullPointerException();
 
@@ -359,7 +359,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		return messageEnvelope;
 	}
 
-	private static MessageEnvelope readFromBody(HttpTransportRequest request, HttpTransportResponse response) throws IOException {
+	private static MessageEnvelope readFromBody(HttpTransportRequest request) throws IOException {
 
 		InputStream inputStream = request.getBodyInputStream();
 

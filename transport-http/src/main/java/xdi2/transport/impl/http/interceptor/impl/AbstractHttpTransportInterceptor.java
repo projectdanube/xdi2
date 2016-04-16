@@ -2,16 +2,15 @@ package xdi2.transport.impl.http.interceptor.impl;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.interceptor.impl.AbstractInterceptor;
-import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
+import xdi2.transport.interceptor.impl.AbstractTransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
-public abstract class AbstractHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements HttpTransportInterceptor {
+public abstract class AbstractHttpTransportInterceptor extends AbstractTransportInterceptor implements HttpTransportInterceptor {
 
 	@Override
 	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {

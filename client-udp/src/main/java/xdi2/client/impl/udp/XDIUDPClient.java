@@ -1,10 +1,9 @@
 package xdi2.client.impl.udp;
 
 import java.io.StringWriter;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketAddress;
-import java.net.URI;
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.XDIAbstractClient;
-import xdi2.client.util.URLURIUtil;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
@@ -31,7 +29,8 @@ import xdi2.messaging.response.TransportMessagingResponse;
  * An XDI client that can send XDI messages over UDP and receive results.
  * It supports the following parameters (passed to the init method):
  * <ul>
- * <li>endpointUrl - The URL of the XDI endpoint to talk to.</li>
+ * <li>host - The host of the XDI endpoint to talk to.</li>
+ * <li>port - The port of the XDI endpoint to talk to.</li>
  * <li>sendMimeType - The mime type to use to send the XDI messages to the endpoint.</li>
  * </ul> 
  * 
@@ -39,7 +38,8 @@ import xdi2.messaging.response.TransportMessagingResponse;
  */
 public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> implements XDIClient<FutureMessagingResponse> {
 
-	public static final String KEY_ENDPOINTURI = "endpointUri";
+	public static final String KEY_HOST = "host";
+	public static final String KEY_PORT = "port";
 	public static final String KEY_SENDMIMETYPE = "sendmimetype";
 
 	public static final String DEFAULT_SENDMIMETYPE = "application/xdi+json;implied=0";
@@ -47,19 +47,21 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 	private static final Logger log = LoggerFactory.getLogger(XDIUDPClient.class);
 
 	private DatagramSocket datagramSocket;
-	private URI xdiWebSocketEndpointUri;
+	private String host;
+	private int port;
 
 	private MimeType sendMimeType;
 
 	private Callback callback;
 	private Map<XDIAddress, FutureMessagingResponse> futureMessagingResponses;
 
-	public XDIUDPClient(Session session, URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
+	public XDIUDPClient(DatagramSocket datagramSocket, String host, int port, MimeType sendMimeType) {
 
 		super();
 
-		this.datagramSocket = session;
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.datagramSocket = datagramSocket;
+		this.host = host;
+		this.port = port;
 
 		this.sendMimeType = (sendMimeType != null) ? sendMimeType : new MimeType(DEFAULT_SENDMIMETYPE);
 
@@ -67,61 +69,48 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 		this.futureMessagingResponses = new HashMap<XDIAddress, FutureMessagingResponse> ();
 	}
 
-	public XDIUDPClient(Session session, URI xdiWebSocketEndpointUri) {
+	public XDIUDPClient(DatagramSocket datagramSocket, String host, int port) {
 
-		this(session, xdiWebSocketEndpointUri, null);
-
-		DatagramSocket d;
-		SocketAddress a;
-		InetAddress i;
+		this(datagramSocket, host, port, null);
 	}
 
-	public XDIUDPClient(Session session, String xdiWebSocketEndpointUri) {
+	public XDIUDPClient(DatagramSocket datagramSocket, Properties parameters) {
 
-		this(session, URLURIUtil.URI(xdiWebSocketEndpointUri), null);
-	}
-
-	public XDIUDPClient(Session session, Properties parameters) {
-
-		this(session, null, null);
+		this(datagramSocket, null, -1, null);
 
 		if (parameters != null) {
 
-			if (parameters.containsKey(KEY_ENDPOINTURI)) this.xdiWebSocketEndpointUri = URLURIUtil.URI(parameters.getProperty(KEY_ENDPOINTURI));
+			if (parameters.containsKey(KEY_HOST)) this.host = parameters.getProperty(KEY_HOST);
+			if (parameters.containsKey(KEY_PORT)) this.port = Integer.parseInt(parameters.getProperty(KEY_PORT));
 			if (parameters.containsKey(KEY_SENDMIMETYPE)) this.sendMimeType = new MimeType(parameters.getProperty(KEY_SENDMIMETYPE));
 
 			if (log.isDebugEnabled()) log.debug("Initialized with " + parameters.toString() + ".");
 		}
 	}
 
-	public XDIUDPClient(Session session) {
+	public XDIUDPClient(DatagramSocket datagramSocket) {
 
-		this(session, null, null);
+		this(datagramSocket, null, -1, null);
 	}
 
-	public XDIUDPClient(URI xdiWebSocketEndpointUri, MimeType sendMimeType) {
+	public XDIUDPClient(String host, int port, MimeType sendMimeType) {
 
-		this((Session) null, xdiWebSocketEndpointUri, sendMimeType);
+		this((DatagramSocket) null, host, port, sendMimeType);
 	}
 
-	public XDIUDPClient(URI xdiWebSocketEndpointUri) {
+	public XDIUDPClient(String host, int port) {
 
-		this((Session) null, xdiWebSocketEndpointUri);
-	}
-
-	public XDIUDPClient(String xdiWebSocketEndpointUri) {
-
-		this((Session) null, xdiWebSocketEndpointUri);
+		this((DatagramSocket) null, host, port);
 	}
 
 	public XDIUDPClient(Properties parameters) {
 
-		this((Session) null, parameters);
+		this((DatagramSocket) null, parameters);
 	}
 
 	public XDIUDPClient() {
 
-		this((Session) null);
+		this((DatagramSocket) null);
 	}
 
 	@Override
@@ -150,16 +139,16 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 
 		// connect
 
-		Session session = null;
+		DatagramSocket datagramSocket = null;
 
 		try {
 
-			session = this.connect();
+			datagramSocket = this.connect();
 		} catch (Exception ex) {
 
-			this.disconnect(new CloseReason(CloseCodes.PROTOCOL_ERROR, "Cannot open WebSocket connection: " + ex.getMessage()));
+			this.disconnect();
 
-			throw new Xdi2ClientException("Cannot open WebSocket connection: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot open UDP connection: " + ex.getMessage(), ex);
 		}
 
 		// send the message envelope
@@ -168,14 +157,15 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 
 		try {
 
-			Async async = session.getAsyncRemote();
-			StringWriter stringWriter = new StringWriter();
+			StringWriter buffer = new StringWriter();
+			writer.write(messageEnvelope.getGraph(), buffer);
 
-			writer.write(messageEnvelope.getGraph(), stringWriter);
-			async.sendText(stringWriter.getBuffer().toString());
+			byte[] bytes = buffer.getBuffer().toString().getBytes("UTF-8");
+			final DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length);
+			datagramSocket.send(datagramPacket);
 		} catch (Exception ex) {
 
-			this.disconnect(new CloseReason(CloseCodes.PROTOCOL_ERROR, "Cannot send message envelope: " + ex.getMessage()));
+			this.disconnect();
 
 			throw new Xdi2ClientException("Cannot send message envelope: " + ex.getMessage(), ex);
 		}
@@ -197,46 +187,46 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 	@Override
 	public void close() {
 
-		this.disconnect(new CloseReason(CloseCodes.NORMAL_CLOSURE, "Bye."));
+		this.disconnect();
 	}
 
-	private Session connect() throws Exception {
+	private DatagramSocket connect() throws Exception {
 
 		if (this.getDatagramSocket() != null) return this.getDatagramSocket();
 
-		if (this.getXdiWebSocketEndpointUri() == null) throw new Xdi2ClientException("No URL to connect to.");
+		if (this.getHost() == null) throw new Xdi2ClientException("No host to connect to.");
+		if (this.getPort() <= 0) throw new Xdi2ClientException("No port to connect to.");
 
 		// connect
 
-		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getXdiWebSocketEndpointUri());
+		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getHost() + ":" + this.getPort());
 
-		Session session = WebSocketClientEndpoint.connect(this, this.getXdiWebSocketEndpointUri()).getDatagramSocket();
+		DatagramSocket datagramSocket = new DatagramSocket();
+		datagramSocket.connect(new InetSocketAddress(this.getHost(), this.getPort()));
 
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Connected successfully.");
 
-		this.setSession(session);
-		return session;
+		this.setDatagramSocket(datagramSocket);
+		return datagramSocket;
 	}
 
-	private void disconnect(CloseReason closeReason) {
+	private void disconnect() {
 
 		try {
 
 			if (this.getDatagramSocket() != null) {
 
-				if (this.getDatagramSocket().isOpen()) {
-
-					this.getDatagramSocket().close(closeReason);
-				}
+				if (this.getDatagramSocket().isConnected()) this.getDatagramSocket().disconnect();
+				if (! this.getDatagramSocket().isClosed()) this.getDatagramSocket().close();
 			}
 		} catch (Exception ex) {
 
 			log.error("Cannot disconnect: " + ex.getMessage(), ex);
 		} finally {
 
-			this.setSession(null);
+			this.setDatagramSocket(null);
 		}
 
 		if (log.isDebugEnabled()) log.debug("Disconnected successfully.");
@@ -246,24 +236,34 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 	 * Getters and setters
 	 */
 
-	public Session getDatagramSocket() {
+	public DatagramSocket getDatagramSocket() {
 
 		return this.datagramSocket;
 	}
 
-	public void setSession(Session session) {
+	public void setDatagramSocket(DatagramSocket datagramSocket) {
 
-		this.datagramSocket = session;
+		this.datagramSocket = datagramSocket;
 	}
 
-	public URI getXdiWebSocketEndpointUri() {
+	public String getHost() {
 
-		return this.xdiWebSocketEndpointUri;
+		return this.host;
 	}
 
-	public void setXdiWebSocketEndpointUri(URI xdiWebSocketEndpointUri) {
+	public void setHost(String host) {
 
-		this.xdiWebSocketEndpointUri = xdiWebSocketEndpointUri;
+		this.host = host;
+	}
+
+	public int getPort() {
+
+		return this.port;
+	}
+
+	public void setPort(int port) {
+
+		this.port = port;
 	}
 
 	public MimeType getSendMimeType() {
@@ -312,7 +312,7 @@ public class XDIUDPClient extends XDIAbstractClient<FutureMessagingResponse> imp
 	@Override
 	public String toString() {
 
-		return this.getXdiWebSocketEndpointUri().toString();
+		return this.getHost() + ":" + Integer.toString(this.getPort());
 	}
 
 	/*

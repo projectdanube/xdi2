@@ -2,12 +2,11 @@ package xdi2.transport.impl.http.interceptor;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.interceptor.Interceptor;
-import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
+import xdi2.transport.interceptor.TransportInterceptor;
 import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 /**
@@ -15,7 +14,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
  * 
  * @author markus
  */
-public interface HttpTransportInterceptor extends Interceptor<Transport<?, ?>> {
+public interface HttpTransportInterceptor extends TransportInterceptor {
 
 	/**
 	 * Run when the HTTP transport receives a GET request.
