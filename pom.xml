@@ -33,6 +33,7 @@
 		<module>messaging-target</module>
 		<module>client</module>
 		<module>client-websocket</module>
+		<module>client-udp</module>
 		<module>transport</module>
 		<module>transport-uri</module>
 		<module>transport-http</module>
