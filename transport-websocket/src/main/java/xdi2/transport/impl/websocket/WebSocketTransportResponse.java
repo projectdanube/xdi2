@@ -5,6 +5,7 @@ import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 
 import xdi2.transport.TransportResponse;
+import xdi2.transport.impl.uri.UriTransportResponse;
 import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
 
 /**
@@ -13,7 +14,7 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketTransportResponse implements TransportResponse {
+public class WebSocketTransportResponse extends UriTransportResponse implements TransportResponse {
 
 	private WebSocketServerMessageHandler webSocketMessageHandler;
 	private Basic basic;

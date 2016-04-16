@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.transport.TransportRequest;
+import xdi2.transport.impl.uri.UriTransportRequest;
 import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
 
 /**
@@ -18,7 +19,7 @@ import xdi2.transport.impl.websocket.endpoint.WebSocketServerMessageHandler;
  * 
  * @author markus
  */
-public class WebSocketTransportRequest implements TransportRequest {
+public class WebSocketTransportRequest extends UriTransportRequest implements TransportRequest {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransportRequest.class);
 
