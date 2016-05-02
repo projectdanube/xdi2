@@ -30,7 +30,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 	private static final long serialVersionUID = -7459785412219244590L;
 
-	private static final Logger log = LoggerFactory.getLogger(JSONContextNode.class);
+	private static final Logger log = LoggerFactory.getLogger(JSONGraph.class);
 
 	private final JSONStore jsonStore;
 
