@@ -1,11 +1,13 @@
 package xdi2.core.impl.json.memory;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import xdi2.core.impl.json.AbstractJSONStore;
@@ -17,7 +19,7 @@ public class MemoryJSONStore extends AbstractJSONStore implements JSONStore {
 
 	public MemoryJSONStore() {
 
-		this.jsonObjects = new HashMap<String, JsonObject> ();
+		this.jsonObjects = new ConcurrentHashMap<String, JsonObject> ();
 	}
 
 	@Override
@@ -32,10 +34,44 @@ public class MemoryJSONStore extends AbstractJSONStore implements JSONStore {
 		this.jsonObjects = null;
 	}
 
+	private static JsonElement deepCopy(JsonElement jsonElement) {
+
+		if (jsonElement instanceof JsonObject) return deepCopy((JsonObject) jsonElement);
+		if (jsonElement instanceof JsonArray) return deepCopy((JsonArray) jsonElement);
+
+		return jsonElement;
+	}
+
+	private static JsonObject deepCopy(JsonObject jsonObject) {
+
+		JsonObject result = new JsonObject();
+		for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+
+			result.add(entry.getKey(), deepCopy(entry.getValue()));
+		}
+
+		return result;
+	}
+
+	private static JsonArray deepCopy(JsonArray jsonArray) {
+
+		JsonArray result = new JsonArray();
+
+		for (JsonElement element : jsonArray) {
+
+			result.add(deepCopy(element));
+
+		}
+		return result;
+	}
+
 	@Override
 	public JsonObject load(String id) throws IOException {
 
-		return this.jsonObjects.get(id);
+		JsonObject jsonObject = this.jsonObjects.get(id);
+		if (jsonObject == null) return null;
+
+		return deepCopy(jsonObject);
 	}
 
 	@Override

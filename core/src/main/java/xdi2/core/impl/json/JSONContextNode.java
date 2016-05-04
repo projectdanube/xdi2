@@ -295,7 +295,6 @@ public class JSONContextNode extends AbstractContextNode implements ContextNode 
 						if (contextNode == null) {
 
 							log.warn("In context node " + JSONContextNode.this.getXDIAddress() + " found incoming relation " + XDIaddress + " from non-existent context node " + contextNodeXDIAddress);
-
 							return null;
 						}
 

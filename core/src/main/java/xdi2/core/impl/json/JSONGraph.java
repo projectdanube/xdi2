@@ -2,12 +2,12 @@ package xdi2.core.impl.json;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class JSONGraph extends AbstractGraph implements Graph {
 
 		this.jsonRootContextNode = new JSONContextNode(this, null, null, XDIConstants.XDI_ADD_ROOT);
 
-		this.jsonObjectsCached = new HashMap<String, JsonObject> ();
+		this.jsonObjectsCached = new ConcurrentHashMap<String, JsonObject> ();
 		this.jsonObjectsCachedWithPrefix = new HashSet<String> ();
 
 		this.useCache = false;
