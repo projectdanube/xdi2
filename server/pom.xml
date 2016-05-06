@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>xdi2</groupId>
 		<artifactId>xdi2</artifactId>
-		<version>0.8-M4</version>
+		<version>0.8-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -17,19 +17,19 @@
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-http</artifactId>
-			<version>0.8-M4</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-websocket</artifactId>
-			<version>0.8-M4</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>xdi2</groupId>
 			<artifactId>xdi2-transport-local</artifactId>
-			<version>0.8-M4</version>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
