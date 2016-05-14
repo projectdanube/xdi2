@@ -124,7 +124,7 @@ public class Equivalence {
 
 	public static void setReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeXDIAddress) {
 
-		setReferenceContextNode(contextNode, referencecontextNodeXDIAddress);
+		setReferenceContextNode(contextNode, referencecontextNodeXDIAddress, false);
 	}
 
 	public static ReadOnlyIterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
