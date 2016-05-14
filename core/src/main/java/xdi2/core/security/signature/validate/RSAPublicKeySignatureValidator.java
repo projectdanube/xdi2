@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.validate;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 
@@ -36,7 +36,7 @@ public abstract class RSAPublicKeySignatureValidator extends AbstractRSASignatur
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Public key found for " + signerXDIAddress + ": " + new String(Base64.encodeBase64(publicKey.getEncoded()), Charset.forName("UTF-8")));
+		if (log.isDebugEnabled()) log.debug("Public key found for " + signerXDIAddress + ": " + new String(Base64.encodeBase64(publicKey.getEncoded()), StandardCharsets.UTF_8));
 
 		// validate
 

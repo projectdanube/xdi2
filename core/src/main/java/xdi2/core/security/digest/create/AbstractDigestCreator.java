@@ -1,6 +1,6 @@
 package xdi2.core.security.digest.create;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 
 import xdi2.core.ContextNode;
@@ -29,7 +29,7 @@ public abstract class AbstractDigestCreator <DIGEST extends Digest> implements D
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(contextNode, new NoDigestsCopyStrategy()).getBytes(Charset.forName("UTF-8"));
+		byte[] normalizedSerialization = Normalization.serialize(contextNode, new NoDigestsCopyStrategy()).getBytes(StandardCharsets.UTF_8);
 
 		// create digest
 
@@ -43,7 +43,7 @@ public abstract class AbstractDigestCreator <DIGEST extends Digest> implements D
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(digest.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(Charset.forName("UTF-8"));
+		byte[] normalizedSerialization = Normalization.serialize(digest.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(StandardCharsets.UTF_8);
 
 		// set digest value
 

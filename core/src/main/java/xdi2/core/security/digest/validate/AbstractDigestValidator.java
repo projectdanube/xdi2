@@ -1,6 +1,6 @@
 package xdi2.core.security.digest.validate;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 
 import xdi2.core.features.digests.Digest;
@@ -29,7 +29,7 @@ public abstract class AbstractDigestValidator <DIGEST extends Digest> implements
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(digest.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(Charset.forName("UTF-8"));
+		byte[] normalizedSerialization = Normalization.serialize(digest.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(StandardCharsets.UTF_8);
 
 		// get digest value
 

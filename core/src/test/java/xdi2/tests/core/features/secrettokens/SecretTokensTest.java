@@ -2,7 +2,6 @@ package xdi2.tests.core.features.secrettokens;
 
 import junit.framework.TestCase;
 import xdi2.core.features.secrettokens.SecretTokens;
-import xdi2.core.syntax.XDIAddress;
 
 public class SecretTokensTest extends TestCase {
 

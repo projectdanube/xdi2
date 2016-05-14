@@ -130,7 +130,7 @@ public final class XRI2Util {
 
 		try { XDIarc = XDIArc.create(type); } catch (Exception ex) { XDIarc = null; }
 		if (XDIarc == null) try { XDIarc = XDIArc.create("#(" + type + ")"); } catch (Exception ex) { XDIarc = null; }
-		if (XDIarc == null) try { XDIarc = XDIArc.create("#(" + URLEncoder.encode(type, "UTF-8") + ")"); } catch (Exception ex) { XDIarc = null; }
+		if (XDIarc == null) try { XDIarc = XDIArc.create("#(" + URLEncoder.encode(type, "UTf-8") + ")"); } catch (Exception ex) { XDIarc = null; }
 
 		if (XDIarc == null) return null;
 

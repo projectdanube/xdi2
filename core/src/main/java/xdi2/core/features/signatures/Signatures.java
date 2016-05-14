@@ -7,8 +7,8 @@ import java.util.List;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.datatypes.DataTypes;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator;

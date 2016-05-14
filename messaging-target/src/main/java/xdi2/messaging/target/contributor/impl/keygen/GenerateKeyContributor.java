@@ -1,6 +1,6 @@
 package xdi2.messaging.target.contributor.impl.keygen;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
@@ -145,8 +145,8 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			XdiEntity keyPairXdiEntity = XdiAbstractEntity.fromContextNode(contextNode);
 			XdiAttributeSingleton publicKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$public>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
 			XdiAttributeSingleton privateKeyXdiAttribute = keyPairXdiEntity.getXdiAttributeSingleton(XDIArc.create("<$private>"), true).getXdiAttributeSingleton(XDIArc.create("<$key>"), true);
-			publicKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(keyPair.getPublic().getEncoded()), Charset.forName("UTF-8")));
-			privateKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(keyPair.getPrivate().getEncoded()), Charset.forName("UTF-8")));
+			publicKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(keyPair.getPublic().getEncoded()), StandardCharsets.UTF_8));
+			privateKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(keyPair.getPrivate().getEncoded()), StandardCharsets.UTF_8));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		} else if (XDI_ADD_DO_KEY.equals(operation.getOperationXDIAddress())) {
 
@@ -171,7 +171,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 			ContextNode contextNode = this.getTargetGraph().setDeepContextNode(contributorsAddress);
 			if (! XdiAbstractAttribute.isValid(contextNode)) throw new Xdi2MessagingException("Can only create a symmetric key on an attribute.", null, executionContext);
 			XdiAttribute symmetricKeyXdiAttribute = XdiAbstractAttribute.fromContextNode(contextNode);
-			symmetricKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(secretKey.getEncoded()), Charset.forName("UTF-8")));
+			symmetricKeyXdiAttribute.setLiteralString(new String(Base64.encodeBase64(secretKey.getEncoded()), StandardCharsets.UTF_8));
 			DataTypes.setDataType(contextNode, dataTypeXDIAddress);
 		}
 

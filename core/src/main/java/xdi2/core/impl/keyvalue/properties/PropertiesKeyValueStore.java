@@ -7,7 +7,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -396,9 +396,9 @@ public class PropertiesKeyValueStore extends AbstractKeyValueStore implements Ke
 		}
 
 		digest.reset();
-		digest.update(str.getBytes(Charset.forName("UTF-8")));
+		digest.update(str.getBytes(StandardCharsets.UTF_8));
 
-		return new String(Base64.encodeBase64(digest.digest()), Charset.forName("UTF-8"));
+		return new String(Base64.encodeBase64(digest.digest()), StandardCharsets.UTF_8);
 	}
 
 	/*

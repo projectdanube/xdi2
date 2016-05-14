@@ -1,6 +1,6 @@
 package xdi2.core.features.keys;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -14,8 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 import xdi2.core.LiteralNode;
-import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.syntax.XDIAddress;
@@ -153,7 +153,7 @@ public class Keys {
 
 		if (publicKeyString == null) return null;
 // TODO: don't hardcode "RSA" here
-		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString.getBytes(Charset.forName("UTF-8"))));
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString.getBytes(StandardCharsets.UTF_8)));
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 		return keyFactory.generatePublic(keySpec);
@@ -163,7 +163,7 @@ public class Keys {
 
 		if (privateKeyString == null) return null;
 
-		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(Charset.forName("UTF-8"))));
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(StandardCharsets.UTF_8)));
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 		return keyFactory.generatePrivate(keySpec);
@@ -173,7 +173,7 @@ public class Keys {
 
 		if (secretKeyString == null) return null;
 
-		byte[] secretKeyBytes = Base64.decodeBase64(secretKeyString.getBytes(Charset.forName("UTF-8")));
+		byte[] secretKeyBytes = Base64.decodeBase64(secretKeyString.getBytes(StandardCharsets.UTF_8));
 
 		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
 	}

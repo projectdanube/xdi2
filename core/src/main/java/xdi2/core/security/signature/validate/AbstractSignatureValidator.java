@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.validate;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 
 import xdi2.core.features.signatures.Signature;
@@ -30,7 +30,7 @@ public abstract class AbstractSignatureValidator <SIGNATURE extends Signature> i
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(signature.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(Charset.forName("UTF-8"));
+		byte[] normalizedSerialization = Normalization.serialize(signature.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(StandardCharsets.UTF_8);
 
 		// get signature value
 

@@ -1,7 +1,7 @@
 package xdi2.core.features.signatures;
 
 import java.io.Serializable;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -124,7 +124,7 @@ public abstract class Signature implements Serializable, Comparable<Signature> {
 		String literalDataString = literalNode == null ? null : literalNode.getLiteralDataString();
 		if (literalDataString == null) return null;
 
-		byte[] signatureValue = Base64.decodeBase64(literalDataString.getBytes(Charset.forName("UTF-8")));
+		byte[] signatureValue = Base64.decodeBase64(literalDataString.getBytes(StandardCharsets.UTF_8));
 
 		return signatureValue;
 	}
@@ -134,7 +134,7 @@ public abstract class Signature implements Serializable, Comparable<Signature> {
 	 */
 	public void setSignatureValue(byte[] signatureValue) {
 
-		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(signatureValue), Charset.forName("UTF-8")));
+		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(signatureValue), StandardCharsets.UTF_8));
 	}
 
 	/*
