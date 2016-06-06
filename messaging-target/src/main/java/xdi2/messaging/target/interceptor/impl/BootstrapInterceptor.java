@@ -57,8 +57,8 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 	private static Logger log = LoggerFactory.getLogger(BootstrapInterceptor.class.getName());
 
-	public final static int INIT_PRIORITY = 20;
-	public final static int SHUTDOWN_PRIORITY = 20;
+	public final static int INIT_PRIORITY = 150;
+	public final static int SHUTDOWN_PRIORITY = 150;
 
 	public final static XDIArc XDI_ARC_SELF = XDIArc.create("{$self}");
 
