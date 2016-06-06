@@ -92,6 +92,7 @@ public class AutoReader extends AbstractXDIReader {
 
 			try {
 
+				graph.clear();
 				xdiReader.read(graph, new StringReader(string));
 				this.lastSuccessfulReader = xdiReader;
 				return;
@@ -114,6 +115,7 @@ public class AutoReader extends AbstractXDIReader {
 
 			try {
 
+				graph.clear();
 				xdiReader.read(graph, new ByteArrayInputStream(byteArray));
 				this.lastSuccessfulReader = xdiReader;
 				return;
