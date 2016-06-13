@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.io.writers.XDIHTMLWriter;
 import xdi2.core.io.writers.XDIJSONPARSEWriter;
@@ -80,10 +81,9 @@ public final class XDIWriterRegistry {
 
 				Class<XDIWriter> writerClass = forName(writerClassName);
 				writerClasses.add(writerClass);
-			} catch (Throwable ex) {
+			} catch (ClassNotFoundException ex) {
 
-				log.warn("Cannot instantiate XDI Writer " + writerClassName + ": " + ex.getMessage());
-				continue;
+				throw new Xdi2RuntimeException("Cannot instantiate XDI Writer " + writerClassName + ": " + ex.getMessage(), ex);
 			}
 		}
 

@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.readers.XDIDisplayReader;
 import xdi2.core.io.readers.XDIJSONQuadReader;
@@ -54,10 +55,9 @@ public final class XDIReaderRegistry {
 
 				Class<XDIReader> readerClass = forName(readerClassName);
 				readerClasses.add(readerClass);
-			} catch (Throwable ex) {
+			} catch (ClassNotFoundException ex) {
 
-				log.warn("Cannot instantiate XDI Reader " + readerClassName + ": " + ex.getMessage());
-				continue;
+				throw new Xdi2RuntimeException("Cannot instantiate XDI Reader " + readerClassName + ": " + ex.getMessage(), ex);
 			}
 		}
 
