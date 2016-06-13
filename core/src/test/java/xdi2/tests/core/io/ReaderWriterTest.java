@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ReaderWriterTest extends TestCase {
 
 	private static String readFromFile(String filename) throws IOException {
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(ReaderWriterTest.class.getResourceAsStream(filename), StandardCharsets.UTF_8));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ReaderWriterTest.class.getResourceAsStream(filename), Charset.forName("UTF-8")));
 		StringWriter writer = new StringWriter();
 		String line;
 

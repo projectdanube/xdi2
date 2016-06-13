@@ -1,6 +1,6 @@
 package xdi2.core.features.secrettokens;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.UUID;
 
@@ -62,7 +62,7 @@ public class SecretTokens {
 		if (! isValidSalt(globalSalt)) throw new Xdi2RuntimeException("Invalid global salt.");
 		if (! isValidSalt(localSalt)) throw new Xdi2RuntimeException("Invalid local salt.");
 
-		return sha512HexString(globalSalt + ":" + localSalt + ":" + sha512HexString(globalSalt + ":" + new String(Base64.encodeBase64(secretToken.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8)));
+		return sha512HexString(globalSalt + ":" + localSalt + ":" + sha512HexString(globalSalt + ":" + new String(Base64.encodeBase64(secretToken.getBytes(Charset.forName("UTF-8"))), Charset.forName("UTF-8"))));
 	}
 
 	public static String randomSalt() {
@@ -98,7 +98,7 @@ public class SecretTokens {
 		}
 
 		digest.reset();
-		digest.update(string.getBytes(StandardCharsets.UTF_8));
+		digest.update(string.getBytes(Charset.forName("UTF-8")));
 
 		return new String(Hex.encodeHex(digest.digest()));
 	}

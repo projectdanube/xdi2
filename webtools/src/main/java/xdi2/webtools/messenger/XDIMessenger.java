@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -182,7 +182,7 @@ public class XDIMessenger extends javax.servlet.http.HttpServlet implements java
 			String target = targetString;
 			XDIAddress messageType = messageTypeString == null ? null : XDIAddress.create(messageTypeString);
 			String secretToken = secretTokenString;
-			byte[] signature = Base64.decodeBase64(signatureString.getBytes(StandardCharsets.UTF_8));
+			byte[] signature = Base64.decodeBase64(signatureString.getBytes(Charset.forName("UTF-8")));
 			String signatureDigestAlgorithm = signatureDigestAlgorithmString;
 			Integer signatureDigestLength = signatureDigestLengthString == null ? Integer.valueOf(-1) : Integer.valueOf(signatureDigestLengthString);
 			String signatureKeyAlgorithm = signatureKeyAlgorithmString;

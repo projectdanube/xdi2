@@ -14,9 +14,7 @@ import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.GraphUtil;
 import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.exceptions.Xdi2MessagingException;
 import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.registry.MessagingTargetMount;
 import xdi2.transport.registry.MessagingTargetRegistry;
 
@@ -70,9 +68,9 @@ public class RSAMessagingTargetRegistryPrivateKeySignatureCreator extends RSAPri
 		try {
 
 			messagingTargetMount = this.getMessagingTargetRegistry().lookup(XdiPeerRoot.createPeerRootXDIArc(signerXDIAddress));
-		} catch (Xdi2TransportException | Xdi2MessagingException ex) {
+		} catch (Exception ex) {
 
-			throw new GeneralSecurityException("Messaging target not found for " + signerXDIAddress);
+			throw new GeneralSecurityException("Messaging target not found for " + signerXDIAddress + ": " + ex.getMessage(), ex);
 		}
 
 		if (log.isDebugEnabled()) log.debug("Messaging target mount: " + messagingTargetMount);

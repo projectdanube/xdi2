@@ -1,6 +1,6 @@
 package xdi2.transport.spring;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
@@ -20,7 +20,7 @@ public class StringPublicKeyConverter implements Converter<String, PublicKey> {
 
 		try {
 
-			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(string.getBytes(StandardCharsets.UTF_8)));
+			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(string.getBytes(Charset.forName("UTF-8"))));
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
 			publicKey = keyFactory.generatePublic(keySpec);

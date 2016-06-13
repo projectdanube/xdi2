@@ -1,9 +1,7 @@
 package xdi2.core.bootstrap;
 
-import java.io.IOException;
-
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2ParseException;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -76,9 +74,9 @@ public class XDIBootstrap {
 			PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			DEFER_PUSH_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(DEFER_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS)));
 			MSG_DIGEST_LINK_CONTRACT_TEMPLATE = LinkContractTemplate.fromXdiEntitySingletonVariable(XdiEntitySingleton.Variable.fromContextNode(BOOTSTRAP_GRAPH.getDeepContextNode(MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS)));
-		} catch (Xdi2ParseException | IOException ex) {
+		} catch (Exception ex) {
 
-			throw new RuntimeException(ex.getMessage(), ex);
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
 		}
 	}
 

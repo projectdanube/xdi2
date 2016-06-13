@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.validate;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 
@@ -39,7 +39,7 @@ public abstract class AESSecretKeySignatureValidator extends AbstractAESSignatur
 			return false;
 		}
 
-		if (log.isDebugEnabled()) log.debug("Secret key found for " + signerXDIAddress + ": " + new String(Base64.encodeBase64(secretKey.getEncoded()), StandardCharsets.UTF_8));
+		if (log.isDebugEnabled()) log.debug("Secret key found for " + signerXDIAddress + ": " + new String(Base64.encodeBase64(secretKey.getEncoded()), Charset.forName("UTF-8")));
 
 		// validate
 

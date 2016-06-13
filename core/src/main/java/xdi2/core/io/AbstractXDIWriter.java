@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public abstract class AbstractXDIWriter implements XDIWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractXDIWriter.class);
 
-	public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
 	protected Properties parameters;
 

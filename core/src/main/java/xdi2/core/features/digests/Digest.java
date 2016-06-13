@@ -1,7 +1,7 @@
 package xdi2.core.features.digests;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -110,7 +110,7 @@ public abstract class Digest implements Serializable, Comparable<Digest> {
 		String literalDataString = this.getXdiAttribute().getLiteralDataString();
 		if (literalDataString == null) return null;
 
-		byte[] digestValue = Base64.decodeBase64(literalDataString.getBytes(StandardCharsets.UTF_8));
+		byte[] digestValue = Base64.decodeBase64(literalDataString.getBytes(Charset.forName("UTF-8")));
 
 		return digestValue;
 	}
@@ -120,7 +120,7 @@ public abstract class Digest implements Serializable, Comparable<Digest> {
 	 */
 	public void setDigestValue(byte[] digestValue) {
 
-		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(digestValue), StandardCharsets.UTF_8));
+		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(digestValue), Charset.forName("UTF-8")));
 	}
 
 	/*

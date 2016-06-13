@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.create;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 
 import xdi2.core.ContextNode;
@@ -31,7 +31,7 @@ public abstract class AbstractSignatureCreator <SIGNATURE extends Signature> imp
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(contextNode, new NormalizationCopyStrategy()).getBytes(StandardCharsets.UTF_8);
+		byte[] normalizedSerialization = Normalization.serialize(contextNode, new NormalizationCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 
 		// create signature
 
@@ -51,7 +51,7 @@ public abstract class AbstractSignatureCreator <SIGNATURE extends Signature> imp
 
 		// get normalized serialization
 
-		byte[] normalizedSerialization = Normalization.serialize(signature.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(StandardCharsets.UTF_8);
+		byte[] normalizedSerialization = Normalization.serialize(signature.getBaseContextNode(), new NormalizationCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 
 		// set signature value
 

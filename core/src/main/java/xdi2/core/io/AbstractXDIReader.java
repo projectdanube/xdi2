@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import xdi2.core.Graph;
@@ -20,7 +19,7 @@ public abstract class AbstractXDIReader implements XDIReader {
 
 	private static final long serialVersionUID = -3924954880534200486L;
 
-	public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
 	protected Properties parameters;
 

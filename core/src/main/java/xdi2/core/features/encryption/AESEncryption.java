@@ -1,6 +1,6 @@
 package xdi2.core.features.encryption;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
@@ -100,7 +100,7 @@ public final class AESEncryption extends Encryption<SecretKey, SecretKey> {
 
 		try {
 
-			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoEncryptionsCopyStrategy()).getBytes(StandardCharsets.UTF_8);
+			normalizedSerialization = Normalization.serialize(this.getBaseContextNode(), new NoEncryptionsCopyStrategy()).getBytes(Charset.forName("UTF-8"));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -113,7 +113,7 @@ public final class AESEncryption extends Encryption<SecretKey, SecretKey> {
 
 		byte[] bytes = cipher.doFinal(normalizedSerialization);
 
-		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(bytes), StandardCharsets.UTF_8));
+		this.getXdiAttribute().setLiteralString(new String(Base64.encodeBase64(bytes), Charset.forName("UTF-8")));
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public final class AESEncryption extends Encryption<SecretKey, SecretKey> {
 		String literalString = literalNode.getLiteralDataString();
 		if (literalString == null) throw new GeneralSecurityException("No encryption literal string.");
 
-		byte[] bytes = Base64.decodeBase64(literalString.getBytes(StandardCharsets.UTF_8));
+		byte[] bytes = Base64.decodeBase64(literalString.getBytes(Charset.forName("UTF-8")));
 
 		String transformation = this.getTransformation();
 
@@ -138,7 +138,7 @@ public final class AESEncryption extends Encryption<SecretKey, SecretKey> {
 
 		try {
 
-			tempGraph = Normalization.deserialize(new String(normalizedSerialization, StandardCharsets.UTF_8));
+			tempGraph = Normalization.deserialize(new String(normalizedSerialization, Charset.forName("UTF-8")));
 		} catch (Exception ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);

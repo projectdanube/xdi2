@@ -1,6 +1,5 @@
 package xdi2.core.features;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import xdi2.core.ContextNode;
@@ -33,7 +32,7 @@ public abstract class EncapsulatesContextNode<CONTEXT extends XdiContext<?>> {
 			if (encapsulateMethod == null) return null;
 
 			encapsulatesContextNode = (E) encapsulateMethod.invoke(null, contextNode);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		} catch (Exception ex) {
 
 			encapsulatesContextNode = null;
 		}

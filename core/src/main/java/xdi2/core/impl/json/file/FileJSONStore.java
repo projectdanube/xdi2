@@ -9,7 +9,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -117,7 +117,7 @@ public class FileJSONStore extends AbstractJSONStore implements JSONStore {
 				buffer.append("-");
 			}
 
-			buffer.append(Hex.encodeHex(id.getBytes(StandardCharsets.UTF_8)));
+			buffer.append(Hex.encodeHex(id.getBytes(Charset.forName("UTF-8"))));
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new Xdi2RuntimeException(ex.getMessage(), ex);

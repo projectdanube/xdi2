@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -197,14 +197,14 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 				if (encryption instanceof RSAEncryption) {
 
-					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(StandardCharsets.UTF_8)));
+					X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					k = keyFactory.generatePublic(keySpec);
 
 					((RSAEncryption) encryption).encrypt((PublicKey) k);
 				} else if (encryption instanceof AESEncryption) {
 
-					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(StandardCharsets.UTF_8)), "AES");
+					k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 					((AESEncryption) encryption).encrypt((SecretKey) k);
 				}
@@ -221,14 +221,14 @@ public class XDIEncrypter extends javax.servlet.http.HttpServlet implements java
 
 					if (encryption instanceof RSAEncryption) {
 
-						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(StandardCharsets.UTF_8)));
+						PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))));
 						KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 						k = keyFactory.generatePrivate(keySpec);
 
 						((RSAEncryption) encryption).decrypt((PrivateKey) k);
 					} else if (encryption instanceof AESEncryption) {
 
-						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(StandardCharsets.UTF_8)), "AES");
+						k = new SecretKeySpec(Base64.decodeBase64(key.getBytes(Charset.forName("UTF-8"))), "AES");
 
 						((AESEncryption) encryption).decrypt((SecretKey) k);
 					}
