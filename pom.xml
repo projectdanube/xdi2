@@ -148,7 +148,7 @@
 				<version>2.10.3</version>
 				<configuration>
 					<notimestamp>true</notimestamp>
-					<source>1.7</source>
+					<source>1.6</source>
 					<doclet>org.jboss.apiviz.APIviz</doclet>
 					<docletArtifact>
 						<groupId>org.jboss.apiviz</groupId>
