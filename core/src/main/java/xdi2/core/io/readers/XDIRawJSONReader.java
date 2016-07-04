@@ -113,28 +113,6 @@ public class XDIRawJSONReader extends AbstractXDIReader {
 		}
 	}
 
-	/*	private static XDIArc jsonContentId(JsonElement jsonElement) {
-
-		try {
-
-			String canonicalJson = gson.toJson(jsonElement);
-			if (log.isDebugEnabled()) log.debug("canonical JSON: " + canonicalJson);
-
-			MessageDigest digest;
-
-			digest = MessageDigest.getInstance("SHA-512");
-			digest.update(canonicalJson.getBytes(StandardCharsets.UTF_8));
-
-			String jsonContentId = new String(Base64.encodeBase64URLSafe(digest.digest()), StandardCharsets.UTF_8);
-			if (log.isDebugEnabled()) log.debug("json_content_id: " + jsonContentId);
-
-			return XDIArc.create(XDIConstants.CS_BANG + jsonContentId);
-		} catch (Exception ex) {
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
-	}*/
-
 	public void read(Graph graph, JsonObject jsonObject) {
 
 		readJsonObject(XdiAbstractContext.fromContextNode(graph.getRootContextNode(false)), jsonObject);
