@@ -3,15 +3,16 @@ package xdi2.client.manipulator.impl;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.impl.ManipulationContext;
 import xdi2.client.manipulator.MessageManipulator;
+import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
 
 public class SetParameterMessageManipulator extends AbstractMessageManipulator implements MessageManipulator {
 
 	private XDIAddress parameterAddress;
-	private Object parameterValue;
+	private String parameterValue;
 
-	public SetParameterMessageManipulator(XDIAddress parameterAddress, Object parameterValue) {
+	public SetParameterMessageManipulator(XDIAddress parameterAddress, String parameterValue) {
 
 		this.parameterAddress = parameterAddress;
 		this.parameterValue = parameterValue;
@@ -28,7 +29,7 @@ public class SetParameterMessageManipulator extends AbstractMessageManipulator i
 
 		if (this.getParameterAddress() != null && this.getParameterValue() != null) {
 
-			message.setParameter(this.getParameterAddress(), this.getParameterValue());
+			message.setParameter(this.getParameterAddress(), AbstractLiteralNode.stringToLiteralData(this.getParameterValue()));
 		}
 	}
 
@@ -46,12 +47,12 @@ public class SetParameterMessageManipulator extends AbstractMessageManipulator i
 		this.parameterAddress = parameterAddress;
 	}
 
-	public Object getParameterValue() {
+	public String getParameterValue() {
 
 		return this.parameterValue;
 	}
 
-	public void setParameterValue(Object parameterValue) {
+	public void setParameterValue(String parameterValue) {
 
 		this.parameterValue = parameterValue;
 	}
