@@ -47,59 +47,59 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	 */
 
 	@Override
-	public ContributorResult executeOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute on address
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (GetOperation) operation, operationResultGraph, executionContext);
+			return this.executeGetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (GetOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof SetOperation)
-			return this.executeSetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (SetOperation) operation, operationResultGraph, executionContext);
+			return this.executeSetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (SetOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (DelOperation) operation, operationResultGraph, executionContext);
+			return this.executeDelOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
-			return this.executeDoOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (DoOperation) operation, operationResultGraph, executionContext);
+			return this.executeDoOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (DoOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof ConnectOperation)
-			return this.executeConnectOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (ConnectOperation) operation, operationResultGraph, executionContext);
+			return this.executeConnectOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (ConnectOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof SendOperation)
-			return this.executeSendOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (SendOperation) operation, operationResultGraph, executionContext);
+			return this.executeSendOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (SendOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof PushOperation)
-			return this.executePushOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, (PushOperation) operation, operationResultGraph, executionContext);
+			return this.executePushOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, (PushOperation) operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public ContributorResult executeGetOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeSetOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDelOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDoOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeConnectOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeConnectOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeSendOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSendOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executePushOnAddress(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetAddress, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executePushOnAddress(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIAddress relativeTargetXDIAddress, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
@@ -109,108 +109,108 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	 */
 
 	@Override
-	public ContributorResult executeOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// execute on statement
 
 		if (operation instanceof GetOperation)
-			return this.executeGetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (GetOperation) operation, operationResultGraph, executionContext);
+			return this.executeGetOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (GetOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof SetOperation)
-			return this.executeSetOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (SetOperation) operation, operationResultGraph, executionContext);
+			return this.executeSetOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (SetOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DelOperation)
-			return this.executeDelOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (DelOperation) operation, operationResultGraph, executionContext);
+			return this.executeDelOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (DelOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof DoOperation)
-			return this.executeDoOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (DoOperation) operation, operationResultGraph, executionContext);
+			return this.executeDoOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (DoOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof ConnectOperation)
-			return this.executeConnectOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (ConnectOperation) operation, operationResultGraph, executionContext);
+			return this.executeConnectOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (ConnectOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof SendOperation)
-			return this.executeSendOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (SendOperation) operation, operationResultGraph, executionContext);
+			return this.executeSendOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (SendOperation) operation, operationResultGraph, executionContext);
 		else if (operation instanceof PushOperation)
-			return this.executePushOnStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, (PushOperation) operation, operationResultGraph, executionContext);
+			return this.executePushOnStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, (PushOperation) operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Unknown operation: " + operation.getOperationXDIAddress(), null, executionContext);
 	}
 
-	public ContributorResult executeGetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeGetOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeGetOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeGetOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeGetOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeGetOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeGetOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executeSetOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeSetOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSetOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeSetOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSetOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeSetOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSetOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executeDelOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeDelOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDelOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeDelOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDelOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeDelOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDelOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executeDoOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeDoOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDoOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeDoOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDoOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeDoOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeDoOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executeConnectOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeConnectOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeConnectOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeConnectOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeConnectOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeConnectOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeConnectOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeConnectOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executeSendOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSendOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executeSendOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSendOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executeSendOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSendOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executeSendOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executeSendOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
 
-	public ContributorResult executePushOnStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executePushOnStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (relativeTargetStatement.isContextNodeStatement())
-			return this.executePushOnContextNodeStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executePushOnContextNodeStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isRelationStatement())
-			return this.executePushOnRelationStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executePushOnRelationStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else if (relativeTargetStatement.isLiteralStatement())
-			return this.executePushOnLiteralStatement(contributorAddresses, contributorsAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
+			return this.executePushOnLiteralStatement(contributorXDIAddresses, contributorsXDIAddress, relativeTargetStatement, operation, operationResultGraph, executionContext);
 		else
 			throw new Xdi2MessagingException("Invalid statement: " + relativeTargetStatement, null, executionContext);
 	}
@@ -219,50 +219,50 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	 * Operations on context node statements
 	 */
 
-	public ContributorResult executeGetOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress relativeTargetAddress = relativeTargetStatement.getContextNodeXDIAddress();
-		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
+		XDIAddress relativeTargetXDIAddress = relativeTargetStatement.getContextNodeXDIAddress();
+		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsXDIAddress, relativeTargetStatement);
 
 		Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		ContributorResult contributorResult = this.executeGetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, operation, tempResultGraph, executionContext);
+		ContributorResult contributorResult = this.executeGetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, operation, tempResultGraph, executionContext);
 
 		new GraphContextHandler(tempResultGraph).executeGetOnContextNodeStatement(targetStatement, operation, operationResultGraph, executionContext);
 
 		return contributorResult;
 	}
 
-	public ContributorResult executeSetOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress relativeTargetAddress = XDIAddressUtil.concatXDIAddresses(relativeTargetStatement.getContextNodeXDIAddress(), relativeTargetStatement.getContextNodeXDIArc());
+		XDIAddress relativeTargetXDIAddress = XDIAddressUtil.concatXDIAddresses(relativeTargetStatement.getContextNodeXDIAddress(), relativeTargetStatement.getContextNodeXDIArc());
 
-		return this.executeSetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, operation, operationResultGraph, executionContext);
+		return this.executeSetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, operation, operationResultGraph, executionContext);
 	}
 
-	public ContributorResult executeDelOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress relativeTargetAddress = XDIAddressUtil.concatXDIAddresses(relativeTargetStatement.getContextNodeXDIAddress(), relativeTargetStatement.getContextNodeXDIArc());
+		XDIAddress relativeTargetXDIAddress = XDIAddressUtil.concatXDIAddresses(relativeTargetStatement.getContextNodeXDIAddress(), relativeTargetStatement.getContextNodeXDIArc());
 
-		return this.executeDelOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, operation, operationResultGraph, executionContext);
+		return this.executeDelOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, operation, operationResultGraph, executionContext);
 	}
 
-	public ContributorResult executeDoOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeConnectOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeConnectOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeSendOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSendOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executePushOnContextNodeStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executePushOnContextNodeStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
@@ -271,46 +271,46 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	 * Operations on relation statements
 	 */
 
-	public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress relativeTargetAddress = relativeTargetStatement.getContextNodeXDIAddress();
-		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
+		XDIAddress relativeTargetXDIAddress = relativeTargetStatement.getContextNodeXDIAddress();
+		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsXDIAddress, relativeTargetStatement);
 
 		Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		ContributorResult contributorResult = this.executeGetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, operation, tempResultGraph, executionContext);
+		ContributorResult contributorResult = this.executeGetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, operation, tempResultGraph, executionContext);
 
 		new GraphContextHandler(tempResultGraph).executeGetOnRelationStatement(targetStatement, operation, operationResultGraph, executionContext);
 
 		return contributorResult;
 	}
 
-	public ContributorResult executeSetOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDelOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDoOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeConnectOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeConnectOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeSendOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSendOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executePushOnRelationStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executePushOnRelationStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
@@ -319,46 +319,46 @@ public abstract class AbstractContributor extends AbstractExtension<MessagingTar
 	 * Operations on literal statements
 	 */
 
-	public ContributorResult executeGetOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeGetOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, GetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		XDIAddress relativeTargetAddress = relativeTargetStatement.getContextNodeXDIAddress();
-		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsAddress, relativeTargetStatement);
+		XDIAddress relativeTargetXDIAddress = relativeTargetStatement.getContextNodeXDIAddress();
+		XDIStatement targetStatement = XDIStatementUtil.concatXDIStatement(contributorsXDIAddress, relativeTargetStatement);
 
 		Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		ContributorResult contributorResult = this.executeGetOnAddress(contributorAddresses, contributorsAddress, relativeTargetAddress, operation, tempResultGraph, executionContext);
+		ContributorResult contributorResult = this.executeGetOnAddress(contributorXDIAddresses, contributorsXDIAddress, relativeTargetXDIAddress, operation, tempResultGraph, executionContext);
 
 		new GraphContextHandler(tempResultGraph).executeGetOnLiteralStatement(targetStatement, operation, operationResultGraph, executionContext);
 
 		return contributorResult;
 	}
 
-	public ContributorResult executeSetOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSetOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SetOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDelOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDelOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DelOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeDoOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeDoOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, DoOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeConnectOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeConnectOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executeSendOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executeSendOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, SendOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
 
-	public ContributorResult executePushOnLiteralStatement(XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public ContributorResult executePushOnLiteralStatement(XDIAddress[] contributorXDIAddresses, XDIAddress contributorsXDIAddress, XDIStatement relativeTargetStatement, PushOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return ContributorResult.DEFAULT;
 	}
