@@ -11,6 +11,8 @@ Known default HTTP ports of various XDI2 (and -related) projects.
 9092: xdi2-connector-personal
 9093: xdi2-connector-allfiled
 9094: xdi2-connector-google-calendar
+9095: xdi2-connector-meeco
+9096: xdi2-connector-cozy
 9990: xdi2-zephyr
 9991: xdi2-redis
 9992: xdi2-mongodb
