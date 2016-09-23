@@ -20,13 +20,14 @@ import com.google.gson.JsonPrimitive;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.LiteralNode;
+import xdi2.core.Literal;
+import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.exceptions.Xdi2ParseException;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiContext;
-import xdi2.core.impl.AbstractLiteralNode;
+import xdi2.core.impl.AbstractLiteral;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.readers.XDIJXDReader.Mapping.Term;
@@ -194,13 +195,13 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 				// literal
 
-				Object literalData = AbstractLiteralNode.jsonElementToLiteralData(entryJsonElement);
+				Object literalData = AbstractLiteral.jsonElementToLiteralData(entryJsonElement);
 
-				LiteralNode literalNode = contextNode.setDeepContextNode(entryId).setLiteralNode(literalData);
+				Literal literal  = contextNode.setDeepContextNode(entryId).setContextNode(XDIConstants.XDI_ARC_VALUE).setLiteral(literalData);
 
 				if (entryType != null && ! JXD_ID.equals(entryType.toString()) && ! JXD_GRAPH.equals(entryType.toString())) {
 
-					Dictionary.setContextNodeType(literalNode.getContextNode(), entryType);
+					Dictionary.setContextNodeType(literal .getContextNode(), entryType);
 				}
 			}
 		}

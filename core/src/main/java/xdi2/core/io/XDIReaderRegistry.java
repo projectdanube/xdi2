@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import xdi2.core.io.readers.AutoReader;
 import xdi2.core.io.readers.XDIDisplayReader;
 import xdi2.core.io.readers.XDIJSONReader;
+import xdi2.core.io.readers.XDIJXDReader;
 import xdi2.core.io.readers.XDIRawJSONReader;
 
 /**
@@ -28,6 +29,7 @@ public final class XDIReaderRegistry {
 
 		XDIJSONReader.class.getName(),
 		XDIDisplayReader.class.getName(),
+		XDIJXDReader.class.getName(),
 		XDIRawJSONReader.class.getName()
 	};
 

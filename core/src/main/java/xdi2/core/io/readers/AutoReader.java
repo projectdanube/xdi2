@@ -38,7 +38,8 @@ public class AutoReader extends AbstractXDIReader {
 	private static String readerClassNames[] = {
 
 		XDIJSONReader.class.getName(),
-		XDIDisplayReader.class.getName()
+		XDIDisplayReader.class.getName(),
+		XDIJXDReader.class.getName()
 	};
 
 	private static List<XDIReader> readers;
