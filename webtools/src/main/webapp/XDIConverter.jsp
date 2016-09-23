@@ -44,7 +44,7 @@
 		<option value="XDI/JSON" <%= from.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
 		<option value="XDI DISPLAY" <%= from.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		<option value="XDI/JSON/QUAD" <%= from.equals("XDI/JSON/QUAD") ? "selected" : "" %>>XDI/JSON/QUAD</option>
-		<option value="JSON-XD" <%= from.equals("JSON-XD") ? "selected" : "" %>>JSON-XD</option>
+		<option value="JXD" <%= from.equals("JXD") ? "selected" : "" %>>JXD</option>
 		<option value="RAW JSON" <%= from.equals("RAW JSON") ? "selected" : "" %>>RAW JSON</option>
 		</select>
 		to:
