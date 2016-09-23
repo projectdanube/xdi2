@@ -1,1 +1,10 @@
-=markus<#email>/&/"markus@projectdanube.org"
+{
+  "@xdi": {
+    "name": "<#name>",
+    "email": "<#email>"
+  },
+  "@id": "=markus",
+  "name": "Markus Sabadello",
+  "email": "markus@danubetech.com"
+}
+

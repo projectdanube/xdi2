@@ -25,6 +25,8 @@ import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
 import xdi2.core.io.readers.AutoReader;
+import xdi2.core.io.readers.XDIJXDReader;
+import xdi2.core.io.writers.XDIDisplayWriter;
 import xdi2.core.io.writers.XDIRDFJSONLDWriter;
 import xdi2.core.io.writers.XDIRDFTriGWriter;
 import xdi2.webtools.util.OutputCache;
@@ -95,10 +97,11 @@ public class XDIConverter extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
-		request.setAttribute("resultFormat", XDIWriterRegistry.getDefault().getFormat());
+		request.setAttribute("resultFormat", XDIDisplayWriter.FORMAT_NAME);
 		request.setAttribute("writeImplied", null);
 		request.setAttribute("writeOrdered", "on");
 		request.setAttribute("writePretty", null);
+		request.setAttribute("from", XDIJXDReader.FORMAT_NAME);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 
