@@ -40,6 +40,7 @@
 		<option value="AUTO" <%= from.equals("AUTO") ? "selected" : "" %>>auto-detect</option>
 		<option value="XDI/JSON" <%= from.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
 		<option value="XDI DISPLAY" <%= from.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
+		<option value="JXD" <%= from.equals("JXD") ? "selected" : "" %>>JXD</option>
 		</select>
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIValidatorHelp.jsp">What can I do here?</a>

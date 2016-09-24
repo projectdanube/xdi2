@@ -1,3 +1,9 @@
-=markus/#friend/=drummond
-=markus<#email>&/&/"markus.sabadello@gmail.com"
-=markus<#name>&/&/"Markus Sabadello"
+{
+  "@xdi": {
+    "name": "<#name>",
+    "email": "<#email>"
+  },
+  "@id": "=markus",
+  "name": "Markus Sabadello",
+  "email": "markus@danubetech.com"
+}

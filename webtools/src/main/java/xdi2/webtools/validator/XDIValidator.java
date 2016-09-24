@@ -19,6 +19,7 @@ import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.readers.AutoReader;
+import xdi2.core.io.readers.XDIJXDReader;
 
 /**
  * Servlet implementation class for Servlet: XDIValidator
@@ -75,6 +76,7 @@ public class XDIValidator extends javax.servlet.http.HttpServlet implements java
 		String sample = request.getParameter("sample");
 		if (sample == null) sample = "1";
 
+		request.setAttribute("from", XDIJXDReader.FORMAT_NAME);
 		request.setAttribute("sampleInputs", Integer.valueOf(sampleInputs.size()));
 		request.setAttribute("input", sampleInputs.get(Integer.parseInt(sample) - 1));
 
