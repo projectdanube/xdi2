@@ -3,8 +3,6 @@ package xdi2.core.io.readers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -29,7 +27,8 @@ import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.io.AbstractXDIReader;
 import xdi2.core.io.MimeType;
-import xdi2.core.io.readers.XDIJXDReader.Mapping.Term;
+import xdi2.core.io.util.JXDConstants;
+import xdi2.core.io.util.JXDMapping;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.parser.ParserException;
 
@@ -43,11 +42,6 @@ public class XDIJXDReader extends AbstractXDIReader {
 	public static final String FILE_EXTENSION = "jxd";
 	public static final MimeType MIME_TYPE = null;
 
-	public static final String JXD_MAPPING = "@xdi";
-	public static final String JXD_ID = "@id";
-	public static final String JXD_TYPE = "@type";
-	public static final String JXD_GRAPH = "@graph";
-
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
 	public XDIJXDReader(Properties parameters) {
@@ -60,32 +54,32 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 	}
 
-	public void read(ContextNode contextNode, JsonObject jsonGraphObject, Mapping mapping, State state) throws IOException, Xdi2ParseException {
+	public void read(ContextNode contextNode, JsonObject jsonGraphObject, JXDMapping mapping, State state) throws IOException, Xdi2ParseException {
 
 		// read mapping
 
-		JsonObject jsonObjectMapping = jsonGraphObject.getAsJsonObject(JXD_MAPPING);
+		JsonObject jsonObjectMapping = jsonGraphObject.getAsJsonObject(JXDConstants.JXD_MAPPING);
 
 		if (jsonObjectMapping == null) {
 
 			if (mapping == null) {
 
-				mapping = Mapping.empty();
+				mapping = JXDMapping.empty();
 			}
 		} else {
 
 			if (mapping == null) {
 
-				mapping = Mapping.create(jsonObjectMapping);
+				mapping = JXDMapping.create(jsonObjectMapping);
 			} else if (jsonObjectMapping != null) {
 
-				mapping = Mapping.add(mapping, jsonObjectMapping);
+				mapping = JXDMapping.add(mapping, jsonObjectMapping);
 			}
 		}
 
 		// read id
 
-		XDIAddress id = jsonGraphObject.has(JXD_ID) ? makeXDIAddress(jsonGraphObject.get(JXD_ID).getAsString(), state) : null;
+		XDIAddress id = jsonGraphObject.has(JXDConstants.JXD_ID) ? makeXDIAddress(jsonGraphObject.get(JXDConstants.JXD_ID).getAsString(), state) : null;
 
 		if (id != null) {
 
@@ -96,12 +90,12 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 		XDIAddress type = null;
 
-		String typeString = jsonGraphObject.has(JXD_TYPE) ? jsonGraphObject.get(JXD_TYPE).getAsString() : null;
-		Term typeTerm = typeString == null ? null : mapping.getTerm(typeString);
+		String typeString = jsonGraphObject.has(JXDConstants.JXD_TYPE) ? jsonGraphObject.get(JXDConstants.JXD_TYPE).getAsString() : null;
+		JXDMapping.JXDTerm typeTerm = typeString == null ? null : mapping.getTerm(typeString);
 		if (typeTerm != null && typeTerm.getId() != null) type = typeTerm.getId();
 		else if (typeString != null) type = makeXDIAddress(typeString, state);
 
-		if (type != null && ! JXD_ID.equals(type.toString()) && ! JXD_GRAPH.equals(type.toString())) {
+		if (type != null && ! JXDConstants.JXD_ID.equals(type.toString()) && ! JXDConstants.JXD_GRAPH.equals(type.toString())) {
 
 			Dictionary.setContextNodeType(contextNode, type);
 		}
@@ -113,13 +107,13 @@ public class XDIJXDReader extends AbstractXDIReader {
 			String entryString = entry.getKey();
 			JsonElement entryJsonElement = entry.getValue();
 
-			if (JXD_MAPPING.equals(entryString)) continue;
-			if (JXD_ID.equals(entryString)) continue;
-			if (JXD_TYPE.equals(entryString)) continue;
+			if (JXDConstants.JXD_MAPPING.equals(entryString)) continue;
+			if (JXDConstants.JXD_ID.equals(entryString)) continue;
+			if (JXDConstants.JXD_TYPE.equals(entryString)) continue;
 
 			// look up entry term
 
-			Term entryTerm = mapping.getTerm(entryString);
+			JXDMapping.JXDTerm entryTerm = mapping.getTerm(entryString);
 
 			// read entry id
 
@@ -138,15 +132,15 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 				JsonObject entryJsonObject = (JsonObject) entryJsonElement;
 
-				String entryTypeString = entryJsonObject.has(JXD_TYPE) ? entryJsonObject.get(JXD_TYPE).getAsString() : null;
-				Term entryTypeTerm = entryTypeString == null ? null : mapping.getTerm(entryTypeString);
+				String entryTypeString = entryJsonObject.has(JXDConstants.JXD_TYPE) ? entryJsonObject.get(JXDConstants.JXD_TYPE).getAsString() : null;
+				JXDMapping.JXDTerm entryTypeTerm = entryTypeString == null ? null : mapping.getTerm(entryTypeString);
 				if (entryTypeTerm != null && entryTypeTerm.getId() != null) type = entryTypeTerm.getId();
 				else if (entryTypeString != null) entryType = makeXDIAddress(entryTypeString, state);
 			}
 
 			// context or relation or inner root or literal?
 
-			if (entryType != null && JXD_GRAPH.equals(entryType.toString())) {
+			if (entryType != null && JXDConstants.JXD_GRAPH.equals(entryType.toString())) {
 
 				// inner root
 
@@ -157,7 +151,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 					this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
 				}
-			} else if ((entryType != null && JXD_ID.equals(entryType.toString())) || entryType != null) {
+			} else if ((entryType != null && JXDConstants.JXD_ID.equals(entryType.toString())) || entryType != null) {
 
 				if (entryJsonElement instanceof JsonPrimitive && ((JsonPrimitive) entryJsonElement).isString()) {
 
@@ -198,7 +192,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 				LiteralNode literalNode = contextNode.setDeepContextNode(entryId).setLiteralNode(literalData);
 
-				if (entryType != null && ! JXD_ID.equals(entryType.toString()) && ! JXD_GRAPH.equals(entryType.toString())) {
+				if (entryType != null && ! JXDConstants.JXD_ID.equals(entryType.toString()) && ! JXDConstants.JXD_GRAPH.equals(entryType.toString())) {
 
 					Dictionary.setContextNodeType(literalNode.getContextNode(), entryType);
 				}
@@ -255,108 +249,5 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 		state.lastString = addressString;
 		return XDIAddress.create(addressString);
-	}
-
-	public static class Mapping {
-
-		private Map<String, Term> terms;
-
-		public Mapping(Map<String, Term> terms) {
-
-			this.terms = terms;
-		}
-
-		public static Mapping empty() {
-
-			Mapping mapping = new Mapping(new HashMap<String, Term> ());
-
-			return mapping;
-		}
-
-		public static Mapping create(JsonObject jsonObjectMapping) {
-
-			Mapping mapping = new Mapping(new HashMap<String, Term> ());
-			mapping.add(jsonObjectMapping);
-
-			return mapping;
-		}
-
-		public static Mapping add(Mapping baseContext, JsonObject jsonObjectMapping) {
-
-			Mapping mapping = new Mapping(baseContext.terms);
-			mapping.add(jsonObjectMapping);
-
-			return mapping;
-		}
-
-		public void add(JsonObject jsonObjectMapping) {
-
-			for (Entry<String, JsonElement> entry : jsonObjectMapping.entrySet()) {
-
-				String name = entry.getKey();
-				JsonElement jsonElement = entry.getValue();
-
-				Term term = null;
-
-				if (jsonElement instanceof JsonPrimitive) term = Term.create(name, (JsonPrimitive) jsonElement);
-				if (jsonElement instanceof JsonObject) term = Term.create(name, (JsonObject) jsonElement);
-
-				if (term == null) throw new IllegalArgumentException("Invalid term: " + name);
-
-				this.terms.put(name, term);
-			}
-		}
-
-		public Term getTerm(String name) {
-
-			return this.terms.get(name);
-		}
-
-		public static class Term {
-
-			private String name;
-			private XDIAddress id;
-			private XDIAddress type;
-
-			public Term(String name, XDIAddress id, XDIAddress type) {
-
-				if (name == null) throw new IllegalArgumentException("Term has no name: " + id);
-
-				this.name = name;
-				this.id = id;
-				this.type = type;
-			}
-
-			public static Term create(String name, JsonPrimitive jsonPrimitive) {
-
-				XDIAddress id = XDIAddress.create(jsonPrimitive.getAsString());
-				XDIAddress type = null;
-
-				return new Term(name, id, type);
-			}
-
-			public static Term create(String name, JsonObject jsonObject) {
-
-				XDIAddress id = jsonObject.has(JXD_ID) ? XDIAddress.create(jsonObject.get(JXD_ID).getAsString()) : null;
-				XDIAddress type = jsonObject.has(JXD_TYPE) ? XDIAddress.create(jsonObject.get(JXD_TYPE).getAsString()) : null;
-
-				return new Term(name, id, type);
-			}
-
-			public String getName() {
-
-				return this.name;
-			}
-
-			public XDIAddress getId() {
-
-				return this.id;
-			}
-
-			public XDIAddress getType() {
-
-				return this.type;
-			}
-		}
 	}
 }
