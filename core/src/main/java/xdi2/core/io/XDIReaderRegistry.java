@@ -31,8 +31,8 @@ public final class XDIReaderRegistry {
 
 		XDIJSONQuadReader.class.getName(),
 		XDIDisplayReader.class.getName(),
-		XDIJSONReader.class.getName(),
 		XDIJXDReader.class.getName(),
+		XDIJSONReader.class.getName(),
 		XDIRawJSONReader.class.getName()
 	};
 

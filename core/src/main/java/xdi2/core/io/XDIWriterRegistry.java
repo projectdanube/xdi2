@@ -18,6 +18,7 @@ import xdi2.core.io.writers.XDIJSONQuadWriter;
 import xdi2.core.io.writers.XDIJSONTREEWriter;
 import xdi2.core.io.writers.XDIJSONTripleWriter;
 import xdi2.core.io.writers.XDIJSONWriter;
+import xdi2.core.io.writers.XDIJXDWriter;
 import xdi2.core.io.writers.XDIKeyValueWriter;
 
 /**
@@ -47,6 +48,7 @@ public final class XDIWriterRegistry {
 
 		XDIJSONQuadWriter.class.getName(),// first one in the array is the default
 		XDIDisplayWriter.class.getName(),
+		XDIJXDWriter.class.getName(),
 		XDIJSONWriter.class.getName(),
 		XDIJSONTREEWriter.class.getName(),
 		XDIJSONPARSEWriter.class.getName(),

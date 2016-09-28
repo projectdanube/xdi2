@@ -38,7 +38,7 @@
 
 	<h2>Formats</h2>
 
-	<p><b>XDI/JSON</b><br>
+	<p><b>JXD</b><br>
 	JSON serialization of an XDI graph (default format).</p>
 
 	<p><b>XDI DISPLAY</b><br>
