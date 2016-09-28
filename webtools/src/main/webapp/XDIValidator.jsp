@@ -34,13 +34,23 @@
 		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
+	<% } %>
+
+	<form action="XDIValidator" method="post" accept-charset="UTF-8">
+
+		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
+
+		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
+		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
+
 		<p>
 		Validate:
 		<select name="from">
 		<option value="AUTO" <%= from.equals("AUTO") ? "selected" : "" %>>auto-detect</option>
-		<option value="XDI/JSON" <%= from.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
-		<option value="XDI DISPLAY" <%= from.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
 		<option value="JXD" <%= from.equals("JXD") ? "selected" : "" %>>JXD</option>
+		<option value="XDI DISPLAY" <%= from.equals("XDI DISPLAY") ? "selected" : "" %>>XDI DISPLAY</option>
+		<option value="XDI/JSON" <%= from.equals("XDI/JSON") ? "selected" : "" %>>XDI/JSON</option>
+		<option value="XDI/JSON/QUAD" <%= from.equals("XDI/JSON/QUAD") ? "selected" : "" %>>XDI/JSON/QUAD</option>
 		</select>
 		<input type="submit" value="Go!">
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="XDIValidatorHelp.jsp">What can I do here?</a>
