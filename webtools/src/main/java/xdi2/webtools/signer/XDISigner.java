@@ -246,7 +246,7 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 			// output the normalized serialization
 
-			output2 = Signature.getNormalizedSerialization(contextNode);
+			output2 = Signatures.getNormalizedSerialization(contextNode);
 		} catch (Exception ex) {
 
 			log.error(ex.getMessage(), ex);

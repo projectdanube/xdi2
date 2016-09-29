@@ -6,7 +6,6 @@ import junit.framework.TestCase;
 import xdi2.core.xri3.XDI3Segment;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.DigestSecretTokenAuthenticator;
 import xdi2.messaging.target.interceptor.impl.authentication.secrettoken.StaticSecretTokenAuthenticator;
 
 public class AuthenticationSecretTokenInterceptorTest extends TestCase {
@@ -23,42 +22,6 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 
 	public static XDI3Segment SENDER_XRI = XDI3Segment.create("=sender");
 
-	public void testDigestSecretTokenAuthenticatorWithChosenLocalSalt() throws Exception {
-
-		String localSaltAndDigestSecretToken = DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT, LOCAL_SALT);
-		assertEquals(localSaltAndDigestSecretToken, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN);
-
-		String digestSecretToken = DigestSecretTokenAuthenticator.digestSecretToken(SECRET_TOKEN, GLOBAL_SALT, LOCAL_SALT);
-		assertEquals(digestSecretToken, DIGEST_SECRET_TOKEN);
-
-		String[] parts = localSaltAndDigestSecretToken.split(":");
-		assertEquals(parts.length, 3);
-		assertEquals(parts[0], "xdi2-digest");
-		assertEquals(parts[1], LOCAL_SALT);
-		assertEquals(parts[2], DIGEST_SECRET_TOKEN);
-	}
-
-	public void testDigestSecretTokenAuthenticatorWithRandomLocalSalt() throws Exception {
-
-		String localSaltAndDigestSecretToken = DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT);
-
-		String[] parts = localSaltAndDigestSecretToken.split(":");
-		assertEquals(parts.length, 3);
-		assertEquals(parts[0], "xdi2-digest");
-
-		String localSalt = parts[1];
-		String digestSecretToken = parts[2];
-
-		assertEquals(localSaltAndDigestSecretToken, DigestSecretTokenAuthenticator.localSaltAndDigestSecretToken(SECRET_TOKEN, GLOBAL_SALT, localSalt));
-		assertEquals(digestSecretToken, DigestSecretTokenAuthenticator.digestSecretToken(SECRET_TOKEN, GLOBAL_SALT, localSalt)); 
-	}
-
-	public void testValidSalts() throws Exception {
-
-		for (String salt : VALID_SALTS) assertTrue(DigestSecretTokenAuthenticator.isValidSalt(salt));
-		for (String salt : INVALID_SALTS) assertFalse(DigestSecretTokenAuthenticator.isValidSalt(salt));
-	}
-
 	public void testStaticSecretTokenAuthenticator() throws Exception {
 
 		StaticSecretTokenAuthenticator staticSecretTokenAuthenticator = new StaticSecretTokenAuthenticator();
@@ -66,7 +29,8 @@ public class AuthenticationSecretTokenInterceptorTest extends TestCase {
 		staticSecretTokenAuthenticator.setLocalSaltAndDigestSecretTokens(Collections.singletonMap(SENDER_XRI, LOCAL_SALT_AND_DIGEST_SECRET_TOKEN));
 
 		Message message = new MessageEnvelope().createMessage(SENDER_XRI);
+		message.setSecretToken(SECRET_TOKEN);
 
-		assertTrue(staticSecretTokenAuthenticator.authenticate(message, SECRET_TOKEN));
+		assertTrue(staticSecretTokenAuthenticator.authenticate(message, message.getSecretToken()));
 	}
 }

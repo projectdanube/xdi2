@@ -392,18 +392,4 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingTarget> i
 
 		this.bootstrapMessageEnvelope = bootstrapMessageEnvelope;
 	}
-
-	public static void main(String[] args) {
-
-		Graph g = MemoryGraphFactory.getInstance().openGraph();
-		g.setStatement(XDI3Statement.create("{$self}$to$anon$from$public$do/$get/({$self}$msg$encrypt$keypair/$is+/{})"));
-		Graph g2 = MemoryGraphFactory.getInstance().openGraph();
-
-		BootstrapInterceptor b = new BootstrapInterceptor();
-		b.setBootstrapOwner(XDI3Segment.create("[=]!1111"));
-
-		CopyUtil.copyGraph(g, g2, b.replaceSelfVariableCopyStrategy);
-
-		System.out.println(g2.toString("XDI DISPLAY", null));
-	}
 }

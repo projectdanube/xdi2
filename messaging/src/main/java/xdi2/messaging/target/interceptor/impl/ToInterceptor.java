@@ -23,6 +23,13 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 
 	private static Logger log = LoggerFactory.getLogger(ToInterceptor.class.getName());
 
+	private XDI3SubSegment defaultToPeerRootXri;
+
+	public ToInterceptor() {
+
+		this.defaultToPeerRootXri = null;
+	}
+
 	/*
 	 * Prototype
 	 */
@@ -48,6 +55,8 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 		XDI3SubSegment ownerPeerRootXri = messagingTarget.getOwnerPeerRootXri();
 		XDI3SubSegment toPeerRootXri = message.getToPeerRootXri();
 
+		if (toPeerRootXri == null) toPeerRootXri = this.getDefaultToPeerRootXri();
+
 		if (log.isDebugEnabled()) log.debug("ownerPeerRootXri=" + ownerPeerRootXri + ", toPeerRootXri=" + toPeerRootXri);
 
 		if (toPeerRootXri == null) throw new Xdi2MessagingException("No TO peer root XRI found in message.", null, null);
@@ -63,5 +72,19 @@ public class ToInterceptor extends AbstractInterceptor<MessagingTarget> implemen
 	public InterceptorResult after(Message message, MessageResult messageResult, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		return InterceptorResult.DEFAULT;
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public XDI3SubSegment getDefaultToPeerRootXri() {
+
+		return this.defaultToPeerRootXri;
+	}
+
+	public void setDefaultToPeerRootXri(XDI3SubSegment defaultToPeerRootXri) {
+
+		this.defaultToPeerRootXri = defaultToPeerRootXri;
 	}
 }

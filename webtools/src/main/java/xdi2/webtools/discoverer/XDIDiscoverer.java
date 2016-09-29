@@ -118,6 +118,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 		LoggingTrustManager loggingTrustManager = null;
 
 		long start = System.currentTimeMillis();
+		long startRegistry = 0, stopRegistry = 0, startAuthority = 0, stopAuthority = 0;
 
 		try {
 
@@ -132,7 +133,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			loggingTrustManager = new LoggingTrustManager();
 
+			startRegistry = System.currentTimeMillis();
 			discoveryResultRegistry = discoveryClient.discoverFromRegistry(XDI3Segment.create(input), null);
+			stopRegistry = System.currentTimeMillis();
 
 			// output result from registry
 
@@ -140,7 +143,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (discoveryResultRegistry != null) {
 
-				writer.write("Discovery result from registry:\n\n");
+				writer.write("Discovery result from registry: (" + Long.toString(stopRegistry - startRegistry) + " ms time" + ")\n\n");
 
 				if (loggingTrustManager.getBuffer().length() > 0) {
 					
@@ -200,7 +203,9 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 					try {
 
+						startAuthority = System.currentTimeMillis();
 						discoveryResultAuthority = discoveryClient.discoverFromAuthority(discoveryResultRegistry.getXdiEndpointUri(), discoveryResultRegistry.getCloudNumber(), endpointUriTypes);
+						stopAuthority = System.currentTimeMillis();
 					} catch (Exception ex) {
 
 						exceptionAuthority = ex;
@@ -215,7 +220,7 @@ public class XDIDiscoverer extends javax.servlet.http.HttpServlet implements jav
 
 			if (discoveryResultAuthority != null) {
 
-				writer2.write("Discovery result from authority:\n\n");
+				writer2.write("Discovery result from authority: (" + Long.toString(stopAuthority - startAuthority) + " ms time" + ")\n\n");
 
 				if (loggingTrustManager.getBuffer().length() > 0) {
 					

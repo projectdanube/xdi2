@@ -12,7 +12,6 @@ import junit.framework.TestCase;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.features.signatures.KeyPairSignature;
-import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
 import xdi2.core.features.signatures.SymmetricKeySignature;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -26,18 +25,18 @@ public class SignaturesTest extends TestCase {
 		XDI3Segment xriKeyPair = XDI3Segment.create("$sha$256$rsa$1024");
 		XDI3Segment xriSymmetricKey = XDI3Segment.create("$sha$384$aes$256");
 
-		assertEquals(Signature.getDigestAlgorithm(xriKeyPair), "sha");
-		assertEquals(Signature.getDigestLength(xriKeyPair), Integer.valueOf(256));
-		assertEquals(Signature.getKeyAlgorithm(xriKeyPair), "rsa");
-		assertEquals(Signature.getKeyLength(xriKeyPair), Integer.valueOf(1024));
+		assertEquals(Signatures.getDigestAlgorithm(xriKeyPair), "sha");
+		assertEquals(Signatures.getDigestLength(xriKeyPair), Integer.valueOf(256));
+		assertEquals(Signatures.getKeyAlgorithm(xriKeyPair), "rsa");
+		assertEquals(Signatures.getKeyLength(xriKeyPair), Integer.valueOf(1024));
 
-		assertEquals(Signature.getDigestAlgorithm(xriSymmetricKey), "sha");
-		assertEquals(Signature.getDigestLength(xriSymmetricKey), Integer.valueOf(384));
-		assertEquals(Signature.getKeyAlgorithm(xriSymmetricKey), "aes");
-		assertEquals(Signature.getKeyLength(xriSymmetricKey), Integer.valueOf(256));
+		assertEquals(Signatures.getDigestAlgorithm(xriSymmetricKey), "sha");
+		assertEquals(Signatures.getDigestLength(xriSymmetricKey), Integer.valueOf(384));
+		assertEquals(Signatures.getKeyAlgorithm(xriSymmetricKey), "aes");
+		assertEquals(Signatures.getKeyLength(xriSymmetricKey), Integer.valueOf(256));
 
-		assertEquals(Signature.getDataTypeXri("sha", 256, "rsa", 1024), xriKeyPair);
-		assertEquals(Signature.getDataTypeXri("sha", 384, "aes", 256), xriSymmetricKey);
+		assertEquals(Signatures.getDataTypeXri("sha", 256, "rsa", 1024), xriKeyPair);
+		assertEquals(Signatures.getDataTypeXri("sha", 384, "aes", 256), xriSymmetricKey);
 	}
 
 	public void testSignAndValidateKeyPair() throws Exception {
@@ -122,8 +121,8 @@ public class SignaturesTest extends TestCase {
 
 		String normalizedSerialization = "{\"/\":[\"=animesh\",\"=markus\"],\"=markus/\":[\"<#email>\"],\"=markus<#email>/\":[\"&\"],\"=markus/#friend\":[\"=animesh\"],\"=markus<#email>&/&\":\"markus.sabadello@gmail.com\"}";
 
-		assertEquals(Signature.getNormalizedSerialization(contextNode), normalizedSerialization);
-		
+		assertEquals(Signatures.getNormalizedSerialization(contextNode), normalizedSerialization);
+
 		graph.close();
 	}
 }

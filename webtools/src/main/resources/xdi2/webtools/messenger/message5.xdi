@@ -1,4 +1,4 @@
-[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1/$is()/([=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14)
-[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1/$do/$do
-[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1<$secret><$token>&/&/"alice"
-[=]!:uuid:0707f2ff-4266-9f14-0707-f2ff42669f14[$msg]!1$do/$get/
+[=]!:uuid:1111[$msg]!1/$is()/([=]!:uuid:1111)
+[=]!:uuid:1111[$msg]!1/$do/[=]!:uuid:1111$to[=]!:uuid:1111$from$do
+[=]!:uuid:1111[$msg]!1<$secret><$token>&/&/"alice"
+[=]!:uuid:1111[$msg]!1$do/$get/

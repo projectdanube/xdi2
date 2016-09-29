@@ -301,7 +301,7 @@ public class XDIHttpClient extends XDIAbstractClient implements XDIClient {
 
 			this.fireSendEvent(new XDISendErrorEvent(this, messageEnvelope, errorMessageResult, beginTimestamp, endTimestamp));
 
-			throw new Xdi2ClientException("Error message result: " + errorMessageResult.getErrorString(), null, errorMessageResult);
+			throw new Xdi2ClientException("Error message result (check server logs!): " + errorMessageResult.getErrorString(), null, errorMessageResult);
 		}
 
 		// done
