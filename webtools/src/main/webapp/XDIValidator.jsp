@@ -34,15 +34,6 @@
 		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
 		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
 
-	<% } %>
-
-	<form action="XDIValidator" method="post" accept-charset="UTF-8">
-
-		<textarea class="input" name="input" style="width: 100%" rows="12"><%= request.getAttribute("input") != null ? request.getAttribute("input") : "" %></textarea><br>
-
-		<% String from = (String) request.getAttribute("from"); if (from == null) from = ""; %>
-		<% String to = (String) request.getAttribute("to"); if (to == null) to = ""; %>
-
 		<p>
 		Validate:
 		<select name="from">
