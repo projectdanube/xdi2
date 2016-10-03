@@ -1,3 +1,4 @@
-(=markus/=drummond)$do/$get/=markus<#email>
-(=markus/=drummond)($do$if$and/$true){$from}/$is/=drummond
-(=markus/=drummond)($do$if$and/$true){$msg}<$sig><$valid>/&/true
+=markus[$msg]*!:uuid:1234<$t>/&/"2011-04-10T22:22:22Z"
+(=markus[$msg]*!:uuid:1234$do/$set)=markus<#name>/&/"Markus Sabadello"
+(=markus[$msg]*!:uuid:1234$do/$set)=markus<#email>/&/"markus@danubetech.com"
+(=markus[$msg]*!:uuid:1234$do/$set)=markus/#friend/=drummond
