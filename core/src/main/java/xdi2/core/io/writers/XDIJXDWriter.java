@@ -268,10 +268,12 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs())) return null;
 			if (XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) return null;
-			if (! XDIarc.hasLiteral()) return null;
+			if (XDIarc.hasXRef()) return null;
 
-			termName.append(XDIarc.getLiteral());
+			if (XDIarc.hasLiteral()) termName.append(XDIarc.getLiteral());
 		}
+
+		if (termName.length() == 0) return null;
 
 		return termName.toString();
 	}
