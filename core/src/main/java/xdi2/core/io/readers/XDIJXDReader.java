@@ -73,7 +73,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 				mapping = JXDMapping.create(jsonObjectMapping);
 			} else if (jsonObjectMapping != null) {
 
-				mapping = JXDMapping.add(mapping, jsonObjectMapping);
+				mapping = JXDMapping.merge(mapping, jsonObjectMapping);
 			}
 		}
 

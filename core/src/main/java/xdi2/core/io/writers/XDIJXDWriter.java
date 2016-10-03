@@ -15,12 +15,23 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
+import xdi2.core.constants.XDIConstants;
+import xdi2.core.features.nodetypes.XdiAbstractAttribute;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
+import xdi2.core.features.nodetypes.XdiAttributeCollection;
+import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.impl.AbstractLiteralNode;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.io.AbstractXDIWriter;
 import xdi2.core.io.MimeType;
 import xdi2.core.io.util.JXDConstants;
+import xdi2.core.io.util.JXDMapping;
+import xdi2.core.io.util.JXDMapping.JXDTerm;
+import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.XDIAddressUtil;
 
 public class XDIJXDWriter extends AbstractXDIWriter {
 
@@ -41,12 +52,25 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		// start with the common root node
 
-		for (ContextNode contextNode : graph.getRootContextNode().getContextNodes()) {
+		for (ContextNode childContextNode : graph.getRootContextNode().getContextNodes()) {
+
+			if (! includeContextNode(childContextNode)) continue;
 
 			JsonObject jsonObject = new JsonObject();
 			jsonArray.add(jsonObject);
 
-			this.putContextNodeIntoJsonObject(contextNode, jsonObject, true);
+			// create mapping
+
+			JXDMapping mapping = JXDMapping.empty();
+			jsonObject.add(JXDConstants.JXD_MAPPING, mapping.begin());
+
+			// process context node
+
+			this.putContextNodeIntoJsonObject(childContextNode, jsonObject, mapping, true);
+
+			// finish mapping
+
+			if (! mapping.finish()) jsonObject.remove(JXDConstants.JXD_MAPPING);
 		}
 	}
 
@@ -83,59 +107,191 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		return writer;
 	}
 
-	private void putContextNodeIntoJsonObject(ContextNode contextNode, JsonObject jsonObject, boolean first) throws IOException {
+	private void putContextNodeIntoJsonObject(ContextNode contextNode, JsonObject jsonObject, JXDMapping mapping, boolean first) {
+
+		// collapse context node
+
+		ContextNode collapsedContextNode = collapseContextNode(contextNode);
+		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(collapsedContextNode.getXDIAddress(), collapsedContextNode.getXDIAddress().getNumXDIArcs() - contextNode.getXDIAddress().getNumXDIArcs() + 1);
+		contextNode = collapsedContextNode;
+
+		// only literal node?
+
+		if (containsOnlyLiteralNode(contextNode)) {
+
+			jsonObject.add(mapLiteralNode(localXDIAddress, mapping), AbstractLiteralNode.literalDataToJsonElement(contextNode.getLiteralNode().getLiteralData()));
+			return;
+		}
 
 		// set up context node
 
 		if (first) {
 
-			jsonObject.addProperty(JXDConstants.JXD_ID, contextNode.getXDIArc().toString());
+			jsonObject.addProperty(JXDConstants.JXD_ID, localXDIAddress.toString());
+		} else {
+
+			JsonObject childJsonObject = new JsonObject();
+			jsonObject.add(mapContextNode(localXDIAddress, childJsonObject, mapping), childJsonObject);
+			jsonObject = childJsonObject;
+		}
+
+		// literal node
+
+		if (contextNode.containsLiteralNode()) {
+
+			LiteralNode literalNode = contextNode.getLiteralNode();
+
+			this.putLiteralNodeIntoJsonObject(literalNode, jsonObject);
 		}
 
 		// context nodes
 
 		for (ContextNode childContextNode : contextNode.getContextNodes()) {
 
-			JsonObject childJsonObject = new JsonObject();
-			jsonObject.add(contextNode.getXDIArc().toString(), childJsonObject);
+			if (! includeContextNode(childContextNode)) continue;
 
-			this.putContextNodeIntoJsonObject(childContextNode, childJsonObject, false);
+			this.putContextNodeIntoJsonObject(childContextNode, jsonObject, mapping, false);
 		}
 
 		// relations
 
 		for (Relation relation : contextNode.getRelations()) {
 
-			this.putRelationIntoJsonObject(relation, jsonObject);
-		}
+			if (XdiInnerRoot.isValid(relation.followContextNode())) {
 
-		// literal
+				this.putInnerRootIntoJsonObject(relation, jsonObject, mapping);
+			} else {
 
-		if (contextNode.containsLiteralNode()) {
-
-			this.putLiteralNodeIntoJsonObject(contextNode.getLiteralNode(), jsonObject);
+				this.putRelationIntoJsonObject(relation, jsonObject, mapping);
+			}
 		}
 	}
 
-	/*	private void putLiteralNodeIntoJsonObject(LiteralNode literalNode, JsonObject attributeJsonObject, XDIAddress parentXDIAddress) {
+	private static String mapContextNode(XDIAddress XDIaddress, JsonObject childJsonObject, JXDMapping mapping) {
 
-		XDIAddress XDIaddress = literalNode.getXDIAddress();
-		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(XDIaddress, - parentXDIAddress.getNumXDIArcs());
+		// determine term name
 
-		JsonElement literalJsonElement = AbstractLiteralNode.literalDataToJsonElement(literalNode.getLiteralData());
-		attributeJsonObject.add(localXDIAddress.toString(), literalJsonElement);
-	}*/
+		String termName = mapTermName(XDIaddress);
+		if (termName == null) termName = XDIaddress.toString();
 
-	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject) {
+		// create term
 
-		if (! this.isWriteImplied() && relation.getStatement().isImplied()) return;
+		JXDTerm term = new JXDTerm(termName, XDIaddress, XDIAddress.create(JXDConstants.JXD_ID));
+		term = mapping.addOrReuse(term);
 
-		JsonArray relationJsonArray = jsonObject.getAsJsonArray(relation.getXDIAddress().toString());
+		// done
+
+		return term.getName();
+	}
+
+	private static String mapLiteralNode(XDIAddress XDIaddress, JXDMapping mapping) {
+
+		// determine term name
+
+		String termName = mapTermName(XDIaddress);
+		if (termName == null) termName = XDIaddress.toString();
+
+		// create term
+
+		JXDTerm term = new JXDTerm(termName, XDIaddress, null);
+		term = mapping.addOrReuse(term);
+
+		// done
+
+		return term.getName();
+	}
+
+	private static String mapRelation(XDIAddress XDIaddress, JXDMapping mapping) {
+
+		// determine term name
+
+		String termName = mapTermName(XDIaddress);
+		if (termName == null) termName = XDIaddress.toString();
+
+		// create term
+
+		JXDTerm term = new JXDTerm(termName, XDIaddress, XDIAddress.create(JXDConstants.JXD_ID));
+		term = mapping.addOrReuse(term);
+
+		// done
+
+		return term.getName();
+	}
+
+	private static String mapInnerRoot(XDIAddress XDIaddress, JsonObject childJsonObject, JXDMapping mapping) {
+
+		// determine term name
+
+		String termName = mapTermName(XDIaddress);
+		if (termName == null) termName = XDIaddress.toString();
+
+		// create term
+
+		JXDTerm term = new JXDTerm(termName, XDIaddress, null);
+		term = mapping.addOrReuse(term);
+
+		// augment child JSON object
+
+		childJsonObject.add(JXDConstants.JXD_TYPE, new JsonPrimitive(JXDConstants.JXD_GRAPH));
+
+		// done
+
+		return term.getName();
+	}
+
+	private static String mapTermName(XDIAddress XDIaddress) {
+
+		StringBuffer termName = new StringBuffer();
+		for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
+
+			if (XDIConstants.CS_AUTHORITY_PERSONAL.equals(XDIarc.getCs())) return null;
+			if (XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) return null;
+			if (! XDIarc.hasLiteral()) return null;
+
+			termName.append(XDIarc.getLiteral());
+		}
+
+		return termName.toString();
+	}
+	
+	private static boolean includeContextNode(ContextNode contextNode) {
+
+		if (contextNode.containsIncomingRelations() && contextNode.isEmpty()) return false;
+		if (XdiInnerRoot.isValid(contextNode)) return false;
+
+		return true;
+	}
+
+	private static ContextNode collapseContextNode(ContextNode contextNode) {
+
+		if (contextNode.getContextNodeCount() != 1) return contextNode;
+		if (contextNode.containsRelations()) return contextNode;
+		if (contextNode.containsLiteralNode()) return contextNode;
+
+		ContextNode childContextNode = contextNode.getContextNodes().next();
+		if (! (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) && (XdiAbstractEntity.isValid(childContextNode) || XdiEntityCollection.isValid(childContextNode))) return contextNode;
+		if (! (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) && (XdiAbstractAttribute.isValid(childContextNode) || XdiAttributeCollection.isValid(childContextNode))) return contextNode;
+
+		return collapseContextNode(childContextNode);
+	}
+
+	private static boolean containsOnlyLiteralNode(ContextNode contextNode) {
+
+		if (contextNode.containsContextNodes()) return false;
+		if (contextNode.containsRelations()) return false;
+		if (! contextNode.containsLiteralNode()) return false;
+
+		return true;
+	}
+
+	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
+
+		JsonArray relationJsonArray = jsonObject.getAsJsonArray(mapRelation(relation.getXDIAddress(), mapping));
 
 		if (relationJsonArray == null) {
 
 			relationJsonArray = new JsonArray();
-			jsonObject.add(relation.getXDIAddress().toString(), relationJsonArray);
+			jsonObject.add(mapRelation(relation.getXDIAddress(), mapping), relationJsonArray);
 		}
 
 		relationJsonArray.add(new JsonPrimitive(relation.getTargetXDIAddress().toString()));
@@ -143,6 +299,19 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private void putLiteralNodeIntoJsonObject(LiteralNode literalNode, JsonObject jsonObject) {
 
-		jsonObject.add(literalNode.getContextNode().getXDIArc().toString(), AbstractLiteralNode.literalDataToJsonElement(literalNode.getLiteralData()));
+		jsonObject.add(JXDConstants.JXD_VALUE, AbstractLiteralNode.literalDataToJsonElement(literalNode.getLiteralData()));
+	}
+
+	private void putInnerRootIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
+
+		JsonObject childJsonObject = new JsonObject();
+		jsonObject.add(mapInnerRoot(relation.getXDIAddress(), childJsonObject, mapping), childJsonObject);
+
+		for (ContextNode childContextNode : relation.followContextNode().getContextNodes()) {
+
+			if (! includeContextNode(childContextNode)) continue;
+
+			this.putContextNodeIntoJsonObject(childContextNode, childJsonObject, mapping, false);
+		}
 	}
 }
