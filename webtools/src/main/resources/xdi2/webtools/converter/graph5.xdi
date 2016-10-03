@@ -1,1 +1,3 @@
-(=a/#b)=c/#d/=e
+(=markus/=drummond)$do/$get/=markus<#email>
+(=markus/=drummond)($do$if$and/$true){$from}/$is/=drummond
+(=markus/=drummond)($do$if$and/$true){$msg}<$sig><$valid>&/&/true

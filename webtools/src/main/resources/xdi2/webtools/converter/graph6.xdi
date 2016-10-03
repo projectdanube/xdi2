@@ -1,23 +1,7 @@
-{
-     "firstName": "John",
-     "lastName": "Smith",
-     "age": 25,
-     "address":
-     {
-         "streetAddress": "21 2nd Street",
-         "city": "New York",
-         "state": "NY",
-         "postalCode": "10021"
-     },
-     "phoneNumber":
-     [
-         {
-           "type": "home",
-           "number": "212 555-1234"
-         },
-         {
-           "type": "fax",
-           "number": "646 555-4567"
-         }
-     ]
- }
+=markus[<#email>]<!:uuid:1111>&/&/"1@gmail.com"
+=markus[<#email>]<!:uuid:2222>&/&/"2@gmail.com"
+=markus[<#email>]<!:uuid:3333>&/&/"3@gmail.com"
+=markus[<#email>]<@0>/$ref/=markus[<#email>]<!:uuid:3333>
+=markus[<#email>]<@1>/$ref/=markus[<#email>]<!:uuid:2222>
+=markus[<#email>]<@2>/$ref/=markus[<#email>]<!:uuid:1111>
+=markus<#email>/$ref/=markus[<#email>]<!:uuid:1111>
