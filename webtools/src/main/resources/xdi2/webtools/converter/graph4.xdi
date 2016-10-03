@@ -1,9 +1,5 @@
-(=!:uuid:1111)/$set/=!:uuid:1111[$msg]*!:uuid:1234
-=!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:2222)
-=!:uuid:1111[$msg]*!:uuid:1234<$t>/&/"2011-04-10T22:22:22Z"
-=!:uuid:1111[$msg]*!:uuid:1234/$do/=!:uuid:1111=!:uuid:2222=!:uuid:3333$do
-=!:uuid:1111[$msg]*!:uuid:1234$do/$set/=markus
-=!:uuid:1111[$msg]*!:uuid:1234$do/$set/=!:uuid:1111
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$set)=!:uuid:1111<#age>/&/"33"
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$set)(=a/#b)=x/#y/=z
-(=!:uuid:1111[$msg]*!:uuid:1234$do/$set)(=a/#b)=d/#e/=f
+=markus[$msg]*!:uuid:1234<$t>/&/"2011-04-10T22:22:22Z"
+=markus[$msg]*!:uuid:1234/$do/=!:uuid:1111=!:uuid:2222=!:uuid:3333$do
+(=markus[$msg]*!:uuid:1234$do/$set)=markus<#name>/&/"Markus Sabadello"
+(=markus[$msg]*!:uuid:1234$do/$set)=markus<#email>/&/"markus@danubetech.com"
+(=markus[$msg]*!:uuid:1234$do/$set)=markus/#friend/=drummond
