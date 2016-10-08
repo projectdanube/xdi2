@@ -310,15 +310,15 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
 
-		JsonArray relationJsonArray = jsonObject.getAsJsonArray(mapRelation(relation.getXDIAddress(), mapping));
+		JsonArray childJsonArray = jsonObject.getAsJsonArray(mapRelation(relation.getXDIAddress(), mapping));
 
-		if (relationJsonArray == null) {
+		if (childJsonArray == null) {
 
-			relationJsonArray = new JsonArray();
-			jsonObject.add(mapRelation(relation.getXDIAddress(), mapping), relationJsonArray);
+			childJsonArray = new JsonArray();
+			jsonObject.add(mapRelation(relation.getXDIAddress(), mapping), childJsonArray);
 		}
 
-		relationJsonArray.add(new JsonPrimitive(relation.getTargetContextNodeXDIAddress().toString()));
+		childJsonArray.add(new JsonPrimitive(relation.getTargetContextNodeXDIAddress().toString()));
 	}
 
 	private void putLiteralIntoJsonObject(Literal literalNode, JsonObject jsonObject) {
