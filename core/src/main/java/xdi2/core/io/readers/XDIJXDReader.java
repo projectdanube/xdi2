@@ -140,17 +140,14 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 			// context or relation or inner root or literal?
 
-			if (entryType != null && JXDConstants.JXD_GRAPH.equals(entryType.toString())) {
+			if (entryType != null && JXDConstants.JXD_GRAPH.equals(entryType.toString()) && entryJsonElement instanceof JsonObject) {
 
 				// inner root
 
 				XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 				ContextNode nestedContextNode = xdiContext.getXdiInnerRoot(entryId, true).getContextNode();
 
-				if (entryJsonElement instanceof JsonObject) {
-
-					this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
-				}
+				this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
 			} else if ((entryType != null && JXDConstants.JXD_ID.equals(entryType.toString())) || entryType != null) {
 
 				if (entryJsonElement instanceof JsonPrimitive && ((JsonPrimitive) entryJsonElement).isString()) {
@@ -162,15 +159,24 @@ public class XDIJXDReader extends AbstractXDIReader {
 					contextNode.setRelation(entryId, targetXDIAddress);
 				} else if (entryJsonElement instanceof JsonArray) {
 
-					// multiple relations
+					// relations and nested context nodes
 
 					for (JsonElement jsonEntryArrayElement : ((JsonArray) entryJsonElement)) {
 
 						if (jsonEntryArrayElement instanceof JsonPrimitive && ((JsonPrimitive) jsonEntryArrayElement).isString()) {
 
+							// relation
+
 							XDIAddress targetXDIAddress = makeXDIAddress(jsonEntryArrayElement.getAsString(), state);
 
 							contextNode.setRelation(entryId, targetXDIAddress);
+						} else if (jsonEntryArrayElement instanceof JsonObject) {
+
+							// nested context node
+
+							ContextNode nestedContextNode = contextNode.setDeepContextNode(entryId);
+
+							this.read(nestedContextNode, (JsonObject) jsonEntryArrayElement, mapping, state);
 						}
 					}
 				} else if (entryJsonElement instanceof JsonObject) {
@@ -179,10 +185,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 					ContextNode nestedContextNode = contextNode.setDeepContextNode(entryId);
 
-					if (entryJsonElement instanceof JsonObject) {
-
-						this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
-					}
+					this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
 				}
 			} else {
 

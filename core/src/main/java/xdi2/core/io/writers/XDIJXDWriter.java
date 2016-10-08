@@ -7,6 +7,7 @@ import java.util.Properties;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonWriter;
@@ -16,6 +17,7 @@ import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
+import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttributeCollection;
@@ -131,7 +133,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		} else {
 
 			JsonObject childJsonObject = new JsonObject();
-			jsonObject.add(mapContextNode(localXDIAddress, childJsonObject, mapping), childJsonObject);
+			jsonObject.add(mapContextNode(localXDIAddress, mapping), childJsonObject);
 			jsonObject = childJsonObject;
 		}
 
@@ -159,6 +161,8 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			if (XdiInnerRoot.isValid(relation.followContextNode())) {
 
+				if (! includeInnerRoot(relation)) continue;
+
 				this.putInnerRootIntoJsonObject(relation, jsonObject, mapping);
 			} else {
 
@@ -167,7 +171,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		}
 	}
 
-	private static String mapContextNode(XDIAddress XDIaddress, JsonObject childJsonObject, JXDMapping mapping) {
+	private static String mapContextNode(XDIAddress XDIaddress, JXDMapping mapping) {
 
 		// determine term name
 
@@ -218,7 +222,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		return term.getName();
 	}
 
-	private static String mapInnerRoot(XDIAddress XDIaddress, JsonObject childJsonObject, JXDMapping mapping) {
+	private static String mapInnerRoot(XDIAddress XDIaddress, JXDMapping mapping) {
 
 		// determine term name
 
@@ -229,10 +233,6 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		JXDTerm term = new JXDTerm(termName, XDIaddress, null);
 		term = mapping.addOrReuse(term);
-
-		// augment child JSON object
-
-		childJsonObject.add(JXDConstants.JXD_TYPE, new JsonPrimitive(JXDConstants.JXD_GRAPH));
 
 		// done
 
@@ -255,7 +255,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		return termName.toString();
 	}
-	
+
 	private static boolean includeContextNode(ContextNode contextNode) {
 
 		if (contextNode.containsIncomingRelations() && contextNode.isEmpty()) return false;
@@ -264,6 +264,13 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		return true;
 	}
 
+	private static boolean includeInnerRoot(Relation relation) {
+		
+		if (relation.followContextNode().containsIncomingRelations() && relation.followContextNode().isEmpty()) return false;
+
+		return true;
+	}
+	
 	private static ContextNode collapseContextNode(ContextNode contextNode) {
 
 		if (contextNode.getContextNodeCount() != 1) return contextNode;
@@ -288,26 +295,70 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private void putRelationIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
 
-		JsonArray childJsonArray = jsonObject.getAsJsonArray(mapRelation(relation.getXDIAddress(), mapping));
+		String key = mapRelation(relation.getXDIAddress(), mapping);
 
-		if (childJsonArray == null) {
+		// determine child JSON array
+
+		JsonElement childJsonElement = jsonObject.get(key);
+		JsonArray childJsonArray;
+
+		if (childJsonElement == null) {
 
 			childJsonArray = new JsonArray();
-			jsonObject.add(mapRelation(relation.getXDIAddress(), mapping), childJsonArray);
+			jsonObject.add(key, childJsonArray);
+		} else if (childJsonElement instanceof JsonArray) {
+
+			childJsonArray = (JsonArray) childJsonElement;
+		} else if (childJsonElement instanceof JsonObject) {
+
+			childJsonArray = new JsonArray();
+			childJsonArray.add((JsonObject) childJsonElement);
+			jsonObject.remove(key);
+			jsonObject.add(key, childJsonArray);
+		} else {
+
+			throw new Xdi2RuntimeException("Unexpected JSON element for relation at key " + key + ": " + childJsonElement);
 		}
+
+		// fill child JSON array
 
 		childJsonArray.add(new JsonPrimitive(relation.getTargetXDIAddress().toString()));
 	}
 
 	private void putLiteralNodeIntoJsonObject(LiteralNode literalNode, JsonObject jsonObject) {
 
+		// fill child JSON object
+
 		jsonObject.add(JXDConstants.JXD_VALUE, AbstractLiteralNode.literalDataToJsonElement(literalNode.getLiteralData()));
 	}
 
 	private void putInnerRootIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
 
-		JsonObject childJsonObject = new JsonObject();
-		jsonObject.add(mapInnerRoot(relation.getXDIAddress(), childJsonObject, mapping), childJsonObject);
+		String key = mapInnerRoot(relation.getXDIAddress(), mapping);
+
+		// determine child JSON object
+
+		JsonElement childJsonElement = jsonObject.get(key);
+		JsonObject childJsonObject;
+
+		if (childJsonElement == null) {
+
+			childJsonObject = new JsonObject();
+			jsonObject.add(key, childJsonObject);
+		} else if (childJsonElement instanceof JsonArray) {
+
+			childJsonObject = new JsonObject();
+			((JsonArray) childJsonElement).add(childJsonElement);
+		} else {
+
+			throw new Xdi2RuntimeException("Unexpected JSON element for inner root at key " + key + ": " + childJsonElement);
+		}
+
+		// type information for child JSON object
+
+		childJsonObject.add(JXDConstants.JXD_TYPE, new JsonPrimitive(JXDConstants.JXD_GRAPH));
+
+		// fill child JSON object
 
 		for (ContextNode childContextNode : relation.followContextNode().getContextNodes()) {
 
