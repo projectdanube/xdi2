@@ -1,7 +1,7 @@
 {
   "@xdi": {
     "work": { "@id": "<#work>", "@type": "@id" },
-    "email": "<#email>"
+    "email": "<#email>&"
   },
   "@id": "+danubetech=markus",
   "work": {
