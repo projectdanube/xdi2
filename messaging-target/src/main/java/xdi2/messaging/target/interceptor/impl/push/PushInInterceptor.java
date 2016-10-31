@@ -2,6 +2,7 @@ package xdi2.messaging.target.interceptor.impl.push;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,11 +16,13 @@ import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.operations.Operation;
 import xdi2.messaging.operations.PushOperation;
+import xdi2.messaging.operations.SetOperation;
 import xdi2.messaging.response.FullMessagingResponse;
 import xdi2.messaging.response.TransportMessagingResponse;
 import xdi2.messaging.target.MessagingTarget;
@@ -151,6 +154,24 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 		// TODO: how exactly is the $push message a response, and to what?
 
 		FullMessagingResponse pushedMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessageEnvelope());
+
+		// TODO: correctly store statements of $set operation?
+
+		Graph resultGraph = ((TransportMessagingResponse) pushedMessagingResponse).getResultGraph();
+
+		if (resultGraph != null) {
+
+			MessageEnvelope innerMe = MessageEnvelope.fromGraph(operation.getTargetXdiInnerRoot().getInnerGraph());
+			Message innerM = innerMe == null ? null : innerMe.getMessages().next();
+			Iterator<SetOperation> innerSOs = innerM == null ? new EmptyIterator<SetOperation> () : innerM.getSetOperations();
+			SetOperation innerSO = innerSOs.next();
+			XdiInnerRoot innerIR = innerSO == null ? null : innerSO.getTargetXdiInnerRoot();
+
+			if (innerIR != null) {
+
+				CopyUtil.copyGraph(innerIR.getInnerGraph(), this.getTargetGraph(executionContext), null);
+			}
+		}
 
 		// TODO: correctly store any contracts we got?
 		// see comment in pushedMessagingResponse.getLinkContracts()
