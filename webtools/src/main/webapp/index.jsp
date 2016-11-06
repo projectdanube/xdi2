@@ -31,6 +31,12 @@ div.line { margin-left: -150px; }
 	<p>XDI2 (“XDI Two”) is a general-purpose, lightweight and modular Java implementation of XDI specifications.<br>
 	This is an example deployment of an XDI2 server with a set of web-based XDI tools.</p>
 
+	<hr noshade>
+
+	Click here for the local XDI server admin interface: <a href="<%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/"><%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/</a>
+	
+	<hr noshade>
+
 	<p class="subheader">XDI Tools</p>
 
 	<table cellpadding="5">
@@ -50,26 +56,6 @@ div.line { margin-left: -150px; }
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
 	</tr>
-	</table>
-	
-	<table cellpadding="5"><tr>
-	<td>Click here to access the local XDI server: <a href="<%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/"><%= request.getRequestURL().substring(0, request.getRequestURL().toString().lastIndexOf('/')) %>/xdi/</a></td>
-	</tr></table>
-	
-	<hr noshade>
-
-	<p class="subheader">Releases and Branches</p>
-	<table cellpadding="5"><tr>
-	<td>See here: <a href="https://github.com/projectdanube/xdi2/wiki/Releases-and-Branches">Releases and Branches</a> for information about all releases and branches.</td>
-	</tr></table>
-	<table cellpadding="5">
-	<tr><td>snapshot-0.8</td><td><a href="https://server.xdi2.org/">https://server.xdi2.org/</a></td></tr>
-	<tr><td>snapshot-0.8-pre-response-messages</td><td><a href="https://server.xdi2.org/pre-response-messages">https://server.xdi2.org/pre-response-messages</a></td></tr>
-	<tr><td>snapshot-0.7-pre-star-shift</td><td><a href="https://server.xdi2.org/pre-star-shift">https://server.xdi2.org/pre-star-shift</a></td></tr>
-	<tr><td>snapshot-0.7-pre-no-value-node</td><td><a href="https://server.xdi2.org/pre-no-value-node">https://server.xdi2.org/pre-no-value-node</a></td></tr>
-	<tr><td>snapshot-0.5-pre-notation-shift</td><td><a href="https://server.xdi2.org/pre-notation-shift">https://server.xdi2.org/pre-notation-shift</a></td></tr>
-	<tr><td>snapshot-0.4-pre-link-contract-shift</td><td><a href="https://server.xdi2.org/pre-link-contract-shift">https://server.xdi2.org/pre-link-contract-shift</a></td></tr>
-	<tr><td>snapshot-0.2-pre-symbol-shift</td><td><a href="https://server.xdi2.org/pre-symbol-shift">https://server.xdi2.org/pre-symbol-shift</a></td></tr>
 	</table>
 	
 	<hr noshade>
