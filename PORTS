@@ -25,7 +25,7 @@ Known default HTTP ports of various XDI2 (and -related) projects.
 9201: xdi2-connect-service
 9202: xdi2-connect-auth-service
 9203: xdi2-connect-button-builder
-9204: xdi2-connect-acmenews / xdi2-connect-acmepizza
+9204: xdi2-connect-acmenews / xdi2-connect-leshop
 9300: xdi2-selfhosted
 9301: xdi2-csp
 9400: xdi2-registry
