@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>javax-websocket-client-impl</artifactId>
-			<version>9.3.0.M2</version>
+			<version>9.4.0.M1</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
