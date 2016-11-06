@@ -7,7 +7,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDI2 web tools</title>
+<title>XDI2 Web Tools</title>
 <link rel="stylesheet" target="_blank" href="style.css" TYPE="text/css" MEDIA="screen">
 <link rel="shortcut icon" href="favicon.ico" />
 <style type="text/css">
