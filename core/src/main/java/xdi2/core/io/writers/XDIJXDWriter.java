@@ -2,6 +2,7 @@ package xdi2.core.io.writers;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Properties;
 
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
+import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
@@ -45,6 +47,8 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
+	private List<JXDMapping> bootstrapJXDMappings;
+
 	public XDIJXDWriter(Properties parameters) {
 
 		super(parameters);
@@ -56,14 +60,19 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		for (ContextNode childContextNode : graph.getRootContextNode().getContextNodes()) {
 
-			if (! includeContextNode(childContextNode)) continue;
+			// create JSON object for this context node
 
 			JsonObject jsonObject = new JsonObject();
-			jsonArray.add(jsonObject);
 
 			// create mapping
 
 			JXDMapping mapping = JXDMapping.empty();
+
+			if (this.getBootstrapJXDMappings() != null) {
+
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) mapping.merge(bootstrapJXDMapping);
+			}
+
 			jsonObject.add(JXDConstants.JXD_MAPPING, mapping.begin());
 
 			// process context node
@@ -72,7 +81,16 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			// finish mapping
 
+			if (this.getBootstrapJXDMappings() != null) {
+
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) mapping.unmerge(bootstrapJXDMapping);
+			}
+
 			if (! mapping.finish()) jsonObject.remove(JXDConstants.JXD_MAPPING);
+
+			// finish JSON object for this context node
+
+			if (! jsonObject.entrySet().isEmpty()) jsonArray.add(jsonObject);
 		}
 	}
 
@@ -117,6 +135,10 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		XDIAddress localXDIAddress = XDIAddressUtil.localXDIAddress(collapsedContextNode.getXDIAddress(), collapsedContextNode.getXDIAddress().getNumXDIArcs() - contextNode.getXDIAddress().getNumXDIArcs() + 1);
 		contextNode = collapsedContextNode;
 
+		// include it?
+
+		if (! includeContextNode(contextNode)) return;
+
 		// only literal node?
 
 		if (containsOnlyLiteralNode(contextNode)) {
@@ -150,8 +172,6 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		for (ContextNode childContextNode : contextNode.getContextNodes()) {
 
-			if (! includeContextNode(childContextNode)) continue;
-
 			this.putContextNodeIntoJsonObject(childContextNode, jsonObject, mapping, false);
 		}
 
@@ -160,8 +180,6 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		for (Relation relation : contextNode.getRelations()) {
 
 			if (XdiInnerRoot.isValid(relation.followContextNode())) {
-
-				if (! includeInnerRoot(relation)) continue;
 
 				this.putInnerRootIntoJsonObject(relation, jsonObject, mapping);
 			} else {
@@ -231,7 +249,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		// create term
 
-		JXDTerm term = new JXDTerm(termName, XDIaddress, null);
+		JXDTerm term = new JXDTerm(termName, XDIaddress, XDIAddress.create(JXDConstants.JXD_GRAPH));
 		term = mapping.addOrReuse(term);
 
 		// done
@@ -258,19 +276,59 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private static boolean includeContextNode(ContextNode contextNode) {
 
-		if (contextNode.containsIncomingRelations() && contextNode.isEmpty()) return false;
-		if (XdiInnerRoot.isValid(contextNode)) return false;
+		if (! contextNode.getStatement().isImplied()) return true;
 
-		return true;
+		if (XdiInnerRoot.fromContextNode(contextNode) != null) return false;
+
+		for (Relation relation : contextNode.getRelations()) {
+
+			XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(relation.followContextNode());
+			if (xdiInnerRoot != null && xdiInnerRoot.getSubjectContextNode() == contextNode) {
+
+				for (Statement statement : xdiInnerRoot.getContextNode().getAllStatements()) {
+
+					if (! statement.isImplied()) return true;
+				}
+
+				return false;
+			}
+		}
+
+		for (Statement statement : contextNode.getAllStatements()) {
+
+			if (! statement.isImplied()) return true;
+		}
+
+		//if (contextNode.getAllLiterals().hasNext()) return true;
+		//if (contextNode.getAllRelations().hasNext()) return true;
+
+
+		/*		if (contextNode.isEmpty() && contextNode.containsIncomingRelations()) return false;
+		if (XdiInnerRoot.isValid(contextNode)) return false;*/
+
+		return false;
+
+		/*		if (contextNode.containsLiteralNode()) return true;
+		if (contextNode.containsRelations()) return true;
+		if (contextNode.containsIncomingRelations()) return false;
+
+		for (ContextNode childContextNode : contextNode.getContextNodes()) {
+
+			if (includeContextNode(childContextNode)) return true;
+		}
+
+		if (contextNode.containsContextNodes()) return false;
+
+		return false;*/
 	}
 
 	private static boolean includeInnerRoot(Relation relation) {
-		
-		if (relation.followContextNode().containsIncomingRelations() && relation.followContextNode().isEmpty()) return false;
+
+		//		return includeContextNode(relation.followContextNode());
 
 		return true;
 	}
-	
+
 	private static ContextNode collapseContextNode(ContextNode contextNode) {
 
 		if (contextNode.getContextNodeCount() != 1) return contextNode;
@@ -278,6 +336,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		if (contextNode.containsLiteralNode()) return contextNode;
 
 		ContextNode childContextNode = contextNode.getContextNodes().next();
+
 		if (! (XdiAbstractEntity.isValid(contextNode) || XdiEntityCollection.isValid(contextNode)) && (XdiAbstractEntity.isValid(childContextNode) || XdiEntityCollection.isValid(childContextNode))) return contextNode;
 		if (! (XdiAbstractAttribute.isValid(contextNode) || XdiAttributeCollection.isValid(contextNode)) && (XdiAbstractAttribute.isValid(childContextNode) || XdiAttributeCollection.isValid(childContextNode))) return contextNode;
 
@@ -334,6 +393,12 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private void putInnerRootIntoJsonObject(Relation relation, JsonObject jsonObject, JXDMapping mapping) {
 
+		// include it?
+
+		if (! includeInnerRoot(relation)) return;
+
+		// determine key
+
 		String key = mapInnerRoot(relation.getXDIAddress(), mapping);
 
 		// determine child JSON object
@@ -362,9 +427,21 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		for (ContextNode childContextNode : relation.followContextNode().getContextNodes()) {
 
-			if (! includeContextNode(childContextNode)) continue;
-
 			this.putContextNodeIntoJsonObject(childContextNode, childJsonObject, mapping, false);
 		}
+	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public List<JXDMapping> getBootstrapJXDMappings() {
+
+		return this.bootstrapJXDMappings;
+	}
+
+	public void setBootstrapJXGMappings(List<JXDMapping> bootstrapJXDMappings) {
+
+		this.bootstrapJXDMappings = bootstrapJXDMappings;
 	}
 }

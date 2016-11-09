@@ -42,6 +42,19 @@ public class JXDMapping {
 		return mapping;
 	}
 
+	public void merge(JXDMapping otherMapping) {
+
+		this.terms.putAll(otherMapping.terms);
+	}
+
+	public void unmerge(JXDMapping otherMapping) {
+
+		for (String key : otherMapping.terms.keySet()) {
+
+			this.terms.remove(key);
+		}
+	}
+
 	public JXDTerm addOrReuse(JXDTerm term) {
 
 		// don't add term if it has no additional information
@@ -49,22 +62,22 @@ public class JXDMapping {
 		if (term.getId() != null && term.getName().equals(term.getId().toString())) term.setId(null);
 		if (term.getType() == null && term.getId() == null) return term;
 
-		// choose term name and term
+		// see if we can re-use a term
+
+		for (JXDTerm existingTerm : this.terms.values()) {
+
+			if (existingTerm.equalsIdAndType(term)) return existingTerm;
+		}
+
+		// choose term name
 
 		for (int i=1; ; i++) {
 
+			// don't use this name if it exists already
+
 			String termName = term.getName() + (i > 1 ? ("-" + String.valueOf(i)) : "");
 			JXDTerm existingTerm = this.terms.get(termName);
-
-			// don't add term if it exists already
-
-			if (existingTerm != null) {
-
-				if (existingTerm.equalsIdAndType(term))
-					return existingTerm;
-				else
-					continue;
-			}
+			if (existingTerm != null) continue;
 
 			// add and return term
 
