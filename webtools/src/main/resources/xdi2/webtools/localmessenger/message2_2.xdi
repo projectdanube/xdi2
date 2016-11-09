@@ -1,4 +1,4 @@
-=!:uuid:1111[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
-=!:uuid:1111[$msg]*!:uuid:1234/$do/(=!:uuid:1111/=!:uuid:1111)$do
+=!:uuid:1111[$msg]*!:uuid:1234/$to/(=!:uuid:1111)
+=!:uuid:1111[$msg]*!:uuid:1234/$contract/(=!:uuid:1111/=!:uuid:1111)$contract
 =!:uuid:1111[$msg]*!:uuid:1234<$secret><$token>/&/"s3cr3t"
 =!:uuid:1111[$msg]*!:uuid:1234$do/$get/=!:uuid:1111<#email>

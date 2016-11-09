@@ -45,7 +45,7 @@ public class GenericLinkContract extends LinkContract {
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (! ((XdiEntitySingleton) xdiEntity).getXDIArc().equals(XDILinkContractConstants.XDI_ARC_DO)) return false;
+			if (! ((XdiEntitySingleton) xdiEntity).getXDIArc().equals(XDILinkContractConstants.XDI_ARC_CONTRACT)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
@@ -53,7 +53,7 @@ public class GenericLinkContract extends LinkContract {
 			return true;
 		} else if (xdiEntity instanceof XdiEntityInstance && ((XdiEntityInstance) xdiEntity).getXdiCollection() != null) {
 
-			if (! ((XdiEntityInstance) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_DO)) return false;
+			if (! ((XdiEntityInstance) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_CONTRACT)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
@@ -101,10 +101,10 @@ public class GenericLinkContract extends LinkContract {
 
 		if (instanceXDIArc == null) {
 
-			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_DO);
+			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_CONTRACT);
 		} else {
 
-			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_EC_DO);
+			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_EC_CONTRACT);
 			genericLinkContractXDIArcs.add(instanceXDIArc);
 		}
 
@@ -161,8 +161,8 @@ public class GenericLinkContract extends LinkContract {
 		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
 		if (XDIaddress == null) return null;
 
-		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_DO);
-		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createXDIArc(XDILinkContractConstants.XDI_ARC_DO));
+		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_CONTRACT);
+		if (index < 0) index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XdiEntityCollection.createXDIArc(XDILinkContractConstants.XDI_ARC_CONTRACT));
 
 		XDIAddress templateAuthorityAndId = XDIAddressUtil.subXDIAddress(XDIaddress, 1, index);
 		if (XDIConstants.XDI_ADD_ROOT.equals(templateAuthorityAndId)) return null;

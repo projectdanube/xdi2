@@ -1,2 +1,2 @@
-=markus[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
+=markus[$msg]*!:uuid:1234/$to/(=!:uuid:1111)
 =markus[$msg]*!:uuid:1234$do/$get/=markus

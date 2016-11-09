@@ -36,7 +36,7 @@ public class LinkContractInstantiation {
 			XDILinkContractConstants.XDI_ARC_V_TO,
 			XDILinkContractConstants.XDI_ARC_V_FROM_ROOT,
 			XDILinkContractConstants.XDI_ARC_V_TO_ROOT,
-			XDILinkContractConstants.XDI_ARC_DO,
+			XDILinkContractConstants.XDI_ARC_CONTRACT,
 			XDI_ARC_INSTANCE_VARIABLE
 	};
 

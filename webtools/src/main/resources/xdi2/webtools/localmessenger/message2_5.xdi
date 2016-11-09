@@ -1,5 +1,5 @@
-+!:uuid:8888[$msg]*!:uuid:1234/$is()/(+!:uuid:0000)
-+!:uuid:8888[$msg]*!:uuid:1234/$do/(+!:uuid:0000/+!:uuid:8888)$add$do
++!:uuid:8888[$msg]*!:uuid:1234/$to/(+!:uuid:0000)
++!:uuid:8888[$msg]*!:uuid:1234/$contract/(+!:uuid:0000/+!:uuid:8888)$add$do
 (+!:uuid:8888[$msg]*!:uuid:1234$do/$set)//(=!:uuid:1111)
 (+!:uuid:8888[$msg]*!:uuid:1234$do/$set)(=!:uuid:1111)<$xdi><$uri>/&/"https://test.clouds.com/xdi/"
 (+!:uuid:8888[$msg]*!:uuid:1234$do/$set)(=!:uuid:1111)/$is$ref/(=alice)

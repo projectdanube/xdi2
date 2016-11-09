@@ -1,5 +1,5 @@
 =a=b=c=d=e<#email>/&/"email@email.com"
-(=a/=x)$do/$get/=a
-(=a/=x)$do/$not$get/=a=b
-(=a/=x)$do/$all/=a=b=c=d
-(=a/=x)$do/$not$get/=a=b=c=d=e
+(=a/=x)$contract$do/$get/=a
+(=a/=x)$contract$do/$not$get/=a=b
+(=a/=x)$contract$do/$all/=a=b=c=d
+(=a/=x)$contract$do/$not$get/=a=b=c=d=e

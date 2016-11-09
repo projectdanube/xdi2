@@ -242,7 +242,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		if (this.getTargetGraph(executionContext) != null) {
 
 			CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), this.getTargetGraph(executionContext), null);
-			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
+			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_CONTRACT, true);
 			Index.setEntityIndexAggregation(xdiLinkContractIndex, linkContract.getXdiEntity());
 		}
 	}

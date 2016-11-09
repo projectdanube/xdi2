@@ -289,7 +289,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 					// write push link contract and index into graph
 
 					CopyUtil.copyContextNode(pushLinkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
-					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_CONTRACT, true);
 					Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 				}
 
@@ -305,7 +305,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 					// write link contract and index into graph
 
 					CopyUtil.copyContextNode(linkContract.getContextNode(), graphMessagingTarget.getGraph(), null);
-					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_DO, true);
+					XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(graphMessagingTarget.getGraph(), XDILinkContractConstants.XDI_ARC_CONTRACT, true);
 					Index.setEntityIndexAggregation(xdiLinkContractIndex, linkContract.getXdiEntity().getXDIAddress());
 				}
 			}

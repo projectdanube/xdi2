@@ -184,23 +184,17 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Return the FROM peer root arc.
+	 * Return the FROM peer root arc of the message.
 	 */
 	public XDIArc getFromPeerRootXDIArc() {
 
-		for (Iterator<Relation> incomingRelations = this.getContextNode().getIncomingRelations(); incomingRelations.hasNext(); ) {
+		Relation fromPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC);
+		if (fromPeerRootXDIArcRelation == null) return null;
 
-			Relation incomingRelation = incomingRelations.next();
+		XDIAddress fromPeerRootXDIAddress = fromPeerRootXDIArcRelation.getTargetXDIAddress();
+		if (fromPeerRootXDIAddress.getNumXDIArcs() > 1 || ! XdiPeerRoot.isValidXDIArc(fromPeerRootXDIAddress.getFirstXDIArc())) return null;
 
-			if (incomingRelation.getXDIAddress().equals(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC)) {
-
-				XDIArc XDIarc = incomingRelation.getContextNode().getXDIArc();
-
-				if (XdiPeerRoot.isValidXDIArc(XDIarc)) return XDIarc;
-			}
-		}
-
-		return null;
+		return fromPeerRootXDIAddress.getFirstXDIArc();
 	}
 
 	/**
@@ -215,11 +209,16 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Set the FROM peer root arc.
+	 * Set the FROM peer root arc of the message.
 	 */
 	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIArc) {
 
-		this.getMessageEnvelope().getGraph().setDeepContextNode(XDIAddress.fromComponent(fromPeerRootXDIArc)).setRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, this.getContextNode());
+		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC);
+
+		if (fromPeerRootXDIArc != null) {
+
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, XDIAddress.fromComponent(fromPeerRootXDIArc));
+		}
 	}
 
 	/**
@@ -303,7 +302,7 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public XDIAddress getLinkContractXDIAddress() {
 
-		Relation linkContractRelation = this.getContextNode().getRelation(XDILinkContractConstants.XDI_ADD_DO);
+		Relation linkContractRelation = this.getContextNode().getRelation(XDILinkContractConstants.XDI_ADD_CONTRACT);
 		if (linkContractRelation == null) return null;
 
 		return linkContractRelation.getTargetXDIAddress();
@@ -314,11 +313,11 @@ public final class Message implements Serializable, Comparable<Message> {
 	 */
 	public void setLinkContractXDIAddress(XDIAddress linkContractXDIAddress) {
 
-		this.getContextNode().delRelations(XDILinkContractConstants.XDI_ADD_DO);
+		this.getContextNode().delRelations(XDILinkContractConstants.XDI_ADD_CONTRACT);
 
 		if (linkContractXDIAddress != null) {
 
-			this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_DO, linkContractXDIAddress);
+			this.getContextNode().setRelation(XDILinkContractConstants.XDI_ADD_CONTRACT, linkContractXDIAddress);
 		}
 	}
 
@@ -800,9 +799,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * Creates a new $connect operation and adds it to this XDI message.
 	 * @param targetXDIAddress The target address to which the operation applies.
-	 * @return The newly created {$do} operation.
+	 * @return The newly created $connect operation.
 	 */
 	public ConnectOperation createConnectOperation(XDIAddress targetXDIAddress) {
 
@@ -812,9 +811,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * Creates a new $connect operation and adds it to this XDI message.
 	 * @param targetXDIStatements The target statements to which the operation applies.
-	 * @return The newly created {$do} operation.
+	 * @return The newly created $connect operation.
 	 */
 	public ConnectOperation createConnectOperation(Iterator<XDIStatement> targetXDIStatements) {
 
@@ -825,9 +824,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * Creates a new $connect operation and adds it to this XDI message.
 	 * @param targetXDIStatement The target statement to which the operation applies.
-	 * @return The newly created {$do} operation.
+	 * @return The newly created $connect operation.
 	 */
 	public ConnectOperation createConnectOperation(XDIStatement targetXDIStatement) {
 
@@ -835,9 +834,9 @@ public final class Message implements Serializable, Comparable<Message> {
 	}
 
 	/**
-	 * Creates a new {$do} operation and adds it to this XDI message.
+	 * Creates a new $connect operation and adds it to this XDI message.
 	 * @param targetGraph The target graph with statements to which this operation applies.
-	 * @return The newly created {$do} operation.
+	 * @return The newly created $connect operation.
 	 */
 	public ConnectOperation createConnectOperation(Graph targetGraph) {
 

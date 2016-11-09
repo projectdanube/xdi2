@@ -17,7 +17,7 @@ import xdi2.core.util.XDIAddressUtil;
  * An XDI link contract template, represented as an XDI variable.
  * 
  * Example addresses:
- * +!:uuid:1234#registration{$do}
+ * +!:uuid:1234#registration{$contract}
  * 
  * @author markus
  */
@@ -54,7 +54,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 	 */
 	public static boolean isValid(XdiEntitySingleton.Variable xdiVariable) {
 
-		if (! xdiVariable.getXDIArc().equals(XDILinkContractConstants.XDI_ARC_V_DO)) return false;
+		if (! xdiVariable.getXDIArc().equals(XDILinkContractConstants.XDI_ARC_V_CONTRACT)) return false;
 
 		if (getTemplateAuthorityAndId(xdiVariable.getXDIAddress()) == null) return false;
 
@@ -82,7 +82,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 		List<XDIArc> linkContractTemplateArcXDIAddresses = new ArrayList<XDIArc> ();
 
 		linkContractTemplateArcXDIAddresses.addAll(templateAuthorityAndId.getXDIArcs());
-		linkContractTemplateArcXDIAddresses.add(XDILinkContractConstants.XDI_ARC_V_DO);
+		linkContractTemplateArcXDIAddresses.add(XDILinkContractConstants.XDI_ARC_V_CONTRACT);
 
 		return XDIAddress.fromComponents(linkContractTemplateArcXDIAddresses);
 	}
@@ -107,7 +107,7 @@ public class LinkContractTemplate extends LinkContractBase<XdiEntitySingleton.Va
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
 
-		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_V_DO);
+		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_V_CONTRACT);
 		if (index < 0) return null;
 
 		return XDIAddressUtil.subXDIAddress(XDIaddress, 0, index);

@@ -227,7 +227,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 			if (isSetOnDoAddress(targetXDIAddress, operation)) {
 
-				XDIAddress doTargetAddress = XDIAddressUtil.subXDIAddress(targetXDIAddress, 0, XDIAddressUtil.indexOfXDIArc(targetXDIAddress, XDILinkContractConstants.XDI_ARC_DO));
+				XDIAddress doTargetAddress = XDIAddressUtil.subXDIAddress(targetXDIAddress, 0, XDIAddressUtil.indexOfXDIArc(targetXDIAddress, XDILinkContractConstants.XDI_ARC_CONTRACT));
 
 				if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_DO, doTargetAddress, linkContract)) {
 
@@ -387,7 +387,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 	private static boolean isSetOnDoAddress(XDIAddress targetXDIAddress, Operation operation) {
 
 		if (! (operation instanceof SetOperation)) return false;
-		if (XDIAddressUtil.indexOfXDIArc(targetXDIAddress, XDILinkContractConstants.XDI_ARC_DO) != -1) return true;
+		if (XDIAddressUtil.indexOfXDIArc(targetXDIAddress, XDILinkContractConstants.XDI_ARC_CONTRACT) != -1) return true;
 
 		return false;
 	}
