@@ -1,4 +1,4 @@
-=!:uuid:2222[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
-=!:uuid:2222[$msg]*!:uuid:1234/$do/(=!:uuid:1111/#trusted)[$do]*!:uuid:1234
+=!:uuid:2222[$msg]*!:uuid:1234/$to/(=!:uuid:1111)
+=!:uuid:2222[$msg]*!:uuid:1234/$contract/(=!:uuid:1111/#trusted)[$contract]*!:uuid:1234
 =!:uuid:2222[$msg]*!:uuid:1234<$ip>/&/"127.0.0.1"
 =!:uuid:2222[$msg]*!:uuid:1234$do/$get/=!:uuid:1111<#email>

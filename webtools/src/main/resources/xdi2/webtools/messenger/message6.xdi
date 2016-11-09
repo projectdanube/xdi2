@@ -1,5 +1,5 @@
-=!:uuid:2222[$msg]*!:uuid:1234/$is()/(=!:uuid:1111)
-=!:uuid:2222[$msg]*!:uuid:1234/$do/(=!:uuid:1111/$connect)$do
-=!:uuid:2222[$msg]*!:uuid:1234$do/$connect/$get{$do}
+=!:uuid:2222[$msg]*!:uuid:1234/$to/(=!:uuid:1111)
+=!:uuid:2222[$msg]*!:uuid:1234/$contract/(=!:uuid:1111/$connect)$contract
+=!:uuid:2222[$msg]*!:uuid:1234$do/$connect/$get{$contract}
 =!:uuid:2222[$msg]*!:uuid:1234$do$connect{$get}/$is/=!:uuid:1111<#email>
 =!:uuid:2222[$msg]*!:uuid:1234<$full>/&/true

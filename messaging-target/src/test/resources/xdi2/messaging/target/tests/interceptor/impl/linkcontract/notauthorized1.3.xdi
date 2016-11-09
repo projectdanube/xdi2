@@ -1,2 +1,2 @@
 =markus[$msg]*!:uuid:1234$do/$get/=markus
-=markus[$msg]*!:uuid:1234/$do/(=markus/=markus)$do
+=markus[$msg]*!:uuid:1234/$contract/(=markus/=markus)$contract

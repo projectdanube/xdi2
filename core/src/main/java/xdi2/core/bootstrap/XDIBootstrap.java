@@ -9,12 +9,12 @@ import xdi2.core.syntax.XDIAddress;
 
 public class XDIBootstrap {
 
-	public static final XDIAddress ALL_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$all{$do}");
-	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$do}");
-	public static final XDIAddress SET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$set{$do}");
-	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$do}");
-	public static final XDIAddress DEFER_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$defer$push{$do}");
-	public static final XDIAddress MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$digest{$do}");
+	public static final XDIAddress ALL_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$all{$contract}");
+	public static final XDIAddress GET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$get{$contract}");
+	public static final XDIAddress SET_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$set{$contract}");
+	public static final XDIAddress PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$push{$contract}");
+	public static final XDIAddress DEFER_PUSH_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$defer$push{$contract}");
+	public static final XDIAddress MSG_DIGEST_LINK_CONTRACT_TEMPLATE_ADDRESS = XDIAddress.create("$msg$digest{$contract}");
 
 	public static final Graph BOOTSTRAP_GRAPH;
 	public static final LinkContractTemplate ALL_LINK_CONTRACT_TEMPLATE;
@@ -35,35 +35,35 @@ public class XDIBootstrap {
 
 				// public link contract on the bootstrap graph
 
-				"($xdi/$public)$do/$get/\n" +
+				"($xdi/$public)$contract$do/$get/\n" +
 
 				// standard link contract templates
 
-				"$all{$do}/$all/\n" +
-				"($all{$do}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($all{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"$all{$contract}$do/$all/\n" +
+				"($all{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
+				"($all{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
-				"$get{$do}/$get/{$get}\n" +
-				"($get{$do}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($get{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"$get{$contract}$do/$get/{$get}\n" +
+				"($get{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
+				"($get{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
-				"$set{$do}/$set/{$set}\n" +
-				"($set{$do}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($set{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"$set{$contract}$do/$set/{$set}\n" +
+				"($set{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
+				"($set{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
-				"$push{$do}/$push/{$push}\n" +
-				"$push{$do}/$is()/{($from)}\n" +
-				"($push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
-				"($push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"$push{$contract}$do/$push/{$push}\n" +
+				"$push{$contract}/$to/{($from)}\n" +
+				"($push{$contract}$if$and/$true){$~from}/$is/{$to}\n" +
+				"($push{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
-				"$defer$push{$do}/$push/{$push}\n" +
-				"$defer$push{$do}/$is()/{($from)}\n" +
-				"($defer$push{$do}$if$and/$true){$~from}/$is/{$to}\n" +
-				"($defer$push{$do}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
-				"($defer$push{$do}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
+				"$defer$push{$contract}$do/$push/{$push}\n" +
+				"$defer$push{$contract}/$to/{($from)}\n" +
+				"($defer$push{$contract}$if$and/$true){$~from}/$is/{$to}\n" +
+				"($defer$push{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($defer$push{$contract}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
-				"$msg$digest{$do}/$all/\n" +
-				"($msg$digest{$do}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
+				"$msg$digest{$contract}$do/$all/\n" +
+				"($msg$digest{$contract}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
 
 		try {
 

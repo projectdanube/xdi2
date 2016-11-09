@@ -85,16 +85,16 @@
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							({$self}/$public)$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
-							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
 							&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:8080/xdi/users/{$self}"
 							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"ws://localhost:8080/xdi/users/{$self}"
 							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:9202/auth"
-							({$self}/$public)$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
@@ -229,16 +229,16 @@
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							({$self}/$public)$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
-							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
 							&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:8080/xdi/registry"
 							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"ws://localhost:8080/xdi/registry"
 							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:9202/auth"
-							({$self}/$public)$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">
@@ -381,16 +381,16 @@
 					<property name="bootstrapTimestamp" value="true" />
 					<property name="bootstrapGraph">
 						<value>
-							({$self}/$public)$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$encrypt$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$encrypt$keypair/$is#/{}
-							({$self}/$public)$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
+							({$self}/$public)$contract$do/$get/{$self}$msg$sig$keypair&lt;$public&gt;&lt;$key&gt;
 							({$self}/$public)($do/$get){$self}$msg$sig$keypair/$is#/{}
 							&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:8080/xdi/=alice"
 							&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"ws://localhost:8080/xdi/=alice"
 							&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;/&amp;/"http://localhost:9202/auth"
-							({$self}/$public)$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
-							({$self}/$public)$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$websocket&gt;&lt;$xdi&gt;&lt;$uri&gt;
+							({$self}/$public)$contract$do/$get/&lt;$connect&gt;&lt;$xdi&gt;&lt;$uri&gt;
 						</value>
 					</property>
 					<property name="bootstrapMessageEnvelope">

@@ -1,5 +1,5 @@
 (=!:uuid:1111)/$ref/
 /$is$ref/(=!:uuid:1111)
-=markus/$is$push/(=markus/=markus[$channel]*!:uuid:x-2)$do
-(=markus/=markus[$channel]*!:uuid:x-2)$do/$push/=markus
-(=markus/=markus[$channel]*!:uuid:x-2)$do/$is()/(=!:uuid:2222)
+=markus/$is$push/(=markus/=markus[$channel]*!:uuid:x-2)$contract
+(=markus/=markus[$channel]*!:uuid:x-2)$contract$do/$push/=markus
+(=markus/=markus[$channel]*!:uuid:x-2)$contract$do/$to/(=!:uuid:2222)

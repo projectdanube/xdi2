@@ -185,7 +185,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 			// write link contract and index into target graph
 
 			CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(executionContext), null);
-			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_DO, true);
+			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_CONTRACT, true);
 			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
 		}
 	}
