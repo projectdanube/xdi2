@@ -274,6 +274,16 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		return termName.toString();
 	}
 
+	private static boolean allStatementsImplied(ContextNode contextNode) {
+
+		for (Statement statement : contextNode.getAllStatements()) {
+
+			if (! statement.isImplied()) return false;
+		}
+
+		return true;
+	}
+
 	private static boolean includeContextNode(ContextNode contextNode) {
 
 		if (! contextNode.getStatement().isImplied()) return true;
@@ -285,19 +295,11 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 			XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(relation.followContextNode());
 			if (xdiInnerRoot != null && xdiInnerRoot.getSubjectContextNode() == contextNode) {
 
-				for (Statement statement : xdiInnerRoot.getContextNode().getAllStatements()) {
-
-					if (! statement.isImplied()) return true;
-				}
-
-				return false;
+				if (! allStatementsImplied(xdiInnerRoot.getContextNode())) return true;
 			}
 		}
 
-		for (Statement statement : contextNode.getAllStatements()) {
-
-			if (! statement.isImplied()) return true;
-		}
+		if (! allStatementsImplied(contextNode)) return true;
 
 		//if (contextNode.getAllLiterals().hasNext()) return true;
 		//if (contextNode.getAllRelations().hasNext()) return true;
@@ -324,9 +326,9 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private static boolean includeInnerRoot(Relation relation) {
 
-		//		return includeContextNode(relation.followContextNode());
+		if (! allStatementsImplied(relation.followContextNode())) return true;
 
-		return true;
+		return false;
 	}
 
 	private static ContextNode collapseContextNode(ContextNode contextNode) {
