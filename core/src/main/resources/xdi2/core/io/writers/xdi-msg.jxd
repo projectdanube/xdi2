@@ -1,0 +1,5 @@
+{
+        "is": { "@id": "$is", "@type": "@id" },
+        "ref": { "@id": "$ref", "@type": "@id" },
+        "rep": { "@id": "$rep", "@type": "@id" }
+}

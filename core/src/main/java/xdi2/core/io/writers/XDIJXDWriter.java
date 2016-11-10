@@ -1,7 +1,9 @@
 package xdi2.core.io.writers;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -47,11 +49,27 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
+	private static JXDMapping bootstrapJXDMappingXDI;
+	private static JXDMapping bootstrapJXDMappingXDIMsg;
+	private static JXDMapping bootstrapJXDMappingXDIContract;
+
 	private List<JXDMapping> bootstrapJXDMappings;
+
+	static {
+
+		bootstrapJXDMappingXDI = JXDMapping.create("$jxd$xdi", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi.jxd")), JsonObject.class));
+		bootstrapJXDMappingXDIMsg = JXDMapping.create("$jxd$xdi$msg", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-msg.jxd")), JsonObject.class));
+		bootstrapJXDMappingXDIContract = JXDMapping.create("$jxd$xdi$contract", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-contract.jxd")), JsonObject.class));
+	}
 
 	public XDIJXDWriter(Properties parameters) {
 
 		super(parameters);
+
+		this.bootstrapJXDMappings = new ArrayList<JXDMapping> ();
+		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDI);
+		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDIMsg);
+		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDIContract);
 	}
 
 	private void writeInternal(Graph graph, JsonArray jsonArray) throws IOException {
@@ -66,27 +84,44 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			// create mapping
 
-			JXDMapping mapping = JXDMapping.empty();
+			JXDMapping JXDmapping = JXDMapping.empty(null);
+
+			JsonArray jsonArrayMapping = new JsonArray();
+			jsonObject.add(JXDConstants.JXD_MAPPING, jsonArrayMapping);
 
 			if (this.getBootstrapJXDMappings() != null) {
 
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) mapping.merge(bootstrapJXDMapping);
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) {
+
+					if (bootstrapJXDMapping.getReference() != null) {
+
+						jsonArrayMapping.add(new JsonPrimitive(bootstrapJXDMapping.getReference()));
+					}
+
+					JXDmapping.merge(bootstrapJXDMapping);
+				}
 			}
 
-			jsonObject.add(JXDConstants.JXD_MAPPING, mapping.begin());
+			JsonObject jsonObjectMapping = JXDmapping.begin();
+			jsonArrayMapping.add(jsonObjectMapping);
 
 			// process context node
 
-			this.putContextNodeIntoJsonObject(childContextNode, jsonObject, mapping, true);
+			this.putContextNodeIntoJsonObject(childContextNode, jsonObject, JXDmapping, true);
 
 			// finish mapping
 
 			if (this.getBootstrapJXDMappings() != null) {
 
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) mapping.unmerge(bootstrapJXDMapping);
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) {
+
+					JXDmapping.unmerge(bootstrapJXDMapping);
+				}
 			}
 
-			if (! mapping.finish()) jsonObject.remove(JXDConstants.JXD_MAPPING);
+			JXDmapping.finish();
+			if (jsonObjectMapping.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
+			if (jsonObject.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
 
 			// finish JSON object for this context node
 

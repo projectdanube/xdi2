@@ -54,26 +54,31 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 	}
 
-	public void read(ContextNode contextNode, JsonObject jsonGraphObject, JXDMapping mapping, State state) throws IOException, Xdi2ParseException {
+	public void read(ContextNode contextNode, JsonObject jsonGraphObject, JXDMapping baseMapping, State state) throws IOException, Xdi2ParseException {
 
 		// read mapping
 
+		JXDMapping mapping;
 		JsonObject jsonObjectMapping = jsonGraphObject.getAsJsonObject(JXDConstants.JXD_MAPPING);
 
 		if (jsonObjectMapping == null) {
 
-			if (mapping == null) {
+			if (baseMapping != null) {
 
-				mapping = JXDMapping.empty();
+				mapping = baseMapping;
+			} else {
+				
+				mapping = JXDMapping.empty(null);
 			}
 		} else {
 
-			if (mapping == null) {
+			if (baseMapping != null) {
 
-				mapping = JXDMapping.create(jsonObjectMapping);
-			} else if (jsonObjectMapping != null) {
+				mapping = JXDMapping.create(null, baseMapping);
+				mapping.merge(jsonObjectMapping);
+			} else {
 
-				mapping = JXDMapping.merge(mapping, jsonObjectMapping);
+				mapping = JXDMapping.create(null, jsonObjectMapping);
 			}
 		}
 

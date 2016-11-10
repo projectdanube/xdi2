@@ -1,0 +1,17 @@
+{
+        "contract": { "@id": "$contract", "@type": "@id" },
+        "contract-variable": { "@id": "{$contract}", "@type": "@id" },
+        "do": { "@id": "$do", "@type": "@id" },
+        "if": { "@id": "$if", "@type": "@id" },
+        "not": { "@id": "$not", "@type": "@id" },
+        "and": { "@id": "$and", "@type": "@id" },
+        "or": { "@id": "$or", "@type": "@id" },
+        "if-and": { "@id": "$if$and", "@type": "@id" },
+        "if-or": { "@id": "$if$or", "@type": "@id" },
+        "true": { "@id": "$true", "@type": "@graph" },
+        "false": { "@id": "$false", "@type": "@graph" },
+        "msg-variable": { "@id": "{$msg}", "@type": "@id" },
+        "from-variable": { "@id": "{$from}", "@type": "@id" },
+        "to-variable": { "@id": "{$to}", "@type": "@id" },
+        "sigvalid": { "@id": "<$sig><$valid>" }
+}

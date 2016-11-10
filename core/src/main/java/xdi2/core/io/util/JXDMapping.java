@@ -12,34 +12,54 @@ import xdi2.core.syntax.XDIAddress;
 
 public class JXDMapping {
 
+	private String reference;
 	private Map<String, JXDTerm> terms;
 
-	public JXDMapping(Map<String, JXDTerm> terms) {
+	public JXDMapping(String reference, Map<String, JXDTerm> terms) {
 
+		this.reference = reference;
 		this.terms = terms;
 	}
 
-	public static JXDMapping empty() {
+	public static JXDMapping empty(String reference) {
 
-		JXDMapping mapping = new JXDMapping(new HashMap<String, JXDTerm> ());
+		JXDMapping mapping = new JXDMapping(reference, new HashMap<String, JXDTerm> ());
 
 		return mapping;
 	}
 
-	public static JXDMapping create(JsonObject jsonObjectMapping) {
+	public static JXDMapping create(String reference, JsonObject jsonObjectMapping) {
 
-		JXDMapping mapping = new JXDMapping(new HashMap<String, JXDTerm> ());
+		JXDMapping mapping = new JXDMapping(reference, new HashMap<String, JXDTerm> ());
 		mapping.merge(jsonObjectMapping);
 
 		return mapping;
 	}
 
-	public static JXDMapping merge(JXDMapping baseMapping, JsonObject jsonObjectMapping) {
+	public static JXDMapping create(String reference, JXDMapping otherMapping) {
 
-		JXDMapping mapping = new JXDMapping(baseMapping.terms);
-		mapping.merge(jsonObjectMapping);
+		JXDMapping mapping = new JXDMapping(null, new HashMap<String, JXDTerm> ());
+		mapping.merge(otherMapping);
 
 		return mapping;
+	}
+
+	public void merge(JsonObject jsonObjectMapping) {
+
+		for (Entry<String, JsonElement> entry : jsonObjectMapping.entrySet()) {
+
+			String name = entry.getKey();
+			JsonElement jsonElement = entry.getValue();
+
+			JXDTerm term = null;
+
+			if (jsonElement instanceof JsonPrimitive) term = JXDTerm.create(name, (JsonPrimitive) jsonElement);
+			if (jsonElement instanceof JsonObject) term = JXDTerm.create(name, (JsonObject) jsonElement);
+
+			if (term == null) throw new IllegalArgumentException("Invalid term: " + name);
+
+			this.terms.put(name, term);
+		}
 	}
 
 	public void merge(JXDMapping otherMapping) {
@@ -87,24 +107,6 @@ public class JXDMapping {
 		}
 	}
 
-	public void merge(JsonObject jsonObjectMapping) {
-
-		for (Entry<String, JsonElement> entry : jsonObjectMapping.entrySet()) {
-
-			String name = entry.getKey();
-			JsonElement jsonElement = entry.getValue();
-
-			JXDTerm term = null;
-
-			if (jsonElement instanceof JsonPrimitive) term = JXDTerm.create(name, (JsonPrimitive) jsonElement);
-			if (jsonElement instanceof JsonObject) term = JXDTerm.create(name, (JsonObject) jsonElement);
-
-			if (term == null) throw new IllegalArgumentException("Invalid term: " + name);
-
-			this.terms.put(name, term);
-		}
-	}
-
 	private JsonObject jsonObjectMapping;
 
 	public JsonObject begin() {
@@ -113,7 +115,7 @@ public class JXDMapping {
 		return this.jsonObjectMapping;
 	}
 
-	public boolean finish() {
+	public void finish() {
 
 		for (JXDTerm term : this.terms.values()) {
 
@@ -129,14 +131,26 @@ public class JXDMapping {
 				this.jsonObjectMapping.add(term.getName(), jsonObjectTerm);
 			}
 		}
+	}
 
-		return ! this.jsonObjectMapping.entrySet().isEmpty();
+	public String getReference() {
+
+		return this.reference;
+	}
+
+	public void setReference(String reference) {
+
+		this.reference = reference;
 	}
 
 	public JXDTerm getTerm(String name) {
 
 		return this.terms.get(name);
 	}
+
+	/*
+	 * Term
+	 */
 
 	public static class JXDTerm {
 
