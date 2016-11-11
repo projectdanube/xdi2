@@ -222,6 +222,11 @@ public class SendInterceptor extends AbstractInterceptor<MessagingTarget> implem
 
 		XDIArc toPeerRootXDIArc = forwardingMessage.getToPeerRootXDIArc();
 
+		if (toPeerRootXDIArc == null) {
+
+			throw new Xdi2MessagingException("Cannot route message without TO peer root.", null, executionContext);
+		}
+
 		XDIClientRoute<? extends XDIClient<? extends MessagingResponse>> xdiClientRoute;
 
 		try {
