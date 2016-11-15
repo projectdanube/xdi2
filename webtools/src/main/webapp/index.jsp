@@ -53,6 +53,7 @@ div.line { margin-left: -150px; }
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIEncrypter">XDI Encrypter</a></td>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDISigner">XDI Signer</a></td>
 	</tr><tr>
+	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIRegistrar">XDI Registrar</a></td>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIOperator">XDI Operator</a></td>
 	<td valign="middle"><img src="images/app20.png"></td><td style="width: 195px;" valign="middle"><a href="XDIGrapher">XDI Grapher</a></td>
 	</tr>

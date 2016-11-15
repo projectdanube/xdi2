@@ -124,6 +124,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>XDIRegistrar</display-name>
+		<servlet-name>XDIRegistrar</servlet-name>
+		<servlet-class>xdi2.webtools.registrar.XDIRegistrar</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XDIRegistrar</servlet-name>
+		<url-pattern>/XDIRegistrar</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>XDIGrapher</display-name>
 		<servlet-name>XDIGrapher</servlet-name>
 		<servlet-class>xdi2.webtools.grapher.XDIGrapher</servlet-class>

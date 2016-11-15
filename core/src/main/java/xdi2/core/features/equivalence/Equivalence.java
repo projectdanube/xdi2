@@ -53,6 +53,11 @@ public class Equivalence {
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeXDIAddress);
 	}
 
+	public static void delIdentityContextNode(ContextNode contextNode, XDIAddress identitycontextNodeXDIAddress) {
+
+		contextNode.delRelation(XDIDictionaryConstants.XDI_ADD_IS, identitycontextNodeXDIAddress);
+	}
+
 	public static ReadOnlyIterator<Relation> getIncomingIdentityRelations(ContextNode contextNode) {
 
 		ReadOnlyIterator<Relation> identityRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_IS);
@@ -125,6 +130,11 @@ public class Equivalence {
 	public static void setReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeXDIAddress) {
 
 		setReferenceContextNode(contextNode, referencecontextNodeXDIAddress, false);
+	}
+
+	public static void delReferenceContextNode(ContextNode contextNode, XDIAddress referencecontextNodeXDIAddress, boolean inverse) {
+
+		contextNode.delRelation(XDIDictionaryConstants.XDI_ADD_REF, referencecontextNodeXDIAddress);
 	}
 
 	public static ReadOnlyIterator<Relation> getIncomingReferenceRelations(ContextNode contextNode) {
@@ -201,6 +211,11 @@ public class Equivalence {
 		setReplacementContextNode(contextNode, replacementContextNodeXDIAddress, false);
 	}
 
+	public static void delReplacementContextNode(ContextNode contextNode, XDIAddress replacementContextNodeXDIAddress) {
+
+		contextNode.delRelation(XDIDictionaryConstants.XDI_ADD_REP, replacementContextNodeXDIAddress);
+	}
+
 	public static ReadOnlyIterator<Relation> getIncomingReplacementRelations(ContextNode contextNode) {
 
 		ReadOnlyIterator<Relation> replacementRelations = contextNode.getIncomingRelations(XDIDictionaryConstants.XDI_ADD_REP);
@@ -263,6 +278,11 @@ public class Equivalence {
 	public static void setAggregationContextNode(ContextNode contextNode, XDIAddress aggregationContextNodeXDIAddress) {
 
 		contextNode.setRelation(XDIDictionaryConstants.XDI_ADD_HAS, aggregationContextNodeXDIAddress);
+	}
+
+	public static void delAggregationContextNode(ContextNode contextNode, XDIAddress aggregationContextNodeXDIAddress) {
+
+		contextNode.delRelation(XDIDictionaryConstants.XDI_ADD_HAS, aggregationContextNodeXDIAddress);
 	}
 
 	public static ReadOnlyIterator<Relation> getIncomingAggregationRelations(ContextNode contextNode) {
