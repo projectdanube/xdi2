@@ -1,5 +1,12 @@
 {
-        "is": { "@id": "$is", "@type": "@id" },
-        "ref": { "@id": "$ref", "@type": "@id" },
-        "rep": { "@id": "$rep", "@type": "@id" }
+        "msg": { "@id": "$msg", "@type": "@id" },
+        "get": { "@id": "$get", "@type": "@id" },
+        "set": { "@id": "$set", "@type": "@id" },
+        "del": { "@id": "$del", "@type": "@id" },
+        "get-graph": { "@id": "$get", "@type": "@graph" },
+        "set-graph": { "@id": "$set", "@type": "@graph" },
+        "del-graph": { "@id": "$del", "@type": "@graph" },
+        "from": { "@id": "$from", "@type": "@id" },
+        "to": { "@id": "$to", "@type": "@id" },
+        "do": { "@id": "$do", "@type": "@id" }
 }
