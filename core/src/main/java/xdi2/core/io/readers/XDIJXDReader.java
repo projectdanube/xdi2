@@ -3,6 +3,9 @@ package xdi2.core.io.readers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -44,9 +47,13 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
+	private Map<String, JXDMapping> bootstrapJXDMappings;
+
 	public XDIJXDReader(Properties parameters) {
 
 		super(parameters);
+
+		this.bootstrapJXDMappings = new HashMap<String, JXDMapping> (JXDMapping.bootstrapJXDMappings);
 	}
 
 	@Override
@@ -54,31 +61,31 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 	}
 
-	public void read(ContextNode contextNode, JsonObject jsonGraphObject, JXDMapping baseMapping, State state) throws IOException, Xdi2ParseException {
+	public void read(ContextNode contextNode, JsonObject jsonGraphObject, JXDMapping baseJXDMapping, State state) throws IOException, Xdi2ParseException {
 
 		// read mapping
 
-		JXDMapping mapping;
-		JsonObject jsonObjectMapping = jsonGraphObject.getAsJsonObject(JXDConstants.JXD_MAPPING);
+		JXDMapping JXDmapping = JXDmapping = JXDMapping.create(null, baseJXDMapping);
+		JsonElement jsonElementMapping = jsonGraphObject.get(JXDConstants.JXD_MAPPING);
 
-		if (jsonObjectMapping == null) {
+		if (jsonElementMapping == null) {
 
-			if (baseMapping != null) {
+		} else if (jsonElementMapping instanceof JsonObject) {
 
-				mapping = baseMapping;
-			} else {
-				
-				mapping = JXDMapping.empty(null);
-			}
-		} else {
+			JXDmapping.merge((JsonObject) jsonElementMapping);
+		} else if (jsonElementMapping instanceof JsonArray) {
 
-			if (baseMapping != null) {
+			for (int i=0; i<((JsonArray) jsonElementMapping).size(); i++) {
 
-				mapping = JXDMapping.create(null, baseMapping);
-				mapping.merge(jsonObjectMapping);
-			} else {
+				JsonElement childJsonElementMapping = ((JsonArray) jsonElementMapping).get(i);
 
-				mapping = JXDMapping.create(null, jsonObjectMapping);
+				if (childJsonElementMapping instanceof JsonPrimitive && ((JsonPrimitive) childJsonElementMapping).isString()) {
+
+					JXDmapping.merge(((JsonPrimitive) childJsonElementMapping).getAsString());
+				} else if (childJsonElementMapping instanceof JsonObject) {
+
+					JXDmapping.merge((JsonObject) childJsonElementMapping);
+				}
 			}
 		}
 
@@ -96,7 +103,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 		XDIAddress type = null;
 
 		String typeString = jsonGraphObject.has(JXDConstants.JXD_TYPE) ? jsonGraphObject.get(JXDConstants.JXD_TYPE).getAsString() : null;
-		JXDMapping.JXDTerm typeTerm = typeString == null ? null : mapping.getTerm(typeString);
+		JXDMapping.JXDTerm typeTerm = typeString == null ? null : JXDmapping.getTerm(typeString);
 		if (typeTerm != null && typeTerm.getId() != null) type = typeTerm.getId();
 		else if (typeString != null) type = makeXDIAddress(typeString, state);
 
@@ -118,7 +125,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 			// look up entry term
 
-			JXDMapping.JXDTerm entryTerm = mapping.getTerm(entryString);
+			JXDMapping.JXDTerm entryTerm = JXDmapping.getTerm(entryString);
 
 			// read entry id
 
@@ -138,7 +145,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 				JsonObject entryJsonObject = (JsonObject) entryJsonElement;
 
 				String entryTypeString = entryJsonObject.has(JXDConstants.JXD_TYPE) ? entryJsonObject.get(JXDConstants.JXD_TYPE).getAsString() : null;
-				JXDMapping.JXDTerm entryTypeTerm = entryTypeString == null ? null : mapping.getTerm(entryTypeString);
+				JXDMapping.JXDTerm entryTypeTerm = entryTypeString == null ? null : JXDmapping.getTerm(entryTypeString);
 				if (entryTypeTerm != null && entryTypeTerm.getId() != null) type = entryTypeTerm.getId();
 				else if (entryTypeString != null) entryType = makeXDIAddress(entryTypeString, state);
 			}
@@ -152,7 +159,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 				XdiContext<?> xdiContext = XdiAbstractContext.fromContextNode(contextNode);
 				ContextNode nestedContextNode = xdiContext.getXdiInnerRoot(entryId, true).getContextNode();
 
-				this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
+				this.read(nestedContextNode, (JsonObject) entryJsonElement, JXDmapping, state);
 			} else if ((entryType != null && JXDConstants.JXD_ID.equals(entryType.toString())) || entryType != null) {
 
 				if (entryJsonElement instanceof JsonPrimitive && ((JsonPrimitive) entryJsonElement).isString()) {
@@ -181,7 +188,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 							ContextNode nestedContextNode = contextNode.setDeepContextNode(entryId);
 
-							this.read(nestedContextNode, (JsonObject) jsonEntryArrayElement, mapping, state);
+							this.read(nestedContextNode, (JsonObject) jsonEntryArrayElement, JXDmapping, state);
 						}
 					}
 				} else if (entryJsonElement instanceof JsonObject) {
@@ -190,7 +197,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 					ContextNode nestedContextNode = contextNode.setDeepContextNode(entryId);
 
-					this.read(nestedContextNode, (JsonObject) entryJsonElement, mapping, state);
+					this.read(nestedContextNode, (JsonObject) entryJsonElement, JXDmapping, state);
 				}
 			} else {
 
@@ -210,11 +217,17 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 	private void read(Graph graph, BufferedReader bufferedReader, State state) throws IOException, Xdi2ParseException {
 
+		// create mapping
+
+		JXDMapping baseJXDmapping = JXDMapping.empty(null);
+
+		// read graph
+
 		JsonElement graphJsonElement = gson.getAdapter(JsonObject.class).fromJson(bufferedReader);
 
 		if (graphJsonElement instanceof JsonObject) {
 
-			this.read(graph.getRootContextNode(), (JsonObject) graphJsonElement, null, state);
+			this.read(graph.getRootContextNode(), (JsonObject) graphJsonElement, baseJXDmapping, state);
 		} else if (graphJsonElement instanceof JsonArray) {
 
 			for (JsonElement graphEntryJsonElement : ((JsonArray) graphJsonElement)) {
@@ -247,6 +260,24 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 		return reader;
 	}
+
+	/*
+	 * Getters and setters
+	 */
+
+	public Map<String, JXDMapping> getBootstrapJXDMappings() {
+
+		return this.bootstrapJXDMappings;
+	}
+
+	public void setBootstrapJXGMappings(Map<String, JXDMapping> bootstrapJXDMappings) {
+
+		this.bootstrapJXDMappings = bootstrapJXDMappings;
+	}
+
+	/*
+	 * Helper classes
+	 */
 
 	private static class State {
 

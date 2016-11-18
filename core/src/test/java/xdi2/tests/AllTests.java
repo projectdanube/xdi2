@@ -32,6 +32,7 @@ import xdi2.tests.core.impl.wrapped.FileWrapperGraphTest;
 import xdi2.tests.core.io.NormalizationTest;
 import xdi2.tests.core.io.ReaderWriterRegistryTest;
 import xdi2.tests.core.io.ReaderWriterTest;
+import xdi2.tests.core.io.util.JXDMappingTest;
 import xdi2.tests.core.syntax.CloudNameTest;
 import xdi2.tests.core.syntax.CloudNumberTest;
 import xdi2.tests.core.syntax.ParserImplTest;
@@ -76,6 +77,7 @@ public class AllTests {
 		suite.addTestSuite(VariablesTest.class);
 		suite.addTestSuite(ReaderWriterRegistryTest.class);
 		suite.addTestSuite(ReaderWriterTest.class);
+		suite.addTestSuite(JXDMappingTest.class);
 		suite.addTestSuite(NormalizationTest.class);
 		suite.addTestSuite(XRI2UtilTest.class);
 		suite.addTestSuite(XDIAddressUtilTest.class);

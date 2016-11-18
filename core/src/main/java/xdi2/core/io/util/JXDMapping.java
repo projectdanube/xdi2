@@ -1,16 +1,41 @@
 package xdi2.core.io.util;
 
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import xdi2.core.io.writers.XDIJXDWriter;
 import xdi2.core.syntax.XDIAddress;
 
 public class JXDMapping {
+
+	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
+
+	public static JXDMapping bootstrapJXDMappingXDI;
+	public static JXDMapping bootstrapJXDMappingXDIMsg;
+	public static JXDMapping bootstrapJXDMappingXDIContract;
+
+	public static Map<String, JXDMapping> bootstrapJXDMappings;
+
+	static {
+
+		bootstrapJXDMappingXDI = create("$jxd$xdi", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi.jxd")), JsonObject.class));
+		bootstrapJXDMappingXDIMsg = create("$jxd$xdi$msg", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-msg.jxd")), JsonObject.class));
+		bootstrapJXDMappingXDIContract = create("$jxd$xdi$contract", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-contract.jxd")), JsonObject.class));
+
+		bootstrapJXDMappings = new HashMap<String, JXDMapping> ();
+		bootstrapJXDMappings.put(bootstrapJXDMappingXDI.getReference(), bootstrapJXDMappingXDI);
+		bootstrapJXDMappings.put(bootstrapJXDMappingXDIMsg.getReference(), bootstrapJXDMappingXDIMsg);
+		bootstrapJXDMappings.put(bootstrapJXDMappingXDIContract.getReference(), bootstrapJXDMappingXDIContract);
+	}
 
 	private String reference;
 	private Map<String, JXDTerm> terms;
@@ -38,10 +63,18 @@ public class JXDMapping {
 
 	public static JXDMapping create(String reference, JXDMapping otherMapping) {
 
-		JXDMapping mapping = new JXDMapping(null, new HashMap<String, JXDTerm> ());
+		JXDMapping mapping = new JXDMapping(reference, new HashMap<String, JXDTerm> ());
 		mapping.merge(otherMapping);
 
 		return mapping;
+	}
+
+	public void merge(String reference) {
+
+		JXDMapping otherMapping = bootstrapJXDMappings.get(reference);
+		if (otherMapping == null) throw new IllegalArgumentException("Reference " + reference + " not found.");
+
+		this.terms.putAll(otherMapping.terms);
 	}
 
 	public void merge(JsonObject jsonObjectMapping) {
@@ -185,9 +218,13 @@ public class JXDMapping {
 
 		public boolean equalsIdAndType(JXDTerm other) {
 
-			if (this.getId() == null && other.getId() != null) return false;
-			if (this.getId() != null && other.getId() == null) return false;
-			if (this.getId() != null && other.getId() != null && ! this.getId().equals(other.getId())) return false;
+			if (this.getId() != null) {
+
+				if (! this.getId().equals(other.getId())) return false;
+			} else {
+
+				if (! this.getName().equals(other.getName())) return false;
+			}
 
 			if (this.getType() == null && other.getType() != null) return false;
 			if (this.getType() != null && other.getType() == null) return false;
@@ -224,6 +261,12 @@ public class JXDMapping {
 		private void setType(XDIAddress type) {
 
 			this.type = type;
+		}
+
+		@Override
+		public String toString() {
+
+			return this.name + " " + this.id + " " + this.type;
 		}
 	}
 }

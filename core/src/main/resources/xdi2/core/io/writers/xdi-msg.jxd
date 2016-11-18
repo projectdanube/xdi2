@@ -1,5 +1,8 @@
 {
         "msg": { "@id": "$msg", "@type": "@id" },
+        "msg-0": { "@id": "[$msg]@~0", "@type": "@id" },
+        "msg-1": { "@id": "[$msg]@~1", "@type": "@id" },
+        "msg-2": { "@id": "[$msg]@~2", "@type": "@id" },
         "get": { "@id": "$get", "@type": "@id" },
         "set": { "@id": "$set", "@type": "@id" },
         "del": { "@id": "$del", "@type": "@id" },

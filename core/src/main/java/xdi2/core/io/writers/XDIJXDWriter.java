@@ -1,10 +1,10 @@
 package xdi2.core.io.writers;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Writer;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.google.gson.Gson;
@@ -49,27 +49,13 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
-	private static JXDMapping bootstrapJXDMappingXDI;
-	private static JXDMapping bootstrapJXDMappingXDIMsg;
-	private static JXDMapping bootstrapJXDMappingXDIContract;
-
-	private List<JXDMapping> bootstrapJXDMappings;
-
-	static {
-
-		bootstrapJXDMappingXDI = JXDMapping.create("$jxd$xdi", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi.jxd")), JsonObject.class));
-		bootstrapJXDMappingXDIMsg = JXDMapping.create("$jxd$xdi$msg", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-msg.jxd")), JsonObject.class));
-		bootstrapJXDMappingXDIContract = JXDMapping.create("$jxd$xdi$contract", gson.fromJson(new InputStreamReader(XDIJXDWriter.class.getResourceAsStream("xdi-contract.jxd")), JsonObject.class));
-	}
+	private Map<String, JXDMapping> bootstrapJXDMappings;
 
 	public XDIJXDWriter(Properties parameters) {
 
 		super(parameters);
 
-		this.bootstrapJXDMappings = new ArrayList<JXDMapping> ();
-		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDI);
-		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDIMsg);
-		this.bootstrapJXDMappings.add(bootstrapJXDMappingXDIContract);
+		this.bootstrapJXDMappings = new HashMap<String, JXDMapping> (JXDMapping.bootstrapJXDMappings);
 	}
 
 	private void writeInternal(Graph graph, JsonArray jsonArray) throws IOException {
@@ -91,7 +77,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			if (this.getBootstrapJXDMappings() != null) {
 
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) {
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
 
 					if (bootstrapJXDMapping.getReference() != null) {
 
@@ -113,7 +99,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			if (this.getBootstrapJXDMappings() != null) {
 
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings()) {
+				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
 
 					JXDmapping.unmerge(bootstrapJXDMapping);
 				}
@@ -231,9 +217,13 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 		String termName = mapTermName(XDIaddress);
 		if (termName == null) termName = XDIaddress.toString();
 
+		// determine term ID
+
+		XDIAddress termId = XDIaddress;
+
 		// create term
 
-		JXDTerm term = new JXDTerm(termName, XDIaddress, XDIAddress.create(JXDConstants.JXD_ID));
+		JXDTerm term = new JXDTerm(termName, termId, XDIAddress.create(JXDConstants.JXD_ID));
 		term = mapping.addOrReuse(term);
 
 		// done
@@ -472,12 +462,12 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 	 * Getters and setters
 	 */
 
-	public List<JXDMapping> getBootstrapJXDMappings() {
+	public Map<String, JXDMapping> getBootstrapJXDMappings() {
 
 		return this.bootstrapJXDMappings;
 	}
 
-	public void setBootstrapJXGMappings(List<JXDMapping> bootstrapJXDMappings) {
+	public void setBootstrapJXGMappings(Map<String, JXDMapping> bootstrapJXDMappings) {
 
 		this.bootstrapJXDMappings = bootstrapJXDMappings;
 	}

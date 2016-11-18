@@ -3,5 +3,8 @@
         "type": { "@id": "$is#", "@type": "@id" },
         "ref": { "@id": "$ref", "@type": "@id" },
         "rep": { "@id": "$rep", "@type": "@id" },
+        "is-type": { "@id": "#", "@type": "@id" },
+        "is-ref": { "@id": "$is$ref", "@type": "@id" },
+        "is-rep": { "@id": "$is$rep", "@type": "@id" },
         "has": { "@id": "$has", "@type": "@id" }
 }
