@@ -234,7 +234,7 @@ public class XDIJXDReader extends AbstractXDIReader {
 
 				if (! (graphEntryJsonElement instanceof JsonObject)) throw new Xdi2ParseException("JSON array must only contain objects: " + graphJsonElement);
 
-				this.read(graph.getRootContextNode(), (JsonObject) graphEntryJsonElement, null, state);
+				this.read(graph.getRootContextNode(), (JsonObject) graphEntryJsonElement, baseJXDmapping, state);
 			}
 		} else {
 

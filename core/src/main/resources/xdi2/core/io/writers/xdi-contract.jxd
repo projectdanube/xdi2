@@ -13,5 +13,9 @@
         "msg-variable": { "@id": "{$msg}", "@type": "@id" },
         "from-variable": { "@id": "{$from}", "@type": "@id" },
         "to-variable": { "@id": "{$to}", "@type": "@id" },
-        "sigvalid": { "@id": "<$sig><$valid>" }
+        "sig": { "@id": "<$sig>" },
+        "sig-valid": { "@id": "<$sig><$valid>" },
+        "secret-token": { "@id": "<$secret><$token>" },
+        "secret-token-valid": { "@id": "<$secret><$token><$valid>" },
+        "digest-secret-token": { "@id": "<$digest><$secret><$token>" }
 }

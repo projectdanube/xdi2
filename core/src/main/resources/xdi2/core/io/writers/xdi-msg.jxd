@@ -3,6 +3,7 @@
         "msg-0": { "@id": "[$msg]@~0", "@type": "@id" },
         "msg-1": { "@id": "[$msg]@~1", "@type": "@id" },
         "msg-2": { "@id": "[$msg]@~2", "@type": "@id" },
+        "do": { "@id": "$do", "@type": "@id" },
         "get": { "@id": "$get", "@type": "@id" },
         "set": { "@id": "$set", "@type": "@id" },
         "del": { "@id": "$del", "@type": "@id" },
@@ -11,5 +12,5 @@
         "del-graph": { "@id": "$del", "@type": "@graph" },
         "from": { "@id": "$from", "@type": "@id" },
         "to": { "@id": "$to", "@type": "@id" },
-        "do": { "@id": "$do", "@type": "@id" }
+        "do-digest-secret-token-graph": { "@id": "$do<$digest><$secret><$token>", "@type": "@graph" }
 }
