@@ -45,7 +45,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 	public static final String FORMAT_NAME = "JXD";
 	public static final String FILE_EXTENSION = "jxd";
-	public static final MimeType MIME_TYPE = null;
+	public static final MimeType MIME_TYPE = new MimeType("application/xdi+jxd");
 
 	private static final Gson gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
 
