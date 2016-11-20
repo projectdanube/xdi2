@@ -97,7 +97,7 @@ public final class MessagingCloneUtil {
 		CopyUtil.copyRelation(operation.getRelation(), clonedMessage.getMessageEnvelope().getGraph(), null);
 
 		Operation clonedOperation = clonedMessage.getOperations().next();
-		if (log.isTraceEnabled()) log.trace("Cloned operation: " + clonedOperation.getMessageEnvelope());
+		if (log.isTraceEnabled()) log.trace("Cloned operation: " + clonedOperation.getMessage().getMessageEnvelope());
 
 		return clonedOperation;
 	}

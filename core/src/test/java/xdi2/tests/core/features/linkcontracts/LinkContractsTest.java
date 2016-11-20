@@ -6,7 +6,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
@@ -38,12 +38,12 @@ public class LinkContractsTest extends TestCase {
 		graph.close();
 	}
 
-	public void testGenericLinkContract() throws Exception {
+	public void testRelationshipLinkContract() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		ContextNode c1 = graph.setDeepContextNode(XDIAddress.create("(=bob/=alice)=alice#registration$contract"));
-		GenericLinkContract l1 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c1));
+		RelationshipLinkContract l1 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c1));
 
 		assertNotNull(l1);
 		assertEquals(l1.getAuthorizingAuthority(), XDIAddress.create("=bob"));
@@ -51,7 +51,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l1.getTemplateAuthorityAndId(), XDIAddress.create("=alice#registration"));
 
 		ContextNode c2 = graph.setDeepContextNode(XDIAddress.create("(=bob/=alice)=alice#registration[$contract]*!:uuid:0e43479d-834e-085f-3e8a-faa060afe9cf"));
-		GenericLinkContract l2 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
+		RelationshipLinkContract l2 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
 
 		assertNotNull(l2);
 		assertEquals(l2.getAuthorizingAuthority(), XDIAddress.create("=bob"));
@@ -59,7 +59,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l2.getTemplateAuthorityAndId(), XDIAddress.create("=alice#registration"));
 
 		ContextNode c3 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration$contract"));
-		GenericLinkContract l3 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c3));
+		RelationshipLinkContract l3 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c3));
 
 		assertNotNull(l3);
 		assertEquals(l3.getAuthorizingAuthority(), XDIAddress.create("=!1111"));
@@ -67,7 +67,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l3.getTemplateAuthorityAndId(), XDIAddress.create("=!2222#registration"));
 
 		ContextNode c4 = graph.setDeepContextNode(XDIAddress.create("(=!1111/=!2222)=!2222#registration[$contract]*!:uuid:272406ef-1e57-1325-fdba-700e16ac1132"));
-		GenericLinkContract l4 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c4));
+		RelationshipLinkContract l4 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c4));
 
 		assertNotNull(l4);
 		assertEquals(l4.getAuthorizingAuthority(), XDIAddress.create("=!1111"));
@@ -75,7 +75,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l4.getTemplateAuthorityAndId(), XDIAddress.create("=!2222#registration"));
 
 		ContextNode c5 = graph.setDeepContextNode(XDIAddress.create("(#friend/$public)$contract"));
-		GenericLinkContract l5 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c5));
+		RelationshipLinkContract l5 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c5));
 
 		assertNotNull(l5);
 		assertEquals(l5.getAuthorizingAuthority(), XDIAddress.create("#friend"));
@@ -85,12 +85,12 @@ public class LinkContractsTest extends TestCase {
 		graph.close();
 	}
 
-	public void testNestedGenericLinkContract() throws Exception {
+	public void testNestedRelationshipLinkContract() throws Exception {
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
 		ContextNode c1 = graph.setDeepContextNode(XDIAddress.create("(=bob[$msg]*!:uuid:1234/$connect$push)(=bob/=alice)$defer$push$contract"));
-		GenericLinkContract l1 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c1));
+		RelationshipLinkContract l1 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c1));
 
 		assertNotNull(l1);
 		assertEquals(l1.getAuthorizingAuthority(), XDIAddress.create("=bob"));
@@ -98,7 +98,7 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l1.getTemplateAuthorityAndId(), XDIAddress.create("$defer$push"));
 
 		ContextNode c2 = graph.setDeepContextNode(XDIAddress.create("(=bob[$msg]*!:uuid:1234/$connect$push)(=bob/=alice)$defer$push[$contract]*!:uuid:1234"));
-		GenericLinkContract l2 = (GenericLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
+		RelationshipLinkContract l2 = (RelationshipLinkContract) LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(c2));
 
 		assertNotNull(l2);
 		assertEquals(l2.getAuthorizingAuthority(), XDIAddress.create("=bob"));

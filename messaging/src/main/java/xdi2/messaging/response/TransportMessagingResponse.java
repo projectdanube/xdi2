@@ -5,7 +5,7 @@ import java.io.Serializable;
 import xdi2.core.Graph;
 import xdi2.core.features.error.XdiError;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.util.iterators.EmptyIterator;
@@ -92,8 +92,8 @@ public abstract class TransportMessagingResponse implements MessagingResponse, S
 			@Override
 			public boolean select(LinkContract linkContract) {
 
-				if (! (linkContract instanceof GenericLinkContract)) return false;
-				if (! (((GenericLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
+				if (! (linkContract instanceof RelationshipLinkContract)) return false;
+				if (! (((RelationshipLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
 
 				return true;
 			}

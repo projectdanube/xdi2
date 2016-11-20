@@ -32,8 +32,8 @@ import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
-import xdi2.messaging.MessageCollection;
-import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.MessageBase;
+import xdi2.messaging.MessageTemplate;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -47,14 +47,14 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private static final Logger log = LoggerFactory.getLogger(Operation.class);
 
-	protected Message message;
+	protected MessageBase<?> messageBase;
 	protected Relation relation;
 
-	protected Operation(Message message, Relation relation) {
+	protected Operation(MessageBase<?> messageBase, Relation relation) {
 
-		if (message == null || relation == null) throw new NullPointerException();
+		if (messageBase == null || relation == null) throw new NullPointerException();
 
-		this.message = message;
+		this.messageBase = messageBase;
 		this.relation = relation;
 	}
 
@@ -93,19 +93,19 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	/**
 	 * Factory method that creates an XDI operation bound to a given relation.
-	 * @param message The XDI message to which this XDI operation belongs.
+	 * @param messageBase The XDI message (template) to which this XDI operation belongs.
 	 * @param relation The relation that is an XDI operation.
 	 * @return The XDI operation.
 	 */
-	public static Operation fromMessageAndRelation(Message message, Relation relation) {
+	public static Operation fromMessageBaseAndRelation(MessageBase<?> messageBase, Relation relation) {
 
-		if (GetOperation.isValid(relation)) return new GetOperation(message, relation);
-		if (SetOperation.isValid(relation)) return new SetOperation(message, relation);
-		if (DelOperation.isValid(relation)) return new DelOperation(message, relation);
-		if (DoOperation.isValid(relation)) return new DoOperation(message, relation);
-		if (ConnectOperation.isValid(relation)) return new ConnectOperation(message, relation);
-		if (SendOperation.isValid(relation)) return new SendOperation(message, relation);
-		if (PushOperation.isValid(relation)) return new PushOperation(message, relation);
+		if (GetOperation.isValid(relation)) return new GetOperation(messageBase, relation);
+		if (SetOperation.isValid(relation)) return new SetOperation(messageBase, relation);
+		if (DelOperation.isValid(relation)) return new DelOperation(messageBase, relation);
+		if (DoOperation.isValid(relation)) return new DoOperation(messageBase, relation);
+		if (ConnectOperation.isValid(relation)) return new ConnectOperation(messageBase, relation);
+		if (SendOperation.isValid(relation)) return new SendOperation(messageBase, relation);
+		if (PushOperation.isValid(relation)) return new PushOperation(messageBase, relation);
 
 		return null;
 	}
@@ -122,7 +122,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		Message message = xdiEntity == null ? null : Message.fromXdiEntity(xdiEntity);
 		if (xdiEntity == null) return null;
 
-		return fromMessageAndRelation(message, relation);
+		return fromMessageBaseAndRelation(message, relation);
 	}
 
 	/*
@@ -130,30 +130,34 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 
 	/**
-	 * Returns the XDI message to which this XDI operation belongs.
-	 * @return An XDI message.
+	 * Returns the XDI message (template) to which this XDI operation belongs.
+	 * @return An XDI message (template).
+	 */
+	public MessageBase<?> getMessageBase() {
+
+		return this.messageBase;
+	}
+
+	/**
+	 * Returns the XDI message (template) to which this XDI operation belongs.
+	 * @return An XDI message (template).
 	 */
 	public Message getMessage() {
 
-		return this.message;
+		if (! (this.getMessageBase() instanceof Message)) return null;
+
+		return (Message) this.getMessageBase();
 	}
 
 	/**
-	 * Returns the XDI message collection to which this XDI operation belongs.
-	 * @return An XDI message collection.
+	 * Returns the XDI message template to which this XDI operation belongs.
+	 * @return An XDI message template.
 	 */
-	public MessageCollection getMessageCollection() {
+	public MessageTemplate getMessageTemplate() {
 
-		return this.getMessage().getMessageCollection();
-	}
+		if (! (this.getMessageBase() instanceof MessageTemplate)) return null;
 
-	/**
-	 * Returns the XDI message envelope to which this XDI operation belongs.
-	 * @return An XDI message envelope.
-	 */
-	public MessageEnvelope getMessageEnvelope() {
-
-		return this.getMessageCollection().getMessageEnvelope();
+		return (MessageTemplate) this.getMessageBase();
 	}
 
 	/**
@@ -230,24 +234,6 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		}
 	}
 
-	/**
-	 * Returns the sender of the operation's message collection.
-	 * @return The sender of the operation's message collection.
-	 */
-	public ContextNode getSender() {
-
-		return this.getMessage().getMessageCollection().getSender();
-	}
-
-	/**
-	 * Returns the sender address of the operation's message collection.
-	 * @return The sender address of the operation's message collection.
-	 */
-	public XDIAddress getSenderXDIAddress() {
-
-		return this.getMessage().getMessageCollection().getSenderXDIAddress();
-	}
-
 	/*
 	 * Operation parameters and variable values
 	 */
@@ -259,7 +245,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	 */
 	public void setParameter(XDIAddress parameterXDIAddress, Object parameterValue) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
+		XdiEntitySingleton parameterXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, true);
 
 		parameterXdiAttribute.setLiteralData(parameterValue);
@@ -319,7 +305,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private LiteralNode getParameterLiteralNode(XDIAddress parameterXDIAddress) {
 
-		XdiEntitySingleton parameterXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
+		XdiEntitySingleton parameterXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (parameterXdiEntity == null) return null;
 
 		XdiAttributeSingleton parameterXdiAttribute = parameterXdiEntity.getXdiAttributeSingleton(parameterXDIAddress, false);
@@ -333,7 +319,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	public void setVariableValue(XDIArc variableValueXDIArc, Object variableValue) {
 
-		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 		if (variableValuesXdiEntity == null) return;
 
 		if (variableValue instanceof XDIArc) {
@@ -352,7 +338,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	public Map<XDIArc, Object> getVariableValues() {
 
-		XdiEntitySingleton variableValuesXdiEntity = this.getMessage().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
 		if (variableValuesXdiEntity == null) return Collections.emptyMap();
 
 		Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
@@ -392,6 +378,7 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 		return variableValues;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<XDIAddress> getVariableXDIAddressValues(XDIArc variableValueXDIArc) {
 
 		Map<XDIArc, Object> variableValues = this.getVariableValues();

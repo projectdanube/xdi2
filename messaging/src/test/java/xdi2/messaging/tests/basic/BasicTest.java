@@ -23,10 +23,10 @@ public class BasicTest extends TestCase {
 	private static final XDIStatement TARGET_STATEMENT = XDIStatement.create("=markus/+friend/=giovanni");
 
 	private static final XDIAddress contextNodeXDIAddressS[] = new XDIAddress[] {
-		XDIAddress.create("=markus#email"),
-		XDIAddress.create("=markus"),
-		XDIAddress.create("=markus+friends"),
-		XDIAddress.create("=markus#name#last")
+			XDIAddress.create("=markus#email"),
+			XDIAddress.create("=markus"),
+			XDIAddress.create("=markus+friends"),
+			XDIAddress.create("=markus#name#last")
 	};
 
 	public void testMessagingOverview() throws Exception {
@@ -101,9 +101,9 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getOperationCount(), 3);
 		assertEquals(messageCollection.getSenderXDIAddress(), SENDER);
 		assertEquals(message.getSenderXDIAddress(), SENDER);
-		assertEquals(setOperation.getSenderXDIAddress(), SENDER);
-		assertEquals(getOperation.getSenderXDIAddress(), SENDER);
-		assertEquals(delOperation.getSenderXDIAddress(), SENDER);
+		assertEquals(setOperation.getMessage().getSenderXDIAddress(), SENDER);
+		assertEquals(getOperation.getMessage().getSenderXDIAddress(), SENDER);
+		assertEquals(delOperation.getMessage().getSenderXDIAddress(), SENDER);
 		assertTrue(setOperation instanceof SetOperation);
 		assertTrue(getOperation instanceof GetOperation);
 		assertTrue(delOperation instanceof DelOperation);
@@ -123,7 +123,7 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getOperationCount(), 1);
 		assertEquals(messageCollection.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(message.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
-		assertEquals(operation.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
+		assertEquals(operation.getMessage().getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_SET);
 		assertEquals(operation.getTargetXDIAddress(), TARGET_ADDRESS);
 		assertTrue(operation instanceof SetOperation);
@@ -143,7 +143,7 @@ public class BasicTest extends TestCase {
 		assertEquals(message.getOperationCount(), 1);
 		assertEquals(messageCollection.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(message.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
-		assertEquals(operation.getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
+		assertEquals(operation.getMessage().getSenderXDIAddress(), XDIMessagingConstants.XDI_ADD_ANONYMOUS);
 		assertEquals(operation.getOperationXDIAddress(), XDIMessagingConstants.XDI_ADD_SET);
 		assertEquals(operation.getTargetXDIStatements().next(), TARGET_STATEMENT);
 		assertTrue(operation instanceof SetOperation);

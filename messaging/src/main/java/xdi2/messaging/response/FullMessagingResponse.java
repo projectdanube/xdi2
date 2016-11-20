@@ -5,7 +5,7 @@ import java.util.Iterator;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
@@ -127,8 +127,8 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 					@Override
 					public boolean select(LinkContract linkContract) {
 
-						if (! (linkContract instanceof GenericLinkContract)) return false;
-						if (! (((GenericLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
+						if (! (linkContract instanceof RelationshipLinkContract)) return false;
+						if (! (((RelationshipLinkContract) linkContract).getXdiInnerRoot().getXdiContext() instanceof XdiCommonRoot)) return false;
 
 						if (linkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;
 						if (linkContract.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_PUSH).hasNext()) return true;

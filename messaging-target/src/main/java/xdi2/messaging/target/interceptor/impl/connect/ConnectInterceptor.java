@@ -191,7 +191,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// determine requesting and authorizing authorities
 
-		XDIAddress requestingAuthority = operation.getSenderXDIAddress();
+		XDIAddress requestingAuthority = operation.getMessage().getSenderXDIAddress();
 		if (requestingAuthority == null) throw new Xdi2MessagingException("No requesting authority for link contract instantiation.", null, executionContext);
 
 		XDIAddress authorizingAuthority = operation.getMessage().getToXDIAddress();

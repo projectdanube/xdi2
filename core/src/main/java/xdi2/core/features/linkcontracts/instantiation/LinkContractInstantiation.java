@@ -10,7 +10,7 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -67,14 +67,14 @@ public class LinkContractInstantiation {
 
 		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
-		// create generic link contract
+		// create relationship link contract
 
 		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("No authorizing authority.");
 		if (this.getRequestingAuthority() == null) throw new NullPointerException("No requesting authority.");
 
 		Graph linkContractGraph = MemoryGraphFactory.getInstance().openGraph();
 
-		LinkContract linkContract = GenericLinkContract.findGenericLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, instanceXDIArc, create);
+		LinkContract linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, instanceXDIArc, create);
 		if (linkContract == null) return null;
 		if (linkContract != null && ! create) return linkContract;
 

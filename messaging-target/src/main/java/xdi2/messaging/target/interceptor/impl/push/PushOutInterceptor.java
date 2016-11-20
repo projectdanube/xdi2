@@ -14,7 +14,7 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.syntax.XDIAddress;
@@ -108,8 +108,8 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		List<Operation> pushableOperations = getPushableOperationsPerMessageEnvelope(executionContext);
 		if (pushableOperations == null) return;
 
-		Map<GenericLinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<GenericLinkContract, Map<Operation, XDIAddress>> ();
-		Map<GenericLinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<GenericLinkContract, Map<Operation, List<XDIStatement>>> ();
+		Map<RelationshipLinkContract, Map<Operation, XDIAddress>> pushLinkContractsXDIAddressMap = new HashMap<RelationshipLinkContract, Map<Operation, XDIAddress>> ();
+		Map<RelationshipLinkContract, Map<Operation, List<XDIStatement>>> pushLinkContractsXDIStatementMap = new HashMap<RelationshipLinkContract, Map<Operation, List<XDIStatement>>> ();
 
 		for (Operation pushableOperation : pushableOperations) {
 
@@ -120,10 +120,10 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 			if (targetXDIAddress != null) {
 
-				List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
+				List<RelationshipLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
 				if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
-				for (GenericLinkContract pushLinkContract : pushLinkContracts) {
+				for (RelationshipLinkContract pushLinkContract : pushLinkContracts) {
 
 					if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target address " + targetXDIAddress);
 
@@ -150,10 +150,10 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 					targetXDIAddress = targetXDIAddressForTargetXDIStatement(targetXDIStatement);
 
-					List<GenericLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
+					List<RelationshipLinkContract> pushLinkContracts = findPushLinkContracts(this.getPushLinkContractsGraph(executionContext), targetXDIAddress);
 					if (pushLinkContracts == null || pushLinkContracts.isEmpty()) continue;
 
-					for (GenericLinkContract pushLinkContract : pushLinkContracts) {
+					for (RelationshipLinkContract pushLinkContract : pushLinkContracts) {
 
 						if (log.isDebugEnabled()) log.debug("For push link contract " + pushLinkContract + " processing target statement " + targetXDIStatement);
 
@@ -179,11 +179,11 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// execute the push link contracts
 
-		Set<GenericLinkContract> pushLinkContracts = new HashSet<GenericLinkContract> ();
+		Set<RelationshipLinkContract> pushLinkContracts = new HashSet<RelationshipLinkContract> ();
 		pushLinkContracts.addAll(pushLinkContractsXDIAddressMap.keySet());
 		pushLinkContracts.addAll(pushLinkContractsXDIStatementMap.keySet());
 
-		for (GenericLinkContract pushLinkContract : pushLinkContracts) {
+		for (RelationshipLinkContract pushLinkContract : pushLinkContracts) {
 
 			Map<Operation, XDIAddress> pushedXDIAddressMap = pushLinkContractsXDIAddressMap.get(pushLinkContract);
 			Map<Operation, List<XDIStatement>> pushedXDIStatementMap = pushLinkContractsXDIStatementMap.get(pushLinkContract);
@@ -276,9 +276,9 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		}
 	}
 
-	private static List<GenericLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIAddress XDIaddress) {
+	private static List<RelationshipLinkContract> findPushLinkContracts(Graph pushLinkContractsGraph, XDIAddress XDIaddress) {
 
-		List<GenericLinkContract> pushLinkContracts = new ArrayList<GenericLinkContract> ();
+		List<RelationshipLinkContract> pushLinkContracts = new ArrayList<RelationshipLinkContract> ();
 
 		while (true) {
 
@@ -298,7 +298,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingTarget> imp
 					XdiEntity pushLinkContractXdiEntity = XdiAbstractEntity.fromContextNode(pushLinkContractContextNode);
 					if (pushLinkContractXdiEntity == null) continue;
 
-					GenericLinkContract pushLinkContract = GenericLinkContract.fromXdiEntity(pushLinkContractXdiEntity);
+					RelationshipLinkContract pushLinkContract = RelationshipLinkContract.fromXdiEntity(pushLinkContractXdiEntity);
 					if (pushLinkContract == null) continue;
 
 					for (XDIAddress pushTargetXDIAddress : pushLinkContract.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_PUSH)) {

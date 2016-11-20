@@ -3,7 +3,7 @@ package xdi2.messaging.operations;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
+import xdi2.messaging.MessageBase;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -15,9 +15,9 @@ public class PushOperation extends Operation {
 
 	private static final long serialVersionUID = 4953230035946917353L;
 
-	protected PushOperation(Message message, Relation relation) {
+	protected PushOperation(MessageBase<?> messageBase, Relation relation) {
 
-		super(message, relation);
+		super(messageBase, relation);
 	}
 
 	/*
@@ -42,10 +42,10 @@ public class PushOperation extends Operation {
 	 * @param relation The relation that is an XDI $push operation.
 	 * @return The XDI $push operation.
 	 */
-	public static PushOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static PushOperation fromMessageBaseAndRelation(MessageBase<?> messageBase, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new PushOperation(message, relation);
+		return new PushOperation(messageBase, relation);
 	}
 }

@@ -120,7 +120,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		MessageEnvelope feedbackMessageEnvelope = new MessageEnvelope();
 
-		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getMessage().getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(hasTargetXDIAddress);

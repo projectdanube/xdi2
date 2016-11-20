@@ -5,7 +5,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import xdi2.core.bootstrap.XDIBootstrap;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
@@ -27,7 +27,7 @@ public class LinkContractInstantiationTest extends TestCase {
 
 		linkContractInstantiation.setVariableValues(variableValues);
 
-		GenericLinkContract linkContract = (GenericLinkContract) linkContractInstantiation.execute(instanceXDIArc, true);
+		RelationshipLinkContract linkContract = (RelationshipLinkContract) linkContractInstantiation.execute(instanceXDIArc, true);
 
 		assertEquals(XDIAddress.create("=alice"), linkContract.getRequestingAuthority());
 		assertEquals(XDIAddress.create("=bob"), linkContract.getAuthorizingAuthority());

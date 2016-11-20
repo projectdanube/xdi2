@@ -449,7 +449,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		MessageEnvelope feedbackMessageEnvelope = new MessageEnvelope();
 
-		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessage = feedbackMessageEnvelope.createMessage(operation.getMessage().getSenderXDIAddress());
 		feedbackMessage.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 
 		Operation feedbackOperation = feedbackMessage.createGetOperation(refRepContextNodeXDIAddress);
@@ -505,8 +505,8 @@ public class RefInterceptor extends AbstractInterceptor<MessagingTarget> impleme
 
 		MessageEnvelope feedbackMessageEnvelope = new MessageEnvelope();
 
-		Message feedbackMessageRef = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
-		Message feedbackMessageRep = feedbackMessageEnvelope.createMessage(operation.getSenderXDIAddress());
+		Message feedbackMessageRef = feedbackMessageEnvelope.createMessage(operation.getMessage().getSenderXDIAddress());
+		Message feedbackMessageRep = feedbackMessageEnvelope.createMessage(operation.getMessage().getSenderXDIAddress());
 		feedbackMessageRef.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 		feedbackMessageRep.setToPeerRootXDIArc(operation.getMessage().getToPeerRootXDIArc());
 

@@ -3,7 +3,7 @@ package xdi2.messaging.operations;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
+import xdi2.messaging.MessageBase;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -15,9 +15,9 @@ public class SendOperation extends Operation {
 
 	private static final long serialVersionUID = 3704383205563760034L;
 
-	protected SendOperation(Message message, Relation relation) {
+	protected SendOperation(MessageBase<?> messageBase, Relation relation) {
 
-		super(message, relation);
+		super(messageBase, relation);
 	}
 
 	/*
@@ -42,10 +42,10 @@ public class SendOperation extends Operation {
 	 * @param relation The relation that is an XDI $send operation.
 	 * @return The XDI $send operation.
 	 */
-	public static SendOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static SendOperation fromMessageBaseAndRelation(MessageBase<?> messageBase, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new SendOperation(message, relation);
+		return new SendOperation(messageBase, relation);
 	}
 }

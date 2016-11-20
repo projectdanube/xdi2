@@ -13,15 +13,15 @@ public class AcceptHeaderTest extends TestCase {
 		AcceptHeader acceptHeader;
 
 		acceptHeader = AcceptHeader.create(XDIJSONQuadReader.MIME_TYPE);
-		assertEquals(acceptHeader.toString(), "application/xdi+json;q=1,text/xdi;q=0.5");
+		assertEquals(acceptHeader.toString(), "application/xdi+json;q=1,application/xdi+jxd;q=0.5,text/xdi;q=0.5");
 		assertEquals(acceptHeader.bestMimeType(true, false), XDIJSONQuadReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.create(XDIDisplayReader.MIME_TYPE);
-		assertEquals(acceptHeader.toString(), "text/xdi;q=1,application/xdi+json;q=0.5");
+		assertEquals(acceptHeader.toString(), "text/xdi;q=1,application/xdi+json;q=0.5,application/xdi+jxd;q=0.5");
 		assertEquals(acceptHeader.bestMimeType(true, false), XDIDisplayReader.MIME_TYPE);
 
 		acceptHeader = AcceptHeader.create(null);
-		assertEquals(acceptHeader.toString(), "application/xdi+json;q=0.5,text/xdi;q=0.5");
+		assertEquals(acceptHeader.toString(), "application/xdi+json;q=0.5,application/xdi+jxd;q=0.5,text/xdi;q=0.5");
 	}
 
 	public void testParseAcceptHeader() throws Exception {

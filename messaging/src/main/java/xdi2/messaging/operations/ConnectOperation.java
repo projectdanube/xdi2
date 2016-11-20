@@ -3,7 +3,7 @@ package xdi2.messaging.operations;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
+import xdi2.messaging.MessageBase;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -15,9 +15,9 @@ public class ConnectOperation extends Operation {
 
 	private static final long serialVersionUID = -7845242233143721970L;
 
-	protected ConnectOperation(Message message, Relation relation) {
+	protected ConnectOperation(MessageBase<?> messageBase, Relation relation) {
 
-		super(message, relation);
+		super(messageBase, relation);
 	}
 
 	/*
@@ -42,10 +42,10 @@ public class ConnectOperation extends Operation {
 	 * @param relation The relation that is an XDI $connect operation.
 	 * @return The XDI $connect operation.
 	 */
-	public static ConnectOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static ConnectOperation fromMessageBaseAndRelation(MessageBase<?> messageBase, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new ConnectOperation(message, relation);
+		return new ConnectOperation(messageBase, relation);
 	}
 }

@@ -13,7 +13,7 @@ import xdi2.core.util.GraphUtil;
  * 
  * @author markus
  */
-public class SendLinkContract extends GenericLinkContract {
+public class SendLinkContract extends RelationshipLinkContract {
 
 	private static final long serialVersionUID = 3468212632891253054L;
 
@@ -33,15 +33,15 @@ public class SendLinkContract extends GenericLinkContract {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		if (! GenericLinkContract.isValid(xdiEntity)) return false;
+		if (! RelationshipLinkContract.isValid(xdiEntity)) return false;
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXDIAddress()) != null) return false;
+			if (RelationshipLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
+			if (RelationshipLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
+			if (RelationshipLinkContract.getTemplateAuthorityAndId(xdiEntity.getXDIAddress()) != null) return false;
 
-			if (! XDILinkContractConstants.XDI_ADD_SEND.equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
+			if (! XDILinkContractConstants.XDI_ADD_SEND.equals(RelationshipLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityInstance) {
@@ -67,7 +67,7 @@ public class SendLinkContract extends GenericLinkContract {
 
 	public static XDIAddress createSendLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_SEND, null, null);
+		return RelationshipLinkContract.createRelationshipLinkContractXDIAddress(ownerXDIAddress, XDILinkContractConstants.XDI_ADD_SEND, null, null);
 	}
 
 	/**
@@ -79,9 +79,9 @@ public class SendLinkContract extends GenericLinkContract {
 		XDIAddress ownerXDIAddress = GraphUtil.getOwnerXDIAddress(graph);
 		if (ownerXDIAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_SEND, null, null, create);
-		if (genericLinkContract == null) return null;
+		RelationshipLinkContract relationshipLinkContract = RelationshipLinkContract.findRelationshipLinkContract(graph, ownerXDIAddress, XDILinkContractConstants.XDI_ADD_SEND, null, null, create);
+		if (relationshipLinkContract == null) return null;
 
-		return fromXdiEntity(genericLinkContract.getXdiEntity());
+		return fromXdiEntity(relationshipLinkContract.getXdiEntity());
 	}
 }

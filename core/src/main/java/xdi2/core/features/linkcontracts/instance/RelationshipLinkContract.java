@@ -19,15 +19,15 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.XDIAddressUtil;
 
 /**
- * An XDI generic link contract, represented as an XDI entity.
+ * An XDI relationship link contract, represented as an XDI entity.
  * 
  * @author markus
  */
-public class GenericLinkContract extends LinkContract {
+public class RelationshipLinkContract extends LinkContract {
 
 	private static final long serialVersionUID = 6840561339666839961L;
 
-	protected GenericLinkContract(XdiEntity xdiEntity) {
+	protected RelationshipLinkContract(XdiEntity xdiEntity) {
 
 		super(xdiEntity);
 	}
@@ -37,9 +37,9 @@ public class GenericLinkContract extends LinkContract {
 	 */
 
 	/**
-	 * Checks if an XDI entity is a valid XDI generic link contract.
+	 * Checks if an XDI entity is a valid XDI relationship link contract.
 	 * @param xdiEntity The XDI entity to check.
-	 * @return True if the XDI entity is a valid XDI generic link contract.
+	 * @return True if the XDI entity is a valid XDI relationship link contract.
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
@@ -66,18 +66,18 @@ public class GenericLinkContract extends LinkContract {
 	}
 
 	/**
-	 * Factory method that creates an XDI generic link contract bound to a given XDI entity.
-	 * @param xdiEntity The XDI entity that is an XDI generic link contract.
-	 * @return The XDI generic link contract.
+	 * Factory method that creates an XDI relationship link contract bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI relationship link contract.
+	 * @return The XDI relationship link contract.
 	 */
-	public static GenericLinkContract fromXdiEntity(XdiEntity xdiEntity) {
+	public static RelationshipLinkContract fromXdiEntity(XdiEntity xdiEntity) {
 
 		if (! isValid(xdiEntity)) return null;
 
-		return new GenericLinkContract(xdiEntity);
+		return new RelationshipLinkContract(xdiEntity);
 	}
 
-	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc) {
+	public static XDIAddress createRelationshipLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc) {
 
 		if (authorizingAuthority == null) throw new NullPointerException();
 		if (requestingAuthority == null) throw new NullPointerException();
@@ -86,48 +86,48 @@ public class GenericLinkContract extends LinkContract {
 		if (requestingAuthority.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address requesting authority " + requestingAuthority);
 		if (templateAuthorityAndId != null && templateAuthorityAndId.isLiteralNodeXDIAddress()) throw new IllegalArgumentException("Cannot use literal address of template authority and ID " + templateAuthorityAndId);
 
-		List<XDIArc> genericLinkContractXDIArcs = new ArrayList<XDIArc> ();
+		List<XDIArc> relationshipLinkContractXDIArcs = new ArrayList<XDIArc> ();
 
 		XDIArc linkContractInnerRootXDIArc = XdiInnerRoot.createInnerRootXDIArc(
 				authorizingAuthority, 
 				requestingAuthority);
 
-		genericLinkContractXDIArcs.add(linkContractInnerRootXDIArc);
+		relationshipLinkContractXDIArcs.add(linkContractInnerRootXDIArc);
 
 		if (templateAuthorityAndId != null) {
 
-			genericLinkContractXDIArcs.addAll(templateAuthorityAndId.getXDIArcs());
+			relationshipLinkContractXDIArcs.addAll(templateAuthorityAndId.getXDIArcs());
 		}
 
 		if (instanceXDIArc == null) {
 
-			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_CONTRACT);
+			relationshipLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_CONTRACT);
 		} else {
 
-			genericLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_EC_CONTRACT);
-			genericLinkContractXDIArcs.add(instanceXDIArc);
+			relationshipLinkContractXDIArcs.add(XDILinkContractConstants.XDI_ARC_EC_CONTRACT);
+			relationshipLinkContractXDIArcs.add(instanceXDIArc);
 		}
 
-		return XDIAddress.fromComponents(genericLinkContractXDIArcs);
+		return XDIAddress.fromComponents(relationshipLinkContractXDIArcs);
 	}
 
-	public static XDIAddress createGenericLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
+	public static XDIAddress createRelationshipLinkContractXDIAddress(XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId) {
 
-		return createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, null);
+		return createRelationshipLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, null);
 	}
 
 	/**
-	 * Factory method that finds or creates an XDI generic link contract for a graph.
-	 * @return The XDI generic link contract.
+	 * Factory method that finds or creates an XDI relationship link contract for a graph.
+	 * @return The XDI relationship link contract.
 	 */
-	public static GenericLinkContract findGenericLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc, boolean create) {
+	public static RelationshipLinkContract findRelationshipLinkContract(Graph graph, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, XDIAddress templateAuthorityAndId, XDIArc instanceXDIArc, boolean create) {
 
-		XDIAddress genericLinkContractXDIAddress = createGenericLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, instanceXDIArc);
+		XDIAddress relationshipLinkContractXDIAddress = createRelationshipLinkContractXDIAddress(authorizingAuthority, requestingAuthority, templateAuthorityAndId, instanceXDIArc);
 
-		ContextNode genericLinkContractContextNode = create ? graph.setDeepContextNode(genericLinkContractXDIAddress) : graph.getDeepContextNode(genericLinkContractXDIAddress, true);
-		if (genericLinkContractContextNode == null) return null;
+		ContextNode relationshipLinkContractContextNode = create ? graph.setDeepContextNode(relationshipLinkContractXDIAddress) : graph.getDeepContextNode(relationshipLinkContractXDIAddress, true);
+		if (relationshipLinkContractContextNode == null) return null;
 
-		return new GenericLinkContract(XdiAbstractEntity.fromContextNode(genericLinkContractContextNode));
+		return new RelationshipLinkContract(XdiAbstractEntity.fromContextNode(relationshipLinkContractContextNode));
 	}
 
 	/*

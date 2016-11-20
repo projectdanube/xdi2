@@ -12,7 +12,7 @@ import xdi2.core.util.GraphUtil;
  * 
  * @author markus
  */
-public class RootLinkContract extends GenericLinkContract {
+public class RootLinkContract extends RelationshipLinkContract {
 
 	private static final long serialVersionUID = 2104767228107704809L;
 
@@ -32,15 +32,15 @@ public class RootLinkContract extends GenericLinkContract {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		if (! GenericLinkContract.isValid(xdiEntity)) return false;
+		if (! RelationshipLinkContract.isValid(xdiEntity)) return false;
 
 		if (xdiEntity instanceof XdiEntitySingleton) {
 
-			if (GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-			if (GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-			if (GenericLinkContract.getTemplateAuthorityAndId(xdiEntity.getXDIAddress()) != null) return false;
+			if (RelationshipLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
+			if (RelationshipLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
+			if (RelationshipLinkContract.getTemplateAuthorityAndId(xdiEntity.getXDIAddress()) != null) return false;
 
-			if (! GenericLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()).equals(GenericLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
+			if (! RelationshipLinkContract.getAuthorizingAuthority(xdiEntity.getXDIAddress()).equals(RelationshipLinkContract.getRequestingAuthority(xdiEntity.getXDIAddress()))) return false;
 
 			return true;
 		} else if (xdiEntity instanceof XdiEntityInstance) {
@@ -66,7 +66,7 @@ public class RootLinkContract extends GenericLinkContract {
 
 	public static XDIAddress createRootLinkContractXDIAddress(XDIAddress ownerXDIAddress) {
 
-		return GenericLinkContract.createGenericLinkContractXDIAddress(ownerXDIAddress, ownerXDIAddress, null, null);
+		return RelationshipLinkContract.createRelationshipLinkContractXDIAddress(ownerXDIAddress, ownerXDIAddress, null, null);
 	}
 
 	/**
@@ -78,9 +78,9 @@ public class RootLinkContract extends GenericLinkContract {
 		XDIAddress ownerXDIAddress = GraphUtil.getOwnerXDIAddress(graph);
 		if (ownerXDIAddress == null) return null;
 
-		GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, ownerXDIAddress, ownerXDIAddress, null, null, create);
-		if (genericLinkContract == null) return null;
+		RelationshipLinkContract relationshipLinkContract = RelationshipLinkContract.findRelationshipLinkContract(graph, ownerXDIAddress, ownerXDIAddress, null, null, create);
+		if (relationshipLinkContract == null) return null;
 
-		return fromXdiEntity(genericLinkContract.getXdiEntity());
+		return fromXdiEntity(relationshipLinkContract.getXdiEntity());
 	}
 }

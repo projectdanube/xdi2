@@ -13,6 +13,11 @@ import xdi2.core.util.iterators.MappingRelationTargetContextNodeIterator;
 import xdi2.core.util.iterators.NotNullIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
+/**
+ * An XDI link contract, represented as an XDI entity.
+ * 
+ * @author markus
+ */
 public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 	private static final long serialVersionUID = 7780858453875071410L;
@@ -42,7 +47,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 				PublicLinkContract.isValid(xdiEntity) ||
 				ConnectLinkContract.isValid(xdiEntity) ||
 				SendLinkContract.isValid(xdiEntity) ||
-				GenericLinkContract.isValid(xdiEntity);
+				RelationshipLinkContract.isValid(xdiEntity);
 	}
 
 	/**
@@ -58,7 +63,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		if ((linkContract = PublicLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = ConnectLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 		if ((linkContract = SendLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
-		if ((linkContract = GenericLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
+		if ((linkContract = RelationshipLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
 	}

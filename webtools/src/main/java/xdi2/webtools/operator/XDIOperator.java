@@ -22,7 +22,7 @@ import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDISecurityConstants;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.policy.PolicyAnd;
@@ -129,8 +129,8 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 				buildRootLinkContract(request, response);
 			else if ("buildPublicLinkContract".equals(request.getParameter("cmd"))) 
 				buildPublicLinkContract(request, response);
-			else if ("buildGenericLinkContract".equals(request.getParameter("cmd"))) 
-				buildGenericLinkContract(request, response);
+			else if ("buildRelationshipLinkContract".equals(request.getParameter("cmd"))) 
+				buildRelationshipLinkContract(request, response);
 			else if ("buildKeyPairs".equals(request.getParameter("cmd"))) 
 				buildKeyPairs(request, response);
 
@@ -433,7 +433,7 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 		request.setAttribute("tab", "3");
 	}
 
-	private void buildGenericLinkContract(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void buildRelationshipLinkContract(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String requestingAuthority = request.getParameter("requestingAuthority");
 		String requireValidSignature = request.getParameter("requireValidSignature");
@@ -457,26 +457,26 @@ public class XDIOperator extends javax.servlet.http.HttpServlet implements javax
 			message.setLinkContractXDIAddress(RootLinkContract.createRootLinkContractXDIAddress(cloudNumber.getXDIAddress()));
 			message.setSecretToken("********");
 
-			if ("Get generic link contract".equals(submit)) {
+			if ("Get relationship link contract".equals(submit)) {
 
-				message.createGetOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
-			} else if ("Set generic link contract".equals(submit)) {
+				message.createGetOperation(RelationshipLinkContract.createRelationshipLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
+			} else if ("Set relationship link contract".equals(submit)) {
 
 				Graph graph = MemoryGraphFactory.getInstance().openGraph();
 
-				GenericLinkContract genericLinkContract = GenericLinkContract.findGenericLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null, true);
-				genericLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));
+				RelationshipLinkContract relationshipLinkContract = RelationshipLinkContract.findRelationshipLinkContract(graph, cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null, true);
+				relationshipLinkContract.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddressUtil.concatXDIAddresses(cloudNumber.getXDIAddress(), XDIAddress.create("<#email>")));
 
-				PolicyAnd policyAnd = genericLinkContract.getPolicyRoot(true).createAndPolicy(true);
+				PolicyAnd policyAnd = relationshipLinkContract.getPolicyRoot(true).createAndPolicy(true);
 				PolicyUtil.createSenderIsOperator(policyAnd, XDIAddress.create(requestingAuthority));
 
 				if ("on".equals(requireValidSignature)) PolicyUtil.createSignatureValidOperator(policyAnd);
 				if ("on".equals(requireValidSecretToken)) PolicyUtil.createSecretTokenValidOperator(policyAnd);
 
 				message.createSetOperation(graph);
-			} else if ("Del generic link contract".equals(submit)) {
+			} else if ("Del relationship link contract".equals(submit)) {
 
-				message.createDelOperation(GenericLinkContract.createGenericLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
+				message.createDelOperation(RelationshipLinkContract.createRelationshipLinkContractXDIAddress(cloudNumber.getXDIAddress(), XDIAddress.create(requestingAuthority), null, null));
 			}
 
 			xdiMessageWriter.write(messageEnvelope.getGraph(), output);

@@ -153,7 +153,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		// TODO: how exactly is the $push message a response, and to what?
 
-		FullMessagingResponse pushedMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessageEnvelope());
+		FullMessagingResponse pushedMessagingResponse = FullMessagingResponse.fromMessageEnvelope(operation.getMessage().getMessageEnvelope());
 
 		// TODO: correctly store statements of $set operation?
 

@@ -287,8 +287,8 @@
 			<table cellpadding="3">
 	
 			<tr>
-			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
-			<input type="submit" name="submit" value="Get generic link contract"></td>
+			<td><input type="hidden" name="cmd" value="buildRelationshipLinkContract">
+			<input type="submit" name="submit" value="Get relationship link contract"></td>
 			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
 			</tr>
 	
@@ -303,8 +303,8 @@
 			<table cellpadding="3">
 	
 			<tr>
-			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
-			<input type="submit" name="submit" value="Set generic link contract"></td>
+			<td><input type="hidden" name="cmd" value="buildRelationshipLinkContract">
+			<input type="submit" name="submit" value="Set relationship link contract"></td>
 			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
 			</tr>
 			<tr>
@@ -327,8 +327,8 @@
 			<table cellpadding="3">
 	
 			<tr>
-			<td><input type="hidden" name="cmd" value="buildGenericLinkContract">
-			<input type="submit" name="submit" value="Del generic link contract"></td>
+			<td><input type="hidden" name="cmd" value="buildRelationshipLinkContract">
+			<input type="submit" name="submit" value="Del relationship link contract"></td>
 			<td>Requesting Authority: <input type="text" name="requestingAuthority" size="40" placeholder="e.g. [=]!:uuid:2222"></td>
 			</tr>
 	

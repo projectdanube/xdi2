@@ -3,7 +3,7 @@ package xdi2.messaging.operations;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
-import xdi2.messaging.Message;
+import xdi2.messaging.MessageBase;
 import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
@@ -15,9 +15,9 @@ public class GetOperation extends Operation {
 
 	private static final long serialVersionUID = -1452297650590584104L;
 
-	protected GetOperation(Message message, Relation relation) {
+	protected GetOperation(MessageBase<?> messageBase, Relation relation) {
 
-		super(message, relation);
+		super(messageBase, relation);
 	}
 
 	/*
@@ -42,10 +42,10 @@ public class GetOperation extends Operation {
 	 * @param relation The relation that is an XDI $get operation.
 	 * @return The XDI $get operation.
 	 */
-	public static GetOperation fromMessageAndRelation(Message message, Relation relation) {
+	public static GetOperation fromMessageBaseAndRelation(MessageBase<?> messageBase, Relation relation) {
 
 		if (! isValid(relation)) return null;
 
-		return new GetOperation(message, relation);
+		return new GetOperation(messageBase, relation);
 	}
 }
