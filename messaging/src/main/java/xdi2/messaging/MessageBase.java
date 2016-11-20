@@ -64,6 +64,39 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	private static final long serialVersionUID = 7063040731631258931L;
 
 	/*
+	 * Static methods
+	 */
+
+	/**
+	 * Checks if an XDI entity is a valid XDI message (template).
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI message (template).
+	 */
+	public static boolean isValid(XdiEntity xdiEntity) {
+
+		if (xdiEntity == null) return false;
+
+		return
+				Message.isValid(xdiEntity) ||
+				MessageTemplate.isValid(xdiEntity);
+	}
+
+	/**
+	 * Factory method that creates an XDI message (template) bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI message (template).
+	 * @return The XDI message (template).
+	 */
+	public static MessageBase<?> fromXdiEntity(XdiEntity xdiEntity) {
+
+		MessageBase<?> messageBase = null;
+
+		if ((messageBase = Message.fromXdiEntity(xdiEntity)) != null) return messageBase;
+		if ((messageBase = MessageTemplate.fromXdiEntity(xdiEntity)) != null) return messageBase;
+
+		return null;
+	}
+
+	/*
 	 * Instance methods
 	 */
 
@@ -83,7 +116,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	 */
 	public XDIArc getFromPeerRootXDIArc() {
 
-		Relation fromPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC);
+		Relation fromPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_FROM);
 		if (fromPeerRootXDIArcRelation == null) return null;
 
 		XDIAddress fromPeerRootXDIAddress = fromPeerRootXDIArcRelation.getTargetXDIAddress();
@@ -108,11 +141,11 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	 */
 	public void setFromPeerRootXDIArc(XDIArc fromPeerRootXDIArc) {
 
-		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC);
+		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_FROM);
 
 		if (fromPeerRootXDIArc != null) {
 
-			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_FROM_PEER_ROOT_ARC, XDIAddress.fromComponent(fromPeerRootXDIArc));
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_FROM, XDIAddress.fromComponent(fromPeerRootXDIArc));
 		}
 	}
 
@@ -131,7 +164,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	 */
 	public XDIArc getToPeerRootXDIArc() {
 
-		Relation toPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
+		Relation toPeerRootXDIArcRelation = this.getContextNode().getRelation(XDIMessagingConstants.XDI_ADD_TO);
 		if (toPeerRootXDIArcRelation == null) return null;
 
 		XDIAddress toPeerRootXDIAddress = toPeerRootXDIArcRelation.getTargetXDIAddress();
@@ -156,11 +189,11 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	 */
 	public void setToPeerRootXDIArc(XDIArc toPeerRootXDIArc) {
 
-		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC);
+		this.getContextNode().delRelations(XDIMessagingConstants.XDI_ADD_TO);
 
 		if (toPeerRootXDIArc != null) {
 
-			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO_PEER_ROOT_ARC, XDIAddress.fromComponent(toPeerRootXDIArc));
+			this.getContextNode().setRelation(XDIMessagingConstants.XDI_ADD_TO, XDIAddress.fromComponent(toPeerRootXDIArc));
 		}
 	}
 

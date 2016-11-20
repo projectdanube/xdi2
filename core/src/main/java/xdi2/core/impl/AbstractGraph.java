@@ -284,10 +284,12 @@ public abstract class AbstractGraph implements Graph {
 	 * Object methods
 	 */
 
+	private static final MimeType MIME_TYPE_GRAPH_STRING = new MimeType("text/xdi;implied=0;ordered=1");
+	
 	@Override
 	public String toString() {
 
-		return this.toString(null, null);
+		return this.toString(MIME_TYPE_GRAPH_STRING);
 	}
 
 	@Override
@@ -300,7 +302,7 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		return this.toString(new MimeType("text/xdi;implied=1;ordered=1")).equals(other.toString(new MimeType("text/xdi;implied=1;ordered=1")));
+		return this.toString(MIME_TYPE_GRAPH_STRING).equals(other.toString(MIME_TYPE_GRAPH_STRING));
 	}
 
 	@Override
@@ -308,7 +310,7 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		return this.toString(new MimeType("text/xdi;implied=1;ordered=1")).hashCode();
+		return this.toString(MIME_TYPE_GRAPH_STRING).hashCode();
 	}
 
 	@Override
@@ -318,8 +320,8 @@ public abstract class AbstractGraph implements Graph {
 
 		// TODO: do this without serializing to string
 
-		String string1 = this.toString(new MimeType("text/xdi;implied=1;ordered=1"));
-		String string2 = other.toString(new MimeType("text/xdi;implied=1;ordered=1"));
+		String string1 = this.toString(MIME_TYPE_GRAPH_STRING);
+		String string2 = other.toString(MIME_TYPE_GRAPH_STRING);
 
 		return string1.compareTo(string2);
 	}

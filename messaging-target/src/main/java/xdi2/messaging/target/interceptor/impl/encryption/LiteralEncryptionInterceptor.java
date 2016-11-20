@@ -83,7 +83,7 @@ public class LiteralEncryptionInterceptor extends AbstractInterceptor<MessagingT
 	@Override
 	public InterceptorResult after(Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
-		for (LiteralNode literal : operationResultGraph.getRootContextNode(true).getAllLiterals()) {
+		for (LiteralNode literal : operationResultGraph.getRootContextNode(true).getAllLiteralNodes()) {
 
 			String encryptedLiteralDataString = literal.getLiteralDataString();
 			if (encryptedLiteralDataString == null) continue;

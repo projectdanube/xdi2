@@ -14,6 +14,7 @@ import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
+import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
@@ -140,22 +141,21 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 
 			XDIAddress msgVariableValue = message.getContextNode().getXDIAddress();
 
-			Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
-			variableValues.put(XDIArc.create("{$push}"), pushVariableValues);
-			variableValues.put(XDIArc.create("{$msg}"), msgVariableValue);
-
 			// instantiate deferred push link contract
 
-			LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE);
-			linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
-			linkContractInstantiation.setRequestingAuthority(requestingAuthority);
-			linkContractInstantiation.setVariableValues(variableValues);
+			LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(LinkContractTemplate.fromXdiEntitySingletonVariable(XDIBootstrap.DEFER_PUSH_LINK_CONTRACT_TEMPLATE));
+			linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_AUTHORIZING_AUTHORITY, authorizingAuthority);
+			linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_REQUESTING_AUTHORITY, requestingAuthority);
+			linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_INSTANCE, instanceXDIArc);
+
+			linkContractInstantiation.setVariableValue(XDIArc.create("{$push}"), pushVariableValues);
+			linkContractInstantiation.setVariableValue(XDIArc.create("{$msg}"), msgVariableValue);
 
 			LinkContract pushLinkContract;
 
 			try {
 
-				pushLinkContract = linkContractInstantiation.execute(instanceXDIArc, true);
+				pushLinkContract = linkContractInstantiation.execute();
 			} catch (Exception ex) {
 
 				throw new Xdi2MessagingException("Cannot instantiate $push link contract: " + ex.getMessage(), ex, executionContext);

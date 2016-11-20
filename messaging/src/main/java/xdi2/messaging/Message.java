@@ -3,6 +3,8 @@ package xdi2.messaging;
 import xdi2.core.ContextNode;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
+import xdi2.core.features.nodetypes.XdiEntityInstance;
+import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.syntax.XDIAddress;
@@ -41,7 +43,22 @@ public final class Message extends MessageBase<XdiEntity> {
 	 */
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return xdiEntity.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, false) != null;
+		if (xdiEntity instanceof XdiEntitySingleton) {
+
+			if (! xdiEntity.getXDIArc().equals(XDIMessagingConstants.XDI_ADD_MSG)) return false;
+		} else if (xdiEntity instanceof XdiEntityInstance) {
+
+			XdiEntityCollection xdiCollection = ((XdiEntityInstance) xdiEntity).getXdiCollection();
+
+			if (! xdiCollection.getXDIArc().equals(XDIMessagingConstants.XDI_ADD_EC_MSG)) return false;
+		} else {
+
+			return false;
+		}
+
+		if (xdiEntity.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, false) == null) return false;
+
+		return true;
 	}
 
 	/**

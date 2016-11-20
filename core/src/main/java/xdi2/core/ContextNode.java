@@ -365,7 +365,7 @@ public interface ContextNode extends Node, Comparable<ContextNode> {
 	 * Returns all literals of this context node.
 	 * @return An iterator over literals.
 	 */
-	public ReadOnlyIterator<LiteralNode> getAllLiterals();
+	public ReadOnlyIterator<LiteralNode> getAllLiteralNodes();
 
 	/**
 	 * Checks if this context node has a literal with the given data.

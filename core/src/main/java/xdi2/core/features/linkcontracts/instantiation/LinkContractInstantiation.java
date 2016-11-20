@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.dictionary.Dictionary;
-import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
+import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
@@ -28,83 +28,90 @@ public class LinkContractInstantiation {
 
 	private static final Logger log = LoggerFactory.getLogger(LinkContractInstantiation.class);
 
-	public static final XDIArc XDI_ARC_INSTANCE_VARIABLE = XDIArc.create("{*!:uuid:0}");
-
-	public static final XDIArc[] XDI_ARC_RESERVED_VARIABLES = new XDIArc[] {
-
-			XDILinkContractConstants.XDI_ARC_V_FROM,
-			XDILinkContractConstants.XDI_ARC_V_TO,
-			XDILinkContractConstants.XDI_ARC_V_FROM_ROOT,
-			XDILinkContractConstants.XDI_ARC_V_TO_ROOT,
-			XDILinkContractConstants.XDI_ARC_CONTRACT,
-			XDI_ARC_INSTANCE_VARIABLE
-	};
+	public static final XDIArc XDI_ARC_V_AUTHORIZING_AUTHORITY = XDILinkContractConstants.XDI_ARC_V_TO;
+	public static final XDIArc XDI_ARC_V_REQUESTING_AUTHORITY = XDILinkContractConstants.XDI_ARC_V_FROM;
+	public static final XDIArc XDI_ARC_V_INSTANCE = XDIArc.create("{*!:uuid:0}");
 
 	private LinkContractTemplate linkContractTemplate;
-	private XDIAddress authorizingAuthority;
-	private XDIAddress requestingAuthority;
 	private Map<XDIArc, Object> variableValues;
 
-	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, XDIAddress authorizingAuthority, XDIAddress requestingAuthority, Map<XDIArc, Object> variableValues) {
+	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate, Map<XDIArc, Object> variableValues) {
 
 		this.linkContractTemplate = linkContractTemplate;
-		this.authorizingAuthority = authorizingAuthority;
-		this.requestingAuthority = requestingAuthority;
 		this.variableValues = variableValues;
 	}
 
 	public LinkContractInstantiation(LinkContractTemplate linkContractTemplate) {
 
-		this(linkContractTemplate, null, null, null);
+		this(linkContractTemplate, new HashMap<XDIArc, Object> ());
 	}
 
 	public LinkContractInstantiation() {
 
-		this(null, null, null, null);
+		this(null, new HashMap<XDIArc, Object> ());
 	}
 
-	public LinkContract execute(XDIArc instanceXDIArc, boolean create) {
+	public LinkContract execute() {
 
-		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
+		// set up variable values including peer roots
+
+		Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> (this.getVariableValues());
+
+		for (Map.Entry<XDIArc, Object> entry : this.getVariableValues().entrySet()) {
+
+			XDIArc key = entry.getKey();
+			Object value = entry.getValue();
+
+			if ((! XdiPeerRoot.isValidXDIArc(key)) && value instanceof XDIAddress && ((XDIAddress) value).getNumXDIArcs() == 1) {
+
+				XDIArc peerKey = XDIArc.create(key.toString().replace("{", "{(").replaceAll("}", ")}"));	// TODO: do this better
+				if (variableValues.containsKey(peerKey)) continue;
+
+				XDIArc peerValue = XdiPeerRoot.createPeerRootXDIArc((XDIAddress) value);
+
+				variableValues.put(peerKey, peerValue);
+			}
+		}
+
+		if (log.isDebugEnabled()) log.debug("Variable values: " + variableValues);
+
+		// use variables
+
+		Object instanceLiteralDataValue = XdiAbstractVariable.getVariableLiteralDataValue(variableValues, XDI_ARC_V_INSTANCE);
+		XDIArc instanceXDIArcValue = XdiAbstractVariable.getVariableXDIArcValue(variableValues, XDI_ARC_V_INSTANCE);
+		XDIAddress requestingAuthorityValue = XdiAbstractVariable.getVariableXDIAddressValue(variableValues, XDI_ARC_V_REQUESTING_AUTHORITY);
+		XDIAddress authorizingAuthorityValue = XdiAbstractVariable.getVariableXDIAddressValue(variableValues, XDI_ARC_V_AUTHORIZING_AUTHORITY);
+
+		if (requestingAuthorityValue == null) throw new NullPointerException("No requesting authority " + XDI_ARC_V_REQUESTING_AUTHORITY + "  value.");
+		if (authorizingAuthorityValue == null) throw new NullPointerException("No authorizing authority " + XDI_ARC_V_AUTHORIZING_AUTHORITY + "  value.");
 
 		// create relationship link contract
 
-		if (this.getAuthorizingAuthority() == null) throw new NullPointerException("No authorizing authority.");
-		if (this.getRequestingAuthority() == null) throw new NullPointerException("No requesting authority.");
+		XDIAddress templateAuthorityAndId = this.getLinkContractTemplate().getTemplateAuthorityAndId();
 
 		Graph linkContractGraph = MemoryGraphFactory.getInstance().openGraph();
+		LinkContract linkContract;
 
-		LinkContract linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, this.getAuthorizingAuthority(), this.getRequestingAuthority(), templateAuthorityAndId, instanceXDIArc, create);
-		if (linkContract == null) return null;
-		if (linkContract != null && ! create) return linkContract;
+		if (instanceLiteralDataValue instanceof Double) {	// TODO here use the instanceXDIArcValue
+
+			linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, authorizingAuthorityValue, requestingAuthorityValue, templateAuthorityAndId, null, true);
+		} if (instanceXDIArcValue != null) {
+
+			linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, authorizingAuthorityValue, requestingAuthorityValue, templateAuthorityAndId, instanceXDIArcValue, true);
+		} else {
+
+			linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, authorizingAuthorityValue, requestingAuthorityValue, templateAuthorityAndId, null, true);
+		}
 
 		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + linkContract + " from link contract template " + this.getLinkContractTemplate());
 
-		// check for reserved variables
-
-		for (XDIArc reservedVariable : XDI_ARC_RESERVED_VARIABLES) {
-
-			if (this.getVariableValues().containsKey(reservedVariable)) throw new Xdi2RuntimeException("Cannot set reserved variable " + reservedVariable + " during link contract instantiation.");
-		}
-
 		// TODO: make sure all variables in the link contract template have assigned values
-
-		// set up variable values
-
-		Map<XDIArc, Object> allVariableValues = new HashMap<XDIArc, Object> ();
-		if (this.getVariableValues() != null) allVariableValues.putAll(this.getVariableValues());
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, this.getRequestingAuthority());
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, this.getAuthorizingAuthority());
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getRequestingAuthority())));
-		allVariableValues.put(XDILinkContractConstants.XDI_ARC_V_TO_ROOT, XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(this.getAuthorizingAuthority())));
-
-		if (log.isDebugEnabled()) log.debug("Variable values: " + allVariableValues);
 
 		// instantiate
 
 		CopyStrategy copyStrategy = new CompoundCopyStrategy(
-				new ReplaceXDIAddressCopyStrategy(allVariableValues),
-				new ReplaceLiteralVariablesCopyStrategy(allVariableValues),
+				new ReplaceXDIAddressCopyStrategy(variableValues),
+				new ReplaceLiteralVariablesCopyStrategy(variableValues),
 				new ReplaceEscapedVariablesCopyStrategy());
 		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), linkContract.getContextNode(), copyStrategy);
 
@@ -135,26 +142,6 @@ public class LinkContractInstantiation {
 		this.linkContractTemplate = linkContractTemplate;
 	}
 
-	public XDIAddress getAuthorizingAuthority() {
-
-		return this.authorizingAuthority;
-	}
-
-	public void setAuthorizingAuthority(XDIAddress authorizingAuthority) {
-
-		this.authorizingAuthority = authorizingAuthority;
-	}
-
-	public XDIAddress getRequestingAuthority() {
-
-		return this.requestingAuthority;
-	}
-
-	public void setRequestingAuthority(XDIAddress requestingAuthority) {
-
-		this.requestingAuthority = requestingAuthority;
-	}
-
 	public Map<XDIArc, Object> getVariableValues() {
 
 		return this.variableValues;
@@ -163,5 +150,11 @@ public class LinkContractInstantiation {
 	public void setVariableValues(Map<XDIArc, Object> variableValues) {
 
 		this.variableValues = variableValues;
+	}
+
+	public void setVariableValue(XDIArc key, Object value) {
+
+		if (this.variableValues == null) this.variableValues = new HashMap<XDIArc, Object> ();
+		this.variableValues.put(key, value);
 	}
 }

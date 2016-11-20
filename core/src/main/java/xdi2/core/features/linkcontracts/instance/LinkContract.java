@@ -76,13 +76,8 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 	 * Returns the underlying XDI entity to which this XDI link contract is bound.
 	 * @return An XDI entity that represents the XDI link contract.
 	 */
-	public XdiEntity getXdiEntity() {
-
-		return this.xdiEntity;
-	}
-
 	@Override
-	public XdiEntity getXdiSubGraph() {
+	public XdiEntity getXdiEntity() {
 
 		return this.xdiEntity;
 	}

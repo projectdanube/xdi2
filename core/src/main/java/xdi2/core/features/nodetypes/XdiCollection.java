@@ -1,8 +1,11 @@
 package xdi2.core.features.nodetypes;
 
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 
 public interface XdiCollection<EQC extends XdiCollection<EQC, EQI, C, U, O, I>, EQI extends XdiSubGraph<EQI>, C extends XdiCollection<EQC, EQI, C, U, O, I>, U extends XdiInstanceUnordered<EQC, EQI, C, U, O, I>, O extends XdiInstanceOrdered<EQC, EQI, C, U, O, I>, I extends XdiInstance<EQC, EQI, C, U, O, I>> extends XdiSubGraph<EQC> {
+
+	public I setXdiInstance(XDIArc XDIarc);
 
 	public U setXdiInstanceUnordered();
 	public U setXdiInstanceUnordered(String literal);

@@ -1,12 +1,11 @@
 package xdi2.tests.core.features.linkcontracts.instantiation;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import junit.framework.TestCase;
 import xdi2.core.bootstrap.XDIBootstrap;
+import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
+import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -15,19 +14,17 @@ public class LinkContractInstantiationTest extends TestCase {
 
 	public void testLinkContractInstantiation() throws Exception {
 
-		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(XDIBootstrap.GET_LINK_CONTRACT_TEMPLATE);
-
-		linkContractInstantiation.setAuthorizingAuthority(XDIAddress.create("=bob"));
-		linkContractInstantiation.setRequestingAuthority(XDIAddress.create("=alice"));
-
 		XDIArc instanceXDIArc = XdiEntityInstanceUnordered.createXDIArc();
 
-		Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
-		variableValues.put(XDIArc.create("{$get}"), XDIAddress.create("=bob$card"));
+		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(LinkContractTemplate.fromXdiEntitySingletonVariable(XDIBootstrap.GET_LINK_CONTRACT_TEMPLATE));
 
-		linkContractInstantiation.setVariableValues(variableValues);
+		linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_REQUESTING_AUTHORITY, XDIAddress.create("=alice"));
+		linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_AUTHORIZING_AUTHORITY, XDIAddress.create("=bob"));
+		linkContractInstantiation.setVariableValue(LinkContractInstantiation.XDI_ARC_V_INSTANCE, instanceXDIArc);
 
-		RelationshipLinkContract linkContract = (RelationshipLinkContract) linkContractInstantiation.execute(instanceXDIArc, true);
+		linkContractInstantiation.setVariableValue(XDIArc.create("{$get}"), XDIAddress.create("=bob$card"));
+
+		RelationshipLinkContract linkContract = (RelationshipLinkContract) linkContractInstantiation.execute();
 
 		assertEquals(XDIAddress.create("=alice"), linkContract.getRequestingAuthority());
 		assertEquals(XDIAddress.create("=bob"), linkContract.getAuthorizingAuthority());

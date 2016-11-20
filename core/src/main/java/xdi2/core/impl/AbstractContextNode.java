@@ -460,14 +460,14 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	//	public Literal getLiteralNode();
 
 	@Override
-	public ReadOnlyIterator<LiteralNode> getAllLiterals() {
+	public ReadOnlyIterator<LiteralNode> getAllLiteralNodes() {
 
 		DescendingIterator<ContextNode, LiteralNode> descendingIterator = new DescendingIterator<ContextNode, LiteralNode> (this.getContextNodes()) {
 
 			@Override
 			public Iterator<LiteralNode> descend(ContextNode contextNode) {
 
-				return contextNode.getAllLiterals();
+				return contextNode.getAllLiteralNodes();
 			}
 		};
 
@@ -513,7 +513,7 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 	@Override
 	public long getAllLiteralCount() {
 
-		return new IteratorCounter(this.getAllLiterals()).count();
+		return new IteratorCounter(this.getAllLiteralNodes()).count();
 	}
 
 	/*

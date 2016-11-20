@@ -49,20 +49,18 @@ public class RelationshipLinkContract extends LinkContract {
 
 			if (getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-
-			return true;
 		} else if (xdiEntity instanceof XdiEntityInstance && ((XdiEntityInstance) xdiEntity).getXdiCollection() != null) {
 
 			if (! ((XdiEntityInstance) xdiEntity).getXdiCollection().getXDIArc().equals(XDILinkContractConstants.XDI_ARC_EC_CONTRACT)) return false;
 
 			if (getAuthorizingAuthority(xdiEntity.getXDIAddress()) == null) return false;
 			if (getRequestingAuthority(xdiEntity.getXDIAddress()) == null) return false;
-
-			return true;
 		} else {
 
 			return false;
 		}
+
+		return true;
 	}
 
 	/**

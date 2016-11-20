@@ -2,7 +2,6 @@ package xdi2.messaging.target.interceptor.impl.connect;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -98,7 +97,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		for (LinkContractTemplate linkContractTemplate : linkContractTemplates) {
 
-			this.processConnect(linkContractTemplate, operation, operationResultGraph, executionContext);
+			this.processConnect(linkContractTemplate, (ConnectOperation) operation, operationResultGraph, executionContext);
 		}
 
 		// done
@@ -123,16 +122,18 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		List<LinkContractTemplate> linkContractTemplates = ConnectInterceptor.getLinkContractTemplates(executionContext);
 		if (linkContractTemplates != null) return linkContractTemplates;
 
-		if (linkContractTemplates == null && operation.getTargetXDIAddress() != null) linkContractTemplates = this.linkContractTemplateFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext);
-		if (linkContractTemplates == null && operation.getTargetXdiInnerRoot() != null) linkContractTemplates = this.linkContractTemplatesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext);
-		if (linkContractTemplates == null) throw new Xdi2MessagingException("No link contract template(s) in operation " + operation, null, executionContext);
+		linkContractTemplates = new ArrayList<LinkContractTemplate> ();
+
+		if (operation.getTargetXDIAddress() != null) linkContractTemplates.add(this.linkContractTemplateFromTargetXDIAddress(operation.getTargetXDIAddress(), executionContext));
+		if (operation.getTargetXdiInnerRoot() != null) linkContractTemplates.addAll(this.linkContractTemplatesFromTargetXdiInnerRoot(operation.getTargetXdiInnerRoot(), executionContext));
+		if (linkContractTemplates.isEmpty()) throw new Xdi2MessagingException("No link contract template(s) in operation " + operation, null, executionContext);
 
 		ConnectInterceptor.putLinkContractTemplates(executionContext, linkContractTemplates);
 
 		return linkContractTemplates;
 	}
 
-	private List<LinkContractTemplate> linkContractTemplateFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private LinkContractTemplate linkContractTemplateFromTargetXDIAddress(XDIAddress targetXDIAddress, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		// use agent to obtain link contract template
 
@@ -145,6 +146,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 			// add manipulators
 
 			Collection<Manipulator> manipulators = new ArrayList<Manipulator> ();
+			// TODO: is it okay that we set the public link contract here, or are we supposed to rely on the XDIAgent's configuration for that?
 			manipulators.add(new SetLinkContractMessageManipulator(PublicLinkContract.class));
 			if (this.getManipulators() != null) manipulators.addAll(this.getManipulators());
 
@@ -171,7 +173,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		// done
 
-		return Collections.singletonList(linkContractTemplate);
+		return linkContractTemplate;
 	}
 
 	private List<LinkContractTemplate> linkContractTemplatesFromTargetXdiInnerRoot(XdiInnerRoot targetXdiInnerRoot, ExecutionContext executionContext) throws Xdi2MessagingException {
@@ -185,49 +187,27 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 		return new IteratorListMaker<LinkContractTemplate> (LinkContractTemplates.getAllLinkContractTemplates(innerGraph)).list();
 	}
 
-	private void processConnect(LinkContractTemplate linkContractTemplate, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	private void processConnect(LinkContractTemplate linkContractTemplate, ConnectOperation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		if (log.isDebugEnabled()) log.debug("Preparing to instantiate link contract template " + linkContractTemplate);
 
-		// determine requesting and authorizing authorities
-
-		XDIAddress requestingAuthority = operation.getMessage().getSenderXDIAddress();
-		if (requestingAuthority == null) throw new Xdi2MessagingException("No requesting authority for link contract instantiation.", null, executionContext);
-
-		XDIAddress authorizingAuthority = operation.getMessage().getToXDIAddress();
-		if (authorizingAuthority == null) throw new Xdi2MessagingException("No authorizing authority for link contract instantiation.", null, executionContext);
-
-		// determine link contract instance ID
-
-		XDIAddress instanceVariableValue = operation.getVariableXDIAddressValue(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
-		XDIArc instanceXDIArc;
-
-		if (instanceVariableValue != null) {
-
-			if (instanceVariableValue.getNumXDIArcs() != 1) throw new Xdi2MessagingException("Invalid instance variable value: " + instanceVariableValue, null, executionContext);
-			instanceXDIArc = instanceVariableValue.getFirstXDIArc();
-		} else {
-
-			instanceXDIArc = null;
-		}
-
-		// determine link contract variable values
+		// set variable values
 
 		Map<XDIArc, Object> variableValues = operation.getVariableValues();
-		variableValues.remove(LinkContractInstantiation.XDI_ARC_INSTANCE_VARIABLE);
+
+		variableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, operation.getMessage().getSenderXDIAddress());
+		variableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, operation.getMessage().getToXDIAddress());
 
 		// instantiate link contract
 
 		LinkContractInstantiation linkContractInstantiation = new LinkContractInstantiation(linkContractTemplate);
-		linkContractInstantiation.setRequestingAuthority(requestingAuthority);
-		linkContractInstantiation.setAuthorizingAuthority(authorizingAuthority);
 		linkContractInstantiation.setVariableValues(variableValues);
 
 		LinkContract linkContract;
 
 		try {
 
-			linkContract = linkContractInstantiation.execute(instanceXDIArc, true);
+			linkContract = linkContractInstantiation.execute();
 		} catch (Exception ex) {
 
 			throw new Xdi2MessagingException("Cannot instantiate link contract: " + ex.getMessage(), ex, executionContext);

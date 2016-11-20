@@ -59,7 +59,7 @@ public class XDIRDFTriGWriter extends AbstractXDIWriter {
 			List<Iterator<? extends Statement>> list = new ArrayList<Iterator<? extends Statement>> ();
 			list.add(new MappingContextNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllContextNodes()));
 			list.add(new MappingRelationStatementIterator(orderedGraph.getRootContextNode(true).getAllRelations()));
-			list.add(new MappingLiteralNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllLiterals()));
+			list.add(new MappingLiteralNodeStatementIterator(orderedGraph.getRootContextNode(true).getAllLiteralNodes()));
 
 			statements = new CompositeIterator<Statement> (list.iterator());
 		} else {

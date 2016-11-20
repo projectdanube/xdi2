@@ -1,35 +1,25 @@
 package xdi2.messaging.operations;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2RuntimeException;
-import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
-import xdi2.core.features.nodetypes.XdiAbstractVariable.MappingContextNodeXdiVariableIterator;
+import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
-import xdi2.core.features.nodetypes.XdiVariable;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
-import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageBase;
@@ -44,8 +34,6 @@ import xdi2.messaging.constants.XDIMessagingConstants;
 public abstract class Operation implements Serializable, Comparable<Operation> {
 
 	private static final long serialVersionUID = 8816045435464636862L;
-
-	private static final Logger log = LoggerFactory.getLogger(Operation.class);
 
 	protected MessageBase<?> messageBase;
 	protected Relation relation;
@@ -320,89 +308,35 @@ public abstract class Operation implements Serializable, Comparable<Operation> {
 	public void setVariableValue(XDIArc variableValueXDIArc, Object variableValue) {
 
 		XdiEntitySingleton variableValuesXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
-		if (variableValuesXdiEntity == null) return;
 
-		if (variableValue instanceof XDIArc) {
-
-			variableValue = XDIAddress.fromComponent((XDIArc) variableValue);
-		}
-
-		if (variableValue instanceof XDIAddress) {
-
-			Equivalence.setIdentityContextNode(variableValuesXdiEntity.getContextNode().setContextNode(variableValueXDIArc), (XDIAddress) variableValue);
-		} else {
-
-			variableValuesXdiEntity.getContextNode().setContextNode(variableValueXDIArc).setLiteralNode(variableValue);
-		}
+		XdiAbstractVariable.setVariableValue(variableValuesXdiEntity, variableValueXDIArc, variableValue);
 	}
 
 	public Map<XDIArc, Object> getVariableValues() {
 
-		XdiEntitySingleton variableValuesXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), false);
-		if (variableValuesXdiEntity == null) return Collections.emptyMap();
+		XdiEntitySingleton variableValuesXdiEntity = this.getMessageBase().getOperationsXdiEntity().getXdiEntitySingleton(this.getOperationXDIAddress(), true);
 
-		Map<XDIArc, Object> variableValues = new HashMap<XDIArc, Object> ();
-		MappingContextNodeXdiVariableIterator xdiVariablesIterator = new MappingContextNodeXdiVariableIterator(variableValuesXdiEntity.getContextNode().getContextNodes());
-
-		for (XdiVariable<?> xdiVariable : xdiVariablesIterator) {
-
-			XDIArc variableValueXDIArc = xdiVariable.getXDIArc();
-
-			ReadOnlyIterator<ContextNode> variableValueContextNodes = Equivalence.getIdentityContextNodes(xdiVariable.getContextNode());
-			Object variableLiteralDataValue = xdiVariable.getContextNode().getLiteralData();
-
-			if (variableValueContextNodes.hasNext() && variableLiteralDataValue != null) throw new Xdi2RuntimeException("Variable has both an XDI address and a literal data value.");
-			if ((! variableValueContextNodes.hasNext()) && variableLiteralDataValue == null) throw new Xdi2RuntimeException("Variable has neither XDI address nor literal data value.");
-
-			if (variableValueContextNodes.hasNext()) {
-
-				List<XDIAddress> variableXDIAddressValues = new ArrayList<XDIAddress> ();
-				variableValues.put(variableValueXDIArc, variableXDIAddressValues);
-
-				for (ContextNode variableValueContextNode : variableValueContextNodes) {
-
-					XDIAddress variableXDIAddressValue = variableValueContextNode.getXDIAddress();
-
-					if (log.isDebugEnabled()) log.debug("Variable XDI address value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableXDIAddressValue);
-					variableXDIAddressValues.add(variableXDIAddressValue);
-				}
-			}
-
-			if (variableLiteralDataValue != null) {
-
-				if (log.isDebugEnabled()) log.debug("Variable literal data value for " + this.getOperationXDIAddress() + " operation: " + variableValueXDIArc + " --> " + variableLiteralDataValue);
-				variableValues.put(variableValueXDIArc, variableLiteralDataValue);
-			}
-		}
-
-		return variableValues;
+		return XdiAbstractVariable.getVariableValues(variableValuesXdiEntity);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<XDIAddress> getVariableXDIAddressValues(XDIArc variableValueXDIArc) {
 
-		Map<XDIArc, Object> variableValues = this.getVariableValues();
-		Object variableXDIAddressValues = variableValues.get(variableValueXDIArc);
-		if (! (variableXDIAddressValues instanceof List<?>)) return Collections.emptyList();
-
-		return (List<XDIAddress>) variableXDIAddressValues;
+		return XdiAbstractVariable.getVariableXDIAddressValues(this.getVariableValues(), variableValueXDIArc);
 	}
 
 	public XDIAddress getVariableXDIAddressValue(XDIArc variableValueXDIArc) {
 
-		List<XDIAddress> variableXDIAddressValues = this.getVariableXDIAddressValues(variableValueXDIArc);
-		if (variableXDIAddressValues == null || variableXDIAddressValues.size() < 1) return null;
+		return XdiAbstractVariable.getVariableXDIAddressValue(this.getVariableValues(), variableValueXDIArc);
+	}
 
-		return variableXDIAddressValues.get(0);
+	public XDIArc getVariableXDIArcValue(XDIArc variableValueXDIArc) {
+
+		return XdiAbstractVariable.getVariableXDIArcValue(this.getVariableValues(), variableValueXDIArc);
 	}
 
 	public Object getVariableLiteralDataValue(XDIArc variableValueXDIArc) {
 
-		Map<XDIArc, Object> variableValues = this.getVariableValues();
-		Object variableLiteralDataValue = variableValues.get(variableValueXDIArc);
-		if (variableLiteralDataValue instanceof List<?>) return null;
-
-		return variableLiteralDataValue;
+		return XdiAbstractVariable.getVariableLiteralDataValue(this.getVariableValues(), variableValueXDIArc);
 	}
 
 	/*

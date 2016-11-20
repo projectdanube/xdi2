@@ -9,11 +9,12 @@ import xdi2.core.ContextNode;
 import xdi2.core.Statement;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.constants.XDIPolicyConstants;
+import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
-import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
@@ -30,15 +31,48 @@ import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
  * 
  * @author markus
  */
-public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implements Serializable, Comparable<LinkContractBase<N>> {
+public abstract class LinkContractBase <N extends XdiEntity> implements Serializable, Comparable<LinkContractBase<N>> {
 
 	private static final long serialVersionUID = 1604380462449272148L;
+
+	/*
+	 * Static methods
+	 */
+
+	/**
+	 * Checks if an XDI entity is a valid XDI link contract (template).
+	 * @param xdiEntity The XDI entity to check.
+	 * @return True if the XDI entity is a valid XDI link contract (template).
+	 */
+	public static boolean isValid(XdiEntity xdiEntity) {
+
+		if (xdiEntity == null) return false;
+
+		return
+				LinkContract.isValid(xdiEntity) ||
+				LinkContractTemplate.isValid(xdiEntity);
+	}
+
+	/**
+	 * Factory method that creates an XDI link contract (template) bound to a given XDI entity.
+	 * @param xdiEntity The XDI entity that is an XDI link contract (template).
+	 * @return The XDI link contract (template).
+	 */
+	public static LinkContractBase<?> fromXdiEntity(XdiEntity xdiEntity) {
+
+		LinkContractBase<?> linkContractBase = null;
+
+		if ((linkContractBase = LinkContract.fromXdiEntity(xdiEntity)) != null) return linkContractBase;
+		if ((linkContractBase = LinkContractTemplate.fromXdiEntity(xdiEntity)) != null) return linkContractBase;
+
+		return null;
+	}
 
 	/*
 	 * Instance methods
 	 */
 
-	public abstract N getXdiSubGraph();
+	public abstract N getXdiEntity();
 
 	/**
 	 * Returns the underlying context node to which this XDI link contract (template) is bound.
@@ -46,7 +80,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public ContextNode getContextNode() {
 
-		return this.getXdiSubGraph().getContextNode();
+		return this.getXdiEntity().getContextNode();
 	}
 
 	/**
@@ -56,7 +90,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
@@ -69,7 +103,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public PolicyRoot getDeferPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER, create);
 		if (xdiEntitySingleton == null) return null;
 		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
@@ -84,7 +118,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public PolicyRoot getDeferPushPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER_PUSH, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEFER_PUSH, create);
 		if (xdiEntitySingleton == null) return null;
 		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
@@ -102,7 +136,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 	 */
 	public XdiEntity getPermissionsXdiEntity() {
 
-		return this.getXdiSubGraph().getXdiEntitySingleton(XDILinkContractConstants.XDI_ARC_DO, true);
+		return this.getXdiEntity().getXdiEntitySingleton(XDILinkContractConstants.XDI_ARC_DO, true);
 	}
 
 	/**
@@ -133,8 +167,6 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_GET, targetXDIAddress);
 			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET, targetXDIAddress);
-			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_DO, targetXDIAddress);
-			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_SET_REF, targetXDIAddress);
 			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DEL, targetXDIAddress);
 			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_DO, targetXDIAddress);
 			this.getPermissionsContextNode().delRelation(XDILinkContractConstants.XDI_ADD_CONNECT, targetXDIAddress);
@@ -158,7 +190,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 		// prepare the target statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, true);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, true);
 		if (xdiInnerRoot == null) return;
 
 		// set the permission statement
@@ -191,7 +223,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 		// delete the permission statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return;
 
 		Statement statement = xdiInnerRoot.getContextNode().getStatement(targetXDIStatement);
@@ -266,7 +298,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return new EmptyIterator<XDIStatement> ();
 
 		// return the target statements
@@ -329,7 +361,7 @@ public abstract class LinkContractBase <N extends XdiSubGraph<? super N>> implem
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiSubGraph().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return false;
 
 		// check if the target statement exists

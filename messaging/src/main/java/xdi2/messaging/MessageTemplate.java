@@ -29,13 +29,22 @@ public final class MessageTemplate extends MessageBase<XdiEntity> {
 	 */
 
 	/**
-	 * Checks if an XDI entity is a valid XDI message.
+	 * Checks if an XDI entity is a valid XDI message template.
 	 * @param xdiEntity The XDI entity to check.
-	 * @return True if the XDI entity is a valid XDI message.
+	 * @return True if the XDI entity is a valid XDI message template.
 	 */
+	public static boolean isValid(XdiEntitySingleton.Variable xdiVariable) {
+
+		if (! xdiVariable.getXDIArc().equals(XDIMessagingConstants.XDI_ADD_V_MSG)) return false;
+
+		return true;
+	}
+
 	public static boolean isValid(XdiEntity xdiEntity) {
 
-		return xdiEntity.getXdiEntitySingleton(XDIMessagingConstants.XDI_ARC_DO, false) != null;
+		if (! (xdiEntity instanceof XdiEntitySingleton.Variable)) return false;
+
+		return isValid((XdiEntitySingleton.Variable) xdiEntity); 
 	}
 
 	/**
@@ -48,6 +57,13 @@ public final class MessageTemplate extends MessageBase<XdiEntity> {
 		if (! isValid(xdiEntitySingletonVariable)) return null;
 
 		return new MessageTemplate(xdiEntitySingletonVariable);
+	}
+
+	public static MessageTemplate fromXdiEntity(XdiEntity xdiEntity) {
+
+		if (! (xdiEntity instanceof XdiEntitySingleton.Variable)) return null;
+
+		return fromXdiEntitySingletonVariable((XdiEntitySingleton.Variable) xdiEntity); 
 	}
 
 	/*

@@ -92,6 +92,18 @@ public abstract class XdiAbstractCollection<EQC extends XdiCollection<EQC, EQI, 
 	 * Sets an XDI instance under this XDI collection.
 	 * @return The XDI instance.
 	 */
+	@Override
+	public I setXdiInstance(XDIArc XDIarc) {
+
+		ContextNode instanceContextNode = this.getContextNode().setContextNode(XDIarc);
+
+		return XdiAbstractContext.fromContextNode(instanceContextNode, this.getI());
+	}
+
+	/**
+	 * Sets an XDI instance under this XDI collection.
+	 * @return The XDI instance.
+	 */
 	public U setXdiInstanceUnordered(boolean attribute) {
 
 		return this.setXdiInstanceUnordered(attribute, null);
