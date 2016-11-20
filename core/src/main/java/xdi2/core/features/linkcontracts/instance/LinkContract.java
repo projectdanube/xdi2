@@ -88,7 +88,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 	public void setupPushPermissionInverseRelations() {
 
-		ReadOnlyIterator<Relation> pushPermissionRelations = this.getContextNode().getRelations(XDILinkContractConstants.XDI_ADD_PUSH);
+		ReadOnlyIterator<Relation> pushPermissionRelations = this.getPermissionsContextNode().getRelations(XDILinkContractConstants.XDI_ADD_PUSH);
 
 		for (Relation pushPermissionRelation : pushPermissionRelations) {
 
