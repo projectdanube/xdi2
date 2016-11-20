@@ -2,21 +2,24 @@ package xdi2.messaging.response;
 
 import java.util.Iterator;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContracts;
-import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.util.CopyUtil;
+import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.DescendingIterator;
 import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.core.util.iterators.SelectingIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 
 /**
  * A message envelope as an XDI messaging response.
@@ -42,16 +45,15 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 
 	public static boolean isValid(Graph graph) {
 
-		MessageEnvelope messageEnvelope = MessageEnvelope.fromGraph(graph);
-		if (messageEnvelope == null) return false;
+		// TODO: need better way to distinguish full response from light response
 
-		if (! messageEnvelope.getMessages().hasNext()) return false;
+		for (ContextNode leafContextNode : graph.getRootContextNode().getAllLeafContextNodes()) {
 
-		Message message = messageEnvelope.getMessages().next();
+			if (XDIAddressUtil.indexOfXDIArc(leafContextNode.getXDIAddress(), XDIMessagingConstants.XDI_ARC_MSG) != -1) continue;
+			if (XDIAddressUtil.indexOfXDIArc(leafContextNode.getXDIAddress(), XDIMessagingConstants.XDI_ARC_EC_MSG) != -1) continue;
 
-		if (message.getOperationsContextNode() == null) return false;
-		if (message.getFromPeerRootXDIArc() == null) return false;
-		if (message.getToPeerRootXDIArc() == null) return false;
+			return false;
+		}
 
 		return true;
 	}
