@@ -445,9 +445,9 @@ public final class XDIAddressUtil {
 
 	/**
 	 * Get the index of an arc inside an address.
-	 * For =a*b*c*d and *b, this returns =a*b
-	 * For =a*b*c*d and *c, this returns =a*b*c
-	 * For =a*b*c*d and *x, this returns null
+	 * For =a*b*c*d and *b, this returns 1
+	 * For =a*b*c*d and *c, this returns 2
+	 * For =a*b*c*d and *x, this returns -1
 	 */
 	public static int indexOfXDIArc(final XDIAddress XDIaddress, final XDIArc searchXDIArc) {
 
@@ -466,9 +466,9 @@ public final class XDIAddressUtil {
 
 	/**
 	 * Get the last index of an arc inside an address.
-	 * For =a*b*c*d and *b, this returns *b*c*d
-	 * For =a*b*c*d and *c, this returns *c*d
-	 * For =a*b*c*d and *x, this returns null
+	 * For =a*b*c*d and *b, this returns 1
+	 * For =a*b*c*d and *c, this returns 2
+	 * For =a*b*c*d and *x, this returns -1
 	 */
 	public static int lastIndexOfXDIArc(final XDIAddress XDIaddress, final XDIArc searchXDIArc) {
 
