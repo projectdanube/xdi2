@@ -92,7 +92,7 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 
 		for (Relation pushPermissionRelation : pushPermissionRelations) {
 
-			pushPermissionRelation.followContextNode().setRelation(XDILinkContractConstants.XDI_ADD_IS_PUSH, pushPermissionRelation.getContextNode().getXDIAddress());
+			pushPermissionRelation.followContextNode().setRelation(XDILinkContractConstants.XDI_ADD_IS_PUSH, this.getContextNode().getXDIAddress());
 		}
 	}
 
