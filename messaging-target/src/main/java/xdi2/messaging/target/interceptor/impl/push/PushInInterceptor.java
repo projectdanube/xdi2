@@ -164,7 +164,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 			MessageEnvelope innerMe = MessageEnvelope.fromGraph(operation.getTargetXdiInnerRoot().getInnerGraph());
 			Message innerM = innerMe == null ? null : innerMe.getMessages().next();
 			Iterator<SetOperation> innerSOs = innerM == null ? new EmptyIterator<SetOperation> () : innerM.getSetOperations();
-			SetOperation innerSO = innerSOs.next();
+			SetOperation innerSO = innerSOs.hasNext() ? innerSOs.next() : null;
 			XdiInnerRoot innerIR = innerSO == null ? null : innerSO.getTargetXdiInnerRoot();
 
 			if (innerIR != null) {
