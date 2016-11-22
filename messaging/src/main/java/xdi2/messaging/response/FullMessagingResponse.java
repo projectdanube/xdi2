@@ -47,15 +47,16 @@ public class FullMessagingResponse extends TransportMessagingResponse implements
 
 		// TODO: need better way to distinguish full response from light response
 
-		for (ContextNode leafContextNode : graph.getRootContextNode().getAllLeafContextNodes()) {
+		Graph tempGraph = MemoryGraphFactory.getInstance().openGraph();
+		CopyUtil.copyGraph(graph, tempGraph, null);
+		MessageEnvelope tempMessageEnvelope = MessageEnvelope.fromGraph(tempGraph);
 
-			if (XDIAddressUtil.indexOfXDIArc(leafContextNode.getXDIAddress(), XDIMessagingConstants.XDI_ARC_MSG) != -1) continue;
-			if (XDIAddressUtil.indexOfXDIArc(leafContextNode.getXDIAddress(), XDIMessagingConstants.XDI_ARC_EC_MSG) != -1) continue;
+		for (Message tempMessage : tempMessageEnvelope.getMessages()) {
 
-			return false;
+			tempMessage.getSender().delete();
 		}
 
-		return true;
+		return tempGraph.isEmpty();
 	}
 
 	public static FullMessagingResponse fromGraph(Graph graph) {
