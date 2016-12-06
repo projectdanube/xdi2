@@ -49,7 +49,7 @@ public class XDIBootstrap {
 				"(#register{$msg}$do/$set){(#name)}/$ref/{(#number)}\n" + 
 				"(#register{$msg}$do/$set){(#number)}/$is$ref/{(#name)}\n" + 
 				"(#register{$msg}$do/$set){#name}/$ref/{#number}\n" + 
-				"(#register{$msg}$do/$set){(#number)}<$digest><$secret><$token>/{&}/{#password}\n" + 
+				"(#register{$msg}$do/$set){(#number)}<$digest><$secret><$token>/{&}/{<#password>}\n" + 
 
 				// standard link contract templates
 
