@@ -122,6 +122,16 @@ public abstract class XdiAbstractVariable<EQ extends XdiContext<EQ>> extends Xdi
 
 		if (variableValuesXdiEntity == null) return;
 
+		if (variableValue instanceof List<?>) {
+
+			for (Object variableValueListValue : ((List<?>) variableValue)) {
+
+				setVariableValue(variableValuesXdiEntity, variableValueXDIArc, variableValueListValue);
+			}
+
+			return;
+		}
+
 		if (variableValue instanceof XDIArc) {
 
 			variableValue = XDIAddress.fromComponent((XDIArc) variableValue);
