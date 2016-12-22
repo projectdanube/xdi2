@@ -3,7 +3,6 @@ package xdi2.core.io.writers;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -68,28 +67,9 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			JsonObject jsonObject = new JsonObject();
 
-			// create mapping
+			// start mapping
 
-			JXDMapping JXDmapping = JXDMapping.empty(null);
-
-			JsonArray jsonArrayMapping = new JsonArray();
-			jsonObject.add(JXDConstants.JXD_MAPPING, jsonArrayMapping);
-
-			if (this.getBootstrapJXDMappings() != null) {
-
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
-
-					if (bootstrapJXDMapping.getReference() != null) {
-
-						jsonArrayMapping.add(new JsonPrimitive(bootstrapJXDMapping.getReference()));
-					}
-
-					JXDmapping.merge(bootstrapJXDMapping);
-				}
-			}
-
-			JsonObject jsonObjectMapping = JXDmapping.begin();
-			jsonArrayMapping.add(jsonObjectMapping);
+			JXDMapping JXDmapping = this.startMapping(jsonObject);
 
 			// process context node
 
@@ -97,22 +77,53 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 			// finish mapping
 
-			if (this.getBootstrapJXDMappings() != null) {
-
-				for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
-
-					JXDmapping.unmerge(bootstrapJXDMapping);
-				}
-			}
-
-			JXDmapping.finish();
-			if (jsonObjectMapping.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
-			if (jsonObject.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
+			this.finishMapping(JXDmapping, jsonObject);
 
 			// finish JSON object for this context node
 
 			if (! jsonObject.entrySet().isEmpty()) jsonArray.add(jsonObject);
 		}
+	}
+
+	private JXDMapping startMapping(JsonObject jsonObject) {
+
+		JXDMapping JXDmapping = JXDMapping.empty(null);
+
+		JsonArray jsonArrayMapping = new JsonArray();
+		jsonObject.add(JXDConstants.JXD_MAPPING, jsonArrayMapping);
+
+		if (this.getBootstrapJXDMappings() != null) {
+
+			for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
+
+				if (bootstrapJXDMapping.getReference() != null) {
+
+					jsonArrayMapping.add(new JsonPrimitive(bootstrapJXDMapping.getReference()));
+				}
+
+				JXDmapping.merge(bootstrapJXDMapping);
+			}
+		}
+
+		JsonObject jsonObjectMapping = JXDmapping.begin();
+		jsonArrayMapping.add(jsonObjectMapping);
+
+		return JXDmapping;
+	}
+
+	private void finishMapping(JXDMapping JXDmapping, JsonObject jsonObject) {
+
+		if (this.getBootstrapJXDMappings() != null) {
+
+			for (JXDMapping bootstrapJXDMapping : this.getBootstrapJXDMappings().values()) {
+
+				JXDmapping.unmerge(bootstrapJXDMapping);
+			}
+		}
+
+		JsonObject jsonObjectMapping = JXDmapping.finish();
+		if (jsonObjectMapping.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
+		if (jsonObject.entrySet().isEmpty()) jsonObject.remove(JXDConstants.JXD_MAPPING);
 	}
 
 	@SuppressWarnings("resource")
@@ -291,7 +302,11 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 			if (XDIConstants.CS_AUTHORITY_LEGAL.equals(XDIarc.getCs())) return null;
 			if (XDIarc.hasXRef()) return null;
 
-			if (XDIarc.hasLiteral()) termName.append(XDIarc.getLiteral());
+			if (XDIarc.hasLiteral()) {
+
+				if (termName.length() > 0) termName.append("-");
+				termName.append(XDIarc.getLiteral());
+			}
 		}
 
 		if (termName.length() == 0) return null;
@@ -315,10 +330,10 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		if (XdiInnerRoot.fromContextNode(contextNode) != null) return false;
 
-		for (Relation relation : contextNode.getRelations()) {
+		for (Relation relation : contextNode.getAllRelations()) {
 
 			XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(relation.followContextNode());
-			if (xdiInnerRoot != null && xdiInnerRoot.getSubjectContextNode() == contextNode) {
+			if (xdiInnerRoot != null && xdiInnerRoot.getSubjectContextNode() == relation.getContextNode() && xdiInnerRoot.getPredicateRelation() == relation) {
 
 				if (! allStatementsImplied(xdiInnerRoot.getContextNode())) return true;
 			}

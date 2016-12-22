@@ -1,7 +1,6 @@
 package xdi2.core.io.util;
 
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -110,6 +109,13 @@ public class JXDMapping {
 
 	public JXDTerm addOrReuse(JXDTerm term) {
 
+		// see if we can re-use a term
+
+		for (JXDTerm existingTerm : this.terms.values()) {
+
+			if (existingTerm.equalsIdAndType(term)) return existingTerm;
+		}
+
 		// don't add term if it has no additional information
 
 		if (term.getId() != null && term.getName().equals(term.getId().toString())) term.setId(null);
@@ -145,10 +151,11 @@ public class JXDMapping {
 	public JsonObject begin() {
 
 		this.jsonObjectMapping = new JsonObject();
+
 		return this.jsonObjectMapping;
 	}
 
-	public void finish() {
+	public JsonObject finish() {
 
 		for (JXDTerm term : this.terms.values()) {
 
@@ -164,6 +171,8 @@ public class JXDMapping {
 				this.jsonObjectMapping.add(term.getName(), jsonObjectTerm);
 			}
 		}
+
+		return this.jsonObjectMapping;
 	}
 
 	public String getReference() {
