@@ -998,19 +998,6 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	}
 
 	/**
-	 * Returns all XDI operations with a given operation address in this XDI message (template).
-	 * @return An iterator over all XDI operations.
-	 */
-	public ReadOnlyIterator<Operation> getOperations(XDIAddress operationXDIAddress) {
-
-		// get all relations that are valid XDI operations
-
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(operationXDIAddress);
-
-		return new MappingRelationOperationIterator(this, relations);
-	}
-
-	/**
 	 * Returns all XDI $get operations in this XDI message (template).
 	 * @return An iterator over all XDI $get operations.
 	 */
@@ -1018,7 +1005,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $get operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_GET);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationGetOperationIterator(this, relations);
 	}
@@ -1031,7 +1018,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $set operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_SET);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationSetOperationIterator(this, relations);
 	}
@@ -1044,7 +1031,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $del operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_DEL);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationDelOperationIterator(this, relations);
 	}
@@ -1057,7 +1044,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $connect operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_CONNECT);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationConnectOperationIterator(this, relations);
 	}
@@ -1070,7 +1057,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $send operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_SEND);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationSendOperationIterator(this, relations);
 	}
@@ -1083,7 +1070,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $push operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_PUSH);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationPushOperationIterator(this, relations);
 	}
@@ -1096,7 +1083,7 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 
 		// get all relations that are valid XDI $do operations
 
-		Iterator<Relation> relations = this.getOperationsContextNode().getRelations(XDIMessagingConstants.XDI_ADD_DO);
+		Iterator<Relation> relations = this.getOperationsContextNode().getRelations();
 
 		return new MappingRelationDoOperationIterator(this, relations);
 	}

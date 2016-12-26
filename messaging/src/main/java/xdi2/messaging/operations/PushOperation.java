@@ -1,7 +1,6 @@
 package xdi2.messaging.operations;
 
 import xdi2.core.Relation;
-import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.messaging.MessageBase;
 import xdi2.messaging.constants.XDIMessagingConstants;
@@ -32,7 +31,7 @@ public class PushOperation extends Operation {
 	public static boolean isValid(Relation relation) {
 
 		if (XDIAddressUtil.startsWithXDIAddress(relation.getXDIAddress(), XDIMessagingConstants.XDI_ADD_PUSH) == null) return false;
-		if (! XdiEntitySingleton.createXDIArc(XDIMessagingConstants.XDI_ARC_DO).equals(relation.getContextNode().getXDIArc())) return false;
+		if (! XDIMessagingConstants.XDI_ARC_DO.equals(relation.getContextNode().getXDIArc())) return false;
 
 		return true;
 	}
