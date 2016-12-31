@@ -13,6 +13,16 @@ import xdi2.transport.interceptor.TransportInterceptor;
 
 public abstract class AbstractTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements TransportInterceptor {
 
+	public AbstractTransportInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
+
+	public AbstractTransportInterceptor() {
+
+		super();
+	}
+
 	@Override
 	public boolean before(Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2TransportException {
 

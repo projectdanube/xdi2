@@ -10,6 +10,16 @@ import xdi2.messaging.target.interceptor.MessageEnvelopeInterceptor;
 
 public abstract class AbstractMessageEnvelopeInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageEnvelopeInterceptor {
 
+	public AbstractMessageEnvelopeInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
+
+	public AbstractMessageEnvelopeInterceptor() {
+
+		super();
+	}
+
 	@Override
 	public InterceptorResult before(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 

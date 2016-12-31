@@ -13,6 +13,16 @@ import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
 
 public abstract class AbstractHttpTransportInterceptor extends AbstractInterceptor<Transport<?, ?>> implements HttpTransportInterceptor {
 
+	public AbstractHttpTransportInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
+
+	public AbstractHttpTransportInterceptor() {
+
+		super();
+	}
+
 	@Override
 	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
 

@@ -10,6 +10,16 @@ import xdi2.messaging.target.interceptor.MessageInterceptor;
 
 public abstract class AbstractMessageInterceptor extends AbstractInterceptor<MessagingTarget> implements MessageInterceptor {
 
+	public AbstractMessageInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
+
+	public AbstractMessageInterceptor() {
+
+		super();
+	}
+
 	@Override
 	public InterceptorResult before(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 

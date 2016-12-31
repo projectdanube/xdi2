@@ -8,6 +8,16 @@ import xdi2.messaging.target.interceptor.ExecutionResultInterceptor;
 
 public abstract class AbstractExecutionResultInterceptor extends AbstractInterceptor<MessagingTarget> implements ExecutionResultInterceptor {
 
+	public AbstractExecutionResultInterceptor(int initPriority, int shutdownPriority) {
+
+		super(initPriority, shutdownPriority);
+	}
+
+	public AbstractExecutionResultInterceptor() {
+
+		super();
+	}
+
 	@Override
 	public void finish(MessagingTarget messagingTarget, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
