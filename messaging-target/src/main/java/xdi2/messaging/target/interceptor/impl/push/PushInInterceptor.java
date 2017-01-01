@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.index.Index;
@@ -178,15 +179,20 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingTarget> impl
 
 		if (log.isDebugEnabled()) log.debug("Looking for link contracts from result graph of pushed messaging response " + pushedMessagingResponse.getResultGraph());
 
-		for (LinkContract pushLinkContract : TransportMessagingResponse.getLinkContracts(pushedMessagingResponse)) {
+		for (LinkContract pushedLinkContract : TransportMessagingResponse.getLinkContracts(pushedMessagingResponse)) {
 
-			if (log.isDebugEnabled()) log.debug("Obtained link contract from result graph of pushed messaging response " + pushLinkContract);
+			if (log.isDebugEnabled()) log.debug("Obtained link contract from result graph of pushed messaging response " + pushedLinkContract);
+
+			// first delete link contract in target graph if it exists already
+
+			ContextNode linkContractContextNode = this.getTargetGraph(executionContext).getDeepContextNode(pushedLinkContract.getContextNode().getXDIAddress());
+			if (linkContractContextNode != null) linkContractContextNode.delete();
 
 			// write link contract and index into target graph
 
-			CopyUtil.copyContextNode(pushLinkContract.getContextNode(), this.getTargetGraph(executionContext), null);
+			CopyUtil.copyContextNode(pushedLinkContract.getContextNode(), this.getTargetGraph(executionContext), null);
 			XdiEntityCollection xdiLinkContractIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDILinkContractConstants.XDI_ARC_CONTRACT, true);
-			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushLinkContract.getXdiEntity().getXDIAddress());
+			Index.setEntityIndexAggregation(xdiLinkContractIndex, pushedLinkContract.getXdiEntity().getXDIAddress());
 		}
 	}
 

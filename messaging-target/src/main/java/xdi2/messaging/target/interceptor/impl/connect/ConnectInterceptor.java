@@ -217,6 +217,11 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingTarget> imp
 
 		CopyUtil.copyGraph(linkContract.getContextNode().getGraph(), operationResultGraph, null);
 
+		// first delete link contract in target graph if it exists already
+
+		ContextNode linkContractContextNode = this.getTargetGraph(executionContext).getDeepContextNode(linkContract.getContextNode().getXDIAddress());
+		if (linkContractContextNode != null) linkContractContextNode.delete();
+
 		// write link contract and index into target graph
 
 		if (this.getTargetGraph(executionContext) != null) {

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.bootstrap.XDIBootstrap;
 import xdi2.core.constants.XDILinkContractConstants;
@@ -92,6 +93,11 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 			Message message = deferResult.getKey();
 			Boolean push = deferResult.getValue();
 
+			// first delete message in target graph if it exists already
+
+			ContextNode messageContextNode = this.getTargetGraph(executionContext).getDeepContextNode(message.getContextNode().getXDIAddress());
+			if (messageContextNode != null) messageContextNode.delete();
+
 			// write message and index into target graph
 
 			if (this.getTargetGraph(executionContext) != null) {
@@ -164,6 +170,11 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingTarget>
 			// write push link contract into message push result graph
 
 			CopyUtil.copyGraph(pushLinkContract.getContextNode().getGraph(), messageDeferredPushResultGraph, null);
+
+			// first delete push link contract in target graph if it exists already
+
+			ContextNode pushLinkContractContextNode = this.getTargetGraph(executionContext).getDeepContextNode(pushLinkContract.getContextNode().getXDIAddress());
+			if (pushLinkContractContextNode != null) pushLinkContractContextNode.delete();
 
 			// write push link contract and index into target graph
 
