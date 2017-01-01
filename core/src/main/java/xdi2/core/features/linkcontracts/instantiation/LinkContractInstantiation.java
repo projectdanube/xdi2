@@ -103,8 +103,6 @@ public class LinkContractInstantiation {
 			linkContract = RelationshipLinkContract.findRelationshipLinkContract(linkContractGraph, authorizingAuthorityValue, requestingAuthorityValue, templateAuthorityAndId, null, true);
 		}
 
-		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + linkContract + " from link contract template " + this.getLinkContractTemplate());
-
 		// TODO: make sure all variables in the link contract template have assigned values
 
 		// instantiate
@@ -114,6 +112,8 @@ public class LinkContractInstantiation {
 				new ReplaceLiteralVariablesCopyStrategy(variableValues),
 				new ReplaceEscapedVariablesCopyStrategy());
 		CopyUtil.copyContextNodeContents(this.getLinkContractTemplate().getContextNode(), linkContract.getContextNode(), copyStrategy);
+
+		if (log.isDebugEnabled()) log.debug("Instantiated link contract " + linkContract + " from link contract template " + this.getLinkContractTemplate());
 
 		// add push permission inverse relations
 

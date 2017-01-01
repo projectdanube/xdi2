@@ -6,7 +6,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.dictionary.Dictionary;
 import xdi2.core.features.nodetypes.XdiAbstractVariable;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -107,8 +106,6 @@ public class MessageInstantiation {
 		message.setFromPeerRootXDIArc(fromPeerRootValue);
 		message.setToPeerRootXDIArc(toPeerRootValue);
 
-		if (log.isDebugEnabled()) log.debug("Instantiated message " + message + " from message template " + this.getMessageTemplate());
-
 		// TODO: make sure all variables in the link contract template have assigned values
 
 		// instantiate
@@ -118,6 +115,8 @@ public class MessageInstantiation {
 				new ReplaceLiteralVariablesCopyStrategy(variableValues),
 				new ReplaceEscapedVariablesCopyStrategy());
 		CopyUtil.copyContextNodeContents(this.getMessageTemplate().getContextNode(), message.getContextNode(), copyStrategy);
+
+		if (log.isDebugEnabled()) log.debug("Instantiated message " + message + " from message template " + this.getMessageTemplate());
 
 		// add type statement
 
