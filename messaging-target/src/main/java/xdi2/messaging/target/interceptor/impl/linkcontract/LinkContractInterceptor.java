@@ -229,14 +229,14 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 				XDIAddress doTargetAddress = XDIAddressUtil.subXDIAddress(targetXDIAddress, 0, XDIAddressUtil.indexOfXDIArc(targetXDIAddress, XDILinkContractConstants.XDI_ARC_CONTRACT));
 
-				if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_DO, doTargetAddress, linkContract)) {
+				if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_CONTRACT, doTargetAddress, linkContract)) {
 
 					authorized = Boolean.TRUE;
-					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
+					if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_CONTRACT + " permission on target address " + doTargetAddress);
 				} else {
 
 					authorized = Boolean.FALSE;
-					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + doTargetAddress);
+					if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_CONTRACT + " permission on target address " + doTargetAddress);
 				}
 			}
 		}
@@ -282,18 +282,18 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingTarget
 
 		if (Boolean.TRUE.equals(authorized) && isSetOnDoAddress(targetXDIAddress, operation)) {
 
-			if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_DO, targetXDIAddress, linkContract)) {
+			if (decideLinkContractPermission(XDILinkContractConstants.XDI_ADD_SET_CONTRACT, targetXDIAddress, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + targetXDIAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_CONTRACT + " permission on target address " + targetXDIAddress);
 			} else if (decideLinkContractPermission(operation.getOperationXDIAddress(), targetXDIStatement, linkContract)) {
 
 				authorized = Boolean.TRUE;
-				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target statement " + targetXDIStatement);
+				if (log.isDebugEnabled()) log.debug("Authorization succeeded, because of " + XDILinkContractConstants.XDI_ADD_SET_CONTRACT + " permission on target statement " + targetXDIStatement);
 			} else {
 
 				authorized = Boolean.FALSE;
-				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_DO + " permission on target address " + targetXDIAddress);
+				if (log.isDebugEnabled()) log.debug("Authorization failed, because of missing " + XDILinkContractConstants.XDI_ADD_SET_CONTRACT + " permission on target address " + targetXDIAddress);
 			}
 		}
 
