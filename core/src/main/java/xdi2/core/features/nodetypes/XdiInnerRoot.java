@@ -64,6 +64,26 @@ public class XdiInnerRoot extends XdiAbstractRoot {
 		return new XdiInnerRoot(contextNode);
 	}
 
+	/**
+	 * Factory method that creates an XDI inner root bound to a given relation.
+	 * @param relation The relation that points to an XDI inner root.
+	 * @return The XDI inner root.
+	 */
+	public static XdiInnerRoot fromRelation(Relation relation) {
+
+		if (relation == null) throw new NullPointerException();
+
+		ContextNode contextNode = relation.followContextNode();
+		if (contextNode == null) return null;
+
+		XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(contextNode);
+		if (xdiInnerRoot == null) return null;
+
+		if (! xdiInnerRoot.getPredicateRelation().equals(relation)) return null;
+
+		return xdiInnerRoot;
+	}
+
 	public static XdiInnerRoot fromXDIAddress(XDIAddress XDIaddress) {
 
 		return fromContextNode(GraphUtil.contextNodeFromComponents(XDIaddress));

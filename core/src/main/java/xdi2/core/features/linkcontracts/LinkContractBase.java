@@ -25,6 +25,7 @@ import xdi2.core.util.iterators.IteratorListMaker;
 import xdi2.core.util.iterators.MappingRelationTargetXDIAddressIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
+import xdi2.core.util.iterators.SelectingNotXdiInnerRootRelationIterator;
 
 /**
  * The base class for XDI link contracts and XDI link contract templates, represented as an XDI entity or variable.
@@ -190,7 +191,7 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 
 		// prepare the target statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, true);
+		XdiInnerRoot xdiInnerRoot = this.getPermissionsXdiEntity().getXdiInnerRoot(permissionXDIAddress, true);
 		if (xdiInnerRoot == null) return;
 
 		// set the permission statement
@@ -212,6 +213,15 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 		this.getPermissionsContextNode().delRelation(permissionXDIAddress, targetXDIAddress);
 	}
 
+	public void delPermissionTargetXDIAddresses(XDIAddress permissionXDIAddress) {
+
+		if (permissionXDIAddress == null) throw new NullPointerException();
+
+		// delete the permission arc
+
+		this.getPermissionsContextNode().delRelations(permissionXDIAddress);
+	}
+
 	public void delNegativePermissionTargetXDIAddress(XDIAddress permissionXDIAddress, XDIAddress targetXDIAddress) {
 
 		this.delPermissionTargetXDIAddress(XDIAddressUtil.concatXDIAddresses(XDILinkContractConstants.XDI_ADD_NOT, permissionXDIAddress), targetXDIAddress);
@@ -223,13 +233,25 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 
 		// delete the permission statement
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getPermissionsXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return;
 
 		Statement statement = xdiInnerRoot.getContextNode().getStatement(targetXDIStatement);
 		if (statement == null) return;
 
 		statement.delete();
+	}
+
+	public void delPermissionTargetXDIStatements(XDIAddress permissionXDIAddress) {
+
+		if (permissionXDIAddress == null) throw new NullPointerException();
+
+		// delete the permission statements
+
+		XdiInnerRoot xdiInnerRoot = this.getPermissionsXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
+		if (xdiInnerRoot == null) return;
+
+		xdiInnerRoot.getContextNode().delete();
 	}
 
 	public void delNegativePermissionTargetXDIStatement(XDIAddress permissionXDIAddress, XDIStatement targetXDIStatement) {
@@ -244,7 +266,8 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 		// return the target addresses
 
 		return new MappingRelationTargetXDIAddressIterator(
-				this.getPermissionsContextNode().getRelations(permissionXDIAddress));
+				new SelectingNotXdiInnerRootRelationIterator(
+						this.getPermissionsContextNode().getRelations(permissionXDIAddress)));
 	}
 
 	public IterableIterator<XDIAddress> getNegativePermissionTargetXDIAddresses(XDIAddress permissionXDIAddress) {
@@ -298,7 +321,7 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getPermissionsXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return new EmptyIterator<XDIStatement> ();
 
 		// return the target statements
@@ -361,7 +384,7 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 
 		// find the inner root
 
-		XdiInnerRoot xdiInnerRoot = this.getXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
+		XdiInnerRoot xdiInnerRoot = this.getPermissionsXdiEntity().getXdiInnerRoot(permissionXDIAddress, false);
 		if (xdiInnerRoot == null) return false;
 
 		// check if the target statement exists
