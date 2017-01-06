@@ -211,7 +211,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		for (Relation relation : contextNode.getRelations()) {
 
-			if (XdiInnerRoot.isValid(relation.followContextNode())) {
+			if (XdiInnerRoot.fromRelation(relation) != null) {
 
 				this.putInnerRootIntoJsonObject(relation, jsonObject, mapping);
 			} else {
@@ -332,7 +332,7 @@ public class XDIJXDWriter extends AbstractXDIWriter {
 
 		for (Relation relation : contextNode.getAllRelations()) {
 
-			XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromContextNode(relation.followContextNode());
+			XdiInnerRoot xdiInnerRoot = XdiInnerRoot.fromRelation(relation);
 			if (xdiInnerRoot != null && xdiInnerRoot.getSubjectContextNode() == relation.getContextNode() && xdiInnerRoot.getPredicateRelation() == relation) {
 
 				if (! allStatementsImplied(xdiInnerRoot.getContextNode())) return true;
