@@ -6,15 +6,16 @@ import xdi2.core.Graph;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContracts;
 import xdi2.core.features.linkcontracts.instance.ConnectLinkContract;
-import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.features.linkcontracts.instance.RootLinkContract;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
 import xdi2.core.util.iterators.IteratorContains;
 
@@ -184,6 +185,30 @@ public class LinkContractsTest extends TestCase {
 		assertEquals(l2.getTemplateAuthorityAndId(), XDIAddress.create("=markus#registration"));
 
 		assertEquals(l1, l2);
+
+		graph.close();
+	}
+
+	public void testPermissions() throws Exception {
+
+		Graph graph = MemoryGraphFactory.getInstance().openGraph();
+
+		LinkContract lc = RelationshipLinkContract.findRelationshipLinkContract(graph, XDIAddress.create("=a"), XDIAddress.create("=b"), null, null, true);
+		lc.setPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddress.create("=a"));
+		lc.setPermissionTargetXDIStatement(XDILinkContractConstants.XDI_ADD_GET, XDIStatement.create("=a/#b/=c"));
+
+		assertTrue(lc.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_GET).hasNext());
+		assertEquals(lc.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_GET).next(), XDIAddress.create("=a"));
+		assertTrue(lc.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET).hasNext());
+		assertEquals(lc.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET).next(), XDIStatement.create("=a/#b/=c"));
+
+		lc.delPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddress.create("=a"));
+		lc.delPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET);
+
+		System.out.println(graph.toString("XDI DISPLAY"));
+
+		assertFalse(lc.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_GET).hasNext());
+		assertFalse(lc.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET).hasNext());
 
 		graph.close();
 	}
