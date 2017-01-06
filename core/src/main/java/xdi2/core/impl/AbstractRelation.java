@@ -111,7 +111,7 @@ public abstract class AbstractRelation implements Relation {
 
 		Relation other = (Relation) object;
 
-		// two relations are equal if their context nodes, addresses, and target context node addresses are equal
+		// two relations are equal if their context nodes, addresses, and target node addresses are equal
 
 		return 
 				this.getContextNode().equals(other.getContextNode()) &&
