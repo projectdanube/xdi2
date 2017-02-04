@@ -6,11 +6,11 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xdi2.messaging.target.interceptor.InterceptorList;
+import xdi2.messaging.container.interceptor.InterceptorList;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.websocket.interceptor.WebSocketTransportInterceptor;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerMount;
 
 public class InterceptorExecutor {
 
@@ -24,7 +24,7 @@ public class InterceptorExecutor {
 	 * Methods for executing interceptors
 	 */
 
-	public static boolean executeWebSocketTransportInterceptorsMessage(InterceptorList<? extends Transport<?, ?>> interceptorList, WebSocketTransport webSocketTransport, WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public static boolean executeWebSocketTransportInterceptorsMessage(InterceptorList<? extends Transport<?, ?>> interceptorList, WebSocketTransport webSocketTransport, WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingContainerMount messagingContainerMount) throws Xdi2TransportException, IOException {
 
 		for (Iterator<WebSocketTransportInterceptor> webSocketTransportInterceptors = findWebSocketTransportInterceptors(interceptorList); webSocketTransportInterceptors.hasNext(); ) {
 
@@ -38,7 +38,7 @@ public class InterceptorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing WebSocket transport interceptor " + webSocketTransportInterceptor.getClass().getSimpleName() + " (MESSAGE).");
 
-			if (webSocketTransportInterceptor.processMessage(webSocketTransport, request, response, messagingTargetMount)) {
+			if (webSocketTransportInterceptor.processMessage(webSocketTransport, request, response, messagingContainerMount)) {
 
 				if (log.isDebugEnabled()) log.debug("MESSAGE request has been fully handled by interceptor " + webSocketTransportInterceptor.getClass().getSimpleName() + ".");
 				return true;

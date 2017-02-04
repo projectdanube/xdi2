@@ -7,28 +7,28 @@ import xdi2.client.XDIClientRoute;
 import xdi2.client.impl.XDIAbstractClientRoute;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.interceptor.Interceptor;
 import xdi2.transport.Transport;
 
 public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> implements XDIClientRoute<XDILocalClient> {
 
-	private MessagingTarget messagingTarget;
+	private MessagingContainer messagingContainer;
 	private Graph graph;
 	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
-	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingTarget messagingTarget, Graph graph) {
+	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingContainer messagingContainer, Graph graph) {
 
 		super(toPeerRootXDIArc);
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 		this.graph = graph;
 		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
-	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingTarget messagingTarget) {
+	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, MessagingContainer messagingContainer) {
 
-		this(toPeerRootXDIArc, messagingTarget, null);
+		this(toPeerRootXDIArc, messagingContainer, null);
 	}
 
 	public XDILocalClientRoute(XDIArc toPeerRootXDIArc, Graph graph) {
@@ -36,9 +36,9 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 		this(toPeerRootXDIArc, null, graph);
 	}
 
-	public XDILocalClientRoute(MessagingTarget messagingTarget) {
+	public XDILocalClientRoute(MessagingContainer messagingContainer) {
 
-		this(null, messagingTarget, null);
+		this(null, messagingContainer, null);
 	}
 
 	public XDILocalClientRoute(Graph graph) {
@@ -56,7 +56,7 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 
 		// client construction step
 
-		XDILocalClient xdiClient = new XDILocalClient(this.getMessagingTarget(), this.getGraph());
+		XDILocalClient xdiClient = new XDILocalClient(this.getMessagingContainer(), this.getGraph());
 
 		// add interceptors if supported
 
@@ -74,14 +74,14 @@ public class XDILocalClientRoute extends XDIAbstractClientRoute<XDILocalClient> 
 	 * Getters and setters
 	 */
 
-	public MessagingTarget getMessagingTarget() {
+	public MessagingContainer getMessagingContainer() {
 
-		return this.messagingTarget;
+		return this.messagingContainer;
 	}
 
-	public void setMessagingTarget(MessagingTarget messagingTarget) {
+	public void setMessagingContainer(MessagingContainer messagingContainer) {
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 	}
 
 	public Graph getGraph() {

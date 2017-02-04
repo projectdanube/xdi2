@@ -12,9 +12,9 @@ import xdi2.client.impl.XDIAbstractClient;
 import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
+import xdi2.messaging.container.interceptor.Interceptor;
 import xdi2.transport.Transport;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.local.LocalTransport;
@@ -30,22 +30,22 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 	protected static final Logger log = LoggerFactory.getLogger(XDILocalClient.class);
 
-	private MessagingTarget messagingTarget;
+	private MessagingContainer messagingContainer;
 	private Graph graph;
 	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
-	public XDILocalClient(MessagingTarget messagingTarget, Graph graph) {
+	public XDILocalClient(MessagingContainer messagingContainer, Graph graph) {
 
 		super();
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 		this.graph = graph;
 		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
-	public XDILocalClient(MessagingTarget messagingTarget) {
+	public XDILocalClient(MessagingContainer messagingContainer) {
 
-		this(messagingTarget, null);
+		this(messagingContainer, null);
 	}
 
 	public XDILocalClient(Graph graph) {
@@ -59,9 +59,9 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 		this.disconnect();
 	}
 
-	private MessagingTarget connect() throws Exception {
+	private MessagingContainer connect() throws Exception {
 
-		if (this.getMessagingTarget() != null) return this.getMessagingTarget();
+		if (this.getMessagingContainer() != null) return this.getMessagingContainer();
 
 		if (this.getGraph() == null) throw new Xdi2ClientException("No graph to connect to.");
 
@@ -69,32 +69,32 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		if (log.isDebugEnabled()) log.debug("Connecting to " + this.getGraph().getClass().getSimpleName());
 
-		GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
-		messagingTarget.setGraph(this.getGraph());
-		messagingTarget.init();
+		GraphMessagingContainer messagingContainer = new GraphMessagingContainer();
+		messagingContainer.setGraph(this.getGraph());
+		messagingContainer.init();
 
 		// done
 
 		if (log.isDebugEnabled()) log.debug("Connected successfully.");
 
-		this.setMessagingTarget(messagingTarget);
-		return messagingTarget;
+		this.setMessagingContainer(messagingContainer);
+		return messagingContainer;
 	}
 
 	private void disconnect() {
 
 		try {
 
-			if (this.getMessagingTarget() != null) {
+			if (this.getMessagingContainer() != null) {
 
-				this.getMessagingTarget().shutdown();
+				this.getMessagingContainer().shutdown();
 			}
 		} catch (Exception ex) {
 
 			log.error("Cannot disconnect: " + ex.getMessage(), ex);
 		} finally {
 
-			this.setMessagingTarget(null);
+			this.setMessagingContainer(null);
 		}
 
 		if (log.isDebugEnabled()) log.debug("Disconnected successfully.");
@@ -105,11 +105,11 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		// connect
 
-		MessagingTarget messagingTarget;
+		MessagingContainer messagingContainer;
 
 		try {
 
-			messagingTarget = this.connect();
+			messagingContainer = this.connect();
 		} catch (Exception ex) {
 
 			throw new Xdi2ClientException("Cannot open messaging target: " + ex.getMessage(), ex);
@@ -117,7 +117,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 
 		// create the transport
 
-		LocalTransport localTransport = new LocalTransport(messagingTarget);
+		LocalTransport localTransport = new LocalTransport(messagingContainer);
 
 		// add interceptors if supported
 
@@ -150,14 +150,14 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 	 * Getters and setters
 	 */
 
-	public MessagingTarget getMessagingTarget() {
+	public MessagingContainer getMessagingContainer() {
 
-		return this.messagingTarget;
+		return this.messagingContainer;
 	}
 
-	public void setMessagingTarget(MessagingTarget messagingTarget) {
+	public void setMessagingContainer(MessagingContainer messagingContainer) {
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 	}
 
 	public Graph getGraph() {

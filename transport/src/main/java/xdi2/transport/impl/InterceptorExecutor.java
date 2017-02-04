@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.interceptor.InterceptorList;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.execution.ExecutionContext;
+import xdi2.messaging.container.interceptor.InterceptorList;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
 import xdi2.transport.TransportResponse;
@@ -29,7 +29,7 @@ public class InterceptorExecutor {
 	 * Methods for executing interceptors
 	 */
 
-	public static boolean executeTransportInterceptorsBefore(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2TransportException, IOException {
+	public static boolean executeTransportInterceptorsBefore(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingContainer messagingContainer, MessageEnvelope messageEnvelope, ExecutionContext executionContext) throws Xdi2TransportException, IOException {
 
 		for (Iterator<TransportInterceptor> transportInterceptors = findTransportInterceptors(interceptorList); transportInterceptors.hasNext(); ) {
 
@@ -37,7 +37,7 @@ public class InterceptorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing transport interceptor " + transportInterceptor.getClass().getSimpleName() + " (before).");
 
-			if (transportInterceptor.before(transport, request, response, messagingTarget, messageEnvelope, executionContext)) {
+			if (transportInterceptor.before(transport, request, response, messagingContainer, messageEnvelope, executionContext)) {
 
 				if (log.isDebugEnabled()) log.debug("Request has been fully handled by interceptor " + transportInterceptor.getClass().getSimpleName() + ".");
 				return true;
@@ -47,7 +47,7 @@ public class InterceptorExecutor {
 		return false;
 	}
 
-	public static boolean executeTransportInterceptorsAfter(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext) throws Xdi2TransportException {
+	public static boolean executeTransportInterceptorsAfter(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingContainer messagingContainer, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, ExecutionContext executionContext) throws Xdi2TransportException {
 
 		for (Iterator<TransportInterceptor> transportInterceptors = findTransportInterceptors(interceptorList); transportInterceptors.hasNext(); ) {
 
@@ -55,7 +55,7 @@ public class InterceptorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing transport interceptor " + transportInterceptor.getClass().getSimpleName() + " (after).");
 
-			if (transportInterceptor.after(transport, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext)) {
+			if (transportInterceptor.after(transport, request, response, messagingContainer, messageEnvelope, messagingResponse, executionContext)) {
 
 				if (log.isDebugEnabled()) log.debug("Request has been fully handled by interceptor " + transportInterceptor.getClass().getSimpleName() + ".");
 				return true;
@@ -65,7 +65,7 @@ public class InterceptorExecutor {
 		return false;
 	}
 
-	public static boolean executeTransportInterceptorsException(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingTarget messagingTarget, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, Exception ex, ExecutionContext executionContext) {
+	public static boolean executeTransportInterceptorsException(InterceptorList<Transport<?, ?>> interceptorList, Transport<?, ?> transport, TransportRequest request, TransportResponse response, MessagingContainer messagingContainer, MessageEnvelope messageEnvelope, MessagingResponse messagingResponse, Exception ex, ExecutionContext executionContext) {
 
 		for (Iterator<TransportInterceptor> transportInterceptors = findTransportInterceptors(interceptorList); transportInterceptors.hasNext(); ) {
 
@@ -73,7 +73,7 @@ public class InterceptorExecutor {
 
 			if (log.isDebugEnabled()) log.debug("Executing transport interceptor " + transportInterceptor.getClass().getSimpleName() + " (exception).");
 
-			transportInterceptor.exception(transport, request, response, messagingTarget, messageEnvelope, messagingResponse, ex, executionContext);
+			transportInterceptor.exception(transport, request, response, messagingContainer, messageEnvelope, messagingResponse, ex, executionContext);
 		}
 
 		return false;

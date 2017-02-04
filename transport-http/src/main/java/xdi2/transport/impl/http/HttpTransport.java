@@ -23,11 +23,11 @@ import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.http.AcceptHeader;
 import xdi2.messaging.response.TransportMessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.container.MessagingContainer;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.uri.UriTransport;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerMount;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry;
 
 public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransportResponse> {
 
@@ -55,7 +55,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		DEFAULT_HEADERS_OPTIONS.put("Allow", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
 	}
 
-	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
+	private UriMessagingContainerRegistry uriMessagingContainerRegistry;
 	private Map<String, String> headers;
 	private Map<String, String> headersGet;
 	private Map<String, String> headersPost;
@@ -63,9 +63,9 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 	private Map<String, String> headersDelete;
 	private Map<String, String> headersOptions;
 
-	public HttpTransport(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
+	public HttpTransport(UriMessagingContainerRegistry uriMessagingContainerRegistry) {
 
-		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
+		this.uriMessagingContainerRegistry = uriMessagingContainerRegistry;
 		this.headers = DEFAULT_HEADERS;
 		this.headersGet = DEFAULT_HEADERS_GET;
 		this.headersPost = DEFAULT_HEADERS_POST;
@@ -98,12 +98,12 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			UriMessagingTargetMount uriMessagingTargetMount = this.getUriMessagingTargetRegistry().lookup(request.getRequestPath());
+			UriMessagingContainerMount uriMessagingContainerMount = this.getUriMessagingContainerRegistry().lookup(request.getRequestPath());
 
-			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, uriMessagingTargetMount);
-			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, uriMessagingTargetMount);
-			else if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) this.processPutRequest(request, response, uriMessagingTargetMount);
-			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, uriMessagingTargetMount);
+			if (HttpTransportRequest.METHOD_GET.equals(request.getMethod())) this.processGetRequest(request, response, uriMessagingContainerMount);
+			else if (HttpTransportRequest.METHOD_POST.equals(request.getMethod())) this.processPostRequest(request, response, uriMessagingContainerMount);
+			else if (HttpTransportRequest.METHOD_PUT.equals(request.getMethod())) this.processPutRequest(request, response, uriMessagingContainerMount);
+			else if (HttpTransportRequest.METHOD_DELETE.equals(request.getMethod())) this.processDeleteRequest(request, response, uriMessagingContainerMount);
 			else if (HttpTransportRequest.METHOD_OPTIONS.equals(request.getMethod())) this.processOptionsRequest(request, response);
 			else throw new Xdi2TransportException("Invalid HTTP method: " + request.getMethod());
 		} catch (IOException ex) {
@@ -118,15 +118,15 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		if (log.isDebugEnabled()) log.debug("Successfully processed " + request.getMethod() + " request.");
 	}
 
-	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processGetRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount uriMessagingContainerMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
+		final MessagingContainer messagingContainer = uriMessagingContainerMount == null ? null : uriMessagingContainerMount.getMessagingContainer();
 		MessageEnvelope messageEnvelope;
 		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsGet(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsGet(this.getInterceptors(), this, request, response, uriMessagingContainerMount);
 
 		if (result) {
 
@@ -136,7 +136,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// no messaging target?
 
-		if (messagingTarget == null) {
+		if (messagingContainer == null) {
 
 			sendErrorNotFound(request, response);
 			return;
@@ -146,7 +146,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
+			messageEnvelope = readFromUrl(uriMessagingContainerMount, request, response, XDIMessagingConstants.XDI_ADD_GET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -155,7 +155,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// execute the messaging request against our messaging target, save messaging response
 
-		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// done
@@ -163,15 +163,15 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPostRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount uriMessagingContainerMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
+		final MessagingContainer messagingContainer = uriMessagingContainerMount == null ? null : uriMessagingContainerMount.getMessagingContainer();
 		MessageEnvelope messageEnvelope;
 		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPost(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPost(this.getInterceptors(), this, request, response, uriMessagingContainerMount);
 
 		if (result) {
 
@@ -181,7 +181,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// no messaging target?
 
-		if (messagingTarget == null) {
+		if (messagingContainer == null) {
 
 			sendErrorNotFound(request, response);
 			return;
@@ -200,7 +200,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// execute the messaging request against our messaging target, save messaging response
 
-		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// done
@@ -208,15 +208,15 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processPutRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount uriMessagingContainerMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
+		final MessagingContainer messagingContainer = uriMessagingContainerMount == null ? null : uriMessagingContainerMount.getMessagingContainer();
 		MessageEnvelope messageEnvelope;
 		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPut(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsPut(this.getInterceptors(), this, request, response, uriMessagingContainerMount);
 
 		if (result) {
 
@@ -226,7 +226,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// no messaging target?
 
-		if (messagingTarget == null) {
+		if (messagingContainer == null) {
 
 			sendErrorNotFound(request, response);
 			return;
@@ -236,7 +236,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
+			messageEnvelope = readFromUrl(uriMessagingContainerMount, request, response, XDIMessagingConstants.XDI_ADD_SET);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -245,7 +245,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// execute the messaging request against our messaging target, save messaging response
 
-		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// done
@@ -253,15 +253,15 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 		this.sendOk(request, response, messagingResponse);
 	}
 
-	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processDeleteRequest(HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount uriMessagingContainerMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
+		final MessagingContainer messagingContainer = uriMessagingContainerMount == null ? null : uriMessagingContainerMount.getMessagingContainer();
 		MessageEnvelope messageEnvelope;
 		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsDelete(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
+		boolean result = InterceptorExecutor.executeHttpTransportInterceptorsDelete(this.getInterceptors(), this, request, response, uriMessagingContainerMount);
 
 		if (result) {
 
@@ -271,7 +271,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// no messaging target?
 
-		if (messagingTarget == null) {
+		if (messagingContainer == null) {
 
 			sendErrorNotFound(request, response);
 			return;
@@ -281,7 +281,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		try {
 
-			messageEnvelope = readFromUrl(uriMessagingTargetMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
+			messageEnvelope = readFromUrl(uriMessagingContainerMount, request, response, XDIMessagingConstants.XDI_ADD_DEL);
 			if (messageEnvelope == null) throw new Xdi2TransportException("No messaging request.");
 		} catch (IOException ex) {
 
@@ -290,7 +290,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// execute the messaging request against our messaging target, save messaging response
 
-		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// done
@@ -310,13 +310,13 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 	 * Helper methods
 	 */
 
-	private static MessageEnvelope readFromUrl(UriMessagingTargetMount messagingTargetMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
+	private static MessageEnvelope readFromUrl(UriMessagingContainerMount messagingContainerMount, HttpTransportRequest request, HttpTransportResponse response, XDIAddress operationAddress) throws IOException {
 
-		if (messagingTargetMount == null) throw new NullPointerException();
+		if (messagingContainerMount == null) throw new NullPointerException();
 
 		// parse an XDI address from the request path
 
-		String addr = request.getRequestPath().substring(messagingTargetMount.getMessagingTargetPath().length());
+		String addr = request.getRequestPath().substring(messagingContainerMount.getMessagingContainerPath().length());
 		while (addr.length() > 0 && addr.charAt(0) == '/') addr = addr.substring(1);
 
 		if (log.isDebugEnabled()) log.debug("XDI address: " + addr);
@@ -346,7 +346,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		// set the TO peer root to the owner peer root of the messaging target
 
-		XDIArc ownerPeerRootXDIArc = messagingTargetMount.getMessagingTarget().getOwnerPeerRootXDIArc();
+		XDIArc ownerPeerRootXDIArc = messagingContainerMount.getMessagingContainer().getOwnerPeerRootXDIArc();
 
 		if (ownerPeerRootXDIArc != null) {
 
@@ -469,14 +469,14 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 	 */
 
 	@Override
-	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
+	public UriMessagingContainerRegistry getUriMessagingContainerRegistry() {
 
-		return this.uriMessagingTargetRegistry;
+		return this.uriMessagingContainerRegistry;
 	}
 
-	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
+	public void setUriMessagingContainerRegistry(UriMessagingContainerRegistry uriMessagingContainerRegistry) {
 
-		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
+		this.uriMessagingContainerRegistry = uriMessagingContainerRegistry;
 	}
 
 	public Map<String, String> getHeaders() {

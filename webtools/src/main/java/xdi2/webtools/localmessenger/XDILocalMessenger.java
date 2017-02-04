@@ -30,14 +30,14 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.FromInterceptor;
-import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
-import xdi2.messaging.target.interceptor.impl.ReadOnlyInterceptor;
-import xdi2.messaging.target.interceptor.impl.RefInterceptor;
-import xdi2.messaging.target.interceptor.impl.ToInterceptor;
-import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
-import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
+import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
+import xdi2.messaging.container.interceptor.impl.FromInterceptor;
+import xdi2.messaging.container.interceptor.impl.MessagePolicyInterceptor;
+import xdi2.messaging.container.interceptor.impl.ReadOnlyInterceptor;
+import xdi2.messaging.container.interceptor.impl.RefInterceptor;
+import xdi2.messaging.container.interceptor.impl.ToInterceptor;
+import xdi2.messaging.container.interceptor.impl.VariablesInterceptor;
+import xdi2.messaging.container.interceptor.impl.linkcontract.LinkContractInterceptor;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -222,59 +222,59 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			// prepare the messaging target
 
-			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
-			messagingTarget.setGraph(graphInput);
+			GraphMessagingContainer messagingContainer = new GraphMessagingContainer();
+			messagingContainer.setGraph(graphInput);
 
 			if ("on".equals(useFromInterceptor)) {
 
 				FromInterceptor fromInterceptor = new FromInterceptor();
-				messagingTarget.getInterceptors().addInterceptor(fromInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(fromInterceptor);
 			}
 
 			if ("on".equals(useToInterceptor)) {
 
 				ToInterceptor toInterceptor = new ToInterceptor();
-				messagingTarget.getInterceptors().addInterceptor(toInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(toInterceptor);
 			}
 
 			if ("on".equals(useVariablesInterceptor)) {
 
 				VariablesInterceptor variablesInterceptor = new VariablesInterceptor();
-				messagingTarget.getInterceptors().addInterceptor(variablesInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(variablesInterceptor);
 			}
 
 			if ("on".equals(useRefInterceptor)) {
 
 				RefInterceptor refInterceptor = new RefInterceptor();
-				messagingTarget.getInterceptors().addInterceptor(refInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(refInterceptor);
 			}
 
 			if ("on".equals(useReadOnlyInterceptor)) {
 
 				ReadOnlyInterceptor readOnlyInterceptor = new ReadOnlyInterceptor();
 				readOnlyInterceptor.setReadOnlyAddresses(new XDIAddress[] { XDIAddress.create("") });
-				messagingTarget.getInterceptors().addInterceptor(readOnlyInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(readOnlyInterceptor);
 			}
 
 			if ("on".equals(useMessagePolicyInterceptor)) {
 
 				MessagePolicyInterceptor messagePolicyInterceptor = new MessagePolicyInterceptor();
 				messagePolicyInterceptor.setMessagePolicyGraph(graphInput);
-				messagingTarget.getInterceptors().addInterceptor(messagePolicyInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(messagePolicyInterceptor);
 			}
 
 			if ("on".equals(useLinkContractInterceptor)) {
 
 				LinkContractInterceptor linkContractInterceptor = new LinkContractInterceptor();
 				linkContractInterceptor.setLinkContractsGraph(graphInput);
-				messagingTarget.getInterceptors().addInterceptor(linkContractInterceptor);
+				messagingContainer.getInterceptors().addInterceptor(linkContractInterceptor);
 			}
 
-			messagingTarget.init();
+			messagingContainer.init();
 
 			// send the message envelope and read result
 
-			XDILocalClient client = new XDILocalClient(messagingTarget);
+			XDILocalClient client = new XDILocalClient(messagingContainer);
 
 			messagingResponse = client.send(messageEnvelope);
 

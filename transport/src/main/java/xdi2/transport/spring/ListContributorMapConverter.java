@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
 
-import xdi2.messaging.target.contributor.Contributor;
-import xdi2.messaging.target.contributor.ContributorMap;
+import xdi2.messaging.container.contributor.Contributor;
+import xdi2.messaging.container.contributor.ContributorMap;
 
 public class ListContributorMapConverter implements Converter<List<Contributor>, ContributorMap> {
 
