@@ -30,7 +30,7 @@
 		<module>core</module>
 		<module>rdf</module>
 		<module>messaging</module>
-		<module>messaging-target</module>
+		<module>messaging-container</module>
 		<module>client</module>
 		<module>client-websocket</module>
 		<module>transport</module>
