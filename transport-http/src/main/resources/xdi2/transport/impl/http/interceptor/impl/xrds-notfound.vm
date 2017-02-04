@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<XRDS>
-	<XRD version="2.0">
-		<Query>$query</Query>
-		<ServerStatus code="222">No descriptor found for this query.</ServerStatus>
-	</XRD>
-</XRDS>
