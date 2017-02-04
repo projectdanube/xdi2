@@ -212,7 +212,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// done
 
-			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
+			return true;
 		}
 
 		if ("msg_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
@@ -273,7 +273,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// done
 
-			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
+			return true;
 		}
 
 		if ("save_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
@@ -327,7 +327,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// done
 
-			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
+			return true;
 		}
 
 		if ("exec_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
@@ -420,7 +420,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 
 			// done
 
-			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
+			return true;
 		}
 
 		// done
@@ -429,9 +429,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 	}
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount messagingContainerMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest httpTransportRequest, HttpTransportResponse httpTransportResponse, UriMessagingContainerMount messagingContainerMount) throws Xdi2TransportException, IOException {
 
-		if (! request.getRequestPath().equals(this.getPath())) return false;
+		if (! httpTransportRequest.getRequestPath().equals(this.getPath())) return false;
 
 		// prepare velocity
 
@@ -445,7 +445,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		VelocityContext context = new VelocityContext();
 		context.put("parser", ParserRegistry.getInstance().getParser());
 		context.put("httptransport", httpTransport);
-		context.put("httprequest", request);
+		context.put("httprequest", httpTransportRequest);
 		context.put("pluginfiles", pluginFiles);
 		context.put("xdi2properties", xdi2Properties);
 		context.put("systemproperties", systemProperties);
@@ -460,9 +460,9 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		StringWriter stringWriter = new StringWriter();
 		makeVelocityEngine().evaluate(context, stringWriter, "debug.vm", reader);
 
-		response.setStatus(HttpServletResponse.SC_OK);
-		response.setContentType("text/html");
-		response.writeBody(stringWriter.getBuffer().toString(), true);
+		httpTransportResponse.setStatus(HttpServletResponse.SC_OK);
+		httpTransportResponse.setContentType("text/html");
+		httpTransportResponse.writeBody(stringWriter.getBuffer().toString(), true);
 
 		// done
 
