@@ -15,12 +15,12 @@ import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.response.TransportMessagingResponse;
-import xdi2.messaging.target.Extension;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.execution.ExecutionContext;
-import xdi2.messaging.target.execution.ExecutionResult;
-import xdi2.messaging.target.interceptor.Interceptor;
-import xdi2.messaging.target.interceptor.InterceptorList;
+import xdi2.messaging.container.Extension;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.execution.ExecutionContext;
+import xdi2.messaging.container.execution.ExecutionResult;
+import xdi2.messaging.container.interceptor.Interceptor;
+import xdi2.messaging.container.interceptor.InterceptorList;
 import xdi2.transport.Transport;
 import xdi2.transport.TransportRequest;
 import xdi2.transport.TransportResponse;
@@ -119,7 +119,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		log.info("Shutting down complete.");
 	}
 
-	protected TransportMessagingResponse execute(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, REQUEST request, RESPONSE response) throws Xdi2TransportException {
+	protected TransportMessagingResponse execute(MessageEnvelope messageEnvelope, MessagingContainer messagingContainer, REQUEST request, RESPONSE response) throws Xdi2TransportException {
 
 		// create an execution context and execution result
 
@@ -136,33 +136,33 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			// execute interceptors (before)
 
-			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingContainer, messageEnvelope, executionContext);
 
 			// execute the message envelope against the messaging target
 
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);
-			messagingTarget.execute(messageEnvelope, executionContext, executionResult);
+			messagingContainer.execute(messageEnvelope, executionContext, executionResult);
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": ExecutionResult: " + executionResult);
 
 			// make messaging response
 
-			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingContainer, executionResult);
 
 			// execute interceptors (after)
 
-			InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messagingResponse, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsAfter(this.getInterceptors(), this, request, response, messagingContainer, messageEnvelope, messagingResponse, executionContext);
 		} catch (Exception ex) {
 
 			log.error("Exception while executing message envelope: " + ex.getMessage(), ex);
 
 			// make messaging response
 
-			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingTarget, executionResult);
+			messagingResponse = this.makeMessagingResponse(messageEnvelope, messagingContainer, executionResult);
 
 			// execute interceptors (exception)
 
-			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingTarget, messageEnvelope, messagingResponse, ex, executionContext);
+			InterceptorExecutor.executeTransportInterceptorsException(this.getInterceptors(), this, request, response, messagingContainer, messageEnvelope, messagingResponse, ex, executionContext);
 		}
 
 		// done
@@ -184,13 +184,13 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 		return executionContext;
 	}
 
-	private final TransportMessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingTarget messagingTarget, ExecutionResult executionResult) throws Xdi2TransportException {
+	private final TransportMessagingResponse makeMessagingResponse(MessageEnvelope messageEnvelope, MessagingContainer messagingContainer, ExecutionResult executionResult) throws Xdi2TransportException {
 
 		TransportMessagingResponse messagingResponse;
 
 		if (isResponseMessage(messageEnvelope)) {
 
-			messagingResponse = executionResult.makeFullMessagingResponse(messageEnvelope, messagingTarget);
+			messagingResponse = executionResult.makeFullMessagingResponse(messageEnvelope, messagingContainer);
 		} else {
 
 			messagingResponse = executionResult.makeLightMessagingResponse();

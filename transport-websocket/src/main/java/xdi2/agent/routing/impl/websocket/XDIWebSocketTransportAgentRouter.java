@@ -56,8 +56,8 @@ public class XDIWebSocketTransportAgentRouter extends XDIAbstractAgentRouter<XDI
 		return this.webSocketTransport;
 	}
 
-	public void setWebSocketTransport(WebSocketTransport messagingTargetRegistry) {
+	public void setWebSocketTransport(WebSocketTransport messagingContainerRegistry) {
 
-		this.webSocketTransport = messagingTargetRegistry;
+		this.webSocketTransport = messagingContainerRegistry;
 	}
 }

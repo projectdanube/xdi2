@@ -6,31 +6,31 @@ import java.util.List;
 import xdi2.core.Graph;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.AbstractTransport;
 
 public class LocalTransport extends AbstractTransport<LocalTransportRequest, LocalTransportResponse> {
 
-	private MessagingTarget messagingTarget;
+	private MessagingContainer messagingContainer;
 
-	public LocalTransport(MessagingTarget messagingTarget) {
+	public LocalTransport(MessagingContainer messagingContainer) {
 
 		super();
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 	}
 
 	public LocalTransport(Graph graph) {
 
 		try {
 
-			GraphMessagingTarget messagingTarget = new GraphMessagingTarget();
-			messagingTarget.setGraph(graph);
-			messagingTarget.init();
+			GraphMessagingContainer messagingContainer = new GraphMessagingContainer();
+			messagingContainer.setGraph(graph);
+			messagingContainer.init();
 
-			this.messagingTarget = messagingTarget;
+			this.messagingContainer = messagingContainer;
 		} catch (Exception ex) {
 
 			throw new RuntimeException("Cannot initialize messaging target: " + ex.getMessage(), ex);
@@ -64,7 +64,7 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 
 		try {
 
-			this.messagingTarget.shutdown();
+			this.messagingContainer.shutdown();
 
 			super.shutdown();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 
 		// execute the messaging request
 
-		TransportMessagingResponse messagingResponse = this.execute(messageEnvelope, this.getMessagingTarget(), request, response);
+		TransportMessagingResponse messagingResponse = this.execute(messageEnvelope, this.getMessagingContainer(), request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
 
 		// write response
@@ -93,8 +93,8 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 		response.setMessagingResponse(messagingResponse);
 	}
 
-	public MessagingTarget getMessagingTarget() {
+	public MessagingContainer getMessagingContainer() {
 
-		return this.messagingTarget;
+		return this.messagingContainer;
 	}
 }

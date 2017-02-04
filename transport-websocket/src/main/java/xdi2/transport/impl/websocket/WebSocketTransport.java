@@ -27,26 +27,26 @@ import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.TransportMessagingResponse;
-import xdi2.messaging.target.MessagingTarget;
+import xdi2.messaging.container.MessagingContainer;
 import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.impl.uri.UriTransport;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerMount;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry;
 
 public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, WebSocketTransportResponse> {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketTransport.class);
 
-	private UriMessagingTargetRegistry uriMessagingTargetRegistry;
+	private UriMessagingContainerRegistry uriMessagingContainerRegistry;
 	private String endpointPath;
 
 	private Map<String, Session> sessionIdToSessions;
 	private Map<XDIArc, Session> toPeerRootXDIArcSessions;
 	private Map<String, XDIArc> sessionIdToPeerRootXDIArcs;
 
-	public WebSocketTransport(UriMessagingTargetRegistry uriMessagingTargetRegistry, String endpointPath) {
+	public WebSocketTransport(UriMessagingContainerRegistry uriMessagingContainerRegistry, String endpointPath) {
 
-		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
+		this.uriMessagingContainerRegistry = uriMessagingContainerRegistry;
 		this.endpointPath = endpointPath;
 
 		this.sessionIdToSessions = new HashMap<String, Session> ();
@@ -106,9 +106,9 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 
 		try {
 
-			UriMessagingTargetMount uriMessagingTargetMount = this.getUriMessagingTargetRegistry().lookup(request.getRequestPath());
+			UriMessagingContainerMount uriMessagingContainerMount = this.getUriMessagingContainerRegistry().lookup(request.getRequestPath());
 
-			this.processMessage(request, response, uriMessagingTargetMount);
+			this.processMessage(request, response, uriMessagingContainerMount);
 		} catch (IOException ex) {
 
 			throw ex;
@@ -121,15 +121,15 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 		if (log.isDebugEnabled()) log.debug("Successfully processed message.");
 	}
 
-	protected void processMessage(WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingTargetMount uriMessagingTargetMount) throws Xdi2TransportException, IOException {
+	protected void processMessage(WebSocketTransportRequest request, WebSocketTransportResponse response, UriMessagingContainerMount uriMessagingContainerMount) throws Xdi2TransportException, IOException {
 
-		final MessagingTarget messagingTarget = uriMessagingTargetMount == null ? null : uriMessagingTargetMount.getMessagingTarget();
+		final MessagingContainer messagingContainer = uriMessagingContainerMount == null ? null : uriMessagingContainerMount.getMessagingContainer();
 		MessageEnvelope messageEnvelope;
 		TransportMessagingResponse messagingResponse;
 
 		// execute interceptors
 
-		boolean result = InterceptorExecutor.executeWebSocketTransportInterceptorsMessage(this.getInterceptors(), this, request, response, uriMessagingTargetMount);
+		boolean result = InterceptorExecutor.executeWebSocketTransportInterceptorsMessage(this.getInterceptors(), this, request, response, uriMessagingContainerMount);
 
 		if (result) {
 
@@ -139,7 +139,7 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 
 		// no messaging target?
 
-		if (messagingTarget == null) {
+		if (messagingContainer == null) {
 
 			sendCloseViolatedPolicy(request, response);
 			return;
@@ -166,7 +166,7 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 
 		// execute the message envelope against our message target, save result
 
-		messagingResponse = this.execute(messageEnvelope, messagingTarget, request, response);
+		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) return;
 
 		// done
@@ -308,14 +308,14 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 	 */
 
 	@Override
-	public UriMessagingTargetRegistry getUriMessagingTargetRegistry() {
+	public UriMessagingContainerRegistry getUriMessagingContainerRegistry() {
 
-		return this.uriMessagingTargetRegistry;
+		return this.uriMessagingContainerRegistry;
 	}
 
-	public void setUriMessagingTargetRegistry(UriMessagingTargetRegistry uriMessagingTargetRegistry) {
+	public void setUriMessagingContainerRegistry(UriMessagingContainerRegistry uriMessagingContainerRegistry) {
 
-		this.uriMessagingTargetRegistry = uriMessagingTargetRegistry;
+		this.uriMessagingContainerRegistry = uriMessagingContainerRegistry;
 	}
 
 	public String getEndpointPath() {

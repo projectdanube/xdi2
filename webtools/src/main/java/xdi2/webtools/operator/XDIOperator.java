@@ -44,7 +44,7 @@ import xdi2.discovery.XDIDiscoveryResult;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.target.contributor.impl.keygen.GenerateKeyContributor;
+import xdi2.messaging.container.contributor.impl.keygen.GenerateKeyContributor;
 import xdi2.webtools.util.OutputCache;
 import xdi2.webtools.util.SecretTokenInsertingCopyStrategy;
 

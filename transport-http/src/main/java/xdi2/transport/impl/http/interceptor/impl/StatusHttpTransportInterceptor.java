@@ -7,7 +7,7 @@ import xdi2.transport.impl.http.HttpTransport;
 import xdi2.transport.impl.http.HttpTransportRequest;
 import xdi2.transport.impl.http.HttpTransportResponse;
 import xdi2.transport.impl.http.interceptor.HttpTransportInterceptor;
-import xdi2.transport.registry.impl.uri.UriMessagingTargetMount;
+import xdi2.transport.registry.impl.uri.UriMessagingContainerMount;
 
 /**
  * This interceptor simply returns a plain HTTP status and empty body.
@@ -33,7 +33,7 @@ public class StatusHttpTransportInterceptor extends AbstractHttpTransportInterce
 	 */
 
 	@Override
-	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingTargetMount messagingTargetMount) throws Xdi2TransportException, IOException {
+	public boolean processGetRequest(HttpTransport httpTransport, HttpTransportRequest request, HttpTransportResponse response, UriMessagingContainerMount messagingContainerMount) throws Xdi2TransportException, IOException {
 
 		if (! request.getRequestPath().equals(this.getPath())) return false;
 

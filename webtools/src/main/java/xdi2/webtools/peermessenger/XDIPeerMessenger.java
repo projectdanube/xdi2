@@ -34,17 +34,17 @@ import xdi2.core.io.readers.AutoReader;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.response.MessagingResponse;
-import xdi2.messaging.target.impl.graph.GraphMessagingTarget;
-import xdi2.messaging.target.interceptor.impl.FromInterceptor;
-import xdi2.messaging.target.interceptor.impl.MessagePolicyInterceptor;
-import xdi2.messaging.target.interceptor.impl.ReadOnlyInterceptor;
-import xdi2.messaging.target.interceptor.impl.RefInterceptor;
-import xdi2.messaging.target.interceptor.impl.ToInterceptor;
-import xdi2.messaging.target.interceptor.impl.VariablesInterceptor;
-import xdi2.messaging.target.interceptor.impl.linkcontract.LinkContractInterceptor;
-import xdi2.messaging.target.interceptor.impl.push.BasicPushGateway;
-import xdi2.messaging.target.interceptor.impl.push.PushGateway;
-import xdi2.messaging.target.interceptor.impl.push.PushOutInterceptor;
+import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
+import xdi2.messaging.container.interceptor.impl.FromInterceptor;
+import xdi2.messaging.container.interceptor.impl.MessagePolicyInterceptor;
+import xdi2.messaging.container.interceptor.impl.ReadOnlyInterceptor;
+import xdi2.messaging.container.interceptor.impl.RefInterceptor;
+import xdi2.messaging.container.interceptor.impl.ToInterceptor;
+import xdi2.messaging.container.interceptor.impl.VariablesInterceptor;
+import xdi2.messaging.container.interceptor.impl.linkcontract.LinkContractInterceptor;
+import xdi2.messaging.container.interceptor.impl.push.BasicPushGateway;
+import xdi2.messaging.container.interceptor.impl.push.PushGateway;
+import xdi2.messaging.container.interceptor.impl.push.PushOutInterceptor;
 import xdi2.webtools.util.OutputCache;
 
 /**
@@ -267,42 +267,42 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 
 			// prepare the messaging target
 
-			GraphMessagingTarget messagingTarget1 = new GraphMessagingTarget();
-			GraphMessagingTarget messagingTarget2 = new GraphMessagingTarget();
+			GraphMessagingContainer messagingContainer1 = new GraphMessagingContainer();
+			GraphMessagingContainer messagingContainer2 = new GraphMessagingContainer();
 
-			messagingTarget1.setGraph(graphInput1);
-			messagingTarget2.setGraph(graphInput2);
+			messagingContainer1.setGraph(graphInput1);
+			messagingContainer2.setGraph(graphInput2);
 
 			if ("on".equals(useFromInterceptor)) {
 
 				FromInterceptor fromInterceptor1 = new FromInterceptor();
 				FromInterceptor fromInterceptor2 = new FromInterceptor();
-				messagingTarget1.getInterceptors().addInterceptor(fromInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(fromInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(fromInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(fromInterceptor2);
 			}
 
 			if ("on".equals(useToInterceptor)) {
 
 				ToInterceptor toInterceptor1 = new ToInterceptor();
 				ToInterceptor toInterceptor2 = new ToInterceptor();
-				messagingTarget1.getInterceptors().addInterceptor(toInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(toInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(toInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(toInterceptor2);
 			}
 
 			if ("on".equals(useVariablesInterceptor)) {
 
 				VariablesInterceptor variablesInterceptor1 = new VariablesInterceptor();
 				VariablesInterceptor variablesInterceptor2 = new VariablesInterceptor();
-				messagingTarget1.getInterceptors().addInterceptor(variablesInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(variablesInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(variablesInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(variablesInterceptor2);
 			}
 
 			if ("on".equals(useRefInterceptor)) {
 
 				RefInterceptor refInterceptor1 = new RefInterceptor();
 				RefInterceptor refInterceptor2 = new RefInterceptor();
-				messagingTarget1.getInterceptors().addInterceptor(refInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(refInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(refInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(refInterceptor2);
 			}
 
 			if ("on".equals(useReadOnlyInterceptor)) {
@@ -311,8 +311,8 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				ReadOnlyInterceptor readOnlyInterceptor2 = new ReadOnlyInterceptor();
 				readOnlyInterceptor1.setReadOnlyAddresses(new XDIAddress[] { XDIAddress.create("") });
 				readOnlyInterceptor2.setReadOnlyAddresses(new XDIAddress[] { XDIAddress.create("") });
-				messagingTarget1.getInterceptors().addInterceptor(readOnlyInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(readOnlyInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(readOnlyInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(readOnlyInterceptor2);
 			}
 
 			if ("on".equals(useMessagePolicyInterceptor)) {
@@ -321,8 +321,8 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				MessagePolicyInterceptor messagePolicyInterceptor2 = new MessagePolicyInterceptor();
 				messagePolicyInterceptor1.setMessagePolicyGraph(graphInput1);
 				messagePolicyInterceptor2.setMessagePolicyGraph(graphInput2);
-				messagingTarget1.getInterceptors().addInterceptor(messagePolicyInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(messagePolicyInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(messagePolicyInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(messagePolicyInterceptor2);
 			}
 
 			if ("on".equals(useLinkContractInterceptor)) {
@@ -331,15 +331,15 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				LinkContractInterceptor linkContractInterceptor2 = new LinkContractInterceptor();
 				linkContractInterceptor1.setLinkContractsGraph(graphInput1);
 				linkContractInterceptor2.setLinkContractsGraph(graphInput2);
-				messagingTarget1.getInterceptors().addInterceptor(linkContractInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(linkContractInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(linkContractInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(linkContractInterceptor2);
 			}
 
 			if ("on".equals(usePushCommandInterceptor)) {
 
 				List<XDIAgentRouter<?, ?>> agentRouters = new ArrayList<XDIAgentRouter<?, ?>> ();
-				agentRouters.add(new XDILocalAgentRouter(messagingTarget1));
-				agentRouters.add(new XDILocalAgentRouter(messagingTarget2));
+				agentRouters.add(new XDILocalAgentRouter(messagingContainer1));
+				agentRouters.add(new XDILocalAgentRouter(messagingContainer2));
 
 				XDIAgent xdiAgent = new XDIBasicAgent(agentRouters);
 
@@ -351,17 +351,17 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 				pushCommandInterceptor2.setPushLinkContractsGraph(graphInput2);
 				pushCommandInterceptor1.setPushGateway(pushCommandExecutor);
 				pushCommandInterceptor2.setPushGateway(pushCommandExecutor);
-				messagingTarget1.getInterceptors().addInterceptor(pushCommandInterceptor1);
-				messagingTarget2.getInterceptors().addInterceptor(pushCommandInterceptor2);
+				messagingContainer1.getInterceptors().addInterceptor(pushCommandInterceptor1);
+				messagingContainer2.getInterceptors().addInterceptor(pushCommandInterceptor2);
 			}
 
-			messagingTarget1.init();
-			messagingTarget2.init();
+			messagingContainer1.init();
+			messagingContainer2.init();
 
 			// send the message envelope and read result
 
-			XDILocalClient client1 = new XDILocalClient(messagingTarget1);
-			XDILocalClient client2 = new XDILocalClient(messagingTarget2);
+			XDILocalClient client1 = new XDILocalClient(messagingContainer1);
+			XDILocalClient client2 = new XDILocalClient(messagingContainer2);
 
 			messagingResponse1 = client1.send(messageEnvelope1);
 			messagingResponse2 = client2.send(messageEnvelope2);

@@ -14,28 +14,28 @@ import xdi2.client.impl.local.XDILocalClientRoute;
 import xdi2.core.Graph;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
-import xdi2.messaging.target.MessagingTarget;
-import xdi2.messaging.target.interceptor.Interceptor;
+import xdi2.messaging.container.MessagingContainer;
+import xdi2.messaging.container.interceptor.Interceptor;
 import xdi2.transport.Transport;
 
 public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRoute, XDILocalClient> implements XDIAgentRouter<XDILocalClientRoute, XDILocalClient> {
 
 	private static final Logger log = LoggerFactory.getLogger(XDILocalAgentRouter.class);
 
-	private MessagingTarget messagingTarget;
+	private MessagingContainer messagingContainer;
 	private Graph graph;
 	private Collection<Interceptor<Transport<?, ?>>> interceptors;
 
-	public XDILocalAgentRouter(MessagingTarget messagingTarget, Graph graph) {
+	public XDILocalAgentRouter(MessagingContainer messagingContainer, Graph graph) {
 
-		this.messagingTarget = messagingTarget;
+		this.messagingContainer = messagingContainer;
 		this.graph = graph;
 		this.interceptors = new ArrayList<Interceptor<Transport<?, ?>>> ();
 	}
 
-	public XDILocalAgentRouter(MessagingTarget messagingTarget) {
+	public XDILocalAgentRouter(MessagingContainer messagingContainer) {
 
-		this(messagingTarget, null);
+		this(messagingContainer, null);
 	}
 
 	public XDILocalAgentRouter(Graph graph) {
@@ -60,7 +60,7 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 		}
 
 		XDIArc ownerPeerRootXDIArc = null;
-		if (ownerPeerRootXDIArc == null && this.getMessagingTarget() != null) ownerPeerRootXDIArc = this.getMessagingTarget().getOwnerPeerRootXDIArc();
+		if (ownerPeerRootXDIArc == null && this.getMessagingContainer() != null) ownerPeerRootXDIArc = this.getMessagingContainer().getOwnerPeerRootXDIArc();
 		if (ownerPeerRootXDIArc == null && this.getGraph() != null) ownerPeerRootXDIArc = GraphUtil.getOwnerPeerRootXDIArc(this.getGraph());
 
 		if (ownerPeerRootXDIArc == null) {
@@ -71,13 +71,13 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 
 		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) {
 
-			if (log.isDebugEnabled()) log.debug("Local messaging target " + (this.getMessagingTarget() == null ? null : this.getMessagingTarget().getClass().getSimpleName()) + " and graph " + (this.getGraph() == null ? null : this.getGraph().getClass().getSimpleName()) + " is no route to peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
+			if (log.isDebugEnabled()) log.debug("Local messaging target " + (this.getMessagingContainer() == null ? null : this.getMessagingContainer().getClass().getSimpleName()) + " and graph " + (this.getGraph() == null ? null : this.getGraph().getClass().getSimpleName()) + " is no route to peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
 			return null;
 		}
 
 		// construct the route
 
-		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingTarget(), this.getGraph());
+		XDILocalClientRoute route = new XDILocalClientRoute(toPeerRootXDIArc, this.getMessagingContainer(), this.getGraph());
 
 		// add interceptors if supported
 
@@ -95,14 +95,14 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 	 * Getters and setters
 	 */
 
-	public MessagingTarget getMessagingTarget() {
+	public MessagingContainer getMessagingContainer() {
 
-		return this.messagingTarget;
+		return this.messagingContainer;
 	}
 
-	public void setMessagingTarget(MessagingTarget messagingTargets) {
+	public void setMessagingContainer(MessagingContainer messagingContainers) {
 
-		this.messagingTarget = messagingTargets;
+		this.messagingContainer = messagingContainers;
 	}
 
 	public Graph getGraph() {

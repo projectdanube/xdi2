@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.core.convert.converter.Converter;
 
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.target.contributor.Contributor;
-import xdi2.messaging.target.contributor.ContributorMap;
+import xdi2.messaging.container.contributor.Contributor;
+import xdi2.messaging.container.contributor.ContributorMap;
 
 public class MapContributorMapConverter implements Converter<Map<?, ?>, ContributorMap> {
 

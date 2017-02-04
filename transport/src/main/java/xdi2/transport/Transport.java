@@ -2,7 +2,7 @@ package xdi2.transport;
 
 import java.io.IOException;
 
-import xdi2.messaging.target.execution.ExecutionContext;
+import xdi2.messaging.container.execution.ExecutionContext;
 import xdi2.transport.exceptions.Xdi2TransportException;
 
 public interface Transport <REQUEST extends TransportRequest, RESPONSE extends TransportResponse> {

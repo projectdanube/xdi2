@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
 
-import xdi2.messaging.target.interceptor.Interceptor;
-import xdi2.messaging.target.interceptor.InterceptorList;
+import xdi2.messaging.container.interceptor.Interceptor;
+import xdi2.messaging.container.interceptor.InterceptorList;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class ListInterceptorListConverter implements Converter<List<Interceptor>, InterceptorList> {

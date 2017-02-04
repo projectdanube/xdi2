@@ -5,10 +5,10 @@
 
 	<!-- XDI ENDPOINT REGISTRY AND TRANSPORT -->
 
-	<bean id="UriMessagingTargetRegistry" class="xdi2.transport.registry.impl.uri.UriMessagingTargetRegistry" init-method="init" destroy-method="shutdown" />
+	<bean id="UriMessagingContainerRegistry" class="xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry" init-method="init" destroy-method="shutdown" />
 
 	<bean id="HttpTransport" class="xdi2.transport.impl.http.HttpTransport" init-method="init" destroy-method="shutdown">
-		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+		<property name="uriMessagingContainerRegistry" ref="UriMessagingContainerRegistry" />
 		<property name="interceptors">
 			<util:list>
 				<bean class="xdi2.transport.impl.http.interceptor.impl.DebugHttpTransportInterceptor" />
@@ -18,7 +18,7 @@
 	</bean>
 
 	<bean id="WebSocketTransport" class="xdi2.transport.impl.websocket.WebSocketTransport" init-method="init" destroy-method="shutdown">
-		<property name="uriMessagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+		<property name="uriMessagingContainerRegistry" ref="UriMessagingContainerRegistry" />
 		<property name="endpointPath" value="/" />
 	</bean>
 
@@ -41,8 +41,8 @@
 	<bean id="XdiAgent" class="xdi2.agent.impl.XDIBasicAgent">
 		<property name="agentRouters">
 			<list>
-				<bean class="xdi2.agent.routing.impl.local.XDIMessagingTargetRegistryAgentRouter">
-					<property name="messagingTargetRegistry" ref="UriMessagingTargetRegistry" />
+				<bean class="xdi2.agent.routing.impl.local.XDIMessagingContainerRegistryAgentRouter">
+					<property name="messagingContainerRegistry" ref="UriMessagingContainerRegistry" />
 				</bean>
 				<bean class="xdi2.agent.routing.impl.websocket.XDIWebSocketTransportAgentRouter">
 					<property name="webSocketTransport" ref="WebSocketTransport" />

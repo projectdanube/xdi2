@@ -13,11 +13,11 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.GenericConverter;
 
-import xdi2.messaging.target.impl.AbstractMessagingTarget;
+import xdi2.messaging.container.impl.AbstractMessagingContainer;
 
 public class XDI2SpringConverter implements GenericConverter {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingTarget.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractMessagingContainer.class);
 
 	private static List<Converter<?, ?>> converters = Arrays.asList(new Converter<?, ?> [] {
 			new StringXDIArcConverter(),
