@@ -79,7 +79,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	</td></tr>
 </table>
 <h1>MessagingContainer List:</h1>
-#if($messagingtargetmounts.size()==0)
+#if($messagingcontainermounts.size()==0)
 	(none)
 #else
 <table class="pretty">
@@ -90,81 +90,81 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<th>Interceptors</th>
 	<th>Contributors</th>
 	</tr>
-#foreach($messagingtargetmount in $messagingtargetmounts)
+#foreach($messagingcontainermount in $messagingcontainermounts)
 	<tr>
     <td valign="top">
-    	<a href="$httprequest.baseUri$messagingtargetmount.messagingContainerPath">
-    		$messagingtargetmount.messagingContainerPath
+    	<a href="$httprequest.baseUri$messagingcontainermount.messagingContainerPath">
+    		$messagingcontainermount.messagingContainerPath
     	</a>
 		<p><form action="" method="post">
-			<input type="hidden" name="cmd" value="unmount_messaging_target">
-			<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingContainerPath">
+			<input type="hidden" name="cmd" value="unmount_messaging_container">
+			<input type="hidden" name="messagingcontainerpath" value="$messagingcontainermount.messagingContainerPath">
 			<input type="submit" value="Unmount">
 		</form></p>
     </td>
     <td valign="top">
-    	$messagingtargetmount.messagingContainer.class.canonicalName
-    	#if($messagingtargetmount.messagingContainer.class.canonicalName=="xdi2.messaging.container.impl.graph.GraphMessagingContainer")
-    		<br><span class="light">$messagingtargetmount.messagingContainer.graph.class.canonicalName</span>
-	    	#if($messagingtargetmount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.file.FileGraph")
-	    		<br>[path] <span class="light">$messagingtargetmount.messagingContainer.graph.path</span>
-	    		<br>[mimeType] <span class="light">$messagingtargetmount.messagingContainer.graph.mimeType</span>
+    	$messagingcontainermount.messagingContainer.class.canonicalName
+    	#if($messagingcontainermount.messagingContainer.class.canonicalName=="xdi2.messaging.container.impl.graph.GraphMessagingContainer")
+    		<br><span class="light">$messagingcontainermount.messagingContainer.graph.class.canonicalName</span>
+	    	#if($messagingcontainermount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.file.FileGraph")
+	    		<br>[path] <span class="light">$messagingcontainermount.messagingContainer.graph.path</span>
+	    		<br>[mimeType] <span class="light">$messagingcontainermount.messagingContainer.graph.mimeType</span>
 	    	#end
-	    	#if($messagingtargetmount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.keyvalue.KeyValueGraph")
-	    		<br><span class="light">$messagingtargetmount.messagingContainer.graph.keyValueStore.class.canonicalName</span>
-		    	#if($messagingtargetmount.messagingContainer.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.properties.PropertiesKeyValueStore")
-		    		<br>[path] <span class="light">$messagingtargetmount.messagingContainer.graph.keyValueStore.path</span>
+	    	#if($messagingcontainermount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.keyvalue.KeyValueGraph")
+	    		<br><span class="light">$messagingcontainermount.messagingContainer.graph.keyValueStore.class.canonicalName</span>
+		    	#if($messagingcontainermount.messagingContainer.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.properties.PropertiesKeyValueStore")
+		    		<br>[path] <span class="light">$messagingcontainermount.messagingContainer.graph.keyValueStore.path</span>
 		    	#end
-		    	#if($messagingtargetmount.messagingContainer.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore")
-		    		<br>[databasePath] <span class="light">$messagingtargetmount.messagingContainer.graph.keyValueStore.databasePath</span>
-		    		<br>[databaseName] <span class="light">$messagingtargetmount.messagingContainer.graph.keyValueStore.databaseName</span>
-		    	#end
-	    	#end
-	    	#if($messagingtargetmount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.json.JSONGraph")
-	    		<br><span class="light">$messagingtargetmount.messagingContainer.graph.jsonStore.class.canonicalName</span>
-		    	#if($messagingtargetmount.messagingContainer.graph.jsonStore.class.canonicalName=="xdi2.core.impl.json.file.FileJSONStore")
-		    		<br>[prefix] <span class="light">$messagingtargetmount.messagingContainer.graph.jsonStore.prefix</span>
+		    	#if($messagingcontainermount.messagingContainer.graph.keyValueStore.class.canonicalName=="xdi2.core.impl.keyvalue.bdb.BDBKeyValueStore")
+		    		<br>[databasePath] <span class="light">$messagingcontainermount.messagingContainer.graph.keyValueStore.databasePath</span>
+		    		<br>[databaseName] <span class="light">$messagingcontainermount.messagingContainer.graph.keyValueStore.databaseName</span>
 		    	#end
 	    	#end
-	    	#if($messagingtargetmount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
-	    		<br><span class="light">$messagingtargetmount.messagingContainer.graph.wrapperStore.class.canonicalName</span>
-		    	#if($messagingtargetmount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.file.FileWrapperStore")
-		    		<br>[path] <span class="light">$messagingtargetmount.messagingContainer.graph.wrapperStore.path</span>
+	    	#if($messagingcontainermount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.json.JSONGraph")
+	    		<br><span class="light">$messagingcontainermount.messagingContainer.graph.jsonStore.class.canonicalName</span>
+		    	#if($messagingcontainermount.messagingContainer.graph.jsonStore.class.canonicalName=="xdi2.core.impl.json.file.FileJSONStore")
+		    		<br>[prefix] <span class="light">$messagingcontainermount.messagingContainer.graph.jsonStore.prefix</span>
 		    	#end
-		    	#if($messagingtargetmount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.url.URLWrapperStore")
-		    		<br>[url] <span class="light">$messagingtargetmount.messagingContainer.graph.wrapperStore.url</span>
+	    	#end
+	    	#if($messagingcontainermount.messagingContainer.graph.class.canonicalName=="xdi2.core.impl.wrapped.WrappedGraph")
+	    		<br><span class="light">$messagingcontainermount.messagingContainer.graph.wrapperStore.class.canonicalName</span>
+		    	#if($messagingcontainermount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.file.FileWrapperStore")
+		    		<br>[path] <span class="light">$messagingcontainermount.messagingContainer.graph.wrapperStore.path</span>
 		    	#end
-		    	#if($messagingtargetmount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.classpath.ClasspathWrapperStore")
-		    		<br>[classpath] <span class="light">$messagingtargetmount.messagingContainer.graph.wrapperStore.classpath</span>
+		    	#if($messagingcontainermount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.url.URLWrapperStore")
+		    		<br>[url] <span class="light">$messagingcontainermount.messagingContainer.graph.wrapperStore.url</span>
+		    	#end
+		    	#if($messagingcontainermount.messagingContainer.graph.wrapperStore.class.canonicalName=="xdi2.core.impl.wrapped.classpath.ClasspathWrapperStore")
+		    		<br>[classpath] <span class="light">$messagingcontainermount.messagingContainer.graph.wrapperStore.classpath</span>
 		    	#end
 	    	#end
 			<p><table><tr><td><form action="" method="post">
-				<input type="hidden" name="cmd" value="edit_messaging_target">
-				<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingContainerPath">
+				<input type="hidden" name="cmd" value="edit_messaging_container">
+				<input type="hidden" name="messagingcontainerpath" value="$messagingcontainermount.messagingContainerPath">
 				<input type="submit" value="Edit">
 			</form></td><td><form action="" method="post">
-				<input type="hidden" name="cmd" value="msg_messaging_target">
-				<input type="hidden" name="messagingtargetpath" value="$messagingtargetmount.messagingContainerPath">
+				<input type="hidden" name="cmd" value="msg_messaging_container">
+				<input type="hidden" name="messagingcontainerpath" value="$messagingcontainermount.messagingContainerPath">
 				<input type="submit" value="Message">
 			</form></td></tr></table></p>
     	#end
-    	#if($messagingtargetmount.messagingContainer.class.canonicalName=="xdi2.messaging.container.impl.file.FileMessagingContainer")
-    		<br>[path] <span class="light">$messagingtargetmount.messagingContainer.path</span>
-    		<br>[mimeType] <span class="light">$messagingtargetmount.messagingContainer.mimeType</span>
+    	#if($messagingcontainermount.messagingContainer.class.canonicalName=="xdi2.messaging.container.impl.file.FileMessagingContainer")
+    		<br>[path] <span class="light">$messagingcontainermount.messagingContainer.path</span>
+    		<br>[mimeType] <span class="light">$messagingcontainermount.messagingContainer.mimeType</span>
     	#end
     </td>
     <td valign="top">
-    	#if($messagingtargetmount.messagingContainer.ownerPeerRootXDIArc)
-    		$messagingtargetmount.messagingContainer.ownerPeerRootXDIArc
+    	#if($messagingcontainermount.messagingContainer.ownerPeerRootXDIArc)
+    		$messagingcontainermount.messagingContainer.ownerPeerRootXDIArc
     	#end
     </td>
 	<td valign="top">
 	<p><a href="javascript:void(0)" onclick="toggle_visibility('interceptors$velocityCount')">SHOW</a></p>
 	<div id="interceptors$velocityCount" style="display:none">
-	#if($messagingtargetmount.messagingContainer.interceptors.size()==0)
+	#if($messagingcontainermount.messagingContainer.interceptors.size()==0)
 		(none)
 	#else
-	#foreach($interceptor in $messagingtargetmount.messagingContainer.interceptors) 
+	#foreach($interceptor in $messagingcontainermount.messagingContainer.interceptors) 
 		$interceptor.class.simpleName
     	#if($interceptor.class.canonicalName=="xdi2.messaging.container.interceptor.impl.authentication.signature.AuthenticationSignatureInterceptor")
 			#foreach($signatureValidator in $interceptor.signatureValidators) 
@@ -188,10 +188,10 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<td valign="top">
 	<p><a href="javascript:void(0)" onclick="toggle_visibility('contributors$velocityCount')">SHOW</a></p>
 	<div id="contributors$velocityCount" style="display:none">
-	#if($messagingtargetmount.messagingContainer.contributors.size()==0)
+	#if($messagingcontainermount.messagingContainer.contributors.size()==0)
 		(none)
 	#else
-	#foreach($contributorlist in $messagingtargetmount.messagingContainer.contributors.entrySet())
+	#foreach($contributorlist in $messagingcontainermount.messagingContainer.contributors.entrySet())
 		#foreach($contributor in $contributorlist.value)
 			$contributor.class.simpleName
 			<span class="light">
@@ -208,7 +208,7 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 </table>
 #end
 <h1>MessagingContainerFactory List:</h1>
-#if($messagingtargetfactorymounts.size()==0)
+#if($messagingcontainerfactorymounts.size()==0)
 	(none)
 #else
 <table class="pretty">
@@ -216,20 +216,20 @@ function toggle_visibility(id) { var e = document.getElementById(id); if(e.style
 	<th>Path</th>
 	<th>MessagingContainerFactory</th>
 	</tr>
-#foreach($messagingtargetfactorymount in $messagingtargetfactorymounts)
+#foreach($messagingcontainerfactorymount in $messagingcontainerfactorymounts)
 	<tr>
     <td valign="top">
-    	<a href="$httprequest.baseUri$messagingtargetfactorymount.messagingContainerFactoryPath">
-    		$messagingtargetfactorymount.messagingContainerFactoryPath
+    	<a href="$httprequest.baseUri$messagingcontainerfactorymount.messagingContainerFactoryPath">
+    		$messagingcontainerfactorymount.messagingContainerFactoryPath
     	</a>
 		<p><form action="" method="post">
-			<input type="hidden" name="cmd" value="unmount_messaging_target_factory">
-			<input type="hidden" name="messagingtargetfactorypath" value="$messagingtargetfactorymount.messagingContainerFactoryPath">
+			<input type="hidden" name="cmd" value="unmount_messaging_container_factory">
+			<input type="hidden" name="messagingcontainerfactorypath" value="$messagingcontainerfactorymount.messagingContainerFactoryPath">
 			<input type="submit" value="Unmount">
 		</form></p>
     </td>
     <td valign="top">
-    	$messagingtargetfactorymount.messagingContainerFactory.class.canonicalName
+    	$messagingcontainerfactorymount.messagingContainerFactory.class.canonicalName
     </td>
     </tr>
 #end

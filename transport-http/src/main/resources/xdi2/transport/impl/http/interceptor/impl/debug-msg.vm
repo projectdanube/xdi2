@@ -34,15 +34,15 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 </tr>
 </table>
 <hr style="clear: both" noshade>
-<p>Message envelope to <b>$messagingtarget.class.canonicalName</b> at <b>$messagingtargetpath</b></p>
+<p>Message envelope to <b>$messagingcontainer.class.canonicalName</b> at <b>$messagingcontainerpath</b></p>
 <hr style="clear: both" noshade>
 #if($error)
 	<p><font color="red">$error</font></p>
 #end
 <form action="" method="post">
 	<textarea name="graphstring" style="width: 100%" rows="5">$graphstring</textarea>
-	<input type="hidden" name="cmd" value="exec_messaging_target">
-	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
+	<input type="hidden" name="cmd" value="exec_messaging_container">
+	<input type="hidden" name="messagingcontainerpath" value="$messagingcontainerpath">
 	<input type="submit" value="Execute">
 </form>
 <form action="" method="get">

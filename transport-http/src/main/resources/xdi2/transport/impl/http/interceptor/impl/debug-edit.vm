@@ -34,7 +34,7 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 </tr>
 </table>
 <hr style="clear: both" noshade>
-<p>Editing <b>$messagingtarget.class.canonicalName</b> at <b>$messagingtargetpath</b></p>
+<p>Editing <b>$messagingcontainer.class.canonicalName</b> at <b>$messagingcontainerpath</b></p>
 <hr style="clear: both" noshade>
 #if($error)
 	<p><font color="red">$error</font></p>
@@ -51,8 +51,8 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<input name="writeImplied" type="checkbox" #if($writeImplied == "on")checked#end>implied=1
 	<input name="writeOrdered" type="checkbox" #if($writeOrdered == "on")checked#end>ordered=1
 	<input name="writePretty" type="checkbox" #if($writePretty == "on")checked#end>pretty=1
-	<input type="hidden" name="cmd" value="edit_messaging_target">
-	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
+	<input type="hidden" name="cmd" value="edit_messaging_container">
+	<input type="hidden" name="messagingcontainerpath" value="$messagingcontainerpath">
 	<input type="submit" value="Refresh">
 	&nbsp;
 	($statementcount statements)
@@ -64,8 +64,8 @@ select { background-color: white; border: 2px solid black; padding: 5px; }
 	<input name="writeImplied" type="hidden" value="$writeImplied">
 	<input name="writeOrdered" type="hidden" value="$writeOrdered">
 	<input name="writePretty" type="hidden" value="$writePretty">
-	<input type="hidden" name="cmd" value="save_messaging_target">
-	<input type="hidden" name="messagingtargetpath" value="$messagingtargetpath">
+	<input type="hidden" name="cmd" value="save_messaging_container">
+	<input type="hidden" name="messagingcontainerpath" value="$messagingcontainerpath">
 	<input type="submit" value="Save">
 </form>
 <form action="" method="get">

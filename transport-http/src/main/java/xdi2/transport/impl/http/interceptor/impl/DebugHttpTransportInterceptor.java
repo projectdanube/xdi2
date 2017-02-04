@@ -58,7 +58,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingContainerFactoryMount;
 import xdi2.transport.registry.impl.uri.UriMessagingContainerMount;
 
 /**
- * This interceptor prints out a list of mounted messaging targets.
+ * This interceptor prints out a list of mounted messaging containers.
  * This can be used for debugging purposes with a standard web browser.
  * 
  * @author markus
@@ -130,15 +130,15 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		if (! httpTransportRequest.getRequestPath().equals(this.getPath())) return false;
 
 		String cmd = httpTransportRequest.getParameter("cmd");
-		String cmdMessagingContainerPath = httpTransportRequest.getParameter("messagingtargetpath");
-		String cmdMessagingContainerFactoryPath = httpTransportRequest.getParameter("messagingtargetfactorypath");
+		String cmdMessagingContainerPath = httpTransportRequest.getParameter("messagingcontainerpath");
+		String cmdMessagingContainerFactoryPath = httpTransportRequest.getParameter("messagingcontainerfactorypath");
 		String format = httpTransportRequest.getParameter("format");
 		String writeImplied = httpTransportRequest.getParameter("writeImplied");
 		String writeOrdered = httpTransportRequest.getParameter("writeOrdered");
 		String writePretty = httpTransportRequest.getParameter("writePretty");
 		String graphstring = httpTransportRequest.getParameter("graphstring");
 
-		if ("unmount_messaging_target".equals(cmd) && cmdMessagingContainerPath != null) {
+		if ("unmount_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
 
 			MessagingContainer cmdMessagingContainer = httpTransport.getUriMessagingContainerRegistry().getMessagingContainer(cmdMessagingContainerPath);
 			if (cmdMessagingContainer != null) httpTransport.getUriMessagingContainerRegistry().unmountMessagingContainer(cmdMessagingContainer);
@@ -146,7 +146,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
 		}
 
-		if ("unmount_messaging_target_factory".equals(cmd) && cmdMessagingContainerFactoryPath != null) {
+		if ("unmount_messaging_container_factory".equals(cmd) && cmdMessagingContainerFactoryPath != null) {
 
 			UriMessagingContainerFactory cmdMessagingContainerFactory = httpTransport.getUriMessagingContainerRegistry().getMessagingContainerFactory(cmdMessagingContainerFactoryPath);
 			if (cmdMessagingContainerFactory != null) httpTransport.getUriMessagingContainerRegistry().unmountMessagingContainerFactory(cmdMessagingContainerFactory);
@@ -154,7 +154,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
 		}
 
-		if ("edit_messaging_target".equals(cmd) && cmdMessagingContainerPath != null) {
+		if ("edit_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
 
 			MessagingContainer cmdMessagingContainer = httpTransport.getUriMessagingContainerRegistry().getMessagingContainer(cmdMessagingContainerPath);
 
@@ -191,8 +191,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("httprequest", httpTransportRequest);
-			context.put("messagingtarget", cmdMessagingContainer);
-			context.put("messagingtargetpath", cmdMessagingContainerPath);
+			context.put("messagingcontainer", cmdMessagingContainer);
+			context.put("messagingcontainerpath", cmdMessagingContainerPath);
 			context.put("format", format);
 			context.put("writeImplied", writeImplied);
 			context.put("writeOrdered", writeOrdered);
@@ -215,7 +215,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
 		}
 
-		if ("msg_messaging_target".equals(cmd) && cmdMessagingContainerPath != null) {
+		if ("msg_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
 
 			MessagingContainer cmdMessagingContainer = httpTransport.getUriMessagingContainerRegistry().getMessagingContainer(cmdMessagingContainerPath);
 
@@ -257,8 +257,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("httprequest", httpTransportRequest);
-			context.put("messagingtarget", cmdMessagingContainer);
-			context.put("messagingtargetpath", cmdMessagingContainerPath);
+			context.put("messagingcontainer", cmdMessagingContainer);
+			context.put("messagingcontainerpath", cmdMessagingContainerPath);
 			context.put("graphstring", graphstring);
 
 			// send response
@@ -276,7 +276,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
 		}
 
-		if ("save_messaging_target".equals(cmd) && cmdMessagingContainerPath != null) {
+		if ("save_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
 
 			MessagingContainer cmdMessagingContainer = httpTransport.getUriMessagingContainerRegistry().getMessagingContainer(cmdMessagingContainerPath);
 
@@ -305,8 +305,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("httprequest", httpTransportRequest);
-			context.put("messagingtarget", cmdMessagingContainer);
-			context.put("messagingtargetpath", cmdMessagingContainerPath);
+			context.put("messagingcontainer", cmdMessagingContainer);
+			context.put("messagingcontainerpath", cmdMessagingContainerPath);
 			context.put("format", format);
 			context.put("writeImplied", writeImplied);
 			context.put("writeOrdered", writeOrdered);
@@ -330,7 +330,7 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			return this.processGetRequest(httpTransport, httpTransportRequest, httpTransportResponse, messagingContainerMount);
 		}
 
-		if ("exec_messaging_target".equals(cmd) && cmdMessagingContainerPath != null) {
+		if ("exec_messaging_container".equals(cmd) && cmdMessagingContainerPath != null) {
 
 			MessagingContainer cmdMessagingContainer = httpTransport.getUriMessagingContainerRegistry().getMessagingContainer(cmdMessagingContainerPath);
 
@@ -402,8 +402,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 			context.put("parser", ParserRegistry.getInstance().getParser());
 			context.put("httptransport", httpTransport);
 			context.put("httprequest", httpTransportRequest);
-			context.put("messagingtarget", cmdMessagingContainer);
-			context.put("messagingtargetpath", cmdMessagingContainerPath);
+			context.put("messagingcontainer", cmdMessagingContainer);
+			context.put("messagingcontainerpath", cmdMessagingContainerPath);
 			context.put("graphstring", graphstring);
 			context.put("resultstring", resultstring);
 			context.put("error", error);
@@ -449,8 +449,8 @@ public class DebugHttpTransportInterceptor extends AbstractInterceptor<Transport
 		context.put("pluginfiles", pluginFiles);
 		context.put("xdi2properties", xdi2Properties);
 		context.put("systemproperties", systemProperties);
-		context.put("messagingtargetmounts", messagingContainerMounts);
-		context.put("messagingtargetfactorymounts", messagingContainerFactoryMounts);
+		context.put("messagingcontainermounts", messagingContainerMounts);
+		context.put("messagingcontainerfactorymounts", messagingContainerFactoryMounts);
 		context.put("transports", transports);
 		context.put("log", this.getLog());
 
