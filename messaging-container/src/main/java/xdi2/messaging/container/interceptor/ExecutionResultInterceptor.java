@@ -14,7 +14,7 @@ public interface ExecutionResultInterceptor extends Interceptor<MessagingContain
 
 	/**
 	 * Run on the execution context and result after it has been finished.
-	 * @param messagingContainer The current messaging target.
+	 * @param messagingContainer The current messaging container.
 	 * @param executionContext The current execution context.
 	 * @param executionResult The current execution result.
 	 */

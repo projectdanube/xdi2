@@ -19,7 +19,7 @@ import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
 
 /**
- * An XDI messaging target backed by a file in one of the serialization formats.
+ * An XDI messaging container backed by a file in one of the serialization formats.
  * 
  * @author markus
  */

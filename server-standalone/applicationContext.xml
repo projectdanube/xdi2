@@ -66,7 +66,7 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET TO BE USED AS A PROTOTYPE FOR MESSAGING TARGET FACTORIES -->
+	<!-- MESSAGING CONTAINER TO BE USED AS A PROTOTYPE FOR MESSAGING CONTAINER FACTORIES -->
 
 	<bean id="prototypeGraphFactory" class="xdi2.core.impl.memory.MemoryGraphFactory">
 	</bean>
@@ -187,13 +187,13 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET FACTORY at /any/* -->
+	<!-- MESSAGING CONTAINER FACTORY at /any/* -->
 
 	<bean name="/any/*" class="xdi2.messaging.container.factory.impl.uri.AnyUriMessagingContainerFactory">
 		<property name="prototypeMessagingContainer" ref="prototypeMessagingContainer" />
 	</bean>
 
-	<!-- MESSAGING TARGET FACTORY at /users/* -->
+	<!-- MESSAGING CONTAINER FACTORY at /users/* -->
 
 	<bean id="registryGraphfactory" class="xdi2.core.impl.wrapped.file.FileWrapperGraphFactory">
 		<property name="path" value="registry.xdi" />
@@ -209,7 +209,7 @@
 		<property name="disabledError" value="This graph is temporarily disabled" />
 	</bean>
 
-	<!-- REGISTRY MESSAGING TARGET -->
+	<!-- REGISTRY MESSAGING CONTAINER -->
 
 	<bean name="/registry" class="xdi2.messaging.container.impl.graph.GraphMessagingContainer">
 		<property name="graph" ref="registryGraph" />
@@ -335,7 +335,7 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET at /mem-graph -->
+	<!-- MESSAGING CONTAINER at /mem-graph -->
 	<!-- MessagingContainer: GraphMessagingContainer backed by a MemoryGraph -->
 
 	<bean id="graphfactory1" class="xdi2.core.impl.memory.MemoryGraphFactory">
@@ -353,7 +353,7 @@
 		</property>
 	</bean>
 
-	<!-- MESSAGING TARGET at /=alice -->
+	<!-- MESSAGING CONTAINER at /=alice -->
 	<!-- MessagingContainer: GraphMessagingContainer backed by a MemoryGraph -->
 
 	<bean id="graphfactory4" class="xdi2.core.impl.memory.MemoryGraphFactory">

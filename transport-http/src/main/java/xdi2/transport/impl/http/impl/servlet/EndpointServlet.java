@@ -25,7 +25,7 @@ import xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry;
 /**
  * The XDI endpoint servlet.
  * 
- * It reads and installs all XDI messaging targets from a Spring application context.
+ * It reads and installs all XDI messaging containers from a Spring application context.
  * 
  * @author markus
  */

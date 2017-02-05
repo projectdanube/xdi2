@@ -14,7 +14,7 @@ import xdi2.messaging.container.interceptor.InterceptorResult;
 import xdi2.messaging.container.interceptor.MessageInterceptor;
 
 /**
- * This interceptor checks if the target peer root of a message matches the owner peer root of the messaging target.
+ * This interceptor checks if the target peer root of a message matches the owner peer root of the messaging container.
  * 
  * @author markus
  */

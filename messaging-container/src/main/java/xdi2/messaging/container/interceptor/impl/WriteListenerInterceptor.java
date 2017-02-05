@@ -29,7 +29,7 @@ import xdi2.messaging.operations.GetOperation;
 import xdi2.messaging.operations.Operation;
 
 /**
- * This interceptor listens to changes on a messaging target.
+ * This interceptor listens to changes on a messaging container.
  * 
  * @author markus
  */

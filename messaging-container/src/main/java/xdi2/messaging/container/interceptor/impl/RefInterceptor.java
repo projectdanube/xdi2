@@ -441,7 +441,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get source of $ref/$rep relation: " + refRepContextNodeXDIAddress);
 
-		// prepare messaging target
+		// prepare messaging container
 
 		AbstractMessagingContainer messagingContainer = (AbstractMessagingContainer) executionContext.getCurrentMessagingContainer();
 
@@ -465,7 +465,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		try {
 
-			// before feedback: tweak the execution context and messaging target
+			// before feedback: tweak the execution context and messaging container
 
 			LinkContractInterceptor linkContractInterceptor = messagingContainer.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForOperation(feedbackOperation);
@@ -477,7 +477,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 			messagingContainer.execute(feedbackOperation, executionContext, feedbackExecutionResult);
 		} finally {
 
-			// after feedback: restore the execution context and messaging target
+			// after feedback: restore the execution context and messaging container
 
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);
 		}
@@ -497,7 +497,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to find $ref/$rep relations in context: " + contextNodeXDIAddress);
 
-		// prepare messaging target
+		// prepare messaging container
 
 		AbstractMessagingContainer messagingContainer = (AbstractMessagingContainer) executionContext.getCurrentMessagingContainer();
 
@@ -524,7 +524,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		try {
 
-			// before feedback: tweak the execution context and messaging target
+			// before feedback: tweak the execution context and messaging container
 
 			RefInterceptor refInterceptor = messagingContainer.getInterceptors().getInterceptor(RefInterceptor.class);
 			if (refInterceptor != null) refInterceptor.setDisabledForOperation(feedbackOperationRef);
@@ -543,7 +543,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 			messagingContainer.execute(feedbackOperationRep, executionContext, feedbackExecutionResult);
 		} finally {
 
-			// after feedback: restore the execution context and messaging target
+			// after feedback: restore the execution context and messaging container
 
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);

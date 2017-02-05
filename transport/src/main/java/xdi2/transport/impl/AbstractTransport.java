@@ -138,7 +138,7 @@ public abstract class AbstractTransport <REQUEST extends TransportRequest, RESPO
 
 			InterceptorExecutor.executeTransportInterceptorsBefore(this.getInterceptors(), this, request, response, messagingContainer, messageEnvelope, executionContext);
 
-			// execute the message envelope against the messaging target
+			// execute the message envelope against the messaging container
 
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": We are running: " + VERSION);
 			if (log.isDebugEnabled()) log.debug("" + this.getClass().getSimpleName() + ": MessageEnvelope: " + messageEnvelope);

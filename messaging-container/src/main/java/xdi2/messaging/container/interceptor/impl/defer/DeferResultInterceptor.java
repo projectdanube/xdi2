@@ -37,7 +37,7 @@ import xdi2.messaging.container.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.operations.Operation;
 
 /**
- * This interceptor can add defer results to a messaging target and execution result.
+ * This interceptor can add defer results to a messaging container and execution result.
  */
 public class DeferResultInterceptor extends AbstractInterceptor<MessagingContainer> implements MessageEnvelopeInterceptor, Prototype<DeferResultInterceptor> {
 

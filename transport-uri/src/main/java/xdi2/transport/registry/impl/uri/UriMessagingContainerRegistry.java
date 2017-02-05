@@ -23,7 +23,7 @@ import xdi2.transport.registry.MessagingContainerRegistry;
 import xdi2.transport.registry.impl.AbstractMessagingContainerRegistry;
 
 /**
- * Registry to mount and unmount messaging targets.
+ * Registry to mount and unmount messaging containers.
  * 
  * @author markus
  */
@@ -67,13 +67,13 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		if (this.applicationContext == null) {
 
-			log.info("No application context. No messaging targets loaded.");
+			log.info("No application context. No messaging containers loaded.");
 			return;
 		}
 
-		// look up and mount all messaging targets
+		// look up and mount all messaging containers
 
-		log.info("Mounting messaging targets...");
+		log.info("Mounting messaging containers...");
 
 		Map<String, MessagingContainer> messagingContainers = this.applicationContext.getBeansOfType(MessagingContainer.class);
 
@@ -87,9 +87,9 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			this.mountMessagingContainer(path, messagingContainer);
 		}
 
-		// look up and mount all messaging target factories
+		// look up and mount all messaging container factories
 
-		log.info("Mounting messaging target factories...");
+		log.info("Mounting messaging container factories...");
 
 		Map<String, UriMessagingContainerFactory> messagingContainerFactorys = this.applicationContext.getBeansOfType(UriMessagingContainerFactory.class);
 
@@ -106,14 +106,14 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		// done
 
-		log.info("Done. " + this.messagingContainerMounts.size() + " messaging targets and " + this.messagingContainerFactoryMounts.size() + " messaging target factories mounted.");
+		log.info("Done. " + this.messagingContainerMounts.size() + " messaging containers and " + this.messagingContainerFactoryMounts.size() + " messaging container factories mounted.");
 	}
 
 	public synchronized void shutdown() {
 
 		int size = this.messagingContainerMounts.size();
 
-		// unmount all our messaging targets
+		// unmount all our messaging containers
 
 		List<UriMessagingContainerMount> tempList = this.getMessagingContainerMounts();
 
@@ -126,7 +126,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		// done
 
-		log.info("Done. " + size + " messaging targets were shut down.");
+		log.info("Done. " + size + " messaging containers were shut down.");
 	}
 
 	/*
@@ -134,14 +134,14 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 	 */
 
 	/**
-	 * Mount a messaging target in the registry.
-	 * @param messagingContainer The messaging target to mount.
+	 * Mount a messaging container in the registry.
+	 * @param messagingContainer The messaging container to mount.
 	 */
 	public synchronized MessagingContainerMount mountMessagingContainer(String messagingContainerPath, MessagingContainer messagingContainer) throws Xdi2TransportException {
 
-		if (messagingContainerPath == null) throw new NullPointerException("Cannot mount a messaging target without path.");
+		if (messagingContainerPath == null) throw new NullPointerException("Cannot mount a messaging container without path.");
 
-		if (log.isDebugEnabled()) log.debug("Mounting messaging target " + messagingContainer.getClass().getSimpleName() + " at path " + messagingContainerPath);
+		if (log.isDebugEnabled()) log.debug("Mounting messaging container " + messagingContainer.getClass().getSimpleName() + " at path " + messagingContainerPath);
 
 		// already mounted?
 
@@ -150,18 +150,18 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			throw new Xdi2TransportException("Messaging target " + this.messagingContainerMounts.get(messagingContainerPath).getMessagingContainer().getClass().getCanonicalName() + " already mounted at path " + messagingContainerPath + ".");
 		}
 
-		// init messaging target
+		// init messaging container
 
 		try {
 
 			messagingContainer.init();
 		} catch (Exception ex) {
 
-			log.warn("Exception while initializing messaging target " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
-			throw new Xdi2TransportException("Exception while initializing messaging target " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			log.warn("Exception while initializing messaging container " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			throw new Xdi2TransportException("Exception while initializing messaging container " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
 		}
 
-		// mount messaging target
+		// mount messaging container
 
 		while (messagingContainerPath.startsWith("/")) messagingContainerPath = messagingContainerPath.substring(1);
 		messagingContainerPath = "/" + messagingContainerPath;
@@ -178,14 +178,14 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 	}
 
 	/**
-	 * Mount a messaging target factory in the registry.
-	 * @param messagingContainerFactory The messaging target factory to mount.
+	 * Mount a messaging container factory in the registry.
+	 * @param messagingContainerFactory The messaging container factory to mount.
 	 */
 	public synchronized UriMessagingContainerFactoryMount mountMessagingContainerFactory(String messagingContainerFactoryPath, UriMessagingContainerFactory messagingContainerFactory) throws Xdi2TransportException {
 
-		if (messagingContainerFactoryPath == null) throw new NullPointerException("Cannot mount a messaging target factory without path.");
+		if (messagingContainerFactoryPath == null) throw new NullPointerException("Cannot mount a messaging container factory without path.");
 
-		if (log.isDebugEnabled()) log.debug("Mounting messaging target factory " + messagingContainerFactory.getClass().getSimpleName() + " at path " + messagingContainerFactoryPath);
+		if (log.isDebugEnabled()) log.debug("Mounting messaging container factory " + messagingContainerFactory.getClass().getSimpleName() + " at path " + messagingContainerFactoryPath);
 
 		// already mounted?
 
@@ -194,7 +194,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			throw new Xdi2TransportException("Messaging target factory " + this.messagingContainerFactoryMounts.get(messagingContainerFactoryPath).getClass().getCanonicalName() + " already mounted at path " + messagingContainerFactoryPath + ".");
 		}
 
-		// mount messaging target factory
+		// mount messaging container factory
 
 		while (messagingContainerFactoryPath.startsWith("/")) messagingContainerFactoryPath = messagingContainerFactoryPath.substring(1);
 		if (messagingContainerFactoryPath.endsWith("/*")) messagingContainerFactoryPath = messagingContainerFactoryPath.substring(0, messagingContainerFactoryPath.length() - 2);
@@ -204,15 +204,15 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		this.messagingContainerFactoryMounts.put(messagingContainerFactoryPath, messagingContainerFactoryMount);
 
-		// init messaging target factory
+		// init messaging container factory
 
 		try {
 
 			messagingContainerFactory.init();
 		} catch (Exception ex) {
 
-			log.warn("Exception while initializing messaging target factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
-			throw new Xdi2TransportException("Exception while initializing messaging target factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			log.warn("Exception while initializing messaging container factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			throw new Xdi2TransportException("Exception while initializing messaging container factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
 		}
 
 		// done
@@ -223,24 +223,24 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 	}
 
 	/**
-	 * Unmounts a messaging target from the registry.
-	 * @param messagingContainer The messaging target to unmount.
+	 * Unmounts a messaging container from the registry.
+	 * @param messagingContainer The messaging container to unmount.
 	 */
 	public synchronized void unmountMessagingContainer(MessagingContainer messagingContainer) {
 
-		if (log.isDebugEnabled()) log.debug("Unmounting messaging target " + messagingContainer.getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Unmounting messaging container " + messagingContainer.getClass().getSimpleName());
 
-		// shutdown messaging target
+		// shutdown messaging container
 
 		try {
 
 			messagingContainer.shutdown();
 		} catch (Exception ex) {
 
-			log.warn("Exception while shutting down messaging target " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			log.warn("Exception while shutting down messaging container " + messagingContainer.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
 		}
 
-		// unmount messaging target
+		// unmount messaging container
 
 		for (Iterator<Entry<String, UriMessagingContainerMount>> messagingContainerMounts = this.messagingContainerMounts.entrySet().iterator(); messagingContainerMounts.hasNext(); ) {
 
@@ -255,24 +255,24 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 	}
 
 	/**
-	 * Unmounts a messaging target factory from the registry.
-	 * @param messagingContainerFactory The messaging target factory to unmount.
+	 * Unmounts a messaging container factory from the registry.
+	 * @param messagingContainerFactory The messaging container factory to unmount.
 	 */
 	public synchronized void unmountMessagingContainerFactory(UriMessagingContainerFactory messagingContainerFactory) {
 
-		if (log.isDebugEnabled()) log.debug("Unmounting messaging target factory " + messagingContainerFactory.getClass().getSimpleName());
+		if (log.isDebugEnabled()) log.debug("Unmounting messaging container factory " + messagingContainerFactory.getClass().getSimpleName());
 
-		// shutdown messaging target factory
+		// shutdown messaging container factory
 
 		try {
 
 			messagingContainerFactory.shutdown();
 		} catch (Exception ex) {
 
-			log.warn("Exception while shutting down messaging target factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
+			log.warn("Exception while shutting down messaging container factory " + messagingContainerFactory.getClass().getCanonicalName() + ": " + ex.getMessage(), ex);
 		}
 
-		// unmount messaging target factory
+		// unmount messaging container factory
 
 		for (Iterator<Entry<String, UriMessagingContainerFactoryMount>> messagingContainerFactoryMounts = this.messagingContainerFactoryMounts.entrySet().iterator(); messagingContainerFactoryMounts.hasNext(); ) {
 
@@ -292,16 +292,16 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 	public synchronized UriMessagingContainerMount lookup(String requestPath) throws Xdi2TransportException, Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Looking up messaging target for request path " + requestPath);
+		if (log.isDebugEnabled()) log.debug("Looking up messaging container for request path " + requestPath);
 
-		// look at messaging targets
+		// look at messaging containers
 
 		String messagingContainerPath = this.findMessagingContainerPath(requestPath);
 		MessagingContainer messagingContainer = messagingContainerPath == null ? null : this.getMessagingContainer(messagingContainerPath);
 
 		if (log.isDebugEnabled()) log.debug("messagingContainerPath=" + messagingContainerPath + ", messagingContainer=" + (messagingContainer == null ? null : messagingContainer.getClass().getSimpleName()));
 
-		// look at messaging target factorys
+		// look at messaging container factorys
 
 		String messagingContainerFactoryPath = this.findMessagingContainerFactoryPath(requestPath);
 		UriMessagingContainerFactory messagingContainerFactory = messagingContainerFactoryPath == null ? null : this.getMessagingContainerFactory(messagingContainerFactoryPath);
@@ -314,17 +314,17 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 			if (messagingContainer == null) {
 
-				// if we don't have a messaging target, see if the messaging target factory can create one
+				// if we don't have a messaging container, see if the messaging container factory can create one
 
 				messagingContainerFactory.mountMessagingContainer(this, messagingContainerFactoryPath, requestPath, this.isCheckDisabled(), this.isCheckExpired());
 			} else {
 
-				// if we do have a messaging target, see if the messaging target factory wants to modify or remove it
+				// if we do have a messaging container, see if the messaging container factory wants to modify or remove it
 
 				messagingContainerFactory.updateMessagingContainer(this, messagingContainerFactoryPath, requestPath, this.isCheckDisabled(), this.isCheckExpired(), messagingContainer);
 			}
 
-			// after the messaging target factory did its work, look for the messaging target again
+			// after the messaging container factory did its work, look for the messaging container again
 
 			messagingContainerPath = this.findMessagingContainerPath(requestPath);
 			messagingContainer = messagingContainerPath == null ? null : this.getMessagingContainer(messagingContainerPath);
@@ -340,9 +340,9 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 	@Override
 	public synchronized UriMessagingContainerMount lookup(XDIArc ownerPeerRootXDIArc) throws Xdi2TransportException, Xdi2MessagingException {
 
-		if (log.isDebugEnabled()) log.debug("Looking up messaging target for owner peer root " + ownerPeerRootXDIArc);
+		if (log.isDebugEnabled()) log.debug("Looking up messaging container for owner peer root " + ownerPeerRootXDIArc);
 
-		// look at messaging targets
+		// look at messaging containers
 
 		for (UriMessagingContainerMount messagingContainerMount : this.getMessagingContainerMounts()) {
 
@@ -352,7 +352,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			return this.lookup(requestPath);
 		}
 
-		// look at messaging target factorys
+		// look at messaging container factorys
 
 		for (UriMessagingContainerFactoryMount messagingContainerFactoryMount : this.getMessagingContainerFactoryMounts()) {
 
@@ -387,7 +387,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		if (log.isDebugEnabled()) log.debug("Finding messaging target for path: " + requestPath);
+		if (log.isDebugEnabled()) log.debug("Finding messaging container for path: " + requestPath);
 
 		String longestMessagingContainerPath = null;
 
@@ -399,7 +399,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			}
 		}
 
-		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging target: " + longestMessagingContainerPath);
+		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging container: " + longestMessagingContainerPath);
 
 		return longestMessagingContainerPath;
 	}
@@ -438,7 +438,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
-		if (log.isDebugEnabled()) log.debug("Finding messaging target factory for path: " + requestPath);
+		if (log.isDebugEnabled()) log.debug("Finding messaging container factory for path: " + requestPath);
 
 		String longestMessagingContainerFactoryPath = null;
 
@@ -450,7 +450,7 @@ public class UriMessagingContainerRegistry extends AbstractMessagingContainerReg
 			}
 		}
 
-		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging target factory: " + longestMessagingContainerFactoryPath);
+		if (log.isDebugEnabled()) log.debug("Longest matching path of messaging container factory: " + longestMessagingContainerFactoryPath);
 
 		return longestMessagingContainerFactoryPath;
 	}

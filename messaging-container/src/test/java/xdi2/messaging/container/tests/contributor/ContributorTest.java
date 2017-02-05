@@ -47,7 +47,7 @@ public class ContributorTest extends TestCase {
 
 		log.info("Reference graph: " + referenceGraph);
 
-		// init messaging target with contributors
+		// init messaging container with contributors
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		GraphMessagingContainer messagingContainer = new GraphMessagingContainer();
@@ -65,7 +65,7 @@ public class ContributorTest extends TestCase {
 
 			XDIAddress target = XDIAddress.create(targetString);
 
-			// execute against messaging target with contributors
+			// execute against messaging container with contributors
 
 			log.info("Doing $get: " + targetString);
 

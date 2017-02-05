@@ -112,7 +112,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		if (log.isDebugEnabled()) log.debug("Initiating $get feedback to get target of $has relation: " + hasTargetXDIAddress);
 
-		// prepare messaging target
+		// prepare messaging container
 
 		AbstractMessagingContainer messagingContainer = (AbstractMessagingContainer) executionContext.getCurrentMessagingContainer();
 
@@ -137,7 +137,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		try {
 
-			// before feedback: tweak the execution context and messaging target
+			// before feedback: tweak the execution context and messaging container
 
 			LinkContractInterceptor linkContractInterceptor = messagingContainer.getInterceptors().getInterceptor(LinkContractInterceptor.class);
 			if (linkContractInterceptor != null) linkContractInterceptor.setDisabledForMessage(feedbackMessage);
@@ -150,7 +150,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingContainer> impl
 			messagingContainer.execute(feedbackMessage, executionContext, feedbackExecutionResult);
 		} finally {
 
-			// after feedback: restore the execution context and messaging target
+			// after feedback: restore the execution context and messaging container
 
 			if (messageAttributes != null) executionContext.setMessageAttributes(messageAttributes);
 			if (operationAttributes != null) executionContext.setOperationAttributes(operationAttributes);

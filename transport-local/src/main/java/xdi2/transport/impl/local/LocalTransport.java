@@ -33,7 +33,7 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 			this.messagingContainer = messagingContainer;
 		} catch (Exception ex) {
 
-			throw new RuntimeException("Cannot initialize messaging target: " + ex.getMessage(), ex);
+			throw new RuntimeException("Cannot initialize messaging container: " + ex.getMessage(), ex);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class LocalTransport extends AbstractTransport<LocalTransportRequest, Loc
 			exs.add(ex);
 		}
 
-		// shut down messaging target
+		// shut down messaging container
 
 		try {
 

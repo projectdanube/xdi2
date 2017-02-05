@@ -27,11 +27,11 @@ public abstract class PrototypingUriMessagingContainerFactory extends UriMessagi
 
 		if (log.isDebugEnabled()) log.debug("messagingContainerPath=" + messagingContainerPath + ", ownerXDIAddress=" + ownerXDIAddress + ", ownerPeerRoot=" + ownerPeerRoot + ", ownerContextNode=" + ownerContextNode);
 
-		// create new messaging target
+		// create new messaging container
 
 		if (! (this.getPrototypeMessagingContainer() instanceof Prototype<?>)) {
 
-			throw new Xdi2MessagingException("Cannot use messaging target " + this.getPrototypeMessagingContainer().getClass().getSimpleName() + " as prototype.", null, null);
+			throw new Xdi2MessagingException("Cannot use messaging container " + this.getPrototypeMessagingContainer().getClass().getSimpleName() + " as prototype.", null, null);
 		}
 
 		PrototypingContext prototypingContext = new PrototypingContext(ownerXDIAddress, ownerPeerRoot, ownerContextNode);
@@ -45,7 +45,7 @@ public abstract class PrototypingUriMessagingContainerFactory extends UriMessagi
 			prototypedMessagingContainer = prototypingContext.instanceFor(messagingContainerPrototype);
 		} catch (Xdi2MessagingException ex) {
 
-			throw new Xdi2MessagingException("Cannot instantiate messaging target for prototype " + this.getPrototypeMessagingContainer().getClass().getSimpleName() + ": " + ex.getMessage(), ex, null);
+			throw new Xdi2MessagingException("Cannot instantiate messaging container for prototype " + this.getPrototypeMessagingContainer().getClass().getSimpleName() + ": " + ex.getMessage(), ex, null);
 		}
 
 		// set the interceptor list
@@ -68,7 +68,7 @@ public abstract class PrototypingUriMessagingContainerFactory extends UriMessagi
 			((AbstractMessagingContainer) prototypedMessagingContainer).setContributors(prototypedContributorMap);
 		}
 
-		// mount the new messaging target
+		// mount the new messaging container
 
 		uriMessagingContainerRegistry.mountMessagingContainer(messagingContainerPath, prototypedMessagingContainer);
 

@@ -12,7 +12,7 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry;
 
 /**
- * This messaging target factory create messaging targets for any path.
+ * This messaging container factory create messaging containers for any path.
  * 
  * @author markus
  */
@@ -31,11 +31,11 @@ public class AnyUriMessagingContainerFactory extends PrototypingUriMessagingCont
 
 		XDIAddress ownerXDIAddress = XDIAddress.create(ownerString);
 
-		// create and mount the new messaging target
+		// create and mount the new messaging container
 
 		String messagingContainerPath = messagingContainerFactoryPath + "/" + ownerXDIAddress.toString();
 
-		log.info("Will create messaging target for " + ownerXDIAddress + " at " + messagingContainerPath);
+		log.info("Will create messaging container for " + ownerXDIAddress + " at " + messagingContainerPath);
 
 		return super.mountMessagingContainer(uriMessagingContainerRegistry, messagingContainerPath, ownerXDIAddress, null, null);
 	}

@@ -22,7 +22,7 @@ import xdi2.transport.impl.local.LocalTransportRequest;
 import xdi2.transport.impl.local.LocalTransportResponse;
 
 /**
- * An XDI client that can apply XDI messages locally on messaging targets.
+ * An XDI client that can apply XDI messages locally on messaging containers.
  * 
  * @author markus
  */
@@ -112,7 +112,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 			messagingContainer = this.connect();
 		} catch (Exception ex) {
 
-			throw new Xdi2ClientException("Cannot open messaging target: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Cannot open messaging container: " + ex.getMessage(), ex);
 		}
 
 		// create the transport
@@ -136,7 +136,7 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 			localTransport.execute(request, response);
 		} catch (Xdi2TransportException ex) {
 
-			throw new Xdi2ClientException("Unable to send message envelope to local messaging target: " + ex.getMessage(), ex);
+			throw new Xdi2ClientException("Unable to send message envelope to local messaging container: " + ex.getMessage(), ex);
 		}
 
 		TransportMessagingResponse messagingResponse = response.getMessagingResponse();

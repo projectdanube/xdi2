@@ -265,7 +265,7 @@ public class XDIPeerMessenger extends javax.servlet.http.HttpServlet implements 
 			xdiReader.read(messageEnvelope1.getGraph(), new StringReader(message1));
 			xdiReader.read(messageEnvelope2.getGraph(), new StringReader(message2));
 
-			// prepare the messaging target
+			// prepare the messaging container
 
 			GraphMessagingContainer messagingContainer1 = new GraphMessagingContainer();
 			GraphMessagingContainer messagingContainer2 = new GraphMessagingContainer();

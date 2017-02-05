@@ -11,9 +11,9 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.container.exceptions.Xdi2MessagingException;
 
 /**
- * This interface is used to mark messaging targets, interceptors and contributors that
+ * This interface is used to mark messaging containers, interceptors and contributors that
  * can create an automatically configured copy of themselves, which is useful for
- * messaging target factories.
+ * messaging container factories.
  */
 public interface Prototype<T extends Prototype<T>> extends Cloneable {
 

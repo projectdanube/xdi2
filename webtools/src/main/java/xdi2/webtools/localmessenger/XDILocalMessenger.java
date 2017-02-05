@@ -220,7 +220,7 @@ public class XDILocalMessenger extends javax.servlet.http.HttpServlet implements
 
 			xdiReader.read(messageEnvelope.getGraph(), new StringReader(message));
 
-			// prepare the messaging target
+			// prepare the messaging container
 
 			GraphMessagingContainer messagingContainer = new GraphMessagingContainer();
 			messagingContainer.setGraph(graphInput);

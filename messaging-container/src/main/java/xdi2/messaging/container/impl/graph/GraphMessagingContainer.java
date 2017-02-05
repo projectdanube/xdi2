@@ -22,7 +22,7 @@ import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.impl.AbstractMessagingContainer;
 
 /**
- * An XDI messaging target backed by some implementation of the Graph interface.
+ * An XDI messaging container backed by some implementation of the Graph interface.
  * 
  * @author markus
  */
@@ -118,7 +118,7 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 	@Override
 	public GraphMessagingContainer instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
-		// create new messaging target
+		// create new messaging container
 
 		MessagingContainer messagingContainer = new GraphMessagingContainer();
 

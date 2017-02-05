@@ -134,7 +134,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			return;
 		}
 
-		// no messaging target?
+		// no messaging container?
 
 		if (messagingContainer == null) {
 
@@ -153,7 +153,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
 		}
 
-		// execute the messaging request against our messaging target, save messaging response
+		// execute the messaging request against our messaging container, save messaging response
 
 		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
@@ -179,7 +179,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			return;
 		}
 
-		// no messaging target?
+		// no messaging container?
 
 		if (messagingContainer == null) {
 
@@ -198,7 +198,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
 		}
 
-		// execute the messaging request against our messaging target, save messaging response
+		// execute the messaging request against our messaging container, save messaging response
 
 		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
@@ -224,7 +224,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			return;
 		}
 
-		// no messaging target?
+		// no messaging container?
 
 		if (messagingContainer == null) {
 
@@ -243,7 +243,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
 		}
 
-		// execute the messaging request against our messaging target, save messaging response
+		// execute the messaging request against our messaging container, save messaging response
 
 		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
@@ -269,7 +269,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			return;
 		}
 
-		// no messaging target?
+		// no messaging container?
 
 		if (messagingContainer == null) {
 
@@ -288,7 +288,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 			throw new Xdi2TransportException("Invalid message envelope: " + ex.getMessage(), ex);
 		}
 
-		// execute the messaging request against our messaging target, save messaging response
+		// execute the messaging request against our messaging container, save messaging response
 
 		messagingResponse = this.execute(messageEnvelope, messagingContainer, request, response);
 		if (messagingResponse == null || messagingResponse.getGraph() == null) throw new Xdi2TransportException("No messaging response.");
@@ -344,7 +344,7 @@ public class HttpTransport extends UriTransport<HttpTransportRequest, HttpTransp
 
 		MessageEnvelope messageEnvelope = MessageEnvelope.fromOperationXDIAddressAndTargetXDIAddress(XDIMessagingConstants.XDI_ADD_GET, targetAddress);
 
-		// set the TO peer root to the owner peer root of the messaging target
+		// set the TO peer root to the owner peer root of the messaging container
 
 		XDIArc ownerPeerRootXDIArc = messagingContainerMount.getMessagingContainer().getOwnerPeerRootXDIArc();
 

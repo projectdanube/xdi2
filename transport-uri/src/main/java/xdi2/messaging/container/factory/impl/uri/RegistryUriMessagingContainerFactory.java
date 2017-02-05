@@ -25,8 +25,8 @@ import xdi2.transport.exceptions.Xdi2TransportException;
 import xdi2.transport.registry.impl.uri.UriMessagingContainerRegistry;
 
 /**
- * This messaging target factory uses a "registry graph" as a basis to decide what 
- * messaging targets to create.
+ * This messaging container factory uses a "registry graph" as a basis to decide what 
+ * messaging containers to create.
  * 
  * @author markus
  */
@@ -120,11 +120,11 @@ public class RegistryUriMessagingContainerFactory extends PrototypingUriMessagin
 
 		ContextNode ownerContextNode = this.getRegistryGraph().getDeepContextNode(ownerXDIAddress, true);
 
-		// create and mount the new messaging target
+		// create and mount the new messaging container
 
 		String messagingContainerPath = messagingContainerFactoryPath + "/" + ownerXDIAddress.toString();
 
-		log.info("Going to mount new messaging target for " + ownerXDIAddress + " at " + messagingContainerPath);
+		log.info("Going to mount new messaging container for " + ownerXDIAddress + " at " + messagingContainerPath);
 
 		return super.mountMessagingContainer(uriMessagingContainerRegistry, messagingContainerPath, ownerXDIAddress, ownerXdiPeerRoot, ownerContextNode);
 	}
@@ -146,9 +146,9 @@ public class RegistryUriMessagingContainerFactory extends PrototypingUriMessagin
 
 		if (ownerXdiPeerRoot == null) {
 
-			log.warn("Peer root " + ownerXdiPeerRoot + " no longer found in the registry graph. Going to unmount messaging target.");
+			log.warn("Peer root " + ownerXdiPeerRoot + " no longer found in the registry graph. Going to unmount messaging container.");
 
-			// unmount the messaging target
+			// unmount the messaging container
 
 			uriMessagingContainerRegistry.unmountMessagingContainer(messagingContainer);
 			return null;
@@ -158,9 +158,9 @@ public class RegistryUriMessagingContainerFactory extends PrototypingUriMessagin
 
 		if (checkDisabled && ! this.checkEnabled(ownerXdiPeerRoot)) {
 
-			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled. Going to unmount messaging target.");
+			log.warn("Peer root " + ownerXdiPeerRoot + " is disabled. Going to unmount messaging container.");
 
-			// unmount the messaging target
+			// unmount the messaging container
 
 			uriMessagingContainerRegistry.unmountMessagingContainer(messagingContainer);
 			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());
@@ -171,9 +171,9 @@ public class RegistryUriMessagingContainerFactory extends PrototypingUriMessagin
 
 		if (checkExpired && this.checkExpired(ownerXdiPeerRoot)) {
 
-			log.warn("Peer root " + ownerXdiPeerRoot + " is expired. Going to unmount messaging target.");
+			log.warn("Peer root " + ownerXdiPeerRoot + " is expired. Going to unmount messaging container.");
 
-			// unmount the messaging target
+			// unmount the messaging container
 
 			uriMessagingContainerRegistry.unmountMessagingContainer(messagingContainer);
 			if (this.getDisabledError() != null) throw new Xdi2TransportException(this.getDisabledError());

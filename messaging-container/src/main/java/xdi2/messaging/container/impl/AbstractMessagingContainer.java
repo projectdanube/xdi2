@@ -111,10 +111,10 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	}
 
 	/**
-	 * Executes a messaging request against this messaging target.
+	 * Executes a messaging request against this messaging container.
 	 * @param messageEnvelope The XDI message envelope to be executed.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
 	@Override
@@ -152,7 +152,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if (interceptorResultBefore.isSkipMessagingContainer()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message envelope interceptors (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to message envelope interceptors (before).");
 				skipMessagingContainer |= true;
 			}
 
@@ -252,7 +252,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 				executionContext.popMessagingContainer();
 			} catch (Exception ex) {
 
-				log.warn("Error while popping messaging target: " + ex.getMessage(), ex);
+				log.warn("Error while popping messaging container: " + ex.getMessage(), ex);
 			}
 
 			// done
@@ -265,7 +265,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	 * Executes a message by executing all its operations.
 	 * @param message The XDI message containing XDI operations to be executed.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
 	public void execute(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
@@ -298,7 +298,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if (interceptorResultBefore.isSkipMessagingContainer()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to message interceptors (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to message interceptors (before).");
 				skipMessagingContainer |= true;
 			}
 
@@ -348,7 +348,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	 * Executes an operation.
 	 * @param operation The XDI operation.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
 	public void execute(Operation operation, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
@@ -393,7 +393,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if (interceptorResultBefore.isSkipMessagingContainer()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to operation interceptors (before).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to operation interceptors (before).");
 				skipMessagingContainer |= true;
 			}
 
@@ -453,7 +453,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	 * @param operation The XDI operation.
 	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 */
 	public void execute(XDIAddress targetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -472,7 +472,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if ((targetXDIAddress = InterceptorExecutor.executeTargetInterceptorsAddress(this.getInterceptors(), targetXDIAddress, operation, operationResultGraph, executionContext)) == null) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (address).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to target interceptors (address).");
 				return;
 			}
 
@@ -482,7 +482,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if (contributorResultAddress.isSkipMessagingContainer()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to contributors (address).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to contributors (address).");
 				return;
 			}
 
@@ -524,7 +524,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	 * @param operation The XDI operation.
 	 * @param operationResultGraph The operation's result graph.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 */
 	public void execute(XDIStatement targetXDIStatement, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
@@ -543,7 +543,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if ((targetXDIStatement = InterceptorExecutor.executeTargetInterceptorsStatement(this.getInterceptors(), targetXDIStatement, operation, operationResultGraph, executionContext)) == null) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to target interceptors (statement).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to target interceptors (statement).");
 				return;
 			}
 
@@ -553,7 +553,7 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 
 			if (contributorResultAddress.isSkipMessagingContainer()) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping messaging target according to contributors (statement).");
+				if (log.isDebugEnabled()) log.debug("Skipping messaging container according to contributors (statement).");
 				return;
 			}
 

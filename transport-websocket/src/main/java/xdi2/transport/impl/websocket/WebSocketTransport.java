@@ -137,7 +137,7 @@ public class WebSocketTransport extends UriTransport<WebSocketTransportRequest, 
 			return;
 		}
 
-		// no messaging target?
+		// no messaging container?
 
 		if (messagingContainer == null) {
 

@@ -26,7 +26,7 @@ import xdi2.messaging.response.LightMessagingResponse;
 
 /**
  * This class represent a result of a message envelope that has been executed
- * against a messaging target. Basically this encapsulates the results of all
+ * against a messaging container. Basically this encapsulates the results of all
  * the individual operations in the message envelope.
  * 
  * The merged result graphs of the individual operations constitute the

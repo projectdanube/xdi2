@@ -15,32 +15,32 @@ import xdi2.messaging.container.execution.ExecutionResult;
 public interface MessagingContainer {
 
 	/**
-	 * This method gets called when the messaging target is initialized.
+	 * This method gets called when the messaging container is initialized.
 	 */
 	public void init() throws Exception;
 
 	/**
-	 * This method gets called when the messaging target is no longer needed.
+	 * This method gets called when the messaging container is no longer needed.
 	 */
 	public void shutdown() throws Exception;
 
 	/**
-	 * Executes a messaging request against this messaging target.
+	 * Executes a messaging request against this messaging container.
 	 * @param messageEnvelope The XDI message envelope to be executed.
 	 * @param executionContext An "execution context" object that carries state between
-	 * messaging targets, interceptors and contributors.
+	 * messaging containers, interceptors and contributors.
 	 * @param executionResult The execution result produced by executing the messaging request.
 	 */
 	public void execute(MessageEnvelope messageEnvelope, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException;
 
 	/**
-	 * Returns the owner peer root XDI arc of the messaging target.
+	 * Returns the owner peer root XDI arc of the messaging container.
 	 * This may be null.
 	 */
 	public XDIArc getOwnerPeerRootXDIArc();
 
 	/**
-	 * Returns the owner XDI address of the messaging target.
+	 * Returns the owner XDI address of the messaging container.
 	 * This may be null.
 	 */
 	public XDIAddress getOwnerXDIAddress();

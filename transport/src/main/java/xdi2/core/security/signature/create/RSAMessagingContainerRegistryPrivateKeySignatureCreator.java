@@ -20,7 +20,7 @@ import xdi2.transport.registry.MessagingContainerRegistry;
 
 /**
  * This is an RSAPrivateKeySignatureCreator that create an XDI RSASignature by
- * obtaining private keys from a messaging target registry.
+ * obtaining private keys from a messaging container registry.
  */
 public class RSAMessagingContainerRegistryPrivateKeySignatureCreator extends RSAPrivateKeySignatureCreator {
 
@@ -77,7 +77,7 @@ public class RSAMessagingContainerRegistryPrivateKeySignatureCreator extends RSA
 		if (messagingContainerMount == null) return null;
 
 		MessagingContainer messagingContainer = messagingContainerMount.getMessagingContainer();
-		Graph graph = ((GraphMessagingContainer) messagingContainer).getGraph();	// TODO: what if this is another messaging target?
+		Graph graph = ((GraphMessagingContainer) messagingContainer).getGraph();	// TODO: what if this is another messaging container?
 
 		// signer entity
 
