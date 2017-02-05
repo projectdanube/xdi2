@@ -3,7 +3,7 @@ branches:
     only:
         - master
 git:
-    depth: 50
+    depth: 100
 jdk:
     - openjdk7
     - oraclejdk7
