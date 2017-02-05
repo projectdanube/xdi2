@@ -127,6 +127,21 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
 	}
 
+	/**
+	 * Returns an existing XDI delete policy root in this XDI link contract (template), or creates a new one.
+	 * @param create Whether to create an XDI delete policy root if it does not exist.
+	 * @return The existing or newly created XDI delete policy root.
+	 */
+	public PolicyRoot getDeletePolicyRoot(boolean create) {
+
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DEL, create);
+		if (xdiEntitySingleton == null) return null;
+		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
+		if (xdiEntitySingleton == null) return null;
+
+		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);
+	}
+
 	/*
 	 * Methods related to permissions
 	 */

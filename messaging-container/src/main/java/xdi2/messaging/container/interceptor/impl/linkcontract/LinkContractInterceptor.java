@@ -153,6 +153,25 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingContai
 	@Override
 	public InterceptorResult after(Message message, ExecutionContext executionContext, ExecutionResult executionResult) throws Xdi2MessagingException {
 
+		// read the referenced link contract from the execution context
+
+		LinkContract linkContract = getLinkContract(executionContext);
+		if (linkContract == null) throw new Xdi2MessagingException("No link contract.", null, executionContext);
+
+		// evaluate the XDI delete policy against this message
+
+		PolicyRoot deletePolicyRoot = linkContract.getDeletePolicyRoot(false);
+		boolean deletePolicyRootResult = deletePolicyRoot == null ? false : this.evaluatePolicyRoot(message, deletePolicyRoot, executionContext);
+		if (deletePolicyRoot != null) if (log.isDebugEnabled()) log.debug("Link contract " + linkContract + " delete policy evaluated to " + deletePolicyRootResult);
+
+		if (deletePolicyRootResult) {
+
+			linkContract.getContextNode().delete();
+
+			putEvaluationResult(executionContext, XDIPolicyConstants.XDI_ADD_DEL);
+			return InterceptorResult.DEFAULT;
+		}
+
 		// done
 
 		return InterceptorResult.DEFAULT;

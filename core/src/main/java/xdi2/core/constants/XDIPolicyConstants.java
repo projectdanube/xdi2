@@ -16,6 +16,7 @@ public final class XDIPolicyConstants {
 
 	public static final XDIAddress XDI_ADD_DEFER = XDIAddress.create("$defer");
 	public static final XDIAddress XDI_ADD_DEFER_PUSH = XDIAddress.create("$defer$push");
+	public static final XDIAddress XDI_ADD_DEL = XDIAddress.create("$del");
 
 	public static final XDIArc XDI_ARC_AND = XDIArc.create("$and");
 	public static final XDIArc XDI_ARC_OR = XDIArc.create("$or");
