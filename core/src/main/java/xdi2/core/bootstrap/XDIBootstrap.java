@@ -72,11 +72,13 @@ public class XDIBootstrap {
 
 				"$defer$push{$contract}$do/$push/{$push}\n" +
 				"$defer$push{$contract}/$to/{($from)}\n" +
+				"$defer$push{$contract}$del//$if\n" +
 				"($defer$push{$contract}$if$and/$true){$~from}/$is/{$to}\n" +
 				"($defer$push{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 				"($defer$push{$contract}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
 				"$msg$digest{$contract}$do/$all/\n" +
+				"$msg$digest{$contract}$del//$if\n" +
 				"($msg$digest{$contract}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
 
 		try {
