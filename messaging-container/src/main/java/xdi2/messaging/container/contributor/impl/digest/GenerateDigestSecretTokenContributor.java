@@ -27,12 +27,14 @@ import xdi2.messaging.operations.DoOperation;
 @ContributorMount(
 		contributorXDIAddresses={"{}<$digest><$secret><$token>", "<$digest><$secret><$token>"},
 		operationXDIAddresses={"$do<$digest><$secret><$token>"}
-)
+		)
 public class GenerateDigestSecretTokenContributor extends AbstractContributor implements Prototype<GenerateDigestSecretTokenContributor> {
 
 	private static final Logger log = LoggerFactory.getLogger(GenerateDigestSecretTokenContributor.class);
 
 	public static final XDIAddress XDI_ADD_DIGEST_SECRET_TOKEN = XDIAddress.create("$do<$digest><$secret><$token>");
+
+	public static final String DEFAULT_GLOBAL_SALT = "00000000-0000-0000-0000-000000000000";
 
 	private String globalSalt;
 	private Graph targetGraph;
@@ -45,7 +47,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 	public GenerateDigestSecretTokenContributor() {
 
-		this(null, null);
+		this(DEFAULT_GLOBAL_SALT, null);
 	}
 
 	/*

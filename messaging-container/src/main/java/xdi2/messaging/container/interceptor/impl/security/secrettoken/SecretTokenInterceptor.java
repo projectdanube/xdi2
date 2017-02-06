@@ -27,7 +27,19 @@ public class SecretTokenInterceptor extends AbstractInterceptor<MessagingContain
 
 	private static Logger log = LoggerFactory.getLogger(SecretTokenInterceptor.class.getName());
 
+	public static final SecretTokenValidator DEFAULT_SECRET_TOKEN_VALIDATOR = new GraphSecretTokenValidator();
+
 	private SecretTokenValidator secretTokenValidator;
+
+	public SecretTokenInterceptor(SecretTokenValidator secretTokenValidator) {
+
+		this.secretTokenValidator = secretTokenValidator;
+	}
+
+	public SecretTokenInterceptor() {
+
+		this(DEFAULT_SECRET_TOKEN_VALIDATOR);
+	}
 
 	/*
 	 * Prototype
@@ -40,7 +52,7 @@ public class SecretTokenInterceptor extends AbstractInterceptor<MessagingContain
 
 		SecretTokenInterceptor interceptor = new SecretTokenInterceptor();
 
-		// set the authenticator
+		// set the secret token validator
 
 		interceptor.setSecretTokenValidator(this.getSecretTokenValidator());
 

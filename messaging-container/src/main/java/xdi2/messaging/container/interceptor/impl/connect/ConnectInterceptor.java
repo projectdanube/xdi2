@@ -48,6 +48,8 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingContainer> 
 
 	private static final Logger log = LoggerFactory.getLogger(ConnectInterceptor.class);
 
+	public static final XDIAgent DEFAULT_XDI_AGENT = new XDIBasicAgent();
+
 	private Graph targetGraph;
 	private XDIAgent xdiAgent;
 	private Collection<Manipulator> manipulators;
@@ -61,7 +63,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingContainer> 
 
 	public ConnectInterceptor() {
 
-		this(null, new XDIBasicAgent(), new ArrayList<Manipulator> ());
+		this(null, DEFAULT_XDI_AGENT, new ArrayList<Manipulator> ());
 	}
 
 	/*

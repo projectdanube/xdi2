@@ -41,6 +41,8 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingContainer> 
 
 	private static final Logger log = LoggerFactory.getLogger(PushOutInterceptor.class);
 
+	public static final PushGateway DEFAULT_PUSH_GATEWAY = new BasicPushGateway();
+
 	private Graph pushLinkContractsGraph;
 	private PushGateway pushGateway;
 
@@ -52,8 +54,7 @@ public class PushOutInterceptor extends AbstractInterceptor<MessagingContainer> 
 
 	public PushOutInterceptor() {
 
-		this.pushLinkContractsGraph = null;
-		this.pushGateway = new BasicPushGateway();
+		this(null, DEFAULT_PUSH_GATEWAY);
 	}
 
 	/*

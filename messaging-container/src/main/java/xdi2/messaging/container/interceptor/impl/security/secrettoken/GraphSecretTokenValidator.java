@@ -8,7 +8,6 @@ import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.features.secrettokens.SecretTokens;
 import xdi2.core.syntax.XDIAddress;
-import xdi2.messaging.container.execution.ExecutionContext;
 
 /**
  * A SecretTokenAuthenticator that can authenticate an XDI message using a "secret token graph",
@@ -29,9 +28,7 @@ public class GraphSecretTokenValidator extends DigestSecretTokenValidator {
 
 	public GraphSecretTokenValidator() {
 
-		super();
-
-		this.secretTokenGraph = null;
+		this(null, null);
 	}
 
 	/*
@@ -62,15 +59,6 @@ public class GraphSecretTokenValidator extends DigestSecretTokenValidator {
 	/*
 	 * Getters and setters
 	 */
-
-	public Graph getSecretTokenGraph(ExecutionContext executionContext) {
-
-		Graph secretTokenGraph = this.getSecretTokenGraph();
-		if (secretTokenGraph == null) secretTokenGraph = executionContext.getCurrentGraph();
-		if (secretTokenGraph == null) throw new NullPointerException("No secret token graph.");
-
-		return secretTokenGraph;
-	}
 
 	public Graph getSecretTokenGraph() {
 

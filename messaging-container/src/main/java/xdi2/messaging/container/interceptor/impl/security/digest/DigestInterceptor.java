@@ -1,6 +1,7 @@
 package xdi2.messaging.container.interceptor.impl.security.digest;
 
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,7 +12,10 @@ import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.digests.Digest;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
+import xdi2.core.features.signatures.Signature;
 import xdi2.core.security.digest.validate.DigestValidator;
+import xdi2.core.security.digest.validate.MDBasicDigestValidator;
+import xdi2.core.security.digest.validate.SHABasicDigestValidator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.container.MessagingContainer;
@@ -30,9 +34,18 @@ import xdi2.messaging.container.interceptor.impl.AbstractInterceptor;
  */
 public class DigestInterceptor extends AbstractInterceptor<MessagingContainer> implements MessageInterceptor, Prototype<DigestInterceptor> {
 
+	public static final List<DigestValidator<? extends Digest>> DEFAULT_DIGEST_VALIDATORS;
+
+	static {
+
+		DEFAULT_DIGEST_VALIDATORS = new ArrayList<DigestValidator<? extends Digest>> ();
+		DEFAULT_DIGEST_VALIDATORS.add(new SHABasicDigestValidator());
+		DEFAULT_DIGEST_VALIDATORS.add(new MDBasicDigestValidator());
+	}
+
 	private static Logger log = LoggerFactory.getLogger(DigestInterceptor.class.getName());
 
-	private List<DigestValidator<Digest>> digestValidators;
+	private List<DigestValidator<? extends Digest>> digestValidators;
 
 	/*
 	 * Prototype
@@ -74,7 +87,7 @@ public class DigestInterceptor extends AbstractInterceptor<MessagingContainer> i
 
 			boolean validatedDigest = false;
 
-			for (DigestValidator<Digest> digestValidator : this.getDigestValidators()) {
+			for (DigestValidator<? extends Digest> digestValidator : this.getDigestValidators()) {
 
 				if (log.isDebugEnabled()) log.debug("Validating " + digest.getClass().getSimpleName() + " via " + digestValidator.getClass().getSimpleName());
 
@@ -121,12 +134,12 @@ public class DigestInterceptor extends AbstractInterceptor<MessagingContainer> i
 	 * Getters and setters
 	 */
 
-	public List<DigestValidator<Digest>> getDigestValidators() {
+	public List<DigestValidator<? extends Digest>> getDigestValidators() {
 
 		return this.digestValidators;
 	}
 
-	public void setDigestValidators(List<DigestValidator<Digest>> digestValidators) {
+	public void setDigestValidators(List<DigestValidator<? extends Digest>> digestValidators) {
 
 		this.digestValidators = digestValidators;
 	}

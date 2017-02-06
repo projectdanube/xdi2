@@ -25,12 +25,27 @@ import xdi2.messaging.container.StatementHandler;
 import xdi2.messaging.container.contributor.Contributor;
 import xdi2.messaging.container.contributor.ContributorMap;
 import xdi2.messaging.container.contributor.ContributorResult;
+import xdi2.messaging.container.contributor.impl.digest.GenerateDigestSecretTokenContributor;
+import xdi2.messaging.container.contributor.impl.keygen.GenerateKeyContributor;
 import xdi2.messaging.container.exceptions.Xdi2MessagingException;
 import xdi2.messaging.container.execution.ExecutionContext;
 import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.interceptor.Interceptor;
 import xdi2.messaging.container.interceptor.InterceptorList;
 import xdi2.messaging.container.interceptor.InterceptorResult;
+import xdi2.messaging.container.interceptor.impl.HasInterceptor;
+import xdi2.messaging.container.interceptor.impl.RefInterceptor;
+import xdi2.messaging.container.interceptor.impl.ToInterceptor;
+import xdi2.messaging.container.interceptor.impl.connect.ConnectInterceptor;
+import xdi2.messaging.container.interceptor.impl.defer.DeferResultInterceptor;
+import xdi2.messaging.container.interceptor.impl.linkcontract.LinkContractInterceptor;
+import xdi2.messaging.container.interceptor.impl.push.PushInInterceptor;
+import xdi2.messaging.container.interceptor.impl.push.PushOutInterceptor;
+import xdi2.messaging.container.interceptor.impl.security.digest.DigestInterceptor;
+import xdi2.messaging.container.interceptor.impl.security.secrettoken.SecretTokenInterceptor;
+import xdi2.messaging.container.interceptor.impl.security.signature.SignatureInterceptor;
+import xdi2.messaging.container.interceptor.impl.send.SendInterceptor;
+import xdi2.messaging.container.interceptor.impl.signing.SigningInterceptor;
 import xdi2.messaging.operations.Operation;
 
 /**
@@ -587,6 +602,29 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 				log.warn("Error while popping target statement: " + ex.getMessage(), ex);
 			}
 		}
+	}
+
+	/*
+	 * We can provide a container with a standard set of interceptors and contributors.
+	 */
+
+	public void addStandardExtensions() {
+
+		this.interceptors.addInterceptor(new ToInterceptor());
+		this.interceptors.addInterceptor(new RefInterceptor());
+		this.interceptors.addInterceptor(new HasInterceptor());
+		this.interceptors.addInterceptor(new SecretTokenInterceptor());
+		this.interceptors.addInterceptor(new SignatureInterceptor());
+		this.interceptors.addInterceptor(new DigestInterceptor());
+		this.interceptors.addInterceptor(new LinkContractInterceptor());
+		this.interceptors.addInterceptor(new SigningInterceptor());
+		this.interceptors.addInterceptor(new ConnectInterceptor());
+		this.interceptors.addInterceptor(new SendInterceptor());
+		this.interceptors.addInterceptor(new PushInInterceptor());
+		this.interceptors.addInterceptor(new PushOutInterceptor());
+		this.interceptors.addInterceptor(new DeferResultInterceptor());
+		this.contributors.addContributor(new GenerateDigestSecretTokenContributor());
+		this.contributors.addContributor(new GenerateKeyContributor());
 	}
 
 	/*

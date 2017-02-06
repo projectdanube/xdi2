@@ -1,6 +1,7 @@
 package xdi2.messaging.container.interceptor.impl.security.signature;
 
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.signature.validate.AESGraphSecretKeySignatureValidator;
+import xdi2.core.security.signature.validate.RSAGraphPublicKeySignatureValidator;
 import xdi2.core.security.signature.validate.SignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -33,7 +36,26 @@ public class SignatureInterceptor extends AbstractInterceptor<MessagingContainer
 
 	private static Logger log = LoggerFactory.getLogger(SignatureInterceptor.class.getName());
 
-	private List<SignatureValidator<Signature>> signatureValidators;
+	public static final List<SignatureValidator<? extends Signature>> DEFAULT_SIGNATURE_VALIDATORS;
+
+	static {
+
+		DEFAULT_SIGNATURE_VALIDATORS = new ArrayList<SignatureValidator<? extends Signature>> ();
+		DEFAULT_SIGNATURE_VALIDATORS.add(new AESGraphSecretKeySignatureValidator());
+		DEFAULT_SIGNATURE_VALIDATORS.add(new RSAGraphPublicKeySignatureValidator());
+	}
+
+	private List<SignatureValidator<? extends Signature>> signatureValidators;
+
+	public SignatureInterceptor(List<SignatureValidator<? extends Signature>> signatureValidators) {
+
+		this.signatureValidators = signatureValidators;
+	}
+
+	public SignatureInterceptor() {
+
+		this(DEFAULT_SIGNATURE_VALIDATORS);
+	}
 
 	/*
 	 * Prototype
@@ -77,7 +99,7 @@ public class SignatureInterceptor extends AbstractInterceptor<MessagingContainer
 
 			boolean validatedSignature = false;
 
-			for (SignatureValidator<Signature> signatureValidator : this.getSignatureValidators()) {
+			for (SignatureValidator<? extends Signature> signatureValidator : this.getSignatureValidators()) {
 
 				if (log.isDebugEnabled()) log.debug("Validating " + signature.getClass().getSimpleName() + " for " + senderXDIAddress + " via " + signatureValidator.getClass().getSimpleName());
 
@@ -124,12 +146,12 @@ public class SignatureInterceptor extends AbstractInterceptor<MessagingContainer
 	 * Getters and setters
 	 */
 
-	public List<SignatureValidator<Signature>> getSignatureValidators() {
+	public List<SignatureValidator<? extends Signature>> getSignatureValidators() {
 
 		return this.signatureValidators;
 	}
 
-	public void setSignatureValidators(List<SignatureValidator<Signature>> signatureValidators) {
+	public void setSignatureValidators(List<SignatureValidator<? extends Signature>> signatureValidators) {
 
 		this.signatureValidators = signatureValidators;
 	}

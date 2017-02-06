@@ -21,7 +21,7 @@ public class StaticSecretTokenValidator extends DigestSecretTokenValidator {
 
 	public StaticSecretTokenValidator() {
 
-		super();
+		this(null, null);
 	}
 
 	@Override

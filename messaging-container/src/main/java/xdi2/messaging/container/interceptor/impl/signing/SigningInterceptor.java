@@ -4,6 +4,7 @@ import java.security.GeneralSecurityException;
 
 import xdi2.core.Graph;
 import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.signature.create.RSAGraphPrivateKeySignatureCreator;
 import xdi2.core.security.signature.create.SignatureCreator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
@@ -25,7 +26,19 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 
 	public static final XDIAddress XDI_ADD_DO_SIG = XDIAddress.create("$do$sig");
 
+	public static final SignatureCreator<? extends Signature> DEFAULT_SIGNATURE_CREATOR = new RSAGraphPrivateKeySignatureCreator();
+
 	private SignatureCreator<? extends Signature> signatureCreator;
+
+	public SigningInterceptor(SignatureCreator<? extends Signature> signatureCreator) {
+
+		this.signatureCreator = signatureCreator;
+	}
+
+	public SigningInterceptor() {
+
+		this(DEFAULT_SIGNATURE_CREATOR);
+	}
 
 	/*
 	 * Prototype

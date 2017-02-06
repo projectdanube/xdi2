@@ -24,7 +24,7 @@ public abstract class DigestSecretTokenValidator extends AbstractSecretTokenVali
 
 	public DigestSecretTokenValidator() {
 
-		this.globalSalt = null;
+		this(null);
 	}
 
 	@Override

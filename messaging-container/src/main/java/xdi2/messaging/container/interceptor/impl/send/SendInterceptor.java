@@ -62,6 +62,8 @@ public class SendInterceptor extends AbstractInterceptor<MessagingContainer> imp
 
 	private static final Logger log = LoggerFactory.getLogger(SendInterceptor.class);
 
+	public static final XDIAgent DEFAULT_XDI_AGENT = new XDIBasicAgent();
+
 	private XDIAgent xdiAgent;
 	private Collection<Manipulator> manipulators;
 
@@ -73,7 +75,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingContainer> imp
 
 	public SendInterceptor() {
 
-		this(new XDIBasicAgent(), new ArrayList<Manipulator> ());
+		this(DEFAULT_XDI_AGENT, new ArrayList<Manipulator> ());
 	}
 
 	/*
