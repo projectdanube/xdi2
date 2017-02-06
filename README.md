@@ -29,7 +29,8 @@ Components:
 
 * [xdi2-core](https://github.com/projectdanube/xdi2/wiki/xdi2-core) - Implementation of the XDI graph model and basic features [.jar]
 * [xdi2-rdf](https://github.com/projectdanube/xdi2/wiki/xdi2-rdf) - Implementation of the XDI/RDF compatibility layer [.jar]
-* [xdi2-messaging](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging functionality [.jar]
+* [xdi2-messaging](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging) - Implementation of XDI messaging [.jar]
+* [xdi2-messaging-container](https://github.com/projectdanube/xdi2/wiki/xdi2-messaging-container) - XDI containers that can be deployed in servers to respond to XDI messages [.jar]
 * [xdi2-client](https://github.com/projectdanube/xdi2/wiki/xdi2-client) - An XDI client can send messages to an XDI server over HTTP(S) [.jar]
 * [xdi2-client-websocket](https://github.com/projectdanube/xdi2/wiki/xdi2-client-websocket) - An XDI client can send messages to an XDI server over WebSocket [.jar]
 * [xdi2-transport](https://github.com/projectdanube/xdi2/wiki/xdi2-transport) - Common transport functionality for receiving and processing XDI messages [.jar]
@@ -38,7 +39,6 @@ Components:
 * [xdi2-transport-websocket](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-websocket) - A WebSocket transport that exposes XDI endpoints at URIs [.jar]
 * [xdi2-transport-local](https://github.com/projectdanube/xdi2/wiki/xdi2-transport-local) - A local transport that executes messages directly against a local graph [.jar]
 * [xdi2-server](https://github.com/projectdanube/xdi2/wiki/xdi2-server) - The XDI server that provides the HTTP and WebSocket transport [.jar]
-* [xdi2-server-embedded](https://github.com/projectdanube/xdi2/wiki/xdi2-server-embedded) - The XDI server embedded in another application [.jar]
 * [xdi2-server-standalone](https://github.com/projectdanube/xdi2/wiki/xdi2-server-standalone) - The XDI server as a standalone application [.jar]
 * [xdi2-server-war](https://github.com/projectdanube/xdi2/wiki/xdi2-server-war) - The XDI server as a web application [.war]
 * [xdi2-webtools](https://github.com/projectdanube/xdi2/wiki/xdi2-webtools) - A collection of web-based XDI tools for testing [.war]
