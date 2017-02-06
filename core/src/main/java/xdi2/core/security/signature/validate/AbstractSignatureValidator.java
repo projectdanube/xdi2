@@ -18,13 +18,14 @@ public abstract class AbstractSignatureValidator <SIGNATURE extends Signature> i
 	}
 
 	@Override
-	public boolean canValidate(Class<? extends SIGNATURE> clazz) {
+	public boolean canValidate(Class<? extends Signature> clazz) {
 
 		return this.clazz.isAssignableFrom(clazz);
 	}
 
 	@Override
-	public final boolean validateSignature(SIGNATURE signature, XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	@SuppressWarnings("unchecked")
+	public final boolean validateSignature(Signature signature, XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		if (signature == null) throw new NullPointerException();
 
@@ -39,11 +40,11 @@ public abstract class AbstractSignatureValidator <SIGNATURE extends Signature> i
 
 		// validate signature
 
-		return this.validate(normalizedSerialization, signatureValue, signature, signerXDIAddress);
+		return this.validate(normalizedSerialization, signatureValue, (SIGNATURE) signature, signerXDIAddress);
 	}
 
 	@Override
-	public final boolean validateSignature(SIGNATURE signature) throws GeneralSecurityException {
+	public final boolean validateSignature(Signature signature) throws GeneralSecurityException {
 
 		return this.validateSignature(signature, null);
 	}

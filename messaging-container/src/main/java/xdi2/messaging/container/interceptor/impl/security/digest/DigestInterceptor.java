@@ -12,7 +12,6 @@ import xdi2.core.constants.XDISecurityConstants;
 import xdi2.core.features.digests.Digest;
 import xdi2.core.features.nodetypes.XdiAttribute;
 import xdi2.core.features.nodetypes.XdiAttributeSingleton;
-import xdi2.core.features.signatures.Signature;
 import xdi2.core.security.digest.validate.DigestValidator;
 import xdi2.core.security.digest.validate.MDBasicDigestValidator;
 import xdi2.core.security.digest.validate.SHABasicDigestValidator;

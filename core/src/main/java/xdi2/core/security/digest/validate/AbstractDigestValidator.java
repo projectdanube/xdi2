@@ -17,13 +17,14 @@ public abstract class AbstractDigestValidator <DIGEST extends Digest> implements
 	}
 
 	@Override
-	public boolean canValidate(Class<? extends DIGEST> clazz) {
+	public boolean canValidate(Class<? extends Digest> clazz) {
 
 		return this.clazz.isAssignableFrom(clazz);
 	}
 
 	@Override
-	public final boolean validateDigest(DIGEST digest) throws GeneralSecurityException {
+	@SuppressWarnings("unchecked")
+	public final boolean validateDigest(Digest digest) throws GeneralSecurityException {
 
 		if (digest == null) throw new NullPointerException();
 
@@ -38,7 +39,7 @@ public abstract class AbstractDigestValidator <DIGEST extends Digest> implements
 
 		// validate digest
 
-		return this.validate(normalizedSerialization, digestValue, digest);
+		return this.validate(normalizedSerialization, digestValue, (DIGEST) digest);
 	}
 
 	public abstract boolean validate(byte[] normalizedSerialization, byte[] digestValue, DIGEST digest) throws GeneralSecurityException;
