@@ -155,13 +155,32 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	@SuppressWarnings("unchecked")
 	public EQ dereference(boolean reference, boolean replacement, boolean identity) {
 
-		EQ xdiContext;
+		EQ xdiContext = (EQ) this;
 
-		if (reference && ((xdiContext = this.getReferenceXdiContext()) != null)) return xdiContext;
-		if (replacement && ((xdiContext = this.getReplacementXdiContext()) != null)) return xdiContext;
-		if (identity && ((xdiContext = this.getIdentityXdiContext()) != null)) return xdiContext;
+		while (true) {
 
-		return (EQ) this;
+			if (reference) {
+
+				EQ referenceXdiContext = this.getReferenceXdiContext();
+				if (referenceXdiContext != null) { xdiContext = referenceXdiContext; continue; }
+			}
+
+			if (replacement) {
+
+				EQ replacementXdiContext = this.getReplacementXdiContext();
+				if (replacementXdiContext != null) { xdiContext = replacementXdiContext; continue; }
+			}
+
+			if (identity) {
+
+				EQ identityXdiContext = this.getIdentityXdiContext();
+				if (identityXdiContext != null) { xdiContext = identityXdiContext; continue; }
+			}
+
+			break;
+		}
+
+		return xdiContext;
 	}
 
 	@Override

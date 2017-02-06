@@ -1,6 +1,5 @@
 package xdi2.messaging.container;
 
-import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.container.exceptions.Xdi2MessagingException;
@@ -40,8 +39,9 @@ public interface MessagingContainer {
 	public XDIArc getOwnerPeerRootXDIArc();
 
 	/**
-	 * Returns the owner XDI address of the messaging container.
-	 * This may be null.
+	 * Returns whether this messaging container owns
+	 * @param peerRootXDIArc
+	 * @return
 	 */
-	public XDIAddress getOwnerXDIAddress();
+	public boolean ownsPeerRootXDIArc(XDIArc peerRootXDIArc);
 }

@@ -76,15 +76,9 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 	}
 
 	@Override
-	public XDIAddress getOwnerXDIAddress() {
+	public boolean ownsPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
-		return GraphUtil.getOwnerXDIAddress(this.getGraph());
-	}
-
-	@Override
-	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
-
-		GraphUtil.setOwnerXDIAddress(this.getGraph(), ownerXDIAddress);
+		return GraphUtil.ownsPeerRootXDIArc(this.getGraph(), peerRootXDIArc);
 	}
 
 	@Override

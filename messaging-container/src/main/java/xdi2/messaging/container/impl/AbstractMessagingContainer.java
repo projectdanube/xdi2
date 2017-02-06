@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -688,14 +687,9 @@ public abstract class AbstractMessagingContainer implements MessagingContainer {
 	}
 
 	@Override
-	public XDIAddress getOwnerXDIAddress() {
+	public boolean ownsPeerRootXDIArc(XDIArc peerRootXDIArc) {
 
-		return XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(this.getOwnerPeerRootXDIArc());
-	}
-
-	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
-
-		this.setOwnerPeerRootXDIArc(XdiPeerRoot.createPeerRootXDIArc(ownerXDIAddress));
+		return peerRootXDIArc.equals(this.getOwnerPeerRootXDIArc());
 	}
 
 	public InterceptorList<MessagingContainer> getInterceptors() {
