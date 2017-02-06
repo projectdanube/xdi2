@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
@@ -42,11 +41,6 @@ public class TrueOperator extends ConditionOperator {
 		if (! XdiAbstractEntity.isValid(relation.getContextNode())) return false;
 		if (! Policy.isValid(XdiAbstractEntity.fromContextNode(relation.getContextNode()))) return false;
 		if (! XDIConstants.XDI_ADD_TRUE.equals(relation.getXDIAddress())) return false;
-
-		ContextNode targetContextNode = relation.followContextNode();
-
-		if (targetContextNode == null) return false;
-		if (! XdiInnerRoot.isValid(targetContextNode)) return false;
 
 		return true;
 	}

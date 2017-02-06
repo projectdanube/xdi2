@@ -2,15 +2,16 @@ package xdi2.core.features.policy.operator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Relation;
-import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot.MappingAbsoluteToRelativeXDIStatementIterator;
 import xdi2.core.features.policy.condition.Condition;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.iterators.EmptyIterator;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.MappingXDIStatementIterator;
 import xdi2.core.util.iterators.SelectingNotImpliedStatementIterator;
+import xdi2.core.util.iterators.SingleItemIterator;
 
 public abstract class ConditionOperator extends Operator {
 
@@ -29,21 +30,29 @@ public abstract class ConditionOperator extends Operator {
 
 		ContextNode contextNode = this.getRelation().followContextNode();
 
-		XdiInnerRoot innerRoot = contextNode == null ? null : XdiInnerRoot.fromContextNode(contextNode);
-		if (innerRoot == null) throw new Xdi2RuntimeException("Missing condition in operator: " + this.getRelation());
+		XdiInnerRoot innerRoot = XdiInnerRoot.fromContextNode(contextNode);
 
-		return new MappingIterator<XDIStatement, Condition> (
-				new MappingAbsoluteToRelativeXDIStatementIterator(
-						innerRoot,
-						new MappingXDIStatementIterator(
-								new SelectingNotImpliedStatementIterator(
-										innerRoot.getContextNode().getAllStatements())))) {
+		if (innerRoot == null) {
 
-			@Override
-			public Condition map(XDIStatement XDIstatement) {
+			Condition condition = Condition.fromAddress(contextNode.getXDIAddress());
+			if (condition == null) return new EmptyIterator<Condition> ();
 
-				return Condition.fromStatement(XDIstatement);
-			}
-		};
+			return new SingleItemIterator<Condition> (condition);
+		} else {
+
+			return new MappingIterator<XDIStatement, Condition> (
+					new MappingAbsoluteToRelativeXDIStatementIterator(
+							innerRoot,
+							new MappingXDIStatementIterator(
+									new SelectingNotImpliedStatementIterator(
+											innerRoot.getContextNode().getAllStatements())))) {
+
+				@Override
+				public Condition map(XDIStatement XDIstatement) {
+
+					return Condition.fromStatement(XDIstatement);
+				}
+			};
+		}
 	}
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
+import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
 
 /**
@@ -19,18 +20,40 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 	private static final Logger log = LoggerFactory.getLogger(Condition.class);
 
+	private XDIAddress XDIaddress;
 	private XDIStatement XDIstatement;
+
+	protected Condition(XDIAddress XDIaddress) {
+
+		if (XDIaddress == null) throw new NullPointerException();
+
+		this.XDIaddress = XDIaddress;
+		this.XDIstatement = null;
+	}
 
 	protected Condition(XDIStatement XDIstatement) {
 
 		if (XDIstatement == null) throw new NullPointerException();
 
+		this.XDIaddress = null;
 		this.XDIstatement = XDIstatement;
 	}
 
 	/*
 	 * Static methods
 	 */
+
+	/**
+	 * Checks if an address is a valid XDI condition.
+	 * @param XDIaddress The address to check.
+	 * @return True if the address is a valid XDI condition.
+	 */
+	public static boolean isValid(XDIAddress XDIaddress) {
+
+		return
+				TrueCondition.isValid(XDIaddress) ||
+				FalseCondition.isValid(XDIaddress);
+	}
 
 	/**
 	 * Checks if a statement is a valid XDI condition.
@@ -46,6 +69,19 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 				LesserCondition.isValid(XDIstatement) ||
 				IsCondition.isValid(XDIstatement) ||
 				GenericCondition.isValid(XDIstatement);
+	}
+
+	/**
+	 * Factory method that creates an XDI condition bound to a given address.
+	 * @param XDIaddress The address that is an XDI condition.
+	 * @return The XDI condition.
+	 */
+	public static Condition fromAddress(XDIAddress XDIaddress) {
+
+		if (TrueCondition.isValid(XDIaddress)) return TrueCondition.fromAddress(XDIaddress);
+		if (FalseCondition.isValid(XDIaddress)) return FalseCondition.fromAddress(XDIaddress);
+
+		return null;
 	}
 
 	/**
@@ -74,12 +110,24 @@ public abstract class Condition implements Serializable, Comparable<Condition> {
 
 		if (condition == null) return null;
 
-		return fromStatement(condition.getXDIStatement());
+		Condition castCondition = null;
+		if (castCondition == null) castCondition = fromAddress(condition.getXDIAddress());
+		if (castCondition == null) castCondition = fromStatement(condition.getXDIStatement());
+		return castCondition;
 	}
 
 	/*
 	 * Instance methods
 	 */
+
+	/**
+	 * Returns the underlying address to which this XDI condition is bound.
+	 * @return An address that represents the XDI condition.
+	 */
+	public XDIAddress getXDIAddress() {
+
+		return this.XDIaddress;
+	}
 
 	/**
 	 * Returns the underlying statement to which this XDI condition is bound.
