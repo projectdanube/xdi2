@@ -91,7 +91,9 @@ public abstract class LinkContractBase <N extends XdiEntity> implements Serializ
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiEntity().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DO, create);
+		if (xdiEntitySingleton == null) return null;
+		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);

@@ -54,32 +54,32 @@ public class XDIBootstrap {
 				// standard link contract templates
 
 				"$all{$contract}$do/$all/\n" +
-				"($all{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($all{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($all{$contract}$do$if$and/$true){$~from}/$is/{$from}\n" +
+				"($all{$contract}$do$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
 				"$get{$contract}$do/$get/{$get}\n" +
-				"($get{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($get{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($get{$contract}$do$if$and/$true){$~from}/$is/{$from}\n" +
+				"($get{$contract}$do$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
 				"$set{$contract}$do/$set/{$set}\n" +
-				"($set{$contract}$if$and/$true){$~from}/$is/{$from}\n" +
-				"($set{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($set{$contract}$do$if$and/$true){$~from}/$is/{$from}\n" +
+				"($set{$contract}$do$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
 				"$push{$contract}$do/$push/{$push}\n" +
 				"$push{$contract}/$to/{($from)}\n" +
-				"($push{$contract}$if$and/$true){$~from}/$is/{$to}\n" +
-				"($push{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($push{$contract}$do$if$and/$true){$~from}/$is/{$to}\n" +
+				"($push{$contract}$do$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
 
 				"$defer$push{$contract}$do/$push/{$push}\n" +
 				"$defer$push{$contract}/$to/{($from)}\n" +
 				"$defer$push{$contract}$del//$if\n" +
-				"($defer$push{$contract}$if$and/$true){$~from}/$is/{$to}\n" +
-				"($defer$push{$contract}$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
-				"($defer$push{$contract}$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
+				"($defer$push{$contract}$do$if$and/$true){$~from}/$is/{$to}\n" +
+				"($defer$push{$contract}$do$if$and/$true){$~msg}<$sig><$valid>/&/true\n" +
+				"($defer$push{$contract}$do$if$and/$true){$~msg}/$is$msg/{$msg}\n" + 
 
 				"$msg$digest{$contract}$do/$all/\n" +
 				"$msg$digest{$contract}$del//$if\n" +
-				"($msg$digest{$contract}$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
+				"($msg$digest{$contract}$do$if/$true){$~msg}<$digest>/{&}/{<$digest>}\n";
 
 		try {
 

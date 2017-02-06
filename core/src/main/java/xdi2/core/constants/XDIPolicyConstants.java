@@ -14,6 +14,7 @@ public final class XDIPolicyConstants {
 
 	public static final XDIArc XDI_ARC_IF = XDIArc.create("$if");
 
+	public static final XDIAddress XDI_ADD_DO = XDIAddress.create("$do");
 	public static final XDIAddress XDI_ADD_DEFER = XDIAddress.create("$defer");
 	public static final XDIAddress XDI_ADD_DEFER_PUSH = XDIAddress.create("$defer$push");
 	public static final XDIAddress XDI_ADD_DEL = XDIAddress.create("$del");

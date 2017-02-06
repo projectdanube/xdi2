@@ -1,6 +1,6 @@
 (=!:uuid:1111)/$ref/
-(=!:uuid:1111/#friend)($contract$if/$true){$from}/$is/=drummond
-(=!:uuid:1111/#friend)($contract$if/$true){$from}/$is/=!:uuid:1111
+(=!:uuid:1111/#friend)($contract$do$if/$true){$from}/$is/=drummond
+(=!:uuid:1111/#friend)($contract$do$if/$true){$from}/$is/=!:uuid:1111
 (=!:uuid:1111/#friend)$contract$do/$get/=!:uuid:1111<#age>
 (=!:uuid:1111/#friend)$contract$do/$set/=!:uuid:1111
 =!:uuid:1111<#age>/&/"33"

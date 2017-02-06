@@ -2,9 +2,9 @@
 /$is$ref/(=!:uuid:1111)
 =!:uuid:1111/#friend/=!:uuid:2222
 (=!:uuid:1111/=!:uuid:2222)$contract$do/$do$signal/=!:uuid:1111[#channel]*!:uuid:2222[#event]
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#domain/#cloudos
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#notification
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#subscription
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#deletion
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and[$or]*!:uuid:2222/$true)=!:uuid:1111/#friend/{$from}
-(=!:uuid:1111/=!:uuid:2222)($contract$if$and[$or]*!:uuid:2222/$true)=!:uuid:1111/$is/{$from}
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#domain/#cloudos
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#notification
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#subscription
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and[$or]*!:uuid:1111/$true)({$msg}$do/$do$signal)=!:uuid:1111[#channel]*!:uuid:2222[#event]*!:uuid:4444/#type/#deletion
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and[$or]*!:uuid:2222/$true)=!:uuid:1111/#friend/{$from}
+(=!:uuid:1111/=!:uuid:2222)($contract$do$if$and[$or]*!:uuid:2222/$true)=!:uuid:1111/$is/{$from}

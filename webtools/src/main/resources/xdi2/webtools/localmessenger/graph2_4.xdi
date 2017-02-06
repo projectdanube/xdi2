@@ -1,6 +1,6 @@
 (=!:uuid:1111)/$ref/
 (=!:uuid:1111/#local)$contract$do/$all/
-(=!:uuid:1111/#local)($contract$if$or/$true){$msg}<$ip>/&/"127.0.0.1"
-(=!:uuid:1111/#local)($contract$if$or/$true){$msg}<$sig><$valid>/&/true
+(=!:uuid:1111/#local)($contract$do$if$or/$true){$msg}<$ip>/&/"127.0.0.1"
+(=!:uuid:1111/#local)($contract$do$if$or/$true){$msg}<$sig><$valid>/&/true
 =!:uuid:1111<#email>/&/"markus@projectdanube.org"
 /$is$ref/(=!:uuid:1111)

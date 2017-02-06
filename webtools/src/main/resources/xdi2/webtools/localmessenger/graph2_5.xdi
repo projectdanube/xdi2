@@ -2,4 +2,4 @@
 (+!:uuid:0000)/$ref/
 (+!:uuid:0000/+!:uuid:8888)$add$do/$set/{()}
 (+!:uuid:0000/+!:uuid:8888)$add$do/$set{$ref}/{()}
-(+!:uuid:0000/+!:uuid:8888)($add$contract$if$and/$true){$from}/$is/+!:uuid:8888
+(+!:uuid:0000/+!:uuid:8888)($add$contract$do$if$and/$true){$from}/$is/+!:uuid:8888

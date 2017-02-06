@@ -1,4 +1,4 @@
 =!:uuid:2222[$msg]*!:uuid:1234/$to/(=!:uuid:1111)
 (=!:uuid:2222[$msg]*!:uuid:1234$do/$set)=!:uuid:1111#last<#name>/&/"Oldman"
-(=!:uuid:2222[$msg]*!:uuid:1234$contract$if/$true)=!:uuid:1111<#age>/$greater/{$msg}<#oldage>
+(=!:uuid:2222[$msg]*!:uuid:1234$contract$do$if/$true)=!:uuid:1111<#age>/$greater/{$msg}<#oldage>
 =!:uuid:2222[$msg]*!:uuid:1234<#oldage>/&/"80"

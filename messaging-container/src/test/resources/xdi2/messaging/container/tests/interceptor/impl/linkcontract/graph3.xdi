@@ -1,7 +1,7 @@
 (=!:uuid:1111)/$ref/
 /$is$ref/(=!:uuid:1111)
 (=!:uuid:1111/#friend)$contract$do/$get/=!:uuid:1111
-(=!:uuid:1111/#friend)($contract$if/$true)=!:uuid:1111/#friend/{$from}
+(=!:uuid:1111/#friend)($contract$do$if/$true)=!:uuid:1111/#friend/{$from}
 =!:uuid:1111<#email>/&/"markus@projectdanube.org"
 =!:uuid:1111/#friend/=!:uuid:1111
 =!:uuid:1111/#friend/=!:uuid:2222

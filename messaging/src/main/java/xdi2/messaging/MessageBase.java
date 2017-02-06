@@ -26,7 +26,6 @@ import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntitySingleton;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
-import xdi2.core.features.nodetypes.XdiSubGraph;
 import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.signatures.Signature;
 import xdi2.core.features.signatures.Signatures;
@@ -59,7 +58,7 @@ import xdi2.messaging.util.MessagingCloneUtil;
  * 
  * @author markus
  */
-public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements Serializable, Comparable<MessageBase<N>> {
+public abstract class MessageBase <N extends XdiEntity> implements Serializable, Comparable<MessageBase<N>> {
 
 	private static final long serialVersionUID = 7063040731631258931L;
 
@@ -293,7 +292,9 @@ public abstract class MessageBase <N extends XdiSubGraph<? super N>> implements 
 	 */
 	public PolicyRoot getPolicyRoot(boolean create) {
 
-		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
+		XdiEntitySingleton xdiEntitySingleton = this.getXdiSubGraph().getXdiEntitySingleton(XDIPolicyConstants.XDI_ADD_DO, create);
+		if (xdiEntitySingleton == null) return null;
+		xdiEntitySingleton = xdiEntitySingleton.getXdiEntitySingleton(XDIPolicyConstants.XDI_ARC_IF, create);
 		if (xdiEntitySingleton == null) return null;
 
 		return PolicyRoot.fromXdiEntity(xdiEntitySingleton);

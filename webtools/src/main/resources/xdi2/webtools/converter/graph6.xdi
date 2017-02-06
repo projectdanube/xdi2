@@ -1,3 +1,3 @@
 (=markus/=drummond)$contract$do/$get/=markus<#email>
-(=markus/=drummond)($contract$if$and/$true){$from}/$is/=drummond
-(=markus/=drummond)($contract$if$and/$true){$msg}<$sig><$valid>/&/true
+(=markus/=drummond)($contract$do$if$and/$true){$from}/$is/=drummond
+(=markus/=drummond)($contract$do$if$and/$true){$msg}<$sig><$valid>/&/true
