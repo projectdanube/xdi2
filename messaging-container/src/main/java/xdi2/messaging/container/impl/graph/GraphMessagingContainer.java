@@ -33,6 +33,14 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 	private Graph graph;
 	private GraphContextHandler graphContextHandler;
 
+	public GraphMessagingContainer(Graph graph) {
+
+		super();
+
+		this.graph = graph;
+		this.graphContextHandler = new GraphContextHandler(graph);
+	}
+
 	public GraphMessagingContainer() {
 
 		super();
@@ -149,16 +157,9 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 		return this.graph;
 	}
 
-	public GraphContextHandler getGraphContextHandler() {
-
-		return this.graphContextHandler;
-	}
-
 	public void setGraph(Graph graph) {
 
 		this.graph = graph;
-		//		this.graphAddressHandler = new GraphAddressHandler(graph);
-		//		this.graphStatementHandler = new GraphStatementHandler(graph);
 		this.graphContextHandler = new GraphContextHandler(graph);
 	}
 }
