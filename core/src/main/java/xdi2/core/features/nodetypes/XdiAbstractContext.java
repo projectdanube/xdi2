@@ -161,19 +161,19 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 			if (reference) {
 
-				EQ referenceXdiContext = this.getReferenceXdiContext();
+				EQ referenceXdiContext = xdiContext.getReferenceXdiContext();
 				if (referenceXdiContext != null) { xdiContext = referenceXdiContext; continue; }
 			}
 
 			if (replacement) {
 
-				EQ replacementXdiContext = this.getReplacementXdiContext();
+				EQ replacementXdiContext = xdiContext.getReplacementXdiContext();
 				if (replacementXdiContext != null) { xdiContext = replacementXdiContext; continue; }
 			}
 
 			if (identity) {
 
-				EQ identityXdiContext = this.getIdentityXdiContext();
+				EQ identityXdiContext = xdiContext.getIdentityXdiContext();
 				if (identityXdiContext != null) { xdiContext = identityXdiContext; continue; }
 			}
 
@@ -244,7 +244,7 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	}
 
 	@Override
-	public XdiCommonRoot findLocalRoot() {
+	public XdiCommonRoot findCommonRoot() {
 
 		return new XdiCommonRoot(this.getContextNode().getGraph().getRootContextNode(false));
 	}

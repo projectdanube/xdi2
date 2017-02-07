@@ -6,6 +6,7 @@ import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
+import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
@@ -45,6 +46,16 @@ public final class GraphUtil {
 	public static void setOwnerXDIAddress(Graph graph, XDIAddress ownerXDIAddress) {
 
 		XdiCommonRoot.findCommonRoot(graph).setSelfPeerRoot(ownerXDIAddress);
+	}
+
+	public static boolean ownsPeerRootXDIArc(Graph graph, XDIArc peerRootXDIArc) {
+
+		XdiPeerRoot xdiPeerRoot = XdiCommonRoot.findCommonRoot(graph).getPeerRoot(peerRootXDIArc, false);
+		if (xdiPeerRoot == null) return false;
+
+		XdiRoot xdiRoot = xdiPeerRoot.dereference();
+
+		return xdiRoot instanceof XdiCommonRoot;
 	}
 
 	/**

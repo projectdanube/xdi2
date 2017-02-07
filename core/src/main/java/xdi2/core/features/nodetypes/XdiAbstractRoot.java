@@ -98,6 +98,17 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 	}
 
 	@Override
+	public XdiPeerRoot getPeerRoot(XDIArc peerRootXDIArc, boolean create) {
+
+		if (log.isTraceEnabled()) log.trace("getPeerRoot(" + peerRootXDIArc + "," + create + ")");
+
+		ContextNode peerRootContextNode = create ? this.getContextNode().setContextNode(peerRootXDIArc) : this.getContextNode().getContextNode(peerRootXDIArc, false);
+		if (peerRootContextNode == null) return null;
+
+		return XdiPeerRoot.fromContextNode(peerRootContextNode);
+	}
+
+	@Override
 	public XdiInnerRoot getInnerRoot(XDIAddress subject, XDIAddress predicate, boolean create) {
 
 		if (log.isTraceEnabled()) log.trace("getInnerRoot(" + subject + "," + predicate + "," + create + ")");
@@ -108,6 +119,17 @@ public abstract class XdiAbstractRoot extends XdiAbstractContext<XdiRoot> implem
 		if (innerRootContextNode == null) return null;
 
 		return new XdiInnerRoot(innerRootContextNode);
+	}
+
+	@Override
+	public XdiInnerRoot getInnerRoot(XDIArc innerRootXDIArc, boolean create) {
+
+		if (log.isTraceEnabled()) log.trace("getInnerRoot(" + innerRootXDIArc + "," + create + ")");
+
+		ContextNode innerRootContextNode = create ? this.getContextNode().setContextNode(innerRootXDIArc) : this.getContextNode().getContextNode(innerRootXDIArc, false);
+		if (innerRootContextNode == null) return null;
+
+		return XdiInnerRoot.fromContextNode(innerRootContextNode);
 	}
 
 	@Override

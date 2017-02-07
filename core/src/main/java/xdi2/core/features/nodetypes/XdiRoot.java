@@ -3,6 +3,7 @@ package xdi2.core.features.nodetypes;
 import java.util.Iterator;
 
 import xdi2.core.syntax.XDIAddress;
+import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.iterators.MappingIterator;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -34,6 +35,14 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	public XdiPeerRoot getPeerRoot(XDIAddress XDIaddress, boolean create);
 
 	/**
+	 * Returns an XDI peer root under this XDI root.
+	 * @param peerRootXDIArc The arc of the XDI peer root.
+	 * @param create Whether the XDI peer root should be created, if it does not exist.
+	 * @return The XDI peer root.
+	 */
+	public XdiPeerRoot getPeerRoot(XDIArc peerRootXDIArc, boolean create);
+
+	/**
 	 * Returns an XDI inner root under this XDI root.
 	 * @param subject The subject address whose XDI inner root to find.
 	 * @param predicate The predicate address whose XDI inner root to find.
@@ -41,6 +50,14 @@ public interface XdiRoot extends XdiContext<XdiRoot> {
 	 * @return The XDI inner root.
 	 */
 	public XdiInnerRoot getInnerRoot(XDIAddress subject, XDIAddress predicate, boolean create);
+
+	/**
+	 * Returns an XDI inner root under this XDI root.
+	 * @param innerRootXDIArc The arc of the XDI inner root.
+	 * @param create Whether the XDI inner root should be created, if it does not exist.
+	 * @return The XDI inner root.
+	 */
+	public XdiInnerRoot getInnerRoot(XDIArc innerRootXDIArc, boolean create);
 
 	/**
 	 * Returns an XDI root under this XDI root.

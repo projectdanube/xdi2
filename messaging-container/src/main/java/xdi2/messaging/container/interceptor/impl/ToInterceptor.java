@@ -55,7 +55,7 @@ public class ToInterceptor extends AbstractInterceptor<MessagingContainer> imple
 
 		if (toPeerRootXDIArc == null) throw new Xdi2MessagingException("No TO peer root found in message.", null, executionContext);
 
-		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root: " + toPeerRootXDIArc, null, executionContext);
+		if (! messagingContainer.ownsPeerRootXDIArc(toPeerRootXDIArc)) throw new Xdi2MessagingException("Invalid TO peer root: " + toPeerRootXDIArc, null, executionContext);
 
 		// done
 
