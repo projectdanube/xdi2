@@ -2,7 +2,7 @@ package xdi2.core.features.index;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.aggregation.Aggregation;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiAttribute;
@@ -39,31 +39,31 @@ public class Index {
 
 	public static void setEntityIndexAggregation(XdiEntityCollection xdiEntityCollection, XdiEntity xdiEntity) {
 
-		Equivalence.setAggregationContextNode(xdiEntityCollection.getContextNode(), xdiEntity.getContextNode());
+		Aggregation.setAggregationContextNode(xdiEntityCollection.getContextNode(), xdiEntity.getContextNode());
 	}
 
 	public static void setEntityIndexAggregation(XdiEntityCollection xdiEntityCollection, XDIAddress XDIaddress) {
 
-		Equivalence.setAggregationContextNode(xdiEntityCollection.getContextNode(), XDIaddress);
+		Aggregation.setAggregationContextNode(xdiEntityCollection.getContextNode(), XDIaddress);
 	}
 
 	public static void setAttributeIndexAggregation(XdiAttributeCollection xdiAttributeCollection, XdiAttribute xdiAttribute) {
 
-		Equivalence.setAggregationContextNode(xdiAttributeCollection.getContextNode(), xdiAttribute.getContextNode());
+		Aggregation.setAggregationContextNode(xdiAttributeCollection.getContextNode(), xdiAttribute.getContextNode());
 	}
 
 	public static void setAttributeIndexAggregation(XdiAttributeCollection xdiAttributeCollection, XDIAddress XDIaddress) {
 
-		Equivalence.setAggregationContextNode(xdiAttributeCollection.getContextNode(), XDIaddress);
+		Aggregation.setAggregationContextNode(xdiAttributeCollection.getContextNode(), XDIaddress);
 	}
 
 	public static ReadOnlyIterator<XdiEntity> getEntityIndexAggregations(XdiEntityCollection xdiEntityCollection) {
 
-		return new XdiAbstractEntity.MappingContextNodeXdiEntityIterator(Equivalence.getAggregationContextNodes(xdiEntityCollection.getContextNode()));
+		return new XdiAbstractEntity.MappingContextNodeXdiEntityIterator(Aggregation.getAggregationContextNodes(xdiEntityCollection.getContextNode()));
 	}
 
 	public static ReadOnlyIterator<XdiAttribute> getAttributeIndexAggregations(XdiAttributeCollection xdiAttributeCollection) {
 
-		return new XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator(Equivalence.getAggregationContextNodes(xdiAttributeCollection.getContextNode()));
+		return new XdiAbstractAttribute.MappingContextNodeXdiAttributeIterator(Aggregation.getAggregationContextNodes(xdiAttributeCollection.getContextNode()));
 	}
 }
