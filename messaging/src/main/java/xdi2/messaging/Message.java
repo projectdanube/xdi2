@@ -1,6 +1,7 @@
 package xdi2.messaging;
 
 import xdi2.core.ContextNode;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstance;
@@ -87,6 +88,16 @@ public final class Message extends MessageBase<XdiEntity> {
 		if (messageCollection == null) return null;
 
 		return fromMessageCollectionAndXdiEntity(messageCollection, xdiEntity);
+	}
+
+	/**
+	 * Factory method that creates an XDI message bound to a given context node.
+	 * @param contextNode The context node that is an XDI message.
+	 * @return The XDI message.
+	 */
+	public static Message fromContextNode(ContextNode contextNode) {
+
+		return Message.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 	}
 
 	/*

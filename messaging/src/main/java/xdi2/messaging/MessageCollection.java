@@ -73,7 +73,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 
 	/**
 	 * Factory method that creates an XDI message collection bound to a given XDI entity collection.
-	 * @param xdiEntityCollection The XDI entity class that is an XDI message collection.
+	 * @param xdiEntityCollection The XDI entity collection that is an XDI message collection.
 	 * @return The XDI message collection.
 	 */
 	public static MessageCollection fromXdiEntityCollection(XdiEntityCollection xdiEntityCollection) {
@@ -84,6 +84,16 @@ public final class MessageCollection implements Serializable, Comparable<Message
 		if (messageEnvelope == null) return null;
 
 		return fromMessageEnvelopeAndXdiEntityCollection(messageEnvelope, xdiEntityCollection);
+	}
+
+	/**
+	 * Factory method that creates an XDI message collection bound to a given context node.
+	 * @param contextNode The context node that is an XDI message collection.
+	 * @return The XDI message collection.
+	 */
+	public static MessageCollection fromContextNode(ContextNode contextNode) {
+
+		return MessageCollection.fromXdiEntityCollection(XdiEntityCollection.fromContextNode(contextNode));
 	}
 
 	/*
