@@ -262,7 +262,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingContainer> imp
 
 		MessagingContainer messagingContainer = executionContext.getCurrentMessagingContainer();
 
-		if (forwardingMessage.getToPeerRootXDIArc() != null && forwardingMessage.getToPeerRootXDIArc().equals(messagingContainer.getOwnerPeerRootXDIArc())) {
+		if (messagingContainer.ownsPeerRootXDIArc(toPeerRootXDIArc)) {
 
 			if (messagingContainer instanceof AbstractMessagingContainer) {
 

@@ -59,19 +59,13 @@ public class XDILocalAgentRouter extends XDIAbstractAgentRouter<XDILocalClientRo
 			return null;
 		}
 
-		XDIArc ownerPeerRootXDIArc = null;
-		if (ownerPeerRootXDIArc == null && this.getMessagingContainer() != null) ownerPeerRootXDIArc = this.getMessagingContainer().getOwnerPeerRootXDIArc();
-		if (ownerPeerRootXDIArc == null && this.getGraph() != null) ownerPeerRootXDIArc = GraphUtil.getOwnerPeerRootXDIArc(this.getGraph());
+		boolean ownsPeerRootXDIArc = false;
+		if (ownsPeerRootXDIArc == false && this.getMessagingContainer() != null) ownsPeerRootXDIArc |= this.getMessagingContainer().ownsPeerRootXDIArc(toPeerRootXDIArc);
+		if (ownsPeerRootXDIArc == false && this.getGraph() != null) ownsPeerRootXDIArc = GraphUtil.ownsPeerRootXDIArc(this.getGraph(), toPeerRootXDIArc);
 
-		if (ownerPeerRootXDIArc == null) {
+		if (! ownsPeerRootXDIArc) {
 
-			if (log.isDebugEnabled()) log.debug("Cannot route to unknown owner peer root. Skipping.");
-			return null;
-		}
-
-		if (! toPeerRootXDIArc.equals(ownerPeerRootXDIArc)) {
-
-			if (log.isDebugEnabled()) log.debug("Local messaging container " + (this.getMessagingContainer() == null ? null : this.getMessagingContainer().getClass().getSimpleName()) + " and graph " + (this.getGraph() == null ? null : this.getGraph().getClass().getSimpleName()) + " is no route to peer root " + toPeerRootXDIArc + " (" + ownerPeerRootXDIArc + "). Skipping.");
+			if (log.isDebugEnabled()) log.debug("Local messaging container " + (this.getMessagingContainer() == null ? null : this.getMessagingContainer().getClass().getSimpleName()) + " and graph " + (this.getGraph() == null ? null : this.getGraph().getClass().getSimpleName()) + " is no route to peer root " + toPeerRootXDIArc + " (" + ownsPeerRootXDIArc + "). Skipping.");
 			return null;
 		}
 

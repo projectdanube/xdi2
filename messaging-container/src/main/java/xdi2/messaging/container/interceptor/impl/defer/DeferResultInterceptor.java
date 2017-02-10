@@ -18,7 +18,6 @@ import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
-import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
@@ -116,7 +115,7 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingContain
 
 			// determine requesting and authorizing authorities
 
-			XDIAddress authorizingAuthority = XdiPeerRoot.getXDIAddressOfPeerRootXDIArc(messagingContainer.getOwnerPeerRootXDIArc());
+			XDIAddress authorizingAuthority = messagingContainer.getOwnerXDIAddress();
 			XDIAddress requestingAuthority = message.getFromXDIAddress();
 
 			// determine link contract instance ID

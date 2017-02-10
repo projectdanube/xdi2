@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.Graph;
 import xdi2.core.Relation;
-import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.aggregation.Aggregation;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.CopyUtil;
 import xdi2.core.util.iterators.IteratorListMaker;
@@ -77,7 +77,7 @@ public class HasInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		if (operation instanceof GetOperation && operation.getTargetXDIAddress() != null) {
 
-			List<Relation> hasRelations = new IteratorListMaker<Relation> (Equivalence.getAllAggregationRelations(operationResultGraph.getRootContextNode(true))).list();
+			List<Relation> hasRelations = new IteratorListMaker<Relation> (Aggregation.getAllAggregationRelations(operationResultGraph.getRootContextNode(true))).list();
 
 			for (Relation hasRelation : hasRelations) {
 

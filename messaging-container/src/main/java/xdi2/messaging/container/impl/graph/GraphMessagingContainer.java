@@ -70,9 +70,21 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 	}
 
 	@Override
+	public XDIAddress getOwnerXDIAddress() {
+
+		return GraphUtil.getOwnerXDIAddress(this.getGraph());
+	}
+
+	@Override
 	public void setOwnerPeerRootXDIArc(XDIArc ownerPeerRootXDIArc) {
 
 		GraphUtil.setOwnerPeerRootXDIArc(this.getGraph(), ownerPeerRootXDIArc);
+	}
+
+	@Override
+	public void setOwnerXDIAddress(XDIAddress ownerXDIAddress) {
+
+		GraphUtil.setOwnerXDIAddress(this.getGraph(), ownerXDIAddress);
 	}
 
 	@Override
