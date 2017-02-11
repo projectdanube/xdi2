@@ -4,7 +4,10 @@ import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
+import xdi2.core.features.equivalence.Equivalence;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.memory.MemoryGraphFactory;
@@ -56,6 +59,82 @@ public final class GraphUtil {
 		XdiRoot xdiRoot = xdiPeerRoot.dereference();
 
 		return xdiRoot instanceof XdiCommonRoot;
+	}
+
+	public static ContextNode dereference(ContextNode contextNode, boolean reference, boolean replacement, boolean identity) {
+
+		ContextNode dereferencedContextNode = contextNode;
+
+		while (true) {
+
+			if (reference) {
+
+				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(dereferencedContextNode);
+				if (referenceContextNode != null) { dereferencedContextNode = referenceContextNode; continue; }
+			}
+
+			if (replacement) {
+
+				ContextNode replacementContextNode = Equivalence.getReplacementContextNode(dereferencedContextNode);
+				if (replacementContextNode != null) { dereferencedContextNode = replacementContextNode; continue; }
+			}
+
+			if (identity) {
+
+				ContextNode identityContextNode = Equivalence.getIdentityContextNode(dereferencedContextNode);
+				if (identityContextNode != null) { dereferencedContextNode = identityContextNode; continue; }
+			}
+
+			break;
+		}
+
+		return dereferencedContextNode;
+	}
+
+	public static ContextNode dereference(ContextNode contextNode) {
+
+		return dereference(contextNode, true, true, false);
+	}
+
+	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress, boolean reference, boolean replacement, boolean identity) {
+
+		for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
+
+			if (XdiInnerRoot.isValidXDIArc(XDIarc)) {
+
+				XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc);
+				XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc);
+
+				ContextNode subjectContextNode = dereference(contextNode, subject, reference, replacement, identity);
+				XdiInnerRoot xdiInnerRoot = XdiAbstractContext.fromContextNode(subjectContextNode).getXdiInnerRoot(predicate, false);
+				if (xdiInnerRoot == null) return null;
+
+				contextNode = xdiInnerRoot.getContextNode();
+			} else {
+
+				contextNode = contextNode.getContextNode(XDIarc);
+				if (contextNode == null) return null;
+
+				contextNode = dereference(contextNode, reference, replacement, identity);
+			}
+		}
+
+		return contextNode;
+	}
+
+	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress) {
+
+		return dereference(contextNode, XDIaddress, true, true, false);
+	}
+
+	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress, boolean reference, boolean replacement, boolean identity) {
+
+		return dereference(graph.getRootContextNode(), XDIaddress, reference, replacement, identity);
+	}
+
+	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress) {
+
+		return dereference(graph, XDIaddress, true, true, false);
 	}
 
 	/**

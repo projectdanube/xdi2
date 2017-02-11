@@ -37,6 +37,7 @@ import xdi2.tests.core.syntax.CloudNameTest;
 import xdi2.tests.core.syntax.CloudNumberTest;
 import xdi2.tests.core.syntax.ParserImplTest;
 import xdi2.tests.core.util.CopyUtilTest;
+import xdi2.tests.core.util.GraphUtilTest;
 import xdi2.tests.core.util.XDIAddressUtilTest;
 import xdi2.tests.core.util.XDIStatementUtilTest;
 import xdi2.tests.core.util.XRI2UtilTest;
@@ -83,6 +84,7 @@ public class AllTests {
 		suite.addTestSuite(XDIAddressUtilTest.class);
 		suite.addTestSuite(CloudNameTest.class);
 		suite.addTestSuite(CloudNumberTest.class);
+		suite.addTestSuite(GraphUtilTest.class);
 		suite.addTestSuite(CopyUtilTest.class);
 		suite.addTestSuite(XDIStatementUtilTest.class);
 		suite.addTestSuite(IteratorTest.class);
