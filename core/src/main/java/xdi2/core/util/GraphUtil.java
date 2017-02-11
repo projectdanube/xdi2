@@ -61,7 +61,7 @@ public final class GraphUtil {
 		return xdiRoot instanceof XdiCommonRoot;
 	}
 
-	public static ContextNode dereference(ContextNode contextNode, boolean reference, boolean replacement, boolean identity) {
+	public static ContextNode dereference(ContextNode contextNode, boolean subgraph, boolean reference, boolean replacement, boolean identity) {
 
 		ContextNode dereferencedContextNode = contextNode;
 
@@ -91,12 +91,12 @@ public final class GraphUtil {
 		return dereferencedContextNode;
 	}
 
-	public static ContextNode dereference(ContextNode contextNode) {
+	public static ContextNode dereference(ContextNode contextNode, boolean subgraph) {
 
-		return dereference(contextNode, true, true, false);
+		return dereference(contextNode, subgraph, true, true, false);
 	}
 
-	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress, boolean reference, boolean replacement, boolean identity) {
+	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress, boolean subgraph, boolean reference, boolean replacement, boolean identity) {
 
 		for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
 
@@ -105,7 +105,7 @@ public final class GraphUtil {
 				XDIAddress subject = XdiInnerRoot.getSubjectOfInnerRootXDIArc(XDIarc);
 				XDIAddress predicate = XdiInnerRoot.getPredicateOfInnerRootXDIArc(XDIarc);
 
-				ContextNode subjectContextNode = dereference(contextNode, subject, reference, replacement, identity);
+				ContextNode subjectContextNode = dereference(contextNode, subject, subgraph, reference, replacement, identity);
 				XdiInnerRoot xdiInnerRoot = XdiAbstractContext.fromContextNode(subjectContextNode).getXdiInnerRoot(predicate, false);
 				if (xdiInnerRoot == null) return null;
 
@@ -114,27 +114,27 @@ public final class GraphUtil {
 
 				contextNode = contextNode.getContextNode(XDIarc);
 				if (contextNode == null) return null;
-
-				contextNode = dereference(contextNode, reference, replacement, identity);
 			}
+
+			contextNode = dereference(contextNode, subgraph, reference, replacement, identity);
 		}
 
 		return contextNode;
 	}
 
-	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress) {
+	public static ContextNode dereference(ContextNode contextNode, XDIAddress XDIaddress, boolean subgraph) {
 
-		return dereference(contextNode, XDIaddress, true, true, false);
+		return dereference(contextNode, XDIaddress, subgraph, true, true, false);
 	}
 
-	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress, boolean reference, boolean replacement, boolean identity) {
+	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress, boolean subgraph, boolean reference, boolean replacement, boolean identity) {
 
-		return dereference(graph.getRootContextNode(), XDIaddress, reference, replacement, identity);
+		return dereference(graph.getRootContextNode(), XDIaddress, subgraph, reference, replacement, identity);
 	}
 
-	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress) {
+	public static ContextNode dereference(Graph graph, XDIAddress XDIaddress, boolean subgraph) {
 
-		return dereference(graph, XDIaddress, true, true, false);
+		return dereference(graph, XDIaddress, subgraph, true, true, false);
 	}
 
 	/**

@@ -54,12 +54,12 @@ public class GraphUtilTest extends TestCase {
 		ContextNode contextNode1111 = graph.getDeepContextNode(TEST_CONTEXTNODE_1111);
 		ContextNode contextNode1a1a = graph.getDeepContextNode(TEST_CONTEXTNODE_1a1a);
 
-		assertTrue(GraphUtil.dereference(contextNode1111).isRootContextNode());
-		assertTrue(GraphUtil.dereference(contextNode1a1a).isRootContextNode());
+		assertTrue(GraphUtil.dereference(contextNode1111, false).isRootContextNode());
+		assertTrue(GraphUtil.dereference(contextNode1a1a, false).isRootContextNode());
 		assertNotNull(graph.getDeepContextNode(TEST_CONTEXTNODE_1111_2222_CONTRACT));
 		assertNull(graph.getDeepContextNode(TEST_CONTEXTNODE_1a1a_2222_CONTRACT));
-		assertNotNull(GraphUtil.dereference(graph, TEST_CONTEXTNODE_1111_2222_CONTRACT));
-		assertNotNull(GraphUtil.dereference(graph, TEST_CONTEXTNODE_1a1a_2222_CONTRACT));
+		assertNotNull(GraphUtil.dereference(graph, TEST_CONTEXTNODE_1111_2222_CONTRACT, false));
+		assertNotNull(GraphUtil.dereference(graph, TEST_CONTEXTNODE_1a1a_2222_CONTRACT, false));
 
 		graph.close();
 	}
