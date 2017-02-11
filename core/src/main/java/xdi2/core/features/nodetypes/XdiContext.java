@@ -20,10 +20,6 @@ public interface XdiContext<EQ extends XdiContext<EQ>> extends Serializable, Com
 	public XdiContext<?> getXdiContext();
 	public EQ dereference(boolean reference, boolean replacement, boolean identity);
 	public EQ dereference();
-	public EQ getReferenceXdiContext();
-	public EQ getReplacementXdiContext();
-	public Iterator<EQ> getIdentityXdiContexts();
-	public EQ getIdentityXdiContext();
 
 	public XdiRoot findRoot();
 	public XdiCommonRoot findCommonRoot();

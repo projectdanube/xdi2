@@ -1,7 +1,6 @@
 package xdi2.core.features.nodetypes;
 
 import java.lang.reflect.Method;
-import java.util.Iterator;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
@@ -9,7 +8,6 @@ import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.util.GraphUtil;
-import xdi2.core.util.iterators.MappingIterator;
 
 public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements XdiContext<EQ> {
 
@@ -161,19 +159,22 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 			if (reference) {
 
-				EQ referenceXdiContext = xdiContext.getReferenceXdiContext();
+				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(xdiContext.getContextNode());
+				EQ referenceXdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
 				if (referenceXdiContext != null) { xdiContext = referenceXdiContext; continue; }
 			}
 
 			if (replacement) {
 
-				EQ replacementXdiContext = xdiContext.getReplacementXdiContext();
+				ContextNode replacementContextNode = Equivalence.getReplacementContextNode(xdiContext.getContextNode());
+				EQ replacementXdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
 				if (replacementXdiContext != null) { xdiContext = replacementXdiContext; continue; }
 			}
 
 			if (identity) {
 
-				EQ identityXdiContext = xdiContext.getIdentityXdiContext();
+				ContextNode identityContextNode = Equivalence.getIdentityContextNode(xdiContext.getContextNode());
+				EQ identityXdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
 				if (identityXdiContext != null) { xdiContext = identityXdiContext; continue; }
 			}
 
@@ -187,54 +188,6 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 	public EQ dereference() {
 
 		return this.dereference(true, true, false);
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ getReferenceXdiContext() {
-
-		ContextNode referenceContextNode = Equivalence.getReferenceContextNode(this.getContextNode());
-		EQ xdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
-
-		return xdiContext;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ getReplacementXdiContext() {
-
-		ContextNode replacementContextNode = Equivalence.getReplacementContextNode(this.getContextNode());
-		EQ xdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
-
-		return xdiContext;
-	}
-
-	@Override
-	public Iterator<EQ> getIdentityXdiContexts() {
-
-		Iterator<ContextNode> identityContextNodes = Equivalence.getIdentityContextNodes(this.getContextNode());
-
-		return new MappingIterator<ContextNode, EQ> (identityContextNodes) {
-
-			@Override
-			@SuppressWarnings("unchecked")
-			public EQ map(ContextNode identityContextNode) {
-
-				EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
-
-				return xdiContext;
-			}
-		};
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public EQ getIdentityXdiContext() {
-
-		ContextNode identityContextNode = Equivalence.getIdentityContextNode(this.getContextNode());
-		EQ xdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
-
-		return xdiContext;
 	}
 
 	@Override
