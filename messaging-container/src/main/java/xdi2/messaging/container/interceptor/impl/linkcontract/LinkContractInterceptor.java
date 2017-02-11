@@ -20,6 +20,7 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
+import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -95,7 +96,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingContai
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = this.getLinkContractsGraph(executionContext).getDeepContextNode(linkContractXDIAddress, true);
+		ContextNode linkContractContextNode = GraphUtil.dereference(this.getLinkContractsGraph(executionContext), linkContractXDIAddress, true);
 		XdiEntity xdiEntity = linkContractContextNode == null ? null : XdiAbstractEntity.fromContextNode(linkContractContextNode);
 		LinkContract linkContract = xdiEntity == null ? null : LinkContract.fromXdiEntity(xdiEntity);
 
