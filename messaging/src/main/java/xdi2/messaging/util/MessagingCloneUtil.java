@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.Relation;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiEntity;
@@ -16,7 +15,6 @@ import xdi2.core.util.CopyUtil;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageCollection;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.operations.Operation;
 
 /**
@@ -74,8 +72,6 @@ public final class MessagingCloneUtil {
 
 			copiedContextNode = CopyUtil.copyContextNode(message.getContextNode(), clonedMessageCollection.getContextNode(), null);
 		}
-
-		for (Relation incomingRelation : message.getContextNode().getIncomingRelations(XDIMessagingConstants.XDI_ADD_SEND)) copiedContextNode.getGraph().setDeepRelation(incomingRelation.getContextNode().getXDIAddress(), incomingRelation.getXDIAddress(), copiedContextNode);
 
 		XdiEntity clonedXdiEntity = XdiAbstractEntity.fromContextNode(copiedContextNode);
 		Message clonedMessage = Message.fromMessageCollectionAndXdiEntity(clonedMessageCollection, clonedXdiEntity);
