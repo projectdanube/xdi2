@@ -681,6 +681,96 @@ public final class CopyUtil {
 	}
 
 	/**
+	 * A strategy that inserts a parent XDI address.
+	 */
+	public static class InsertParentXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+
+		private XDIAddress parentXDIAddress;
+
+		public InsertParentXDIAddressCopyStrategy(XDIAddress parentXDIAddress) {
+
+			this.parentXDIAddress = parentXDIAddress;
+		}
+
+		@Override
+		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
+
+			XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
+
+			XDIAddress replacedContextNodeXDIAddress = replaceXDIAddress(contextNodeXDIAddress);
+
+			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
+
+			return Collections.singletonList(replacedContextNode);
+		}
+
+		@Override
+		public List<Relation> replaceRelation(Relation relation) {
+
+			XDIAddress contextNodeXDIAddress = relation.getContextNode().getXDIAddress();
+			XDIAddress XDIaddress = relation.getXDIAddress();
+			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
+
+			XDIAddress replacedTargetXDIAddress = replaceXDIAddress(targetXDIAddress);
+
+			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
+
+			return Collections.singletonList(replacedRelation);
+		}
+
+		private XDIAddress replaceXDIAddress(XDIAddress XDIaddress) {
+
+			return XDIAddressUtil.concatXDIAddresses(this.parentXDIAddress, XDIaddress);
+		}
+	}
+
+	/**
+	 * A strategy that removes a parent XDI address.
+	 */
+	public static class RemoveParentXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+
+		private XDIAddress parentXDIAddress;
+
+		public RemoveParentXDIAddressCopyStrategy(XDIAddress parentXDIAddress) {
+
+			this.parentXDIAddress = parentXDIAddress;
+		}
+
+		@Override
+		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
+
+			XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
+
+			XDIAddress replacedContextNodeXDIAddress = replaceXDIAddress(contextNodeXDIAddress);
+
+			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
+
+			return Collections.singletonList(replacedContextNode);
+		}
+
+		@Override
+		public List<Relation> replaceRelation(Relation relation) {
+
+			XDIAddress contextNodeXDIAddress = relation.getContextNode().getXDIAddress();
+			XDIAddress XDIaddress = relation.getXDIAddress();
+			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
+
+			XDIAddress replacedTargetXDIAddress = replaceXDIAddress(targetXDIAddress);
+
+			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
+
+			return Collections.singletonList(replacedRelation);
+		}
+
+		private XDIAddress replaceXDIAddress(XDIAddress XDIaddress) {
+
+			XDIAddress replacedXDIAddress = XDIAddressUtil.removeStartXDIAddress(XDIaddress, this.parentXDIAddress);
+
+			return replacedXDIAddress != null ? replacedXDIAddress : XDIaddress;
+		}
+	}
+
+	/**
 	 * A strategy for replacing escaped variables.
 	 */
 
