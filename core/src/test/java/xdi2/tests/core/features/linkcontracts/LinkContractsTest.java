@@ -205,8 +205,6 @@ public class LinkContractsTest extends TestCase {
 		lc.delPermissionTargetXDIAddress(XDILinkContractConstants.XDI_ADD_GET, XDIAddress.create("=a"));
 		lc.delPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET);
 
-		System.out.println(graph.toString("XDI DISPLAY"));
-
 		assertFalse(lc.getPermissionTargetXDIAddresses(XDILinkContractConstants.XDI_ADD_GET).hasNext());
 		assertFalse(lc.getPermissionTargetXDIStatements(XDILinkContractConstants.XDI_ADD_GET).hasNext());
 
