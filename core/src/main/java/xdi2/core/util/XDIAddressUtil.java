@@ -519,8 +519,8 @@ public final class XDIAddressUtil {
 	/**
 	 * Removes a start address from an address.
 	 * E.g. for =a*b*c*d and =a*b, this returns *c*d
-	 * E.g. for =a*b*c*d and (), this returns =a*b*c*d
-	 * E.g. for =a*b*c*d and =a*b*c*d, this returns ()
+	 * E.g. for =a*b*c*d and (empty address), this returns =a*b*c*d
+	 * E.g. for =a*b*c*d and =a*b*c*d, this returns (empty address)
 	 * E.g. for =a*b*c*d and =x, this returns null
 	 */
 	public static XDIAddress removeStartXDIAddress(final XDIAddress XDIaddress, final XDIAddress startXDIAddress) {
