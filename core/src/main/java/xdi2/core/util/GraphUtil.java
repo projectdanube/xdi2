@@ -138,6 +138,15 @@ public final class GraphUtil {
 	}
 
 	/**
+	 * Creates a graph in memory.
+	 * @return A graph.
+	 */
+	public static Graph graph() {
+
+		return MemoryGraphFactory.getInstance().openGraph();
+	}
+
+	/**
 	 * Creates a context node from its components.
 	 * @param contextNodeXDIAddress The address of the context node.
 	 * @return A context node.

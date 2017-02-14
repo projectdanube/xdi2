@@ -332,14 +332,14 @@ public final class XDIAddressUtil {
 	/**
 	 * Finds a part of an XDI address that matches a certain node type.
 	 */
-	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes, boolean keepOnlyFirst, boolean keepOnlyLast, boolean keepParent, boolean keepLocal) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<? extends X>[] clazzes, boolean keepOnlyFirstFound, boolean keepOnlyLastFound, boolean keepAllFound, boolean keepParent, boolean keepLocal) {
 
 		try {
 
 			ContextNode contextNode = GraphUtil.contextNodeFromComponents(XDIaddress);
 			XdiContext<?> xdiContext = null;
 
-			LinkedList<XDIArc> XDIarcs = null;
+			LinkedList<XDIArc> XDIfoundArcs = null;
 			List<XDIArc> XDIparentArcs = new ArrayList<XDIArc> ();
 			List<XDIArc> XDIlocalArcs = new ArrayList<XDIArc> ();
 
@@ -354,17 +354,17 @@ public final class XDIAddressUtil {
 
 				if (found) {
 
-					if (XDIarcs == null) XDIarcs = new LinkedList<XDIArc> ();
-
+					if (XDIfoundArcs == null) XDIfoundArcs = new LinkedList<XDIArc> ();
+					
 					if (! contextNode.isRootContextNode()) {
 
-						XDIarcs.add(0, contextNode.getXDIArc());
+						XDIfoundArcs.add(0, contextNode.getXDIArc());
 					}
 				} else {
 
 					if (! contextNode.isRootContextNode()) {
 
-						if (XDIarcs == null) {
+						if (XDIfoundArcs == null) {
 
 							XDIlocalArcs.add(0, contextNode.getXDIArc());
 						} else {
@@ -377,10 +377,13 @@ public final class XDIAddressUtil {
 				contextNode = contextNode.getContextNode();
 			}
 
-			if (XDIarcs == null) return null;
+			if (XDIfoundArcs == null) return null;
 
-			if (XDIarcs.size() > 0 && keepOnlyFirst) { XDIArc first = XDIarcs.getFirst(); XDIarcs.clear(); XDIarcs.add(first); }
-			if (XDIarcs.size() > 0 && keepOnlyLast) { XDIArc last = XDIarcs.getLast(); XDIarcs.clear(); XDIarcs.add(last); }
+			LinkedList<XDIArc> XDIarcs = new LinkedList<XDIArc> ();
+
+			if (XDIfoundArcs.size() > 0 && keepOnlyFirstFound) { XDIArc first = XDIfoundArcs.getFirst(); XDIarcs.add(first); }
+			if (XDIfoundArcs.size() > 0 && keepOnlyLastFound) { XDIArc last = XDIfoundArcs.getLast(); XDIarcs.add(last); }
+			if (XDIfoundArcs.size() > 0 && keepAllFound) { XDIarcs.addAll(XDIfoundArcs); }
 
 			if (keepParent) XDIarcs.addAll(0, XDIparentArcs);
 			if (keepLocal) XDIarcs.addAll(XDIlocalArcs);
@@ -392,13 +395,13 @@ public final class XDIAddressUtil {
 		}
 	}
 
-	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<X> clazz, boolean keepOnlyFirst, boolean keepOnlyLast, boolean keepParent, boolean keepLocal) {
+	public static <X extends XdiContext<?>> XDIAddress extractXDIAddress(XDIAddress XDIaddress, Class<X> clazz, boolean keepOnlyFirstFound, boolean keepOnlyLastFound, boolean keepAllFound, boolean keepParent, boolean keepLocal) {
 
 		@SuppressWarnings("unchecked")
 		Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
 		clazzes[0] = clazz;
 
-		return extractXDIAddress(XDIaddress, clazzes, keepOnlyFirst, keepOnlyLast, keepParent, keepLocal);
+		return extractXDIAddress(XDIaddress, clazzes, keepOnlyFirstFound, keepOnlyLastFound, keepAllFound, keepParent, keepLocal);
 	}
 
 	/**

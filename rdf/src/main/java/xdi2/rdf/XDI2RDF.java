@@ -46,7 +46,7 @@ public class XDI2RDF {
 				org.openrdf.model.Value object;
 				org.openrdf.model.Resource context = null;
 
-				XDIAddress rootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIstatement.getContextNodeXDIAddress(), XdiPeerRoot.class, false, false, false, false);
+				XDIAddress rootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIstatement.getContextNodeXDIAddress(), XdiPeerRoot.class, false, false, true, false, false);
 
 				if (rootXDIAddress != null) {
 
@@ -82,7 +82,7 @@ public class XDI2RDF {
 					if (rootXDIAddress != null) subjectXDIAddress = XDIAddressUtil.localXDIAddress(subjectXDIAddress, - rootXDIAddress.getNumXDIArcs());
 					if (subjectXDIAddress == null) subjectXDIAddress = XDIConstants.XDI_ADD_ROOT;
 
-					XDIAddress predicateXDIAddress = XDIAddressUtil.extractXDIAddress(subjectXDIAddress, XdiAttribute.class, false, false, false, true);
+					XDIAddress predicateXDIAddress = XDIAddressUtil.extractXDIAddress(subjectXDIAddress, XdiAttribute.class, false, false, true, false, true);
 
 					subjectXDIAddress = XDIAddressUtil.parentXDIAddress(subjectXDIAddress, - predicateXDIAddress.getNumXDIArcs());
 

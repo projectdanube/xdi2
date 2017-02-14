@@ -134,7 +134,7 @@ public class RelationshipLinkContract extends LinkContract {
 
 	public static XDIAddress getAuthorizingAuthority(XDIAddress XDIaddress) {
 
-		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, false, true);
 		if (XDIaddress == null) return null;
 
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
@@ -145,7 +145,7 @@ public class RelationshipLinkContract extends LinkContract {
 
 	public static XDIAddress getRequestingAuthority(XDIAddress XDIaddress) {
 
-		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, false, true);
 		if (XDIaddress == null) return null;
 
 		XDIArc linkContractInnerRootXDIArc = XDIaddress.getFirstXDIArc();
@@ -156,7 +156,7 @@ public class RelationshipLinkContract extends LinkContract {
 
 	public static XDIAddress getTemplateAuthorityAndId(XDIAddress XDIaddress) {
 
-		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, true);
+		XDIaddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiInnerRoot.class, false, true, false, false, true);
 		if (XDIaddress == null) return null;
 
 		int index = XDIAddressUtil.indexOfXDIArc(XDIaddress, XDILinkContractConstants.XDI_ARC_CONTRACT);

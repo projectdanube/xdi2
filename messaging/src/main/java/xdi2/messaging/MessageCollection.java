@@ -53,7 +53,7 @@ public final class MessageCollection implements Serializable, Comparable<Message
 	public static boolean isValid(XdiEntityCollection xdiEntityCollection) {
 
 		if (! xdiEntityCollection.getContextNode().getXDIArc().equals(XdiEntityCollection.createXDIArc(XDIMessagingConstants.XDI_ARC_MSG))) return false;
-		if (XDIAddressUtil.extractXDIAddress(xdiEntityCollection.getContextNode().getXDIAddress(), XdiInnerRoot.class, false, false, false, false) != null) return false;
+		if (XDIAddressUtil.extractXDIAddress(xdiEntityCollection.getContextNode().getXDIAddress(), XdiInnerRoot.class, false, false, true, false, false) != null) return false;
 
 		return true;
 	}

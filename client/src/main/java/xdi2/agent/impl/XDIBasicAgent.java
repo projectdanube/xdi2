@@ -97,7 +97,7 @@ public class XDIBasicAgent implements XDIAgent {
 
 		// let's find out the TO peer root of the address
 
-		XDIAddress peerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false, false, false);
+		XDIAddress peerRootXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, XdiPeerRoot.class, false, false, true, false, false);
 		XDIArc peerRootFirstXDIArc = peerRootXDIAddress == null ? null : peerRootXDIAddress.getFirstXDIArc();
 
 		XDIArc firstXDIArc = XDIaddress.getFirstXDIArc();

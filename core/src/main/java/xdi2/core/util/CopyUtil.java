@@ -1,5 +1,6 @@
 package xdi2.core.util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import xdi2.core.Statement;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.exceptions.Xdi2RuntimeException;
 import xdi2.core.features.nodetypes.XdiCommonRoot;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.features.nodetypes.XdiRoot;
 import xdi2.core.impl.DummyLiteralNode;
@@ -36,7 +38,7 @@ public final class CopyUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(CopyUtil.class);
 
-	private static final CopyStrategy allCopyStrategy = new AllCopyStrategy();
+	private static final CopyStrategy DEFAULT_COPY_STRATEGY = new AllCopyStrategy();
 
 	private CopyUtil() { }
 
@@ -50,7 +52,7 @@ public final class CopyUtil {
 
 		if (graph == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		if (graph == targetGraph) throw new Xdi2RuntimeException("Source and target graph cannot be the same.");
 
@@ -72,29 +74,25 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
-		List<ContextNode> copyContextNodes = copyStrategy.replaceContextNode(contextNode);
-		if (copyContextNodes == null) copyContextNodes = Collections.singletonList(contextNode); // TODO: maybe avoid creating a list object here
+		ContextNode targetContextNode;
 
-		ContextNode targetCopiedContextNode = null;
+		XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
 
-		for (ContextNode copyContextNode : copyContextNodes) {
+		if (contextNode.isRootContextNode()) {
 
-			XDIAddress contextNodeXDIAddress = copyContextNode.getXDIAddress();
+			targetContextNode = targetGraph.getRootContextNode(false);
 
-			if (copyContextNode.isRootContextNode()) {
+			copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
+		} else {
 
-				targetCopiedContextNode = targetGraph.getRootContextNode(false);
-			} else {
+			targetContextNode = targetGraph.setDeepContextNode(contextNodeXDIAddress);
 
-				targetCopiedContextNode = targetGraph.setDeepContextNode(contextNodeXDIAddress);
-			}
-
-			copyContextNodeContents(copyContextNode, targetCopiedContextNode, copyStrategy);
+			copyContextNodeContents(contextNode, targetContextNode, copyStrategy);
 		}
 
-		return copyContextNodes.size() > 1 ? null : targetCopiedContextNode;
+		return targetContextNode;
 	}
 
 	/**
@@ -108,7 +106,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		List<ContextNode> copyContextNodes = copyStrategy.replaceContextNode(contextNode);
 		if (copyContextNodes == null) copyContextNodes = Collections.singletonList(contextNode); // TODO: maybe avoid creating a list object here
@@ -117,11 +115,12 @@ public final class CopyUtil {
 
 		for (ContextNode copyContextNode : copyContextNodes) {
 
-			if (copyContextNode.isRootContextNode()) throw new IllegalArgumentException("Cannot copy root context node.");
+			XDIArc copyContextNodeXDIArc = copyContextNode.getXDIArc();
 
-			XDIArc contextNodeXDIArc = copyContextNode.getXDIArc();
-
-			targetCopiedContextNode = targetContextNode.setContextNode(contextNodeXDIArc);
+			if (copyContextNodeXDIArc != null)
+				targetCopiedContextNode = targetContextNode.setContextNode(copyContextNodeXDIArc);
+			else
+				targetCopiedContextNode = targetContextNode;
 
 			copyContextNodeContents(copyContextNode, targetCopiedContextNode, copyStrategy);
 		}
@@ -140,7 +139,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		for (Iterator<ContextNode> innerContextNodes = contextNode.getContextNodes(); innerContextNodes.hasNext(); ) {
 
@@ -167,7 +166,7 @@ public final class CopyUtil {
 
 		if (relation == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		XDIAddress relationContextNodeXDIAddress = relation.getContextNode().getXDIAddress();
 		ContextNode targetContextNode = targetGraph.setDeepContextNode(relationContextNodeXDIAddress);
@@ -186,7 +185,7 @@ public final class CopyUtil {
 
 		if (relation == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		List<Relation> copyRelations = copyStrategy.replaceRelation(relation);
 		if (copyRelations == null) copyRelations = Collections.singletonList(relation); // TODO: maybe avoid creating a list object here
@@ -204,7 +203,7 @@ public final class CopyUtil {
 			XdiRoot relationContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(copyRelation.getContextNode().getGraph()).getRoot(relationContextNodeXDIAddress, false);
 			XdiRoot targetContextNodeXdiRoot = XdiCommonRoot.findCommonRoot(targetContextNode.getGraph()).getRoot(targetXDIAddress, false);
 
-			XDIAddress relativeRelationcontextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationContextNodeXDIAddress);
+			XDIAddress relativeRelationContextNodeXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationContextNodeXDIAddress);
 			XDIAddress relativeRelationTargetXDIAddress = relationContextNodeXdiRoot.absoluteToRelativeXDIAddress(relationTargetXDIAddress);
 			XDIAddress relativeTargetXDIAddress = targetContextNodeXdiRoot.absoluteToRelativeXDIAddress(targetXDIAddress);
 
@@ -213,7 +212,7 @@ public final class CopyUtil {
 			if (relativeRelationTargetXDIAddress != null &&
 					relativeRelationTargetXDIAddress.getNumXDIArcs() == 1 &&
 					XdiInnerRoot.isValidXDIArc(relativeRelationTargetXDIAddress.getFirstXDIArc()) &&
-					XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationTargetXDIAddress.getFirstXDIArc()).equals(relativeRelationcontextNodeXDIAddress) &&
+					XdiInnerRoot.getSubjectOfInnerRootXDIArc(relativeRelationTargetXDIAddress.getFirstXDIArc()).equals(relativeRelationContextNodeXDIAddress) &&
 					XdiInnerRoot.getPredicateOfInnerRootXDIArc(relativeRelationTargetXDIAddress.getFirstXDIArc()).equals(relationXDIAddress)) {
 
 				// if the target context node is not the same, we need to adjust the inner root
@@ -249,7 +248,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		for (Iterator<Relation> relations = contextNode.getRelations(); relations.hasNext(); ) {
 
@@ -276,7 +275,7 @@ public final class CopyUtil {
 
 		if (literalNode == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		XDIAddress literalNodeContextNodeXDIAddress = literalNode.getContextNode().getXDIAddress();
 		ContextNode targetContextNode = targetGraph.setDeepContextNode(literalNodeContextNodeXDIAddress);
@@ -295,7 +294,7 @@ public final class CopyUtil {
 
 		if (literalNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		if ((literalNode = copyStrategy.replaceLiteralNode(literalNode)) == null) return null;
 
@@ -317,7 +316,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		LiteralNode literalNode = contextNode.getLiteralNode();
 		if (literalNode == null) return null;
@@ -367,7 +366,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetContextNode == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		copyContextNodes(contextNode, targetContextNode, copyStrategy);
 		copyRelations(contextNode, targetContextNode, copyStrategy);
@@ -384,7 +383,7 @@ public final class CopyUtil {
 
 		if (contextNode == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		copyContextNodes(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
 		copyRelations(contextNode, targetGraph.getRootContextNode(false), copyStrategy);
@@ -402,7 +401,7 @@ public final class CopyUtil {
 
 		if (statement == null) throw new NullPointerException();
 		if (targetGraph == null) throw new NullPointerException();
-		if (copyStrategy == null) copyStrategy = allCopyStrategy;
+		if (copyStrategy == null) copyStrategy = DEFAULT_COPY_STRATEGY;
 
 		targetGraph.setStatement(statement.getXDIStatement());
 
@@ -681,25 +680,36 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * A strategy that inserts a parent XDI address.
+	 * A strategy that concats XDI addresses.
 	 */
-	public static class InsertParentXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+	public static class ConcatXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
-		private XDIAddress parentXDIAddress;
+		private XDIAddress startXDIAddress;
 
-		public InsertParentXDIAddressCopyStrategy(XDIAddress parentXDIAddress) {
+		public ConcatXDIAddressCopyStrategy(XDIAddress startXDIAddress) {
 
-			this.parentXDIAddress = parentXDIAddress;
+			this.startXDIAddress = startXDIAddress;
 		}
 
 		@Override
 		public List<ContextNode> replaceContextNode(ContextNode contextNode) {
 
+			if (contextNode.isRootContextNode()) return null;
+			if (! contextNode.getContextNode().isRootContextNode()) return null;
+
 			XDIAddress contextNodeXDIAddress = contextNode.getXDIAddress();
 
 			XDIAddress replacedContextNodeXDIAddress = replaceXDIAddress(contextNodeXDIAddress);
 
+			if (log.isTraceEnabled()) log.trace("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
+
+			if (contextNodeXDIAddress.equals(replacedContextNodeXDIAddress)) return super.replaceContextNode(contextNode);
+
 			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
+			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
+
+			int additionalArcs = replacedContextNodeXDIAddress.getNumXDIArcs() - contextNodeXDIAddress.getNumXDIArcs();
+			replacedContextNode = replacedContextNode.getContextNode(additionalArcs);
 
 			return Collections.singletonList(replacedContextNode);
 		}
@@ -711,29 +721,57 @@ public final class CopyUtil {
 			XDIAddress XDIaddress = relation.getXDIAddress();
 			XDIAddress targetXDIAddress = relation.getTargetXDIAddress();
 
+			XDIAddress replacedContextNodeXDIAddress = replaceXDIAddress(contextNodeXDIAddress);
 			XDIAddress replacedTargetXDIAddress = replaceXDIAddress(targetXDIAddress);
 
-			Relation replacedRelation = GraphUtil.relationFromComponents(contextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
+			if (log.isTraceEnabled()) log.trace("Replaced " + contextNodeXDIAddress + " with " + replacedContextNodeXDIAddress);
+			if (log.isTraceEnabled()) log.trace("Replaced " + targetXDIAddress + " with " + replacedTargetXDIAddress);
+
+			Relation replacedRelation = GraphUtil.relationFromComponents(replacedContextNodeXDIAddress, XDIaddress, replacedTargetXDIAddress);
 
 			return Collections.singletonList(replacedRelation);
 		}
 
 		private XDIAddress replaceXDIAddress(XDIAddress XDIaddress) {
 
-			return XDIAddressUtil.concatXDIAddresses(this.parentXDIAddress, XDIaddress);
+			return XDIAddressUtil.concatXDIAddresses(this.startXDIAddress, XDIaddress);
 		}
 	}
 
 	/**
-	 * A strategy that removes a parent XDI address.
+	 * A strategy that extracts XDI addresses.
 	 */
-	public static class RemoveParentXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
+	public static class ExtractXDIAddressCopyStrategy extends AbstractCopyStrategy implements CopyStrategy {
 
-		private XDIAddress parentXDIAddress;
+		private Class<? extends XdiContext<?>>[] clazzes;
+		private boolean keepOnlyFirstFound;
+		private boolean keepOnlyLastFound;
+		private boolean keepAllFound;
+		private boolean keepParent;
+		private boolean keepLocal;
 
-		public RemoveParentXDIAddressCopyStrategy(XDIAddress parentXDIAddress) {
+		public ExtractXDIAddressCopyStrategy(Class<? extends XdiContext<?>>[] clazzes, boolean keepOnlyFirstFound, boolean keepOnlyLastFound, boolean keepAllFound, boolean keepParent, boolean keepLocal) {
 
-			this.parentXDIAddress = parentXDIAddress;
+			this.clazzes = clazzes;
+			this.keepOnlyFirstFound = keepOnlyFirstFound;
+			this.keepOnlyLastFound = keepOnlyLastFound;
+			this.keepAllFound = keepAllFound;
+			this.keepParent = keepParent;
+			this.keepLocal = keepLocal;
+		}
+
+		public ExtractXDIAddressCopyStrategy(Class<? extends XdiContext<?>> clazz, boolean keepOnlyFirstFound, boolean keepOnlyLastFound, boolean keepAllFound, boolean keepParent, boolean keepLocal) {
+
+			@SuppressWarnings("unchecked")
+			Class<? extends XdiContext<?>>[] clazzes = (Class<? extends XdiContext<?>>[]) Array.newInstance(clazz.getClass(), 1);
+			clazzes[0] = clazz;
+
+			this.clazzes = clazzes;
+			this.keepOnlyFirstFound = keepOnlyFirstFound;
+			this.keepOnlyLastFound = keepOnlyLastFound;
+			this.keepAllFound = keepAllFound;
+			this.keepParent = keepParent;
+			this.keepLocal = keepLocal;
 		}
 
 		@Override
@@ -744,6 +782,7 @@ public final class CopyUtil {
 			XDIAddress replacedContextNodeXDIAddress = replaceXDIAddress(contextNodeXDIAddress);
 
 			ContextNode replacedContextNode = GraphUtil.contextNodeFromComponents(replacedContextNodeXDIAddress);
+			CopyUtil.copyContextNodeContents(contextNode, replacedContextNode, null);
 
 			return Collections.singletonList(replacedContextNode);
 		}
@@ -764,7 +803,7 @@ public final class CopyUtil {
 
 		private XDIAddress replaceXDIAddress(XDIAddress XDIaddress) {
 
-			XDIAddress replacedXDIAddress = XDIAddressUtil.removeStartXDIAddress(XDIaddress, this.parentXDIAddress);
+			XDIAddress replacedXDIAddress = XDIAddressUtil.extractXDIAddress(XDIaddress, this.clazzes, this.keepOnlyFirstFound, this.keepOnlyLastFound, this.keepAllFound, this.keepParent, this.keepLocal);
 
 			return replacedXDIAddress != null ? replacedXDIAddress : XDIaddress;
 		}
