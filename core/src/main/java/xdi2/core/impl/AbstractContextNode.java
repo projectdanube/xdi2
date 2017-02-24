@@ -12,7 +12,6 @@ import xdi2.core.Relation;
 import xdi2.core.Statement;
 import xdi2.core.Statement.ContextNodeStatement;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.exceptions.Xdi2GraphException;
 import xdi2.core.features.nodetypes.XdiAbstractAttribute;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
@@ -813,8 +812,8 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 
 		if (XDIConstants.XDI_ADD_ROOT.toString().equals(XDIarc.toString())) throw new Xdi2GraphException("Invalid context node arc: " + XDIarc);
 
-		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REF)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REF + " relation.");
-		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REP + " relation.");
+/*		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REF)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REF + " relation.");
+		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add " + XDIarc + " context node to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REP + " relation.");*/
 
 		ContextNode tempContextNode = new DummyContextNode(this.getGraph(), this, XDIarc, null, null, null);
 		if (! XdiAbstractContext.isValid(tempContextNode)) throw new Xdi2GraphException("Invalid subgraph: " + XDIarc + " under subgraph " + this.getXDIAddress());
@@ -832,7 +831,7 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 		if (XDIConstants.STRING_CONTEXT.equals(XDIaddress.toString())) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
 		if (XDIConstants.XDI_ARC_LITERAL.equals(XDIaddress.toString())) throw new Xdi2GraphException("Invalid relation arc: " + XDIaddress);
 
-		if (! this.isEmpty()) {
+/*		if (! this.isEmpty()) {
 
 			if (XDIDictionaryConstants.XDI_ADD_REF.equals(XDIaddress)) {
 
@@ -849,7 +848,7 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 
 				if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add " + XDIaddress + "/" + targetXDIAddress + " relation to context node " + this.getXDIAddress() + ", which already contains a $rep.");
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -862,8 +861,8 @@ public abstract class AbstractContextNode extends AbstractNode implements Contex
 
 		if (! AbstractLiteralNode.isValidLiteralData(literalData)) throw new IllegalArgumentException("Invalid literal data: " + literalData.getClass().getSimpleName());
 
-		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REF)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REF + " relation.");
-		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REP + " relation.");
+/*		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REF)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REF + " relation.");
+		if (this.containsRelations(XDIDictionaryConstants.XDI_ADD_REP)) throw new Xdi2GraphException("Cannot add literal to context node " + this.getXDIAddress() + " containing a " + XDIDictionaryConstants.XDI_ADD_REP + " relation.");*/
 	}
 
 	/**

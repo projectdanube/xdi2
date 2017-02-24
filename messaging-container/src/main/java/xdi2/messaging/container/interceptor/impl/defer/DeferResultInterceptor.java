@@ -16,16 +16,12 @@ import xdi2.core.features.index.Index;
 import xdi2.core.features.linkcontracts.instance.LinkContract;
 import xdi2.core.features.linkcontracts.instantiation.LinkContractInstantiation;
 import xdi2.core.features.linkcontracts.template.LinkContractTemplate;
-import xdi2.core.features.nodetypes.XdiCommonRoot;
 import xdi2.core.features.nodetypes.XdiEntityCollection;
 import xdi2.core.features.nodetypes.XdiEntityInstanceUnordered;
-import xdi2.core.features.nodetypes.XdiInnerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.CopyUtil;
-import xdi2.core.util.XDIAddressUtil;
-import xdi2.core.util.CopyUtil.ConcatXDIAddressCopyStrategy;
 import xdi2.core.util.iterators.IterableIterator;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
@@ -39,7 +35,6 @@ import xdi2.messaging.container.interceptor.InterceptorResult;
 import xdi2.messaging.container.interceptor.MessageEnvelopeInterceptor;
 import xdi2.messaging.container.interceptor.impl.AbstractInterceptor;
 import xdi2.messaging.operations.Operation;
-import xdi2.messaging.util.MessagingCloneUtil;
 
 /**
  * This interceptor can add defer results to a messaging container and execution result.
@@ -107,11 +102,9 @@ public class DeferResultInterceptor extends AbstractInterceptor<MessagingContain
 
 			if (this.getTargetGraph(executionContext) != null) {
 
-				XdiInnerRoot xdiInnerRoot = XdiCommonRoot.findCommonRoot(this.getTargetGraph(executionContext)).getInnerRoot(message.getFromXDIAddress(), messagingContainer.getOwnerXDIAddress(), true);
-
-				CopyUtil.copyGraph(MessagingCloneUtil.cloneMessage(message, false).getMessageEnvelope().getGraph(), this.getTargetGraph(executionContext), new ConcatXDIAddressCopyStrategy(xdiInnerRoot.getContextNode().getXDIAddress()));
+				CopyUtil.copyGraph(message.getMessageEnvelope().getGraph(), this.getTargetGraph(executionContext), null);
 				XdiEntityCollection xdiMessageIndex = Index.getEntityIndex(this.getTargetGraph(executionContext), XDIMessagingConstants.XDI_ARC_MSG, true);
-				Index.setEntityIndexAggregation(xdiMessageIndex, XDIAddressUtil.concatXDIAddresses(xdiInnerRoot.getContextNode().getXDIAddress(), message.getXdiEntity().getXDIAddress()));
+				Index.setEntityIndexAggregation(xdiMessageIndex, message.getXdiEntity().getXDIAddress());
 			}
 
 			// create a deferred push link contract?

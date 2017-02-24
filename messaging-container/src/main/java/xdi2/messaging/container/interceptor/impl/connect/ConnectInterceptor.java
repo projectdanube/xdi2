@@ -198,7 +198,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingContainer> 
 		Map<XDIArc, Object> variableValues = operation.getVariableValues();
 
 		variableValues.put(XDILinkContractConstants.XDI_ARC_V_FROM, operation.getMessage().getSenderXDIAddress());
-		variableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, operation.getMessage().getToXDIAddress());
+		variableValues.put(XDILinkContractConstants.XDI_ARC_V_TO, executionContext.getCurrentMessagingContainer().getOwnerXDIAddress());
 
 		// instantiate link contract
 

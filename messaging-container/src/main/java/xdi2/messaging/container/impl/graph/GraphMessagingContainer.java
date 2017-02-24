@@ -5,13 +5,19 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Graph;
+import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.nodetypes.XdiAbstractContext;
+import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
+import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.container.AddressHandler;
 import xdi2.messaging.container.MessagingContainer;
 import xdi2.messaging.container.Prototype;
@@ -20,6 +26,9 @@ import xdi2.messaging.container.exceptions.Xdi2MessagingException;
 import xdi2.messaging.container.execution.ExecutionContext;
 import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.impl.AbstractMessagingContainer;
+import xdi2.messaging.container.interceptor.impl.HasInterceptor;
+import xdi2.messaging.container.interceptor.impl.RefInterceptor;
+import xdi2.messaging.operations.Operation;
 
 /**
  * An XDI messaging container backed by some implementation of the Graph interface.
@@ -129,6 +138,10 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 		return this.graphContextHandler;
 	}
 
+	/*
+	 * Prototype
+	 */
+
 	@Override
 	public GraphMessagingContainer instanceFor(PrototypingContext prototypingContext) throws Xdi2MessagingException {
 
@@ -157,6 +170,50 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 
 		return (GraphMessagingContainer) messagingContainer;
 	}
+
+	/*
+	 * Convenience methods
+	 */
+
+	public static ContextNode get(Graph graph, XDIAddress XDIaddress) {
+
+		GraphMessagingContainer graphMessagingContainer = new GraphMessagingContainer(graph);
+		graphMessagingContainer.getInterceptors().addInterceptor(new RefInterceptor());
+		graphMessagingContainer.getInterceptors().addInterceptor(new HasInterceptor());
+
+		MessageEnvelope messageEnvelope = new MessageEnvelope();
+		Message message = messageEnvelope.createMessage();
+		Operation operation = message.createGetOperation(XDIaddress);
+		operation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
+		operation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEHAS, Boolean.TRUE);
+
+		ExecutionContext executionContext = ExecutionContext.createExecutionContext();
+		ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
+
+		try {
+
+			graphMessagingContainer.execute(message.getMessageEnvelope(), executionContext, executionResult);
+		} catch (Xdi2MessagingException ex) {
+
+			throw new Xdi2RuntimeException(ex.getMessage(), ex);
+		}
+		
+		Graph resultGraph = executionResult.makeLightMessagingResponse().getResultGraph();
+		return resultGraph.getDeepContextNode(XDIaddress);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends XdiContext<T>> XdiContext<T> getXdiContext(Graph graph, XDIAddress XDIaddress) {
+
+		ContextNode contextNode = get(graph, XDIaddress);
+		if (contextNode == null) return null;
+
+		return (XdiContext<T>) XdiAbstractContext.fromContextNode(contextNode);
+	}
+
+	/*
+	 * Getters and setters
+	 */
 
 	public Graph getGraph() {
 

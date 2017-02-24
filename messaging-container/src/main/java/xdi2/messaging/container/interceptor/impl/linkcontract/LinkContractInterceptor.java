@@ -20,7 +20,6 @@ import xdi2.core.features.policy.PolicyRoot;
 import xdi2.core.features.policy.evaluation.PolicyEvaluationContext;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIStatement;
-import xdi2.core.util.GraphUtil;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.CompositeIterator;
 import xdi2.core.util.iterators.IterableIterator;
@@ -32,6 +31,7 @@ import xdi2.messaging.container.exceptions.Xdi2NotAuthorizedException;
 import xdi2.messaging.container.execution.ExecutionContext;
 import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.impl.AbstractMessagingContainer;
+import xdi2.messaging.container.impl.graph.GraphMessagingContainer;
 import xdi2.messaging.container.interceptor.InterceptorResult;
 import xdi2.messaging.container.interceptor.MessageInterceptor;
 import xdi2.messaging.container.interceptor.OperationInterceptor;
@@ -96,7 +96,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingContai
 			return InterceptorResult.DEFAULT;
 		}
 
-		ContextNode linkContractContextNode = GraphUtil.dereference(this.getLinkContractsGraph(executionContext), linkContractXDIAddress, true);
+		ContextNode linkContractContextNode = GraphMessagingContainer.get(this.getLinkContractsGraph(executionContext), linkContractXDIAddress);
 		XdiEntity xdiEntity = linkContractContextNode == null ? null : XdiAbstractEntity.fromContextNode(linkContractContextNode);
 		LinkContract linkContract = xdiEntity == null ? null : LinkContract.fromXdiEntity(xdiEntity);
 
