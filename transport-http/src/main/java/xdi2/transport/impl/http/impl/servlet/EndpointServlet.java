@@ -51,6 +51,8 @@ public final class EndpointServlet extends HttpServlet implements ApplicationCon
 
 		if (log.isInfoEnabled()) log.info("Setting application context.");
 
+		// find beans
+
 		this.uriMessagingContainerRegistry = (UriMessagingContainerRegistry) applicationContext.getBean("UriMessagingContainerRegistry");
 		if (this.uriMessagingContainerRegistry == null) throw new NoSuchBeanDefinitionException("Required bean 'UriMessagingContainerRegistry' not found.");
 

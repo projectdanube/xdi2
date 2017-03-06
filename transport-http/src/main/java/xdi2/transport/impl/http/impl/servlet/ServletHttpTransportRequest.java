@@ -51,6 +51,7 @@ public final class ServletHttpTransportRequest extends HttpTransportRequest impl
 		try {
 
 			requestPath = URLDecoder.decode(requestPath, "UTF-8");
+			if (log.isDebugEnabled()) log.debug("Request Path: " + requestPath);
 		} catch (UnsupportedEncodingException ex) {
 
 			throw new RuntimeException(ex.getMessage(), ex);
@@ -60,6 +61,7 @@ public final class ServletHttpTransportRequest extends HttpTransportRequest impl
 
 		String baseUri = httpServletRequest.getRequestURL().toString().substring(0, httpServletRequest.getRequestURL().length() - requestPath.length() + 1);
 		if (baseUri.endsWith("/")) baseUri = baseUri.substring(0, baseUri.length() - 1);
+		if (log.isDebugEnabled()) log.debug("Base URI: " + baseUri);
 
 		// done
 
