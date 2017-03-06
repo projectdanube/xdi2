@@ -37,7 +37,7 @@ public class ContributorExecutor {
 	 * Methods for executing contributors
 	 */
 
-	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
+	public static ContributorResult executeContributorsAddress(ContributorMap contributorMap, XDIAddress[] contributorXDIAddresses, XDIAddress contributorsAddress, XDIAddress relativeTargetXDIAddress, Operation operation, Graph operationResultGraph, ExecutionContext executionContext) throws Xdi2MessagingException {
 
 		ContributorResult contributorResultXDIAddress = ContributorResult.DEFAULT;
 
@@ -54,7 +54,7 @@ public class ContributorExecutor {
 
 		for (ContributorFound contributorFound : contributorFounds) {
 
-			XDIAddress contributorAddress = contributorFound.getContributorXDIAddress();
+			XDIAddress contributorXDIAddress = contributorFound.getContributorXDIAddress();
 			Contributor contributor = contributorFound.getContributor();
 
 			// check mount
@@ -65,7 +65,7 @@ public class ContributorExecutor {
 					contributorMount.operationXDIAddresses().length > 0 && 
 					! Arrays.asList(contributorMount.operationXDIAddresses()).contains(operation.getOperationXDIAddress())) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target address " + relativeTargetXDIAddress + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (doesn't like operation) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target address " + relativeTargetXDIAddress + ".");
 				continue;
 			}
 
@@ -73,33 +73,33 @@ public class ContributorExecutor {
 
 			if (contributor.skip(executionContext)) {
 
-				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target address " + relativeTargetXDIAddress + ".");
+				if (log.isDebugEnabled()) log.debug("Skipping contributor (disabled) " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target address " + relativeTargetXDIAddress + ".");
 				continue;
 			}
 
 			// calculate next addresses
 
-			XDIAddress nextRelativeTargetXDIAddress = relativeTargetXDIAddress == null ? null : XDIAddressUtil.removeStartXDIAddress(relativeTargetXDIAddress, contributorAddress);
+			XDIAddress nextRelativeTargetXDIAddress = relativeTargetXDIAddress == null ? null : XDIAddressUtil.removeStartXDIAddress(relativeTargetXDIAddress, contributorXDIAddress);
 			XDIAddress nextRelativeNodeXDIAddress = nextRelativeTargetXDIAddress;
 
-			XDIAddress[] nextContributorAddresses = Arrays.copyOf(contributorAddresses, contributorAddresses.length + 1);
-			nextContributorAddresses[nextContributorAddresses.length - 1] = contributorAddress;
+			XDIAddress[] nextContributorXDIAddresses = Arrays.copyOf(contributorXDIAddresses, contributorXDIAddresses.length + 1);
+			nextContributorXDIAddresses[nextContributorXDIAddresses.length - 1] = contributorXDIAddress;
 
-			XDIAddress nextContributorsAddress = XDIAddressUtil.concatXDIAddresses(nextContributorAddresses);
+			XDIAddress nextContributorsXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorXDIAddresses);
 
 			// execute the contributor
 
-			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorAddress + " and relative target address " + relativeTargetXDIAddress + "." + " Next contributor chain address is " + nextContributorsAddress + ", and next relative target address is " + nextRelativeTargetXDIAddress + ".");
+			if (log.isDebugEnabled()) log.debug("Executing contributor " + contributor.getClass().getSimpleName() + " with operation " + operation.getOperationXDIAddress() + " on contributor address " + contributorXDIAddress + " and relative target address " + relativeTargetXDIAddress + "." + " Next contributor chain address is " + nextContributorsXDIAddress + ", and next relative target address is " + nextRelativeTargetXDIAddress + ".");
 
 			try {
 
-				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetXDIAddress + " / " + nextContributorsAddress);
+				executionContext.pushContributor(contributor, "Contributor: address: " + nextRelativeTargetXDIAddress + " / " + nextContributorsXDIAddress);
 
 				// execute sub-contributors (address)
 
 				if (! contributor.getContributors().isEmpty()) {
 
-					ContributorResult contributorResult = executeContributorsAddress(contributor.getContributors(), nextContributorAddresses, nextContributorsAddress, nextRelativeTargetXDIAddress, operation, operationResultGraph, executionContext);
+					ContributorResult contributorResult = executeContributorsAddress(contributor.getContributors(), nextContributorXDIAddresses, nextContributorsXDIAddress, nextRelativeTargetXDIAddress, operation, operationResultGraph, executionContext);
 					contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
 					if (contributorResult.isSkipParentContributors()) {
@@ -113,10 +113,10 @@ public class ContributorExecutor {
 
 				Graph tempResultGraph = MemoryGraphFactory.getInstance().openGraph();
 
-				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorAddresses, nextContributorsAddress, nextRelativeTargetXDIAddress, operation, tempResultGraph, executionContext);
+				ContributorResult contributorResult = contributor.executeOnAddress(nextContributorXDIAddresses, nextContributorsXDIAddress, nextRelativeTargetXDIAddress, operation, tempResultGraph, executionContext);
 				contributorResultXDIAddress = contributorResultXDIAddress.or(contributorResult);
 
-				XDIAddress tempNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsAddress, nextRelativeNodeXDIAddress);
+				XDIAddress tempNodeXDIAddress = XDIAddressUtil.concatXDIAddresses(nextContributorsXDIAddress, nextRelativeNodeXDIAddress);
 				Node tempNode = tempResultGraph.getDeepNode(tempNodeXDIAddress, true);
 
 				if (tempNode != null) CopyUtil.copyNode(tempNode, operationResultGraph, null);
@@ -288,7 +288,7 @@ public class ContributorExecutor {
 	 * Methods for finding contributors
 	 */
 
-	public static List<ContributorFound> findHigherContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeNodeXDIAddress) {
+	public static List<ContributorFound> findHigherContributors(ContributorMap contributorMap, XDIAddress contributorsXDIAddress, XDIAddress relativeNodeXDIAddress) {
 
 		if (contributorMap.isEmpty()) return new ArrayList<ContributorFound> ();
 
@@ -300,16 +300,16 @@ public class ContributorExecutor {
 
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
-				XDIAddress nextContributorAddress = contributorEntry.getKey();
-				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeNodeXDIAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), false, true);
-				if (startXDIAddress == null) continue;
+				XDIAddress nextContributorXDIAddress = contributorEntry.getKey();
+				XDIAddress[] matched = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsXDIAddress, relativeNodeXDIAddress), XDIAddressUtil.concatXDIAddresses(contributorsXDIAddress, nextContributorXDIAddress), false, true);
+				if (matched == null) continue;
+				XDIAddress matchedRelativeNodeXDIAddress = XDIAddressUtil.localXDIAddress(matched[0], - contributorsXDIAddress.getNumXDIArcs());
+				XDIAddress matchedNextContributorXDIAddress = XDIAddressUtil.localXDIAddress(matched[1], - contributorsXDIAddress.getNumXDIArcs());
 
-				startXDIAddress = XDIAddressUtil.localXDIAddress(startXDIAddress, - contributorsAddress.getNumXDIArcs());
-
-				nextContributorAddress = startXDIAddress;
+				XDIAddress contributorXDIAddress = matchedRelativeNodeXDIAddress;
 
 				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) higherContributors.add(new ContributorFound(nextContributorAddress, contributor));
+				for (Contributor contributor : contributors) higherContributors.add(new ContributorFound(contributorXDIAddress, contributor));
 			}
 		}
 
@@ -324,7 +324,7 @@ public class ContributorExecutor {
 		return higherContributors;
 	}
 
-	public static List<ContributorFound> findLowerContributors(ContributorMap contributorMap, XDIAddress contributorsAddress, XDIAddress relativeNodeXDIAddress) {
+	public static List<ContributorFound> findLowerContributors(ContributorMap contributorMap, XDIAddress contributorsXDIAddress, XDIAddress relativeNodeXDIAddress) {
 
 		if (contributorMap.isEmpty()) return new ArrayList<ContributorFound> ();
 
@@ -334,25 +334,30 @@ public class ContributorExecutor {
 
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
-				XDIAddress nextContributorAddress = contributorEntry.getKey();
+				XDIAddress nextContributorXDIAddress = contributorEntry.getKey();
+
+				XDIAddress contributorXDIAddress = nextContributorXDIAddress;
 
 				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(nextContributorAddress, contributor));
+				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(contributorXDIAddress, contributor));
 			}
 		} else {
 
 			for (Map.Entry<XDIAddress, List<Contributor>> contributorEntry : contributorMap.entrySet()) {
 
-				XDIAddress nextContributorAddress = contributorEntry.getKey();
-				XDIAddress startXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsAddress, nextContributorAddress), XDIAddressUtil.concatXDIAddresses(contributorsAddress, relativeNodeXDIAddress), false, true);
-				if (startXDIAddress == null) continue;
+				XDIAddress nextContributorXDIAddress = contributorEntry.getKey();
+				XDIAddress[] matched = XDIAddressUtil.startsWithXDIAddress(XDIAddressUtil.concatXDIAddresses(contributorsXDIAddress, nextContributorXDIAddress), XDIAddressUtil.concatXDIAddresses(contributorsXDIAddress, relativeNodeXDIAddress), true, false);
+				if (matched == null) continue;
+				XDIAddress matchedRelativeNodeXDIAddress = XDIAddressUtil.localXDIAddress(matched[1], - contributorsXDIAddress.getNumXDIArcs());
+				XDIAddress matchedNextContributorXDIAddress = XDIAddressUtil.localXDIAddress(matched[0], - contributorsXDIAddress.getNumXDIArcs());
 
-				startXDIAddress = XDIAddressUtil.localXDIAddress(startXDIAddress, - contributorsAddress.getNumXDIArcs());
+				if (matchedNextContributorXDIAddress.equals(nextContributorXDIAddress)) continue;
 
-				if (startXDIAddress.equals(nextContributorAddress)) continue;
+				XDIAddress contributorLocalXDIAddress = XDIAddressUtil.localXDIAddress(nextContributorXDIAddress, nextContributorXDIAddress.getNumXDIArcs() - matchedNextContributorXDIAddress.getNumXDIArcs());
+				XDIAddress contributorXDIAddress = XDIAddressUtil.concatXDIAddresses(matchedRelativeNodeXDIAddress, contributorLocalXDIAddress);
 
 				List<Contributor> contributors = contributorEntry.getValue();
-				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(nextContributorAddress, contributor));
+				for (Contributor contributor : contributors) lowerContributors.add(new ContributorFound(contributorXDIAddress, contributor));
 			}
 		}
 

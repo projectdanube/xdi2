@@ -36,16 +36,16 @@ public final class XDIAddressUtil {
 	/**
 	 * Checks if an address starts with a certain other address.
 	 */
-	public static XDIAddress startsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress startXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInStart) {
+	public static XDIAddress[] startsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress startXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInStart) {
 
 		if (XDIaddress == null) throw new NullPointerException();
 		if (startXDIAddress == null) throw new NullPointerException();
 
-		XDIAddress result = null;
+		XDIAddress[] result = null;
 
 		try {
 
-			if (startXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (startXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = new XDIAddress[] { XDIConstants.XDI_ADD_ROOT, XDIConstants.XDI_ADD_ROOT }; return result; }
 			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
 			MatchPosition startPosition = new MatchPosition(startXDIAddress, true);
@@ -53,7 +53,7 @@ public final class XDIAddressUtil {
 
 			while (true) {
 
-				if (startPosition.done()) { result = addressPosition.result(); return result; }
+				if (startPosition.done()) { result = new XDIAddress[] { addressPosition.result(), startPosition.result() }; return result; }
 				if (addressPosition.done()) { result = null; return result; }
 
 				XdiVariable<?> xdiVariable;
@@ -124,14 +124,14 @@ public final class XDIAddressUtil {
 			}
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("startsWithXDIAddress(" + XDIaddress + "," + startXDIAddress + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("startsWithXDIAddress(" + XDIaddress + "," + startXDIAddress + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + Arrays.asList(result));
 		}
 	}
 
 	/**
 	 * Checks if an address starts with a certain other address.
 	 */
-	public static XDIAddress startsWithXDIAddress(XDIAddress XDIaddress, XDIAddress startXDIAddress) {
+	public static XDIAddress[] startsWithXDIAddress(XDIAddress XDIaddress, XDIAddress startXDIAddress) {
 
 		return startsWithXDIAddress(XDIaddress, startXDIAddress, false, false);
 	}
@@ -139,16 +139,16 @@ public final class XDIAddressUtil {
 	/**
 	 * Checks if an address ends with a certain other address.
 	 */
-	public static XDIAddress endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInEnd) {
+	public static XDIAddress[] endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress, final boolean variablesinXDIAddress, final boolean variablesInEnd) {
 
 		if (XDIaddress == null) throw new NullPointerException();
 		if (endXDIAddress == null) throw new NullPointerException();
 
-		XDIAddress result = null;
+		XDIAddress[] result = null;
 
 		try {
 
-			if (endXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (endXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = new XDIAddress[] { XDIConstants.XDI_ADD_ROOT, XDIConstants.XDI_ADD_ROOT }; return result; }
 			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
 			MatchPosition addressPosition = new MatchPosition(XDIaddress, false);
@@ -156,7 +156,7 @@ public final class XDIAddressUtil {
 
 			while (true) {
 
-				if (endPosition.done()) { result = addressPosition.result(); return result; }
+				if (endPosition.done()) { result = new XDIAddress[] { addressPosition.result(), endPosition.result() }; return result; }
 				if (addressPosition.done()) { result = null; return result; }
 
 				XdiVariable<?> xdiVariable;
@@ -233,14 +233,14 @@ public final class XDIAddressUtil {
 			}
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("endsWithXDIAddress(" + XDIaddress + "," + endXDIAddress + "," + variablesinXDIAddress + "," + variablesInEnd + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("endsWithXDIAddress(" + XDIaddress + "," + endXDIAddress + "," + variablesinXDIAddress + "," + variablesInEnd + ") --> " + Arrays.asList(result));
 		}
 	}
 
 	/**
 	 * Checks if an address ends with a certain other address.
 	 */
-	public static XDIAddress endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress) {
+	public static XDIAddress[] endsWithXDIAddress(final XDIAddress XDIaddress, final XDIAddress endXDIAddress) {
 
 		return endsWithXDIAddress(XDIaddress, endXDIAddress, false, false);
 	}
@@ -507,15 +507,15 @@ public final class XDIAddressUtil {
 			if (startXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIaddress; return result; }
 			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
-			XDIAddress foundXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIaddress, startXDIAddress, variablesinXDIAddress, variablesInStart);
+			XDIAddress[] foundXDIAddress = XDIAddressUtil.startsWithXDIAddress(XDIaddress, startXDIAddress, variablesinXDIAddress, variablesInStart);
 			if (foundXDIAddress == null) { result = null; return result; }
 
-			if (XDIaddress.equals(foundXDIAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(foundXDIAddress[0])) { result = XDIConstants.XDI_ADD_ROOT; return result; }
 
-			{ result = XDIAddressUtil.localXDIAddress(XDIaddress, - foundXDIAddress.getNumXDIArcs()); return result; }
+			{ result = XDIAddressUtil.localXDIAddress(XDIaddress, - foundXDIAddress[0].getNumXDIArcs()); return result; }
 		} finally {
 
-			if (log.isTraceEnabled()) log.trace("removeStartXDIAddress(" + XDIaddress + "," + startXDIAddress + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + result);
+			if (log.isTraceEnabled()) log.trace("removeStartXDIAddress(" + XDIaddress + "," + startXDIAddress + "," + variablesinXDIAddress + "," + variablesInStart + ") --> " + Arrays.asList(result));
 		}
 	}
 
@@ -550,12 +550,12 @@ public final class XDIAddressUtil {
 			if (endXDIAddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = XDIaddress; return result; }
 			if (XDIaddress.equals(XDIConstants.XDI_ADD_ROOT)) { result = null; return result; }
 
-			XDIAddress foundXDIAddress = XDIAddressUtil.endsWithXDIAddress(XDIaddress, endXDIAddress, variablesinXDIAddress, variablesInEnd);
+			XDIAddress[] foundXDIAddress = XDIAddressUtil.endsWithXDIAddress(XDIaddress, endXDIAddress, variablesinXDIAddress, variablesInEnd);
 			if (foundXDIAddress == null) { result = null; return result; }
 
-			if (XDIaddress.equals(foundXDIAddress)) { result = XDIConstants.XDI_ADD_ROOT; return result; }
+			if (XDIaddress.equals(foundXDIAddress[0])) { result = XDIConstants.XDI_ADD_ROOT; return result; }
 
-			{ result = XDIAddressUtil.parentXDIAddress(XDIaddress, - foundXDIAddress.getNumXDIArcs()); return result; }
+			{ result = XDIAddressUtil.parentXDIAddress(XDIaddress, - foundXDIAddress[0].getNumXDIArcs()); return result; }
 		} finally {
 
 			if (log.isTraceEnabled()) log.trace("removeEndXDIAddress(" + XDIaddress + "," + endXDIAddress + "," + variablesinXDIAddress + "," + variablesInEnd + ") --> " + result);
