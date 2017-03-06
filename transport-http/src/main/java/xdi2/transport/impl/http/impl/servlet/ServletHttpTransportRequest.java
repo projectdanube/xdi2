@@ -34,10 +34,7 @@ public final class ServletHttpTransportRequest extends HttpTransportRequest impl
 
 	public static ServletHttpTransportRequest fromHttpServletRequest(HttpServletRequest httpServletRequest) {
 
-		// determine request path
-
-		String requestUri = httpServletRequest.getRequestURI();
-		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
+		// determine base path
 
 		String contextPath = httpServletRequest.getContextPath(); 
 		if (contextPath.endsWith("/")) contextPath = contextPath.substring(0, contextPath.length() - 1);
@@ -45,7 +42,22 @@ public final class ServletHttpTransportRequest extends HttpTransportRequest impl
 		String servletPath = httpServletRequest.getServletPath();
 		if (servletPath.endsWith("/")) servletPath = servletPath.substring(0, servletPath.length() - 1);
 
-		String requestPath = requestUri.substring(contextPath.length() + servletPath.length());
+		String basePath = contextPath + servletPath;
+		if (basePath.endsWith("/")) basePath = basePath.substring(0, basePath.length() - 1);
+
+		// done
+
+		return fromHttpServletRequest(httpServletRequest, basePath);
+	}
+
+	public static ServletHttpTransportRequest fromHttpServletRequest(HttpServletRequest httpServletRequest, String basePath) {
+
+		// determine request path
+
+		String requestUri = httpServletRequest.getRequestURI();
+		if (log.isDebugEnabled()) log.debug("Request URI: " + requestUri);
+
+		String requestPath = requestUri.substring(basePath.length());
 		if (! requestPath.startsWith("/")) requestPath = "/" + requestPath;
 
 		try {
