@@ -92,7 +92,7 @@ public class PushInInterceptor extends AbstractInterceptor<MessagingContainer> i
 
 		// done
 
-		return InterceptorResult.SKIP_MESSAGING_TARGET;
+		return InterceptorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	@Override

@@ -104,7 +104,7 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingContainer> 
 
 		// done
 
-		return InterceptorResult.SKIP_MESSAGING_TARGET;
+		return InterceptorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	@Override

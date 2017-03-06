@@ -204,7 +204,7 @@ public class LinkContractInterceptor extends AbstractInterceptor<MessagingContai
 
 		// done
 
-		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.SKIP_MESSAGING_TARGET;
+		if (DeferResultInterceptor.hasDeferResult(executionContext, operation.getMessage())) return InterceptorResult.SKIP_MESSAGING_CONTAINER;
 
 		return InterceptorResult.DEFAULT;
 	}

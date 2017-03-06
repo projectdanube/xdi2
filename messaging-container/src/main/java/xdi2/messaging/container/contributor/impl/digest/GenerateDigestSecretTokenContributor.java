@@ -100,7 +100,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		// check parameters
 
-		if (! (literalData instanceof String)) return ContributorResult.SKIP_MESSAGING_TARGET;
+		if (! (literalData instanceof String)) return ContributorResult.SKIP_MESSAGING_CONTAINER;
 
 		String secretToken = (String) literalData;
 
@@ -127,7 +127,7 @@ public class GenerateDigestSecretTokenContributor extends AbstractContributor im
 
 		// done
 
-		return ContributorResult.SKIP_MESSAGING_TARGET;
+		return ContributorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	/*

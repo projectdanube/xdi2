@@ -125,7 +125,7 @@ public class SendInterceptor extends AbstractInterceptor<MessagingContainer> imp
 
 		// done
 
-		return InterceptorResult.SKIP_MESSAGING_TARGET;
+		return InterceptorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	@Override

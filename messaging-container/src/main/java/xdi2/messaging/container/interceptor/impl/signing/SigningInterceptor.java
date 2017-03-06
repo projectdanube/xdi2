@@ -96,7 +96,7 @@ public class SigningInterceptor extends AbstractOperationInterceptor implements 
 
 		// done
 
-		return InterceptorResult.SKIP_MESSAGING_TARGET;
+		return InterceptorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	/*

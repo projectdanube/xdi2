@@ -177,7 +177,7 @@ public class GenerateKeyContributor extends AbstractContributor implements Proto
 
 		// done
 
-		return ContributorResult.SKIP_MESSAGING_TARGET;
+		return ContributorResult.SKIP_MESSAGING_CONTAINER;
 	}
 
 	/*
