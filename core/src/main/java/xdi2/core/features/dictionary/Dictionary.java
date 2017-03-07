@@ -3,6 +3,7 @@ package xdi2.core.features.dictionary;
 import java.util.Iterator;
 
 import xdi2.core.ContextNode;
+import xdi2.core.Relation;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.constants.XDIDictionaryConstants;
 import xdi2.core.syntax.XDIAddress;
@@ -49,12 +50,17 @@ public class Dictionary {
 
 	public static Iterator<XDIAddress> getContextNodeTypes(ContextNode contextNode) {
 
-		return new MappingContextNodeXDIAddressIterator(new MappingRelationTargetContextNodeIterator(contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE)));
+		Iterator<Relation> contextNodeTypeRelations = contextNode.getRelations(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
+
+		return new MappingContextNodeXDIAddressIterator(new MappingRelationTargetContextNodeIterator(contextNodeTypeRelations));
 	}
 
 	public static XDIAddress getContextNodeType(ContextNode contextNode) {
 
-		return contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE).getTargetXDIAddress();
+		Relation contextNodeTypeRelation = contextNode.getRelation(XDIDictionaryConstants.XDI_ADD_IS_TYPE);
+		if (contextNodeTypeRelation == null) return null;
+
+		return contextNodeTypeRelation.getTargetXDIAddress();
 	}
 
 	public static boolean isContextNodeType(ContextNode contextNode, XDIAddress type) {
