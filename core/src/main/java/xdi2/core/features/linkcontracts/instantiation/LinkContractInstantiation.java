@@ -64,7 +64,7 @@ public class LinkContractInstantiation {
 
 			if ((! XdiPeerRoot.isValidXDIArc(key)) && value instanceof XDIAddress && ((XDIAddress) value).getNumXDIArcs() == 1) {
 
-				XDIArc peerKey = XDIArc.create(key.toString().replace("{", "{(").replaceAll("}", ")}"));	// TODO: do this better
+				XDIArc peerKey = XDIArc.create(key.toString().replace("{", "{(").replace("}", ")}"));	// TODO: do this better
 				if (variableValues.containsKey(peerKey)) continue;
 
 				XDIArc peerValue = XdiPeerRoot.createPeerRootXDIArc((XDIAddress) value);
