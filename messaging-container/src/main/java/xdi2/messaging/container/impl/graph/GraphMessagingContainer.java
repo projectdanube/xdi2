@@ -1,13 +1,14 @@
 package xdi2.messaging.container.impl.graph;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.exceptions.Xdi2RuntimeException;
+import xdi2.core.features.equivalence.Equivalence;
 import xdi2.core.features.nodetypes.XdiAbstractContext;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -15,9 +16,8 @@ import xdi2.core.syntax.XDIAddress;
 import xdi2.core.syntax.XDIArc;
 import xdi2.core.syntax.XDIStatement;
 import xdi2.core.util.GraphUtil;
-import xdi2.messaging.Message;
+import xdi2.core.util.iterators.MappingIterator;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.constants.XDIMessagingConstants;
 import xdi2.messaging.container.AddressHandler;
 import xdi2.messaging.container.MessagingContainer;
 import xdi2.messaging.container.Prototype;
@@ -26,9 +26,6 @@ import xdi2.messaging.container.exceptions.Xdi2MessagingException;
 import xdi2.messaging.container.execution.ExecutionContext;
 import xdi2.messaging.container.execution.ExecutionResult;
 import xdi2.messaging.container.impl.AbstractMessagingContainer;
-import xdi2.messaging.container.interceptor.impl.HasInterceptor;
-import xdi2.messaging.container.interceptor.impl.RefInterceptor;
-import xdi2.messaging.operations.Operation;
 
 /**
  * An XDI messaging container backed by some implementation of the Graph interface.
@@ -175,40 +172,73 @@ public class GraphMessagingContainer extends AbstractMessagingContainer implemen
 	 * Convenience methods
 	 */
 
-	public static ContextNode get(Graph graph, XDIAddress XDIaddress) {
+	public static ContextNode getContextNode(Graph graph, XDIAddress XDIaddress) {
 
-		GraphMessagingContainer graphMessagingContainer = new GraphMessagingContainer(graph);
-		graphMessagingContainer.getInterceptors().addInterceptor(new RefInterceptor());
-		graphMessagingContainer.getInterceptors().addInterceptor(new HasInterceptor());
-
-		MessageEnvelope messageEnvelope = new MessageEnvelope();
-		Message message = messageEnvelope.createMessage();
-		Operation operation = message.createGetOperation(XDIaddress);
-		operation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEREF, Boolean.TRUE);
-		operation.setParameter(XDIMessagingConstants.XDI_ADD_OPERATION_PARAMETER_DEHAS, Boolean.TRUE);
-
-		ExecutionContext executionContext = ExecutionContext.createExecutionContext();
-		ExecutionResult executionResult = ExecutionResult.createExecutionResult(messageEnvelope);
-
-		try {
-
-			graphMessagingContainer.execute(message.getMessageEnvelope(), executionContext, executionResult);
-		} catch (Xdi2MessagingException ex) {
-
-			throw new Xdi2RuntimeException(ex.getMessage(), ex);
-		}
+		ContextNode contextNode = graph.getRootContextNode();
 		
-		Graph resultGraph = executionResult.makeLightMessagingResponse().getResultGraph();
-		return resultGraph.getDeepContextNode(XDIaddress);
+		for (XDIArc XDIarc : XDIaddress.getXDIArcs()) {
+			
+			contextNode = contextNode.getContextNode(XDIarc);
+			if (contextNode == null) return null;
+
+			while (true) {
+
+				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(contextNode);
+				if (referenceContextNode != null) { contextNode = referenceContextNode; continue; }
+
+				ContextNode replacementContextNode = Equivalence.getReplacementContextNode(contextNode);
+				if (replacementContextNode != null) { contextNode = replacementContextNode; continue; }
+
+				break;
+			}
+		}
+
+		return contextNode;
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <T extends XdiContext<T>> XdiContext<T> getXdiContext(Graph graph, XDIAddress XDIaddress) {
 
-		ContextNode contextNode = get(graph, XDIaddress);
+		ContextNode contextNode = getContextNode(graph, XDIaddress);
 		if (contextNode == null) return null;
 
 		return (XdiContext<T>) XdiAbstractContext.fromContextNode(contextNode);
+	}
+
+	public static class MappingXDIAddressContextNodeIterator extends MappingIterator<XDIAddress, ContextNode> {
+
+		private Graph graph;
+		
+		public MappingXDIAddressContextNodeIterator(Graph graph, Iterator<XDIAddress> XDIaddresses) {
+
+			super(XDIaddresses);
+			
+			this.graph = graph;
+		}
+
+		@Override
+		public ContextNode map(XDIAddress XDIaddress) {
+
+			return GraphMessagingContainer.getContextNode(this.graph, XDIaddress);
+		}
+	}
+
+	public static class MappingXDIAddressXdiContextIterator<T extends XdiContext<T>> extends MappingIterator<XDIAddress, XdiContext<T>> {
+
+		private Graph graph;
+		
+		public MappingXDIAddressXdiContextIterator(Graph graph, Iterator<XDIAddress> XDIaddresses) {
+
+			super(XDIaddresses);
+			
+			this.graph = graph;
+		}
+
+		@Override
+		public XdiContext<T> map(XDIAddress XDIaddress) {
+
+			return GraphMessagingContainer.getXdiContext(this.graph, XDIaddress);
+		}
 	}
 
 	/*

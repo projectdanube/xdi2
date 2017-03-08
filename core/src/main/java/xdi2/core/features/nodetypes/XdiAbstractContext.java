@@ -151,43 +151,24 @@ public abstract class XdiAbstractContext<EQ extends XdiContext<EQ>> implements X
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public EQ dereference(boolean reference, boolean replacement, boolean identity) {
+	public EQ dereference() {
 
 		EQ xdiContext = (EQ) this;
 
 		while (true) {
 
-			if (reference) {
+			ContextNode referenceContextNode = Equivalence.getReferenceContextNode(xdiContext.getContextNode());
+			EQ referenceXdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
+			if (referenceXdiContext != null) { xdiContext = referenceXdiContext; continue; }
 
-				ContextNode referenceContextNode = Equivalence.getReferenceContextNode(xdiContext.getContextNode());
-				EQ referenceXdiContext = referenceContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(referenceContextNode);
-				if (referenceXdiContext != null) { xdiContext = referenceXdiContext; continue; }
-			}
-
-			if (replacement) {
-
-				ContextNode replacementContextNode = Equivalence.getReplacementContextNode(xdiContext.getContextNode());
-				EQ replacementXdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
-				if (replacementXdiContext != null) { xdiContext = replacementXdiContext; continue; }
-			}
-
-			if (identity) {
-
-				ContextNode identityContextNode = Equivalence.getIdentityContextNode(xdiContext.getContextNode());
-				EQ identityXdiContext = identityContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(identityContextNode);
-				if (identityXdiContext != null) { xdiContext = identityXdiContext; continue; }
-			}
+			ContextNode replacementContextNode = Equivalence.getReplacementContextNode(xdiContext.getContextNode());
+			EQ replacementXdiContext = replacementContextNode == null ? null : (EQ) XdiAbstractContext.fromContextNode(replacementContextNode);
+			if (replacementXdiContext != null) { xdiContext = replacementXdiContext; continue; }
 
 			break;
 		}
 
 		return xdiContext;
-	}
-
-	@Override
-	public EQ dereference() {
-
-		return this.dereference(true, true, false);
 	}
 
 	@Override
