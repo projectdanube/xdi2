@@ -82,6 +82,16 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 	}
 
 	@Override
+	public Message createMessage(MessageEnvelope messageEnvelope, long index) {
+
+		Message message = messageEnvelope.createMessage(index);
+
+		if (this.getToPeerRootXDIArc() != null) message.setToPeerRootXDIArc(this.getToPeerRootXDIArc());
+
+		return message;
+	}
+
+	@Override
 	public Message createMessage(MessageEnvelope messageEnvelope) {
 
 		Message message = messageEnvelope.createMessage();
@@ -91,9 +101,21 @@ public abstract class XDIAbstractClientRoute <CLIENT extends XDIClient<? extends
 	}
 
 	@Override
+	public Message createMessage(XDIAddress senderXDIAddress, long index) {
+
+		return this.createMessage(this.createMessageEnvelope(), senderXDIAddress, index);
+	}
+
+	@Override
 	public Message createMessage(XDIAddress senderXDIAddress) {
 
 		return this.createMessage(this.createMessageEnvelope(), senderXDIAddress);
+	}
+
+	@Override
+	public Message createMessage(long index) {
+
+		return this.createMessage(this.createMessageEnvelope(), index);
 	}
 
 	@Override

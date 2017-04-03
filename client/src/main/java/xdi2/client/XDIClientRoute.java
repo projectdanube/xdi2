@@ -20,8 +20,11 @@ public interface XDIClientRoute <CLIENT extends XDIClient<? extends MessagingRes
 	public MessageEnvelope createMessageEnvelope();
 	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress, long index);
 	public Message createMessage(MessageEnvelope messageEnvelope, XDIAddress senderXDIAddress);
+	public Message createMessage(MessageEnvelope messageEnvelope, long index);
 	public Message createMessage(MessageEnvelope messageEnvelope);
+	public Message createMessage(XDIAddress senderXDIAddress, long index);
 	public Message createMessage(XDIAddress senderXDIAddress);
+	public Message createMessage(long index);
 	public Message createMessage();
 
 	/*
