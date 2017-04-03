@@ -53,6 +53,11 @@ public class XDILocalClient extends XDIAbstractClient<TransportMessagingResponse
 		this(null, graph);
 	}
 
+	public XDILocalClient() {
+
+		this(null, null);
+	}
+
 	@Override
 	public void close() {
 
