@@ -1,8 +1,10 @@
 package xdi2.core.features.linkcontracts.instance;
 
+import xdi2.core.ContextNode;
 import xdi2.core.Relation;
 import xdi2.core.constants.XDILinkContractConstants;
 import xdi2.core.features.linkcontracts.LinkContractBase;
+import xdi2.core.features.nodetypes.XdiAbstractEntity;
 import xdi2.core.features.nodetypes.XdiContext;
 import xdi2.core.features.nodetypes.XdiEntity;
 import xdi2.core.features.nodetypes.XdiPeerRoot;
@@ -66,6 +68,16 @@ public abstract class LinkContract extends LinkContractBase<XdiEntity> {
 		if ((linkContract = RelationshipLinkContract.fromXdiEntity(xdiEntity)) != null) return linkContract;
 
 		return null;
+	}
+
+	/**
+	 * Factory method that creates an XDI link contract to a given context node.
+	 * @param contextNode The context node that is an XDI link contract.
+	 * @return The XDI link contract.
+	 */
+	public static LinkContract fromContextNode(ContextNode contextNode) {
+
+		return LinkContract.fromXdiEntity(XdiAbstractEntity.fromContextNode(contextNode));
 	}
 
 	/*
