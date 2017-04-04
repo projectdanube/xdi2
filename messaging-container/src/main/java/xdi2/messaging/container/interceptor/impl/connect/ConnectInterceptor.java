@@ -61,6 +61,16 @@ public class ConnectInterceptor extends AbstractInterceptor<MessagingContainer> 
 		this.manipulators = manipulators;
 	}
 
+	public ConnectInterceptor(Graph targetGraph, XDIAgent xdiAgent) {
+
+		this(targetGraph, xdiAgent, new ArrayList<Manipulator> ());
+	}
+
+	public ConnectInterceptor(Graph targetGraph) {
+
+		this(targetGraph, DEFAULT_XDI_AGENT, new ArrayList<Manipulator> ());
+	}
+
 	public ConnectInterceptor() {
 
 		this(null, DEFAULT_XDI_AGENT, new ArrayList<Manipulator> ());

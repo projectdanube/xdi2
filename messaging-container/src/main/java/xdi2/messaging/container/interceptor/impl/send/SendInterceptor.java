@@ -73,6 +73,11 @@ public class SendInterceptor extends AbstractInterceptor<MessagingContainer> imp
 		this.manipulators = manipulators;
 	}
 
+	public SendInterceptor(XDIAgent xdiAgent) {
+
+		this(xdiAgent, new ArrayList<Manipulator> ());
+	}
+
 	public SendInterceptor() {
 
 		this(DEFAULT_XDI_AGENT, new ArrayList<Manipulator> ());
