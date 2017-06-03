@@ -90,6 +90,31 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
+		// find authority
+
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(registryResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
+		if (authorityXdiEntity == null) return;
+
+		// find signature public key
+
+		try {
+
+			this.signaturePublicKey = Keys.getSignaturePublicKey(authorityXdiEntity);
+		} catch (GeneralSecurityException ex) {
+
+			throw new Xdi2ClientException("Invalid signature public key: " + ex.getMessage(), ex, null);
+		}
+
+		// find encryption public key
+
+		try {
+
+			this.encryptionPublicKey = Keys.getEncryptionPublicKey(authorityXdiEntity);
+		} catch (GeneralSecurityException ex) {
+
+			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
+		}
+
 		// make sure we look for the XDI endpoint URI
 
 		if (endpointUriTypes == null) {

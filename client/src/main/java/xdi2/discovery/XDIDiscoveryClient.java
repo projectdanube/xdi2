@@ -186,6 +186,8 @@ public class XDIDiscoveryClient {
 			registryMessageEnvelope = new MessageEnvelope();
 			Message registryMessage = registryMessageEnvelope.createMessage(null);
 			registryMessage.createGetOperation(XDIAddress.fromComponent(XdiPeerRoot.createPeerRootXDIArc(query)));
+			registryMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(query, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PUBLIC_KEY));
+			registryMessage.createGetOperation(XDIAddressUtil.concatXDIAddresses(query, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PUBLIC_KEY));
 
 			try {
 
