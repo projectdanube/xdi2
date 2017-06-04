@@ -90,6 +90,23 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
+		// make sure we look for the XDI endpoint URI
+
+		if (endpointUriTypes == null) {
+
+			endpointUriTypes = new XDIAddress[] { XDIClientConstants.XDI_ADD_AS_XDI };
+		} else {
+
+			Set<XDIAddress> endpointUriTypesSet = new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes));
+			endpointUriTypesSet.add(XDIClientConstants.XDI_ADD_AS_XDI);
+
+			endpointUriTypes = endpointUriTypesSet.toArray(new XDIAddress[endpointUriTypesSet.size()]);
+		}
+
+		// init endpoint URIs
+
+		initEndpointUris(xdiRoot, endpointUriTypes);
+
 		// find authority
 
 		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(registryResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
@@ -114,23 +131,6 @@ public class XDIDiscoveryResult implements Serializable {
 
 			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
 		}
-
-		// make sure we look for the XDI endpoint URI
-
-		if (endpointUriTypes == null) {
-
-			endpointUriTypes = new XDIAddress[] { XDIClientConstants.XDI_ADD_AS_XDI };
-		} else {
-
-			Set<XDIAddress> endpointUriTypesSet = new HashSet<XDIAddress> (Arrays.asList(endpointUriTypes));
-			endpointUriTypesSet.add(XDIClientConstants.XDI_ADD_AS_XDI);
-
-			endpointUriTypes = endpointUriTypesSet.toArray(new XDIAddress[endpointUriTypesSet.size()]);
-		}
-
-		// init endpoint URIs
-
-		initEndpointUris(xdiRoot, endpointUriTypes);
 	}
 
 	void initFromAuthorityMessagingResponse(MessageEnvelope authorityMessageEnvelope, TransportMessagingResponse authorityMessagingResponse, XDIAddress[] endpointUriTypes) throws Xdi2ClientException {
