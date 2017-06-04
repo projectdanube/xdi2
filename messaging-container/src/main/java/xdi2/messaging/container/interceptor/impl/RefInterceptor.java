@@ -598,7 +598,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		Relation[] refRepRelation = refRepRelations.get(contextNodeXDIAddress);
 
-		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXDIAddress + ": " + Arrays.asList(refRepRelation));
+		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXDIAddress + ": " + (refRepRelation == null ? null : Arrays.asList(refRepRelation)));
 
 		return refRepRelation;
 	}
