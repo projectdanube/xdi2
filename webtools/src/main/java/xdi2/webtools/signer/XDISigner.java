@@ -6,9 +6,9 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.security.Key;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
-import xdi2.core.features.keys.Keys;
 import xdi2.core.features.signatures.AESSignature;
 import xdi2.core.features.signatures.RSASignature;
 import xdi2.core.features.signatures.Signature;
@@ -38,9 +37,13 @@ import xdi2.core.io.XDIReader;
 import xdi2.core.io.XDIReaderRegistry;
 import xdi2.core.io.XDIWriter;
 import xdi2.core.io.XDIWriterRegistry;
+import xdi2.core.security.signature.create.AESSecretKeySignatureCreator;
 import xdi2.core.security.signature.create.AESStaticSecretKeySignatureCreator;
+import xdi2.core.security.signature.create.RSAPrivateKeySignatureCreator;
 import xdi2.core.security.signature.create.RSAStaticPrivateKeySignatureCreator;
+import xdi2.core.security.signature.validate.AESSecretKeySignatureValidator;
 import xdi2.core.security.signature.validate.AESStaticSecretKeySignatureValidator;
+import xdi2.core.security.signature.validate.RSAPublicKeySignatureValidator;
 import xdi2.core.security.signature.validate.RSAStaticPublicKeySignatureValidator;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.iterators.ReadOnlyIterator;
@@ -210,12 +213,12 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 				if (signature instanceof RSASignature) {
 
-					k = Keys.privateKeyFromPrivateKeyString(key);
+					k = RSAPrivateKeySignatureCreator.rsaPrivateKeyFromPrivateKeyString(key);
 
-					new RSAStaticPrivateKeySignatureCreator((PrivateKey) k).createSignature((RSASignature) signature);
+					new RSAStaticPrivateKeySignatureCreator((RSAPrivateKey) k).createSignature((RSASignature) signature);
 				} else if (signature instanceof AESSignature) {
 
-					k = Keys.secretKeyFromSecretKeyString(key);
+					k = AESSecretKeySignatureCreator.aesSecretKeyFromSecretKeyString(key);
 
 					new AESStaticSecretKeySignatureCreator((SecretKey) k).createSignature((AESSignature) signature);
 				}
@@ -230,13 +233,13 @@ public class XDISigner extends javax.servlet.http.HttpServlet implements javax.s
 
 					if (signature instanceof RSASignature) {
 
-						k = Keys.publicKeyFromPublicKeyString(key);
+						k = RSAPublicKeySignatureValidator.rsaPublicKeyFromPublicKeyString(key);
 
-						boolean validated = new RSAStaticPublicKeySignatureValidator((PublicKey) k).validateSignature((RSASignature) signature);
+						boolean validated = new RSAStaticPublicKeySignatureValidator((RSAPublicKey) k).validateSignature((RSASignature) signature);
 						valid.add(Boolean.valueOf(validated));
 					} else if (signature instanceof AESSignature) {
 
-						k = Keys.secretKeyFromSecretKeyString(key);
+						k = AESSecretKeySignatureValidator.aesSecretKeyFromSecretKeyString(key);
 
 						boolean validated = new AESStaticSecretKeySignatureValidator((SecretKey) k).validateSignature((AESSignature) signature);
 						valid.add(Boolean.valueOf(validated));

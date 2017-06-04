@@ -12,7 +12,6 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDISecurityConstants;
-import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -56,7 +55,7 @@ public class AESAgentSecretKeySignatureCreator extends AESSecretKeySignatureCrea
 			String secretKeyString = contextNode.getLiteralDataString();
 			if (secretKeyString == null) return null;
 
-			secretKey = Keys.secretKeyFromSecretKeyString(secretKeyString);
+			secretKey = aesSecretKeyFromSecretKeyString(secretKeyString);
 		} catch (Xdi2ClientException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot retrieve secret key for " + signerXDIAddress + ": " + ex.getMessage(), ex);

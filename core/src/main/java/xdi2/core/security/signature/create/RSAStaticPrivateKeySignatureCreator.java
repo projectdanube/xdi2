@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.create;
 
-import java.security.PrivateKey;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.Collections;
 import java.util.Map;
 
@@ -12,16 +12,16 @@ import xdi2.core.syntax.XDIAddress;
  */
 public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureCreator {
 
-	private Map<XDIAddress, PrivateKey> privateKeys;
+	private Map<XDIAddress, RSAPrivateKey> privateKeys;
 
-	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, Map<XDIAddress, PrivateKey> privateKeys) {
+	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, Map<XDIAddress, RSAPrivateKey> privateKeys) {
 
 		super(digestAlgorithm, digestLength);
 
 		this.privateKeys = privateKeys;
 	}
 
-	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, PrivateKey privateKey) {
+	public RSAStaticPrivateKeySignatureCreator(String digestAlgorithm, Integer digestLength, RSAPrivateKey privateKey) {
 
 		super(digestAlgorithm, digestLength);
 
@@ -35,14 +35,14 @@ public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureC
 		this.privateKeys = Collections.emptyMap();
 	}
 
-	public RSAStaticPrivateKeySignatureCreator(Map<XDIAddress, PrivateKey> privateKeys) {
+	public RSAStaticPrivateKeySignatureCreator(Map<XDIAddress, RSAPrivateKey> privateKeys) {
 
 		super();
 
 		this.privateKeys = privateKeys;
 	}
 
-	public RSAStaticPrivateKeySignatureCreator(PrivateKey privateKey) {
+	public RSAStaticPrivateKeySignatureCreator(RSAPrivateKey privateKey) {
 
 		super();
 
@@ -57,11 +57,11 @@ public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureC
 	}
 
 	@Override
-	protected PrivateKey getPrivateKey(XDIAddress signerXDIAddress) {
+	protected RSAPrivateKey getPrivateKey(XDIAddress signerXDIAddress) {
 
 		// find private key
 
-		PrivateKey privateKey = this.getPrivateKeys().get(signerXDIAddress);
+		RSAPrivateKey privateKey = this.getPrivateKeys().get(signerXDIAddress);
 		if (privateKey == null) return null;
 
 		// done
@@ -73,22 +73,22 @@ public class RSAStaticPrivateKeySignatureCreator extends RSAPrivateKeySignatureC
 	 * Getters and setters
 	 */
 
-	public Map<XDIAddress, PrivateKey> getPrivateKeys() {
+	public Map<XDIAddress, RSAPrivateKey> getPrivateKeys() {
 
 		return this.privateKeys;
 	}
 
-	public void setPrivateKeys(Map<XDIAddress, PrivateKey> privateKeys) {
+	public void setPrivateKeys(Map<XDIAddress, RSAPrivateKey> privateKeys) {
 
 		this.privateKeys = privateKeys;
 	}
 
-	public PrivateKey getPrivateKey() {
+	public RSAPrivateKey getPrivateKey() {
 
 		return this.privateKeys.get(null);
 	}
 
-	public void setPrivateKey(PrivateKey privateKey) {
+	public void setPrivateKey(RSAPrivateKey privateKey) {
 
 		this.privateKeys.put(null, privateKey);
 	}

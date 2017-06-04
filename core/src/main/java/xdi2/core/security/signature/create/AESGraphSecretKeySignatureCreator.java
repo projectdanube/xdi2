@@ -72,7 +72,7 @@ public class AESGraphSecretKeySignatureCreator extends AESSecretKeySignatureCrea
 
 		// find secret key
 
-		SecretKey secretKey = Keys.getSignatureSecretKey(signerXdiEntity);
+		SecretKey secretKey = aesSecretKeyFromSecretKeyString(Keys.getSecretKey(signerXdiEntity));
 
 		// done
 

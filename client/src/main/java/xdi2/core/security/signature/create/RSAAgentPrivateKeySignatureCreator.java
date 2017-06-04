@@ -1,7 +1,7 @@
 package xdi2.core.security.signature.create;
 
 import java.security.GeneralSecurityException;
-import java.security.PrivateKey;
+import java.security.interfaces.RSAPrivateKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDISecurityConstants;
-import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -39,11 +38,11 @@ public class RSAAgentPrivateKeySignatureCreator extends RSAPrivateKeySignatureCr
 	}
 
 	@Override
-	public PrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	public RSAPrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		// retrieve the key
 
-		PrivateKey privateKey = null;
+		RSAPrivateKey privateKey = null;
 
 		try {
 
@@ -55,7 +54,7 @@ public class RSAAgentPrivateKeySignatureCreator extends RSAPrivateKeySignatureCr
 			String privateKeyString = contextNode.getLiteralDataString();
 			if (privateKeyString == null) return null;
 
-			privateKey = Keys.privateKeyFromPrivateKeyString(privateKeyString);
+			privateKey = rsaPrivateKeyFromPrivateKeyString(privateKeyString);
 		} catch (Xdi2ClientException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot retrieve private key for " + signerXDIAddress + ": " + ex.getMessage(), ex);

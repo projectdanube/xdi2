@@ -1,6 +1,6 @@
 package xdi2.core.security.signature.validate;
 
-import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Collections;
 import java.util.Map;
 
@@ -12,16 +12,16 @@ import xdi2.core.syntax.XDIAddress;
  */
 public class RSAStaticPublicKeySignatureValidator extends RSAPublicKeySignatureValidator {
 
-	private Map<XDIAddress, PublicKey> publicKeys;
+	private Map<XDIAddress, RSAPublicKey> publicKeys;
 
-	public RSAStaticPublicKeySignatureValidator(Map<XDIAddress, PublicKey> publicKeys) {
+	public RSAStaticPublicKeySignatureValidator(Map<XDIAddress, RSAPublicKey> publicKeys) {
 
 		super();
 
 		this.publicKeys = publicKeys;
 	}
 
-	public RSAStaticPublicKeySignatureValidator(PublicKey publicKey) {
+	public RSAStaticPublicKeySignatureValidator(RSAPublicKey publicKey) {
 
 		super();
 
@@ -36,11 +36,11 @@ public class RSAStaticPublicKeySignatureValidator extends RSAPublicKeySignatureV
 	}
 
 	@Override
-	protected PublicKey getPublicKey(XDIAddress signerXDIAddress) {
+	protected RSAPublicKey getPublicKey(XDIAddress signerXDIAddress) {
 
 		// find public key
 
-		PublicKey publicKey = this.getPublicKeys().get(signerXDIAddress);
+		RSAPublicKey publicKey = this.getPublicKeys().get(signerXDIAddress);
 		if (publicKey == null) return null;
 
 		// done
@@ -48,22 +48,22 @@ public class RSAStaticPublicKeySignatureValidator extends RSAPublicKeySignatureV
 		return publicKey;
 	}
 
-	public Map<XDIAddress, PublicKey> getPublicKeys() {
+	public Map<XDIAddress, RSAPublicKey> getPublicKeys() {
 
 		return this.publicKeys;
 	}
 
-	public void setPublicKeys(Map<XDIAddress, PublicKey> publicKeys) {
+	public void setPublicKeys(Map<XDIAddress, RSAPublicKey> publicKeys) {
 
 		this.publicKeys = publicKeys;
 	}
 
-	public PublicKey getPublicKey() {
+	public RSAPublicKey getPublicKey() {
 
 		return this.publicKeys.get(null);
 	}
 
-	public void setPublicKey(PublicKey publicKey) {
+	public void setPublicKey(RSAPublicKey publicKey) {
 
 		this.publicKeys.put(null, publicKey);
 	}

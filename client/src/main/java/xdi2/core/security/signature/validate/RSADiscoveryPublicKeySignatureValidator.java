@@ -1,6 +1,7 @@
 package xdi2.core.security.signature.validate;
 
-import java.security.PublicKey;
+import java.security.GeneralSecurityException;
+import java.security.interfaces.RSAPublicKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,17 +36,20 @@ public class RSADiscoveryPublicKeySignatureValidator extends RSAPublicKeySignatu
 	}
 
 	@Override
-	public PublicKey getPublicKey(XDIAddress signerXDIAddress) {
+	public RSAPublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		// perform discovery
 
-		PublicKey publicKey = null;
+		RSAPublicKey publicKey = null;
 
 		try {
 
 			XDIDiscoveryResult xdiDiscoveryResult = this.getXdiDiscoveryClient().discover(signerXDIAddress);
 
-			if (xdiDiscoveryResult != null) publicKey = xdiDiscoveryResult.getSignaturePublicKey();
+			String publicKeyString = xdiDiscoveryResult.getSignaturePublicKey();
+			if (publicKeyString == null) return null;
+
+			publicKey = rsaPublicKeyFromPublicKeyString(publicKeyString);
 		} catch (Xdi2ClientException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot discover public key for " + signerXDIAddress + ": " + ex.getMessage(), ex);

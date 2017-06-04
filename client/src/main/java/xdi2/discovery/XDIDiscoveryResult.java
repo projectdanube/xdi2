@@ -2,8 +2,6 @@ package xdi2.discovery;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.security.GeneralSecurityException;
-import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,8 +39,8 @@ public class XDIDiscoveryResult implements Serializable {
 
 	private CloudNumber cloudNumber;
 	private CloudName[] cloudNames;
-	private PublicKey signaturePublicKey;
-	private PublicKey encryptionPublicKey;
+	private String signaturePublicKey;
+	private String encryptionPublicKey;
 	private Map<XDIAddress, URI> endpointUris;
 
 	private MessageEnvelope messageEnvelope;
@@ -90,6 +88,24 @@ public class XDIDiscoveryResult implements Serializable {
 			this.cloudNumber = CloudNumber.fromPeerRootXDIArc(((XdiPeerRoot) xdiRoot).getXDIArc());
 		}
 
+		// find authority
+
+		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(registryResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
+
+		// find signature public key
+
+		if (authorityXdiEntity != null) {
+
+			this.signaturePublicKey = Keys.getSignaturePublicKey(authorityXdiEntity);
+		}
+
+		// find encryption public key
+
+		if (authorityXdiEntity != null) {
+
+			this.encryptionPublicKey = Keys.getEncryptionPublicKey(authorityXdiEntity);
+		}
+
 		// make sure we look for the XDI endpoint URI
 
 		if (endpointUriTypes == null) {
@@ -105,31 +121,9 @@ public class XDIDiscoveryResult implements Serializable {
 
 		// init endpoint URIs
 
-		initEndpointUris(xdiRoot, endpointUriTypes);
+		if (xdiRoot != null) {
 
-		// find authority
-
-		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(registryResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
-		if (authorityXdiEntity == null) return;
-
-		// find signature public key
-
-		try {
-
-			this.signaturePublicKey = Keys.getSignaturePublicKey(authorityXdiEntity);
-		} catch (GeneralSecurityException ex) {
-
-			throw new Xdi2ClientException("Invalid signature public key: " + ex.getMessage(), ex, null);
-		}
-
-		// find encryption public key
-
-		try {
-
-			this.encryptionPublicKey = Keys.getEncryptionPublicKey(authorityXdiEntity);
-		} catch (GeneralSecurityException ex) {
-
-			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
+			initEndpointUris(xdiRoot, endpointUriTypes);
 		}
 	}
 
@@ -161,41 +155,40 @@ public class XDIDiscoveryResult implements Serializable {
 		// find authority
 
 		XdiEntity authorityXdiEntity = XdiCommonRoot.findCommonRoot(authorityResultGraph).getXdiEntity(this.cloudNumber.getXDIAddress(), false);
-		if (authorityXdiEntity == null) return;
 
 		// find cloud names
 
-		ReadOnlyIterator<CloudName> cloudNameIterator =
-				new NotNullIterator<CloudName> (
-						new MappingCloudNameIterator(
-								new MappingRelationTargetXDIAddressIterator(
-										authorityXdiEntity.getContextNode().getRelations(XDIDictionaryConstants.XDI_ADD_IS_REF))));
+		if (authorityXdiEntity != null) {
 
-		this.cloudNames = new IteratorArrayMaker<CloudName> (cloudNameIterator).array(CloudName.class);
+			ReadOnlyIterator<CloudName> cloudNameIterator =
+					new NotNullIterator<CloudName> (
+							new MappingCloudNameIterator(
+									new MappingRelationTargetXDIAddressIterator(
+											authorityXdiEntity.getContextNode().getRelations(XDIDictionaryConstants.XDI_ADD_IS_REF))));
+
+			this.cloudNames = new IteratorArrayMaker<CloudName> (cloudNameIterator).array(CloudName.class);
+		}
 
 		// find signature public key
 
-		try {
+		if (authorityXdiEntity != null) {
 
 			this.signaturePublicKey = Keys.getSignaturePublicKey(authorityXdiEntity);
-		} catch (GeneralSecurityException ex) {
-
-			throw new Xdi2ClientException("Invalid signature public key: " + ex.getMessage(), ex, null);
 		}
 
 		// find encryption public key
 
-		try {
+		if (authorityXdiEntity != null) {
 
 			this.encryptionPublicKey = Keys.getEncryptionPublicKey(authorityXdiEntity);
-		} catch (GeneralSecurityException ex) {
-
-			throw new Xdi2ClientException("Invalid encryption public key: " + ex.getMessage(), ex, null);
 		}
 
 		// init endpoint uris
 
-		this.initEndpointUris(xdiRoot, endpointUriTypes);
+		if (xdiRoot != null) {
+
+			this.initEndpointUris(xdiRoot, endpointUriTypes);
+		}
 	}
 
 	void initFromException(Xdi2ClientException ex) {
@@ -219,12 +212,12 @@ public class XDIDiscoveryResult implements Serializable {
 		return this.cloudNames;
 	}
 
-	public PublicKey getSignaturePublicKey() {
+	public String getSignaturePublicKey() {
 
 		return this.signaturePublicKey;
 	}
 
-	public PublicKey getEncryptionPublicKey() {
+	public String getEncryptionPublicKey() {
 
 		return this.encryptionPublicKey;
 	}

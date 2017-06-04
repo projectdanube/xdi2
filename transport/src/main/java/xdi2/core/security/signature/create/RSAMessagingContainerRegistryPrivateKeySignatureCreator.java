@@ -1,7 +1,7 @@
 package xdi2.core.security.signature.create;
 
 import java.security.GeneralSecurityException;
-import java.security.PrivateKey;
+import java.security.interfaces.RSAPrivateKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,7 @@ public class RSAMessagingContainerRegistryPrivateKeySignatureCreator extends RSA
 	}
 
 	@Override
-	public PrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	public RSAPrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		if (signerXDIAddress == null) throw new NullPointerException();
 
@@ -89,7 +89,7 @@ public class RSAMessagingContainerRegistryPrivateKeySignatureCreator extends RSA
 
 		// find private key
 
-		PrivateKey privateKey = Keys.getSignaturePrivateKey(signerXdiEntity);
+		RSAPrivateKey privateKey = rsaPrivateKeyFromPrivateKeyString(Keys.getSignaturePrivateKey(signerXdiEntity));
 
 		// done
 

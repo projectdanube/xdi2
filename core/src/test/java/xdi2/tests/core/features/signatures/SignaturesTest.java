@@ -2,8 +2,8 @@ package xdi2.tests.core.features.signatures;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -48,8 +48,8 @@ public class SignaturesTest extends TestCase {
 		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
 		keyPairGen.initialize(1024);
 		KeyPair keyPair = keyPairGen.generateKeyPair();
-		PublicKey publicKey = keyPair.getPublic();
-		PrivateKey privateKey = keyPair.getPrivate();
+		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 
 		Graph graph = MemoryGraphFactory.getInstance().openGraph();
 		graph.setStatement(XDIStatement.create("=markus<#email>/&/\"markus@projectdanube.org\""));

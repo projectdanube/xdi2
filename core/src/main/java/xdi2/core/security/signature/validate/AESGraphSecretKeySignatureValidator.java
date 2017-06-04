@@ -58,7 +58,7 @@ public class AESGraphSecretKeySignatureValidator extends AESSecretKeySignatureVa
 
 		// find secret key
 
-		SecretKey secretKey = Keys.getSignatureSecretKey(signerXdiEntity);
+		SecretKey secretKey = aesSecretKeyFromSecretKeyString(Keys.getSecretKey(signerXdiEntity));
 
 		// done
 

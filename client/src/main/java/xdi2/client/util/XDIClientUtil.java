@@ -34,18 +34,18 @@ public class XDIClientUtil {
 		xdiHttpClient.send(messageEnvelope);
 	}
 
-	public static PrivateKey retrieveSignaturePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
+	public static String retrieveSignaturePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
 		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDISecurityConstants.XDI_ADD_MSG_SIG_KEYPAIR_PRIVATE_KEY);
 	}
 
-	public static PrivateKey retrieveEncryptionPrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
+	public static String retrieveEncryptionPrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken) throws Xdi2ClientException, GeneralSecurityException {
 
 		return retrievePrivateKey(cloudNumber, xdiEndpointUri, secretToken, XDISecurityConstants.XDI_ADD_MSG_ENCRYPT_KEYPAIR_PRIVATE_KEY);
 	}
 
 	// TODO: deprecate this, or at least use XdiAgent?
-	private static PrivateKey retrievePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken, XDIAddress privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
+	private static String retrievePrivateKey(CloudNumber cloudNumber, URI xdiEndpointUri, String secretToken, XDIAddress privateKeyRelativeAddress) throws Xdi2ClientException, GeneralSecurityException {
 
 		// request the private key from the graph
 
@@ -69,7 +69,7 @@ public class XDIClientUtil {
 
 		// find private key
 
-		PrivateKey privateKey = Keys.getPrivateKey(authorityXdiEntity, privateKeyRelativeAddress);
+		String privateKey = Keys.getKey(authorityXdiEntity, privateKeyRelativeAddress);
 
 		// done
 

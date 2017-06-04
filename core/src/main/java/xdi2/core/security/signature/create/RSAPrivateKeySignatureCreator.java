@@ -1,9 +1,14 @@
 package xdi2.core.security.signature.create;
 
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,11 +113,21 @@ public abstract class RSAPrivateKeySignatureCreator extends AbstractRSASignature
 		signature.setSignatureValue(signatureValue);
 	}
 
-	protected abstract PrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException;
+	protected abstract RSAPrivateKey getPrivateKey(XDIAddress signerXDIAddress) throws GeneralSecurityException;
 
 	/*
 	 * Helper methods
 	 */
+
+	public static RSAPrivateKey rsaPrivateKeyFromPrivateKeyString(String privateKeyString) throws GeneralSecurityException {
+
+		if (privateKeyString == null) return null;
+
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKeyString.getBytes(Charset.forName("UTF-8"))));
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+
+		return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
+	}
 
 	public static String getPrivateKeyAlgorithm(PrivateKey privateKey) {
 

@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -55,4 +56,17 @@ public abstract class AESSecretKeySignatureValidator extends AbstractAESSignatur
 	}
 
 	protected abstract SecretKey getSecretKey(XDIAddress signerXDIAddress) throws GeneralSecurityException;
+
+	/*
+	 * Helper methods
+	 */
+
+	public static SecretKey aesSecretKeyFromSecretKeyString(String secretKeyString) throws GeneralSecurityException {
+
+		if (secretKeyString == null) return null;
+
+		byte[] secretKeyBytes = Base64.decodeBase64(secretKeyString.getBytes(Charset.forName("UTF-8")));
+
+		return new SecretKeySpec(secretKeyBytes, 0, secretKeyBytes.length, "AES");
+	}
 }

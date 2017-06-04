@@ -1,7 +1,7 @@
 package xdi2.core.security.signature.validate;
 
 import java.security.GeneralSecurityException;
-import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.manipulator.impl.SetLinkContractMessageManipulator;
 import xdi2.core.ContextNode;
 import xdi2.core.constants.XDISecurityConstants;
-import xdi2.core.features.keys.Keys;
 import xdi2.core.features.linkcontracts.instance.PublicLinkContract;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -39,11 +38,11 @@ public class RSAAgentPublicKeySignatureValidator extends RSAPublicKeySignatureVa
 	}
 
 	@Override
-	public PublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	public RSAPublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		// retrieve the key
 
-		PublicKey publicKey = null;
+		RSAPublicKey publicKey = null;
 
 		try {
 
@@ -55,7 +54,7 @@ public class RSAAgentPublicKeySignatureValidator extends RSAPublicKeySignatureVa
 			String publicKeyString = contextNode.getLiteralDataString();
 			if (publicKeyString == null) return null;
 
-			publicKey = Keys.publicKeyFromPublicKeyString(publicKeyString);
+			publicKey = rsaPublicKeyFromPublicKeyString(publicKeyString);
 		} catch (Xdi2ClientException ex) {
 
 			if (log.isWarnEnabled()) log.warn("Cannot retrieve public key for " + signerXDIAddress + ": " + ex.getMessage(), ex);

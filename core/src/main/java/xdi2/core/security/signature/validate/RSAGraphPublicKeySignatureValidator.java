@@ -1,7 +1,7 @@
 package xdi2.core.security.signature.validate;
 
 import java.security.GeneralSecurityException;
-import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class RSAGraphPublicKeySignatureValidator extends RSAPublicKeySignatureVa
 	}
 
 	@Override
-	public PublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
+	public RSAPublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException {
 
 		// signer address
 
@@ -57,7 +57,7 @@ public class RSAGraphPublicKeySignatureValidator extends RSAPublicKeySignatureVa
 
 		// find public key
 
-		PublicKey publicKey = Keys.getSignaturePublicKey(signerXdiEntity);
+		RSAPublicKey publicKey = rsaPublicKeyFromPublicKeyString(Keys.getSignaturePublicKey(signerXdiEntity));
 
 		// done
 

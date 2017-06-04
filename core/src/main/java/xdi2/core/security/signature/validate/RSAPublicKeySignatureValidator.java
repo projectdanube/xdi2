@@ -2,7 +2,9 @@ package xdi2.core.security.signature.validate;
 
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
-import java.security.PublicKey;
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.X509EncodedKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ public abstract class RSAPublicKeySignatureValidator extends AbstractRSASignatur
 
 		// obtain public key
 
-		PublicKey publicKey = this.getPublicKey(signerXDIAddress);
+		RSAPublicKey publicKey = this.getPublicKey(signerXDIAddress);
 
 		if (publicKey == null) {
 
@@ -51,5 +53,19 @@ public abstract class RSAPublicKeySignatureValidator extends AbstractRSASignatur
 		return jceSignature.verify(signatureValue);
 	}
 
-	protected abstract PublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException;
+	protected abstract RSAPublicKey getPublicKey(XDIAddress signerXDIAddress) throws GeneralSecurityException;
+
+	/*
+	 * Helper methods
+	 */
+
+	public static RSAPublicKey rsaPublicKeyFromPublicKeyString(String publicKeyString) throws GeneralSecurityException {
+
+		if (publicKeyString == null) return null;
+
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKeyString.getBytes(Charset.forName("UTF-8"))));
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+
+		return (RSAPublicKey) keyFactory.generatePublic(keySpec);
+	}
 }
