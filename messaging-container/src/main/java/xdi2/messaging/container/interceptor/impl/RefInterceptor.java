@@ -1,6 +1,7 @@
 package xdi2.messaging.container.interceptor.impl;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -597,7 +598,7 @@ public class RefInterceptor extends AbstractInterceptor<MessagingContainer> impl
 
 		Relation[] refRepRelation = refRepRelations.get(contextNodeXDIAddress);
 
-		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXDIAddress + ": " + refRepRelation);
+		if (log.isDebugEnabled()) log.debug("Get $ref/$rep relation for " + contextNodeXDIAddress + ": " + Arrays.asList(refRepRelation));
 
 		return refRepRelation;
 	}
