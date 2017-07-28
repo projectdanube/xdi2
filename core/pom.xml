@@ -38,12 +38,6 @@
 			<version>2.2.4</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.sleepycat</groupId>
-			<artifactId>je</artifactId>
-			<version>4.0.92</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 </project>
