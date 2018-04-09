@@ -15,7 +15,7 @@
 	<build>
 
 		<plugins>
-	
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
@@ -96,7 +96,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-		
+
 		</plugins>
 
 		<pluginManagement>
