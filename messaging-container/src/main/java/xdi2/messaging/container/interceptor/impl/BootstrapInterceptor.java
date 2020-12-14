@@ -8,6 +8,10 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xdi2.agent.XDIAgent;
+import xdi2.agent.impl.XDIBasicAgent;
+import xdi2.agent.routing.impl.http.XDIHttpDiscoveryAgentRouter;
+import xdi2.client.XDIClient;
 import xdi2.core.ContextNode;
 import xdi2.core.Graph;
 import xdi2.core.constants.XDIConstants;
@@ -38,6 +42,8 @@ import xdi2.core.util.CopyUtil.ReplaceRegexLiteralStringCopyStrategy;
 import xdi2.core.util.CopyUtil.ReplaceXDIAddressCopyStrategy;
 import xdi2.core.util.XDIAddressUtil;
 import xdi2.core.util.iterators.IteratorArrayMaker;
+import xdi2.discovery.XDIDiscoveryClient;
+import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
 import xdi2.messaging.container.MessagingContainer;
 import xdi2.messaging.container.Prototype;
@@ -149,7 +155,37 @@ public class BootstrapInterceptor extends AbstractInterceptor<MessagingContainer
 
 		// check if the owner statement exists
 
-		if (XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot() != null) return;
+		XdiPeerRoot selfXdiPeerRoot = XdiCommonRoot.findCommonRoot(graph).getSelfPeerRoot();
+
+		if (selfXdiPeerRoot != null) {
+
+			if (selfXdiPeerRoot.getXDIAddressOfPeerRoot().equals(this.getBootstrapOwner())) {
+
+				if (log.isDebugEnabled()) log.debug("Owner statement for " + selfXdiPeerRoot.getXDIAddressOfPeerRoot() + " exists already.");
+				return;
+			} else {
+
+				XDIAddress tempAddress = XDIAddress.create(this.getBootstrapOwner().toString().replace(":did:sov:", ":did:sov:myidsafe:"));
+
+				if (log.isDebugEnabled()) log.debug("Owner statement for " + selfXdiPeerRoot.getXDIAddressOfPeerRoot() + " differs from " + this.getBootstrapOwner());
+				if (log.isDebugEnabled()) log.debug("Starting migration flow with temp address: " + tempAddress);
+
+				XDIAgent xdiAgent = new XDIBasicAgent(new XDIHttpDiscoveryAgentRouter(new XDIDiscoveryClient("https://xdi.uniresolver.io/")));
+//				XDIDiscoveryClient client = new XDIDiscoveryClient("http://localhost:9501/");
+//				XDIDiscoveryResult result = client.discoverFromRegistry(XDIAddress.create("=!:did:sov:myidsafe:KBxwVYaJVREXHRvGaJUoEM"));
+
+				XDIClient<?> xdiClient = xdiAgent.route(tempAddress).constructXDIClient();
+				MessageEnvelope me = new MessageEnvelope();
+				Message m = me.createMessage();
+				m.setFromXDIAddress(selfXdiPeerRoot.getXDIAddressOfPeerRoot());
+				m.setToXDIAddress(this.getBootstrapOwner());
+				m.setLinkContractClass(PublicLinkContract.class);
+				m.createGetOperation(XDIConstants.XDI_ADD_ROOT);
+				Graph resultGraph = xdiClient.send(me).getResultGraph();
+				graph.clear();
+				CopyUtil.copyGraph(resultGraph, graph, null);
+			}
+		}
 
 		// create bootstrap owner
 
