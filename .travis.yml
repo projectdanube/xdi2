@@ -10,3 +10,7 @@ jdk:
     - oraclejdk8
 install: mvn install -DskipTests=true
 script: mvn clean integration-test
+
+cache:
+  directories:
+  - $HOME/.m2
